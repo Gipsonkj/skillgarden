@@ -1,0 +1,111 @@
+{
+  "libraries": [
+    "anthropics/skills",
+    "openai/skills",
+    "google-gemini/gemini-skills",
+    "huggingface/skills",
+    "microsoft/skills",
+    "vercel-labs/agent-skills"
+  ],
+  "topics": [
+    {
+      "id": "motion-graphics",
+      "name": "Motion graphics",
+      "blurb": "Reels, kinetic type, title cards and explainers — in code or with video models.",
+      "hue": 265,
+      "order": 1,
+      "collections": ["Motion graphics", "Motion graphis", "Motion"],
+      "repos": ["remotion-dev/remotion", "greensock/GSAP"],
+      "searches": [
+        "Remotion new feature release",
+        "motion graphics AI workflow new technique",
+        "image to video model new release camera control",
+        "agent skill motion graphics Remotion Claude",
+        "kinetic typography reel technique"
+      ],
+      "tests": [
+        {
+          "id": "t1",
+          "prompt": "Make a 6-second 9:16 kinetic-type intro for a reel titled \"AI made this poster in 30 seconds\". Deliver a beat sheet and one self-contained Remotion component (TypeScript) for it.",
+          "good": "Hook in the first second; every text hold long enough to read; key text inside the reels safe area; eased motion, no linear moves; component would render without edits."
+        },
+        {
+          "id": "t2",
+          "prompt": "Plan a 20-second product explainer reel for a note-taking app with three features. Deliver the beat sheet with timings in seconds and frames, on-screen text, motion and sound cues.",
+          "good": "One idea per beat; timings add up to 20 s at 30 fps; readable text holds; a clear hook and a closing call to action; sound cues on beat changes."
+        },
+        {
+          "id": "t3",
+          "prompt": "I have a finished event poster as a still image. Write the image-to-video prompts and settings to turn it into a clean 5-second seamless loop for Instagram, keeping the poster text perfectly legible.",
+          "good": "Keeps text out of the generative model (or protects it); one camera move; describes the motion and what stays still; explains how to make and trim the loop."
+        }
+      ]
+    },
+    {
+      "id": "ai-posters",
+      "name": "AI posters",
+      "blurb": "Posters, event graphics and consistent social series with image models.",
+      "hue": 18,
+      "order": 2,
+      "collections": ["AI posters", "Ai poster", "Posters"],
+      "repos": [],
+      "searches": [
+        "AI poster design prompt technique",
+        "image generation model text rendering update",
+        "agent skill poster design image generation",
+        "consistent character style reference image model",
+        "AI graphic design workflow Canva Figma new"
+      ],
+      "tests": [
+        {
+          "id": "t1",
+          "prompt": "Write the prompt for a 4:5 Instagram poster announcing a free two-day AI workshop in Kochi on 12 October. The headline must read exactly \"AI IN TWO DAYS\".",
+          "good": "Correct aspect ratio; composition leaves room for text; exact headline handled safely; palette given as hex; date and place legible; a clear call to action."
+        },
+        {
+          "id": "t2",
+          "prompt": "Plan a series of three launch posters for a new filter-coffee brand that must look like one family. Give the shared style block and the three prompts.",
+          "good": "A reusable style block used word for word; only the subject changes; a shared layout grid; a way to keep colour and grain consistent."
+        },
+        {
+          "id": "t3",
+          "prompt": "A client needs an A3 print poster with an 8-line event schedule. Describe the workflow and write the image prompt.",
+          "good": "Generates the image without text and sets the schedule in a layout tool; right print size, bleed and resolution; upscaling and proofing steps; a spelling check."
+        }
+      ]
+    },
+    {
+      "id": "websites",
+      "name": "Websites",
+      "blurb": "Landing pages and small sites built with AI coding tools.",
+      "hue": 205,
+      "order": 3,
+      "collections": ["Websites", "Website", "Web design"],
+      "repos": ["anthropics/skills", "vercel-labs/agent-skills"],
+      "searches": [
+        "Claude Code frontend design skill",
+        "landing page design technique 2026",
+        "agent skill web design github",
+        "AI website builder workflow new",
+        "web performance accessibility new best practice"
+      ],
+      "tests": [
+        {
+          "id": "t1",
+          "prompt": "Build a single-file landing page (HTML and CSS) for a home bakery in Kochi taking pre-orders for Onam.",
+          "good": "Concrete hero headline and one clear action; real, specific copy; works at 360px; accessible contrast and focus states; does not look like a generic AI template."
+        },
+        {
+          "id": "t2",
+          "prompt": "Write the section plan and all the copy for a landing page for an AI invoice-scanning app for small shops.",
+          "good": "Each section has a job; the headline states the outcome; proof and objections handled; one repeated call to action; no vague filler phrases."
+        },
+        {
+          "id": "t3",
+          "prompt": "Improve this hero: 'Welcome to our website. We provide innovative solutions for your business needs.' Deliver new hero copy plus the HTML and CSS.",
+          "good": "Specific outcome in under 10 words; one verb-led button; tokens for type and colour; responsive; clearly better than the original."
+        }
+      ]
+    }
+  ]
+}

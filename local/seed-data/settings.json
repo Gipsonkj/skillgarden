@@ -1,0 +1,16 @@
+{
+ "main": {
+  "libraries": [
+   "anthropics/skills",
+   "openai/skills",
+   "google-gemini/gemini-skills",
+   "huggingface/skills",
+   "microsoft/skills",
+   "vercel-labs/agent-skills"
+  ],
+  "paused": false,
+  "scoutTime": "06:51",
+  "timezone": "Asia/Kolkata",
+  "triggerId": "trig_01XxaSLCoyYkB5DPnsLFUNN8"
+ }
+}

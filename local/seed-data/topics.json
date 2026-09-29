@@ -1,0 +1,128 @@
+{
+ "ai-posters": {
+  "active": true,
+  "blurb": "Posters, event graphics and consistent social series with image models.",
+  "collections": [
+   "AI posters",
+   "Ai poster",
+   "Posters"
+  ],
+  "content": "---\nname: ai-posters\ndescription: Design posters, social graphics and ad creatives with AI image models. Use when asked for a poster, flyer, event graphic, Instagram post or story visual, or a series of consistent visuals.\n---\n\n# AI posters\n\nA poster has one job: be understood in three seconds from a distance or a fast scroll. AI makes the image. You still own the hierarchy, the words and the checks.\n\n## Decide how the text gets onto the poster\n\n| Situation | Do this |\n|---|---|\n| Short headline (1–5 words), casual use | Let a model that is good at typography render it. Put the exact text in quotes. |\n| Exact brand text, dates, prices, long copy | Generate the image **without text**, leaving clean space, then set the type in a layout tool, Canva, Figma or HTML. |\n| Print or client work | Always the second way. Generated text can't be edited and often has errors at print size. |\n\nText in the image is the most common reason a poster fails. When in doubt, set it yourself.\n\n## Prompt structure\n\nWrite prompts in this order and keep each part concrete:\n\n1. **Format**: aspect ratio and use. For example, \"4:5 Instagram poster\".\n2. **Subject and action**: what is in the picture and what it's doing.\n3. **Composition**: where the subject sits, and where the empty space for text is. For example, \"subject in lower third, clean empty sky in top 40% for headline\".\n4. **Style**: medium and treatment. Describe traits, not living artists' names (\"risograph print, two-colour, visible grain\").\n5. **Light and colour**: light direction and mood, plus 2–4 colours as hex values.\n6. **Text** (only if the model renders it): `headline text \"AI IN TWO DAYS\"`, weight, style and position.\n7. **Avoid**: what must not appear (extra text, watermarks, warped hands).\n\n## Hierarchy and type\n\n- One headline of **6 words or fewer**, one supporting line, then details (date, place, call to action).\n- The headline should be **at least three times** the size of the details.\n- Use at most **two typefaces**.\n- Contrast: text needs at least **4.5:1** against what's behind it. Use a scrim or a solid block if the image is busy.\n- Leave margins of at least **5%** of the short side around all text.\n\n## Sizes\n\n| Use | Pixels |\n|---|---|\n| Instagram portrait post | 1080×1350 (4:5) |\n| Story or reel cover | 1080×1920 (9:16) |\n| Square | 1080×1080 |\n| A3 print at 300 dpi | 3508×4961, with 3 mm bleed |\n\nFor print, generate at the model's highest resolution, then upscale. Check that edges and faces still hold up at 100% zoom.\n\n## A consistent series\n\n- Fix the style block (medium, palette hex values, light, grain) and reuse it word for word in every prompt.\n- Keep one reference image and pass it into every generation when the model accepts references.\n- Change only the subject line between posters.\n- Put the same layout grid under all of them when setting type.\n\n## Iterate like a designer\n\n- Generate 4 variations and choose on composition first. Details can be fixed, a weak composition can't.\n- Fix details with editing or inpainting rather than re-rolling the whole image.\n- Keep a log of the prompt that worked.\n\n## Checks before handing over\n\n- [ ] Every word spelled correctly, checked letter by letter, including dates and prices\n- [ ] Headline readable at thumbnail size (about 200px wide)\n- [ ] No invented logos, fake brand marks or stray text\n- [ ] Hands, faces and product shapes look right at 100%\n- [ ] Contrast meets 4.5:1 for all text\n- [ ] Right size and format for where it will be used\n",
+  "hue": 18,
+  "name": "AI posters",
+  "order": 2,
+  "repos": [],
+  "searches": [
+   "AI poster design prompt technique",
+   "image generation model text rendering update",
+   "agent skill poster design image generation",
+   "consistent character style reference image model",
+   "AI graphic design workflow Canva Figma new"
+  ],
+  "tests": [
+   {
+    "good": "Correct aspect ratio; composition leaves room for text; exact headline handled safely; palette given as hex; date and place legible; a clear call to action.",
+    "id": "t1",
+    "prompt": "Write the prompt for a 4:5 Instagram poster announcing a free two-day AI workshop in Kochi on 12 October. The headline must read exactly \"AI IN TWO DAYS\"."
+   },
+   {
+    "good": "A reusable style block used word for word; only the subject changes; a shared layout grid; a way to keep colour and grain consistent.",
+    "id": "t2",
+    "prompt": "Plan a series of three launch posters for a new filter-coffee brand that must look like one family. Give the shared style block and the three prompts."
+   },
+   {
+    "good": "Generates the image without text and sets the schedule in a layout tool; right print size, bleed and resolution; upscaling and proofing steps; a spelling check.",
+    "id": "t3",
+    "prompt": "A client needs an A3 print poster with an 8-line event schedule. Describe the workflow and write the image prompt."
+   }
+  ],
+  "updatedAt": "2026-09-29T19:41:54.769Z",
+  "version": 1
+ },
+ "motion-graphics": {
+  "active": true,
+  "blurb": "Reels, kinetic type, title cards and explainers — in code or with video models.",
+  "collections": [
+   "Motion graphics",
+   "Motion graphis",
+   "Motion"
+  ],
+  "content": "---\nname: motion-graphics\ndescription: Plan and build short motion-graphics pieces (reels, title cards, kinetic type, product explainers) with AI help. Use when asked to animate text or graphics, make a reel intro, a lower third, an explainer, or to turn a still into motion.\n---\n\n# Motion graphics\n\nShort motion pieces live or die on three things: timing, legibility and one clear idea per beat. Plan first, animate second.\n\n## Pick the route before anything else\n\n| Route | Use it for | Watch out for |\n|---|---|---|\n| **Code-rendered** (Remotion, HTML + CSS/GSAP, Lottie) | Exact brand text, kinetic type, data, UI demos, anything that must be edited later | Needs a render step; organic motion looks stiff |\n| **Generative video** (image-to-video and text-to-video models) | Organic motion, camera moves, photoreal texture, turning a poster into a loop | Text melts or misspells; hard to repeat exactly |\n| **Hybrid** | Generate the moving background, set the type in code on top | Match frame rate and colour between layers |\n\nIf the piece has words the viewer must read, the words go in code, never in the generative model.\n\n## Write a beat sheet first\n\nBefore any animation, write a table: time (seconds and frames), what is on screen, the motion, the sound cue. One idea per beat.\n\n```\n| t (s) | frames @30 | on screen            | motion                      | sound      |\n|-------|------------|----------------------|-----------------------------|------------|\n| 0.0   | 0–15       | \"AI made this\"       | words rise 40px, stagger 3f | whoosh     |\n| 0.5   | 15–45      | poster reveal        | mask wipe left→right        | hit on 15  |\n```\n\n## Timing rules that hold up\n\n- Work at **30 fps** for social unless the brief says otherwise. Think in frames, not milliseconds.\n- Hold readable text for at least **1 second plus about 0.3 seconds per word**. If it can't be read at 1x on a phone, it failed.\n- Entrances use an **ease-out** curve, exits an **ease-in**, and nothing important moves on a linear curve. UI-like elements feel best on a spring (low bounce).\n- Stagger related elements by **2–4 frames**. More than 6 reads as slow.\n- Cut or hit on the beat of the music when there is music. Put major changes on downbeats.\n- The first **1–1.5 seconds** must show the hook, not a logo.\n\n## Layout for 9:16 reels (1080×1920)\n\n- Keep key text out of the areas the Instagram interface covers. Meta's guidance for Reels ads is to leave about **14% at the top, 35% at the bottom and 6% on each side** clear. Organic reels are similar.\n- Text size: a headline at least **72px** at 1080 wide, supporting text at least **40px**.\n- High contrast: light text gets a dark scrim or shadow when over footage.\n\n## Code route: Remotion essentials\n\n- A composition is a React component. `useCurrentFrame()` gives the frame, `useVideoConfig()` gives `fps`, `width`, `height`, `durationInFrames`.\n- Animate with `interpolate(frame, [start, end], [from, to], { extrapolateLeft: \"clamp\", extrapolateRight: \"clamp\" })`. Always clamp.\n- Use `spring({ frame, fps, config: { damping: 200 } })` for smooth, non-bouncy motion. Lower damping gives more bounce.\n- Sequence beats with `<Sequence from={frames} durationInFrames={frames}>`. Layer with `<AbsoluteFill>`.\n- Add `premountFor={fps}` (one second early) to any `<Sequence>` that holds video, images or heavy components, so they are loaded before they appear and don't pop in on the first frame. Use the `loop` prop on `<Sequence>` for a repeating element instead of copying it. Remotion 4.0.530 changed `durationInFrames` to apply before `playbackRate`, so check timings when you use both.\n- Load fonts before rendering and wait for them, or the first frames render in a fallback font.\n- Remotion's licence is free for individuals and small companies. Larger companies need a company licence, so check before using it for a client.\n\n## Generative route: prompting for motion\n\n- Start from a strong still (image-to-video beats text-to-video for control).\n- Prompt the **motion**, not the picture: subject action, camera move, speed, and what stays still. For example, \"slow push-in, steam rising from the cup, background static, no text changes\".\n- Ask for one camera move per clip. Two moves in five seconds usually warps.\n- For loops, ask for the last frame to match the first, then trim to the cleanest loop point.\n- Generate 3–4 takes and pick. Don't polish a bad take.\n\n## Deliver\n\n- Export H.264 MP4, 1080×1920, 30 fps, AAC audio. Keep reels under 90 seconds unless there's a reason.\n- Watch it once on a phone at full speed before calling it done.\n- Hand over the beat sheet with the file so edits are easy.\n\n## Checklist before handing over\n\n- [ ] Hook shows in the first 1.5 seconds\n- [ ] Every text hold passes the reading-time rule\n- [ ] Nothing important sits in the top 14% or bottom 35%\n- [ ] No linear easing on anything the eye follows\n- [ ] Text was set in code, not generated\n- [ ] Watched at 1x on a phone\n",
+  "hue": 265,
+  "name": "Motion graphics",
+  "order": 1,
+  "repos": [
+   "remotion-dev/remotion",
+   "greensock/GSAP"
+  ],
+  "searches": [
+   "Remotion new feature release",
+   "motion graphics AI workflow new technique",
+   "image to video model new release camera control",
+   "agent skill motion graphics Remotion Claude",
+   "kinetic typography reel technique"
+  ],
+  "tests": [
+   {
+    "good": "Hook in the first second; every text hold long enough to read; key text inside the reels safe area; eased motion, no linear moves; component would render without edits.",
+    "id": "t1",
+    "prompt": "Make a 6-second 9:16 kinetic-type intro for a reel titled \"AI made this poster in 30 seconds\". Deliver a beat sheet and one self-contained Remotion component (TypeScript) for it."
+   },
+   {
+    "good": "One idea per beat; timings add up to 20 s at 30 fps; readable text holds; a clear hook and a closing call to action; sound cues on beat changes.",
+    "id": "t2",
+    "prompt": "Plan a 20-second product explainer reel for a note-taking app with three features. Deliver the beat sheet with timings in seconds and frames, on-screen text, motion and sound cues."
+   },
+   {
+    "good": "Keeps text out of the generative model (or protects it); one camera move; describes the motion and what stays still; explains how to make and trim the loop.",
+    "id": "t3",
+    "prompt": "I have a finished event poster as a still image. Write the image-to-video prompts and settings to turn it into a clean 5-second seamless loop for Instagram, keeping the poster text perfectly legible."
+   }
+  ],
+  "updatedAt": "2026-09-29T19:56:45.270Z",
+  "version": 2
+ },
+ "websites": {
+  "active": true,
+  "blurb": "Landing pages and small sites built with AI coding tools.",
+  "collections": [
+   "Websites",
+   "Website",
+   "Web design"
+  ],
+  "content": "---\nname: websites\ndescription: Plan, write and build landing pages and small websites with AI coding tools. Use when asked to make a website, landing page, portfolio, or to improve an existing page's design or copy.\n---\n\n# Websites\n\nA landing page has one job and one main action. Most AI-built pages fail on the words and the defaults, not the code. Write the copy first, choose the look on purpose, then build.\n\n## Order of work\n\n1. **Brief**: who it's for, the one action (buy, book, sign up, call), and what makes this offer different. Ask if it's missing.\n2. **Section plan**: list the sections and what each one proves. Usually: hero, proof, how it works, offer or pricing, questions, final call to action.\n3. **Copy**: write every word before building. Use real names, prices, places and dates, never placeholder text.\n4. **Look**: pick type, colour and spacing tokens that suit this subject.\n5. **Build**: semantic HTML, then style, then only the JavaScript that's needed.\n6. **Check** at 360px wide and on a desktop, then run a Lighthouse audit.\n7. **Deploy** and test the live link on a phone.\n\n## The hero\n\n- A headline that states the concrete outcome for the visitor, in under 10 words. \"Fresh Onam sadya boxes, delivered in Kochi\" beats \"Welcome to our website\".\n- A supporting line that answers \"for whom\" or \"how\".\n- One primary button with a verb (\"Pre-order for Onam\"). An optional secondary link.\n- A real visual of the product, place or result. No abstract blobs.\n\n## Avoid the generic AI look\n\nThese defaults make a page look machine-made. Don't use them unless the brief asks:\n- a purple-to-blue gradient hero\n- every section centred\n- Inter as the only typeface without a reason\n- emoji as section icons\n- the same rounded card with a shadow on every block\n- vague copy like \"innovative solutions\" or \"unlock your potential\"\n\nInstead, take the colours, textures and vocabulary from the subject itself.\n\n## Design tokens\n\n- A type scale with a clear ratio (for example 1.25), and body text at 16–18px with a line height of 1.5–1.7.\n- Line length of about 60–75 characters.\n- A spacing scale in steps of 4 or 8px. Lay out with flex or grid and `gap`.\n- 3–5 colours as CSS variables, with light and dark themes if the audience expects it.\n- At most two font families. Load them with `font-display: swap`.\n\n## Quality floor\n\n- **Accessibility**: text contrast at least 4.5:1, visible focus states, alt text on images, a real `<button>` for actions, labels on form fields.\n- **Performance**: size images properly and use modern formats (WebP or AVIF). Aim for Largest Contentful Paint under 2.5 seconds on mobile, and don't load a framework for a static page.\n- **Mobile**: nothing scrolls sideways at 360px, and tap targets are at least 44px.\n- **Motion**: animate only `transform` and `opacity`, and wrap every animation and transition in `@media (prefers-reduced-motion: no-preference)` so people who turn motion off get a still page. Never write `transition: all`; name the properties.\n- **SEO basics**: a unique `<title>`, a meta description, an Open Graph image, and one `<h1>`.\n- **Forms**: a form needs somewhere to send data (a form service, a backend, or a WhatsApp or email link). Say so if none exists.\n\n## Deploy\n\n- Static pages: Vercel, Netlify or Cloudflare Pages, all free for small sites.\n- Connect a custom domain and check that HTTPS works.\n- After deploying, open the live URL on a phone and click every button.\n\n## Checklist before handing over\n\n- [ ] Headline says the concrete outcome in under 10 words\n- [ ] One primary action, repeated at the end\n- [ ] No placeholder or generic copy anywhere\n- [ ] Works at 360px with no sideways scroll\n- [ ] Contrast, focus states and alt text are in place\n- [ ] Live link tested on a phone\n",
+  "hue": 205,
+  "name": "Websites",
+  "order": 3,
+  "repos": [
+   "anthropics/skills",
+   "vercel-labs/agent-skills"
+  ],
+  "searches": [
+   "Claude Code frontend design skill",
+   "landing page design technique 2026",
+   "agent skill web design github",
+   "AI website builder workflow new",
+   "web performance accessibility new best practice"
+  ],
+  "tests": [
+   {
+    "good": "Concrete hero headline and one clear action; real, specific copy; works at 360px; accessible contrast and focus states; does not look like a generic AI template.",
+    "id": "t1",
+    "prompt": "Build a single-file landing page (HTML and CSS) for a home bakery in Kochi taking pre-orders for Onam."
+   },
+   {
+    "good": "Each section has a job; the headline states the outcome; proof and objections handled; one repeated call to action; no vague filler phrases.",
+    "id": "t2",
+    "prompt": "Write the section plan and all the copy for a landing page for an AI invoice-scanning app for small shops."
+   },
+   {
+    "good": "Specific outcome in under 10 words; one verb-led button; tokens for type and colour; responsive; clearly better than the original.",
+    "id": "t3",
+    "prompt": "Improve this hero: 'Welcome to our website. We provide innovative solutions for your business needs.' Deliver new hero copy plus the HTML and CSS."
+   }
+  ],
+  "updatedAt": "2026-09-29T19:56:51.908Z",
+  "version": 2
+ }
+}

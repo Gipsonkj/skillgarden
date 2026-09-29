@@ -1,0 +1,1278 @@
+<title>Skill Garden</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:ital,wght@0,400..700;1,400&display=swap" rel="stylesheet">
+<style>
+/* Layout: app shell, sticky header + tab rail over one 1120px column; cards only where an object is acted on (a proposed change, a topic). */
+:root {
+  --ground: #EDF1EA;
+  --surface: #F6F8F3;
+  --raised: #FFFFFF;
+  --ink: #17251F;
+  --ink-2: #475850;
+  --ink-3: #74837A;
+  --line: #D3DCD0;
+  --line-2: #E2E8DF;
+  --accent: #1D6B50;
+  --accent-ink: #FFFFFF;
+  --accent-soft: #D8E9DF;
+  --bloom: #B86E0E;
+  --bloom-soft: #F7E4C4;
+  --good: #2A7A4B;
+  --good-soft: #DCEFE2;
+  --bad: #B0412D;
+  --bad-soft: #F5DDD6;
+  --tie: #7A837A;
+  --add: #DDF0E3;
+  --del: #F7E0DA;
+  --tl: 34%;
+  --tbg: 93%;
+  --shadow: 0 1px 2px rgba(23,37,31,.06), 0 6px 18px -8px rgba(23,37,31,.18);
+  --display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --body: "Public Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --r: 10px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #0E1411; --surface: #141C18; --raised: #1A241F; --ink: #E2E9E3; --ink-2: #A4B2A9; --ink-3: #75847B;
+    --line: #2A3630; --line-2: #212B26; --accent: #5BC193; --accent-ink: #08130E; --accent-soft: #1B3A2C;
+    --bloom: #EDB050; --bloom-soft: #3A2B12; --good: #6BCB8E; --good-soft: #16301F; --bad: #EE8169; --bad-soft: #3B1F19;
+    --tie: #8E998F; --add: #163120; --del: #3A1F1A; --tl: 76%; --tbg: 17%;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 22px -10px rgba(0,0,0,.6);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #0E1411; --surface: #141C18; --raised: #1A241F; --ink: #E2E9E3; --ink-2: #A4B2A9; --ink-3: #75847B;
+  --line: #2A3630; --line-2: #212B26; --accent: #5BC193; --accent-ink: #08130E; --accent-soft: #1B3A2C;
+  --bloom: #EDB050; --bloom-soft: #3A2B12; --good: #6BCB8E; --good-soft: #16301F; --bad: #EE8169; --bad-soft: #3B1F19;
+  --tie: #8E998F; --add: #163120; --del: #3A1F1A; --tl: 76%; --tbg: 17%;
+  --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 22px -10px rgba(0,0,0,.6);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body { background: var(--ground); color: var(--ink); font: 400 15px/1.55 var(--body); -webkit-font-smoothing: antialiased; }
+h1, h2, h3, h4 { font-family: var(--display); font-weight: 620; letter-spacing: -.01em; text-wrap: balance; margin: 0; line-height: 1.2; }
+p { margin: 0; }
+a { color: var(--accent); text-underline-offset: 2px; }
+button, input, select, textarea { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+.mono { font-family: var(--mono); font-size: 12.5px; letter-spacing: 0; font-variant-numeric: tabular-nums; }
+.muted { color: var(--ink-3); }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.app { max-width: 1120px; margin: 0 auto; padding-inline: 20px; padding-block: 0 72px; }
+@media (max-width: 520px) { .app { padding-inline: 16px; } }
+
+/* header */
+.chrome { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--ground); }
+.top { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; justify-content: space-between; padding-block: 18px 0; }
+.brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.brand svg { color: var(--accent); flex: none; }
+.brand h1 { font-size: 24px; font-weight: 680; font-variation-settings: "opsz" 48; }
+.status { color: var(--ink-3); font-size: 13px; margin-top: 2px; }
+.top-actions { display: flex; gap: 8px; align-items: center; }
+.tabs { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; border-bottom: 1px solid var(--line); margin-top: 14px; }
+.tabs::-webkit-scrollbar { display: none; }
+.tab { appearance: none; background: none; border: 0; padding: 10px 12px 11px; font-weight: 560; color: var(--ink-2); cursor: pointer; white-space: nowrap; border-bottom: 2px solid transparent; margin-bottom: -1px; display: inline-flex; align-items: center; gap: 7px; }
+.tab:hover { color: var(--ink); }
+.tab[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); }
+.count { font: 500 11.5px/1 var(--mono); padding: 3px 6px; border-radius: 99px; background: var(--line-2); color: var(--ink-2); }
+.count.hot { background: var(--bloom-soft); color: var(--bloom); }
+.count:empty { display: none; }
+@media (max-width: 640px), (max-height: 560px) { .chrome { position: static; } }
+
+main { padding-top: 24px; }
+.banner { margin-top: 16px; padding: 12px 14px; border-radius: var(--r); background: var(--bloom-soft); color: var(--ink); font-size: 14px; }
+
+/* buttons */
+.btn { appearance: none; border: 1px solid var(--line); background: var(--raised); color: var(--ink); border-radius: 8px; padding: 8px 14px; font-weight: 560; font-size: 14px; cursor: pointer; display: inline-flex; align-items: center; gap: 7px; line-height: 1.2; transition: background .15s, border-color .15s; }
+.btn:hover { border-color: var(--ink-3); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.btn.primary:hover { filter: brightness(1.06); }
+.btn.ghost { background: transparent; border-color: transparent; color: var(--ink-2); padding-inline: 8px; }
+.btn.ghost:hover { color: var(--ink); background: var(--line-2); }
+.btn.small { padding: 5px 10px; font-size: 13px; }
+.btn[disabled] { opacity: .5; cursor: default; }
+.link { appearance: none; background: none; border: 0; padding: 0; color: var(--accent); font-weight: 560; cursor: pointer; font-size: 14px; }
+.link:hover { text-decoration: underline; }
+
+/* chips + pills */
+.chip { --h: 160; display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 600; padding: 3px 9px 3px 7px; border-radius: 99px; color: hsl(var(--h) 45% var(--tl)); background: hsl(var(--h) 50% var(--tbg)); white-space: nowrap; }
+.chip::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.pill { font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 99px; background: var(--line-2); color: var(--ink-2); white-space: nowrap; }
+.pill.good { background: var(--good-soft); color: var(--good); }
+.pill.bad { background: var(--bad-soft); color: var(--bad); }
+.pill.bloom { background: var(--bloom-soft); color: var(--bloom); }
+.pill.accent { background: var(--accent-soft); color: var(--accent); }
+
+.section-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 10px 16px; margin-bottom: 16px; }
+.section-head h2 { font-size: 26px; font-weight: 650; font-variation-settings: "opsz" 40; }
+.section-head p { color: var(--ink-2); max-width: 62ch; margin-top: 4px; }
+.filters { display: flex; flex-wrap: wrap; gap: 6px; }
+.fchip { appearance: none; border: 1px solid var(--line); background: transparent; border-radius: 99px; padding: 4px 11px; font-size: 13px; font-weight: 550; color: var(--ink-2); cursor: pointer; }
+.fchip[aria-pressed="true"] { background: var(--ink); color: var(--ground); border-color: var(--ink); }
+
+.empty { border: 1px dashed var(--line); border-radius: 14px; padding: 36px 24px; text-align: left; color: var(--ink-2); background: var(--surface); }
+.empty h3 { font-size: 19px; color: var(--ink); margin-bottom: 6px; }
+.empty p { max-width: 58ch; }
+.empty .steps { margin: 14px 0 0; padding-left: 20px; display: grid; gap: 4px; }
+
+/* review */
+.summary-strip { display: flex; flex-wrap: wrap; gap: 8px 22px; align-items: baseline; padding: 14px 0 18px; border-bottom: 1px solid var(--line-2); margin-bottom: 18px; }
+.big { font: 650 40px/1 var(--display); font-variation-settings: "opsz" 72; color: var(--ink); }
+.cands { display: grid; gap: 16px; }
+.cand { background: var(--raised); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; box-shadow: var(--shadow); display: grid; gap: 12px; min-width: 0; }
+.cand.done { box-shadow: none; background: var(--surface); }
+.cand-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; }
+.cand-head .when { margin-left: auto; color: var(--ink-3); }
+.cand h3 { font-size: 19px; }
+.cand .summary { color: var(--ink-2); max-width: 70ch; }
+.trial { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; padding: 10px 12px; border-radius: 10px; background: var(--surface); }
+.marks { display: inline-flex; gap: 5px; }
+.mark { width: 20px; height: 20px; border-radius: 50%; display: inline-grid; place-items: center; font: 700 11px/1 var(--mono); }
+.mark.w { background: var(--good); color: var(--raised); }
+.mark.l { background: var(--bad-soft); color: var(--bad); box-shadow: inset 0 0 0 1.5px var(--bad); }
+.mark.t { background: var(--line-2); color: var(--ink-2); }
+.trial-text { font-size: 14px; }
+.why { font-size: 14px; color: var(--ink-2); max-width: 72ch; }
+.why strong { color: var(--ink); font-weight: 600; }
+.notes { margin: 0; padding-left: 18px; font-size: 13.5px; color: var(--ink-2); display: grid; gap: 3px; }
+.sources { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 13.5px; margin: 0; padding: 0; list-style: none; }
+.sources li { display: inline-flex; gap: 6px; align-items: baseline; min-width: 0; }
+.sources .k { font: 500 11px var(--mono); text-transform: uppercase; letter-spacing: .06em; color: var(--ink-3); }
+.sources a { overflow-wrap: anywhere; }
+.cand-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.cand-actions .link { margin-left: auto; }
+.lost-toggle { margin-top: 26px; }
+
+/* diff */
+.diff { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; font: 12.5px/1.55 var(--mono); background: var(--surface); }
+.diff .row { display: grid; grid-template-columns: 22px 1fr; }
+.diff .row span:first-child { text-align: center; color: var(--ink-3); user-select: none; }
+.diff .row span:last-child { white-space: pre-wrap; overflow-wrap: anywhere; padding-right: 10px; min-width: 0; }
+.diff .add { background: var(--add); }
+.diff .del { background: var(--del); }
+.diff .gap { padding: 4px 10px; color: var(--ink-3); background: var(--line-2); font-size: 12px; }
+.diff-legend { font-size: 12.5px; color: var(--ink-3); }
+
+/* skills */
+.grid-topics { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 16px; }
+.topic-card { text-align: left; appearance: none; background: var(--raised); border: 1px solid var(--line); border-radius: 14px; padding: 18px; cursor: pointer; display: grid; gap: 12px; align-content: start; box-shadow: var(--shadow); min-width: 0; transition: border-color .15s, transform .15s; }
+.topic-card:hover { border-color: var(--ink-3); }
+.topic-card.off { opacity: .6; }
+.tc-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.ver { font: 650 26px/1 var(--display); font-variation-settings: "opsz" 60; color: var(--ink); }
+.ver small { font: 500 12px var(--mono); color: var(--ink-3); margin-right: 3px; }
+.topic-card h3 { font-size: 20px; }
+.topic-card p { color: var(--ink-2); font-size: 14px; }
+.gens { display: grid; gap: 5px; }
+.gens-row { display: flex; flex-wrap: wrap; gap: 3px; }
+.gen { width: 11px; height: 11px; border-radius: 3px; background: var(--accent-soft); }
+.gen.now { background: var(--accent); }
+.gens .lbl, .meta dt { font: 500 11px var(--mono); text-transform: uppercase; letter-spacing: .07em; color: var(--ink-3); }
+.meta { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 8px; margin: 0; padding-top: 12px; border-top: 1px solid var(--line-2); }
+.meta dd { margin: 2px 0 0; font-size: 14px; font-weight: 560; }
+.meta dd.hot { color: var(--bloom); }
+.add-card { border: 1.5px dashed var(--line); background: transparent; box-shadow: none; color: var(--ink-2); place-content: center; min-height: 200px; text-align: center; }
+.add-card strong { font: 620 18px var(--display); color: var(--ink); display: block; }
+.form-card { cursor: default; }
+
+.detail-head { display: grid; gap: 10px; padding-bottom: 18px; border-bottom: 1px solid var(--line-2); }
+.detail-title { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; }
+.detail-title h2 { font-size: 30px; font-weight: 660; font-variation-settings: "opsz" 60; }
+.detail-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.subtabs { display: flex; gap: 4px; margin: 16px 0 20px; flex-wrap: wrap; }
+.subtab { appearance: none; border: 0; background: transparent; padding: 7px 12px; border-radius: 8px; font-weight: 560; color: var(--ink-2); cursor: pointer; }
+.subtab[aria-selected="true"] { background: var(--raised); color: var(--ink); box-shadow: inset 0 0 0 1px var(--line); }
+
+.reader { background: var(--raised); border: 1px solid var(--line); border-radius: 14px; padding: 26px 30px 30px; max-width: 820px; min-width: 0; }
+@media (max-width: 520px) { .reader { padding: 18px 16px 22px; } }
+.reader .lead { font-size: 16px; color: var(--ink-2); padding-bottom: 16px; margin-bottom: 18px; border-bottom: 1px solid var(--line-2); max-width: 66ch; }
+.reader h2 { font-size: 22px; margin: 26px 0 8px; }
+.reader h2:first-child { margin-top: 0; }
+.reader h3 { font-size: 17px; margin: 20px 0 6px; }
+.reader h4 { font-size: 15px; margin: 16px 0 4px; }
+.reader p { margin: 8px 0; max-width: 68ch; }
+.reader ul, .reader ol { margin: 8px 0; padding-left: 22px; max-width: 68ch; }
+.reader li { margin: 3px 0; }
+.reader li.check { list-style: none; margin-left: -20px; display: flex; gap: 8px; }
+.reader li.check::before { content: ""; flex: none; width: 13px; height: 13px; margin-top: 5px; border: 1.5px solid var(--ink-3); border-radius: 3px; }
+.reader code { font-family: var(--mono); font-size: .88em; background: var(--surface); border: 1px solid var(--line-2); padding: 0 4px; border-radius: 4px; }
+.reader pre { font: 12.5px/1.6 var(--mono); background: var(--surface); border: 1px solid var(--line-2); border-radius: 8px; padding: 12px 14px; overflow-x: auto; margin: 10px 0; }
+.reader pre code { background: none; border: 0; padding: 0; font-size: inherit; }
+.tw { overflow-x: auto; margin: 10px 0; }
+.reader table { border-collapse: collapse; font-size: 14px; min-width: 100%; }
+.reader th, .reader td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--line-2); vertical-align: top; }
+.reader th { font-weight: 620; font-size: 13px; color: var(--ink-2); border-bottom-color: var(--line); }
+.raw { width: 100%; min-height: 420px; font: 13px/1.6 var(--mono); padding: 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--raised); resize: vertical; }
+
+.hist { display: grid; gap: 0; border-left: 2px solid var(--line); margin-left: 10px; max-width: 820px; }
+.hist-item { position: relative; padding: 0 0 20px 22px; display: grid; gap: 6px; min-width: 0; }
+.hist-item::before { content: ""; position: absolute; left: -7px; top: 5px; width: 12px; height: 12px; border-radius: 50%; background: var(--raised); border: 2px solid var(--accent); }
+.hist-item.now::before { background: var(--accent); }
+.hist-top { display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: baseline; }
+.hist-top strong { font: 640 16px var(--display); }
+
+.tests { display: grid; gap: 12px; max-width: 820px; }
+.test { background: var(--raised); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; display: grid; gap: 6px; min-width: 0; }
+.test .lbl { font: 500 11px var(--mono); text-transform: uppercase; letter-spacing: .07em; color: var(--ink-3); }
+
+.fields { display: grid; gap: 14px; max-width: 820px; }
+.field { display: grid; gap: 5px; min-width: 0; }
+.field label, .field .lbl { font-weight: 600; font-size: 14px; }
+.field .hint { font-size: 13px; color: var(--ink-3); }
+.input, .select, .area { width: 100%; border: 1px solid var(--line); background: var(--raised); border-radius: 8px; padding: 9px 11px; font-size: 14.5px; min-width: 0; }
+.area { min-height: 90px; resize: vertical; line-height: 1.5; }
+.input:focus, .select:focus, .area:focus { outline: 2px solid var(--accent); outline-offset: 0; border-color: transparent; }
+.row-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.kv { display: grid; gap: 10px; }
+.kv .taglist { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag { font-size: 13px; padding: 3px 9px; border-radius: 6px; background: var(--surface); border: 1px solid var(--line-2); overflow-wrap: anywhere; }
+
+/* inbox */
+.inbox-top { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 16px; margin-bottom: 28px; }
+@media (max-width: 820px) { .inbox-top { grid-template-columns: minmax(0, 1fr); } }
+.panel { background: var(--raised); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; display: grid; gap: 12px; align-content: start; min-width: 0; }
+.panel h3 { font-size: 18px; }
+.panel .sub { color: var(--ink-2); font-size: 14px; }
+.drop { border: 1.5px dashed var(--line); border-radius: 12px; padding: 18px; display: grid; gap: 6px; justify-items: start; cursor: pointer; background: var(--surface); transition: border-color .15s, background .15s; }
+.drop:hover, .drop.over { border-color: var(--accent); background: var(--accent-soft); }
+.drop strong { font-weight: 620; }
+.steps-mini { margin: 0; padding-left: 18px; font-size: 13.5px; color: var(--ink-2); display: grid; gap: 2px; }
+.map-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.map-table th, .map-table td { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--line-2); vertical-align: middle; }
+.map-table th { font-size: 12px; color: var(--ink-3); font-weight: 600; }
+.map-table td.num { font-family: var(--mono); font-size: 13px; }
+.progress { height: 6px; border-radius: 99px; background: var(--line-2); overflow: hidden; }
+.progress i { display: block; height: 100%; background: var(--accent); width: 0; transition: width .2s; }
+
+.colls { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 12px; margin-bottom: 30px; }
+.coll { border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; background: var(--raised); display: grid; gap: 8px; min-width: 0; }
+.coll-top { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
+.coll-top strong { font: 620 16px var(--display); overflow-wrap: anywhere; }
+.coll-top .n { font: 650 22px/1 var(--display); }
+.creators { font-size: 13px; color: var(--ink-2); overflow-wrap: anywhere; }
+.bars svg { display: block; width: 100%; height: 54px; overflow: visible; }
+.bars .axis { font: 10.5px var(--mono); fill: var(--ink-3); }
+
+.reels { list-style: none; margin: 0; padding: 0; display: grid; }
+.reel { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px 16px; padding: 14px 0; border-bottom: 1px solid var(--line-2); }
+.reel:first-child { border-top: 1px solid var(--line-2); }
+.r-main { display: grid; gap: 4px; min-width: 0; }
+.r-line { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; }
+.r-owner { font-weight: 620; overflow-wrap: anywhere; }
+.r-coll { font-size: 13px; color: var(--ink-3); }
+.r-text { font-size: 14px; color: var(--ink-2); overflow-wrap: anywhere; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.r-find { font-size: 14px; padding: 8px 10px; border-radius: 8px; background: var(--surface); overflow-wrap: anywhere; }
+.r-find b { font-weight: 620; }
+.r-side { display: grid; justify-items: end; align-content: start; gap: 6px; }
+.r-side .row-actions { justify-content: flex-end; }
+@media (max-width: 560px) { .reel { grid-template-columns: minmax(0,1fr); } .r-side { justify-items: start; } .r-side .row-actions { justify-content: flex-start; } }
+.note-edit { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
+.note-edit .input { flex: 1 1 240px; }
+
+/* log */
+.runs { display: grid; gap: 14px; max-width: 860px; }
+.run { background: var(--raised); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; display: grid; gap: 10px; min-width: 0; }
+.run-head { display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: baseline; }
+.run-head strong { font: 640 17px var(--display); }
+.stats { display: flex; flex-wrap: wrap; gap: 4px 18px; font-size: 13.5px; color: var(--ink-2); }
+.stats b { font: 600 14px var(--mono); color: var(--ink); margin-right: 4px; }
+.pt { border-collapse: collapse; font-size: 13.5px; }
+.pt td, .pt th { padding: 4px 16px 4px 0; text-align: left; }
+.pt th { font-size: 12px; color: var(--ink-3); font-weight: 600; }
+.pt td.num { font-family: var(--mono); }
+.blocked { font-size: 13.5px; color: var(--ink-2); padding: 8px 10px; border-radius: 8px; background: var(--bloom-soft); }
+.switch { display: inline-flex; align-items: center; gap: 10px; cursor: pointer; font-weight: 560; font-size: 14px; }
+.switch input { appearance: none; width: 38px; height: 22px; border-radius: 99px; background: var(--line); position: relative; cursor: pointer; margin: 0; transition: background .15s; }
+.switch input::after { content: ""; position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; border-radius: 50%; background: var(--raised); transition: transform .15s; box-shadow: 0 1px 2px rgba(0,0,0,.2); }
+.switch input:checked { background: var(--accent); }
+.switch input:checked::after { transform: translateX(16px); }
+.howto { max-width: 860px; margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--line-2); color: var(--ink-2); font-size: 14px; display: grid; gap: 8px; }
+.howto h3 { font-size: 17px; color: var(--ink); }
+.howto ol { margin: 0; padding-left: 20px; display: grid; gap: 4px; }
+
+.toast { position: fixed; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 20px); background: var(--ink); color: var(--ground); padding: 10px 16px; border-radius: 10px; font-size: 14px; max-width: min(520px, calc(100vw - 32px)); opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s; z-index: 20; box-shadow: var(--shadow); }
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+.toast.bad { background: var(--bad); color: #fff; }
+.skeleton { color: var(--ink-3); padding: 30px 0; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="app">
+  <div class="chrome">
+  <header class="top">
+    <div class="brand">
+      <svg viewBox="0 0 32 32" width="30" height="30" aria-hidden="true"><path d="M16 29.5V15.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" fill="none"/><path d="M16 17.2c-.2-6.4 3.9-10.6 11.2-10.6.1 7.2-4 11.2-11.2 10.6z" fill="currentColor"/><path d="M16 20.6c.1-5.3-3.3-8.9-9.9-8.9-.1 6 3.4 9.4 9.9 8.9z" fill="currentColor" opacity=".5"/></svg>
+      <div>
+        <h1>Skill Garden</h1>
+        <p class="status" id="status">Opening the garden…</p>
+      </div>
+    </div>
+    <div class="top-actions">
+      <button class="btn small" id="runNow" data-act="run-now" hidden>Run scout now</button>
+    </div>
+  </header>
+  <nav class="tabs" role="tablist" aria-label="Sections">
+    <button class="tab" role="tab" data-act="tab" data-view="review" aria-selected="true">Review <span class="count" id="c-review"></span></button>
+    <button class="tab" role="tab" data-act="tab" data-view="skills" aria-selected="false">Skills <span class="count" id="c-skills"></span></button>
+    <button class="tab" role="tab" data-act="tab" data-view="inbox" aria-selected="false">Reel inbox <span class="count" id="c-inbox"></span></button>
+    <button class="tab" role="tab" data-act="tab" data-view="log" aria-selected="false">Scout log</button>
+  </nav>
+  </div>
+  <div class="banner" id="banner" hidden></div>
+  <main id="view"><p class="skeleton">Opening the garden…</p></main>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<input type="file" id="importFile" accept=".zip,.json,.html,application/zip,application/json,text/html" hidden>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script>
+(() => {
+  "use strict";
+
+  /* ---------- state ---------- */
+  const S = {
+    db: null, user: null, mcp: null, downloads: null, canWrite: true,
+    loaded: { topics: false, candidates: false, inbox: false, runs: false, settings: false },
+    topics: [], candidates: [], inbox: [], runs: [], settings: null, versions: [], versionsFor: null,
+    view: "review", reviewTopic: "all", showLost: false, openDiff: new Set(), busy: new Set(),
+    skillOpen: null, skillTab: "skill", skillRaw: false, editing: null, newTopicOpen: false, histOpen: new Set(),
+    inboxTopic: "all", inboxStatus: "all", inboxLimit: 150, noteEditing: null,
+    importState: null, // {stage:'map'|'writing'|'done', items, colls, recentDays, done, total, error}
+    manualStartedAt: 0,
+  };
+  let unsubVersions = null;
+
+  /* ---------- helpers ---------- */
+  const $ = (s, r = document) => r.querySelector(s);
+  const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const safeUrl = (u) => { try { const x = new URL(String(u)); return x.protocol === "https:" || x.protocol === "http:" ? x.href : null; } catch { return null; } };
+  const iso = () => new Date().toISOString();
+  const topicById = (id) => S.topics.find((t) => t.id === id);
+  const plural = (n, one, many) => `${n} ${n === 1 ? one : many || one + "s"}`;
+  const N = (x) => Number(x) || 0;
+  const hostOf = (u) => { try { return new URL(u).hostname.replace(/^www\./, ""); } catch { return ""; } };
+
+  function ago(t) {
+    if (!t) return "";
+    const d = new Date(t); if (isNaN(d)) return "";
+    const s = (Date.now() - d.getTime()) / 1000;
+    if (s < 60) return "just now";
+    if (s < 3600) return `${Math.floor(s / 60)} min ago`;
+    if (s < 86400) return `${Math.floor(s / 3600)} h ago`;
+    if (s < 172800) return "yesterday";
+    if (s < 86400 * 14) return `${Math.floor(s / 86400)} days ago`;
+    return d.toLocaleDateString(undefined, { day: "numeric", month: "short", year: d.getFullYear() === new Date().getFullYear() ? undefined : "numeric" });
+  }
+  const fmtDay = (t) => { const d = new Date(t); return isNaN(d) ? "" : d.toLocaleDateString(undefined, { weekday: "short", day: "numeric", month: "short" }); };
+  const fmtTime = (t) => { const d = new Date(t); return isNaN(d) ? "" : d.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" }); };
+  const fmtShort = (t) => { const d = new Date(t); return isNaN(d) ? "" : d.toLocaleDateString(undefined, { day: "numeric", month: "short", year: "2-digit" }); };
+
+  function chip(t) {
+    if (!t) return `<span class="chip" style="--h:150">No topic</span>`;
+    return `<span class="chip" style="--h:${Number(t.hue) || 150}">${esc(t.name)}</span>`;
+  }
+
+  let toastTimer = 0;
+  function toast(msg, kind) {
+    const el = $("#toast");
+    el.textContent = msg;
+    el.className = "toast show" + (kind === "bad" ? " bad" : "");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => { el.className = "toast"; }, 4200);
+  }
+  function errMsg(e) {
+    switch (e && e.code) {
+      case "invalid_argument": return "Couldn't save. You may only have view access to this page.";
+      case "quota_exceeded": return "The garden's storage is full. Remove old reels to make room.";
+      case "resource_exhausted": return "Too many saves at once. Wait a moment and try again.";
+      case "revoked": return "Access to this page changed. Reload to continue.";
+      default: return "Couldn't save just now. Try again in a moment.";
+    }
+  }
+  async function guarded(key, fn) {
+    if (S.busy.has(key)) return;
+    S.busy.add(key); render();
+    try { await fn(); } catch (e) { toast(errMsg(e), "bad"); }
+    finally { S.busy.delete(key); render(); }
+  }
+  const dis = (key) => (S.busy.has(key) || !S.canWrite ? " disabled" : "");
+
+  /* India-time schedule */
+  function istNow() {
+    const p = Object.fromEntries(new Intl.DateTimeFormat("en-GB", { timeZone: "Asia/Kolkata", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hourCycle: "h23" }).formatToParts(new Date()).map((x) => [x.type, x.value]));
+    return { y: +p.year, m: +p.month, d: +p.day, h: +p.hour, mi: +p.minute };
+  }
+  function nextScout() {
+    const t = (S.settings && S.settings.scoutTime) || "06:51";
+    const [hh, mm] = t.split(":").map(Number);
+    const n = istNow();
+    const tomorrow = n.h * 60 + n.mi >= hh * 60 + mm;
+    const at = new Date(Date.UTC(n.y, n.m - 1, n.d + (tomorrow ? 1 : 0), hh, mm) - 330 * 60000);
+    const local = new Date().getTimezoneOffset() !== -330 ? ` (${fmtTime(at)} your time)` : "";
+    return `${tomorrow ? "tomorrow" : "today"} ${t} India time${local}`;
+  }
+
+  /* ---------- markdown (small, safe) ---------- */
+  function inline(src) {
+    return String(src).split(/(`[^`]+`)/g).map((part) => {
+      if (/^`[^`]+`$/.test(part)) return `<code>${esc(part.slice(1, -1))}</code>`;
+      let s = esc(part);
+      s = s.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+      s = s.replace(/(^|[\s(])\*([^*\s][^*]*)\*(?=[\s).,;:!?]|$)/g, "$1<em>$2</em>");
+      s = s.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (m, text, url) => {
+        const u = safeUrl(url.replace(/&amp;/g, "&"));
+        return u ? `<a href="${esc(u)}" target="_blank" rel="noopener">${text}</a>` : text;
+      });
+      return s;
+    }).join("");
+  }
+  function splitFront(src) {
+    const m = String(src || "").match(/^---\n([\s\S]*?)\n---\n?/);
+    if (!m) return { meta: {}, body: String(src || "") };
+    const meta = {};
+    for (const line of m[1].split("\n")) { const k = line.match(/^([A-Za-z_-]+):\s*(.*)$/); if (k) meta[k[1]] = k[2].replace(/^["']|["']$/g, ""); }
+    return { meta, body: String(src).slice(m[0].length) };
+  }
+  function md(src) {
+    const lines = String(src).split("\n");
+    const out = [];
+    let i = 0;
+    const isTable = (l) => /^\s*\|.*\|\s*$/.test(l);
+    const isList = (l) => /^\s*([-*]|\d+\.)\s+/.test(l);
+    while (i < lines.length) {
+      const line = lines[i];
+      if (/^```/.test(line)) {
+        const buf = []; i++;
+        while (i < lines.length && !/^```/.test(lines[i])) buf.push(lines[i++]);
+        i++;
+        out.push(`<pre><code>${esc(buf.join("\n"))}</code></pre>`);
+        continue;
+      }
+      const h = line.match(/^(#{1,4})\s+(.*)$/);
+      if (h) { const lv = Math.min(4, h[1].length + 1); out.push(`<h${lv}>${inline(h[2])}</h${lv}>`); i++; continue; }
+      if (isTable(line)) {
+        const rows = [];
+        while (i < lines.length && isTable(lines[i])) rows.push(lines[i++]);
+        const cells = (r) => r.trim().replace(/^\||\|$/g, "").split("|").map((c) => c.trim());
+        const body = rows.filter((r) => !/^[\s|:-]+$/.test(r));
+        const [head, ...rest] = body;
+        out.push(`<div class="tw"><table><thead><tr>${cells(head).map((c) => `<th>${inline(c)}</th>`).join("")}</tr></thead><tbody>${rest.map((r) => `<tr>${cells(r).map((c) => `<td>${inline(c)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`);
+        continue;
+      }
+      if (isList(line)) {
+        const ordered = /^\s*\d+\./.test(line);
+        const items = [];
+        while (i < lines.length && (isList(lines[i]) || (/^\s{2,}\S/.test(lines[i]) && items.length))) {
+          if (isList(lines[i])) items.push(lines[i].replace(/^\s*([-*]|\d+\.)\s+/, ""));
+          else items[items.length - 1] += " " + lines[i].trim();
+          i++;
+        }
+        out.push(`<${ordered ? "ol" : "ul"}>${items.map((it) => {
+          const c = it.match(/^\[( |x|X)\]\s+(.*)$/);
+          return c ? `<li class="check">${inline(c[2])}</li>` : `<li>${inline(it)}</li>`;
+        }).join("")}</${ordered ? "ol" : "ul"}>`);
+        continue;
+      }
+      if (!line.trim()) { i++; continue; }
+      const buf = [];
+      while (i < lines.length && lines[i].trim() && !/^(#{1,4}\s|```)/.test(lines[i]) && !isTable(lines[i]) && !isList(lines[i])) buf.push(lines[i++]);
+      out.push(`<p>${inline(buf.join(" "))}</p>`);
+    }
+    return out.join("\n");
+  }
+
+  /* ---------- line diff ---------- */
+  function diffLines(a, b) {
+    const A = String(a || "").split("\n"), B = String(b || "").split("\n");
+    let pre = 0; while (pre < A.length && pre < B.length && A[pre] === B[pre]) pre++;
+    let suf = 0; while (suf < A.length - pre && suf < B.length - pre && A[A.length - 1 - suf] === B[B.length - 1 - suf]) suf++;
+    const a2 = A.slice(pre, A.length - suf), b2 = B.slice(pre, B.length - suf);
+    const n = a2.length, m = b2.length;
+    const ops = [];
+    for (let k = 0; k < pre; k++) ops.push([" ", A[k]]);
+    if (n * m > 4e6) { a2.forEach((l) => ops.push(["-", l])); b2.forEach((l) => ops.push(["+", l])); }
+    else {
+      const dp = Array.from({ length: n + 1 }, () => new Uint32Array(m + 1));
+      for (let x = n - 1; x >= 0; x--) for (let y = m - 1; y >= 0; y--) dp[x][y] = a2[x] === b2[y] ? dp[x + 1][y + 1] + 1 : Math.max(dp[x + 1][y], dp[x][y + 1]);
+      let x = 0, y = 0;
+      while (x < n && y < m) {
+        if (a2[x] === b2[y]) { ops.push([" ", a2[x]]); x++; y++; }
+        else if (dp[x + 1][y] >= dp[x][y + 1]) ops.push(["-", a2[x++]]);
+        else ops.push(["+", b2[y++]]);
+      }
+      while (x < n) ops.push(["-", a2[x++]]);
+      while (y < m) ops.push(["+", b2[y++]]);
+    }
+    for (let k = A.length - suf; k < A.length; k++) ops.push([" ", A[k]]);
+    return ops;
+  }
+  function diffHtml(a, b) {
+    const ops = diffLines(a, b);
+    const keep = new Uint8Array(ops.length);
+    ops.forEach((o, k) => { if (o[0] !== " ") for (let j = Math.max(0, k - 2); j <= Math.min(ops.length - 1, k + 2); j++) keep[j] = 1; });
+    let html = "", gap = 0, adds = 0, dels = 0;
+    const flush = () => { if (gap) { html += `<div class="gap">⋯ ${plural(gap, "unchanged line")}</div>`; gap = 0; } };
+    ops.forEach((o, k) => {
+      if (!keep[k]) { gap++; return; }
+      flush();
+      if (o[0] === "+") adds++; if (o[0] === "-") dels++;
+      const cls = o[0] === "+" ? "add" : o[0] === "-" ? "del" : "";
+      html += `<div class="row ${cls}"><span>${o[0] === " " ? "" : o[0] === "+" ? "+" : "−"}</span><span>${esc(o[1]) || " "}</span></div>`;
+    });
+    flush();
+    if (!adds && !dels) return `<p class="muted">No text changes.</p>`;
+    return `<p class="diff-legend">${plural(adds, "line")} added · ${plural(dels, "line")} removed</p><div class="diff" role="region" aria-label="Changes">${html}</div>`;
+  }
+
+  /* ---------- rendering ---------- */
+  let mounted = null;
+  function render() {
+    renderHeader();
+    const v = S.view;
+    if (mounted !== v) { mountView(v); mounted = v; }
+    if (v === "review") updateReview();
+    else if (v === "skills") updateSkills();
+    else if (v === "inbox") updateInbox();
+    else if (v === "log") updateLog();
+  }
+
+  function readyCands() { return S.candidates.filter((c) => c.status === "ready"); }
+  function lastRun() { return S.runs.find((r) => r.status !== "skipped") || S.runs[0]; }
+  function runningRun() { return S.runs.find((r) => r.status === "running" && Date.now() - new Date(r.startedAt).getTime() < 3 * 3600e3); }
+
+  function renderHeader() {
+    document.querySelectorAll(".tab").forEach((b) => b.setAttribute("aria-selected", String(b.dataset.view === S.view)));
+    const rc = readyCands().length;
+    const cr = $("#c-review"); cr.textContent = rc ? String(rc) : ""; cr.className = "count" + (rc ? " hot" : "");
+    const needs = S.inbox.filter((r) => r.status === "needs-note").length;
+    const ci = $("#c-inbox"); ci.textContent = needs ? String(needs) : ""; ci.className = "count" + (needs ? " hot" : "");
+    $("#c-skills").textContent = S.topics.length ? String(S.topics.filter((t) => t.active !== false).length) : "";
+    const st = $("#status");
+    if (!S.db) { st.textContent = S.dbMissing ? "Sign in to claude.ai to open your garden." : "Opening the garden…"; }
+    else {
+      const run = runningRun();
+      const lr = lastRun();
+      const parts = [];
+      if (S.settings && S.settings.paused) parts.push("Morning scout is paused");
+      else if (run) parts.push(`Scout is working · started ${ago(run.startedAt)}`);
+      else parts.push(`Next scout ${nextScout()}${S.settings && S.settings.host === "local" ? " while Skill Garden is running on this computer" : ""}`);
+      if (!run && lr) parts.push(`last run ${ago(lr.finishedAt || lr.startedAt)}`);
+      st.textContent = parts.join(" · ");
+    }
+    const rn = $("#runNow");
+    const canRun = !!(S.mcp && S.settings && S.settings.triggerId && S.canWrite);
+    rn.hidden = !canRun;
+    const running = !!runningRun() || Date.now() - S.manualStartedAt < 90e3;
+    rn.disabled = running || S.busy.has("run-now");
+    rn.textContent = running ? "Scout is working…" : "Run scout now";
+  }
+
+  function mountView(v) {
+    const el = $("#view");
+    if (v === "review") el.innerHTML = `<section><div class="section-head"><div><h2>Changes waiting for you</h2><p>Each one beat the current skill in blind trials. Add it and the skill grows a version; skip it and the scout won't propose it again.</p></div><div class="filters" id="rv-filter"></div></div><div id="rv-summary"></div><div class="cands" id="rv-list"></div><div id="rv-lost"></div></section>`;
+    else if (v === "skills") el.innerHTML = `<section id="sk"></section>`;
+    else if (v === "inbox") mountInbox(el);
+    else if (v === "log") el.innerHTML = `<section><div class="section-head"><div><h2>Scout log</h2><p>What the scout looked at each morning and what it found.</p></div><div id="lg-controls"></div></div><div class="runs" id="lg-list"></div><div id="lg-howto"></div></section>`;
+  }
+
+  function loadingOr(key, html) { return S.loaded[key] ? html : `<p class="skeleton">Loading…</p>`; }
+  function noDb() { return `<div class="empty"><h3>Open this page signed in</h3><p>Skill Garden keeps your skills and reels in claude.ai. Open it from your claude.ai account to see and change them.</p></div>`; }
+
+  /* ---- review ---- */
+  function trialMarks(c) {
+    const notes = (c.trials && c.trials.notes) || [];
+    if (!notes.length) return "";
+    return `<span class="marks" aria-hidden="true">${notes.map((n) => n.winner === "proposed" ? `<span class="mark w">✓</span>` : n.winner === "current" ? `<span class="mark l">✕</span>` : `<span class="mark t">=</span>`).join("")}</span>`;
+  }
+  function trialLine(c) {
+    const t = c.trials || {};
+    if (c.kind === "first-draft") return `<div class="trial"><span class="pill accent">First draft</span><span class="trial-text">This topic had no skill yet, so there was nothing to test against. Read it and add it to start the topic at v1.</span></div>`;
+    const count = N(t.count);
+    const topic = topicById(c.topicId);
+    const vs = `v${esc(c.baseVersion ?? (topic && topic.version) ?? "?")}`;
+    const verdict = c.verdict === "better" ? `<strong>Won ${N(t.wins)} of ${count}</strong> blind ${count === 1 ? "trial" : "trials"} against ${vs}` : c.verdict === "tie" ? `<strong>Tied</strong> with ${vs} (${N(t.wins)} won, ${N(t.losses)} lost)` : `<strong>Lost</strong> to ${vs} (${N(t.wins)} won, ${N(t.losses)} lost)`;
+    return `<div class="trial">${trialMarks(c)}<span class="trial-text">${verdict}${N(t.ties) ? `, ${plural(N(t.ties), "tie")}` : ""}</span></div>`;
+  }
+  const KIND = { add: "Adds to the skill", improve: "Improves the skill", remove: "Trims the skill", "first-draft": "New skill" };
+  function candCard(c, mode) {
+    const t = topicById(c.topicId);
+    const open = S.openDiff.has(c.id);
+    const notes = ((c.trials && c.trials.notes) || []).filter((n) => n && n.reason);
+    const src = (c.sources || []).slice(0, 8).map((s) => {
+      const u = safeUrl(s.url);
+      const label = esc(s.label || hostOf(s.url) || "source");
+      return `<li><span class="k">${esc(s.kind || "web")}</span>${u ? `<a href="${esc(u)}" target="_blank" rel="noopener">${label}</a>` : label}</li>`;
+    }).join("");
+    let actions = "";
+    if (mode === "ready") actions = `<button class="btn primary" data-act="approve" data-id="${esc(c.id)}"${dis("c:" + c.id)}>Add to skill</button><button class="btn" data-act="skip" data-id="${esc(c.id)}"${dis("c:" + c.id)}>Skip</button>`;
+    else if (mode === "lost") actions = `<button class="btn small" data-act="approve" data-id="${esc(c.id)}"${dis("c:" + c.id)}>Add anyway</button>`;
+    else if (mode === "skipped") actions = `<button class="btn small" data-act="unskip" data-id="${esc(c.id)}"${dis("c:" + c.id)}>Move back to review</button>`;
+    const base = t && Number(c.baseVersion) === Number(t.version) ? (t.content || "") : null;
+    const diffBody = open ? (c.kind === "first-draft" || !t || !t.content ? `<div class="reader">${md(splitFront(c.proposed || "").body)}</div>` : base !== null ? diffHtml(base, c.proposed || "") : `<p class="muted">${esc(t.name)} has moved on to v${esc(t.version)} since this was written. Showing the change against v${esc(c.baseVersion)}.</p><div id="basediff-${esc(c.id)}"></div>`) : "";
+    return `<article class="cand${mode === "ready" ? "" : " done"}" id="cand-${esc(c.id)}">
+      <div class="cand-head">${chip(t)}<span class="pill">${esc(KIND[c.kind] || "Change")}</span>${mode === "approved" ? `<span class="pill bloom">Approved · folds in next run</span>` : ""}<span class="when mono">${esc(ago(c.createdAt))}</span></div>
+      <h3>${esc(c.title || "Untitled change")}</h3>
+      ${c.summary ? `<p class="summary">${esc(c.summary)}</p>` : ""}
+      ${trialLine(c)}
+      ${c.why ? `<p class="why"><strong>Why:</strong> ${esc(c.why)}</p>` : ""}
+      ${notes.length ? `<ul class="notes">${notes.slice(0, 4).map((n) => `<li>${esc(n.task ? n.task + ": " : "")}${esc(n.reason)}</li>`).join("")}</ul>` : ""}
+      ${src ? `<ul class="sources">${src}</ul>` : ""}
+      ${c.foldNote ? `<p class="why">${esc(c.foldNote)}</p>` : ""}
+      <div class="cand-actions">${actions}<button class="link" data-act="toggle-diff" data-id="${esc(c.id)}" aria-expanded="${open}">${open ? "Hide the change" : c.kind === "first-draft" ? "Read the draft" : "See the change"}</button></div>
+      ${diffBody}
+    </article>`;
+  }
+  function updateReview() {
+    if (!S.db) { $("#rv-list").innerHTML = S.dbMissing ? noDb() : `<p class="skeleton">Loading…</p>`; return; }
+    const ready = readyCands();
+    const topicsWith = S.topics.filter((t) => ready.some((c) => c.topicId === t.id));
+    if (S.reviewTopic !== "all" && !topicsWith.some((t) => t.id === S.reviewTopic)) S.reviewTopic = "all";
+    $("#rv-filter").innerHTML = topicsWith.length > 1 ? [`<button class="fchip" data-act="rv-topic" data-id="all" aria-pressed="${S.reviewTopic === "all"}">All</button>`, ...topicsWith.map((t) => `<button class="fchip" data-act="rv-topic" data-id="${esc(t.id)}" aria-pressed="${S.reviewTopic === t.id}">${esc(t.name)} · ${ready.filter((c) => c.topicId === t.id).length}</button>`)].join("") : "";
+    const shown = ready.filter((c) => S.reviewTopic === "all" || c.topicId === S.reviewTopic);
+    const approved = S.candidates.filter((c) => c.status === "approved");
+    const lr = lastRun();
+    $("#rv-summary").innerHTML = ready.length ? `<div class="summary-strip"><span class="big">${ready.length}</span><span>${ready.length === 1 ? "change passed its trials and is" : "changes passed their trials and are"} waiting for you${topicsWith.length ? ` across ${plural(topicsWith.length, "skill")}` : ""}.</span></div>` : "";
+    let list;
+    if (!S.loaded.candidates) list = `<p class="skeleton">Loading…</p>`;
+    else if (!ready.length) {
+      list = `<div class="empty"><h3>${lr ? "Nothing waiting right now" : "The first scout run hasn't happened yet"}</h3><p>${lr ? `The last run was ${esc(ago(lr.finishedAt || lr.startedAt))}. ` : ""}The scout runs every morning at ${esc(nextScout())}. Changes that beat the current skill in blind trials show up here for you to add or skip.</p><ol class="steps"><li>Keep saving reels on Instagram, and add the best ones in <button class="link" data-act="tab" data-view="inbox">Reel inbox</button> with a line about the trick.</li><li>The scout finds the real source behind each reel, checks GitHub and the web, and tests each idea.</li><li>Winners wait here. Nothing changes in a skill until you add it.</li></ol></div>`;
+    } else list = shown.map((c) => candCard(c, "ready")).join("");
+    $("#rv-list").innerHTML = list + (approved.length ? `<div class="cands" style="margin-top:16px">${approved.map((c) => candCard(c, "approved")).join("")}</div>` : "");
+    const lost = S.candidates.filter((c) => c.status === "lost" || c.status === "skipped").slice(0, 30);
+    $("#rv-lost").innerHTML = lost.length ? `<div class="lost-toggle"><button class="link" data-act="toggle-lost" aria-expanded="${S.showLost}">${S.showLost ? "Hide" : "Show"} ${plural(lost.length, "idea")} that didn't make it</button></div>${S.showLost ? `<div class="cands" style="margin-top:14px">${lost.map((c) => candCard(c, c.status)).join("")}</div>` : ""}` : "";
+    // stale-base diffs need the old version; fetch lazily
+    for (const id of S.openDiff) {
+      const c = S.candidates.find((x) => x.id === id); const holder = document.getElementById("basediff-" + id);
+      if (c && holder && S.db) S.db.doc(`versions/${c.topicId}--v${c.baseVersion}`).get().then((snap) => {
+        const h = document.getElementById("basediff-" + id); if (!h) return;
+        h.innerHTML = snap.exists ? diffHtml(snap.data().content || "", c.proposed || "") : `<div class="reader">${md(splitFront(c.proposed || "").body)}</div>`;
+      }).catch(() => {});
+    }
+  }
+
+  /* ---- skills ---- */
+  function gens(v) {
+    const n = Math.max(0, Number(v) || 0);
+    const shown = Math.min(n, 24);
+    const cells = Array.from({ length: shown }, (_, k) => `<span class="gen${k === shown - 1 ? " now" : ""}"></span>`).join("");
+    return `<div class="gens"><span class="lbl">Generations${n > 24 ? ` · last 24 of ${n}` : ""}</span><div class="gens-row">${cells || `<span class="muted" style="font-size:13px">No versions yet. The scout will draft v1.</span>`}</div></div>`;
+  }
+  function topicCard(t) {
+    const waiting = S.candidates.filter((c) => c.topicId === t.id && c.status === "ready").length;
+    const reels = S.inbox.filter((r) => r.topicId === t.id && (r.status === "new" || r.status === "needs-note")).length;
+    return `<button class="topic-card${t.active === false ? " off" : ""}" data-act="open-skill" data-id="${esc(t.id)}">
+      <div class="tc-top">${chip(t)}<span class="ver"><small>v</small>${esc(t.version || 0)}</span></div>
+      <div><h3>${esc(t.name)}</h3>${t.blurb ? `<p style="margin-top:4px">${esc(t.blurb)}</p>` : ""}</div>
+      ${gens(t.version)}
+      <dl class="meta"><div><dt>Waiting</dt><dd class="${waiting ? "hot" : ""}">${waiting ? plural(waiting, "change") : "None"}</dd></div><div><dt>Reels</dt><dd>${reels ? `${reels} new` : "None new"}</dd></div><div><dt>Grew</dt><dd>${t.updatedAt ? esc(ago(t.updatedAt)) : "—"}</dd></div></dl>
+    </button>`;
+  }
+  function updateSkills() {
+    const sk = $("#sk");
+    if (!S.db) { sk.innerHTML = S.dbMissing ? noDb() : `<p class="skeleton">Loading…</p>`; sk.dataset.mode = ""; return; }
+    const t = S.skillOpen && topicById(S.skillOpen);
+    if (!t) {
+      S.skillOpen = null;
+      if (S.newTopicOpen && sk.dataset.mode === "grid") { updateNewTopicOnly(); return; }
+      sk.dataset.mode = "grid";
+      const cards = S.topics.map(topicCard).join("");
+      sk.innerHTML = `<div class="section-head"><div><h2>Your skills</h2><p>One skill per topic. Each is a SKILL.md you can drop into Claude Code or Claude's skills folder.</p></div><div class="row-actions">${S.topics.length ? `<button class="btn" data-act="download-all">Download all</button>` : ""}</div></div>
+        ${loadingOr("topics", `<div class="grid-topics">${cards}${S.newTopicOpen ? newTopicForm() : `<button class="topic-card add-card" data-act="new-topic"${S.canWrite ? "" : " disabled"}><strong>Add a topic</strong><span>Name it, link your Instagram collection, and the scout drafts v1 tomorrow.</span></button>`}</div>`)}`;
+      return;
+    }
+    const mode = "detail:" + t.id;
+    if (sk.dataset.mode !== mode) {
+      sk.dataset.mode = mode;
+      sk.innerHTML = `<button class="btn ghost small" data-act="back-skills">← All skills</button><div class="detail-head" id="d-head" style="margin-top:10px"></div><div class="subtabs" id="d-tabs" role="tablist"></div><div id="d-body"></div>`;
+      subscribeVersions(t.id);
+    }
+    const waiting = S.candidates.filter((c) => c.topicId === t.id && c.status === "ready").length;
+    $("#d-head").innerHTML = `<div class="detail-title">${chip(t)}<h2>${esc(t.name)}</h2><span class="mono muted">v${esc(t.version || 0)}${t.updatedAt ? ` · grew ${esc(ago(t.updatedAt))}` : ""}</span></div>
+      ${t.blurb ? `<p style="color:var(--ink-2);max-width:66ch">${esc(t.blurb)}</p>` : ""}
+      <div class="detail-actions">${t.content ? `<button class="btn primary small" data-act="download-skill">Download SKILL.md</button><button class="btn small" data-act="copy-skill">Copy</button>` : ""}${waiting ? `<button class="btn small" data-act="tab" data-view="review">${plural(waiting, "change")} waiting</button>` : ""}
+      <label class="switch" style="margin-left:auto"><input type="checkbox" id="activeToggle" data-act="toggle-active"${t.active === false ? "" : " checked"}${S.canWrite ? "" : " disabled"}> Scout this topic</label></div>`;
+    const tabs = [["skill", "Skill"], ["history", `History`], ["tests", `Tests · ${(t.tests || []).length}`], ["sources", "Sources"]];
+    $("#d-tabs").innerHTML = tabs.map(([k, l]) => `<button class="subtab" role="tab" data-act="skill-tab" data-tab="${k}" aria-selected="${S.skillTab === k}">${esc(l)}</button>`).join("");
+    if (S.editing && S.editing.topicId === t.id) return; // don't clobber an open editor
+    const body = $("#d-body");
+    if (S.skillTab === "skill") body.innerHTML = skillPane(t);
+    else if (S.skillTab === "history") body.innerHTML = historyPane(t);
+    else if (S.skillTab === "tests") body.innerHTML = testsPane(t);
+    else body.innerHTML = sourcesPane(t);
+  }
+  function newTopicForm() {
+    return `<div class="topic-card form-card" id="newTopic"><h3>New topic</h3>
+      <div class="field"><label for="nt-name">Name</label><input class="input" id="nt-name" placeholder="e.g. AI product photos" maxlength="60"></div>
+      <div class="field"><label for="nt-blurb">What it covers</label><input class="input" id="nt-blurb" placeholder="One line" maxlength="140"></div>
+      <div class="field"><label for="nt-colls">Instagram collection names</label><input class="input" id="nt-colls" placeholder="Comma-separated, as they appear on Instagram"></div>
+      <div class="row-actions"><button class="btn primary" data-act="create-topic">Add topic</button><button class="btn ghost" data-act="cancel-topic">Cancel</button></div></div>`;
+  }
+  function updateNewTopicOnly() { /* keep the form's typed values while it is open */ }
+  function skillPane(t) {
+    if (!t.content) return `<div class="empty"><h3>No skill yet</h3><p>The next scout run drafts v1 for ${esc(t.name)} from your reels and the best sources it finds. The draft waits in Review for you.</p></div>`;
+    const { meta, body } = splitFront(t.content);
+    return `<div class="row-actions" style="margin-bottom:12px"><button class="fchip" data-act="raw" data-raw="0" aria-pressed="${!S.skillRaw}">Read</button><button class="fchip" data-act="raw" data-raw="1" aria-pressed="${S.skillRaw}">SKILL.md</button><button class="btn ghost small" data-act="edit-skill" style="margin-left:auto"${S.canWrite ? "" : " disabled"}>Edit by hand</button></div>
+      ${S.skillRaw ? `<div class="reader" style="padding:0;overflow:hidden"><pre style="margin:0;border:0;border-radius:0;white-space:pre-wrap;overflow-wrap:anywhere">${esc(t.content)}</pre></div>` : `<article class="reader">${meta.description ? `<p class="lead">${esc(meta.description)}</p>` : ""}${md(body)}</article>`}`;
+  }
+  function historyPane(t) {
+    if (S.versionsFor !== t.id) return `<p class="skeleton">Loading history…</p>`;
+    if (!S.versions.length) return `<div class="empty"><h3>No versions yet</h3><p>Every change you add becomes a version here, with where it came from. You can bring back any earlier version.</p></div>`;
+    const SRC = { seed: "Starting skill", candidate: "Added from Review", folded: "Folded in by the scout", manual: "Edited by hand", restore: "Brought back" };
+    return `<div class="hist">${S.versions.map((v, k) => {
+      const prev = S.versions[k + 1];
+      const open = S.histOpen.has(v.id);
+      const isNow = Number(v.version) === Number(t.version);
+      return `<div class="hist-item${isNow ? " now" : ""}"><div class="hist-top"><strong>v${esc(v.version)}</strong><span class="pill${isNow ? " accent" : ""}">${isNow ? "Current · " : ""}${esc(SRC[v.source] || v.source || "")}</span><span class="mono muted">${esc(fmtShort(v.createdAt))}</span></div>
+        ${v.summary ? `<p>${esc(v.summary)}</p>` : ""}
+        <div class="row-actions">${prev ? `<button class="link" data-act="hist-diff" data-id="${esc(v.id)}">${open ? "Hide changes" : `Changes from v${esc(prev.version)}`}</button>` : ""}${!isNow ? `<button class="btn small" data-act="restore" data-id="${esc(v.id)}"${dis("restore")}>Bring back v${esc(v.version)}</button>` : ""}</div>
+        ${open && prev ? diffHtml(prev.content || "", v.content || "") : ""}</div>`;
+    }).join("")}</div>`;
+  }
+  function testsPane(t) {
+    const tests = t.tests || [];
+    return `<div class="section-head" style="margin-bottom:12px"><div><p>Every proposed change is tried on these tasks against the current skill. A judge sees both answers without knowing which is which.</p></div><button class="btn small" data-act="edit-tests"${S.canWrite ? "" : " disabled"}>Edit tests</button></div>
+      ${tests.length ? `<div class="tests">${tests.map((x, k) => `<div class="test"><span class="lbl">Task ${k + 1}</span><p>${esc(x.prompt)}</p>${x.good ? `<span class="lbl" style="margin-top:6px">What good looks like</span><p style="color:var(--ink-2)">${esc(x.good)}</p>` : ""}</div>`).join("")}</div>` : `<div class="empty"><h3>No tests yet</h3><p>Without tests the scout can't compare versions. Add two or three real tasks you'd ask for in this topic, or let the scout suggest them with the first draft.</p></div>`}`;
+  }
+  function sourcesPane(t) {
+    const libs = (S.settings && S.settings.libraries) || [];
+    const tags = (arr, empty) => arr && arr.length ? `<div class="taglist">${arr.map((x) => `<span class="tag">${esc(x)}</span>`).join("")}</div>` : `<p class="muted">${empty}</p>`;
+    return `<div class="section-head" style="margin-bottom:12px"><div><p>Where the scout looks for this topic every morning, besides the reels in your inbox.</p></div><button class="btn small" data-act="edit-sources"${S.canWrite ? "" : " disabled"}>Edit sources</button></div>
+      <div class="fields"><div class="kv"><span class="lbl" style="font-weight:600">Instagram collections</span>${tags(t.collections, "None linked. Imported reels from these collections go to this topic.")}</div>
+      <div class="kv"><span class="lbl" style="font-weight:600">GitHub repos to watch</span>${tags(t.repos, "None. The scout checks their releases each morning.")}</div>
+      <div class="kv"><span class="lbl" style="font-weight:600">Web searches</span>${tags(t.searches, "None yet.")}</div>
+      <div class="kv"><span class="lbl" style="font-weight:600">Official skill libraries (all topics)</span>${tags(libs, "None.")}</div></div>`;
+  }
+  function openEditor(kind, t) {
+    S.editing = { kind, topicId: t.id };
+    const body = $("#d-body");
+    if (kind === "skill") body.innerHTML = `<div class="fields"><div class="field"><label for="ed-skill">SKILL.md</label><span class="hint">Saving makes a new version. The scout uses whatever is saved here.</span><textarea class="raw" id="ed-skill" spellcheck="false">${esc(t.content || "")}</textarea></div><div class="field"><label for="ed-note">What did you change?</label><input class="input" id="ed-note" placeholder="One line for the history" maxlength="140"></div><div class="row-actions"><button class="btn primary" data-act="save-skill">Save as v${N(t.version) + 1}</button><button class="btn ghost" data-act="cancel-edit">Cancel</button></div></div>`;
+    else if (kind === "tests") body.innerHTML = `<div class="fields" id="ed-tests">${(t.tests && t.tests.length ? t.tests : [{ prompt: "", good: "" }]).map(testFields).join("")}</div><div class="row-actions" style="margin-top:14px"><button class="btn" data-act="add-test">Add a task</button><button class="btn primary" data-act="save-tests">Save tests</button><button class="btn ghost" data-act="cancel-edit">Cancel</button></div>`;
+    else body.innerHTML = `<div class="fields"><div class="field"><label for="ed-colls">Instagram collections</label><span class="hint">Comma-separated, spelled as on Instagram.</span><input class="input" id="ed-colls" value="${esc((t.collections || []).join(", "))}"></div><div class="field"><label for="ed-repos">GitHub repos to watch</label><span class="hint">One per line, as owner/repo.</span><textarea class="area" id="ed-repos">${esc((t.repos || []).join("\n"))}</textarea></div><div class="field"><label for="ed-search">Web searches</label><span class="hint">One per line.</span><textarea class="area" id="ed-search">${esc((t.searches || []).join("\n"))}</textarea></div><div class="field"><label for="ed-blurb">What this topic covers</label><input class="input" id="ed-blurb" value="${esc(t.blurb || "")}" maxlength="140"></div><div class="row-actions"><button class="btn primary" data-act="save-sources">Save sources</button><button class="btn ghost" data-act="cancel-edit">Cancel</button></div></div>`;
+    const first = body.querySelector("textarea, input"); if (first) first.focus();
+  }
+  function testFields(x, k) {
+    return `<div class="test ed-test"><div class="field"><label>Task</label><textarea class="area" data-f="prompt" placeholder="A real request you'd make in this topic">${esc(x.prompt || "")}</textarea></div><div class="field"><label>What good looks like</label><textarea class="area" data-f="good" style="min-height:60px" placeholder="What the judge should reward">${esc(x.good || "")}</textarea></div><div class="row-actions"><button class="btn ghost small" data-act="remove-test">Remove</button></div></div>`;
+  }
+  function subscribeVersions(topicId) {
+    if (unsubVersions) { unsubVersions(); unsubVersions = null; }
+    S.versions = []; S.versionsFor = null;
+    unsubVersions = S.db.collection("versions").where("topicId", "==", topicId).orderBy("version", "desc").limit(60).onSnapshot((snap) => {
+      S.versions = snap.docs.map((d) => ({ id: d.id, ...d.data() })); S.versionsFor = topicId; render();
+    }, () => { S.versionsFor = topicId; render(); });
+  }
+
+  /* ---- inbox ---- */
+  function mountInbox(el) {
+    el.innerHTML = `<section>
+      <div class="section-head"><div><h2>Reel inbox</h2><p>Reels you've saved, sorted by topic. The scout reads the new ones every morning and follows each back to the tool, repo or technique behind it.</p></div></div>
+      <div class="inbox-top">
+        <form class="panel" id="addForm" autocomplete="off">
+          <h3>Add reels</h3>
+          <p class="sub">Paste one link or many. A line about the trick helps most, because the scout can't watch Instagram videos.</p>
+          <div class="field"><label for="reelLinks">Reel links</label><textarea class="area" id="reelLinks" placeholder="https://www.instagram.com/reel/…" style="min-height:70px"></textarea></div>
+          <div class="field"><label for="reelTopic">Topic</label><select class="select" id="reelTopic"></select></div>
+          <div class="field"><label for="reelNote">What's the trick? <span class="muted" style="font-weight:400">(optional)</span></label><input class="input" id="reelNote" maxlength="400" placeholder="e.g. uses Remotion + a spring to make the text bounce in"></div>
+          <div class="row-actions"><button class="btn primary" type="submit" id="addBtn">Add to inbox</button></div>
+        </form>
+        <div class="panel" id="importPanel"></div>
+      </div>
+      <div id="collStats"></div>
+      <div class="section-head" style="margin-bottom:10px"><h2 style="font-size:20px">All reels</h2><div class="filters" id="ib-filters"></div></div>
+      <ul class="reels" id="reelList"></ul>
+      <div id="reelMore" style="margin-top:14px"></div>
+    </section>`;
+    renderImport();
+    S._topicKey = null;
+  }
+  function fillTopicSelect(sel, current, withNone) {
+    sel.innerHTML = (withNone ? `<option value="">Choose a topic…</option>` : "") + S.topics.map((t) => `<option value="${esc(t.id)}"${t.id === current ? " selected" : ""}>${esc(t.name)}</option>`).join("");
+  }
+  const STATUS = { new: ["Waiting for scout", "accent"], library: ["Kept for stats", ""], "needs-note": ["Needs a note", "bloom"], read: ["Checked", ""], used: ["Led to a change", "good"], skipped: ["Skipped", ""] };
+  function reelRow(r) {
+    const t = topicById(r.topicId);
+    const [label, cls] = STATUS[r.status] || [r.status || "", ""];
+    const u = safeUrl(r.url);
+    const who = r.owner ? "@" + String(r.owner).replace(/^@/, "") : (r.kind === "link" ? hostOf(r.url) : "Instagram reel");
+    const lead = safeUrl(r.leadUrl);
+    const editing = S.noteEditing === r.id;
+    const text = r.note || r.caption;
+    return `<li class="reel" id="reel-${esc(r.id)}"><div class="r-main">
+      <div class="r-line">${u ? `<a class="r-owner" href="${esc(u)}" target="_blank" rel="noopener">${esc(who)}</a>` : `<span class="r-owner">${esc(who)}</span>`}${t ? chip(t) : ""}${r.collection ? `<span class="r-coll">in ${esc(r.collection)}</span>` : ""}</div>
+      ${text ? `<p class="r-text">${r.note ? "" : `<span class="muted">Caption: </span>`}${esc(text)}</p>` : ""}
+      ${r.finding ? `<p class="r-find"><b>Scout:</b> ${esc(r.finding)}${lead ? ` <a href="${esc(lead)}" target="_blank" rel="noopener">${esc(hostOf(lead))}</a>` : ""}</p>` : ""}
+      ${editing ? `<div class="note-edit"><input class="input" id="noteInput" maxlength="400" value="${esc(r.note || "")}" placeholder="What does this reel show?"><button class="btn primary small" data-act="save-note" data-id="${esc(r.id)}">Save</button><button class="btn ghost small" data-act="cancel-note">Cancel</button></div>` : ""}
+    </div><div class="r-side"><span class="pill ${cls}">${esc(label)}</span><span class="mono muted">${esc(fmtShort(r.savedAt || r.addedAt))}</span>
+      <div class="row-actions">${!t && S.topics.length ? `<select class="select" style="padding:4px 8px;font-size:13px;width:auto" data-act="set-topic" data-id="${esc(r.id)}" aria-label="Topic">${`<option value="">Choose topic…</option>` + S.topics.map((x) => `<option value="${esc(x.id)}">${esc(x.name)}</option>`).join("")}</select>` : ""}
+      ${!editing && r.status !== "skipped" ? `<button class="link" data-act="note" data-id="${esc(r.id)}"${S.canWrite ? "" : " disabled"}>${r.note ? "Edit note" : "Add note"}</button>` : ""}
+      ${t && (r.status === "library" || r.status === "read") ? `<button class="link" data-act="queue" data-id="${esc(r.id)}"${S.canWrite ? "" : " disabled"}>Send to scout</button>` : ""}
+      ${r.status === "skipped" ? `<button class="link" data-act="unskip-reel" data-id="${esc(r.id)}">Undo skip</button>` : r.status === "new" || r.status === "needs-note" || r.status === "library" ? `<button class="link" style="color:var(--ink-3)" data-act="skip-reel" data-id="${esc(r.id)}"${S.canWrite ? "" : " disabled"}>Skip</button>` : ""}</div>
+    </div></li>`;
+  }
+  function monthBins(items) {
+    const now = new Date(); const bins = [];
+    for (let k = 11; k >= 0; k--) { const d = new Date(now.getFullYear(), now.getMonth() - k, 1); bins.push({ y: d.getFullYear(), m: d.getMonth(), n: 0, label: d.toLocaleDateString(undefined, { month: "short", year: "numeric" }) }); }
+    for (const r of items) { const d = new Date(r.savedAt || r.addedAt); if (isNaN(d)) continue; const b = bins.find((x) => x.y === d.getFullYear() && x.m === d.getMonth()); if (b) b.n++; }
+    return bins;
+  }
+  function barsSvg(bins) {
+    const W = 240, H = 40, gap = 2, bw = (W - gap * 11) / 12, max = Math.max(1, ...bins.map((b) => b.n));
+    const bars = bins.map((b, k) => {
+      const x = k * (bw + gap), h = b.n ? Math.max(3, (b.n / max) * H) : 0, y = H - h, r = Math.min(4, bw / 2, h);
+      const path = h ? `M${x},${H}V${y + r}Q${x},${y} ${x + r},${y}H${x + bw - r}Q${x + bw},${y} ${x + bw},${y + r}V${H}Z` : "";
+      return `<g><title>${esc(b.label)} · ${plural(b.n, "save")}</title><rect x="${x}" y="0" width="${bw + gap}" height="${H}" fill="transparent"/>${path ? `<path d="${path}" fill="var(--accent)"/>` : ""}</g>`;
+    }).join("");
+    return `<svg viewBox="0 -2 ${W} ${H + 16}" role="img" aria-label="Saves per month, last 12 months">${bars}<line x1="0" x2="${W}" y1="${H + .5}" y2="${H + .5}" stroke="var(--line)"/><text class="axis" x="0" y="${H + 13}">${esc(bins[0].label)}</text><text class="axis" x="${W}" y="${H + 13}" text-anchor="end">${esc(bins[11].label)}</text></svg>`;
+  }
+  function collStats() {
+    const groups = new Map();
+    for (const r of S.inbox) { if (!r.collection) continue; if (!groups.has(r.collection)) groups.set(r.collection, []); groups.get(r.collection).push(r); }
+    if (!groups.size) return "";
+    const list = [...groups.entries()].sort((a, b) => b[1].length - a[1].length).slice(0, 9);
+    return `<div class="section-head" style="margin-bottom:10px"><div><h2 style="font-size:20px">Your collections</h2><p>What you save, and who you save from. Counts come from the reels in this inbox.</p></div></div><div class="colls">${list.map(([name, items]) => {
+      const t = topicById(items.find((x) => x.topicId)?.topicId);
+      const byOwner = new Map(); items.forEach((x) => { if (x.owner) byOwner.set(x.owner, (byOwner.get(x.owner) || 0) + 1); });
+      const top = [...byOwner.entries()].sort((a, b) => b[1] - a[1]).slice(0, 3);
+      const newest = items.reduce((m, x) => { const d = x.savedAt || x.addedAt; return d && (!m || d > m) ? d : m; }, "");
+      return `<div class="coll"><div class="coll-top"><strong>${esc(name)}</strong><span class="n">${items.length}</span></div><div class="r-line">${t ? chip(t) : `<span class="pill">Not linked to a topic</span>`}${newest ? `<span class="mono muted">last save ${esc(ago(newest))}</span>` : ""}</div>
+        <div class="bars">${barsSvg(monthBins(items))}</div>
+        ${top.length ? `<p class="creators">Most saved from ${top.map(([o, n]) => `<b>@${esc(o)}</b> ${n}`).join(", ")}</p>` : ""}</div>`;
+    }).join("")}</div>`;
+  }
+  function updateInbox() {
+    if (!S.db) { $("#reelList").innerHTML = S.dbMissing ? `<li>${noDb()}</li>` : ""; return; }
+    const key = S.topics.map((t) => t.id + t.name).join("|");
+    if (S._topicKey !== key) {
+      S._topicKey = key;
+      const sel = $("#reelTopic"); const cur = sel.value; fillTopicSelect(sel, cur || (S.topics[0] && S.topics[0].id));
+      if (S.importState && S.importState.stage === "map") renderImport();
+    }
+    $("#addBtn").disabled = !S.canWrite;
+    $("#collStats").innerHTML = collStats();
+    const counts = { all: S.inbox.length };
+    S.inbox.forEach((r) => { counts[r.status] = (counts[r.status] || 0) + 1; });
+    const statuses = [["all", "All"], ["new", "Waiting"], ["needs-note", "Needs a note"], ["used", "Led to a change"], ["read", "Checked"], ["library", "Kept for stats"], ["skipped", "Skipped"]].filter(([k]) => k === "all" || counts[k]);
+    const topicOpts = S.topics.filter((t) => S.inbox.some((r) => r.topicId === t.id));
+    $("#ib-filters").innerHTML = statuses.map(([k, l]) => `<button class="fchip" data-act="ib-status" data-id="${k}" aria-pressed="${S.inboxStatus === k}">${esc(l)} ${counts[k] || 0}</button>`).join("") + (topicOpts.length > 1 ? `<select class="select" style="width:auto;padding:4px 8px;font-size:13px" data-act="ib-topic" aria-label="Filter by topic"><option value="all">All topics</option>${topicOpts.map((t) => `<option value="${esc(t.id)}"${S.inboxTopic === t.id ? " selected" : ""}>${esc(t.name)}</option>`).join("")}</select>` : "");
+    if (S.noteEditing) return; // keep the note input intact while typing
+    const rows = S.inbox.filter((r) => (S.inboxStatus === "all" || r.status === S.inboxStatus) && (S.inboxTopic === "all" || r.topicId === S.inboxTopic));
+    const order = { "needs-note": 0, new: 1, used: 2, read: 3, library: 4, skipped: 5 };
+    rows.sort((a, b) => (order[a.status] ?? 9) - (order[b.status] ?? 9) || String(b.savedAt || b.addedAt).localeCompare(String(a.savedAt || a.addedAt)));
+    $("#reelList").innerHTML = !S.loaded.inbox ? `<li class="skeleton">Loading…</li>` : rows.length ? rows.slice(0, S.inboxLimit).map(reelRow).join("") : `<li><div class="empty"><h3>${S.inbox.length ? "Nothing here with this filter" : "No reels yet"}</h3><p>${S.inbox.length ? "Try another filter." : "Paste a reel link above, or import everything you've saved from Instagram's data export. Collections become topics."}</p></div></li>`;
+    $("#reelMore").innerHTML = rows.length > S.inboxLimit ? `<button class="btn" data-act="more-reels">Show ${Math.min(150, rows.length - S.inboxLimit)} more of ${rows.length}</button>` : "";
+  }
+
+  /* ---- import (Instagram export) ---- */
+  function renderImport() {
+    const p = $("#importPanel"); if (!p) return;
+    const st = S.importState;
+    const head = `<h3>Import your Instagram saves</h3>`;
+    if (!st || st.stage === "error") {
+      p.innerHTML = `${head}<p class="sub">Instagram doesn't let tools read your saved collections, but it will send you a copy of your data.</p>
+        <ol class="steps-mini"><li>Instagram → Accounts Center → Your information and permissions → Export your information.</li><li>Create export → Export to device → All time → format <b>JSON</b>.</li><li>When the email arrives, download the file and drop it here. The .zip works, or just <span class="mono">saved_collections.json</span>.</li></ol>
+        <label class="drop" id="dropZone" for="importFile" tabindex="0"><strong>Choose the export file</strong><span class="muted" style="font-size:13px">or drag it here · .zip, .json or .html</span></label>
+        ${st && st.error ? `<p class="blocked">${esc(st.error)}</p>` : ""}`;
+      return;
+    }
+    if (st.stage === "reading") { p.innerHTML = `${head}<p class="sub">Reading ${esc(st.fileName)}…</p><div class="progress"><i style="width:30%"></i></div>`; return; }
+    if (st.stage === "map") {
+      const recentCut = Date.now() - st.recentDays * 86400e3;
+      const toScout = st.items.filter((it) => st.map[it.collection] && (st.recentDays === 0 || new Date(it.savedAt || 0).getTime() >= recentCut)).length;
+      p.innerHTML = `${head}<p class="sub">Found <b>${st.items.length}</b> saved posts in <b>${st.colls.length}</b> ${st.colls.length === 1 ? "collection" : "collections"}${st.htmlWarn ? " (HTML export: collection names aren't included, so everything is in one group)" : ""}. Link each collection to a topic.</p>
+        <div class="tw"><table class="map-table"><thead><tr><th>Collection</th><th>Posts</th><th>Newest</th><th>Topic</th></tr></thead><tbody>${st.colls.map((c, k) => `<tr><td>${esc(c.name)}</td><td class="num">${c.count}</td><td class="num">${esc(fmtShort(c.newest))}</td><td><select class="select" style="padding:5px 8px;font-size:13.5px" data-imap="${k}"><option value="">Don't link</option>${S.topics.map((t) => `<option value="${esc(t.id)}"${st.map[c.name] === t.id ? " selected" : ""}>${esc(t.name)}</option>`).join("")}</select></td></tr>`).join("")}</tbody></table></div>
+        <div class="field"><label for="recentDays">Send to the scout</label><select class="select" id="recentDays"><option value="14"${st.recentDays === 14 ? " selected" : ""}>Reels saved in the last 2 weeks</option><option value="30"${st.recentDays === 30 ? " selected" : ""}>Reels saved in the last month</option><option value="90"${st.recentDays === 90 ? " selected" : ""}>Reels saved in the last 3 months</option><option value="0"${st.recentDays === 0 ? " selected" : ""}>Everything (slow: 8 reels per topic per day)</option></select><span class="hint">Older reels are kept for the collection stats. You can send any of them to the scout later.</span></div>
+        <div class="row-actions"><button class="btn primary" data-act="do-import"${S.canWrite ? "" : " disabled"}>Import ${st.items.length} · ${toScout} to the scout</button><button class="btn ghost" data-act="cancel-import">Cancel</button></div>`;
+      return;
+    }
+    if (st.stage === "writing") { const pct = Math.round((st.done / Math.max(1, st.total)) * 100); p.innerHTML = `${head}<p class="sub">Saving ${st.done} of ${st.total}…</p><div class="progress"><i style="width:${pct}%"></i></div>`; return; }
+    if (st.stage === "done") { p.innerHTML = `${head}<p class="sub"><b>${st.added}</b> new reels imported${st.skipped ? `, ${st.skipped} already here` : ""}. ${st.queued ? `${st.queued} go to tomorrow's scout.` : ""}</p><div class="row-actions"><button class="btn" data-act="cancel-import">Import another file</button></div>`; }
+  }
+
+  const POST_RE = /https?:\/\/(?:www\.)?instagram\.com\/(?:[A-Za-z0-9_.]+\/)?(p|reels?|tv)\/([A-Za-z0-9_-]{5,})/g;
+  function codesIn(node, acc) {
+    acc = acc || new Map();
+    if (typeof node === "string") { if (node.includes("instagram.com")) for (const m of node.matchAll(POST_RE)) if (!acc.has(m[2])) acc.set(m[2], m[1].startsWith("reel") ? "reel" : m[1]); }
+    else if (Array.isArray(node)) for (const n of node) codesIn(n, acc);
+    else if (node && typeof node === "object") for (const k in node) codesIn(node[k], acc);
+    return acc;
+  }
+  function fixText(s) {
+    if (typeof s !== "string" || !/[ÃÂâð]/.test(s)) return s;
+    for (const ch of s) if (ch.charCodeAt(0) > 255) return s;
+    try { return new TextDecoder("utf-8", { fatal: true }).decode(Uint8Array.from([...s].map((c) => c.charCodeAt(0)))); } catch { return s; }
+  }
+  function entriesOf(json) {
+    if (Array.isArray(json)) return json;
+    if (json && typeof json === "object") {
+      const keys = Object.keys(json).filter((k) => Array.isArray(json[k]) && json[k].some((x) => x && typeof x === "object"));
+      const k = keys.find((x) => /saved/i.test(x)) || keys[0];
+      return k ? json[k] : [json];
+    }
+    return [];
+  }
+  function headerName(e) {
+    const smd = e && e.string_map_data;
+    if (smd) for (const k of ["Name", "Collection Name", "Title"]) { const v = smd[k] && smd[k].value; if (typeof v === "string" && v.trim() && !v.includes("instagram.com")) return v; }
+    if (e && Array.isArray(e.label_values)) for (const x of e.label_values) if (x && typeof x.label === "string" && /^(name|collection( name)?|title)$/i.test(x.label) && typeof x.value === "string" && x.value.trim() && !x.value.includes("instagram.com") && !x.href) return x.value;
+    if (e && typeof e.title === "string" && e.title.trim() && !/^(collection|collections|saved|media|owner)$/i.test(e.title.trim())) return e.title;
+    return null;
+  }
+  function hasMediaGroup(e) { let found = false; (function walk(n) { if (found || !n || typeof n !== "object") return; if (!Array.isArray(n) && /^media$/i.test(n.title || "")) { found = true; return; } for (const k in n) walk(n[k]); })(e); return found; }
+  function deepFind(node, test) { let out; (function walk(n) { if (out !== undefined || !n || typeof n !== "object") return; if (!Array.isArray(n)) { const r = test(n); if (r !== undefined) { out = r; return; } } for (const k in n) walk(n[k]); })(node); return out; }
+  function ownerOf(sub) {
+    const byLabel = deepFind(sub, (o) => typeof o.label === "string" && /^(username|owner|author|user ?name)$/i.test(o.label) && typeof o.value === "string" && o.value.trim() && !o.value.includes("instagram.com") ? o.value : undefined);
+    if (byLabel) return byLabel;
+    const smd = deepFind(sub, (o) => o.string_map_data && typeof o.string_map_data === "object" ? o.string_map_data : undefined);
+    if (smd && smd.Name && typeof smd.Name.value === "string" && smd.Name.href && smd.Name.value.trim()) return smd.Name.value;
+    if (sub && typeof sub.title === "string" && sub.title.trim() && !/^(collection|media|owner|saved)$/i.test(sub.title.trim()) && !sub.title.includes(" ")) return sub.title;
+    return "";
+  }
+  function captionOf(sub) { return deepFind(sub, (o) => typeof o.label === "string" && /^caption$/i.test(o.label) && typeof o.value === "string" ? o.value : undefined) || ""; }
+  function timeOf(sub) {
+    const t = deepFind(sub, (o) => (typeof o.timestamp === "number" ? o.timestamp : undefined));
+    if (!t) return "";
+    return new Date(t < 1e12 ? t * 1000 : t).toISOString();
+  }
+  function isolate(node, code) {
+    let cur = node;
+    for (let g = 0; g < 48; g++) {
+      const kids = Array.isArray(cur) ? cur : cur && typeof cur === "object" ? Object.values(cur) : [];
+      const holders = kids.filter((k) => k && typeof k === "object" && codesIn(k).has(code));
+      if (holders.length !== 1) return cur;
+      const next = holders[0];
+      if (codesIn(next).size > 1) { cur = next; continue; }
+      return next;
+    }
+    return cur;
+  }
+  function itemFrom(code, kind, sub, collection) {
+    return { code, kind, url: `https://www.instagram.com/${kind === "p" ? "p" : kind === "tv" ? "tv" : "reel"}/${code}/`, owner: fixText(String(ownerOf(sub) || "").replace(/^@/, "")).slice(0, 80), caption: fixText(captionOf(sub)).slice(0, 600), savedAt: timeOf(sub), collection };
+  }
+  function parseSaves(json, fallback) {
+    const out = []; let current = null;
+    for (const e of entriesOf(json)) {
+      const codes = codesIn(e);
+      if (!codes.size) { const n = headerName(e); if (n) current = fixText(n).trim(); continue; }
+      const container = codes.size > 1 || hasMediaGroup(e);
+      if (!container) { const [[code, kind]] = [...codes]; out.push(itemFrom(code, kind, e, current || fallback)); continue; }
+      const coll = fixText(headerName(e) || "").trim() || current || fallback;
+      for (const [code, kind] of codes) out.push(itemFrom(code, kind, isolate(e, code), coll));
+    }
+    return out;
+  }
+  async function readImportFile(file) {
+    S.importState = { stage: "reading", fileName: file.name }; renderImport();
+    try {
+      let collectionsJson = null, postsJson = null, htmlText = "";
+      if (/\.zip$/i.test(file.name) || file.type === "application/zip") {
+        if (!window.JSZip) throw new Error("The zip reader didn't load. Unzip the file and choose saved_collections.json instead.");
+        const zip = await window.JSZip.loadAsync(file);
+        const names = Object.keys(zip.files);
+        const pick = (re) => names.find((n) => re.test(n));
+        const c = pick(/saved_collections\.json$/i), p = pick(/saved_posts\.json$/i);
+        if (c) collectionsJson = JSON.parse(await zip.file(c).async("string"));
+        if (p) postsJson = JSON.parse(await zip.file(p).async("string"));
+        if (!c && !p) { const h = pick(/saved_collections\.html$/i) || pick(/saved_posts\.html$/i); if (h) htmlText = await zip.file(h).async("string"); }
+        if (!c && !p && !htmlText) throw new Error("This zip has no saved posts in it. When you request the export, make sure 'Saved' is included, or choose All available information.");
+      } else {
+        const text = await file.text();
+        if (/^\s*[[{]/.test(text)) { const j = JSON.parse(text); if (/posts/i.test(file.name)) postsJson = j; else collectionsJson = j; }
+        else htmlText = text;
+      }
+      const byCode = new Map();
+      if (collectionsJson) for (const it of parseSaves(collectionsJson, "Not in a collection")) { const x = byCode.get(it.code); if (x) { if (!x.collections.includes(it.collection)) x.collections.push(it.collection); } else byCode.set(it.code, { ...it, collections: [it.collection] }); }
+      if (postsJson) for (const it of parseSaves(postsJson, "Not in a collection")) { const x = byCode.get(it.code); if (x) { x.caption = x.caption || it.caption; x.owner = x.owner || it.owner; x.savedAt = x.savedAt || it.savedAt; } else byCode.set(it.code, { ...it, collection: "Not in a collection", collections: ["Not in a collection"] }); }
+      let htmlWarn = false;
+      if (htmlText) { htmlWarn = true; for (const [code, kind] of codesIn(htmlText)) if (!byCode.has(code)) byCode.set(code, { ...itemFrom(code, kind, {}, "Saved (HTML export)"), collections: ["Saved (HTML export)"] }); }
+      const items = [...byCode.values()].map((x) => ({ ...x, collection: x.collections[0] }));
+      if (!items.length) throw new Error("Couldn't find any saved posts in that file. Choose saved_collections.json or the whole export .zip.");
+      const cmap = new Map();
+      for (const it of items) { const c = cmap.get(it.collection) || { name: it.collection, count: 0, newest: "" }; c.count++; if (it.savedAt > c.newest) c.newest = it.savedAt; cmap.set(it.collection, c); }
+      const colls = [...cmap.values()].sort((a, b) => b.count - a.count);
+      const map = {};
+      for (const c of colls) map[c.name] = guessTopic(c.name) || "";
+      S.importState = { stage: "map", fileName: file.name, items, colls, map, recentDays: 30, htmlWarn };
+    } catch (e) {
+      S.importState = { stage: "error", error: e && e.message ? e.message : "Couldn't read that file." };
+    }
+    renderImport();
+  }
+  function guessTopic(name) {
+    const n = String(name).toLowerCase().trim();
+    for (const t of S.topics) if ((t.collections || []).some((c) => String(c).toLowerCase().trim() === n)) return t.id;
+    for (const t of S.topics) { const words = String(t.name).toLowerCase().split(/\s+/).filter((w) => w.length > 3); if (words.some((w) => n.includes(w.slice(0, 5)))) return t.id; }
+    return null;
+  }
+  async function doImport() {
+    const st = S.importState; if (!st || st.stage !== "map") return;
+    const existing = new Set(S.inbox.map((r) => r.id));
+    const cut = Date.now() - st.recentDays * 86400e3;
+    const now = iso();
+    const rows = st.items.map((it) => {
+      const topicId = st.map[it.collection] || null;
+      const recent = st.recentDays === 0 || new Date(it.savedAt || 0).getTime() >= cut;
+      return { id: "ig-" + it.code, data: { url: it.url, shortcode: it.code, kind: it.kind, owner: it.owner || "", collection: it.collection, collections: it.collections, topicId, note: "", caption: it.caption || "", savedAt: it.savedAt || "", addedAt: now, via: "export", status: topicId && recent ? "new" : "library" } };
+    });
+    const fresh = rows.filter((r) => !existing.has(r.id));
+    S.importState = { ...st, stage: "writing", done: 0, total: fresh.length }; renderImport();
+    let k = 0, failed = 0;
+    const worker = async () => {
+      while (k < fresh.length) {
+        const r = fresh[k++];
+        try { await S.db.doc("inbox/" + r.id).set(r.data); }
+        catch (e) {
+          if (e && e.code === "quota_exceeded") { failed = fresh.length; k = fresh.length; toast(errMsg(e), "bad"); break; }
+          await new Promise((res) => setTimeout(res, 1200 + Math.random() * 800));
+          try { await S.db.doc("inbox/" + r.id).set(r.data); } catch { failed++; }
+        }
+        S.importState.done++;
+        if (S.importState.done % 10 === 0 || S.importState.done === fresh.length) renderImport();
+      }
+    };
+    await Promise.all([worker(), worker(), worker()]);
+    // remember collection → topic links on the topics
+    const links = {};
+    for (const [coll, tid] of Object.entries(st.map)) if (tid) (links[tid] = links[tid] || []).push(coll);
+    for (const [tid, colls] of Object.entries(links)) {
+      const t = topicById(tid); if (!t) continue;
+      const merged = [...new Set([...(t.collections || []), ...colls])];
+      if (merged.length !== (t.collections || []).length) { try { await S.db.doc("topics/" + tid).update({ collections: merged }); } catch {} }
+    }
+    const added = fresh.length - failed;
+    S.importState = { stage: "done", added, skipped: rows.length - fresh.length, queued: fresh.filter((r) => r.data.status === "new").length };
+    renderImport();
+    toast(failed ? `Imported ${added}. ${failed} couldn't be saved; try the import again later.` : `Imported ${added} reels.`, failed ? "bad" : undefined);
+  }
+
+  function slugId(u) { let h = 0; for (const c of u) h = (h * 31 + c.charCodeAt(0)) >>> 0; return "link-" + h.toString(36); }
+  async function addReels(ev) {
+    ev.preventDefault();
+    const raw = $("#reelLinks").value, topicId = $("#reelTopic").value, note = $("#reelNote").value.trim();
+    const urls = [...new Set((raw.match(/https?:\/\/[^\s<>"']+/g) || []).map((u) => u.replace(/[),.]+$/, "")))];
+    if (!urls.length) { toast("Paste at least one link that starts with https://", "bad"); return; }
+    if (!topicId) { toast("Choose a topic first.", "bad"); return; }
+    await guarded("add", async () => {
+      const now = iso();
+      for (const u of urls) {
+        const m = [...u.matchAll(POST_RE)][0];
+        const own = u.match(/instagram\.com\/([A-Za-z0-9_.]+)\/(?:p|reels?|tv)\//);
+        const id = m ? "ig-" + m[2] : slugId(u);
+        const prev = S.inbox.find((r) => r.id === id);
+        if (prev) await S.db.doc("inbox/" + id).update({ topicId, note: note || prev.note || "", status: "new" });
+        else await S.db.doc("inbox/" + id).set({ url: m ? itemFrom(m[2], m[1].startsWith("reel") ? "reel" : m[1], {}, "").url : u, shortcode: m ? m[2] : "", kind: m ? "reel" : "link", owner: own ? own[1] : "", collection: "", topicId, note, caption: "", savedAt: now, addedAt: now, via: "paste", status: "new" });
+      }
+      $("#reelLinks").value = ""; $("#reelNote").value = "";
+      toast(`${plural(urls.length, "reel")} added. The scout reads ${urls.length === 1 ? "it" : "them"} ${nextScout().startsWith("today") ? "this morning" : "tomorrow morning"}.`);
+    });
+  }
+
+  /* ---- log ---- */
+  function updateLog() {
+    if (!S.db) { $("#lg-list").innerHTML = S.dbMissing ? noDb() : ""; return; }
+    const paused = !!(S.settings && S.settings.paused);
+    $("#lg-controls").innerHTML = S.settings ? `<label class="switch"><input type="checkbox" data-act="toggle-pause"${paused ? "" : " checked"}${S.canWrite ? "" : " disabled"}> Morning scout ${paused ? "paused" : "on"}</label>` : "";
+    const PILL = { done: ["Done", "good"], running: ["Working", "accent"], failed: ["Failed", "bad"], skipped: ["Skipped", ""] };
+    $("#lg-list").innerHTML = !S.loaded.runs ? `<p class="skeleton">Loading…</p>` : S.runs.length ? S.runs.map((r) => {
+      const [pl, pc] = PILL[r.status] || [r.status || "", ""];
+      const c = r.counts || {};
+      const per = r.perTopic ? Object.entries(r.perTopic) : [];
+      const blocked = (r.blocked || []).filter(Boolean);
+      return `<article class="run"><div class="run-head"><strong>${esc(fmtDay(r.startedAt))}</strong><span class="pill ${pc}">${esc(pl)}</span><span class="mono muted">${esc(fmtTime(r.startedAt))}${r.finishedAt ? "–" + esc(fmtTime(r.finishedAt)) : ""} · ${r.trigger === "manual" ? "started by hand" : "scheduled"}</span></div>
+        ${r.summary ? `<p>${esc(r.summary)}</p>` : ""}
+        ${r.counts ? `<div class="stats"><span><b>${esc(c.sources ?? "–")}</b>sources</span><span><b>${esc(c.leads ?? "–")}</b>leads</span><span><b>${esc(c.candidates ?? "–")}</b>tested</span><span><b>${esc(c.better ?? "–")}</b>passed</span><span><b>${esc(c.reelsRead ?? "–")}</b>reels read</span></div>` : ""}
+        ${per.length ? `<div class="tw"><table class="pt"><thead><tr><th>Topic</th><th>Leads</th><th>Tested</th><th>Passed</th><th>Reels</th></tr></thead><tbody>${per.map(([tid, v]) => `<tr><td>${esc((topicById(tid) || { name: tid }).name)}</td><td class="num">${esc(v.leads ?? 0)}</td><td class="num">${esc(v.candidates ?? 0)}</td><td class="num">${esc(v.better ?? 0)}</td><td class="num">${esc(v.reelsRead ?? 0)}</td></tr>`).join("")}</tbody></table></div>` : ""}
+        ${blocked.length ? `<p class="blocked">Couldn't reach ${blocked.map(esc).join(", ")}. The cloud environment's network settings block ${blocked.length === 1 ? "it" : "them"}.</p>` : ""}
+      </article>`;
+    }).join("") : `<div class="empty"><h3>No runs yet</h3><p>The scout runs every morning at ${esc(nextScout())}. Each run shows up here with what it read and what it found.</p></div>`;
+    $("#lg-howto").innerHTML = `<div class="howto"><h3>How a morning run works</h3><ol><li>Reads the new reels in your inbox and finds the tool, repo or write-up behind each one.</li><li>Checks the GitHub repos and web searches listed under each skill's Sources, plus six official skill libraries.</li><li>Turns the best ideas into a proposed new version of the skill.</li><li>Tries each proposal against the current skill on the topic's test tasks. A separate judge picks the better answer without knowing which is which.</li><li>Leaves only the winners in Review. Nothing changes until you add it.</li></ol></div>`;
+  }
+
+  /* ---------- actions ---------- */
+  async function approve(c) {
+    const t = topicById(c.topicId);
+    if (!t) { toast("That topic no longer exists.", "bad"); return; }
+    await guarded("c:" + c.id, async () => {
+      const now = iso();
+      const cur = Number(t.version) || 0;
+      if (cur === Number(c.baseVersion) || c.kind === "first-draft" && !t.content) {
+        const v = cur + 1;
+        await S.db.doc(`versions/${t.id}--v${v}`).set({ topicId: t.id, version: v, content: c.proposed || "", summary: c.title || "", source: "candidate", candidateId: c.id, createdAt: now });
+        const patch = { version: v, content: c.proposed || "", updatedAt: now };
+        if ((!t.tests || !t.tests.length) && Array.isArray(c.tests) && c.tests.length) patch.tests = c.tests;
+        if ((!t.searches || !t.searches.length) && Array.isArray(c.searches) && c.searches.length) patch.searches = c.searches;
+        await S.db.doc("topics/" + t.id).update(patch);
+        await S.db.doc("candidates/" + c.id).update({ status: "merged", mergedVersion: v, mergedAt: now });
+        toast(`Added. ${t.name} is now v${v}.`);
+      } else {
+        await S.db.doc("candidates/" + c.id).update({ status: "approved", approvedAt: now });
+        toast(`Approved. ${t.name} changed since this was written, so the next scout run folds it in.`);
+      }
+    });
+  }
+  async function restoreVersion(v) {
+    const t = topicById(v.topicId); if (!t) return;
+    await guarded("restore", async () => {
+      const n = (Number(t.version) || 0) + 1, now = iso();
+      await S.db.doc(`versions/${t.id}--v${n}`).set({ topicId: t.id, version: n, content: v.content || "", summary: `Brought back v${v.version}`, source: "restore", createdAt: now });
+      await S.db.doc("topics/" + t.id).update({ version: n, content: v.content || "", updatedAt: now });
+      toast(`Brought back v${v.version} as v${n}.`);
+    });
+  }
+  async function saveManual(t) {
+    const content = $("#ed-skill").value;
+    if (!content.trim()) { toast("The skill can't be empty.", "bad"); return; }
+    if (content === t.content) { S.editing = null; render(); return; }
+    const note = $("#ed-note").value.trim() || "Edited by hand";
+    await guarded("save", async () => {
+      const n = (Number(t.version) || 0) + 1, now = iso();
+      await S.db.doc(`versions/${t.id}--v${n}`).set({ topicId: t.id, version: n, content, summary: note, source: "manual", createdAt: now });
+      await S.db.doc("topics/" + t.id).update({ version: n, content, updatedAt: now });
+      S.editing = null; toast(`Saved as v${n}.`);
+    });
+  }
+  async function saveTests(t) {
+    const tests = [...document.querySelectorAll(".ed-test")].map((el, k) => ({ id: "t" + (k + 1), prompt: el.querySelector('[data-f="prompt"]').value.trim(), good: el.querySelector('[data-f="good"]').value.trim() })).filter((x) => x.prompt);
+    await guarded("save", async () => { await S.db.doc("topics/" + t.id).update({ tests }); S.editing = null; toast("Tests saved."); });
+  }
+  async function saveSources(t) {
+    const lines = (id) => $(id).value.split("\n").map((s) => s.trim()).filter(Boolean);
+    const repos = lines("#ed-repos").map((r) => r.replace(/^https?:\/\/github\.com\//, "").replace(/\/+$/, "")).filter((r) => /^[\w.-]+\/[\w.-]+$/.test(r));
+    const patch = { collections: $("#ed-colls").value.split(",").map((s) => s.trim()).filter(Boolean), repos, searches: lines("#ed-search"), blurb: $("#ed-blurb").value.trim() };
+    await guarded("save", async () => { await S.db.doc("topics/" + t.id).update(patch); S.editing = null; toast("Sources saved."); });
+  }
+  async function createTopic() {
+    const name = $("#nt-name").value.trim();
+    if (!name) { toast("Give the topic a name.", "bad"); return; }
+    let id = name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 40) || "topic";
+    while (topicById(id)) id += "-2";
+    const used = new Set(S.topics.map((t) => Number(t.hue)));
+    const hue = [150, 330, 45, 180, 290, 100, 350, 230].find((h) => !used.has(h)) ?? Math.floor(Math.random() * 360);
+    const data = { name, blurb: $("#nt-blurb").value.trim(), hue, order: Math.max(0, ...S.topics.map((t) => Number(t.order) || 0)) + 1, active: true, collections: $("#nt-colls").value.split(",").map((s) => s.trim()).filter(Boolean), repos: [], searches: [], tests: [], version: 0, content: "", updatedAt: "" };
+    await guarded("topic", async () => { await S.db.doc("topics/" + id).set(data); S.newTopicOpen = false; toast(`${name} added. The next scout run drafts v1.`); });
+  }
+  async function runNow() {
+    const id = S.settings && S.settings.triggerId;
+    if (!id || !S.mcp) return;
+    await guarded("run-now", async () => {
+      try {
+        // The scout reads this to label the run as started by hand. Passing `text` to fire_trigger
+        // instead would arrive as a second message and make the session run twice.
+        await S.db.doc("settings/main").update({ manualRequestedAt: iso() });
+        await S.mcp.callTool("Claude Code Remote", "fire_trigger", { trigger_id: id });
+        S.manualStartedAt = Date.now();
+        toast("Scout started. Results show up here in about 10 to 20 minutes.");
+      } catch (e) {
+        const m = { server_not_connected: "Connect Claude Code Remote in claude.ai Settings → Connectors to start runs from here.", needs_reauth: "Reconnect Claude Code Remote in claude.ai Settings → Connectors.", not_in_manifest: "Claude Code Remote is turned off for this page, so it can't start a run.", blocked_by_policy: "Your organization doesn't allow starting runs from pages.", tool_error: "The scout couldn't start. It may already be running." };
+        toast(m[e && e.code] || "Couldn't start the scout. Try again in a minute.", "bad");
+      }
+    });
+  }
+  async function download(filename, data) {
+    if (!S.downloads) { toast("Downloads aren't available in this view. Use Copy instead.", "bad"); return; }
+    try { await S.downloads.save({ filename, data }); }
+    catch (e) {
+      if (e && e.code === "declined") return;
+      toast(e && e.code === "extension_not_enabled" ? "Zip downloads aren't available here. Download each skill on its own." : "Couldn't download just now.", "bad");
+    }
+  }
+
+  document.addEventListener("click", async (ev) => {
+    const el = ev.target.closest("[data-act]");
+    if (!el || el.tagName === "SELECT" || (el.tagName === "INPUT" && el.type === "checkbox")) return;
+    const act = el.dataset.act, id = el.dataset.id;
+    const cand = () => S.candidates.find((c) => c.id === id);
+    const openT = () => topicById(S.skillOpen);
+    switch (act) {
+      case "tab": { const v = el.dataset.view; if (v === "skills" && el.classList.contains("tab")) { S.skillOpen = null; S.newTopicOpen = false; } S.editing = null; S.noteEditing = null; S.view = v; render(); window.scrollTo({ top: 0 }); break; }
+      case "rv-topic": S.reviewTopic = id; render(); break;
+      case "toggle-diff": S.openDiff.has(id) ? S.openDiff.delete(id) : S.openDiff.add(id); render(); break;
+      case "toggle-lost": S.showLost = !S.showLost; render(); break;
+      case "approve": { const c = cand(); if (c) await approve(c); break; }
+      case "skip": { const c = cand(); if (c) await guarded("c:" + id, async () => { await S.db.doc("candidates/" + id).update({ status: "skipped", skippedAt: iso() }); toast("Skipped. The scout won't propose it again."); }); break; }
+      case "unskip": await guarded("c:" + id, async () => { await S.db.doc("candidates/" + id).update({ status: "ready" }); toast("Moved back to review."); }); break;
+      case "open-skill": S.skillOpen = id; S.skillTab = "skill"; S.editing = null; S.histOpen.clear(); render(); window.scrollTo({ top: 0 }); break;
+      case "back-skills": S.skillOpen = null; S.editing = null; if (unsubVersions) { unsubVersions(); unsubVersions = null; } render(); break;
+      case "skill-tab": if (S.editing) S.editing = null; S.skillTab = el.dataset.tab; render(); break;
+      case "raw": S.skillRaw = el.dataset.raw === "1"; render(); break;
+      case "download-skill": { const t = openT(); if (t) await download(`${t.id}-SKILL.md`, t.content || ""); break; }
+      case "copy-skill": { const t = openT(); if (!t) break; try { await navigator.clipboard.writeText(t.content || ""); toast("Copied SKILL.md."); } catch { S.skillRaw = true; render(); toast("Copying isn't allowed here. Select the text below instead.", "bad"); } break; }
+      case "download-all": {
+        if (!window.JSZip) { toast("The zip maker didn't load. Download each skill on its own.", "bad"); break; }
+        const zip = new window.JSZip(); let n = 0;
+        for (const t of S.topics) if (t.content) { zip.folder(t.id).file("SKILL.md", t.content); n++; }
+        if (!n) { toast("No skills to download yet.", "bad"); break; }
+        await download("skill-garden-skills.zip", await zip.generateAsync({ type: "blob" }));
+        break;
+      }
+      case "edit-skill": { const t = openT(); if (t) openEditor("skill", t); break; }
+      case "edit-tests": { const t = openT(); if (t) openEditor("tests", t); break; }
+      case "edit-sources": { const t = openT(); if (t) openEditor("sources", t); break; }
+      case "cancel-edit": S.editing = null; render(); break;
+      case "save-skill": { const t = openT(); if (t) await saveManual(t); break; }
+      case "save-tests": { const t = openT(); if (t) await saveTests(t); break; }
+      case "save-sources": { const t = openT(); if (t) await saveSources(t); break; }
+      case "add-test": { const holder = $("#ed-tests"); holder.insertAdjacentHTML("beforeend", testFields({}, holder.children.length)); holder.lastElementChild.querySelector("textarea").focus(); break; }
+      case "remove-test": el.closest(".ed-test").remove(); break;
+      case "hist-diff": S.histOpen.has(id) ? S.histOpen.delete(id) : S.histOpen.add(id); render(); break;
+      case "restore": { const v = S.versions.find((x) => x.id === id); if (v) await restoreVersion(v); break; }
+      case "new-topic": S.newTopicOpen = true; $("#sk").dataset.mode = ""; render(); setTimeout(() => { const i = $("#nt-name"); if (i) i.focus(); }, 0); break;
+      case "cancel-topic": S.newTopicOpen = false; $("#sk").dataset.mode = ""; render(); break;
+      case "create-topic": await createTopic(); if (!S.newTopicOpen) { $("#sk").dataset.mode = ""; render(); } break;
+      case "run-now": await runNow(); break;
+      case "ib-status": S.inboxStatus = id; S.inboxLimit = 150; render(); break;
+      case "more-reels": S.inboxLimit += 150; render(); break;
+      case "note": S.noteEditing = null; render(); S.noteEditing = id; { const row = document.getElementById("reel-" + id); const r = S.inbox.find((x) => x.id === id); if (row && r) { row.outerHTML = reelRow(r); const i = $("#noteInput"); if (i) i.focus(); } } break;
+      case "cancel-note": S.noteEditing = null; render(); break;
+      case "save-note": { const note = ($("#noteInput") || { value: "" }).value.trim(); const r = S.inbox.find((x) => x.id === id); await guarded("note", async () => { await S.db.doc("inbox/" + id).update({ note, ...(r && r.topicId && (r.status === "needs-note" || r.status === "library" || r.status === "read") && note ? { status: "new" } : {}) }); S.noteEditing = null; toast(note ? "Note saved. The scout looks again next run." : "Note removed."); }); break; }
+      case "queue": await guarded("reel", async () => { await S.db.doc("inbox/" + id).update({ status: "new" }); toast("Sent to the scout."); }); break;
+      case "skip-reel": await guarded("reel", async () => { await S.db.doc("inbox/" + id).update({ status: "skipped" }); }); break;
+      case "unskip-reel": await guarded("reel", async () => { const r = S.inbox.find((x) => x.id === id); await S.db.doc("inbox/" + id).update({ status: r && r.topicId ? "new" : "library" }); }); break;
+      case "do-import": await doImport(); break;
+      case "cancel-import": S.importState = null; renderImport(); break;
+    }
+  });
+  document.addEventListener("change", async (ev) => {
+    const el = ev.target;
+    if (el.id === "importFile" && el.files && el.files[0]) { const f = el.files[0]; el.value = ""; await readImportFile(f); return; }
+    if (el.dataset.imap !== undefined && S.importState && S.importState.stage === "map") { S.importState.map[S.importState.colls[+el.dataset.imap].name] = el.value; renderImport(); return; }
+    if (el.id === "recentDays" && S.importState) { S.importState.recentDays = +el.value; renderImport(); return; }
+    const act = el.dataset.act;
+    if (act === "ib-topic") { S.inboxTopic = el.value; render(); }
+    else if (act === "set-topic" && el.value) { const id = el.dataset.id; await guarded("reel", async () => { await S.db.doc("inbox/" + id).update({ topicId: el.value, status: "new" }); toast("Linked and sent to the scout."); }); }
+    else if (act === "toggle-active") { const t = topicById(S.skillOpen); if (t) await guarded("active", async () => { await S.db.doc("topics/" + t.id).update({ active: el.checked }); toast(el.checked ? `The scout will work on ${t.name}.` : `The scout will leave ${t.name} alone.`); }); }
+    else if (act === "toggle-pause") { await guarded("pause", async () => { await S.db.doc("settings/main").update({ paused: !el.checked }); toast(el.checked ? "Morning scout is on." : "Morning scout paused."); }); }
+  });
+  document.addEventListener("submit", (ev) => { if (ev.target.id === "addForm") addReels(ev); });
+  document.addEventListener("keydown", (ev) => {
+    if (ev.target.id === "dropZone" && (ev.key === "Enter" || ev.key === " ")) { ev.preventDefault(); $("#importFile").click(); }
+    if (ev.target.id === "noteInput" && ev.key === "Enter") { ev.preventDefault(); const b = document.querySelector('[data-act="save-note"]'); if (b) b.click(); }
+  });
+  ["dragenter", "dragover"].forEach((t) => document.addEventListener(t, (ev) => { const z = ev.target.closest && ev.target.closest("#dropZone"); if (z) { ev.preventDefault(); z.classList.add("over"); } }));
+  ["dragleave", "drop"].forEach((t) => document.addEventListener(t, (ev) => { const z = ev.target.closest && ev.target.closest("#dropZone"); if (!z) return; ev.preventDefault(); z.classList.remove("over"); if (t === "drop" && ev.dataTransfer.files[0]) readImportFile(ev.dataTransfer.files[0]); }));
+  setInterval(() => { if (S.db) renderHeader(); }, 60000);
+
+  /* ---------- boot ---------- */
+  render();
+  (async () => {
+    const c = window.claude;
+    if (!c || typeof c.use !== "function") { S.dbMissing = true; render(); return; }
+    const db = await c.use("db");
+    if (!db) { S.dbMissing = true; render(); return; }
+    S.db = db;
+    const fail = (key) => () => { S.loaded[key] = true; render(); };
+    db.collection("topics").onSnapshot((snap) => { S.topics = snap.docs.map((d) => ({ id: d.id, ...d.data() })).sort((a, b) => (Number(a.order) || 0) - (Number(b.order) || 0) || String(a.name).localeCompare(String(b.name))); S.loaded.topics = true; render(); }, fail("topics"));
+    db.collection("candidates").orderBy("createdAt", "desc").limit(300).onSnapshot((snap) => { S.candidates = snap.docs.map((d) => ({ id: d.id, ...d.data() })); S.loaded.candidates = true; render(); }, fail("candidates"));
+    db.collection("inbox").orderBy("addedAt", "desc").limit(1000).onSnapshot((snap) => { S.inbox = snap.docs.map((d) => ({ id: d.id, ...d.data() })); S.loaded.inbox = true; render(); }, fail("inbox"));
+    db.collection("runs").orderBy("startedAt", "desc").limit(30).onSnapshot((snap) => { S.runs = snap.docs.map((d) => ({ id: d.id, ...d.data() })); S.loaded.runs = true; render(); }, fail("runs"));
+    db.doc("settings/main").onSnapshot((snap) => { S.settings = snap.exists ? snap.data() : null; S.loaded.settings = true; render(); }, fail("settings"));
+    render();
+    c.use("user").then(async (u) => { S.user = u; if (u) { const w = await u.can("data.write"); if (w === false) { S.canWrite = false; const b = $("#banner"); b.hidden = false; b.textContent = "You can read this garden but not change it. Ask its owner for edit access."; } } render(); });
+    c.use("downloads").then((d) => { S.downloads = d; });
+    c.use("mcp").then((m) => { S.mcp = m; render(); });
+  })();
+})();
+</script>
