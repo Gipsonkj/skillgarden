@@ -1,0 +1,36 @@
+{
+  "name": "Research & Science",
+  "blurb": "Find papers, run literature reviews, verify citations, form hypotheses, write and review papers, plus Biopython and RDKit.",
+  "hue": 160,
+  "collections": [],
+  "repos": [
+    "K-Dense-AI/scientific-agent-skills",
+    "google-deepmind/science-skills",
+    "bytedance/deer-flow",
+    "Master-cai/Research-Paper-Writing-Skills"
+  ],
+  "searches": [
+    "agent skill literature review systematic review PRISMA",
+    "citation verification hallucinated references tool",
+    "OpenAlex PubMed Semantic Scholar API update",
+    "scientific paper writing Claude skill new",
+    "deep research agent open source skill"
+  ],
+  "tests": [
+    {
+      "id": "t1",
+      "prompt": "Give me a short literature review (about 15 papers) on whether intermittent fasting improves insulin sensitivity in adults with type 2 diabetes, with references.",
+      "good": "Frames the question with PICO; searches at least PubMed plus one other database and logs queries, dates and counts; prefers RCTs and meta-analyses and labels study designs; synthesises by theme with effect sizes and disagreements; uses associational language for observational studies; every reference has a resolvable DOI or PMID and was checked; states limitations and search scope; no invented papers."
+    },
+    {
+      "id": "t2",
+      "prompt": "Here's my refs.bib and paper.tex. Some references look wrong and a few keys are missing. Clean it up and tell me what you changed.",
+      "good": "Runs or follows validate_citations/format_bibtex style checks (duplicates, missing fields, keys cited but absent); resolves each doubtful entry against DOI/Crossref/arXiv/PubMed; corrects metadata only from verified sources; prefers published versions over preprints; marks unresolvable entries instead of guessing; reports a per-entry change list; leaves the original file intact or backed up."
+    },
+    {
+      "id": "t3",
+      "prompt": "We noticed that patients on drug X in our hospital records had fewer fractures. Help me turn this into hypotheses and a study I could actually run.",
+      "good": "Freezes the observation and separates it from hypotheses; lists rival explanations (confounding by indication, selection, reverse causation, measurement artefact, chance); states the causal estimand; writes discriminating predictions with negative controls; proposes a fitting design such as target-trial emulation or an active-comparator new-user cohort, with sample size reasoning and pre-registration; bounds the literature check by date and databases; notes ethics approval."
+    }
+  ]
+}

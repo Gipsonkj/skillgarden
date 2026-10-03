@@ -1,0 +1,15 @@
+{
+  "id": "launch-video",
+  "name": "Launch video",
+  "blurb": "Script, storyboard, produce and post a short launch video, from the first line to the caption.",
+  "description": "Make a short launch or promo video end to end from one request: script, shot list and storyboard, production plan and route (AI generation, editing or motion), captions and delivery checks, then the post and caption for social, using the Skill Garden storyboarding, ai-video and social-media super skills in order. Use when asked to make a launch video, promo, reel or short ad video for a product or feature.",
+  "ask": "Make a launch video for <product or feature> for <platform>.",
+  "inputs": ["What is launching and the one thing viewers should remember", "Platform, length and aspect ratio", "Assets you have: screen recordings, footage, logo, music", "Tools you can use for generation or editing", "Voice: narrated, captions only, or on-camera"],
+  "steps": [
+    { "id": "script", "title": "Write the script", "craft": "storyboarding", "guides": ["references/script-and-scene-craft.md"], "output": "A script with a hook in the first two seconds and one idea per scene." },
+    { "id": "board", "title": "Shot list and storyboard", "craft": "storyboarding", "guides": ["references/shot-lists-and-boards.md"], "output": "A numbered shot list with framing, motion and on-screen text." },
+    { "id": "produce", "title": "Plan and produce the video", "craft": "ai-video", "guides": ["references/plan-and-route.md"], "output": "The production route per shot and the prompts or edit steps to make it." },
+    { "id": "finish", "title": "Captions and delivery checks", "craft": "ai-video", "guides": ["references/captions-talking-head.md", "references/delivery-qa.md"], "output": "Captions and a checklist pass for the platform's specs." },
+    { "id": "post", "title": "Write the post", "craft": "social-media", "guides": ["references/short-form-video.md", "references/hooks-and-voice.md"], "output": "The caption, first comment and posting notes." }
+  ]
+}

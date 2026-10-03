@@ -26,8 +26,9 @@ applies, with these substitutions:
 - **Time.** Instead of `date`, run `node sg.mjs now`. It prints the UTC time
   (`utc`) and today's date in India (`indiaDate`).
 - **Your tools** are `node sg.mjs`, the Write tool for files in `outbox/`,
+  the Read tool for still frames in `media/` (an inbox item's `frames`),
   WebSearch, WebFetch and Agent (for the blind trials). Nothing else works: no
-  other shell commands, and no files outside `outbox/`. If WebSearch or
+  other shell commands, and no files outside `outbox/` and `media/`. If WebSearch or
   WebFetch aren't listed, load them with ToolSearch.
 - **Network.** This is the person's own internet connection, so sites that
   were blocked in the cloud usually work here.

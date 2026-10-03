@@ -1,0 +1,36 @@
+{
+  "name": "Cloud & DevOps",
+  "blurb": "Ship and run apps: hosting choice, Docker, Kubernetes, Terraform, CI/CD, Cloudflare, GCP, AWS, Azure and observability.",
+  "hue": 192,
+  "collections": [],
+  "repos": [
+    "antonbabenko/terraform-skill",
+    "cloudflare/skills",
+    "google/skills",
+    "microsoft/azure-skills"
+  ],
+  "searches": [
+    "Terraform OpenTofu new release feature",
+    "GitHub Actions security OIDC best practice update",
+    "Cloudflare Workers Cloud Run Lambda new feature announcement",
+    "Kubernetes release deprecation pod security change",
+    "agent skill DevOps deploy Claude Terraform Kubernetes"
+  ],
+  "tests": [
+    {
+      "id": "t1",
+      "prompt": "Write a production Dockerfile and .dockerignore for a Node 22 Express API that builds TypeScript to dist/, then give me the gcloud commands to deploy it to Cloud Run in europe-west1 with a secret API key.",
+      "good": "Multi-stage build with pinned slim/alpine base, deps cached before source copy, dev deps excluded, numeric non-root user, listens on 0.0.0.0 and $PORT; .dockerignore excludes .git, node_modules and .env; builds for linux/amd64; deploy uses Artifact Registry image, explicit --region, dedicated service account, --set-secrets from Secret Manager (not env literal), asks before --allow-unauthenticated; verification via logs and health check; rollback via traffic to previous revision."
+    },
+    {
+      "id": "t2",
+      "prompt": "Set up GitHub Actions for our Terraform repo (AWS, two environments). PRs should show the plan, merges to main should apply to prod.",
+      "good": "fmt -check, validate, tflint and a security scan (trivy/checkov) on PRs; plan -out uploaded as artifact and summarised on the PR; apply consumes the reviewed plan file (no re-plan) in a protected production environment with required reviewers; AWS auth via OIDC with aud sts.amazonaws.com and sub pinned to repo and branch/environment (no wildcards), no static keys; remote S3 state with locking and separate state per env; pinned versions and committed lock file; scheduled drift detection that alerts rather than auto-applies."
+    },
+    {
+      "id": "t3",
+      "prompt": "Our Kubernetes deployment shows pods in CrashLoopBackOff right after a new release. Walk me through finding the cause and getting users back to working.",
+      "good": "Mitigates first with kubectl rollout undo (or previous image) and checks rollout status; then diagnoses with describe pod events, logs --previous, events sorted by time; checks exit code (137 OOMKilled vs app error), missing env/secret, wrong command/port, overly aggressive liveness probe; compares the diff between releases; suggests readiness/startup probes and resource limits; no destructive steps without confirmation."
+    }
+  ]
+}

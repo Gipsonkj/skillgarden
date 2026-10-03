@@ -1,0 +1,13 @@
+{
+  "name": "Security",
+  "blurb": "Defensive security for your own code: secure coding, threat models, Semgrep/CodeQL triage, dependencies, secrets and CI hardening.",
+  "hue": 4,
+  "collections": [],
+  "repos": ["trailofbits/skills", "addyosmani/agent-skills", "openai/skills", "intercom/2x-skills"],
+  "searches": ["security review", "threat model", "semgrep", "secret scanning", "github actions security"],
+  "tests": [
+    {"id": "t1", "prompt": "Add an endpoint that fetches a user-supplied image URL and stores a thumbnail.", "good": "Allowlists scheme and host, resolves all DNS records and rejects private/link-local addresses, disables redirects, caps size and type, and adds an abuse-case test."},
+    {"id": "t2", "prompt": "Scan this repo with Semgrep and tell me what matters.", "good": "Confirms the repo is the user's, agrees rulesets first, runs with metrics off via run-scans.sh, merges SARIF, confirms each finding in code and separates needs-verification items."},
+    {"id": "t3", "prompt": "Review our GitHub workflow that runs on pull_request_target and comments with an AI summary.", "good": "Flags checkout of PR head with secrets, expressions in run blocks, unpinned actions and broad permissions; proposes split jobs, env indirection, SHA pins and a tool allowlist."}
+  ]
+}

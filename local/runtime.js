@@ -110,6 +110,18 @@
     },
   };
 
-  const caps = { db, user, downloads, mcp };
+  // Reel videos are read on this computer (local/media.mjs): send the file, the server does the rest.
+  const media = {
+    async upload(id, file) {
+      let r;
+      try { r = await fetch(`/api/media/${encodeURIComponent(id)}`, { method: "POST", headers: { "Content-Type": file.type || "video/mp4", "X-Skill-Garden": "1" }, body: file }); }
+      catch { throw { code: "unavailable", message: "Skill Garden's local server isn't running." }; }
+      if (!r.ok) { const d = await r.json().catch(() => ({})); throw { code: "tool_error", message: d.error || r.statusText }; }
+    },
+    retry: (id) => api("POST", `/api/media/${encodeURIComponent(id)}/retry`, {}),
+    tools: () => api("GET", "/api/media-tools"),
+  };
+
+  const caps = { db, user, downloads, mcp, media };
   window.claude = { use: async (name) => caps[name] || null };
 })();

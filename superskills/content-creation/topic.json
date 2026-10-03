@@ -1,0 +1,31 @@
+{
+  "name": "Content creation & copywriting",
+  "blurb": "Copy that converts, articles and newsletters that get read, brand voice, repurposing, and edits that strip AI tells.",
+  "hue": 38,
+  "collections": [],
+  "repos": ["coreyhaines31/marketingskills", "blader/humanizer", "affaan-m/ECC", "samber/cc-skills"],
+  "searches": [
+    "signs of AI writing new patterns humanizer skill update",
+    "landing page copywriting conversion test results headline",
+    "content strategy AI search citation LLM visibility technique",
+    "brand voice guide tone of voice AI content workflow",
+    "newsletter growth Substack Beehiiv strategy new feature"
+  ],
+  "tests": [
+    {
+      "id": "t1",
+      "prompt": "Humanize this paragraph without changing its facts: \"In today's fast-paced world, our platform isn't just a tool — it's a game-changer. It seamlessly empowers teams to unlock productivity, foster collaboration, and drive innovation. The result? Teams ship 2x faster. No setup, no training, no hassle.\"",
+      "good": "Removes the era opener, contrast reveal, em dash, triad, self-answered question and negation list; keeps the 2x claim without inventing new numbers or customers; no dashes added; says what the product actually does or flags [NEED: ...] where the source gives no specifics; short audit of what changed."
+    },
+    {
+      "id": "t2",
+      "prompt": "Write the hero section for a landing page for an invoicing app for freelance designers. We have 3,200 users and invoices get paid 9 days faster on average. Give me headline options and a CTA.",
+      "good": "Asks for or states assumptions about the one action and differentiator; 5-10 headline variants across angles using only the given facts (3,200 users, 9 days faster); one stated pick with a reader-feeling reason; subhead of 1-2 sentences; CTA in verb + outcome form (not 'Sign up'); a risk reducer; no em dashes, contrast reveals or negation lists; no invented testimonials."
+    },
+    {
+      "id": "t3",
+      "prompt": "Turn my 1,800-word blog post about switching our team to async standups into a LinkedIn post, an X thread and a newsletter section. Keep my voice.",
+      "good": "Extracts 3-7 standalone insights and assigns one idea per output; LinkedIn hook in the first two lines and 3-5 short paragraphs; X posts under 280 chars each advancing the argument; newsletter section opens on the point; no identical copy across platforms; no claims beyond the source; no engagement bait; notes that a voice sample or profile is used or requested."
+    }
+  ]
+}

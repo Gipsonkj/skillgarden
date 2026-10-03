@@ -1,0 +1,36 @@
+{
+  "name": "Google Ads",
+  "blurb": "Search, PMax and Shopping builds, RSAs, keywords and negatives, bidding, conversion tracking, audits and the Ads API.",
+  "hue": 145,
+  "collections": [],
+  "repos": [
+    "coreyhaines31/marketingskills",
+    "AgriciDaniel/claude-ads",
+    "google/skills",
+    "mikefutia/google-ads-builder"
+  ],
+  "searches": [
+    "Google Ads new feature announcement Performance Max AI Max",
+    "Google Ads API release notes new version GAQL",
+    "Google Ads Smart Bidding change negative keywords update",
+    "Enhanced Conversions Consent Mode Data Manager API update",
+    "agent skill Google Ads Claude MCP"
+  ],
+  "tests": [
+    {
+      "id": "t1",
+      "prompt": "Build a Google Search campaign for a plumbing company in Leeds that wants emergency call-outs and boiler repair bookings. Budget £1,500 a month. Give the structure, keywords with match types, one RSA per ad group, and assets.",
+      "good": "Brand and non-brand split with separate budgets; tight ad groups by service; phrase/exact keywords with Presence location targeting around Leeds; Search only (partners/Display off); 15 headlines ≤30 and 4 descriptions ≤90 with counts shown; call asset and sitelinks/callouts within limits; Maximize Conversions start; conversion tracking (calls and bookings) flagged as a prerequisite; no unsupported claims."
+    },
+    {
+      "id": "t2",
+      "prompt": "Here is my search terms export for last 30 days (pasted CSV with term, clicks, cost, conversions). Find wasted spend and give me negatives and new keywords.",
+      "good": "Uses the export's conversion column; states disclosed vs total clicks; harvest/negate/move diff with match type and level per negative; n-gram cost table; break-even CVR or sample-size check before calling relevant terms waste; overblocking review; no invented negatives beyond the data; nothing applied without approval."
+    },
+    {
+      "id": "t3",
+      "prompt": "Our Google Ads conversions dropped 40% this week but spend is flat. What happened and what should we do?",
+      "good": "Confirms the drop over complete days vs an equal prior window; splits by conversion action, campaign and device; checks tag/consent/landing page and offline upload health; checks change history (30-day limit) and conversion lag; separates tracking failure from real demand change; warns against pausing or re-bidding during diagnosis; gives a verification plan."
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "name": "Website building",
+  "blurb": "Brief to live URL: copy, a design that doesn't look AI-made, Next.js or Astro builds, Core Web Vitals, SEO, browser checks, deploys.",
+  "hue": 205,
+  "collections": [],
+  "repos": [
+    "vercel-labs/agent-skills",
+    "addyosmani/web-quality-skills",
+    "agiwhitelist/auteur",
+    "vercel/next.js"
+  ],
+  "searches": [
+    "Next.js release notes new feature this week",
+    "Core Web Vitals INP LCP new guidance or Chrome change",
+    "agent skill website design anti AI slop Claude new",
+    "scroll-driven animations CSS view timeline new technique",
+    "Vercel Netlify Cloudflare deploy new feature changelog"
+  ],
+  "tests": [
+    {
+      "id": "t1",
+      "prompt": "Build a one-page site for a small Kochi bakery that delivers sadya boxes. They have a logo, 6 food photos, prices and 3 Google reviews. Orders come in on WhatsApp. Give me the plan and the code.",
+      "good": "Asks or states the brief (one belief, one action = order on WhatsApp); writes concrete copy first; one CTA label repeated; uses only the real reviews and prices; a committed palette and type pair that is not the cream-and-brass food reflex; hero image eager with fetchpriority, others lazy and sized; mobile-first layout checked at 390px; WhatsApp link instead of a dead form; title, description, LocalBusiness JSON-LD; says what was verified."
+    },
+    {
+      "id": "t2",
+      "prompt": "Our Next.js App Router product page has LCP 4.1 s and INP 380 ms on mobile in Search Console. Here is the page component and layout. What do you change first?",
+      "good": "Asks for or takes a trace before guessing; splits LCP into TTFB, load delay, load time, render delay; checks the hero is a server-rendered <img>/next/image with priority, not lazy or fetched in useEffect; looks for sequential awaits and big client boundaries or barrel imports; for INP finds the dominant phase and yields or defers work; gives 2-3 ranked fixes and says field data will only update after new visits."
+    },
+    {
+      "id": "t3",
+      "prompt": "Deploy my Astro site (git repo on GitHub, not yet on any host) so my client can look at it today. I use Netlify.",
+      "good": "Checks state first (git remote, linked or not, CLI logged in); builds with astro build and confirms dist/; deploys a draft or Deploy Preview, not production; adds .netlify to .gitignore; asks before pushing or linking; notes env vars are build-time and client-prefixed vars are public; mentions the SPA catch-all only if relevant; returns the preview URL and says it is shareable by link."
+    }
+  ]
+}

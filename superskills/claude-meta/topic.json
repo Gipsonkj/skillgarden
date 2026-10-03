@@ -1,0 +1,31 @@
+{
+  "name": "Claude meta-skills",
+  "blurb": "Skills, CLAUDE.md, hooks, subagents, plans and context: set Claude up to do long tasks well.",
+  "hue": 22,
+  "collections": [],
+  "repos": ["anthropics/skills", "obra/superpowers", "mattpocock/skills", "anthropics/claude-plugins-official"],
+  "searches": [
+    "Claude Code new hook event or skill feature release",
+    "agent skill authoring best practices SKILL.md description triggering",
+    "CLAUDE.md AGENTS.md context engineering technique",
+    "Claude Code subagent orchestration workflow new skill",
+    "long-running agent context compaction memory planning files technique"
+  ],
+  "tests": [
+    {
+      "id": "t1",
+      "prompt": "Turn what we just did into a skill: every time we deploy this Next.js app we run `pnpm build`, then `pnpm db:migrate` against the staging DB using DATABASE_URL_STAGING, then smoke-test /api/health. Write the SKILL.md and say where it should live.",
+      "good": "Project-scoped path (.claude/skills/<name>/SKILL.md); name lowercase-hyphen matching folder; description states scope plus concrete triggers without summarising the steps; ordered steps each with a checkable result; env var named but no secret value; gotchas / what-didn't-work section; mentions testing it on a realistic prompt."
+    },
+    {
+      "id": "t2",
+      "prompt": "I keep worrying Claude will run git push --force or rm -rf in my repo. Set up something that reliably stops that in this project.",
+      "good": "Uses a PreToolUse hook on Bash in .claude/settings.json (merged, not overwritten), not a CLAUDE.md line; script reads tool_input.command with jq and exits 2 with a stderr reason for matches; asks or states project vs global scope; shows a test command (echo JSON | script, expect exit 2) and notes hooks load at session start (/hooks or restart)."
+    },
+    {
+      "id": "t3",
+      "prompt": "We're starting a 2-day refactor of our billing module with lots of steps. How should we run this so you don't lose track when the context fills up?",
+      "good": "Proposes a written plan/spec plus on-disk progress files (task_plan/findings/progress or a ledger) with goal, phases, decisions and next step; compacts at phase boundaries after writing state, not mid-implementation; acceptance gates or verification commands per task; optionally subagent-per-task with reviews; final verification before claiming done."
+    }
+  ]
+}

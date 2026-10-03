@@ -1,0 +1,36 @@
+{
+  "name": "Storyboarding",
+  "blurb": "From idea to shot list: beats, scripts, camera language, consistent characters and per-shot AI video prompts.",
+  "hue": 28,
+  "collections": [],
+  "repos": [
+    "wuwangzhang1216/DirectorSKILL",
+    "zenstory-ai/drama-skills",
+    "smixs/visual-skills",
+    "jtydhr88/screenwriting-skills"
+  ],
+  "searches": [
+    "AI storyboard shot list workflow new technique",
+    "character consistency across shots AI video keyframes",
+    "Seedance multi-shot storyboard prompt guide",
+    "vertical short drama micro-drama storyboard AI production",
+    "agent skill storyboard screenwriting Claude"
+  ],
+  "tests": [
+    {
+      "id": "t1",
+      "prompt": "Storyboard a 30-second 9:16 ad for a reusable coffee cup: deliver a beat table and a shot list with durations, shot size, camera move and end state for every shot.",
+      "good": "Hook in the first 1-2 s, not a logo; beats with a clear turn; every shot has one job, a named end state and one move or a reason for locked; vertical staging in depth; durations sum to 30 s and vary; no filler words like cinematic or stunning."
+    },
+    {
+      "id": "t2",
+      "prompt": "Here is a two-person dialogue scene (a daughter tells her father she is leaving). Break it into shots and keep the father looking the same across every AI-generated keyframe.",
+      "good": "Beats with value turn; coverage that respects the 180-degree line with matched eyelines and camera heights; a 30-50 word identity string with one checkable landmark pasted verbatim; character sheet before keyframes; keyframes show start state only; behaviour instead of emotion words."
+    },
+    {
+      "id": "t3",
+      "prompt": "Turn my 4-shot board for a rainy rooftop confrontation into Seedance 2.5 prompts, 15 seconds total.",
+      "good": "Asset roles declared per reference; one-line summary then timestamped stages of 3 s or more that sum to 15 s, each with one action and a visible end state; dialogue in {} with delivery; positive descriptions instead of negated words; continuity and specific prohibitions at the end; does not claim to generate the video."
+    }
+  ]
+}

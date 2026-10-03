@@ -1,0 +1,36 @@
+{
+  "name": "Product & Project Management",
+  "blurb": "PRDs and specs, stories and tickets, prioritization, outcome roadmaps, sprints, stakeholder updates, Jira and Linear.",
+  "hue": 32,
+  "collections": [],
+  "repos": [
+    "phuryn/pm-skills",
+    "anthropics/knowledge-work-plugins",
+    "mattpocock/skills",
+    "bmad-code-org/BMAD-METHOD"
+  ],
+  "searches": [
+    "AI product manager PRD template new technique",
+    "agent skill product management Claude spec to tickets",
+    "outcome-based roadmap prioritization framework new",
+    "Jira Linear MCP server new release features",
+    "continuous discovery customer interview Jobs to Be Done method"
+  ],
+  "tests": [
+    {
+      "id": "t1",
+      "prompt": "We keep hearing that small-business customers abandon our invoicing app during setup. Write a PRD for fixing onboarding.",
+      "good": "Asks 2-6 focused questions or tags assumptions instead of inventing data; problem stated from the user side without naming a solution; 3-5 measurable goals with targets, data source and evaluation date plus a counter-metric; explicit non-goals with reasons; P0/P1/P2 requirements each with testable acceptance criteria; open questions tagged by owner; no adjectives like fast or easy without bounds."
+    },
+    {
+      "id": "t2",
+      "prompt": "Here is our backlog of 12 feature ideas with rough user counts and engineering guesses. Prioritize them for next quarter; the team has 15 person-months.",
+      "good": "Picks RICE (or justifies another framework) and shows every input with its evidence and confidence; computes scores correctly; fits the list to 15 person-months with buffer; runs a sensitivity or 2x-error check; flags dependencies and items needing discovery; states what is explicitly out and why."
+    },
+    {
+      "id": "t3",
+      "prompt": "Turn this spec for team-shared folders into tickets in our Jira project PAY.",
+      "good": "Drafts vertical-slice tickets (not layer-by-layer) each with end-to-end behaviour, 4-6 acceptance criteria and blocked-by edges; shows the numbered list for approval before creating anything; creates in dependency order with native blocks links after approval; reads back created keys; never asks for an API token in chat."
+    }
+  ]
+}

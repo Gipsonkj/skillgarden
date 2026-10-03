@@ -3,52 +3,69 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:ital,wght@0,400..700;1,400&display=swap" rel="stylesheet">
 <style>
-/* Layout: app shell, sticky header + tab rail over one 1120px column; cards only where an object is acted on (a proposed change, a topic). */
+/* Design read: a product catalog and workshop for Claude power users. Botanical instrument:
+   herbarium labels meet lab readouts. One jade accent; pollen only marks trending. OKLCH tokens. */
 :root {
-  --ground: #EDF1EA;
-  --surface: #F6F8F3;
-  --raised: #FFFFFF;
-  --ink: #17251F;
-  --ink-2: #475850;
-  --ink-3: #74837A;
-  --line: #D3DCD0;
-  --line-2: #E2E8DF;
-  --accent: #1D6B50;
-  --accent-ink: #FFFFFF;
-  --accent-soft: #D8E9DF;
-  --bloom: #B86E0E;
-  --bloom-soft: #F7E4C4;
-  --good: #2A7A4B;
-  --good-soft: #DCEFE2;
-  --bad: #B0412D;
-  --bad-soft: #F5DDD6;
-  --tie: #7A837A;
-  --add: #DDF0E3;
-  --del: #F7E0DA;
+  --ground: oklch(0.976 0.005 160);
+  --surface: oklch(0.956 0.008 160);
+  --raised: oklch(0.996 0.002 160);
+  --ink: oklch(0.21 0.018 165);
+  --ink-2: oklch(0.41 0.018 165);
+  --ink-3: oklch(0.55 0.016 165);
+  --line: oklch(0.885 0.011 160);
+  --line-2: oklch(0.925 0.009 160);
+  --accent: oklch(0.5 0.1 165);
+  --accent-ink: oklch(0.99 0.01 165);
+  --accent-soft: oklch(0.925 0.04 165);
+  --bloom: oklch(0.58 0.12 65);
+  --bloom-soft: oklch(0.94 0.05 85);
+  --pollen: oklch(0.8 0.15 88);
+  --good: oklch(0.52 0.12 150);
+  --good-soft: oklch(0.93 0.05 150);
+  --bad: oklch(0.55 0.15 35);
+  --bad-soft: oklch(0.93 0.04 35);
+  --tie: oklch(0.58 0.01 160);
+  --add: oklch(0.93 0.05 150);
+  --del: oklch(0.93 0.04 35);
   --tl: 34%;
   --tbg: 93%;
-  --shadow: 0 1px 2px rgba(23,37,31,.06), 0 6px 18px -8px rgba(23,37,31,.18);
+  --grid: oklch(0.5 0.02 165 / 0.07);
+  --glass: oklch(0.976 0.005 160 / 0.78);
+  --shadow: 0 1px 2px oklch(0.2 0.02 165 / 0.06), 0 8px 24px -12px oklch(0.2 0.02 165 / 0.22);
+  --shadow-lg: 0 2px 6px oklch(0.2 0.02 165 / 0.08), 0 30px 60px -24px oklch(0.2 0.02 165 / 0.35);
+  --ease: cubic-bezier(0.23, 1, 0.32, 1);
   --display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
   --body: "Public Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
   --r: 10px;
+  color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --ground: #0E1411; --surface: #141C18; --raised: #1A241F; --ink: #E2E9E3; --ink-2: #A4B2A9; --ink-3: #75847B;
-    --line: #2A3630; --line-2: #212B26; --accent: #5BC193; --accent-ink: #08130E; --accent-soft: #1B3A2C;
-    --bloom: #EDB050; --bloom-soft: #3A2B12; --good: #6BCB8E; --good-soft: #16301F; --bad: #EE8169; --bad-soft: #3B1F19;
-    --tie: #8E998F; --add: #163120; --del: #3A1F1A; --tl: 76%; --tbg: 17%;
-    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 22px -10px rgba(0,0,0,.6);
+    --ground: oklch(0.165 0.012 170); --surface: oklch(0.195 0.013 170); --raised: oklch(0.222 0.014 170);
+    --ink: oklch(0.945 0.008 160); --ink-2: oklch(0.77 0.015 160); --ink-3: oklch(0.6 0.015 160);
+    --line: oklch(0.32 0.014 170); --line-2: oklch(0.265 0.013 170);
+    --accent: oklch(0.79 0.12 165); --accent-ink: oklch(0.18 0.03 165); --accent-soft: oklch(0.31 0.05 165);
+    --bloom: oklch(0.83 0.12 80); --bloom-soft: oklch(0.32 0.05 80); --pollen: oklch(0.86 0.15 92);
+    --good: oklch(0.78 0.13 150); --good-soft: oklch(0.3 0.05 150); --bad: oklch(0.74 0.13 35); --bad-soft: oklch(0.3 0.05 35);
+    --tie: oklch(0.62 0.01 160); --add: oklch(0.3 0.05 150); --del: oklch(0.3 0.05 35); --tl: 76%; --tbg: 17%;
+    --grid: oklch(0.85 0.05 165 / 0.05); --glass: oklch(0.165 0.012 170 / 0.72);
+    --shadow: 0 1px 2px oklch(0 0 0 / 0.4), 0 10px 26px -12px oklch(0 0 0 / 0.6);
+    --shadow-lg: 0 2px 6px oklch(0 0 0 / 0.4), 0 34px 70px -26px oklch(0 0 0 / 0.8);
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --ground: #0E1411; --surface: #141C18; --raised: #1A241F; --ink: #E2E9E3; --ink-2: #A4B2A9; --ink-3: #75847B;
-  --line: #2A3630; --line-2: #212B26; --accent: #5BC193; --accent-ink: #08130E; --accent-soft: #1B3A2C;
-  --bloom: #EDB050; --bloom-soft: #3A2B12; --good: #6BCB8E; --good-soft: #16301F; --bad: #EE8169; --bad-soft: #3B1F19;
-  --tie: #8E998F; --add: #163120; --del: #3A1F1A; --tl: 76%; --tbg: 17%;
-  --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 22px -10px rgba(0,0,0,.6);
+  --ground: oklch(0.165 0.012 170); --surface: oklch(0.195 0.013 170); --raised: oklch(0.222 0.014 170);
+  --ink: oklch(0.945 0.008 160); --ink-2: oklch(0.77 0.015 160); --ink-3: oklch(0.6 0.015 160);
+  --line: oklch(0.32 0.014 170); --line-2: oklch(0.265 0.013 170);
+  --accent: oklch(0.79 0.12 165); --accent-ink: oklch(0.18 0.03 165); --accent-soft: oklch(0.31 0.05 165);
+  --bloom: oklch(0.83 0.12 80); --bloom-soft: oklch(0.32 0.05 80); --pollen: oklch(0.86 0.15 92);
+  --good: oklch(0.78 0.13 150); --good-soft: oklch(0.3 0.05 150); --bad: oklch(0.74 0.13 35); --bad-soft: oklch(0.3 0.05 35);
+  --tie: oklch(0.62 0.01 160); --add: oklch(0.3 0.05 150); --del: oklch(0.3 0.05 35); --tl: 76%; --tbg: 17%;
+  --grid: oklch(0.85 0.05 165 / 0.05); --glass: oklch(0.165 0.012 170 / 0.72);
+  --shadow: 0 1px 2px oklch(0 0 0 / 0.4), 0 10px 26px -12px oklch(0 0 0 / 0.6);
+  --shadow-lg: 0 2px 6px oklch(0 0 0 / 0.4), 0 34px 70px -26px oklch(0 0 0 / 0.8);
   color-scheme: dark;
 }
 
@@ -76,6 +93,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .top-actions { display: flex; gap: 8px; align-items: center; }
 .tabs { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; border-bottom: 1px solid var(--line); margin-top: 14px; }
 .tabs::-webkit-scrollbar { display: none; }
+.sg-public .tab:not([data-view="explore"]), .sg-public #runNow { display: none !important; }
 .tab { appearance: none; background: none; border: 0; padding: 10px 12px 11px; font-weight: 560; color: var(--ink-2); cursor: pointer; white-space: nowrap; border-bottom: 2px solid transparent; margin-bottom: -1px; display: inline-flex; align-items: center; gap: 7px; }
 .tab:hover { color: var(--ink); }
 .tab[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); }
@@ -274,6 +292,17 @@ main { padding-top: 24px; }
 .note-edit { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
 .note-edit .input { flex: 1 1 240px; }
 
+.add-modes { margin-bottom: 2px; }
+.r-frames { display: flex; gap: 6px; overflow-x: auto; padding: 2px 0; }
+.r-frames img { width: 64px; height: 96px; object-fit: cover; border-radius: 6px; border: 1px solid var(--line-2); flex: none; }
+.r-media { font-size: 13px; color: var(--ink-3); }
+.r-media.bad { color: var(--bad); }
+.conflicts { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; display: grid; gap: 8px; background: var(--surface); }
+.conflicts h4 { font-size: 14px; font-weight: 640; }
+.conflicts ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.conflicts li { font-size: 13.5px; color: var(--ink-2); display: grid; gap: 2px; }
+.conflicts li b { color: var(--ink); font-weight: 620; }
+
 /* log */
 .runs { display: grid; gap: 14px; max-width: 860px; }
 .run { background: var(--raised); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; display: grid; gap: 10px; min-width: 0; }
@@ -300,25 +329,247 @@ main { padding-top: 24px; }
 .toast.bad { background: var(--bad); color: #fff; }
 .skeleton { color: var(--ink-3); padding: 30px 0; }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+/* ---------- product shell ---------- */
+body { background-color: var(--ground); background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px); background-size: 48px 48px; background-attachment: fixed; }
+.app { max-width: 1240px; }
+.chrome { background: var(--glass); backdrop-filter: blur(14px) saturate(1.2); -webkit-backdrop-filter: blur(14px) saturate(1.2); margin-inline: -20px; padding-inline: 20px; border-bottom: 1px solid var(--line-2); }
+@media (max-width: 520px) { .chrome { margin-inline: -16px; padding-inline: 16px; } }
+.top { padding-block: 14px 0; }
+.brand { appearance: none; background: none; border: 0; padding: 0; cursor: pointer; text-align: left; color: inherit; }
+.brand h1 { font-size: 21px; }
+.brand .status { font-size: 12.5px; }
+.brand-mark { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; background: var(--accent-soft); }
+.brand-mark svg { width: 22px; height: 22px; }
+.brand-mark .sway { transform-origin: 16px 29px; animation: sway 6s var(--ease) infinite alternate; }
+@keyframes sway { from { transform: rotate(-4deg); } to { transform: rotate(4deg); } }
+.tabs { border-bottom: 0; margin-top: 8px; }
+.top-actions { gap: 6px; }
+.search-btn { appearance: none; display: inline-flex; align-items: center; gap: 10px; min-width: 220px; padding: 7px 8px 7px 12px; border-radius: 9px; border: 1px solid var(--line); background: var(--raised); color: var(--ink-3); font-size: 14px; cursor: pointer; transition: border-color .15s var(--ease); }
+.search-btn:hover { border-color: var(--ink-3); color: var(--ink-2); }
+.search-btn span { flex: 1; text-align: left; }
+kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border: 1px solid var(--line); background: var(--surface); color: var(--ink-2); }
+@media (max-width: 640px) { .search-btn { min-width: 0; } .search-btn span, .search-btn kbd { display: none; } }
+.icon-btn { appearance: none; width: 34px; height: 34px; display: grid; place-items: center; border-radius: 9px; border: 1px solid var(--line); background: var(--raised); color: var(--ink-2); cursor: pointer; position: relative; }
+.icon-btn:hover { color: var(--ink); border-color: var(--ink-3); }
+.icon-btn svg { width: 17px; height: 17px; }
+.icon-btn .dot { position: absolute; top: -5px; right: -5px; min-width: 18px; height: 18px; padding: 0 4px; border-radius: 99px; background: var(--accent); color: var(--accent-ink); font: 600 11px/18px var(--mono); text-align: center; }
+.icon-btn .dot:empty { display: none; }
+.btn { transition: background .15s var(--ease), border-color .15s var(--ease), transform .12s var(--ease); }
+.btn:active { transform: scale(.97); }
+.eyebrow { font: 500 11.5px/1.3 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+
+/* ---------- explore: hero ---------- */
+.hero { display: grid; grid-template-columns: minmax(0, 1.02fr) minmax(0, 1fr); gap: 28px; align-items: stretch; margin: 8px 0 30px; }
+@media (max-width: 900px) { .hero { grid-template-columns: minmax(0, 1fr); } }
+.hero-copy { display: grid; align-content: center; gap: 18px; padding: 10px 0; }
+.hero h2 { font-size: clamp(34px, 5vw, 56px); line-height: 1.02; font-weight: 640; letter-spacing: -.025em; font-variation-settings: "opsz" 96; max-width: 15ch; }
+.hero h2 em { font-style: normal; color: var(--accent); }
+.hero .lede { font-size: 17px; color: var(--ink-2); max-width: 52ch; }
+.hero-ctas { display: flex; flex-wrap: wrap; gap: 10px; }
+.btn.lg { padding: 11px 18px; font-size: 15px; border-radius: 10px; }
+.readout { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border: 1px solid var(--line); border-radius: 12px; background: var(--raised); overflow: hidden; }
+.readout div { padding: 12px 14px; border-left: 1px solid var(--line-2); min-width: 0; }
+.readout div:first-child { border-left: 0; }
+.readout b { display: block; font: 600 24px/1.1 var(--display); font-variant-numeric: tabular-nums; }
+.readout span { font: 500 10.5px/1.3 var(--mono); letter-spacing: .07em; text-transform: uppercase; color: var(--ink-3); }
+@media (max-width: 520px) { .readout { grid-template-columns: repeat(2, minmax(0, 1fr)); } .readout div:nth-child(3) { border-left: 0; } .readout div:nth-child(n+3) { border-top: 1px solid var(--line-2); } }
+.hero-art { position: relative; min-height: 380px; border-radius: 18px; border: 1px solid var(--line); background: radial-gradient(120% 90% at 50% 100%, var(--accent-soft), transparent 62%), var(--raised); overflow: hidden; box-shadow: var(--shadow); }
+.hero-art canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; cursor: crosshair; }
+.garden-cap { position: absolute; left: 16px; top: 14px; right: 16px; display: flex; justify-content: space-between; gap: 10px; pointer-events: none; }
+.garden-cap strong { font: 620 16px var(--display); display: block; }
+.garden-cap .eyebrow { display: block; margin-bottom: 3px; }
+.garden-cap .r { text-align: right; }
+
+.steps3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; margin-bottom: 34px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.steps3 > div { padding: 16px 18px 18px 0; display: grid; gap: 4px; align-content: start; }
+.steps3 > div + div { padding-left: 18px; border-left: 1px solid var(--line-2); }
+.steps3 b { font: 620 16px var(--display); }
+.steps3 p { color: var(--ink-2); font-size: 14px; }
+.ex-sec { margin: 0 0 34px; display: grid; gap: 14px; }
+.ex-sec > header h2 { font-size: 22px; }
+.ex-sec > header p { color: var(--ink-2); font-size: 14px; max-width: 70ch; }
+.chain-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+.chain-card { text-align: left; font: inherit; color: inherit; cursor: pointer; border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; background: var(--raised); display: grid; gap: 8px; min-width: 0; transition: border-color .15s, transform .15s; }
+.chain-card:hover { border-color: var(--accent); }
+.chain-card h3 { font-size: 18px; }
+.chain-card p { color: var(--ink-2); font-size: 14px; }
+.chain-path { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; font-size: 12.5px; color: var(--ink-3); }
+.chain-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; counter-reset: st; }
+.chain-steps li { display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 4px 12px; padding: 14px 0; border-top: 1px solid var(--line-2); counter-increment: st; }
+.chain-steps li::before { content: counter(st, decimal-leading-zero); font: 600 13px var(--mono); color: var(--ink-3); padding-top: 3px; }
+.chain-steps h4 { font-size: 16px; font-weight: 640; }
+.chain-steps p { color: var(--ink-2); font-size: 14px; }
+.chain-steps .caps { margin-top: 4px; }
+.feed { list-style: none; margin: 0; padding: 0; display: grid; }
+.feed li, .credits li { display: grid; gap: 4px; padding: 12px 0; border-top: 1px solid var(--line-2); min-width: 0; }
+.feed .r-line b, .credits .r-line b { font-weight: 620; }
+.credit-links { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 13.5px; }
+.credit-links a, .credit-links span { overflow-wrap: anywhere; }
+.credits { list-style: none; margin: 0; padding: 0; }
+@media (max-width: 720px) { .steps3 { grid-template-columns: minmax(0, 1fr); } .steps3 > div + div { padding-left: 0; border-left: 0; border-top: 1px solid var(--line-2); } }
+
+.ex-bar { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; justify-content: space-between; margin-bottom: 16px; padding: 10px 0; }
+.ex-bar h2 { font-size: 24px; }
+.ex-search { flex: 0 1 300px; position: relative; }
+.ex-search input { width: 100%; padding: 8px 12px 8px 34px; border-radius: 9px; border: 1px solid var(--line); background: var(--raised); font-size: 14px; }
+.ex-search input:focus { outline: 2px solid var(--accent); outline-offset: 0; border-color: transparent; }
+.ex-search svg { position: absolute; left: 11px; top: 50%; translate: 0 -50%; width: 15px; height: 15px; color: var(--ink-3); }
+.cat-row { display: flex; flex-wrap: wrap; gap: 6px; }
+
+/* topic cards */
+.tgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(268px, 1fr)); gap: 14px; }
+.tcard { --h: 165; appearance: none; text-align: left; position: relative; display: grid; gap: 10px; align-content: start; padding: 18px 18px 16px; border-radius: 14px; border: 1px solid var(--line); background: var(--raised); cursor: pointer; color: inherit; min-width: 0; overflow: hidden; transition: transform .25s var(--ease), border-color .2s var(--ease), box-shadow .25s var(--ease); }
+.tcard::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 3px; background: hsl(var(--h) 55% 50%); opacity: .75; transform: scaleX(.18); transform-origin: left; transition: transform .35s var(--ease); }
+@media (hover: hover) { .tcard:hover { transform: translateY(-2px); border-color: hsl(var(--h) 40% 55% / .6); box-shadow: var(--shadow-lg); } .tcard:hover::before { transform: scaleX(1); } }
+.tc-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.tc-head .eyebrow { color: hsl(var(--h) 45% var(--tl)); }
+.tcard h3 { font-size: 19px; }
+.tcard p { color: var(--ink-2); font-size: 13.5px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.tc-top { font-size: 13px; color: var(--ink-3); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tc-meta { display: flex; gap: 16px; padding-top: 10px; border-top: 1px solid var(--line-2); margin: 0; }
+.tc-meta div { display: grid; gap: 1px; }
+.tc-meta dt { font: 500 10px var(--mono); text-transform: uppercase; letter-spacing: .07em; color: var(--ink-3); }
+.tc-meta dd { margin: 0; font: 600 15px var(--display); font-variant-numeric: tabular-nums; }
+.tc-meta dd.pol { color: var(--bloom); }
+.spark { display: block; width: 100%; height: 26px; }
+.foot-note { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--line-2); color: var(--ink-3); font-size: 13px; max-width: 80ch; }
+
+/* ---------- topic page ---------- */
+.crumbs { display: flex; gap: 8px; align-items: center; font-size: 13.5px; color: var(--ink-3); margin-bottom: 14px; }
+.crumbs button { appearance: none; border: 0; background: none; padding: 0; color: var(--ink-2); cursor: pointer; font-weight: 560; }
+.crumbs button:hover { color: var(--accent); }
+.t-hero { --h: 165; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 18px 30px; align-items: end; padding: 22px 0 22px; border-bottom: 1px solid var(--line); margin-bottom: 24px; }
+@media (max-width: 760px) { .t-hero { grid-template-columns: minmax(0, 1fr); } }
+.t-hero h2 { font-size: clamp(32px, 4.4vw, 46px); letter-spacing: -.02em; font-weight: 650; font-variation-settings: "opsz" 96; margin: 6px 0 8px; }
+.t-hero .eyebrow { color: hsl(var(--h) 45% var(--tl)); }
+.t-hero .lede { color: var(--ink-2); font-size: 16px; max-width: 60ch; }
+.t-stats { display: flex; gap: 22px; }
+.t-stats div { display: grid; }
+.t-stats b { font: 620 28px/1 var(--display); font-variant-numeric: tabular-nums; }
+.t-stats span { font: 500 10.5px var(--mono); letter-spacing: .07em; text-transform: uppercase; color: var(--ink-3); margin-top: 4px; }
+
+.super { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 0; border: 1px solid var(--line); border-radius: 16px; background: var(--raised); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 34px; }
+@media (max-width: 900px) { .super { grid-template-columns: minmax(0, 1fr); } }
+.super-main { padding: 22px 24px; display: grid; gap: 14px; align-content: start; min-width: 0; }
+.super-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
+.badge { display: inline-flex; align-items: center; gap: 6px; font: 600 11.5px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; padding: 5px 9px; border-radius: 6px; background: var(--accent); color: var(--accent-ink); }
+.super-main h3 { font: 600 22px var(--mono); letter-spacing: -.02em; }
+.super-main .desc { color: var(--ink-2); font-size: 14.5px; max-width: 70ch; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+.caps { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 6px; }
+.cap { appearance: none; text-align: left; display: flex; gap: 9px; align-items: center; padding: 8px 10px; border-radius: 8px; border: 1px solid var(--line-2); background: var(--surface); color: var(--ink); font-size: 13.5px; font-weight: 540; cursor: pointer; min-width: 0; transition: border-color .15s var(--ease), background .15s var(--ease); }
+.cap:hover { border-color: var(--accent); background: var(--accent-soft); }
+.cap i { flex: none; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+.cap span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.install { padding: 22px 24px; background: var(--surface); border-left: 1px solid var(--line); display: grid; gap: 12px; align-content: start; min-width: 0; }
+@media (max-width: 900px) { .install { border-left: 0; border-top: 1px solid var(--line); } }
+.install h4 { font: 620 15px var(--display); }
+.seg { display: inline-flex; padding: 3px; border-radius: 9px; background: var(--line-2); gap: 2px; }
+.seg button { appearance: none; border: 0; background: transparent; padding: 5px 10px; border-radius: 7px; font-size: 13px; font-weight: 560; color: var(--ink-2); cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--raised); color: var(--ink); box-shadow: 0 1px 2px oklch(0 0 0 / .12); }
+.code { position: relative; font: 12.5px/1.6 var(--mono); background: var(--ink); color: var(--ground); border-radius: 9px; padding: 11px 44px 11px 13px; overflow-x: auto; white-space: pre; }
+.code .cp { position: absolute; right: 6px; top: 6px; appearance: none; border: 1px solid oklch(0.6 0 0 / .4); border-radius: 6px; padding: 3px 7px; font: 500 11px var(--mono); background: var(--ink); color: inherit; cursor: pointer; }
+.install ol { margin: 0; padding-left: 18px; font-size: 13.5px; color: var(--ink-2); display: grid; gap: 6px; }
+.try { display: grid; gap: 6px; }
+.try q { display: block; font-size: 13.5px; padding: 8px 10px; border-radius: 8px; border: 1px dashed var(--line); color: var(--ink-2); quotes: none; }
+
+/* specimen tag: provenance label for every skill */
+.specimen { display: inline-flex; align-items: center; gap: 7px; font: 500 11.5px/1 var(--mono); padding: 4px 8px 4px 6px; border: 1px solid var(--line); border-radius: 4px 7px 7px 4px; background: var(--surface); color: var(--ink-2); max-width: 100%; min-width: 0; }
+.specimen::before { content: ""; flex: none; width: 6px; height: 6px; border-radius: 50%; border: 1.5px solid var(--ink-3); }
+.specimen b { font-weight: 600; color: var(--ink); }
+.specimen span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.specimen.lock { border-style: dashed; }
+.pol-tag { display: inline-flex; align-items: center; gap: 5px; font: 600 11px/1 var(--mono); letter-spacing: .04em; text-transform: uppercase; padding: 4px 7px; border-radius: 99px; background: var(--bloom-soft); color: var(--bloom); }
+.pol-tag::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--pollen); box-shadow: 0 0 0 3px oklch(0.85 0.15 90 / .25); }
+
+.subs-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 10px 16px; margin-bottom: 12px; }
+.subs-head h3 { font-size: 22px; }
+.subs-head p { color: var(--ink-2); font-size: 14px; margin-top: 3px; }
+.sublist { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.sub { display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; gap: 6px 16px; padding: 15px 4px; border-bottom: 1px solid var(--line-2); align-items: start; transition: background .15s var(--ease); }
+.sub:hover { background: var(--surface); }
+.sub .rank { font: 600 20px/1.2 var(--display); color: var(--ink-3); font-variant-numeric: tabular-nums; }
+.sub-title { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
+.sub-title strong { font: 620 16px var(--display); overflow-wrap: anywhere; }
+.sub p { color: var(--ink-2); font-size: 14px; margin-top: 3px; max-width: 78ch; }
+.tagrow { display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: center; margin-top: 8px; font-size: 12.5px; color: var(--ink-3); }
+.tagrow .stars { font: 500 12px var(--mono); }
+.flag { font-size: 12.5px; color: var(--bad); }
+.sub-act { display: flex; gap: 6px; align-items: center; justify-content: flex-end; flex-wrap: wrap; }
+@media (max-width: 640px) { .sub { grid-template-columns: 30px minmax(0, 1fr); } .sub-act { grid-column: 2; justify-content: flex-start; } }
+.btn.added { background: var(--accent-soft); border-color: transparent; color: var(--accent); }
+.lib-dl { margin-top: 16px; font-size: 14px; color: var(--ink-2); display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: center; }
+
+/* ---------- overlays: drawer, sheet, palette ---------- */
+.scrim { position: fixed; inset: 0; z-index: 30; background: oklch(0.15 0.02 165 / .38); backdrop-filter: blur(3px); opacity: 0; pointer-events: none; transition: opacity .25s var(--ease); }
+.scrim.on { opacity: 1; pointer-events: auto; }
+.drawer { position: fixed; z-index: 31; top: 0; right: 0; bottom: 0; width: min(720px, 100vw); background: var(--ground); border-left: 1px solid var(--line); box-shadow: var(--shadow-lg); transform: translateX(104%); transition: transform .32s var(--ease); display: grid; grid-template-rows: auto minmax(0, 1fr); }
+.drawer.on { transform: none; }
+.drawer-head { display: flex; gap: 12px; align-items: start; justify-content: space-between; padding: 18px 22px 14px; border-bottom: 1px solid var(--line); background: var(--raised); }
+.drawer-head h3 { font-size: 21px; overflow-wrap: anywhere; }
+.drawer-body { overflow-y: auto; padding: 18px 22px 40px; display: grid; gap: 16px; align-content: start; }
+.drawer-body .reader { max-width: none; }
+.prov { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 7px 16px; margin: 0; font-size: 13.5px; padding: 14px 16px; border: 1px solid var(--line); border-radius: 12px; background: var(--raised); }
+.prov dt { font: 500 10.5px/1.9 var(--mono); text-transform: uppercase; letter-spacing: .07em; color: var(--ink-3); }
+.prov dd { margin: 0; overflow-wrap: anywhere; }
+.files-mini { display: flex; flex-wrap: wrap; gap: 5px; }
+.files-mini span { font: 11.5px var(--mono); padding: 2px 6px; border-radius: 4px; background: var(--line-2); color: var(--ink-2); }
+
+.bundle-fab { position: fixed; z-index: 25; right: 22px; bottom: calc(22px + env(safe-area-inset-bottom, 0px)); display: inline-flex; align-items: center; gap: 10px; padding: 11px 16px 11px 13px; border-radius: 99px; border: 0; background: var(--ink); color: var(--ground); font-weight: 600; font-size: 14px; box-shadow: var(--shadow-lg); cursor: pointer; transform: translateY(0); transition: transform .3s var(--ease), opacity .3s var(--ease); }
+.bundle-fab[hidden] { display: inline-flex !important; transform: translateY(140%); opacity: 0; pointer-events: none; }
+.bundle-fab b { font: 600 12px/20px var(--mono); min-width: 22px; height: 20px; border-radius: 99px; background: var(--accent); color: var(--accent-ink); text-align: center; padding: 0 5px; }
+.bundle-fab.pulse { animation: pulse .5s var(--ease); }
+@keyframes pulse { 40% { transform: scale(1.06); } }
+.sheet { position: fixed; z-index: 31; right: 22px; bottom: 22px; width: min(440px, calc(100vw - 32px)); max-height: min(640px, calc(100vh - 44px)); background: var(--raised); border: 1px solid var(--line); border-radius: 16px; box-shadow: var(--shadow-lg); display: grid; grid-template-rows: auto minmax(0, 1fr) auto; transform: translateY(16px) scale(.98); opacity: 0; pointer-events: none; transition: transform .28s var(--ease), opacity .2s var(--ease); transform-origin: bottom right; }
+.sheet.on { transform: none; opacity: 1; pointer-events: auto; }
+.sheet-head { padding: 16px 18px 10px; display: flex; justify-content: space-between; align-items: start; gap: 10px; }
+.sheet-head p { color: var(--ink-3); font-size: 13px; margin-top: 2px; }
+.sheet ul { list-style: none; margin: 0; padding: 0 10px; overflow-y: auto; }
+.sheet li { display: flex; align-items: center; gap: 10px; padding: 9px 8px; border-top: 1px solid var(--line-2); }
+.sheet li .k { font: 500 10px var(--mono); text-transform: uppercase; letter-spacing: .07em; color: var(--ink-3); width: 46px; flex: none; }
+.sheet li strong { font-weight: 600; font-size: 14px; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sheet-foot { padding: 12px 18px 16px; border-top: 1px solid var(--line); display: flex; gap: 8px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+
+.palette { position: fixed; z-index: 40; left: 50%; top: 12vh; translate: -50% 0; width: min(640px, calc(100vw - 32px)); background: var(--raised); border: 1px solid var(--line); border-radius: 16px; box-shadow: var(--shadow-lg); overflow: hidden; transform: translateY(-8px) scale(.98); opacity: 0; pointer-events: none; transition: transform .2s var(--ease), opacity .15s var(--ease); }
+.palette.on { transform: none; opacity: 1; pointer-events: auto; }
+.palette input { width: 100%; border: 0; border-bottom: 1px solid var(--line); padding: 16px 18px; font-size: 17px; background: transparent; outline: none; }
+.pal-list { max-height: min(420px, 60vh); overflow-y: auto; padding: 6px; margin: 0; list-style: none; }
+.pal-list li { display: flex; align-items: center; gap: 12px; padding: 9px 12px; border-radius: 9px; cursor: pointer; min-width: 0; }
+.pal-list li[aria-selected="true"] { background: var(--accent-soft); }
+.pal-list .k { font: 500 10px var(--mono); text-transform: uppercase; letter-spacing: .07em; color: var(--ink-3); width: 62px; flex: none; }
+.pal-list strong { font-weight: 600; font-size: 14.5px; white-space: nowrap; }
+.pal-list span.d { color: var(--ink-3); font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+.pal-foot { display: flex; gap: 14px; padding: 9px 14px; border-top: 1px solid var(--line-2); font-size: 12px; color: var(--ink-3); }
+
+.reveal { animation: rise .5s var(--ease) both; }
+@keyframes rise { from { opacity: 0; transform: translateY(8px); } }
+@media (prefers-reduced-motion: reduce) { .brand-mark .sway, .reveal, .bundle-fab.pulse { animation: none; } .tcard, .drawer, .sheet, .palette, .scrim { transition: none; } }
+.bname { display: block; font: 680 21px/1.15 var(--display); letter-spacing: -.01em; font-variation-settings: "opsz" 48; }
+.brand { flex: 1 1 320px; min-width: 0; }
+.brand > span:last-child { min-width: 0; }
+.brand .status { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 </style>
 
 <div class="app">
   <div class="chrome">
   <header class="top">
-    <div class="brand">
-      <svg viewBox="0 0 32 32" width="30" height="30" aria-hidden="true"><path d="M16 29.5V15.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" fill="none"/><path d="M16 17.2c-.2-6.4 3.9-10.6 11.2-10.6.1 7.2-4 11.2-11.2 10.6z" fill="currentColor"/><path d="M16 20.6c.1-5.3-3.3-8.9-9.9-8.9-.1 6 3.4 9.4 9.9 8.9z" fill="currentColor" opacity=".5"/></svg>
-      <div>
-        <h1>Skill Garden</h1>
-        <p class="status" id="status">Opening the garden…</p>
-      </div>
-    </div>
+    <button class="brand" data-act="ex-home" aria-label="Skill Garden home">
+      <span class="brand-mark"><svg viewBox="0 0 32 32" aria-hidden="true"><g class="sway"><path d="M16 29.5V15.5" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" fill="none"/><path d="M16 17.2c-.2-6.4 3.9-10.6 11.2-10.6.1 7.2-4 11.2-11.2 10.6z" fill="var(--accent)"/><path d="M16 20.6c.1-5.3-3.3-8.9-9.9-8.9-.1 6 3.4 9.4 9.9 8.9z" fill="var(--accent)" opacity=".5"/></g></svg></span>
+      <span>
+        <span class="bname">Skill Garden</span>
+        <span class="status" id="status">Opening the garden…</span>
+      </span>
+    </button>
     <div class="top-actions">
+      <button class="search-btn" data-act="palette" aria-label="Search skills"><svg viewBox="0 0 20 20" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="9" cy="9" r="6"/><path d="m14 14 4 4" stroke-linecap="round"/></svg><span>Search skills, crafts, actions</span><kbd>⌘K</kbd></button>
+      <button class="icon-btn" data-act="theme" aria-label="Switch light or dark"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="10" cy="10" r="7"/><path d="M10 3a7 7 0 0 0 0 14z" fill="currentColor"/></svg></button>
       <button class="btn small" id="runNow" data-act="run-now" hidden>Run scout now</button>
     </div>
   </header>
   <nav class="tabs" role="tablist" aria-label="Sections">
-    <button class="tab" role="tab" data-act="tab" data-view="review" aria-selected="true">Review <span class="count" id="c-review"></span></button>
-    <button class="tab" role="tab" data-act="tab" data-view="skills" aria-selected="false">Skills <span class="count" id="c-skills"></span></button>
+    <button class="tab" role="tab" data-act="tab" data-view="explore" aria-selected="true">Explore</button>
+    <button class="tab" role="tab" data-act="tab" data-view="skills" aria-selected="false">My skills <span class="count" id="c-skills"></span></button>
+    <button class="tab" role="tab" data-act="tab" data-view="review" aria-selected="false">Review <span class="count" id="c-review"></span></button>
     <button class="tab" role="tab" data-act="tab" data-view="inbox" aria-selected="false">Reel inbox <span class="count" id="c-inbox"></span></button>
     <button class="tab" role="tab" data-act="tab" data-view="log" aria-selected="false">Scout log</button>
   </nav>
@@ -328,6 +579,16 @@ main { padding-top: 24px; }
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <input type="file" id="importFile" accept=".zip,.json,.html,application/zip,application/json,text/html" hidden>
+<input type="file" id="rowVideoFile" accept="video/mp4,video/quicktime,video/webm,video/x-m4v" hidden>
+<div class="scrim" id="scrim" data-act="close-overlays"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawerTitle" aria-hidden="true"></aside>
+<button class="bundle-fab" id="bundleFab" data-act="bundle-open" hidden><svg viewBox="0 0 20 20" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M3 6.5 10 3l7 3.5v7L10 17l-7-3.5z"/><path d="M3 6.5 10 10l7-3.5M10 10v7"/></svg>Your bundle <b id="bundleCount">0</b></button>
+<section class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="Your bundle" aria-hidden="true"></section>
+<div class="palette" id="palette" role="dialog" aria-modal="true" aria-label="Search" aria-hidden="true">
+  <input id="palInput" type="text" placeholder="Search 29 crafts and 700+ skills…" autocomplete="off" spellcheck="false" role="combobox" aria-expanded="true" aria-controls="palList">
+  <ul class="pal-list" id="palList" role="listbox"></ul>
+  <div class="pal-foot"><span><kbd>↑</kbd> <kbd>↓</kbd> move</span><span><kbd>↵</kbd> open</span><span><kbd>esc</kbd> close</span></div>
+</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <script>
@@ -339,11 +600,12 @@ main { padding-top: 24px; }
     db: null, user: null, mcp: null, downloads: null, canWrite: true,
     loaded: { topics: false, candidates: false, inbox: false, runs: false, settings: false },
     topics: [], candidates: [], inbox: [], runs: [], settings: null, versions: [], versionsFor: null,
-    view: "review", reviewTopic: "all", showLost: false, openDiff: new Set(), busy: new Set(),
+    view: "explore", reviewTopic: "all", showLost: false, openDiff: new Set(), busy: new Set(),
     skillOpen: null, skillTab: "skill", skillRaw: false, editing: null, newTopicOpen: false, histOpen: new Set(),
     inboxTopic: "all", inboxStatus: "all", inboxLimit: 150, noteEditing: null,
     importState: null, // {stage:'map'|'writing'|'done', items, colls, recentDays, done, total, error}
     manualStartedAt: 0,
+    addMode: "links", media: null, mediaTools: null,
   };
   let unsubVersions = null;
 
@@ -391,6 +653,7 @@ main { padding-top: 24px; }
       case "quota_exceeded": return "The garden's storage is full. Remove old reels to make room.";
       case "resource_exhausted": return "Too many saves at once. Wait a moment and try again.";
       case "revoked": return "Access to this page changed. Reload to continue.";
+      case "tool_error": return e.message || "That didn't work. Try again.";
       default: return "Couldn't save just now. Try again in a moment.";
     }
   }
@@ -411,10 +674,15 @@ main { padding-top: 24px; }
     const t = (S.settings && S.settings.scoutTime) || "06:51";
     const [hh, mm] = t.split(":").map(Number);
     const n = istNow();
-    const tomorrow = n.h * 60 + n.mi >= hh * 60 + mm;
-    const at = new Date(Date.UTC(n.y, n.m - 1, n.d + (tomorrow ? 1 : 0), hh, mm) - 330 * 60000);
+    const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    const day = DAYS.indexOf((S.settings && S.settings.scoutDay) || "Sun");
+    const today = new Date(Date.UTC(n.y, n.m - 1, n.d)).getUTCDay();
+    let ahead = (day - today + 7) % 7;
+    if (ahead === 0 && n.h * 60 + n.mi >= hh * 60 + mm) ahead = 7;
+    const at = new Date(Date.UTC(n.y, n.m - 1, n.d + ahead, hh, mm) - 330 * 60000);
     const local = new Date().getTimezoneOffset() !== -330 ? ` (${fmtTime(at)} your time)` : "";
-    return `${tomorrow ? "tomorrow" : "today"} ${t} India time${local}`;
+    const when = ahead === 0 ? "today" : ahead === 1 ? "tomorrow" : ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][day];
+    return `${when} ${t} India time${local}`;
   }
 
   /* ---------- markdown (small, safe) ---------- */
@@ -535,7 +803,8 @@ main { padding-top: 24px; }
     renderHeader();
     const v = S.view;
     if (mounted !== v) { mountView(v); mounted = v; }
-    if (v === "review") updateReview();
+    if (v === "explore") updateExplore();
+    else if (v === "review") updateReview();
     else if (v === "skills") updateSkills();
     else if (v === "inbox") updateInbox();
     else if (v === "log") updateLog();
@@ -553,12 +822,13 @@ main { padding-top: 24px; }
     const ci = $("#c-inbox"); ci.textContent = needs ? String(needs) : ""; ci.className = "count" + (needs ? " hot" : "");
     $("#c-skills").textContent = S.topics.length ? String(S.topics.filter((t) => t.active !== false).length) : "";
     const st = $("#status");
-    if (!S.db) { st.textContent = S.dbMissing ? "Sign in to claude.ai to open your garden." : "Opening the garden…"; }
+    if (window.SG_PUBLIC) { const n = crafts().length, k = crafts().reduce((a, c) => a + c.skills.length, 0); st.textContent = n ? `${n} super skills · ${k} ranked sub-skills · refreshed weekly` : "Opening the garden…"; }
+    else if (!S.db) { st.textContent = S.dbMissing ? "Sign in to claude.ai to open your garden." : "Opening the garden…"; }
     else {
       const run = runningRun();
       const lr = lastRun();
       const parts = [];
-      if (S.settings && S.settings.paused) parts.push("Morning scout is paused");
+      if (S.settings && S.settings.paused) parts.push("Weekly scout is paused");
       else if (run) parts.push(`Scout is working · started ${ago(run.startedAt)}`);
       else parts.push(`Next scout ${nextScout()}${S.settings && S.settings.host === "local" ? " while Skill Garden is running on this computer" : ""}`);
       if (!run && lr) parts.push(`last run ${ago(lr.finishedAt || lr.startedAt)}`);
@@ -574,10 +844,11 @@ main { padding-top: 24px; }
 
   function mountView(v) {
     const el = $("#view");
-    if (v === "review") el.innerHTML = `<section><div class="section-head"><div><h2>Changes waiting for you</h2><p>Each one beat the current skill in blind trials. Add it and the skill grows a version; skip it and the scout won't propose it again.</p></div><div class="filters" id="rv-filter"></div></div><div id="rv-summary"></div><div class="cands" id="rv-list"></div><div id="rv-lost"></div></section>`;
+    if (v === "explore") el.innerHTML = `<section id="ex"></section>`;
+    else if (v === "review") el.innerHTML = `<section><div class="section-head"><div><h2>Changes waiting for you</h2><p>Each one beat the current skill in blind trials. Add it and the skill grows a version; skip it and the scout won't propose it again.</p></div><div class="filters" id="rv-filter"></div></div><div id="rv-summary"></div><div class="cands" id="rv-list"></div><div id="rv-lost"></div></section>`;
     else if (v === "skills") el.innerHTML = `<section id="sk"></section>`;
     else if (v === "inbox") mountInbox(el);
-    else if (v === "log") el.innerHTML = `<section><div class="section-head"><div><h2>Scout log</h2><p>What the scout looked at each morning and what it found.</p></div><div id="lg-controls"></div></div><div class="runs" id="lg-list"></div><div id="lg-howto"></div></section>`;
+    else if (v === "log") el.innerHTML = `<section><div class="section-head"><div><h2>Scout log</h2><p>What the scout looked at each week and what it found.</p></div><div id="lg-controls"></div></div><div class="runs" id="lg-list"></div><div id="lg-howto"></div></section>`;
   }
 
   function loadingOr(key, html) { return S.loaded[key] ? html : `<p class="skeleton">Loading…</p>`; }
@@ -598,7 +869,41 @@ main { padding-top: 24px; }
     const verdict = c.verdict === "better" ? `<strong>Won ${N(t.wins)} of ${count}</strong> blind ${count === 1 ? "trial" : "trials"} against ${vs}` : c.verdict === "tie" ? `<strong>Tied</strong> with ${vs} (${N(t.wins)} won, ${N(t.losses)} lost)` : `<strong>Lost</strong> to ${vs} (${N(t.wins)} won, ${N(t.losses)} lost)`;
     return `<div class="trial">${trialMarks(c)}<span class="trial-text">${verdict}${N(t.ties) ? `, ${plural(N(t.ties), "tie")}` : ""}</span></div>`;
   }
-  const KIND = { add: "Adds to the skill", improve: "Improves the skill", remove: "Trims the skill", "first-draft": "New skill" };
+  // A super-skill generation carries filesPatch: { "references/x.md": "new full text" | null (remove) }.
+  // Removed files are kept as "" so a merge-style update can't resurrect them; downloads skip empty files.
+  function patchedFiles(t, c) {
+    if (!c.filesPatch || typeof c.filesPatch !== "object") return null;
+    const out = { ...(t.files || {}) };
+    for (const [p, txt] of Object.entries(c.filesPatch)) out[p] = typeof txt === "string" ? txt : "";
+    return out;
+  }
+  function filesDiff(t, c) {
+    const names = Object.keys(c.filesPatch || {}).sort();
+    if (!names.length) return "";
+    return `<div style="margin-top:12px"><p class="muted">Also changes ${names.length === 1 ? "1 file" : names.length + " files"} in the skill:</p>${names.map((n) => { const old = (t && t.files && t.files[n]) || ""; const nu = c.filesPatch[n]; return `<details><summary class="mono">${esc(n)} · ${nu == null ? "removed" : old ? "changed" : "new"}</summary>${nu == null ? "" : old ? diffHtml(old, nu) : `<pre style="white-space:pre-wrap;overflow-wrap:anywhere">${esc(nu)}</pre>`}</details>`; }).join("")}</div>`;
+  }
+  const KIND = { generation: "New generation", add: "Adds to the skill", improve: "Improves the skill", remove: "Trims the skill", "first-draft": "New skill" };
+  // Safety gate for scout proposals: a change that could leak keys, cookies or prompts, phone home,
+  // run remote code, or bring back a skill removed for that reason is blocked from being added.
+  const BLOCKED_SKILLS = ["qiaomu-mondo-poster-design"];
+  const RISKS = [
+    [/(curl|wget)[^\n|]*\|\s*(sudo\s+)?(ba|z)?sh\b|\b(iwr|irm)\b[^\n|]*\|\s*iex\b/gi, "pipes a download into a shell"],
+    [/browser_cookie3|rookie-?cookies|cookies\.sqlite|\bli_at\b|AGENTCOOKIE/gi, "reads browser cookies"],
+    [/\b(posthog|mixpanel|amplitude\.com|segment\.io)\b/gi, "adds telemetry"],
+    [/['"]?Origin['"]?\s*:\s*['"]https?:\/\/[^'"]+/g, "spoofs a request origin"],
+  ];
+  // Only what the change adds counts: a guide may already warn about an installer.
+  function risksOf(c) {
+    const t = topicById(c.topicId) || {};
+    const out = new Set();
+    const pairs = [[t.content || "", c.proposed || ""], ...Object.entries(c.filesPatch || {}).filter(([, v]) => typeof v === "string").map(([p, v]) => [(t.files || {})[p] || "", v])];
+    for (const p of Object.keys(c.filesPatch || {})) if (!/^(references\/[^/]+\.md|CREDITS\.md)$/.test(p) || p.includes("..")) out.add(`changes a file it may not touch (${p})`);
+    for (const [old, x] of pairs) {
+      for (const [re, why] of RISKS) { const had = new Set(old.match(re) || []); if ((x.match(re) || []).some((m) => !had.has(m))) out.add(why); }
+      for (const b of BLOCKED_SKILLS) if (x.toLowerCase().includes(b) && !old.toLowerCase().includes(b)) out.add(`brings back ${b}, removed for leaking keys`);
+    }
+    return [...out];
+  }
   function candCard(c, mode) {
     const t = topicById(c.topicId);
     const open = S.openDiff.has(c.id);
@@ -618,14 +923,22 @@ main { padding-top: 24px; }
       <div class="cand-head">${chip(t)}<span class="pill">${esc(KIND[c.kind] || "Change")}</span>${mode === "approved" ? `<span class="pill bloom">Approved · folds in next run</span>` : ""}<span class="when mono">${esc(ago(c.createdAt))}</span></div>
       <h3>${esc(c.title || "Untitled change")}</h3>
       ${c.summary ? `<p class="summary">${esc(c.summary)}</p>` : ""}
+      ${risksOf(c).length ? `<p class="blocked"><b>Blocked for safety:</b> this change ${esc(risksOf(c).join("; "))}. It can't be added.</p>` : ""}
       ${trialLine(c)}
       ${c.why ? `<p class="why"><strong>Why:</strong> ${esc(c.why)}</p>` : ""}
       ${notes.length ? `<ul class="notes">${notes.slice(0, 4).map((n) => `<li>${esc(n.task ? n.task + ": " : "")}${esc(n.reason)}</li>`).join("")}</ul>` : ""}
       ${src ? `<ul class="sources">${src}</ul>` : ""}
+      ${conflictsHtml(c)}
       ${c.foldNote ? `<p class="why">${esc(c.foldNote)}</p>` : ""}
       <div class="cand-actions">${actions}<button class="link" data-act="toggle-diff" data-id="${esc(c.id)}" aria-expanded="${open}">${open ? "Hide the change" : c.kind === "first-draft" ? "Read the draft" : "See the change"}</button></div>
-      ${diffBody}
+      ${diffBody}${open ? filesDiff(t, c) : ""}
     </article>`;
+  }
+  // Where the sources disagreed, and what the scout chose. Shown so it's your call, not a silent merge.
+  function conflictsHtml(c) {
+    const list = (Array.isArray(c.conflicts) ? c.conflicts : []).filter((x) => x && x.point).slice(0, 6);
+    if (!list.length) return "";
+    return `<div class="conflicts"><h4>Sources disagree on ${plural(list.length, "point")}</h4><ul>${list.map((x) => `<li><b>${esc(x.point)}</b>${(Array.isArray(x.sides) ? x.sides : []).slice(0, 4).map((sd) => `<span>${esc(sd && sd.source ? sd.source + ": " : "")}${esc(sd && sd.says)}</span>`).join("")}${x.kept ? `<span><strong>This change:</strong> ${esc(x.kept)}${x.why ? ` (${esc(x.why)})` : ""}</span>` : ""}</li>`).join("")}</ul></div>`;
   }
   function updateReview() {
     if (!S.db) { $("#rv-list").innerHTML = S.dbMissing ? noDb() : `<p class="skeleton">Loading…</p>`; return; }
@@ -640,7 +953,7 @@ main { padding-top: 24px; }
     let list;
     if (!S.loaded.candidates) list = `<p class="skeleton">Loading…</p>`;
     else if (!ready.length) {
-      list = `<div class="empty"><h3>${lr ? "Nothing waiting right now" : "The first scout run hasn't happened yet"}</h3><p>${lr ? `The last run was ${esc(ago(lr.finishedAt || lr.startedAt))}. ` : ""}The scout runs every morning at ${esc(nextScout())}. Changes that beat the current skill in blind trials show up here for you to add or skip.</p><ol class="steps"><li>Keep saving reels on Instagram, and add the best ones in <button class="link" data-act="tab" data-view="inbox">Reel inbox</button> with a line about the trick.</li><li>The scout finds the real source behind each reel, checks GitHub and the web, and tests each idea.</li><li>Winners wait here. Nothing changes in a skill until you add it.</li></ol></div>`;
+      list = `<div class="empty"><h3>${lr ? "Nothing waiting right now" : "The first scout run hasn't happened yet"}</h3><p>${lr ? `The last run was ${esc(ago(lr.finishedAt || lr.startedAt))}. ` : ""}The scout runs once a week, next ${esc(nextScout())}. Changes that beat the current skill in blind trials show up here for you to add or skip.</p><ol class="steps"><li>Keep saving reels on Instagram, and add the best ones in <button class="link" data-act="tab" data-view="inbox">Reel inbox</button> with a line about the trick.</li><li>The scout finds the real source behind each reel, checks GitHub and the web, and tests each idea.</li><li>Winners wait here. Nothing changes in a skill until you add it.</li></ol></div>`;
     } else list = shown.map((c) => candCard(c, "ready")).join("");
     $("#rv-list").innerHTML = list + (approved.length ? `<div class="cands" style="margin-top:16px">${approved.map((c) => candCard(c, "approved")).join("")}</div>` : "");
     const lost = S.candidates.filter((c) => c.status === "lost" || c.status === "skipped").slice(0, 30);
@@ -681,7 +994,7 @@ main { padding-top: 24px; }
       if (S.newTopicOpen && sk.dataset.mode === "grid") { updateNewTopicOnly(); return; }
       sk.dataset.mode = "grid";
       const cards = S.topics.map(topicCard).join("");
-      sk.innerHTML = `<div class="section-head"><div><h2>Your skills</h2><p>One skill per topic. Each is a SKILL.md you can drop into Claude Code or Claude's skills folder.</p></div><div class="row-actions">${S.topics.length ? `<button class="btn" data-act="download-all">Download all</button>` : ""}</div></div>
+      sk.innerHTML = `<div class="section-head"><div><h2>Your super skills</h2><p>The same 29 crafts as Explore, seen from the workshop side: edit each super skill, set its tests and sources, and see every version. Explore is where you browse and download them.</p></div><div class="row-actions">${S.topics.length ? `<button class="btn" data-act="download-all">Download all</button>` : ""}</div></div>
         ${loadingOr("topics", `<div class="grid-topics">${cards}${S.newTopicOpen ? newTopicForm() : `<button class="topic-card add-card" data-act="new-topic"${S.canWrite ? "" : " disabled"}><strong>Add a topic</strong><span>Name it, link your Instagram collection, and the scout drafts v1 tomorrow.</span></button>`}</div>`)}`;
       return;
     }
@@ -694,7 +1007,7 @@ main { padding-top: 24px; }
     const waiting = S.candidates.filter((c) => c.topicId === t.id && c.status === "ready").length;
     $("#d-head").innerHTML = `<div class="detail-title">${chip(t)}<h2>${esc(t.name)}</h2><span class="mono muted">v${esc(t.version || 0)}${t.updatedAt ? ` · grew ${esc(ago(t.updatedAt))}` : ""}</span></div>
       ${t.blurb ? `<p style="color:var(--ink-2);max-width:66ch">${esc(t.blurb)}</p>` : ""}
-      <div class="detail-actions">${t.content ? `<button class="btn primary small" data-act="download-skill">Download SKILL.md</button><button class="btn small" data-act="copy-skill">Copy</button>` : ""}${waiting ? `<button class="btn small" data-act="tab" data-view="review">${plural(waiting, "change")} waiting</button>` : ""}
+      <div class="detail-actions">${t.content ? `<button class="btn primary small" data-act="download-skill">${fileCount(t) ? "Download skill (.zip)" : "Download SKILL.md"}</button><button class="btn small" data-act="copy-skill">Copy</button>` : ""}${waiting ? `<button class="btn small" data-act="tab" data-view="review">${plural(waiting, "change")} waiting</button>` : ""}
       <label class="switch" style="margin-left:auto"><input type="checkbox" id="activeToggle" data-act="toggle-active"${t.active === false ? "" : " checked"}${S.canWrite ? "" : " disabled"}> Scout this topic</label></div>`;
     const tabs = [["skill", "Skill"], ["history", `History`], ["tests", `Tests · ${(t.tests || []).length}`], ["sources", "Sources"]];
     $("#d-tabs").innerHTML = tabs.map(([k, l]) => `<button class="subtab" role="tab" data-act="skill-tab" data-tab="${k}" aria-selected="${S.skillTab === k}">${esc(l)}</button>`).join("");
@@ -717,12 +1030,17 @@ main { padding-top: 24px; }
     if (!t.content) return `<div class="empty"><h3>No skill yet</h3><p>The next scout run drafts v1 for ${esc(t.name)} from your reels and the best sources it finds. The draft waits in Review for you.</p></div>`;
     const { meta, body } = splitFront(t.content);
     return `<div class="row-actions" style="margin-bottom:12px"><button class="fchip" data-act="raw" data-raw="0" aria-pressed="${!S.skillRaw}">Read</button><button class="fchip" data-act="raw" data-raw="1" aria-pressed="${S.skillRaw}">SKILL.md</button><button class="btn ghost small" data-act="edit-skill" style="margin-left:auto"${S.canWrite ? "" : " disabled"}>Edit by hand</button></div>
-      ${S.skillRaw ? `<div class="reader" style="padding:0;overflow:hidden"><pre style="margin:0;border:0;border-radius:0;white-space:pre-wrap;overflow-wrap:anywhere">${esc(t.content)}</pre></div>` : `<article class="reader">${meta.description ? `<p class="lead">${esc(meta.description)}</p>` : ""}${md(body)}</article>`}`;
+      ${S.skillRaw ? `<div class="reader" style="padding:0;overflow:hidden"><pre style="margin:0;border:0;border-radius:0;white-space:pre-wrap;overflow-wrap:anywhere">${esc(t.content)}</pre></div>` : `<article class="reader">${meta.description ? `<p class="lead">${esc(meta.description)}</p>` : ""}${md(body)}</article>`}${filesList(t)}`;
+  }
+  function filesList(t) {
+    const names = Object.keys(t.files || {}).filter((n) => t.files[n]).sort();
+    if (!names.length) return "";
+    return `<div class="reader" style="margin-top:14px"><h3 style="margin-top:0">Files in this skill · ${names.length}</h3><p class="muted">Claude reads these only when SKILL.md points to them. They come with the download.</p>${names.map((n) => `<details><summary class="mono">${esc(n)}</summary><pre style="white-space:pre-wrap;overflow-wrap:anywhere">${esc(t.files[n])}</pre></details>`).join("")}</div>`;
   }
   function historyPane(t) {
     if (S.versionsFor !== t.id) return `<p class="skeleton">Loading history…</p>`;
     if (!S.versions.length) return `<div class="empty"><h3>No versions yet</h3><p>Every change you add becomes a version here, with where it came from. You can bring back any earlier version.</p></div>`;
-    const SRC = { seed: "Starting skill", candidate: "Added from Review", folded: "Folded in by the scout", manual: "Edited by hand", restore: "Brought back" };
+    const SRC = { seed: "Starting skill", candidate: "Added from Review", folded: "Folded in by the scout", manual: "Edited by hand", restore: "Brought back", superskill: "Super skill from SkillGarden", starter: "Earlier starter skill" };
     return `<div class="hist">${S.versions.map((v, k) => {
       const prev = S.versions[k + 1];
       const open = S.histOpen.has(v.id);
@@ -741,9 +1059,9 @@ main { padding-top: 24px; }
   function sourcesPane(t) {
     const libs = (S.settings && S.settings.libraries) || [];
     const tags = (arr, empty) => arr && arr.length ? `<div class="taglist">${arr.map((x) => `<span class="tag">${esc(x)}</span>`).join("")}</div>` : `<p class="muted">${empty}</p>`;
-    return `<div class="section-head" style="margin-bottom:12px"><div><p>Where the scout looks for this topic every morning, besides the reels in your inbox.</p></div><button class="btn small" data-act="edit-sources"${S.canWrite ? "" : " disabled"}>Edit sources</button></div>
+    return `<div class="section-head" style="margin-bottom:12px"><div><p>Where the scout looks for this topic every week, besides the reels in your inbox.</p></div><button class="btn small" data-act="edit-sources"${S.canWrite ? "" : " disabled"}>Edit sources</button></div>
       <div class="fields"><div class="kv"><span class="lbl" style="font-weight:600">Instagram collections</span>${tags(t.collections, "None linked. Imported reels from these collections go to this topic.")}</div>
-      <div class="kv"><span class="lbl" style="font-weight:600">GitHub repos to watch</span>${tags(t.repos, "None. The scout checks their releases each morning.")}</div>
+      <div class="kv"><span class="lbl" style="font-weight:600">GitHub repos to watch</span>${tags(t.repos, "None. The scout checks their releases each week.")}</div>
       <div class="kv"><span class="lbl" style="font-weight:600">Web searches</span>${tags(t.searches, "None yet.")}</div>
       <div class="kv"><span class="lbl" style="font-weight:600">Official skill libraries (all topics)</span>${tags(libs, "None.")}</div></div>`;
   }
@@ -769,18 +1087,18 @@ main { padding-top: 24px; }
   /* ---- inbox ---- */
   function mountInbox(el) {
     el.innerHTML = `<section>
-      <div class="section-head"><div><h2>Reel inbox</h2><p>Reels you've saved, sorted by topic. The scout reads the new ones every morning and follows each back to the tool, repo or technique behind it.</p></div></div>
+      <div class="section-head"><div><h2>Reel inbox</h2><p>Reels you've saved, sorted by topic. The scout reads the new ones every week and follows each back to the tool, repo or technique behind it.</p></div></div>
       <div class="inbox-top">
         <form class="panel" id="addForm" autocomplete="off">
-          <h3>Add reels</h3>
-          <p class="sub">Paste one link or many. A line about the trick helps most, because the scout can't watch Instagram videos.</p>
-          <div class="field"><label for="reelLinks">Reel links</label><textarea class="area" id="reelLinks" placeholder="https://www.instagram.com/reel/…" style="min-height:70px"></textarea></div>
+          <h3>Add to the inbox</h3>
+          <div class="seg add-modes" role="group" aria-label="What are you adding">${[["links", "Reel links"], ["freebie", "Freebie"], ["video", "Video"]].map(([k, l]) => `<button type="button" data-act="add-mode" data-id="${k}" aria-pressed="${S.addMode === k}">${l}</button>`).join("")}</div>
+          <div id="addBody" style="display:grid;gap:12px">${addBody()}</div>
           <div class="field"><label for="reelTopic">Topic</label><select class="select" id="reelTopic"></select></div>
-          <div class="field"><label for="reelNote">What's the trick? <span class="muted" style="font-weight:400">(optional)</span></label><input class="input" id="reelNote" maxlength="400" placeholder="e.g. uses Remotion + a spring to make the text bounce in"></div>
           <div class="row-actions"><button class="btn primary" type="submit" id="addBtn">Add to inbox</button></div>
         </form>
         <div class="panel" id="importPanel"></div>
       </div>
+      <div class="panel" id="igReader" style="margin-top:16px"></div>
       <div id="collStats"></div>
       <div class="section-head" style="margin-bottom:10px"><h2 style="font-size:20px">All reels</h2><div class="filters" id="ib-filters"></div></div>
       <ul class="reels" id="reelList"></ul>
@@ -788,6 +1106,26 @@ main { padding-top: 24px; }
     </section>`;
     renderImport();
     S._topicKey = null;
+  }
+  // The add panel's three modes. Video needs the app on your Mac, which reads it locally.
+  function addBody() {
+    if (S.addMode === "freebie") return `<p class="sub">A guide, prompt or template a creator sent you, usually after you commented a keyword. Paste its text, its link, or both. It stays on this computer; the scout learns from it and credits the creator by handle.</p>
+      <div class="field"><label for="fbOwner">Creator's handle</label><input class="input" id="fbOwner" maxlength="40" placeholder="@creator"></div>
+      <div class="field"><label for="fbUrl">Link <span class="muted" style="font-weight:400">(optional)</span></label><input class="input" id="fbUrl" maxlength="300" placeholder="https://…"></div>
+      <div class="field"><label for="fbBody">What they sent <span class="muted" style="font-weight:400">(optional if there's a link)</span></label><textarea class="area" id="fbBody" maxlength="20000" style="min-height:90px" placeholder="Paste the message or the guide's text"></textarea></div>`;
+    if (S.addMode === "video") {
+      if (!S.media) return `<p class="sub">Drop a reel's video file and Skill Garden writes down what's said and grabs a few stills, so the scout knows what the reel teaches. This works in the app on your Mac, which reads the video there; nothing is uploaded.</p>`;
+      const tl = S.mediaTools;
+      return `<p class="sub">Drop a reel you downloaded (.mp4 or .mov). It is read on this computer: a transcript of what's said and six stills of what's shown. The video is deleted afterwards.</p>
+        ${tl && !tl.ready ? `<p class="blocked">${tl.ffmpeg ? "No transcriber found." : "ffmpeg isn't installed."} In Terminal run <span class="mono">brew install ffmpeg openai-whisper</span>, then restart Skill Garden.</p>` : ""}
+        <label class="drop" for="videoFile" tabindex="0"><strong id="videoName">Choose the video</strong><span class="muted" style="font-size:13px">.mp4, .mov, .m4v or .webm · up to 300 MB</span></label>
+        <input type="file" id="videoFile" accept="video/mp4,video/quicktime,video/webm,video/x-m4v" hidden>
+        <div class="field"><label for="videoLink">Reel link <span class="muted" style="font-weight:400">(optional; adds the video to that reel)</span></label><input class="input" id="videoLink" maxlength="300" placeholder="https://www.instagram.com/reel/…"></div>
+        <div class="field"><label for="reelNote">What's the trick? <span class="muted" style="font-weight:400">(optional)</span></label><input class="input" id="reelNote" maxlength="400"></div>`;
+    }
+    return `<p class="sub">Paste one link or many. A line about the trick helps most. If you have the video, use Video instead: the scout can't watch Instagram.</p>
+      <div class="field"><label for="reelLinks">Reel links</label><textarea class="area" id="reelLinks" placeholder="https://www.instagram.com/reel/…" style="min-height:70px"></textarea></div>
+      <div class="field"><label for="reelNote">What's the trick? <span class="muted" style="font-weight:400">(optional)</span></label><input class="input" id="reelNote" maxlength="400" placeholder="e.g. uses Remotion + a spring to make the text bounce in"></div>`;
   }
   function fillTopicSelect(sel, current, withNone) {
     sel.innerHTML = (withNone ? `<option value="">Choose a topic…</option>` : "") + S.topics.map((t) => `<option value="${esc(t.id)}"${t.id === current ? " selected" : ""}>${esc(t.name)}</option>`).join("");
@@ -797,17 +1135,23 @@ main { padding-top: 24px; }
     const t = topicById(r.topicId);
     const [label, cls] = STATUS[r.status] || [r.status || "", ""];
     const u = safeUrl(r.url);
-    const who = r.owner ? "@" + String(r.owner).replace(/^@/, "") : (r.kind === "link" ? hostOf(r.url) : "Instagram reel");
+    const who = r.owner ? "@" + String(r.owner).replace(/^@/, "") : (r.kind === "link" ? hostOf(r.url) : r.kind === "freebie" ? "Freebie" : r.kind === "video" ? "Video" : "Instagram reel");
     const lead = safeUrl(r.leadUrl);
     const editing = S.noteEditing === r.id;
-    const text = r.note || r.caption;
+    const text = r.note || r.caption || (r.kind === "freebie" ? r.body : "");
+    const m = r.media || {};
+    const mediaHtml = m.status === "processing" ? `<p class="r-media">Reading the video on this computer…</p>`
+      : m.status === "failed" ? `<p class="r-media bad">Couldn't read the video: ${esc(m.error || "unknown error")} ${S.media ? `<button class="link" data-act="video-retry" data-id="${esc(r.id)}">Try again</button>` : ""}</p>`
+      : m.status === "done" ? `<details><summary class="r-media">Video read${m.seconds ? ` · ${Math.floor(m.seconds / 60)}:${String(m.seconds % 60).padStart(2, "0")}` : ""}${r.transcript ? " · transcript" : " · no speech"}${(r.frames || []).length ? ` · ${r.frames.length} stills` : ""}</summary>${r.transcript ? `<p class="r-text" style="-webkit-line-clamp:unset">${esc(r.transcript)}</p>` : ""}${(r.frames || []).length && !window.SG_PUBLIC ? `<div class="r-frames">${r.frames.filter((f) => /^media\/[\w.~:@+-]+\/frame-\d+\.jpg$/.test(f)).map((f) => `<img src="/${esc(f)}" alt="Still from the video" loading="lazy">`).join("")}</div>` : ""}</details>` : "";
     return `<li class="reel" id="reel-${esc(r.id)}"><div class="r-main">
-      <div class="r-line">${u ? `<a class="r-owner" href="${esc(u)}" target="_blank" rel="noopener">${esc(who)}</a>` : `<span class="r-owner">${esc(who)}</span>`}${t ? chip(t) : ""}${r.collection ? `<span class="r-coll">in ${esc(r.collection)}</span>` : ""}</div>
-      ${text ? `<p class="r-text">${r.note ? "" : `<span class="muted">Caption: </span>`}${esc(text)}</p>` : ""}
+      <div class="r-line">${u ? `<a class="r-owner" href="${esc(u)}" target="_blank" rel="noopener">${esc(who)}</a>` : `<span class="r-owner">${esc(who)}</span>`}${r.kind === "freebie" ? `<span class="pill">Freebie</span>` : ""}${t ? chip(t) : ""}${r.collection ? `<span class="r-coll">in ${esc(r.collection)}</span>` : ""}</div>
+      ${text ? `<p class="r-text">${r.note ? "" : `<span class="muted">${r.caption ? "Caption" : "They sent"}: </span>`}${esc(text)}</p>` : ""}
+      ${mediaHtml}
       ${r.finding ? `<p class="r-find"><b>Scout:</b> ${esc(r.finding)}${lead ? ` <a href="${esc(lead)}" target="_blank" rel="noopener">${esc(hostOf(lead))}</a>` : ""}</p>` : ""}
       ${editing ? `<div class="note-edit"><input class="input" id="noteInput" maxlength="400" value="${esc(r.note || "")}" placeholder="What does this reel show?"><button class="btn primary small" data-act="save-note" data-id="${esc(r.id)}">Save</button><button class="btn ghost small" data-act="cancel-note">Cancel</button></div>` : ""}
     </div><div class="r-side"><span class="pill ${cls}">${esc(label)}</span><span class="mono muted">${esc(fmtShort(r.savedAt || r.addedAt))}</span>
       <div class="row-actions">${!t && S.topics.length ? `<select class="select" style="padding:4px 8px;font-size:13px;width:auto" data-act="set-topic" data-id="${esc(r.id)}" aria-label="Topic">${`<option value="">Choose topic…</option>` + S.topics.map((x) => `<option value="${esc(x.id)}">${esc(x.name)}</option>`).join("")}</select>` : ""}
+      ${S.media && S.canWrite && r.kind !== "freebie" && r.kind !== "link" && m.status !== "done" && m.status !== "processing" && r.status !== "skipped" ? `<button class="link" data-act="add-video" data-id="${esc(r.id)}">Add video</button>` : ""}
       ${!editing && r.status !== "skipped" ? `<button class="link" data-act="note" data-id="${esc(r.id)}"${S.canWrite ? "" : " disabled"}>${r.note ? "Edit note" : "Add note"}</button>` : ""}
       ${t && (r.status === "library" || r.status === "read") ? `<button class="link" data-act="queue" data-id="${esc(r.id)}"${S.canWrite ? "" : " disabled"}>Send to scout</button>` : ""}
       ${r.status === "skipped" ? `<button class="link" data-act="unskip-reel" data-id="${esc(r.id)}">Undo skip</button>` : r.status === "new" || r.status === "needs-note" || r.status === "library" ? `<button class="link" style="color:var(--ink-3)" data-act="skip-reel" data-id="${esc(r.id)}"${S.canWrite ? "" : " disabled"}>Skip</button>` : ""}</div>
@@ -843,7 +1187,33 @@ main { padding-top: 24px; }
         ${top.length ? `<p class="creators">Most saved from ${top.map(([o, n]) => `<b>@${esc(o)}</b> ${n}`).join(", ")}</p>` : ""}</div>`;
     }).join("")}</div>`;
   }
+  // Optional Instagram reader: Claude in Chrome reads the dedicated account and adds new items here.
+  function renderReader() {
+    const p = $("#igReader"); if (!p || !S.settings) return;
+    const cfg = { enabled: false, account: "", saves: true, comments: true, dms: false, ...(S.settings.igReader || {}) };
+    const run = S.settings.igReaderRun || {};
+    const busy = run.status === "running";
+    const box = (k, l) => `<label class="switch" style="font-size:13.5px"><input type="checkbox" data-act="ig-set" data-k="${k}"${cfg[k] ? " checked" : ""}${S.canWrite ? "" : " disabled"}> ${l}</label>`;
+    const last = run.status ? `<p class="muted" style="font-size:13px">Last run: ${busy ? `reading since ${esc(ago(run.startedAt))}` : `${esc(run.status)} ${esc(ago(run.finishedAt || run.startedAt))}`}, ${N(run.added)} added${run.account ? `, signed in as @${esc(run.account)}` : ""}.${run.error ? ` ${esc(run.error)}` : ""}</p>` : "";
+    const html = `<div style="display:flex;justify-content:space-between;align-items:center;gap:12px"><h3 style="margin:0">Instagram reader</h3>${box("enabled", cfg.enabled ? "On" : "Off")}</div>
+      <p class="muted" style="margin:6px 0 12px;font-size:13.5px">Claude in Chrome reads your dedicated account before each weekly scout and adds new finds here. It only reads, checks the signed-in account first, and keeps anything from DMs off the public site. Instagram may restrict accounts that are read by automation.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center">
+        <div class="field" style="min-width:220px"><label for="igAccount">Dedicated account</label><input class="input" id="igAccount" data-act="ig-set" data-k="account" placeholder="@handle" value="${esc(cfg.account)}"${S.canWrite ? "" : " disabled"}></div>
+        ${box("saves", "Saved posts")}${box("comments", "Comments on its posts")}${box("dms", "DMs (shared posts and freebies only)")}
+        <div class="row-actions">${busy ? `<button class="btn small" data-act="ig-stop">Stop</button>` : `<button class="btn small" data-act="ig-run"${cfg.enabled && cfg.account ? "" : " disabled"}>Read now</button>`}</div>
+      </div>${last}`;
+    if (p._h !== html && !(document.activeElement && document.activeElement.id === "igAccount")) { p.innerHTML = html; p._h = html; }
+  }
+  async function readerCall(what) {
+    try {
+      const r = await fetch(`/api/ig-reader/${what}`, { method: "POST", headers: { "Content-Type": "application/json", "X-Skill-Garden": "1" }, body: "{}" });
+      const d = await r.json().catch(() => ({}));
+      toast(r.ok ? (what === "run" ? "Reading Instagram in Chrome. Keep Chrome open." : "Stopping the reader.") : d.error || "Couldn't reach the local app.", r.ok ? "" : "bad");
+    } catch { toast("This only works in the local app on your Mac.", "bad"); }
+  }
+  document.addEventListener("click", (ev) => { const b = ev.target.closest && ev.target.closest('[data-act="ig-run"],[data-act="ig-stop"]'); if (b) readerCall(b.dataset.act === "ig-run" ? "run" : "stop"); });
   function updateInbox() {
+    renderReader();
     if (!S.db) { $("#reelList").innerHTML = S.dbMissing ? `<li>${noDb()}</li>` : ""; return; }
     const key = S.topics.map((t) => t.id + t.name).join("|");
     if (S._topicKey !== key) {
@@ -1049,8 +1419,50 @@ main { padding-top: 24px; }
   }
 
   function slugId(u) { let h = 0; for (const c of u) h = (h * 31 + c.charCodeAt(0)) >>> 0; return "link-" + h.toString(36); }
+  async function addFreebie() {
+    const owner = $("#fbOwner").value.trim().replace(/^@/, ""), url = safeUrl($("#fbUrl").value.trim()), body = $("#fbBody").value.trim(), topicId = $("#reelTopic").value;
+    if (!body && !url) { toast("Paste what they sent, or its link.", "bad"); return; }
+    if (owner && !/^[A-Za-z0-9_.]{1,30}$/.test(owner)) { toast("That handle doesn't look right. Use letters, digits, dots and underscores.", "bad"); return; }
+    if (!topicId) { toast("Choose a topic first.", "bad"); return; }
+    await guarded("add", async () => {
+      const now = iso();
+      const id = "fb-" + slugId(owner + "|" + (url || "") + "|" + body.slice(0, 400)).slice(5);
+      await S.db.doc("inbox/" + id).set({ kind: "freebie", url: url || "", shortcode: "", owner, collection: "", topicId, note: "", caption: "", body: body.slice(0, 20000), savedAt: now, addedAt: now, via: "paste", status: "new" });
+      for (const f of ["#fbOwner", "#fbUrl", "#fbBody"]) $(f).value = "";
+      toast(`Freebie added. The scout reads it on the next run (${nextScout()}).`);
+    });
+  }
+  async function uploadVideo(id, file) {
+    if (!S.media) return;
+    if (file.size > 300 * 1024 * 1024) { toast("That video is over 300 MB.", "bad"); return; }
+    await guarded("video:" + id, async () => {
+      toast("Sending the video to Skill Garden on this computer…");
+      await S.media.upload(id, file);
+      toast("Reading the video. The transcript and stills show up on the reel when they're ready.");
+    });
+  }
+  async function addVideo() {
+    const file = S.pendingVideo, topicId = $("#reelTopic").value, note = ($("#reelNote").value || "").trim(), link = $("#videoLink").value.trim();
+    if (!file) { toast("Choose the video first.", "bad"); return; }
+    if (!topicId) { toast("Choose a topic first.", "bad"); return; }
+    const m = [...link.matchAll(POST_RE)][0];
+    const own = link.match(/instagram\.com\/([A-Za-z0-9_.]+)\/(?:p|reels?|tv)\//);
+    const id = m ? "ig-" + m[2] : "vid-" + Date.now().toString(36);
+    let ok = false;
+    await guarded("add", async () => {
+      const now = iso(), prev = S.inbox.find((r) => r.id === id);
+      if (prev) await S.db.doc("inbox/" + id).update({ topicId, note: note || prev.note || "", status: "new" });
+      else await S.db.doc("inbox/" + id).set({ url: m ? itemFrom(m[2], m[1].startsWith("reel") ? "reel" : m[1], {}, "").url : "", shortcode: m ? m[2] : "", kind: m ? "reel" : "video", owner: own ? own[1] : "", collection: "", topicId, note, caption: "", savedAt: now, addedAt: now, via: "video", status: "new" });
+      ok = true;
+    });
+    if (!ok) return;
+    S.pendingVideo = null; $("#videoLink").value = ""; $("#reelNote").value = ""; $("#videoName").textContent = "Choose the video";
+    await uploadVideo(id, file);
+  }
   async function addReels(ev) {
     ev.preventDefault();
+    if (S.addMode === "freebie") return addFreebie();
+    if (S.addMode === "video") return addVideo();
     const raw = $("#reelLinks").value, topicId = $("#reelTopic").value, note = $("#reelNote").value.trim();
     const urls = [...new Set((raw.match(/https?:\/\/[^\s<>"']+/g) || []).map((u) => u.replace(/[),.]+$/, "")))];
     if (!urls.length) { toast("Paste at least one link that starts with https://", "bad"); return; }
@@ -1066,7 +1478,7 @@ main { padding-top: 24px; }
         else await S.db.doc("inbox/" + id).set({ url: m ? itemFrom(m[2], m[1].startsWith("reel") ? "reel" : m[1], {}, "").url : u, shortcode: m ? m[2] : "", kind: m ? "reel" : "link", owner: own ? own[1] : "", collection: "", topicId, note, caption: "", savedAt: now, addedAt: now, via: "paste", status: "new" });
       }
       $("#reelLinks").value = ""; $("#reelNote").value = "";
-      toast(`${plural(urls.length, "reel")} added. The scout reads ${urls.length === 1 ? "it" : "them"} ${nextScout().startsWith("today") ? "this morning" : "tomorrow morning"}.`);
+      toast(`${plural(urls.length, "reel")} added. The scout reads ${urls.length === 1 ? "it" : "them"} on the next run (${nextScout()}).`);
     });
   }
 
@@ -1074,7 +1486,7 @@ main { padding-top: 24px; }
   function updateLog() {
     if (!S.db) { $("#lg-list").innerHTML = S.dbMissing ? noDb() : ""; return; }
     const paused = !!(S.settings && S.settings.paused);
-    $("#lg-controls").innerHTML = S.settings ? `<label class="switch"><input type="checkbox" data-act="toggle-pause"${paused ? "" : " checked"}${S.canWrite ? "" : " disabled"}> Morning scout ${paused ? "paused" : "on"}</label>` : "";
+    $("#lg-controls").innerHTML = S.settings ? `<label class="switch"><input type="checkbox" data-act="toggle-pause"${paused ? "" : " checked"}${S.canWrite ? "" : " disabled"}> Weekly scout ${paused ? "paused" : "on"}</label>` : "";
     const PILL = { done: ["Done", "good"], running: ["Working", "accent"], failed: ["Failed", "bad"], skipped: ["Skipped", ""] };
     $("#lg-list").innerHTML = !S.loaded.runs ? `<p class="skeleton">Loading…</p>` : S.runs.length ? S.runs.map((r) => {
       const [pl, pc] = PILL[r.status] || [r.status || "", ""];
@@ -1087,21 +1499,25 @@ main { padding-top: 24px; }
         ${per.length ? `<div class="tw"><table class="pt"><thead><tr><th>Topic</th><th>Leads</th><th>Tested</th><th>Passed</th><th>Reels</th></tr></thead><tbody>${per.map(([tid, v]) => `<tr><td>${esc((topicById(tid) || { name: tid }).name)}</td><td class="num">${esc(v.leads ?? 0)}</td><td class="num">${esc(v.candidates ?? 0)}</td><td class="num">${esc(v.better ?? 0)}</td><td class="num">${esc(v.reelsRead ?? 0)}</td></tr>`).join("")}</tbody></table></div>` : ""}
         ${blocked.length ? `<p class="blocked">Couldn't reach ${blocked.map(esc).join(", ")}. The cloud environment's network settings block ${blocked.length === 1 ? "it" : "them"}.</p>` : ""}
       </article>`;
-    }).join("") : `<div class="empty"><h3>No runs yet</h3><p>The scout runs every morning at ${esc(nextScout())}. Each run shows up here with what it read and what it found.</p></div>`;
-    $("#lg-howto").innerHTML = `<div class="howto"><h3>How a morning run works</h3><ol><li>Reads the new reels in your inbox and finds the tool, repo or write-up behind each one.</li><li>Checks the GitHub repos and web searches listed under each skill's Sources, plus six official skill libraries.</li><li>Turns the best ideas into a proposed new version of the skill.</li><li>Tries each proposal against the current skill on the topic's test tasks. A separate judge picks the better answer without knowing which is which.</li><li>Leaves only the winners in Review. Nothing changes until you add it.</li></ol></div>`;
+    }).join("") : `<div class="empty"><h3>No runs yet</h3><p>The scout runs once a week, next ${esc(nextScout())}. Each run shows up here with what it read and what it found.</p></div>`;
+    $("#lg-howto").innerHTML = `<div class="howto"><h3>How a weekly run works</h3><ol><li>Reads the new reels in your inbox and finds the tool, repo or write-up behind each one.</li><li>Checks the GitHub repos and web searches listed under each skill's Sources, plus six official skill libraries.</li><li>Turns the best ideas into a proposed new version of the skill.</li><li>Tries each proposal against the current skill on the topic's test tasks. A separate judge picks the better answer without knowing which is which.</li><li>Leaves only the winners in Review. Nothing changes until you add it.</li></ol></div>`;
   }
 
   /* ---------- actions ---------- */
   async function approve(c) {
     const t = topicById(c.topicId);
     if (!t) { toast("That topic no longer exists.", "bad"); return; }
+    const risks = risksOf(c);
+    if (risks.length) { toast("Blocked for safety: " + risks.join("; ") + ".", "bad"); return; }
     await guarded("c:" + c.id, async () => {
       const now = iso();
       const cur = Number(t.version) || 0;
       if (cur === Number(c.baseVersion) || c.kind === "first-draft" && !t.content) {
         const v = cur + 1;
-        await S.db.doc(`versions/${t.id}--v${v}`).set({ topicId: t.id, version: v, content: c.proposed || "", summary: c.title || "", source: "candidate", candidateId: c.id, createdAt: now });
+        const files = patchedFiles(t, c);
+        await S.db.doc(`versions/${t.id}--v${v}`).set({ topicId: t.id, version: v, content: c.proposed || "", ...(files ? { files } : {}), summary: c.title || "", source: "candidate", candidateId: c.id, createdAt: now });
         const patch = { version: v, content: c.proposed || "", updatedAt: now };
+        if (files) patch.files = files;
         if ((!t.tests || !t.tests.length) && Array.isArray(c.tests) && c.tests.length) patch.tests = c.tests;
         if ((!t.searches || !t.searches.length) && Array.isArray(c.searches) && c.searches.length) patch.searches = c.searches;
         await S.db.doc("topics/" + t.id).update(patch);
@@ -1117,8 +1533,8 @@ main { padding-top: 24px; }
     const t = topicById(v.topicId); if (!t) return;
     await guarded("restore", async () => {
       const n = (Number(t.version) || 0) + 1, now = iso();
-      await S.db.doc(`versions/${t.id}--v${n}`).set({ topicId: t.id, version: n, content: v.content || "", summary: `Brought back v${v.version}`, source: "restore", createdAt: now });
-      await S.db.doc("topics/" + t.id).update({ version: n, content: v.content || "", updatedAt: now });
+      await S.db.doc(`versions/${t.id}--v${n}`).set({ topicId: t.id, version: n, content: v.content || "", ...(v.files ? { files: v.files } : {}), summary: `Brought back v${v.version}`, source: "restore", createdAt: now });
+      await S.db.doc("topics/" + t.id).update({ version: n, content: v.content || "", ...(v.files ? { files: v.files } : {}), updatedAt: now });
       toast(`Brought back v${v.version} as v${n}.`);
     });
   }
@@ -1171,6 +1587,12 @@ main { padding-top: 24px; }
       }
     });
   }
+  // A skill can carry extra files (references/, scripts/, templates) next to SKILL.md: topic.files = { "relative/path": "text" }.
+  function fileCount(t) { return t && t.files ? Object.values(t.files).filter(Boolean).length : 0; }
+  function addSkill(folder, t) {
+    folder.file("SKILL.md", t.content || "");
+    for (const [p, txt] of Object.entries(t.files || {})) if (txt && !/(^|\/)\.\.(\/|$)/.test(p)) folder.file(p, txt);
+  }
   async function download(filename, data) {
     if (!S.downloads) { toast("Downloads aren't available in this view. Use Copy instead.", "bad"); return; }
     try { await S.downloads.save({ filename, data }); }
@@ -1186,8 +1608,9 @@ main { padding-top: 24px; }
     const act = el.dataset.act, id = el.dataset.id;
     const cand = () => S.candidates.find((c) => c.id === id);
     const openT = () => topicById(S.skillOpen);
+    if (await exploreAct(act, el)) return;
     switch (act) {
-      case "tab": { const v = el.dataset.view; if (v === "skills" && el.classList.contains("tab")) { S.skillOpen = null; S.newTopicOpen = false; } S.editing = null; S.noteEditing = null; S.view = v; render(); window.scrollTo({ top: 0 }); break; }
+      case "tab": { const v = el.dataset.view; if (v === "skills" && el.classList.contains("tab")) { S.skillOpen = null; S.newTopicOpen = false; } if (v === "explore") { EX.topic = null; if (location.hash !== "#/") { location.hash = "#/"; break; } } goView(v); break; }
       case "rv-topic": S.reviewTopic = id; render(); break;
       case "toggle-diff": S.openDiff.has(id) ? S.openDiff.delete(id) : S.openDiff.add(id); render(); break;
       case "toggle-lost": S.showLost = !S.showLost; render(); break;
@@ -1198,12 +1621,17 @@ main { padding-top: 24px; }
       case "back-skills": S.skillOpen = null; S.editing = null; if (unsubVersions) { unsubVersions(); unsubVersions = null; } render(); break;
       case "skill-tab": if (S.editing) S.editing = null; S.skillTab = el.dataset.tab; render(); break;
       case "raw": S.skillRaw = el.dataset.raw === "1"; render(); break;
-      case "download-skill": { const t = openT(); if (t) await download(`${t.id}-SKILL.md`, t.content || ""); break; }
+      case "download-skill": {
+        const t = openT(); if (!t) break;
+        if (fileCount(t) && window.JSZip) { const zip = new window.JSZip(); addSkill(zip.folder(t.id), t); await download(`${t.id}.zip`, await zip.generateAsync({ type: "blob" })); }
+        else await download(`${t.id}-SKILL.md`, t.content || "");
+        break;
+      }
       case "copy-skill": { const t = openT(); if (!t) break; try { await navigator.clipboard.writeText(t.content || ""); toast("Copied SKILL.md."); } catch { S.skillRaw = true; render(); toast("Copying isn't allowed here. Select the text below instead.", "bad"); } break; }
       case "download-all": {
         if (!window.JSZip) { toast("The zip maker didn't load. Download each skill on its own.", "bad"); break; }
         const zip = new window.JSZip(); let n = 0;
-        for (const t of S.topics) if (t.content) { zip.folder(t.id).file("SKILL.md", t.content); n++; }
+        for (const t of S.topics) if (t.content) { addSkill(zip.folder(t.id), t); n++; }
         if (!n) { toast("No skills to download yet.", "bad"); break; }
         await download("skill-garden-skills.zip", await zip.generateAsync({ type: "blob" }));
         break;
@@ -1228,6 +1656,9 @@ main { padding-top: 24px; }
       case "note": S.noteEditing = null; render(); S.noteEditing = id; { const row = document.getElementById("reel-" + id); const r = S.inbox.find((x) => x.id === id); if (row && r) { row.outerHTML = reelRow(r); const i = $("#noteInput"); if (i) i.focus(); } } break;
       case "cancel-note": S.noteEditing = null; render(); break;
       case "save-note": { const note = ($("#noteInput") || { value: "" }).value.trim(); const r = S.inbox.find((x) => x.id === id); await guarded("note", async () => { await S.db.doc("inbox/" + id).update({ note, ...(r && r.topicId && (r.status === "needs-note" || r.status === "library" || r.status === "read") && note ? { status: "new" } : {}) }); S.noteEditing = null; toast(note ? "Note saved. The scout looks again next run." : "Note removed."); }); break; }
+      case "add-mode": S.addMode = id; S.pendingVideo = null; $("#addBody").innerHTML = addBody(); document.querySelectorAll('[data-act="add-mode"]').forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.id === id))); if (id === "video" && S.media && !S.mediaTools) S.media.tools().then((t) => { S.mediaTools = t; if (S.addMode === "video" && !S.pendingVideo) $("#addBody").innerHTML = addBody(); }).catch(() => {}); break;
+      case "add-video": S.videoFor = id; $("#rowVideoFile").click(); break;
+      case "video-retry": await guarded("video:" + id, async () => { await S.media.retry(id); toast("Trying again."); }); break;
       case "queue": await guarded("reel", async () => { await S.db.doc("inbox/" + id).update({ status: "new" }); toast("Sent to the scout."); }); break;
       case "skip-reel": await guarded("reel", async () => { await S.db.doc("inbox/" + id).update({ status: "skipped" }); }); break;
       case "unskip-reel": await guarded("reel", async () => { const r = S.inbox.find((x) => x.id === id); await S.db.doc("inbox/" + id).update({ status: r && r.topicId ? "new" : "library" }); }); break;
@@ -1238,13 +1669,20 @@ main { padding-top: 24px; }
   document.addEventListener("change", async (ev) => {
     const el = ev.target;
     if (el.id === "importFile" && el.files && el.files[0]) { const f = el.files[0]; el.value = ""; await readImportFile(f); return; }
+    if (el.id === "videoFile" && el.files && el.files[0]) { S.pendingVideo = el.files[0]; el.value = ""; $("#videoName").textContent = S.pendingVideo.name; return; }
+    if (el.id === "rowVideoFile" && el.files && el.files[0]) { const f = el.files[0]; el.value = ""; if (S.videoFor) await uploadVideo(S.videoFor, f); S.videoFor = null; return; }
     if (el.dataset.imap !== undefined && S.importState && S.importState.stage === "map") { S.importState.map[S.importState.colls[+el.dataset.imap].name] = el.value; renderImport(); return; }
     if (el.id === "recentDays" && S.importState) { S.importState.recentDays = +el.value; renderImport(); return; }
     const act = el.dataset.act;
     if (act === "ib-topic") { S.inboxTopic = el.value; render(); }
     else if (act === "set-topic" && el.value) { const id = el.dataset.id; await guarded("reel", async () => { await S.db.doc("inbox/" + id).update({ topicId: el.value, status: "new" }); toast("Linked and sent to the scout."); }); }
     else if (act === "toggle-active") { const t = topicById(S.skillOpen); if (t) await guarded("active", async () => { await S.db.doc("topics/" + t.id).update({ active: el.checked }); toast(el.checked ? `The scout will work on ${t.name}.` : `The scout will leave ${t.name} alone.`); }); }
-    else if (act === "toggle-pause") { await guarded("pause", async () => { await S.db.doc("settings/main").update({ paused: !el.checked }); toast(el.checked ? "Morning scout is on." : "Morning scout paused."); }); }
+    else if (act === "ig-set") {
+      const k = el.dataset.k, v = el.type === "checkbox" ? el.checked : el.value.trim().replace(/^@/, "");
+      if (k === "account" && v && !/^[A-Za-z0-9_.]{1,30}$/.test(v)) { toast("That isn't an Instagram handle.", "bad"); return; }
+      await guarded("ig", async () => { await S.db.doc("settings/main").update({ igReader: { ...(S.settings && S.settings.igReader || {}), [k]: v } }); if (k === "enabled") toast(v ? "Instagram reader is on. It runs before each weekly scout." : "Instagram reader is off."); });
+    }
+    else if (act === "toggle-pause") { await guarded("pause", async () => { await S.db.doc("settings/main").update({ paused: !el.checked }); toast(el.checked ? "Weekly scout is on." : "Weekly scout paused."); }); }
   });
   document.addEventListener("submit", (ev) => { if (ev.target.id === "addForm") addReels(ev); });
   document.addEventListener("keydown", (ev) => {
@@ -1255,7 +1693,483 @@ main { padding-top: 24px; }
   ["dragleave", "drop"].forEach((t) => document.addEventListener(t, (ev) => { const z = ev.target.closest && ev.target.closest("#dropZone"); if (!z) return; ev.preventDefault(); z.classList.remove("over"); if (t === "drop" && ev.dataTransfer.files[0]) readImportFile(ev.dataTransfer.files[0]); }));
   setInterval(() => { if (S.db) renderHeader(); }, 60000);
 
+  /* ---------- explore: the product catalog ---------- */
+  // catalog.json (served by the local app) lists every craft, its super skill and its ranked
+  // sub-skills. The super skill's live text comes from the topics collection, so a generation
+  // approved in Review is what people download.
+  const CATS = [
+    { id: "build", name: "Build", ids: ["website-building", "app-building", "frontend-ui-design", "backend-databases", "cloud-devops", "coding-practices", "testing-qa", "security"] },
+    { id: "agents", name: "Agents & automation", ids: ["ai-agents", "automation", "claude-meta"] },
+    { id: "create", name: "Create", ids: ["poster-design", "motion-animation", "ai-video", "audio-generation", "image-creation", "storyboarding", "content-creation"] },
+    { id: "grow", name: "Grow", ids: ["social-media", "instagram-automation", "linkedin-automation", "ad-creation", "google-ads", "seo"] },
+    { id: "think", name: "Analyse & decide", ids: ["data-analysis", "research-science", "docs-office", "product-management", "trading-finance"] },
+  ];
+  const catOf = (id) => CATS.find((c) => c.ids.includes(id)) || { id: "other", name: "More" };
+  const store = {
+    get(k, d) { try { const v = localStorage.getItem("sg-" + k); return v == null ? d : JSON.parse(v); } catch { return d; } },
+    set(k, v) { try { localStorage.setItem("sg-" + k, JSON.stringify(v)); } catch {} },
+  };
+  const EX = { chain: null, chains: null, credits: null, topic: null, cat: "all", q: "", subFilter: "all", sort: "rank", install: "code", catalog: null, catalogTried: false, drawer: null, bundle: store.get("bundle", []), palSel: 0, palItems: [] };
+  const fmtStars = (n) => { n = N(n); return n >= 1000 ? (n / 1000).toFixed(n >= 10000 ? 0 : 1).replace(/\.0$/, "") + "k" : String(n); };
+  const humanRef = (p) => p.replace(/^references\//, "").replace(/\.md$/, "").replace(/[-_]+/g, " ").replace(/^./, (c) => c.toUpperCase());
+  const refTitle = (c, p) => { const m = String((c.live && c.live.files && c.live.files[p]) || "").split(/^```/m)[0].match(/^#\s+(.+)$/m); return m ? m[1].replace(/[*_`]/g, "").trim() : humanRef(p); };
+  const setHTML = (el, html) => { if (el && el._h !== html) { el.innerHTML = html; el._h = html; } };
+
+  async function loadCatalog() {
+    if (EX.catalogTried) return; EX.catalogTried = true;
+    try { const r = await fetch("/catalog.json", { cache: "no-store" }); if (r.ok) EX.catalog = await r.json(); } catch {}
+    // Chains and credits come with the local app and the public site; the claude.ai copy has neither.
+    const [ch, cr] = await Promise.all(["/chains.json", "/credits.json"].map((u) => fetch(u, { cache: "no-store" }).then((r) => (r.ok ? r.json() : null)).catch(() => null)));
+    EX.chains = Array.isArray(ch) ? ch : [];
+    EX.credits = cr && cr.topics ? cr : { topics: {}, feed: [] };
+    render();
+  }
+  // Crafts shown in Explore: the catalog joined with live topic docs; without a catalog
+  // (the claude.ai copy), every topic that carries super skill files.
+  function crafts() {
+    const live = new Map(S.topics.map((t) => [t.id, t]));
+    if (EX.catalog && EX.catalog.topics) return EX.catalog.topics.map((c) => ({ ...c, live: live.get(c.id) || null }));
+    return S.topics.filter((t) => t.files && t.content).map((t, i) => ({ id: t.id, order: i + 1, name: t.name, blurb: t.blurb, hue: t.hue, superskill: { description: splitFront(t.content).meta.description || "", references: Object.keys(t.files).filter((p) => /^references\/.+\.md$/.test(p) && t.files[p]).sort() }, skills: [], live: t }));
+  }
+  const craftById = (id) => crafts().find((c) => c.id === id);
+  const refsOf = (c) => { const f = c.live && c.live.files; return f ? Object.keys(f).filter((p) => /^references\/.+\.md$/.test(p) && f[p]).sort() : (c.superskill && c.superskill.references) || []; };
+
+  function updateExplore() {
+    const el = $("#ex"); if (!el) return;
+    if (!EX.catalogTried) loadCatalog();
+    const list = crafts();
+    if (!list.length) { setHTML(el, (!EX.catalogTried || !S.loaded.topics) && !S.dbMissing ? `<p class="skeleton">Loading the catalog…</p>` : `<div class="empty"><h3>No crafts yet</h3><p>Run the local app from the SkillGarden folder so the catalog of 29 crafts can load, or import super skills with <code>node local/import-superskills.mjs</code>.</p></div>`); return; }
+    const ch = EX.chain && (EX.chains || []).find((x) => x.id === EX.chain);
+    if (ch) { if (el.dataset.mode !== "chain:" + ch.id) { el.dataset.mode = "chain:" + ch.id; el._h = null; window.scrollTo({ top: 0 }); } setHTML(el, chainPage(ch)); return; }
+    const c = EX.topic && craftById(EX.topic);
+    if (c) { if (el.dataset.mode !== "topic:" + c.id) { el.dataset.mode = "topic:" + c.id; el._h = null; window.scrollTo({ top: 0 }); } setHTML(el, topicPage(c)); return; }
+    if (el.dataset.mode !== "home") { el.dataset.mode = "home"; el._h = null; setHTML(el, homeShell(list)); startGarden(); }
+    setHTML($("#exStats"), readout(list));
+    setHTML($("#exCats"), [{ id: "all", name: "All crafts" }, ...CATS].map((k) => `<button class="fchip" data-act="ex-cat" data-id="${k.id}" aria-pressed="${EX.cat === k.id}">${esc(k.name)}</button>`).join(""));
+    setHTML($("#exGrid"), gridHtml(list));
+    setHTML($("#exChains"), chainsHtml());
+    setHTML($("#exFeed"), feedHtml());
+  }
+
+  /* chains: one ask that runs several super skill guides in order */
+  const craftName = (id) => { const c = craftById(id); return c ? c.name : id; };
+  function chainsHtml() {
+    const list = EX.chains || [];
+    if (!list.length) return "";
+    return `<section class="ex-sec"><header><h2>Chains</h2><p>One ask runs several crafts in order. "Run a campaign" does the research, angles, hooks, posts, ads and test plan, each step with the guide made for it.</p></header>
+      <div class="chain-grid">${list.map((x) => `<button class="chain-card" data-act="ex-chain" data-id="${esc(x.id)}"><span class="eyebrow">Chain · ${plural(x.steps.length, "step")}</span><h3>${esc(x.name)}</h3><p>${esc(x.blurb || "")}</p>
+        <div class="chain-path">${[...new Set(x.steps.map((st) => st.craft))].map((id) => esc(craftName(id))).join(" <span aria-hidden=\"true\">→</span> ")}</div></button>`).join("")}</div></section>`;
+  }
+  function chainPage(x) {
+    const crafts = [...new Set(x.steps.flatMap((st) => st.uses.map((u) => u.craft)))];
+    const missing = crafts.filter((id) => { const c = craftById(id); return !c || !c.live; });
+    return `<nav class="crumbs" aria-label="Breadcrumb"><button data-act="ex-home">Explore</button><span aria-hidden="true">/</span><span>Chains</span><span aria-hidden="true">/</span><span>${esc(x.name)}</span></nav>
+    <header class="t-hero reveal" style="--h:150">
+      <div><span class="eyebrow">Chain · ${plural(x.steps.length, "step")} · ${plural(crafts.length, "craft")}</span><h2>${esc(x.name)}</h2><p class="lede">${esc(x.blurb || "")}</p></div>
+      <div class="t-stats"><div><b>${x.steps.length}</b><span>Steps</span></div><div><b>${crafts.length}</b><span>Crafts</span></div></div>
+    </header>
+    <section class="super reveal">
+      <div class="super-main">
+        <div class="super-head"><span class="badge">Chain skill</span><span class="mono muted">${esc(x.id)}</span></div>
+        <p class="desc">${esc(x.description || "")}</p>
+        <div class="row-actions"><button class="btn primary" data-act="dl-chain" data-id="${esc(x.id)}"${missing.length ? " disabled" : ""}>Download chain + its ${crafts.length} super skills (.zip)</button></div>
+        <ol class="chain-steps">${x.steps.map((st) => `<li><div><h4>${esc(st.title)}</h4><p>${esc(st.output || "")}</p>
+          <div class="caps">${st.uses.map((u) => `<button class="cap" data-act="pv-ref" data-id="${esc(u.craft)}" data-path="${esc(u.guide)}"><i></i><span>${esc(craftName(u.craft))} · ${esc(humanRef(u.guide))}</span></button>`).join("")}</div></div></li>`).join("")}</ol>
+      </div>
+      <aside class="install">
+        <h4>Use it</h4>
+        <div class="code">${esc(x.ask || "")}<button class="cp" data-act="copy-text" data-text="${esc(x.ask || "")}">Copy</button></div>
+        <ol><li><b>Plugin:</b> it's installed with Skill Garden as <code class="mono">skillgarden:${esc(x.id)}</code>. Ask in plain words.</li><li><b>Connector</b> (claude.ai, phone): ask “use the Skill Garden ${esc(x.id)} chain”. Claude calls <code class="mono">get_chain</code>, then reads each guide.</li><li><b>Zip:</b> unzip into <code class="mono">~/.claude/skills/</code>; it brings the super skills it needs.</li></ol>
+        ${x.inputs && x.inputs.length ? `<div class="try"><p class="eyebrow">It asks you once for</p><ul style="margin:0;padding-left:18px;font-size:14px;color:var(--ink-2)">${x.inputs.map((i) => `<li>${esc(i)}</li>`).join("")}</ul></div>` : ""}
+      </aside>
+    </section>`;
+  }
+  async function downloadChain(x) {
+    if (!window.JSZip) { toast("The zip maker didn't load. Check your connection and reload.", "bad"); return; }
+    const zip = new window.JSZip();
+    zip.folder(x.id).file("SKILL.md", x.skill || "");
+    for (const id of new Set(x.steps.flatMap((st) => st.uses.map((u) => u.craft)))) { const c = craftById(id); if (c && c.live) addSkill(zip.folder(id), c.live); }
+    await download(`${x.id}-chain.zip`, await zip.generateAsync({ type: "blob" }));
+  }
+
+  /* where each change came from: creators, repos and pages behind approved versions */
+  function creditLinks(list) {
+    return `<div class="credit-links">${(list || []).map((k) => { const u = safeUrl(k.url); return u ? `<a href="${esc(u)}" target="_blank" rel="noopener noreferrer">${esc(k.label)}</a>` : `<span>${esc(k.label)}</span>`; }).join("")}</div>`;
+  }
+  function feedHtml() {
+    const feed = ((EX.credits && EX.credits.feed) || []).filter((f) => craftById(f.topicId));
+    if (!feed.length) return "";
+    return `<section class="ex-sec"><header><h2>Learned from the community</h2><p>The latest changes the weekly scout found and that made it in after winning blind trials, with the creators and pages they came from.</p></header>
+      <ul class="feed">${feed.map((f) => `<li><div class="r-line"><button class="link" data-act="ex-topic" data-id="${esc(f.topicId)}">${esc(craftName(f.topicId))}</button><span class="mono muted">v${N(f.version)} · ${esc(ago(f.date) || "")}</span></div><b>${esc(f.title)}</b>${f.credits.length ? creditLinks(f.credits) : ""}</li>`).join("")}</ul></section>`;
+  }
+  function creditsSection(c) {
+    const list = (EX.credits && EX.credits.topics && EX.credits.topics[c.id]) || [];
+    if (!list.length) return "";
+    return `<section class="ex-sec"><header><h3>Where this came from</h3><p>Each version the scout added since the super skill was built, and the creators, repos and pages behind it.</p></header>
+      <ul class="credits">${list.slice(0, 20).map((v) => `<li><div class="r-line"><span class="mono muted">v${N(v.version)} · ${esc(ago(v.date) || "")}</span></div><b>${esc(v.title)}</b>${v.credits.length ? creditLinks(v.credits) : ""}</li>`).join("")}</ul></section>`;
+  }
+
+  function readout(list) {
+    const skills = list.reduce((a, c) => a + c.skills.length, 0);
+    const dl = list.reduce((a, c) => a + c.skills.filter((s) => s.local).length, 0);
+    const tr = list.reduce((a, c) => a + c.skills.filter((s) => s.trending).length, 0);
+    return [[list.length, "Crafts"], [skills || list.reduce((a, c) => a + refsOf(c).length, 0), skills ? "Ranked skills" : "Capabilities"], [dl || list.filter((c) => c.live).length, dl ? "Downloadable" : "Super skills"], [tr, "Trending now"]]
+      .map(([n, l]) => `<div><b>${n}</b><span>${l}</span></div>`).join("");
+  }
+  function homeShell(list) {
+    return `<section class="hero reveal">
+      <div class="hero-copy">
+        <p class="eyebrow">Re-scouted every week · ranked by stars, installs and expert lists</p>
+        <h2>One <em>super skill</em> for every craft Claude works in.</h2>
+        <p class="lede">Each craft bundles the best public skills into one router. Install it once, ask in plain words, and Claude opens the right technique for the job. Every sub-skill is here too, ranked and credited to its author.</p>
+        <div class="hero-ctas"><button class="btn primary lg" data-act="ex-scroll">Browse the crafts</button><button class="btn lg" data-act="dl-all-super">Download all super skills</button></div>
+        <div class="readout" id="exStats"></div>
+      </div>
+      <div class="hero-art" id="gardenWrap"><canvas id="garden" aria-label="Garden of crafts. Each stem is one craft; taller stems have more ranked skills." role="img"></canvas>
+        <div class="garden-cap" aria-hidden="true"><div><span class="eyebrow" id="gcEye">The garden · ${list.length} crafts</span><strong id="gcName">Point at a stem</strong></div><div class="r"><span class="eyebrow">Skills</span><strong id="gcNum" class="mono" style="font-size:16px">—</strong></div></div>
+      </div>
+    </section>
+    <section class="steps3">
+      <div><span class="eyebrow">01</span><b>Pick a craft</b><p>Website building, motion, ads, data… 29 of them, each with its sub-skills ranked best first.</p></div>
+      <div><span class="eyebrow">02</span><b>Install one super skill</b><p>Unzip it into <code class="mono">~/.claude/skills</code>, or upload it in claude.ai. It works in any session.</p></div>
+      <div><span class="eyebrow">03</span><b>Ask in plain words</b><p>The router reads only the guide your task needs, so Claude gets the best technique without the clutter.</p></div>
+    </section>
+    <div id="exChains"></div>
+    <div class="ex-bar" id="crafts"><h2>Crafts</h2><div class="cat-row" id="exCats"></div><label class="ex-search"><span class="sr">Filter crafts</span><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="9" cy="9" r="6"/><path d="m14 14 4 4" stroke-linecap="round"/></svg><input id="exq" type="search" placeholder="Filter crafts and skills" value="${esc(EX.q)}"></label></div>
+    <div class="tgrid" id="exGrid"></div>
+    <div id="exFeed" style="margin-top:34px"></div>
+    <p class="foot-note">Every skill keeps its author's license. Sub-skills are credited to their repositories; skills with a non-commercial license or no reuse license are linked to their source, never redistributed. Scripts from third parties are copied as they are: read them before you run them.</p>`;
+  }
+  function sparkSvg(c) {
+    const top = c.skills.slice(0, 12).map((s) => Math.log10(N(s.stars) + 10));
+    if (!top.length) return "";
+    const mx = Math.max(...top), w = 240, h = 26, bw = w / 12;
+    return `<svg class="spark" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" aria-hidden="true">${top.map((v, i) => { const bh = Math.max(2, (v / mx) * (h - 2)); return `<rect x="${(i * bw + 1).toFixed(1)}" y="${(h - bh).toFixed(1)}" width="${(bw - 3).toFixed(1)}" height="${bh.toFixed(1)}" rx="1.5" fill="hsl(${N(c.hue)} 50% 50% / ${(0.85 - i * 0.05).toFixed(2)})"/>`; }).join("")}</svg>`;
+  }
+  function gridHtml(list) {
+    const q = EX.q.trim().toLowerCase();
+    const shown = list.filter((c) => (EX.cat === "all" || catOf(c.id).id === EX.cat) && (!q || [c.name, c.blurb, ...c.skills.map((s) => s.name + " " + s.purpose)].join(" ").toLowerCase().includes(q)));
+    if (!shown.length) return `<div class="empty" style="grid-column:1/-1"><h3>Nothing matches “${esc(EX.q)}”</h3><p>Try a broader word, or press <kbd>⌘K</kbd> to search every skill.</p></div>`;
+    return shown.map((c) => {
+      const refs = refsOf(c).length, tr = c.skills.filter((s) => s.trending).length;
+      return `<button class="tcard" data-act="ex-topic" data-id="${esc(c.id)}" style="--h:${N(c.hue)}">
+        <div class="tc-head"><span class="eyebrow">${esc(catOf(c.id).name)}</span><span class="mono muted">${String(c.order).padStart(2, "0")}</span></div>
+        <h3>${esc(c.name)}</h3><p>${esc(c.blurb || "")}</p>
+        ${sparkSvg(c)}
+        ${c.skills.length ? `<div class="tc-top">Top: ${c.skills.slice(0, 3).map((s) => esc(s.name)).join(" · ")}</div>` : ""}
+        <dl class="tc-meta"><div><dt>Guides</dt><dd>${refs || "—"}</dd></div><div><dt>Sub-skills</dt><dd>${c.skills.length || "—"}</dd></div><div><dt>Trending</dt><dd class="${tr ? "pol" : ""}">${tr}</dd></div>${c.live ? `<div><dt>Version</dt><dd>v${N(c.live.version)}</dd></div>` : ""}</dl>
+      </button>`;
+    }).join("");
+  }
+
+  function specimen(s) {
+    const lock = !s.redistributable;
+    return `<span class="specimen${lock ? " lock" : ""}" title="${esc(s.license || "No license")} · ${esc(s.repo || "")}"><b>${esc(s.license || "No license")}</b><span>${esc(s.repo || hostOf(s.url))}</span></span>`;
+  }
+  function lockReason(s) { return s.nonCommercial ? "Non-commercial license: open it at the source." : !s.redistributable ? "No license that allows sharing: open it at the source." : "Not in this library copy."; }
+  const inBundle = (kind, topic, name) => EX.bundle.some((b) => b.kind === kind && b.topic === topic && (kind === "super" || b.name === name));
+
+  function topicPage(c) {
+    const t = c.live, refs = refsOf(c), cat = catOf(c.id);
+    const desc = (t && splitFront(t.content || "").meta.description) || (c.superskill && c.superskill.description) || "";
+    const tests = (t && t.tests) || [];
+    let subs = c.skills.slice();
+    if (EX.subFilter === "dl") subs = subs.filter((s) => s.local);
+    if (EX.subFilter === "trending") subs = subs.filter((s) => s.trending);
+    if (EX.sort === "stars") subs.sort((a, b) => N(b.stars) - N(a.stars));
+    const tr = c.skills.filter((s) => s.trending).length;
+    const inst = EX.install;
+    const installBody = inst === "code"
+      ? `<div class="code">unzip ~/Downloads/${esc(c.id)}.zip -d ~/.claude/skills/<button class="cp" data-act="copy-text" data-text="unzip ~/Downloads/${esc(c.id)}.zip -d ~/.claude/skills/">Copy</button></div><ol><li>Download the super skill, then run the line above. For one project only, unzip into <code class="mono">.claude/skills/</code> in that project.</li><li>Start a new Claude Code session. Claude loads it when a task matches.</li></ol>`
+      : inst === "web"
+      ? `<ol><li>Download the super skill (.zip).</li><li>In claude.ai open <b>Settings → Capabilities → Skills</b> and upload the zip.</li><li>Turn it on, then ask in any chat.</li></ol>`
+      : `<div class="code">Use the ${esc(c.id)} skill: &lt;your task&gt;<button class="cp" data-act="copy-text" data-text="Use the ${esc(c.id)} skill: ">Copy</button></div><ol><li>Claude also picks it up without the name when the task matches its description.</li><li>To steer it, name a guide: “use ${esc(c.id)}, ${esc(refs[0] ? humanRef(refs[0]).toLowerCase() : "the main guide")}”.</li></ol>`;
+    return `<nav class="crumbs" aria-label="Breadcrumb"><button data-act="ex-home">Explore</button><span aria-hidden="true">/</span><button data-act="ex-cat-home" data-id="${cat.id}">${esc(cat.name)}</button><span aria-hidden="true">/</span><span>${esc(c.name)}</span></nav>
+    <header class="t-hero reveal" style="--h:${N(c.hue)}">
+      <div><span class="eyebrow">${esc(cat.name)} · craft ${String(c.order).padStart(2, "0")}</span><h2>${esc(c.name)}</h2><p class="lede">${esc(c.blurb || "")}</p></div>
+      <div class="t-stats"><div><b>${refs.length}</b><span>Guides</span></div><div><b>${c.skills.length}</b><span>Sub-skills</span></div><div><b>${tr}</b><span>Trending</span></div></div>
+    </header>
+    ${t || c.superskill ? `<section class="super reveal">
+      <div class="super-main">
+        <div class="super-head"><span class="badge">Super skill</span>${t ? `<span class="mono muted">v${N(t.version)} · updated ${esc(ago(t.updatedAt) || "—")}</span>` : ""}</div>
+        <h3>${esc(c.id)}</h3>
+        <p class="desc">${esc(desc)}</p>
+        <div class="row-actions">
+          <button class="btn primary" data-act="dl-super" data-id="${esc(c.id)}"${t ? "" : " disabled"}>Download super skill (.zip)</button>
+          <button class="btn${inBundle("super", c.id) ? " added" : ""}" data-act="bundle-toggle" data-kind="super" data-topic="${esc(c.id)}"${t ? "" : " disabled"}>${inBundle("super", c.id) ? "In your bundle" : "Add to bundle"}</button>
+          <button class="btn ghost" data-act="pv-router" data-id="${esc(c.id)}"${t ? "" : " disabled"}>Read the router</button>
+        </div>
+        ${refs.length ? `<div><p class="eyebrow" style="margin-bottom:8px">What it can do · open any guide</p><div class="caps">${refs.map((r) => `<button class="cap" data-act="pv-ref" data-id="${esc(c.id)}" data-path="${esc(r)}" title="${esc(refTitle(c, r))}"><i></i><span>${esc(refTitle(c, r).split(/[:(]| — | - /)[0].trim())}</span></button>`).join("")}</div></div>` : ""}
+        ${t ? "" : `<p class="muted">Import the super skills into this app to download them: <code class="mono">node local/import-superskills.mjs</code></p>`}
+      </div>
+      <aside class="install">
+        <h4>Install and use</h4>
+        <div class="seg" role="group" aria-label="Where you use Claude"><button data-act="ex-install" data-id="code" aria-pressed="${inst === "code"}">Claude Code</button><button data-act="ex-install" data-id="web" aria-pressed="${inst === "web"}">claude.ai</button><button data-act="ex-install" data-id="use" aria-pressed="${inst === "use"}">Call it</button></div>
+        ${installBody}
+        ${tests.length ? `<div class="try"><p class="eyebrow">Try asking</p>${tests.slice(0, 2).map((x) => `<q>${esc(x.prompt)}</q>`).join("")}</div>` : ""}
+      </aside>
+    </section>` : ""}
+    ${c.skills.length ? `<section>
+      <div class="subs-head"><div><h3>Ranked sub-skills</h3><p>The skills the super skill was distilled from, best first. Download any of them on their own, or add them to your bundle.</p></div>
+        <div class="filters">${[["all", "All"], ["dl", "Downloadable"], ["trending", "Trending"]].map(([k, l]) => `<button class="fchip" data-act="ex-sub" data-id="${k}" aria-pressed="${EX.subFilter === k}">${l}</button>`).join("")}<button class="fchip" data-act="ex-sort" aria-pressed="${EX.sort === "stars"}">Sort by stars</button></div></div>
+      <ol class="sublist">${subs.map((s) => subRow(c, s)).join("") || `<li class="sub"><span></span><p>Nothing here with this filter.</p></li>`}</ol>
+      ${c.zip && !window.SG_PUBLIC ? `<p class="lib-dl"><span>Want every downloadable sub-skill for ${esc(c.name)} at once?</span><a class="btn small" href="/library/raw?path=${encodeURIComponent(c.zip)}" download>Download the ${esc(c.name)} library (.zip)</a></p>` : ""}
+    </section>` : ""}
+    ${creditsSection(c)}`;
+  }
+  function subRow(c, s) {
+    const key = esc(s.name);
+    return `<li class="sub">
+      <span class="rank">${String(s.rank).padStart(2, "0")}</span>
+      <div><div class="sub-title"><strong>${esc(s.name)}</strong>${s.trending ? `<span class="pol-tag">Trending</span>` : ""}</div>
+        <p>${esc(s.purpose)}</p>
+        <div class="tagrow">${specimen(s)}<span class="stars">★ ${fmtStars(s.stars)}</span>${/flag|privacy|security|sends|uploads/i.test(s.notes || "") ? `<span class="flag">Read the note before use</span>` : ""}</div></div>
+      <div class="sub-act">
+        <button class="btn small ghost" data-act="pv-sub" data-id="${esc(c.id)}" data-name="${key}">Preview</button>
+        ${s.local ? `<button class="btn small${inBundle("sub", c.id, s.name) ? " added" : ""}" data-act="bundle-toggle" data-kind="sub" data-topic="${esc(c.id)}" data-name="${key}">${inBundle("sub", c.id, s.name) ? "In bundle" : "+ Bundle"}</button><button class="btn small" data-act="dl-sub" data-id="${esc(c.id)}" data-name="${key}" title="Download only this sub-skill" aria-label="Download only the ${key} sub-skill">↓ Sub-skill</button>` : `<span class="muted" style="font-size:12.5px" title="${esc(lockReason(s))}">Link only</span>`}
+        ${safeUrl(s.url) ? `<a class="btn small ghost" href="${esc(safeUrl(s.url))}" target="_blank" rel="noopener noreferrer" aria-label="Open ${key} source">Source ↗</a>` : ""}
+      </div>
+    </li>`;
+  }
+
+  /* drawer */
+  function openDrawer(html) { const d = $("#drawer"); d.innerHTML = html; d.classList.add("on"); d.setAttribute("aria-hidden", "false"); $("#scrim").classList.add("on"); const b = d.querySelector("[data-act=close-overlays]"); if (b) b.focus(); }
+  function drawerShell(eyebrow, title, body, side) {
+    return `<div class="drawer-head"><div><p class="eyebrow">${eyebrow}</p><h3 id="drawerTitle">${title}</h3></div><div class="row-actions">${side || ""}<button class="icon-btn" data-act="close-overlays" aria-label="Close">✕</button></div></div><div class="drawer-body">${body}</div>`;
+  }
+  function previewRef(c, p) {
+    const txt = c.live && c.live.files && c.live.files[p];
+    openDrawer(drawerShell(`${esc(c.name)} · super skill guide`, esc(refTitle(c, p)), txt ? `<p class="mono muted">${esc(c.id)}/${esc(p)}</p><article class="reader">${md(txt.replace(/^>\s?/gm, ""))}</article>` : `<div class="empty"><p>This guide isn't loaded in the app yet. Import the super skills to read it here.</p></div>`));
+  }
+  function previewRouter(c) {
+    const t = c.live; if (!t) return;
+    const { meta, body } = splitFront(t.content || "");
+    const credits = t.files && t.files["CREDITS.md"];
+    openDrawer(drawerShell(`${esc(c.name)} · v${N(t.version)}`, `${esc(c.id)}/SKILL.md`, `<article class="reader">${meta.description ? `<p class="lead">${esc(meta.description)}</p>` : ""}${md(body)}</article>${credits ? `<details class="reader"><summary><b>Credits and licenses</b></summary>${md(credits)}</details>` : ""}`, `<button class="btn small primary" data-act="dl-super" data-id="${esc(c.id)}">Download</button>`));
+  }
+  async function previewSub(c, s) {
+    const prov = `<dl class="prov"><dt>Author</dt><dd>${safeUrl(s.url) ? `<a href="${esc(safeUrl(s.url))}" target="_blank" rel="noopener noreferrer">${esc(s.repo || s.url)}</a>` : esc(s.repo || "")}</dd><dt>License</dt><dd>${esc(s.license || "None stated")}${s.redistributable ? "" : ` · ${esc(lockReason(s))}`}</dd><dt>Stars</dt><dd class="mono">★ ${N(s.stars).toLocaleString()}</dd><dt>How to use</dt><dd>${esc(s.how_to_use || "")}</dd><dt>Evidence</dt><dd>${esc(s.evidence || "")}</dd>${s.notes ? `<dt>Note</dt><dd>${esc(s.notes)}</dd>` : ""}</dl>`;
+    const side = s.local ? `<button class="btn small" data-act="dl-sub" data-id="${esc(c.id)}" data-name="${esc(s.name)}">Download this sub-skill only</button><button class="btn small primary" data-act="dl-super" data-id="${esc(c.id)}">Get the ${esc(c.name)} super skill</button>` : `<button class="btn small primary" data-act="dl-super" data-id="${esc(c.id)}">Get the ${esc(c.name)} super skill</button>`;
+    openDrawer(drawerShell(`Sub-skill of ${esc(c.name)} · rank ${s.rank}`, esc(s.name), prov + (s.local ? `<p class="skeleton">Loading SKILL.md…</p>` : `<div class="empty"><p>${esc(lockReason(s))}</p></div>`), side));
+    if (!s.local) return;
+    try {
+      const [txt, files] = await Promise.all([fetch(`/library/raw?path=${encodeURIComponent(s.local + "/SKILL.md")}`).then((r) => r.ok ? r.text() : Promise.reject()), fetch(`/library/list?path=${encodeURIComponent(s.local)}`).then((r) => r.ok ? r.json() : [])]);
+      const { meta, body } = splitFront(txt);
+      const sk = $("#drawer .skeleton"); if (!sk) return;
+      sk.outerHTML = `${files.length ? `<div><p class="eyebrow" style="margin-bottom:6px">${plural(files.length, "file")} in this skill</p><div class="files-mini">${files.slice(0, 16).map((f) => `<span>${esc(f.path)}</span>`).join("")}${files.length > 16 ? `<span>+${files.length - 16} more</span>` : ""}</div></div>` : ""}<article class="reader">${meta.description ? `<p class="lead">${esc(meta.description)}</p>` : ""}${md(body)}</article>`;
+    } catch { const sk = $("#drawer .skeleton"); if (sk) sk.textContent = "Couldn't load this skill from the library. Is the SkillGarden folder next to the app?"; }
+  }
+  function closeOverlays() {
+    for (const id of ["drawer", "sheet", "palette"]) { const e = $("#" + id); e.classList.remove("on"); e.setAttribute("aria-hidden", "true"); }
+    $("#scrim").classList.remove("on");
+  }
+
+  /* downloads */
+  async function addSubTo(zip, c, s) {
+    if (window.SG_PUBLIC) {
+      const r = await fetch(`/lib/${s.local}.zip`);
+      if (!r.ok) throw new Error("zip");
+      const src = await window.JSZip.loadAsync(await r.arrayBuffer());
+      const folder = zip.folder(s.name.replace(/[^\w.-]+/g, "-"));
+      await Promise.all(Object.values(src.files).filter((f) => !f.dir).map(async (f) => folder.file(f.name, await f.async("uint8array"))));
+      return;
+    }
+    const files = await fetch(`/library/list?path=${encodeURIComponent(s.local)}`).then((r) => r.ok ? r.json() : Promise.reject(new Error("list")));
+    const total = files.reduce((a, f) => a + N(f.size), 0);
+    if (total > 40e6) throw Object.assign(new Error("big"), { big: true });
+    const folder = zip.folder(s.name.replace(/[^\w.-]+/g, "-"));
+    await Promise.all(files.map(async (f) => { const r = await fetch(`/library/raw?path=${encodeURIComponent(s.local + "/" + f.path)}`); if (r.ok) folder.file(f.path, await r.arrayBuffer()); }));
+  }
+  const readme = (lines) => `Skill Garden bundle\n\nInstall in Claude Code:  unzip this file, then move each folder into ~/.claude/skills/\nInstall in claude.ai:    zip each folder on its own and upload it in Settings → Capabilities → Skills\n\nEvery skill keeps its author's license (see LICENSE files and CREDITS.md inside each folder).\nRead third-party scripts before you run them.\n\nIn this bundle:\n${lines.join("\n")}\n`;
+  async function downloadItems(items, filename) {
+    if (!window.JSZip) { toast("The zip maker didn't load. Check your connection and reload.", "bad"); return; }
+    const zip = new window.JSZip(); const lines = []; const skipped = [];
+    toast("Packing your download…");
+    for (const it of items) {
+      const c = craftById(it.topic); if (!c) continue;
+      if (it.kind === "super") { if (!c.live || !c.live.content) { skipped.push(c.id); continue; } addSkill(zip.folder(c.id), c.live); lines.push(`- ${c.id} (super skill v${N(c.live.version)}, ${c.name})`); }
+      else { const s = c.skills.find((x) => x.name === it.name); if (!s || !s.local) { skipped.push(it.name); continue; } try { await addSubTo(zip, c, s); lines.push(`- ${s.name} (${s.license}, ${s.repo})`); } catch (e) { skipped.push(it.name + (e.big ? " (too large, use the craft library zip)" : "")); } }
+    }
+    if (!lines.length) { toast("Nothing could be packed. " + (skipped.length ? "Skipped: " + skipped.join(", ") : ""), "bad"); return; }
+    if (items.length > 1) zip.file("README.txt", readme(lines));
+    await download(filename, await zip.generateAsync({ type: "blob" }));
+    toast(skipped.length ? `Downloaded. Skipped: ${skipped.join(", ")}` : `Downloaded ${plural(lines.length, "skill")}.`, skipped.length ? "bad" : undefined);
+  }
+
+  /* bundle */
+  function saveBundle() { store.set("bundle", EX.bundle); renderBundle(); }
+  function renderBundle() {
+    const n = EX.bundle.length;
+    const fab = $("#bundleFab"); fab.hidden = !n; $("#bundleCount").textContent = String(n);
+    $("#sheet").innerHTML = `<div class="sheet-head"><div><h3 style="font-size:18px">Your bundle</h3><p>${n ? `${plural(n, "skill")}, packed into one zip with a README and every license.` : "Add super skills and sub-skills to pack them together."}</p></div><button class="icon-btn" data-act="close-overlays" aria-label="Close">✕</button></div>
+      <ul>${EX.bundle.map((b, i) => { const c = craftById(b.topic); return `<li><span class="k">${b.kind === "super" ? "Super" : "Sub"}</span><strong>${esc(b.kind === "super" ? b.topic : b.name)}</strong><span class="muted" style="font-size:12.5px">${esc(c ? c.name : "")}</span><button class="btn ghost small" data-act="bundle-rm" data-id="${i}" aria-label="Remove">✕</button></li>`; }).join("")}</ul>
+      <div class="sheet-foot"><button class="link" data-act="bundle-clear"${n ? "" : " disabled"}>Clear</button><button class="btn primary" data-act="bundle-dl"${n ? "" : " disabled"}>Download bundle (.zip)</button></div>`;
+  }
+  function toggleBundle(kind, topic, name) {
+    const i = EX.bundle.findIndex((b) => b.kind === kind && b.topic === topic && (kind === "super" || b.name === name));
+    if (i >= 0) EX.bundle.splice(i, 1); else { EX.bundle.push(kind === "super" ? { kind, topic } : { kind, topic, name }); const f = $("#bundleFab"); f.classList.remove("pulse"); void f.offsetWidth; f.classList.add("pulse"); }
+    saveBundle(); $("#ex")._h = null; render();
+  }
+
+  /* command palette */
+  function palIndex() {
+    const out = [
+      { k: "Action", t: "Download all super skills", d: "One zip with every craft's router and guides", run: () => downloadItems(crafts().map((c) => ({ kind: "super", topic: c.id })), "skill-garden-super-skills.zip") },
+      { k: "Action", t: "Open your bundle", d: `${plural(EX.bundle.length, "item")}`, run: () => openSheet() },
+      { k: "Action", t: "Switch light or dark", d: "Theme", run: () => toggleTheme() },
+      { k: "Go to", t: "Review", d: "Changes the scout proposes", run: () => goView("review") },
+      { k: "Go to", t: "My skills", d: "Versions, history and tests", run: () => goView("skills") },
+      { k: "Go to", t: "Scout log", d: "What the weekly scout looked at", run: () => goView("log") },
+    ];
+    for (const c of crafts()) {
+      out.push({ k: "Craft", t: c.name, d: c.blurb || "", run: () => openCraft(c.id) });
+      for (const s of c.skills) out.push({ k: "Sub-skill", t: s.name, d: `in ${c.name} · #${s.rank} · ${s.purpose}`, run: () => { openCraft(c.id); setTimeout(() => previewSub(c, s), 60); } });
+    }
+    return out;
+  }
+  function palRender() {
+    const q = $("#palInput").value.trim().toLowerCase();
+    const all = palIndex();
+    let items;
+    if (!q) items = all.filter((x) => x.k !== "Sub-skill").slice(0, 40);
+    else {
+      const words = q.split(/\s+/);
+      items = all.map((x) => { const hay = (x.t + " " + x.d).toLowerCase(), tl = x.t.toLowerCase(); if (!words.every((w) => hay.includes(w))) return null; return { x, s: (tl === q ? 0 : tl.startsWith(q) ? 1 : tl.includes(q) ? 2 : 3) + (x.k === "Sub-skill" ? 0.5 : 0) }; }).filter(Boolean).sort((a, b) => a.s - b.s).slice(0, 40).map((r) => r.x);
+    }
+    EX.palItems = items; EX.palSel = Math.min(EX.palSel, Math.max(0, items.length - 1));
+    $("#palList").innerHTML = items.length ? items.map((x, i) => `<li role="option" id="pal-${i}" data-act="pal-pick" data-id="${i}" aria-selected="${i === EX.palSel}"><span class="k">${esc(x.k)}</span><strong>${esc(x.t)}</strong><span class="d">${esc(x.d)}</span></li>`).join("") : `<li><span class="d">No match. Try fewer words.</span></li>`;
+    $("#palInput").setAttribute("aria-activedescendant", items.length ? "pal-" + EX.palSel : "");
+  }
+  function openPalette() { closeOverlays(); const p = $("#palette"); p.classList.add("on"); p.setAttribute("aria-hidden", "false"); $("#scrim").classList.add("on"); const i = $("#palInput"); i.value = ""; EX.palSel = 0; palRender(); i.focus(); }
+  function palPick(i) { const x = EX.palItems[i]; if (!x) return; closeOverlays(); x.run(); }
+  function openSheet() { closeOverlays(); renderBundle(); const s = $("#sheet"); s.classList.add("on"); s.setAttribute("aria-hidden", "false"); $("#scrim").classList.add("on"); }
+
+  /* navigation: #/ is the catalog, #/c/<id> a craft page, so back and forward work */
+  function goView(v) { if (window.SG_PUBLIC) v = "explore"; S.editing = null; S.noteEditing = null; S.view = v; if (v !== "explore" && location.hash.startsWith("#/")) history.replaceState(null, "", location.pathname + location.search); render(); window.scrollTo({ top: 0 }); }
+  function openCraft(id) { if (location.hash !== "#/c/" + id) location.hash = "#/c/" + id; else onHash(); }
+  function onHash() {
+    const m = location.hash.match(/^#\/c\/([\w-]+)/);
+    const k = location.hash.match(/^#\/chain\/([\w-]+)/);
+    if (location.hash.startsWith("#/")) { S.view = "explore"; EX.topic = m ? m[1] : null; EX.chain = k ? k[1] : null; EX.subFilter = "all"; closeOverlays(); render(); if (!m && !k) window.scrollTo({ top: 0 }); }
+  }
+  window.addEventListener("hashchange", onHash);
+
+  function toggleTheme() {
+    const cur = document.documentElement.dataset.theme || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    const next = cur === "dark" ? "light" : "dark";
+    document.documentElement.dataset.theme = next; store.set("theme", next); gardenColors = null;
+  }
+  { const th = store.get("theme", null); if (th) document.documentElement.dataset.theme = th; }
+
+  /* the garden: one stem per craft, height from its ranked skills, bloom when something is trending */
+  let gardenColors = null;
+  function startGarden() {
+    const cv = $("#garden"); if (!cv || cv._on) return; cv._on = true;
+    const ctx = cv.getContext("2d");
+    const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let W = 0, H = 0, hover = -1, raf = 0;
+    const seeds = Array.from({ length: 26 }, (_, i) => ({ x: Math.random(), y: Math.random(), r: 0.6 + Math.random() * 1.6, v: 0.00004 + Math.random() * 0.00008, p: i }));
+    const size = () => { const r = cv.getBoundingClientRect(), d = Math.min(2, devicePixelRatio || 1); W = r.width; H = r.height; cv.width = W * d; cv.height = H * d; ctx.setTransform(d, 0, 0, d, 0, 0); if (still) draw(0); };
+    const colors = () => { if (gardenColors) return gardenColors; const cs = getComputedStyle(document.documentElement); const g = (n) => cs.getPropertyValue(n).trim(); return (gardenColors = { accent: g("--accent"), ink3: g("--ink-3"), line: g("--line"), pollen: g("--pollen"), dark: (document.documentElement.dataset.theme || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")) === "dark" }); };
+    const stems = () => crafts().map((c) => ({ id: c.id, name: c.name, n: c.skills.length || refsOf(c).length, tr: c.skills.filter((s) => s.trending).length, hue: N(c.hue) }));
+    function draw(t) {
+      if (!cv.isConnected) { cancelAnimationFrame(raf); return; }
+      const col = colors(), list = stems(), n = list.length; if (!n) return;
+      ctx.clearRect(0, 0, W, H);
+      const base = H - 34, top = 70, mx = Math.max(...list.map((s) => s.n), 1);
+      ctx.font = "500 10px 'IBM Plex Mono', monospace"; ctx.fillStyle = col.ink3; ctx.strokeStyle = col.line; ctx.lineWidth = 1;
+      for (const v of [10, 20, 30]) { if (v > mx + 4) continue; const y = base - (v / mx) * (base - top); ctx.globalAlpha = 0.6; ctx.setLineDash([2, 4]); ctx.beginPath(); ctx.moveTo(14, y); ctx.lineTo(W - 14, y); ctx.stroke(); ctx.setLineDash([]); ctx.globalAlpha = 1; ctx.fillText(String(v), W - 30, y - 4); }
+      ctx.beginPath(); ctx.moveTo(14, base); ctx.lineTo(W - 14, base); ctx.stroke();
+      for (const p of seeds) { const y = (((p.y - t * p.v) % 1) + 1) % 1; ctx.globalAlpha = 0.35 * Math.sin(y * Math.PI); ctx.fillStyle = col.pollen; ctx.beginPath(); ctx.arc(14 + p.x * (W - 28), top - 40 + y * (base - top + 40), p.r, 0, 7); ctx.fill(); }
+      ctx.globalAlpha = 1;
+      const gap = (W - 56) / Math.max(1, n - 1);
+      list.forEach((s, i) => {
+        const x = 28 + i * gap, h = (s.n / mx) * (base - top), on = i === hover;
+        const sway = still ? 0 : Math.sin(t * 0.0009 + i * 0.63) * (4 + h * 0.035) + (on ? 0 : 0);
+        const tx = x + sway, ty = base - h;
+        const hueCol = `hsl(${s.hue} ${col.dark ? "60% 64%" : "50% 42%"})`;
+        ctx.strokeStyle = on ? hueCol : col.accent; ctx.globalAlpha = hover < 0 || on ? 0.95 : 0.35; ctx.lineWidth = on ? 2.6 : 1.7; ctx.lineCap = "round";
+        ctx.beginPath(); ctx.moveTo(x, base); ctx.quadraticCurveTo(x, base - h * 0.55, tx, ty); ctx.stroke();
+        for (const [f, side] of [[0.38, -1], [0.62, 1]]) {
+          if (h < 40) continue;
+          const lx = x + (tx - x) * f * f, ly = base - h * f;
+          ctx.save(); ctx.translate(lx, ly); ctx.rotate(side * 0.9 + sway * 0.02); ctx.fillStyle = on ? hueCol : col.accent; ctx.globalAlpha *= 0.55;
+          ctx.beginPath(); ctx.ellipse(side * 7, 0, 7, 2.6, 0, 0, 7); ctx.fill(); ctx.restore();
+        }
+        ctx.globalAlpha = hover < 0 || on ? 1 : 0.45;
+        const hot = s.tr >= 4, r = 2.6 + Math.min(4, s.tr * 0.6) + (on ? 2 : 0);
+        if (hot) { ctx.fillStyle = col.pollen; ctx.shadowColor = col.pollen; ctx.shadowBlur = on ? 18 : 10; }
+        else { ctx.fillStyle = on ? hueCol : col.accent; ctx.shadowBlur = 0; }
+        ctx.beginPath(); ctx.arc(tx, ty, r, 0, 7); ctx.fill(); ctx.shadowBlur = 0; ctx.globalAlpha = 1;
+      });
+      if (!still) raf = requestAnimationFrame(draw);
+    }
+    function pick(ev) {
+      const list = stems(), n = list.length; const r = cv.getBoundingClientRect(); const x = ev.clientX - r.left;
+      const gap = (W - 56) / Math.max(1, n - 1); const i = Math.round((x - 28) / gap);
+      return i >= 0 && i < n && Math.abs(28 + i * gap - x) < gap * 0.6 ? i : -1;
+    }
+    cv.addEventListener("pointermove", (ev) => {
+      const i = pick(ev); if (i === hover) return; hover = i; const s = stems()[i];
+      $("#gcName").textContent = s ? s.name : "Point at a stem"; $("#gcNum").textContent = s ? `${s.n}${s.tr ? ` · ${s.tr} trending` : ""}` : "—";
+      cv.style.cursor = s ? "pointer" : "crosshair"; if (still) draw(0);
+    });
+    cv.addEventListener("pointerleave", () => { hover = -1; $("#gcName").textContent = "Point at a stem"; $("#gcNum").textContent = "—"; if (still) draw(0); });
+    cv.addEventListener("click", (ev) => { const s = stems()[pick(ev)]; if (s) openCraft(s.id); });
+    new ResizeObserver(size).observe(cv);
+    size(); if (!still) raf = requestAnimationFrame(draw);
+  }
+
+  async function exploreAct(act, el) {
+    const id = el.dataset.id;
+    switch (act) {
+      case "ex-home": if (location.hash !== "#/") location.hash = "#/"; else onHash(); return true;
+      case "ex-topic": openCraft(id); return true;
+      case "ex-chain": location.hash = "#/chain/" + id; return true;
+      case "dl-chain": { const x = (EX.chains || []).find((c) => c.id === id); if (x) await downloadChain(x); return true; }
+      case "ex-cat": EX.cat = id; render(); return true;
+      case "ex-cat-home": EX.cat = id; location.hash = "#/"; setTimeout(() => { const c = $("#crafts"); if (c) c.scrollIntoView({ behavior: "smooth" }); }, 80); return true;
+      case "ex-scroll": { const c = $("#crafts"); if (c) c.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" }); return true; }
+      case "ex-sub": EX.subFilter = id; render(); return true;
+      case "ex-sort": EX.sort = EX.sort === "stars" ? "rank" : "stars"; render(); return true;
+      case "ex-install": EX.install = id; render(); return true;
+      case "copy-text": try { await navigator.clipboard.writeText(el.dataset.text); toast("Copied."); } catch { toast("Copying isn't allowed here. Select the text instead.", "bad"); } return true;
+      case "pv-ref": { const c = craftById(id); if (c) previewRef(c, el.dataset.path); return true; }
+      case "pv-router": { const c = craftById(id); if (c) previewRouter(c); return true; }
+      case "pv-sub": { const c = craftById(id); const s = c && c.skills.find((x) => x.name === el.dataset.name); if (s) previewSub(c, s); return true; }
+      case "dl-super": await downloadItems([{ kind: "super", topic: id }], `${id}.zip`); return true;
+      case "dl-sub": { const c = craftById(id); await downloadItems([{ kind: "sub", topic: id, name: el.dataset.name }], `subskill-${el.dataset.name.replace(/[^\w.-]+/g, "-")}.zip`); if (c) setTimeout(() => toast(`That was one sub-skill of ${c.name}. The ${c.id} super skill already carries it with every other guide.`), 1600); return true; }
+      case "dl-all-super": await downloadItems(crafts().map((c) => ({ kind: "super", topic: c.id })), "skill-garden-super-skills.zip"); return true;
+      case "bundle-toggle": toggleBundle(el.dataset.kind, el.dataset.topic, el.dataset.name); return true;
+      case "bundle-open": openSheet(); return true;
+      case "bundle-rm": EX.bundle.splice(+id, 1); saveBundle(); $("#ex") && ($("#ex")._h = null); render(); return true;
+      case "bundle-clear": EX.bundle = []; saveBundle(); $("#ex") && ($("#ex")._h = null); render(); return true;
+      case "bundle-dl": await downloadItems(EX.bundle, "skill-garden-bundle.zip"); return true;
+      case "close-overlays": closeOverlays(); return true;
+      case "palette": openPalette(); return true;
+      case "pal-pick": palPick(+id); return true;
+      case "theme": toggleTheme(); return true;
+    }
+    return false;
+  }
+  document.addEventListener("input", (ev) => {
+    if (ev.target.id === "exq") { EX.q = ev.target.value; setHTML($("#exGrid"), gridHtml(crafts())); }
+    if (ev.target.id === "palInput") { EX.palSel = 0; palRender(); }
+  });
+  document.addEventListener("keydown", (ev) => {
+    if ((ev.metaKey || ev.ctrlKey) && ev.key.toLowerCase() === "k") { ev.preventDefault(); $("#palette").classList.contains("on") ? closeOverlays() : openPalette(); return; }
+    if (ev.key === "/" && !/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)) { ev.preventDefault(); openPalette(); return; }
+    if (ev.key === "Escape" && $("#scrim").classList.contains("on")) { closeOverlays(); return; }
+    if (ev.target.id === "palInput") {
+      if (ev.key === "ArrowDown" || ev.key === "ArrowUp") { ev.preventDefault(); const n = EX.palItems.length; if (!n) return; EX.palSel = (EX.palSel + (ev.key === "ArrowDown" ? 1 : n - 1)) % n; palRender(); const li = $("#pal-" + EX.palSel); if (li) li.scrollIntoView({ block: "nearest" }); }
+      if (ev.key === "Enter") { ev.preventDefault(); palPick(EX.palSel); }
+    }
+  });
+  renderBundle();
+  if (location.hash.startsWith("#/")) onHash();
+
   /* ---------- boot ---------- */
+  if (window.SG_PUBLIC) { document.documentElement.classList.add("sg-public"); S.view = "explore"; }
   render();
   (async () => {
     const c = window.claude;
@@ -1273,6 +2187,7 @@ main { padding-top: 24px; }
     c.use("user").then(async (u) => { S.user = u; if (u) { const w = await u.can("data.write"); if (w === false) { S.canWrite = false; const b = $("#banner"); b.hidden = false; b.textContent = "You can read this garden but not change it. Ask its owner for edit access."; } } render(); });
     c.use("downloads").then((d) => { S.downloads = d; });
     c.use("mcp").then((m) => { S.mcp = m; render(); });
+    c.use("media").then((m) => { S.media = m || null; render(); }).catch(() => {});
   })();
 })();
 </script>

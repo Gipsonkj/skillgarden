@@ -1,0 +1,14 @@
+{
+  "id": "sales-outreach",
+  "name": "Sales outreach",
+  "blurb": "From a target list to sent-by-hand messages and follow-ups, using the LinkedIn guides' research, message and safety rules.",
+  "description": "Plan and write a sales outreach sequence from one request: find and score leads from allowed sources, pick an angle per person, draft connection notes and messages, and plan follow-ups, using the Skill Garden linkedin-automation and content-creation super skills in order. Everything is drafted for the user to send by hand. Use when asked to run outreach, prospect, write cold messages or plan follow-ups for a product or service.",
+  "ask": "Run outreach for <offer> to <type of buyer>.",
+  "inputs": ["The offer and why it matters to this buyer", "Who the buyer is (role, company type, size)", "Leads you already have, or where to look", "Proof: results, customers, numbers you can use", "Daily volume you are comfortable sending by hand"],
+  "steps": [
+    { "id": "leads", "title": "Research and score the leads", "craft": "linkedin-automation", "guides": ["references/lead-research.md", "references/tos-and-safe-automation.md"], "output": "A short scored list with one public, relevant signal per person." },
+    { "id": "angle", "title": "Pick the angle and proof", "craft": "content-creation", "guides": ["references/conversion-copy.md"], "output": "The pain, the promise and the proof to lead with, per segment." },
+    { "id": "messages", "title": "Draft the messages", "craft": "linkedin-automation", "guides": ["references/outreach-messages.md"], "output": "A connection note and a first message per person, inside the character caps." },
+    { "id": "follow-ups", "title": "Plan the follow-ups", "craft": "linkedin-automation", "guides": ["references/comments-engagement.md", "references/outreach-messages.md"], "output": "Two follow-ups per person with the day to send each, and when to stop." }
+  ]
+}

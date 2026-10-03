@@ -1,0 +1,36 @@
+{
+  "name": "Social media",
+  "blurb": "Plan, write and publish posts, threads, carousels and short video scripts across platforms, then listen, engage and grow.",
+  "hue": 200,
+  "collections": [],
+  "repos": [
+    "coreyhaines31/marketingskills",
+    "mvanhorn/last30days-skill",
+    "affaan-m/ECC",
+    "sergebulaev/x-skills"
+  ],
+  "searches": [
+    "social media agent skill Claude new release",
+    "X algorithm ranking signals update xai-org/x-algorithm",
+    "Instagram TikTok algorithm change 2026 reach saves shares",
+    "short-form video hook retention study new data",
+    "social media scheduling API MCP server new"
+  ],
+  "tests": [
+    {
+      "id": "t1",
+      "prompt": "I run a small bakery in Leeds with Instagram and Facebook. I can spend 3 hours a week. Build me a 4-week content calendar and write the first week's posts.",
+      "good": "Sustainable cadence (about 2-4 posts/week); pillar mix with promotion capped near 10-20%; calendar rows with date, channel, format, hook, CTA and status; Facebook and Instagram versions differ; Instagram uses at most 5 hashtags; real, specific hooks with no invented prices or reviews; asks for or flags missing photos."
+    },
+    {
+      "id": "t2",
+      "prompt": "Turn this 1,500-word blog post about how we cut our SaaS onboarding time from 14 days to 3 into an X thread, a LinkedIn post and a 30-second Reel script.",
+      "good": "Thread opens with a specific one- or two-line hook, 5-9 posts each under 280 characters, no link in post 1; LinkedIn hook lands before ~210 characters with link in comments; Reel script has hook in 0-3 s, timed beats, on-screen text and a CTA; no identical copy across platforms; no AI tells or invented numbers."
+    },
+    {
+      "id": "t3",
+      "prompt": "Set up posting to X and TikTok from Claude so I can schedule next week's content automatically.",
+      "good": "Recommends official routes (xurl or X API v2, Composio TikTok or a scheduler the user already has); drafts first and publishes only after explicit approval; future-time and rate-limit checks; secrets kept out of commands and files; warns that browser automation of x.com and cookie scraping risk account bans; TikTok unaudited apps may be limited to private posts."
+    }
+  ]
+}
