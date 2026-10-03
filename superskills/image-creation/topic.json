@@ -1,0 +1,31 @@
+{
+  "name": "Image creation",
+  "blurb": "Generate, edit and keep images consistent with GPT Image, Nano Banana, FLUX and local models, plus code-made art.",
+  "hue": 330,
+  "collections": [],
+  "repos": ["openai/skills", "black-forest-labs/skills", "google-gemini/gemini-skills", "replicate/skills"],
+  "searches": [
+    "new image generation model release prompting guide",
+    "GPT Image OR Nano Banana prompting technique text rendering",
+    "FLUX multi-reference character consistency workflow",
+    "ComfyUI new workflow inpainting ControlNet technique",
+    "agent skill image generation Claude Codex SKILL.md"
+  ],
+  "tests": [
+    {
+      "id": "t1",
+      "prompt": "I need a 16:9 hero image for a small bakery's landing page. The headline 'Bread, the slow way' will sit on the left. Write the prompt and tell me which model and settings you'd use.",
+      "good": "Labeled or ordered prompt with subject, light direction, 3-5 hex colours and explicit empty space on the left; no text rendered in the image (headline set in HTML); positive phrasing; names a model with size/quality (e.g. 1536x1024 or 16:9 2K); draft-then-final plan; check list for the output."
+    },
+    {
+      "id": "t2",
+      "prompt": "Here are two photos of our ceramic mug. Make 5 lifestyle images with the same mug in different settings for Instagram, keeping the mug and its logo exactly right.",
+      "good": "Passes the photos as references with roles, says 'same product, keep exact shape/label/colours, change only scene'; avoids long re-description; locked style block reused word-for-word; 1080x1350 (4:5); one call per image; proof label at 100% and composite the real packshot if it drifts."
+    },
+    {
+      "id": "t3",
+      "prompt": "Make me a transparent PNG game sprite of a fox mascot, and tell me how to get it if my model can't do transparency.",
+      "good": "Native route: GPT Image 1/1.5/2.5 with background=transparent and png/webp (not gpt-image-2); fallback: solid #00FF00 background prompt then ffmpeg colorkey+despill or a background-removal model; verify real alpha channel and no halo on dark and light backgrounds; centered, clear silhouette, padding."
+    }
+  ]
+}

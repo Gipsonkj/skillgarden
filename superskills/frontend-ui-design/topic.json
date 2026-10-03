@@ -1,0 +1,36 @@
+{
+  "name": "Frontend UI design",
+  "blurb": "Distinctive, accessible web UI: design direction, tokens, states, motion, WCAG 2.2, break testing, audits and redesigns.",
+  "hue": 200,
+  "collections": [],
+  "repos": [
+    "anthropics/skills",
+    "emilkowalski/skills",
+    "pbakaus/impeccable",
+    "leonxlnx/taste-skill"
+  ],
+  "searches": [
+    "anti AI slop frontend design skill Claude new",
+    "agent skill UI review accessibility WCAG 2.2",
+    "shadcn Tailwind v4 design system agent skill",
+    "web animation easing springs skill design engineering",
+    "DESIGN.md design system file for coding agents"
+  ],
+  "tests": [
+    {
+      "id": "t1",
+      "prompt": "Build a landing page for a small Edinburgh bakery that takes pickup orders online. No brand assets yet; they bake sourdough and pastries from 5 am.",
+      "good": "States a Design Read and mode (Persuade) first; explores the bakery's domain and colour world; names and avoids defaults (centred gradient hero, 3 feature cards, cream+terracotta serif); token block with one accent; real specific copy, no invented reviews or stats; working order CTA with all button states; image slots or real images, no div-drawn mockups; reduced-motion fallback; checked at 320 px and desktop."
+    },
+    {
+      "id": "t2",
+      "prompt": "Review this React team-members list component for UI problems before I ship it. [component with avatar, name, email, role badge, member count and a ••• menu]",
+      "good": "Builds worst-case data (long unbroken email, one-letter name, missing role, count of 1, 1,000 rows, RTL), lists breaks with severity and a concrete CSS/code fix each (min-width:0, flex-shrink:0, overflow-wrap:anywhere, Intl.PluralRules, tabular-nums, virtualisation), checks keyboard access and focus on the menu, uses a Before/After/Why table, and asks before applying design decisions."
+    },
+    {
+      "id": "t3",
+      "prompt": "Add animation to our dropdown menu, command palette (Cmd+K) and toast notifications.",
+      "good": "Refuses or minimises animation on the command palette (keyboard, used constantly); dropdown scales from ~0.96 with origin at the trigger, 150-200 ms ease-out with a named cubic-bezier token; toasts use transitions so rapid toasts retarget and exit the way they entered; only transform/opacity; never scale(0); prefers-reduced-motion fallback; no bounce."
+    }
+  ]
+}

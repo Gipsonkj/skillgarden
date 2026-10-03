@@ -1,0 +1,31 @@
+{
+  "name": "AI agents",
+  "blurb": "Agents, tools and MCP servers that actually work: scoping, tool design, multi-agent, memory, evals, Claude and other stacks.",
+  "hue": 200,
+  "collections": [],
+  "repos": ["anthropics/skills", "anthropics/claude-plugins-official", "muratcankoylan/Agent-Skills-for-Context-Engineering", "google/agents-cli"],
+  "searches": [
+    "MCP specification new release server features",
+    "Claude Agent SDK managed agents new feature",
+    "agent tool design best practices evaluation",
+    "multi-agent orchestration context engineering technique",
+    "agent skill MCP server Claude Code new"
+  ],
+  "tests": [
+    {
+      "id": "t1",
+      "prompt": "I want Claude to work with our internal ticketing REST API (about 40 endpoints, OAuth 2.0). Plan the MCP server: deployment model, tool list, auth, and how you'll test it. Then write the TypeScript for the two most-used tools.",
+      "good": "Recommends a remote streamable-HTTP server; search+execute or a hybrid with 3-5 promoted tools given 40 endpoints; reads and writes separate with readOnly/destructive annotations; OAuth via CIMD or DCR with audience validation and no token passthrough; Zod schemas with described params, pagination and actionable isError messages; Inspector test plus a 10-question read-only eval."
+    },
+    {
+      "id": "t2",
+      "prompt": "Every Monday I copy last week's Stripe refunds into a spreadsheet and email a summary to finance. Should this be an agent? Design the first version.",
+      "good": "Runs the agent-vs-workflow check and likely picks a scheduled workflow or a small agent with a clear rationale; defines trigger (cron + timezone), tools, never-dos (no sending without approval in v0, drafts or mocked outbox), 3-6 binary done-checks, a v1/v2 list with reasons, no hard-coded dates in the scheduled prompt, and an eval/verification step."
+    },
+    {
+      "id": "t3",
+      "prompt": "Our research agent gets worse the longer it runs and sometimes contradicts itself. We are thinking of splitting it into five sub-agents. What would you do?",
+      "good": "Diagnoses context degradation first (stale tool output, no compaction/clearing, big pasted docs) and fixes that; considers memory/validity issues for contradictions; only then proposes sub-agents for independent parts with self-contained briefs, short return schemas and shared files, capped worker count and budgets; insists on measuring against a single-agent baseline with an eval set."
+    }
+  ]
+}

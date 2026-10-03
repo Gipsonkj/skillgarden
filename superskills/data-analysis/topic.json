@@ -1,0 +1,36 @@
+{
+  "name": "Data Analysis",
+  "blurb": "Profile, query, test and chart data honestly: SQL, statistics, A/B tests, pandas/Polars, sklearn, dashboards, notebooks, dbt.",
+  "hue": 262,
+  "collections": [],
+  "repos": [
+    "anthropics/knowledge-work-plugins",
+    "K-Dense-AI/scientific-agent-skills",
+    "dbt-labs/dbt-agent-skills",
+    "duckdb/duckdb-skills"
+  ],
+  "searches": [
+    "agent skill data analysis SQL statistics Claude",
+    "Claude skill A/B test experiment analysis",
+    "pandas Polars DuckDB new release features",
+    "dbt BigQuery agent skills update",
+    "data visualization dashboard skill accessibility charts"
+  ],
+  "tests": [
+    {
+      "id": "t1",
+      "prompt": "Here's a CSV of our orders (order_id, customer_id, order_date, amount, region, status). Give me a quick overview of the data and tell me how revenue has trended by region over the last 12 months.",
+      "good": "Profiles first: states grain and checks order_id uniqueness, null/placeholder values, date range and partial current month; defines revenue (e.g. completed orders only, refunds handled); excludes or labels the partial month; sums from rows not averages of averages; line chart or small multiples with an insight title, colourblind-safe palette, labelled units; notes caveats and keeps the code reproducible."
+    },
+    {
+      "id": "t2",
+      "prompt": "We ran an A/B test on the checkout page for 9 days. Control: 10,212 users, 412 purchases. Variant: 9,604 users, 455 purchases. Did the variant win? We planned a 50/50 split.",
+      "good": "Runs a sample ratio mismatch check first (chi-square on 10,212 vs 9,604; p < 0.001 means the split is broken) and refuses to call a winner until it's explained; also computes conversion rates, absolute and relative difference with 95% CI and the two-proportion z-test; notes 9 days is under two full weeks; mentions the pre-planned MDE/power and guardrails; no causal claim while SRM is unresolved."
+    },
+    {
+      "id": "t3",
+      "prompt": "Build a model to predict which customers will churn next month from our customer_monthly table (one row per customer per month with usage features and a churned flag). Accuracy is 97%, is that good?",
+      "good": "Points out class imbalance makes 97% accuracy meaningless; compares to a DummyClassifier baseline; uses PR AUC / recall at precision and calibration; splits by time (train on earlier months, test on later) and groups by customer so no customer leaks across; checks features are known before the prediction month; all preprocessing inside a Pipeline; picks a threshold from costs; reports importance as non-causal."
+    }
+  ]
+}

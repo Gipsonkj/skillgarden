@@ -1,0 +1,31 @@
+{
+  "name": "Automation",
+  "blurb": "Workflows and browsers that run themselves safely: n8n, Make, Zapier, Playwright, DevTools, app CLIs and web extraction.",
+  "hue": 30,
+  "collections": [],
+  "repos": ["microsoft/playwright-cli", "czlonkowski/n8n-skills", "integromat/make-skills", "zapier/sdk"],
+  "searches": [
+    "n8n MCP workflow skill new release",
+    "Make.com MCP scenario building agent",
+    "Zapier SDK durable workflows agent skill",
+    "browser automation CLI for AI agents new",
+    "Playwright agent test generation healing"
+  ],
+  "tests": [
+    {
+      "id": "t1",
+      "prompt": "When someone fills in our feedback form, I want AI to score the sentiment and post the negative ones to our team chat. Build it in Make.",
+      "good": "Asks which form tool, which AI provider and which chat app before choosing modules; discovers modules via apps_recommend (one app per call) and app_modules_list; presents the flow (e.g. If-Else or filter) and a Scenario Plan for confirmation; lists connections with scope status and has the user pick even if only one exists; validates modules and blueprint, uses 'immediately' scheduling for a webhook trigger, activates, verifies output content, and has the user send a real test submission rather than echoing the webhook URL."
+    },
+    {
+      "id": "t2",
+      "prompt": "Our Playwright checkout test fails about one run in five on CI. Fix it.",
+      "good": "Reads the trace/failure first; reproduces with --debug=cli and playwright-cli attach (PLAYWRIGHT_HTML_OPEN=never); looks for timing causes (fixed sleeps, networkidle, assertions before data loads, shared state between tests, third-party calls); replaces them with role-based locators, web-first assertions and mocked external requests; keeps the assertion strength; reruns repeatedly to confirm stability and reports any real app bug found."
+    },
+    {
+      "id": "t3",
+      "prompt": "Build an n8n workflow: Stripe webhook for refunds -> append a row to Google Sheets -> post a Slack message if the refund is over $500.",
+      "good": "Uses webhook data under $json.body, verifies the Stripe signature or a secret, responds quickly; discovers nodes and current typeVersions; omits placeholder credentials and has the user confirm credentials per node; dedupes on refund ID; compares amounts in cents; validates, reads back connections, tests with pinned data asking before real Slack posts; adds an error workflow, descriptive node names and description; activates only after testing and gives a handoff note."
+    }
+  ]
+}

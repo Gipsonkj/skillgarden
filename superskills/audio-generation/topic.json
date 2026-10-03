@@ -1,0 +1,31 @@
+{
+  "name": "Audio generation",
+  "blurb": "Voiceovers, music, sound effects, podcasts, dubbing and transcripts with AI, mixed to a real loudness target.",
+  "hue": 190,
+  "collections": [],
+  "repos": ["elevenlabs/skills", "openai/skills", "heygen-com/hyperframes", "MiniMax-AI/skills"],
+  "searches": [
+    "new text-to-speech model release expressive voices",
+    "AI music generation model release lyrics vocals",
+    "ElevenLabs API new feature",
+    "speech-to-text diarization benchmark new model",
+    "agent skill audio generation voiceover Claude"
+  ],
+  "tests": [
+    {
+      "id": "t1",
+      "prompt": "Write and produce a 30-second voiceover for a product video about a budgeting app called Penny, with a music bed underneath. Give the script, the delivery direction, the TTS settings and the ffmpeg commands to mix and export it.",
+      "good": "Script of about 70-80 words written for the ear; labeled delivery spec without contradictions; named engine, voice and settings; music bed kept 18-24 dB under the voice or carved/sidechain-ducked; fades; loudness normalized to about -16 or -14 LUFS with -1 dBTP; checks for pronunciation of 'Penny' and duration."
+    },
+    {
+      "id": "t2",
+      "prompt": "Generate a 60-second upbeat instrumental for a SaaS launch video and a 3-second sonic logo that matches it. Write the prompts for a music model.",
+      "good": "Sentence-style prompts with mood, BPM (about 120-130), key, 2-3 named instruments and a dynamic arc; no artist names; instrumental specified; the logo shares key, instruments and style with the bed; advice to generate several takes and trim to a clean musical entrance with fades."
+    },
+    {
+      "id": "t3",
+      "prompt": "I have a 2-hour interview recorded as four 30-minute WAV files from a body mic. Get me a speaker-labeled transcript and English subtitles.",
+      "good": "Merge the segments in order before ASR (not transcribe separately), convert to 16 kHz mono; pick a diarizing route with keyterms; verify length plausibility, ending, speaker count and repetition loops; subtitle cues with max 2 lines, about 42 characters per line and reading-speed limits built from word timestamps."
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "name": "Ad creation",
+  "blurb": "Briefs, hooks, ad copy, statics, UGC and AI video ads for Meta, TikTok and Google, plus teardowns and testing.",
+  "hue": 14,
+  "collections": [],
+  "repos": [
+    "coreyhaines31/marketingskills",
+    "alirezarezvani/claude-skills",
+    "black-forest-labs/skills",
+    "boringmarketer/meta-ads-skill"
+  ],
+  "searches": [
+    "Meta ads creative best practices new Andromeda update",
+    "TikTok ad hook formats performing this month",
+    "AI generated product video ad workflow new model",
+    "agent skill ad copy generation Claude marketing",
+    "creative testing framework paid social fatigue"
+  ],
+  "tests": [
+    {
+      "id": "t1",
+      "prompt": "Write a Google Responsive Search Ad for a bookkeeping app for freelancers that auto-categorises bank transactions (14-day free trial, landing page headline: \"Your books, done while you work\"). I have no customer stats.",
+      "good": "15 distinct headlines each 30 characters or fewer and 4 descriptions each 90 or fewer, with counts shown; mix of keyword, benefit, CTA and brand lines; every line usable alone; no invented numbers or #1 claims ([NEED: ...] flags instead); echoes the landing-page promise and trial; no AI-tell patterns; pinning advice."
+    },
+    {
+      "id": "t2",
+      "prompt": "Plan five 9:16 TikTok/Reels ad concepts for a reusable silicone food bag brand. I have 60 reviews; the most common complaints they mention are plastic waste and freezer burn.",
+      "good": "Concepts built as segment x motivation x angle x format with quotes or placeholders tied to the reviews; each hook specifies visual action, spoken line and caption that don't duplicate; on-ramp continues the hook; text inside the 720x1200 safe band; mix of creator formats; a success metric and a one-variable test plan; no fabricated claims."
+    },
+    {
+      "id": "t3",
+      "prompt": "Our Meta ads' CTR dropped from 1.4% to 0.7% over three weeks while frequency rose to 4.2. Here are 6 ads with thumbstop, hold rate, CTR and CPA. What should we do next?",
+      "good": "Diagnoses fatigue from the time series (frequency up, CTR down), reads the funnel per ad to find the weak stage, judges concepts not single ads, proposes new hooks/first frames and new formats rather than near-duplicates, keeps one variable per test, sets minimum data thresholds, and logs learnings."
+    }
+  ]
+}

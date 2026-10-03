@@ -1,0 +1,36 @@
+{
+  "name": "AI video",
+  "blurb": "Make, generate, edit and deliver video: HyperFrames, video-model prompts, ffmpeg cuts, captions, beat cuts and QA.",
+  "hue": 12,
+  "collections": [],
+  "repos": [
+    "heygen-com/hyperframes",
+    "browser-use/video-use",
+    "google-gemini/gemini-skills",
+    "kajisho5/ffmpeg-skill"
+  ],
+  "searches": [
+    "new text-to-video model release API pricing",
+    "image-to-video prompting technique camera control consistency",
+    "HyperFrames release new workflow or registry blocks",
+    "AI video editing agent transcript cut ffmpeg skill",
+    "auto captions talking head short-form editing technique"
+  ],
+  "tests": [
+    {
+      "id": "t1",
+      "prompt": "I have a 9-minute talking-head recording (talk.mp4) with lots of ums and two false starts. Make a 60-second vertical clip for Reels with captions. Tell me exactly what you will run and in what order.",
+      "good": "Probes and transcribes word-level first; proposes a cut strategy and waits for approval; cuts on word boundaries with 30-200 ms padding and 30 ms fades; reframes 9:16 before burning captions; captions last, at most 2 lines, inside the Reels safe zone; loudness -14 LUFS with true peak at or below -1 dBTP; verifies with a probe and a contact sheet."
+    },
+    {
+      "id": "t2",
+      "prompt": "Write the prompts and settings to turn our product photo (bottle.png) into three 5-second b-roll clips for a 9:16 ad, and pick a model. The brand name must be perfectly readable.",
+      "good": "Uses image-to-video from the photo; one camera move per clip, varied across clips; describes motion and what stays still; keeps the brand name out of the generated layer (code overlay) or protects the label; states model, cost and number of takes before generating; credentials from environment variables only."
+    },
+    {
+      "id": "t3",
+      "prompt": "Turn this 900-word blog post about compound interest into a 60-second narrated explainer for YouTube Shorts. Give me the plan you would get approved first.",
+      "good": "States a one-sentence message and 1080x1920 aspect; picks one explainer structure and does not follow paragraph order; hook in the first 3 s with the thesis by beat 2; 10-12 beats with timings that add up to about 60 s and about 140 voiceover words; on-screen numbers set in code; captions from word timings; asks for approval before rendering."
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "name": "Coding practices",
+  "blurb": "Debug to root cause, test first, verify before done, review well, keep changes small, and use git as a safety net.",
+  "hue": 205,
+  "collections": [],
+  "repos": ["obra/superpowers", "mattpocock/skills", "addyosmani/agent-skills", "vercel-labs/agent-skills"],
+  "searches": [
+    "agent skill systematic debugging root cause new release",
+    "TDD test-driven development Claude Code skill",
+    "AI code review skill checklist PR review agent",
+    "refactoring simplification YAGNI coding agent guidelines skill",
+    "git worktree workflow Claude Code skill branch finishing"
+  ],
+  "tests": [
+    {
+      "id": "t1",
+      "prompt": "Our checkout test fails about 1 in 5 runs on CI with 'expected 3 items, got 2'. I already added a sleep(500) and it still flakes. Fix it.",
+      "good": "Doesn't add more sleeps or guess; builds a loop that reproduces the flake (runs the test many times), reads the error, forms ranked falsifiable hypotheses (race, shared state, test pollution), instruments one variable at a time; replaces the sleep with waiting for the actual condition; fixes the root cause with a regression test; removes debug logs; reports which hypothesis was right with evidence from repeated green runs."
+    },
+    {
+      "id": "t2",
+      "prompt": "Add a discount-code field to the checkout API: codes are case-insensitive, expire, and can be used once per customer. Use TDD.",
+      "good": "Clarifies or states assumptions (stacking, where codes are stored); agrees the seam (public checkout function/endpoint); vertical slices of one failing test then minimal code, each seen failing for the right reason; covers case-insensitivity, expiry with a controlled clock, once-per-customer (with a race/unique-constraint note); mocks only external boundaries; runs the full suite; no unrequested features."
+    },
+    {
+      "id": "t3",
+      "prompt": "Review this PR before I merge: it adds a 'refunded' order status and a refund endpoint that updates the order and calls Stripe.",
+      "good": "Pins the diff range; checks against the stated requirements; flags enum completeness (every switch/filter/display on order status), check-then-write races and idempotency on the refund, authz on the endpoint, Stripe errors and partial failure (DB vs Stripe consistency), and tests that mock only Stripe; labels findings Critical/Important/Nit with file:line and a concrete fix; notes strengths; ends with a clear merge verdict and reasoning."
+    }
+  ]
+}

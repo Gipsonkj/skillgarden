@@ -1,0 +1,36 @@
+{
+  "name": "Docs & Office files",
+  "blurb": "Word, PDF, Excel and PowerPoint: create, edit, fill, convert and check files, plus HTML decks and Google/Lark docs.",
+  "hue": 210,
+  "collections": [],
+  "repos": [
+    "MiniMax-AI/skills",
+    "NousResearch/hermes-agent",
+    "zarazhangrui/frontend-slides",
+    "docling-project/docling"
+  ],
+  "searches": [
+    "python-docx openpyxl python-pptx new release feature",
+    "PDF form filling extraction OCR open source tool 2026",
+    "agent skill Word Excel PowerPoint document generation Claude",
+    "HTML slide deck framework Slidev Marp new release",
+    "MarkItDown Docling document conversion update"
+  ],
+  "tests": [
+    {
+      "id": "t1",
+      "prompt": "Here is our budget.xlsx (sheets: Assumptions, Budget FY2026 with rows per expense and a SUM total row). Add a 'Utilities' line after 'Office Rent' with 3,000 per quarter and a '% of total' column, without breaking anything.",
+      "good": "Edits the existing file in place (no new Workbook, no openpyxl round-trip on a complex file); finds 'Office Rent' by label, not by guessed row number; new row uses formulas and extends the SUM range; % column is a formula with absolute reference to the total, formatted 0.0%; inputs blue, formulas black; runs a formula check and reports results; same sheets and data as before."
+    },
+    {
+      "id": "t2",
+      "prompt": "Turn these meeting notes into a 10-slide editable PowerPoint for our board update on the Q3 product launch.",
+      "good": "Writes assertion titles first and passes a ghost-deck test; one idea and one evidence shape per slide; marks missing numbers as [DATA NEEDED] instead of inventing them; builds with PptxGenJS or python-pptx using a consistent theme (hex without #, 16:9, slide numbers); varied layouts with native charts; renders slides to images and checks for overflow before delivery; ends with decisions or asks."
+    },
+    {
+      "id": "t3",
+      "prompt": "Fill in this rental application PDF with my details (I'll paste them) and merge it with my payslip PDF into one file.",
+      "good": "Inspects the form fields first and maps the user's details to exact field names; uses correct value formats for checkboxes and dropdowns; enters only data the user supplied; handles a flat (non-fillable) form by overlaying text and re-rendering to check alignment; merges with pypdf/qpdf; renders the result and confirms every field and page; does not send personal data to external services."
+    }
+  ]
+}

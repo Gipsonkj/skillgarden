@@ -1,0 +1,13 @@
+{
+  "name": "Backend & Databases",
+  "blurb": "Postgres schema and query tuning, API design, auth, and the Supabase, Neon, Prisma, Stripe, Firebase and NoSQL details that bite.",
+  "hue": 160,
+  "collections": [],
+  "repos": ["supabase/agent-skills", "wshobson/agents", "stripe/ai", "prisma/skills"],
+  "searches": ["postgres best practices", "supabase", "prisma", "stripe", "api design"],
+  "tests": [
+    {"id": "t1", "prompt": "Design tables for a multi-tenant invoicing app on Supabase.", "good": "bigint identity PKs plus UUID public ids, tenant_id with composite indexes, FKs indexed, numeric or cents for money, timestamptz, RLS on every table with (select auth.uid()) and WITH CHECK on updates."},
+    {"id": "t2", "prompt": "Our orders list endpoint got slow at page 500.", "good": "Asks for explain (analyze, buffers), replaces OFFSET with cursor pagination on (created_at, id), adds a matching composite index, caps limit at 100."},
+    {"id": "t3", "prompt": "Add Stripe subscriptions to our Next.js app.", "good": "Uses Checkout Sessions with dynamic payment methods, verifies webhook signatures on the raw body, grants access from subscription and invoice events idempotently, pins the API version, keeps secret keys server-side."}
+  ]
+}

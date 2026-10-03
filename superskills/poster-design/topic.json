@@ -1,0 +1,31 @@
+{
+  "name": "Poster & graphic design",
+  "blurb": "Posters, covers, banners, thumbnails, logos, brand kits, infographics and print, in code or with image models.",
+  "hue": 32,
+  "collections": ["Poster design", "Graphic design", "Posters", "Branding", "Logos"],
+  "repos": ["anthropics/skills", "nextlevelbuilder/ui-ux-pro-max-skill", "kaankiziltug/logo-design-skill", "jimliu/baoyu-skills"],
+  "searches": [
+    "AI poster design prompt technique typography image model",
+    "agent skill poster banner design Claude new",
+    "image model text rendering poster benchmark new release",
+    "SVG logo design AI agent workflow",
+    "social media image sizes 2026 update safe zone"
+  ],
+  "tests": [
+    {
+      "id": "t1",
+      "prompt": "Design an A2 print poster for a jazz night: 'Blue Hour Sessions', Friday 14 November, 21:00, Kanal Bar, tickets €12 at bluehour.club. Deliver a self-contained HTML/CSS poster and say how to export a print PDF.",
+      "good": "Exact copy spelled correctly; one focal element and clear headline > date/place > CTA hierarchy; at most 2 typefaces and a limited hex palette; A2 dimensions (420x594 mm) with 3 mm bleed and safe margins; contrast at least 4.5:1; export steps with @page size and embedded fonts."
+    },
+    {
+      "id": "t2",
+      "prompt": "I need a launch graphic for my app 'Tidy' in Instagram 4:5, Instagram story, LinkedIn post and X header sizes. Generate the background with an image model and keep our exact tagline 'Clean inbox, clear head.'",
+      "good": "Correct sizes (1080x1350, 1080x1920, 1200x627, 1500x500); image prompt with no text and reserved empty space; tagline set as a separate text layer, not model-rendered; safe zones per format incl. story UI and header avatar; layout reflowed per ratio rather than scaled; consistency checks across the set."
+    },
+    {
+      "id": "t3",
+      "prompt": "Create a logo for 'Harbor', a calm budgeting app. Give me three concepts as SVG and tell me how you tested them.",
+      "good": "Brief with adjectives and category clichés to avoid; three different mark types with one-sentence ideas; clean SVG (256 viewBox, paths not live text, exact angles, evenodd holes); tests at 16-32 px, one-colour and reversed, squint/mirror/rotation, distinctiveness; renders actually viewed; stops for the user's choice before building a full kit; trademark caveat."
+    }
+  ]
+}

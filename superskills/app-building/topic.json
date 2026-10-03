@@ -1,0 +1,36 @@
+{
+  "name": "App building",
+  "blurb": "Native-feeling mobile and desktop apps: Expo, SwiftUI, Compose, Flutter, Tauri, simulator checks, TestFlight and Play releases.",
+  "hue": 265,
+  "collections": [],
+  "repos": [
+    "expo/skills",
+    "callstackincubator/agent-skills",
+    "avdlee/swiftui-agent-skill",
+    "Appllama/appllama-skills"
+  ],
+  "searches": [
+    "Expo SDK release notes new feature this month",
+    "React Native new architecture release performance change",
+    "SwiftUI new API WWDC iOS release agent skill",
+    "Jetpack Compose adaptive layout new release Android",
+    "App Store Review guideline change TestFlight Google Play policy update"
+  ],
+  "tests": [
+    {
+      "id": "t1",
+      "prompt": "Start a habit-tracker app for iPhone and Android. Users add habits, check them off daily, see a streak. I don't have a stack yet. Plan it and build the first screens.",
+      "good": "Picks Expo + Expo Router with a one-line reason; maps navigation (tabs, push for detail, modal or sheet for add habit) before code; native controls, one accent, system colours, no emoji chrome; loading/empty/error states including a real empty state; FlashList or FlatList; checks light/dark and large text on simulator and emulator; says what still needs a real device."
+    },
+    {
+      "id": "t2",
+      "prompt": "Xcode 26 now gives me 'Sending value of non-Sendable type risks causing data races' in my view model that loads photos. Here's the class. How do I fix it properly?",
+      "good": "Reads the build settings first (Swift 6 mode, default MainActor isolation, approachable concurrency); explains which isolation domains the value crosses; prefers keeping the work on the MainActor or making the type Sendable/a value type over @unchecked Sendable or nonisolated(unsafe); uses @concurrent only for measured heavy work; shows the fixed code and how to verify with the compiler."
+    },
+    {
+      "id": "t3",
+      "prompt": "My Expo app is ready. Get it on TestFlight for my two co-founders today.",
+      "good": "Checks eas.json, app.json identifiers and Apple account state first; asks the user to run credential prompts themselves; uses eas build -p ios --profile production with auto-submit or npx testflight; adds internal testers (no review needed); reports the build ID and the furthest verified state (uploaded/processed/available to testers), not 'it's live'; does not submit for App Review."
+    }
+  ]
+}

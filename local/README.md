@@ -1,7 +1,7 @@
 # Skill Garden on your own computer
 
 The same page as the claude.ai version, served from your Mac, with its own
-copy of the data and a morning scout that runs on your machine.
+copy of the data and a weekly scout that runs on your machine.
 
 ## One-time setup
 
@@ -21,9 +21,23 @@ http://localhost:4747.
 
 Or in Terminal, from this folder: `node server.mjs`
 
-Keep the Terminal window open. The scout runs at 06:51 India time while it's
-open. If your Mac was asleep then, it catches up within three hours. Close the
-window to stop Skill Garden.
+Keep the Terminal window open. The scout runs once a week, on Sunday at 06:51
+India time, while it's open, and works through the active topics one at a
+time. If the Mac was asleep or the app was closed then, it catches up the next
+time the app is running once a week has passed. Close the window to stop Skill
+Garden.
+
+## Load the 29 super skills
+
+With Skill Garden running, in a second Terminal window from this folder:
+
+    node import-superskills.mjs
+
+It adds each folder in `../superskills` as a topic with its files, and switches
+off the three starter topics they replace (Websites, Motion graphics, AI
+posters; their history stays). Run it again after you change a super skill by
+hand; unchanged topics are skipped. `--inactive` imports them with the scout
+off.
 
 ## Good to know
 
@@ -39,5 +53,12 @@ window to stop Skill Garden.
 - **Logs** of each run are in `logs`.
 - **Only this computer** can open the page. The server listens on localhost
   and refuses requests from other websites.
-- A different port: `PORT=5000 node server.mjs`. No morning scout:
+- A different port: `PORT=5000 node server.mjs`. No weekly scout:
   `node server.mjs --no-schedule`.
+- **The library**: Explore reads sub-skills from the SkillGarden folder this
+  repository sits in (`../skills`, `../zips`). Point elsewhere with
+  `SKILLGARDEN_LIBRARY=/path/to/SkillGarden node server.mjs`. It is read-only.
+- **Start at login** (optional): `bash install-login-item.sh` adds a macOS
+  login item that starts Skill Garden when you log in;
+  `bash install-login-item.sh --remove` takes it away. The Mac still has to be
+  awake on scout day.

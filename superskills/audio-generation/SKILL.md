@@ -1,0 +1,99 @@
+---
+name: audio-generation
+description: Create, transcribe and finish audio with AI - voiceovers and text-to-speech, music and songs, sound effects, podcasts, dubbing, voice conversion, transcription and subtitles, and the final mix. Use when asked to make a voiceover, narration, TTS, IVR prompts or an audiobook; to generate background music, a jingle, a song, lyrics or a Suno/MiniMax/ACE-Step/MusicGen prompt; to create sound effects, UI sounds or ambiences; to turn an article into a two-host podcast; to dub a video into another language, change or anonymize a voice, or remove background noise; to transcribe audio or video, label speakers, or make SRT/VTT captions; or to mix voice and music, duck a bed, normalize loudness (LUFS) or export for podcast, YouTube or telephony. Covers ElevenLabs, OpenAI speech/transcribe, Gemini TTS, edge-tts, Kokoro, MiniMax, ACE-Step, Suno, AudioCraft and Whisper, plus ffmpeg recipes.
+---
+
+# Audio generation
+
+Everything between "I need audio" and a finished file: writing for the ear, choosing an
+engine, prompting voices, music and effects, transcribing, and mixing to a delivery target.
+Generation is the easy part. What makes audio usable is a script written to be heard,
+consistent voices, levels that let the voice through, and a check of every take.
+
+## Core principles
+
+1. **Write for the ear.** Sentences of 8-20 words, numbers and acronyms spelled the way they
+   are said, no markup in spoken text. Plan length at ~150 words per minute.
+2. **Pick the engine by the job, then keep it.** One narrator voice, model and settings per
+   project; record the IDs. Mixed voices sound like mixed products.
+3. **Direct with short labeled specs.** Affect, tone, pacing, emotion, pronunciation, pauses,
+   emphasis: 4-8 lines, no contradictions, nothing the user didn't ask for.
+4. **Change one thing per iteration** (voice, speed, one setting, one prompt phrase) and restate
+   what must stay fixed. Lock seeds while comparing.
+5. **Test names, brands and numbers in a short clip first.** Pronunciation is baked into the
+   take; fix it in the input text by respelling, not in post.
+6. **Describe sound, never name artists.** Music and SFX prompts describe genre, era,
+   instruments, texture, space and arc. Never reproduce copyrighted lyrics.
+7. **Describe the arc, not just the genre.** "Starts sparse, builds at the chorus, strips back"
+   gives a music model a map; 2-3 precisely named instruments beat a tag list.
+8. **Generate several takes and choose.** 3-5 for music, 2-4 for SFX. Fix sections (inpaint,
+   repaint, extend, regenerate one line) instead of rerolling everything.
+9. **Work lossless, encode once.** WAV/PCM at one project sample rate (48 kHz for video) until
+   the final export.
+10. **Music under voice sits 18-24 dB down and gets out of the voice's bands.** Carve or
+    sidechain-duck the bed, release slowly; never EQ the voice to fight the music.
+11. **Measure, don't guess.** Integrated loudness and true peak against the target (-16 LUFS
+    podcast/web, -14 LUFS YouTube/streaming, -1 dBTP); duration against the plan.
+12. **Verify transcripts by plausibility**: ~130-170 words per minute, a complete last
+    sentence, a sensible speaker count, no repetition loops on music or silence.
+13. **Keys stay in env vars** (`ELEVENLABS_API_KEY`, `OPENAI_API_KEY`, `GEMINI_API_KEY`);
+    browser apps get short-lived tokens from a backend. Never ask for a key in chat.
+14. **Consent and disclosure.** Clone or convert only voices you have rights to; tell listeners
+    when a voice is AI-generated.
+
+Conflict resolved: one source suggests artist references to steer vocal gender (ACE-Step);
+most APIs reject names and it's a rights risk, so use explicit vocal tags in both the prompt
+and each lyric section instead.
+
+## Pick the right guide
+
+Name the task, or say "use audio-generation: <capability>".
+
+| Task | Read |
+|---|---|
+| Voiceover, narration, TTS, IVR, accessibility read, audiobook; choosing a TTS engine | `references/voiceover-tts.md` |
+| Anything on ElevenLabs (TTS, Scribe STT, SFX, Music, Dubbing, Voice Changer, Isolator) | `references/elevenlabs.md` |
+| OpenAI TTS or transcription via the bundled CLIs | `references/openai-audio.md`, `scripts/speech/text_to_speech.py`, `scripts/transcribe/transcribe_diarize.py` |
+| Background music, jingles, songs, lyrics, music prompts, BPM/key choices | `references/music-generation.md` |
+| MiniMax `mmx`, ACE-Step, Suno commands and knobs | `references/music-tools.md` |
+| Sound effects, UI sounds, ambiences, risers, placement | `references/sound-effects.md` |
+| Transcription, speaker labels, word timestamps, SRT/VTT subtitles | `references/transcription.md`, `scripts/asr-transcribe-to-text/prepare_asr_input.py` |
+| Merge recorder segments, convert to 16 kHz mono, shrink uploads before ASR | `scripts/asr-transcribe-to-text/prepare_asr_input.py` (see `references/transcription.md`) |
+| Mixing, ducking, voice cleanup EQ, loudness, ffmpeg recipes, export formats | `references/mixing-and-mastering.md` |
+| Article-to-podcast, two-host dialogue, multi-voice scripts | `references/podcast-and-dialogue.md` |
+| Dubbing, voice conversion, anonymizing a speaker, noise/music removal | `references/dubbing-and-voice-conversion.md` |
+| Offline or free: edge-tts, Kokoro, MusicGen/AudioGen, Whisper/whisper.cpp | `references/local-open-models.md` |
+
+Scripts are copied unchanged from their sources; run them, don't edit them. They need their
+API keys (`OPENAI_API_KEY`) and `ffmpeg`/`ffprobe` where noted; `--dry-run` works without keys.
+
+## Default workflow
+
+1. **Pin the brief**: what audio, for where (video, podcast, app, phone), length, language,
+   voice/mood, delivery format and loudness target. Infer from context; ask only if a
+   blocking detail is missing.
+2. **Check tools and keys**: which env vars are set, whether `ffmpeg` exists. Choose the
+   engine from the routing table in the relevant reference; prefer what the project already uses.
+3. **Write the source text**: script for the ear, lyrics with structure tags, or a precise
+   SFX/music prompt. For long scripts split at paragraph boundaries.
+4. **Do a short test** (one sentence, a 15-30 s music sketch, one SFX) to validate voice,
+   pronunciation and style before generating everything.
+5. **Generate** the full set, saving numbered WAV files and a log of text, voice/model IDs,
+   settings and seeds.
+6. **Check each take**: listen or transcribe-and-diff, names and numbers, duration, leaked
+   directions, clipping.
+7. **Mix and finish**: clean the voice, place SFX, carve/duck music, fade edges, normalize to
+   target, export once.
+8. **Hand over**: file paths, duration, loudness, voices/models used, and anything skipped or
+   uncertain (for example, an unclear pronunciation you could not verify).
+
+## Done means
+
+- [ ] Every requested file exists, plays, and matches the target length (within ~5-10%)
+- [ ] Names, numbers and acronyms are pronounced or transcribed correctly
+- [ ] No spoken stage directions, cut-off words, pops at joins, or clipping
+- [ ] Voice clearly legible over any music; bed fades rather than stops
+- [ ] Loudness and true peak meet the destination target; format fits the destination
+- [ ] Transcripts pass length, ending, speaker-count and loop checks
+- [ ] No artist names or copyrighted lyrics in prompts; AI voice disclosed where heard by others
+- [ ] Settings, voice IDs and seeds recorded so the result can be reproduced

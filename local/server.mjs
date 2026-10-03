@@ -21,6 +21,29 @@ const LOGS = path.join(HERE, "logs");
 const COLLECTIONS = ["settings", "topics", "versions", "inbox", "candidates", "runs"];
 const ID_RE = /^(?!\.\.?$)[A-Za-z0-9_\-.~:@+]{1,200}$/;
 const SCHEDULE = !process.argv.includes("--no-schedule");
+// The SkillGarden library (skills/ and zips/ folders made by _tools/build.py). Sub-skills are
+// served read-only from here so the catalog can preview and zip them.
+const LIB = path.resolve(process.env.SKILLGARDEN_LIBRARY || path.join(ROOT, ".."));
+
+/* ---------- library (read-only) ---------- */
+function libPath(rel) {
+  const p = String(rel || "");
+  if (!/^(skills|zips)\//.test(p) || p.includes("\0")) throw httpErr(400, "Bad path.");
+  const full = path.resolve(LIB, p);
+  if (!full.startsWith(path.join(LIB, p.split("/")[0]) + path.sep)) throw httpErr(400, "Bad path.");
+  if (!fs.existsSync(full)) throw httpErr(404, "Not in the library.");
+  return full;
+}
+function listFiles(dir) {
+  const out = [];
+  const walk = (d) => { for (const e of fs.readdirSync(d, { withFileTypes: true })) {
+    if (e.name.startsWith(".") || e.isSymbolicLink()) continue;
+    const f = path.join(d, e.name);
+    if (e.isDirectory()) walk(f); else out.push({ path: path.relative(dir, f).split(path.sep).join("/"), size: fs.statSync(f).size });
+  } };
+  walk(dir);
+  return out;
+}
 
 /* ---------- store ---------- */
 fs.mkdirSync(DATA, { recursive: true });
@@ -40,7 +63,7 @@ function save(c) {
   fs.renameSync(file + ".tmp", file);
 }
 // The imported settings name the cloud routine; locally the server is the scheduler.
-store.settings.main = { scoutTime: "06:51", paused: false, libraries: [], ...(store.settings.main || {}), triggerId: "local", host: "local" };
+store.settings.main = { scoutTime: "06:51", scoutDay: "Sun", paused: false, libraries: [], ...(store.settings.main || {}), triggerId: "local", host: "local" };
 save("settings");
 
 const isObj = (v) => v && typeof v === "object" && !Array.isArray(v);
@@ -78,7 +101,8 @@ setInterval(() => { for (const res of listeners) res.write(": keep-alive\n\n"); 
 /* ---------- time ---------- */
 function indiaNow() {
   const p = Object.fromEntries(new Intl.DateTimeFormat("en-GB", { timeZone: "Asia/Kolkata", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hourCycle: "h23" }).formatToParts(new Date()).map((x) => [x.type, x.value]));
-  return { date: `${p.year}-${p.month}-${p.day}`, minutes: +p.hour * 60 + +p.minute };
+  const weekday = new Date(Date.UTC(+p.year, +p.month - 1, +p.day)).getUTCDay();
+  return { date: `${p.year}-${p.month}-${p.day}`, minutes: +p.hour * 60 + +p.minute, weekday };
 }
 
 /* ---------- the scout ---------- */
@@ -92,11 +116,29 @@ function failRun(summary) {
   if (last && last.status === "running") write("update", "runs", last.id, { status: "failed", finishedAt: now, summary });
   else write("set", "runs", `${indiaNow().date}-local-${Date.now().toString(36)}`, { status: "failed", startedAt: scout.startedAt || now, finishedAt: now, trigger: "manual", summary });
 }
-function startScout(kind) {
-  if (scout.running) return Promise.resolve(false);
+// One Claude Code session per active topic, one after another, so each run has room to
+// research its topic properly. A run started by hand or by the weekly schedule covers them all.
+async function startScout(kind) {
+  if (scout.running) return false;
+  const topics = Object.entries(store.topics).filter(([, t]) => t.active !== false).sort((a, b) => (Number(a[1].order) || 0) - (Number(b[1].order) || 0)).map(([id]) => id);
+  if (!topics.length) { failRun("No topic has \"Scout this topic\" switched on."); return false; }
+  scout.running = true; scout.queue = topics.slice(1);
+  scout.kind = kind;
+  const ok = await startSession(kind, topics[0]);
+  if (!ok) { scout.running = false; scout.queue = []; }
+  return ok;
+}
+function nextSession() {
+  const id = scout.queue && scout.queue.shift();
+  if (!id || store.settings.main?.paused && scout.kind === "schedule") { scout.running = false; scout.topic = null; console.log("[scout] all topics done"); return; }
+  startSession(scout.kind, id).then((ok) => { if (!ok) nextSession(); });
+}
+function startSession(kind, topicId) {
   const preamble = fs.readFileSync(path.join(HERE, "scout-local.md"), "utf8");
   const runbook = fs.readFileSync(path.join(ROOT, "runbook.md"), "utf8");
-  const prompt = `${preamble}\n\n---\n\n${runbook}\n\n---\n\nStart now. This run was started ${kind === "manual" ? "by hand" : "by the morning schedule"}.`;
+  const scope = `**Scope of this session:** work only on the topic \`${topicId}\`, even if other topics are active. Use runId \`<India date>-${topicId}\` (add -2, -3 if taken). Skip step 7 for other topics.`;
+  const prompt = `${preamble}\n\n${scope}\n\n---\n\n${runbook}\n\n---\n\nStart now. This run was started ${kind === "manual" ? "by hand" : "by the weekly schedule"}. ${scope}`;
+  scout.topic = topicId;
   const env = { ...process.env, SKILL_GARDEN_PORT: String(PORT) };
   // Use the Claude subscription you're signed in to Claude Code with, not a
   // pay-as-you-go API key that happens to be set in this shell.
@@ -114,21 +156,20 @@ function startScout(kind) {
   let child;
   try { child = spawn(process.env.CLAUDE_BIN || "claude", args, { cwd: HERE, env, stdio: ["ignore", out, out] }); }
   catch (e) { closeLog(); failRun(`Couldn't start the scout: ${e.message}`); return Promise.resolve(false); }
-  scout.running = true;
   const started = new Promise((resolve) => { child.once("spawn", () => resolve(true)); child.once("error", () => resolve(false)); });
-  console.log(`[scout] starting (${kind}) — log: ${path.relative(HERE, scout.log)}`);
+  console.log(`[scout] starting ${topicId} (${kind}) — log: ${path.relative(HERE, scout.log)}`);
   child.on("error", (e) => {
     closeLog();
-    scout.running = false;
+    scout.running = false; scout.queue = [];
     failRun(e.code === "ENOENT" ? "Couldn't start the scout because Claude Code isn't installed on this computer. Install it (see README) and sign in, then try again." : `Couldn't start the scout: ${e.message}`);
   });
   child.on("exit", (code) => {
     closeLog();
-    scout.running = false;
     scout.lastExit = code;
-    console.log(`[scout] finished with code ${code}`);
+    console.log(`[scout] ${topicId} finished with code ${code}`);
     const last = latestRun();
-    if (last && last.status === "running") failRun(`The scout stopped before finishing (exit code ${code}). Details are in local/logs/${path.basename(scout.log)}.`);
+    if (last && last.status === "running") failRun(`The scout stopped before finishing ${topicId} (exit code ${code}). Details are in local/logs/${path.basename(scout.log)}.`);
+    nextSession();
   });
   return started;
 }
@@ -138,9 +179,14 @@ if (SCHEDULE) {
     const [hh, mm] = String(s.scoutTime || "06:51").split(":").map(Number);
     const now = indiaNow();
     const due = hh * 60 + mm;
-    // Run once a day. If the computer was asleep at the time, catch up within 3 hours.
+    // Run once a week on scoutDay. If the computer was asleep or the app closed at that time,
+    // catch up any time later that week.
+    const day = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].indexOf(s.scoutDay || "Sun");
     if (s.paused || scout.running || s.lastScheduledDate === now.date) return;
-    if (now.minutes < due || now.minutes > due + 180) return;
+    const onTime = now.weekday === day && now.minutes >= due;
+    const sinceLast = s.lastScheduledDate ? (Date.parse(now.date) - Date.parse(s.lastScheduledDate)) / 864e5 : null;
+    // Never run before: wait for the first scout day. Otherwise run on the day, or catch up once a full week has passed.
+    if (sinceLast === null ? !onTime : !(onTime && sinceLast >= 6) && sinceLast < 7) return;
     write("update", "settings", "main", { lastScheduledDate: now.date });
     startScout("schedule");
   }, 30000).unref();
@@ -173,6 +219,21 @@ const server = http.createServer(async (req, res) => {
     if (url.pathname === "/") return send(res, 200, PAGE_HEAD + fs.readFileSync(path.join(ROOT, "skill-garden.html"), "utf8") + "</body></html>", "text/html; charset=utf-8");
     if (url.pathname === "/runtime.js") return send(res, 200, fs.readFileSync(path.join(HERE, "runtime.js"), "utf8"), "text/javascript; charset=utf-8");
     if (url.pathname === "/favicon.ico") { res.writeHead(204); return res.end(); }
+    if (url.pathname === "/catalog.json") {
+      const f = path.join(ROOT, "catalog", "catalog.json");
+      return fs.existsSync(f) ? send(res, 200, JSON.parse(fs.readFileSync(f, "utf8"))) : send(res, 404, { error: "No catalog yet." });
+    }
+    if (url.pathname === "/library/list") {
+      const dir = libPath(url.searchParams.get("path"));
+      return send(res, 200, fs.statSync(dir).isDirectory() ? listFiles(dir) : []);
+    }
+    if (url.pathname === "/library/raw") {
+      const f = libPath(url.searchParams.get("path"));
+      if (!fs.statSync(f).isFile()) throw httpErr(400, "Not a file.");
+      const type = /\.(md|txt|py|js|ts|json|ya?ml|sh|html|css|csv|toml)$/i.test(f) ? "text/plain; charset=utf-8" : "application/octet-stream";
+      res.writeHead(200, { "Content-Type": type, "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff", "Content-Disposition": `attachment; filename="${path.basename(f).replace(/[^\w.-]/g, "_")}"` });
+      return fs.createReadStream(f).pipe(res);
+    }
     if (parts[0] !== "api") return send(res, 404, { error: "Not found." });
 
     const [, kind, c, id] = parts;
@@ -189,7 +250,7 @@ const server = http.createServer(async (req, res) => {
         if (scout.running) return send(res, 409, { error: "The scout is already running." });
         return (await startScout("manual")) ? send(res, 202, { started: true }) : send(res, 500, { error: "Couldn't start the scout. The Scout log says why." });
       }
-      return send(res, 200, { running: scout.running, startedAt: scout.startedAt, lastExit: scout.lastExit, log: scout.log && path.relative(HERE, scout.log) });
+      return send(res, 200, { running: scout.running, topic: scout.topic, left: (scout.queue || []).length, startedAt: scout.startedAt, lastExit: scout.lastExit, log: scout.log && path.relative(HERE, scout.log) });
     }
     if (kind === "batch" && req.method === "POST") {
       const { writes } = await readBody(req);
@@ -217,7 +278,7 @@ const server = http.createServer(async (req, res) => {
 server.listen(PORT, "127.0.0.1", () => {
   const s = store.settings.main;
   console.log(`\nSkill Garden is running at http://localhost:${PORT}`);
-  console.log(SCHEDULE ? `The morning scout runs at ${s.scoutTime} India time while this window stays open.` : "The morning scout is off (--no-schedule).");
+  console.log(SCHEDULE ? `The weekly scout runs ${s.scoutDay || "Sun"} at ${s.scoutTime} India time while this window stays open.` : "The weekly scout is off (--no-schedule).");
   console.log("Close this window or press Ctrl+C to stop.\n");
 });
 server.on("error", (e) => {

@@ -1,0 +1,36 @@
+{
+  "name": "SEO",
+  "blurb": "Get pages crawled, indexed and chosen — by Google, Bing and AI answer engines. Audits, content, schema, local, links.",
+  "hue": 140,
+  "collections": [],
+  "repos": [
+    "coreyhaines31/marketingskills",
+    "AgriciDaniel/claude-seo",
+    "aaron-he-zhu/aaron-marketing-skills",
+    "every-app/open-seo"
+  ],
+  "searches": [
+    "Google Search Central update new documentation this week",
+    "Google core update ranking volatility analysis",
+    "AI Overviews ChatGPT Perplexity citation study new data",
+    "Core Web Vitals INP new guidance or tooling",
+    "agent skill SEO audit Claude new release"
+  ],
+  "tests": [
+    {
+      "id": "t1",
+      "prompt": "Our blog's organic clicks fell 35% over the last 4 weeks while impressions stayed flat. Here is a Search Console export (query, page, clicks, impressions, position for both periods). Tell me what happened and what to do first.",
+      "good": "Notices flat impressions plus falling clicks points to CTR loss (SERP features or AI Overviews), not a ranking loss; segments by page and query; compares CTR to expected by position; separates observations from hypotheses; gives 1-3 ranked actions each with a verification check and re-measure dates; promises no recovery."
+    },
+    {
+      "id": "t2",
+      "prompt": "Plan 200 '[integration] + our product' pages for our SaaS. We have a list of integration names and logos. Give me the template, the rollout plan and what would make you stop.",
+      "good": "Requires per-integration data beyond the name (setup steps, use cases, fields synced) and a unique-content threshold; uses subfolder URLs, hub-and-spoke links, its own sitemap; launches 10-20 first and checks the indexed rate after 4-8 weeks before scaling; names the swap test or doorway risk and when to noindex."
+    },
+    {
+      "id": "t3",
+      "prompt": "Check whether our docs site is ready for AI search. robots.txt blocks GPTBot and ClaudeBot, pages are a client-side React app, and we have FAQPage schema on every page. What should change?",
+      "good": "Separates training bots from AI search and user-fetch bots (OAI-SearchBot, Claude-SearchBot, PerplexityBot, ChatGPT-User, Claude-User) and checks CDN rules; flags CSR as the main problem and recommends SSR or SSG; says FAQ rich results are retired and FAQ schema is not an AI boost; suggests answer-first sections, optional llms.txt for docs, and a measured prompt set run 3-5 times."
+    }
+  ]
+}
