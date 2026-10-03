@@ -1709,7 +1709,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
         <div class="tagrow">${specimen(s)}<span class="stars">★ ${fmtStars(s.stars)}</span>${/flag|privacy|security|sends|uploads/i.test(s.notes || "") ? `<span class="flag">Read the note before use</span>` : ""}</div></div>
       <div class="sub-act">
         <button class="btn small ghost" data-act="pv-sub" data-id="${esc(c.id)}" data-name="${key}">Preview</button>
-        ${s.local ? `<button class="btn small${inBundle("sub", c.id, s.name) ? " added" : ""}" data-act="bundle-toggle" data-kind="sub" data-topic="${esc(c.id)}" data-name="${key}">${inBundle("sub", c.id, s.name) ? "In bundle" : "+ Bundle"}</button><button class="btn small" data-act="dl-sub" data-id="${esc(c.id)}" data-name="${key}" aria-label="Download ${key}">↓</button>` : `<span class="muted" style="font-size:12.5px" title="${esc(lockReason(s))}">Link only</span>`}
+        ${s.local ? `<button class="btn small${inBundle("sub", c.id, s.name) ? " added" : ""}" data-act="bundle-toggle" data-kind="sub" data-topic="${esc(c.id)}" data-name="${key}">${inBundle("sub", c.id, s.name) ? "In bundle" : "+ Bundle"}</button><button class="btn small" data-act="dl-sub" data-id="${esc(c.id)}" data-name="${key}" title="Download only this sub-skill" aria-label="Download only the ${key} sub-skill">↓ Sub-skill</button>` : `<span class="muted" style="font-size:12.5px" title="${esc(lockReason(s))}">Link only</span>`}
         ${safeUrl(s.url) ? `<a class="btn small ghost" href="${esc(safeUrl(s.url))}" target="_blank" rel="noopener noreferrer" aria-label="Open ${key} source">Source ↗</a>` : ""}
       </div>
     </li>`;
@@ -1732,8 +1732,8 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
   }
   async function previewSub(c, s) {
     const prov = `<dl class="prov"><dt>Author</dt><dd>${safeUrl(s.url) ? `<a href="${esc(safeUrl(s.url))}" target="_blank" rel="noopener noreferrer">${esc(s.repo || s.url)}</a>` : esc(s.repo || "")}</dd><dt>License</dt><dd>${esc(s.license || "None stated")}${s.redistributable ? "" : ` · ${esc(lockReason(s))}`}</dd><dt>Stars</dt><dd class="mono">★ ${N(s.stars).toLocaleString()}</dd><dt>How to use</dt><dd>${esc(s.how_to_use || "")}</dd><dt>Evidence</dt><dd>${esc(s.evidence || "")}</dd>${s.notes ? `<dt>Note</dt><dd>${esc(s.notes)}</dd>` : ""}</dl>`;
-    const side = s.local ? `<button class="btn small primary" data-act="dl-sub" data-id="${esc(c.id)}" data-name="${esc(s.name)}">Download</button>` : "";
-    openDrawer(drawerShell(`${esc(c.name)} · rank ${s.rank}`, esc(s.name), prov + (s.local ? `<p class="skeleton">Loading SKILL.md…</p>` : `<div class="empty"><p>${esc(lockReason(s))}</p></div>`), side));
+    const side = s.local ? `<button class="btn small" data-act="dl-sub" data-id="${esc(c.id)}" data-name="${esc(s.name)}">Download this sub-skill only</button><button class="btn small primary" data-act="dl-super" data-id="${esc(c.id)}">Get the ${esc(c.name)} super skill</button>` : `<button class="btn small primary" data-act="dl-super" data-id="${esc(c.id)}">Get the ${esc(c.name)} super skill</button>`;
+    openDrawer(drawerShell(`Sub-skill of ${esc(c.name)} · rank ${s.rank}`, esc(s.name), prov + (s.local ? `<p class="skeleton">Loading SKILL.md…</p>` : `<div class="empty"><p>${esc(lockReason(s))}</p></div>`), side));
     if (!s.local) return;
     try {
       const [txt, files] = await Promise.all([fetch(`/library/raw?path=${encodeURIComponent(s.local + "/SKILL.md")}`).then((r) => r.ok ? r.text() : Promise.reject()), fetch(`/library/list?path=${encodeURIComponent(s.local)}`).then((r) => r.ok ? r.json() : [])]);
@@ -1798,7 +1798,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
     ];
     for (const c of crafts()) {
       out.push({ k: "Craft", t: c.name, d: c.blurb || "", run: () => openCraft(c.id) });
-      for (const s of c.skills) out.push({ k: "Skill", t: s.name, d: `${c.name} · #${s.rank} · ${s.purpose}`, run: () => { openCraft(c.id); setTimeout(() => previewSub(c, s), 60); } });
+      for (const s of c.skills) out.push({ k: "Sub-skill", t: s.name, d: `in ${c.name} · #${s.rank} · ${s.purpose}`, run: () => { openCraft(c.id); setTimeout(() => previewSub(c, s), 60); } });
     }
     return out;
   }
@@ -1806,10 +1806,10 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
     const q = $("#palInput").value.trim().toLowerCase();
     const all = palIndex();
     let items;
-    if (!q) items = all.filter((x) => x.k !== "Skill").slice(0, 40);
+    if (!q) items = all.filter((x) => x.k !== "Sub-skill").slice(0, 40);
     else {
       const words = q.split(/\s+/);
-      items = all.map((x) => { const hay = (x.t + " " + x.d).toLowerCase(), tl = x.t.toLowerCase(); if (!words.every((w) => hay.includes(w))) return null; return { x, s: (tl === q ? 0 : tl.startsWith(q) ? 1 : tl.includes(q) ? 2 : 3) + (x.k === "Skill" ? 0.5 : 0) }; }).filter(Boolean).sort((a, b) => a.s - b.s).slice(0, 40).map((r) => r.x);
+      items = all.map((x) => { const hay = (x.t + " " + x.d).toLowerCase(), tl = x.t.toLowerCase(); if (!words.every((w) => hay.includes(w))) return null; return { x, s: (tl === q ? 0 : tl.startsWith(q) ? 1 : tl.includes(q) ? 2 : 3) + (x.k === "Sub-skill" ? 0.5 : 0) }; }).filter(Boolean).sort((a, b) => a.s - b.s).slice(0, 40).map((r) => r.x);
     }
     EX.palItems = items; EX.palSel = Math.min(EX.palSel, Math.max(0, items.length - 1));
     $("#palList").innerHTML = items.length ? items.map((x, i) => `<li role="option" id="pal-${i}" data-act="pal-pick" data-id="${i}" aria-selected="${i === EX.palSel}"><span class="k">${esc(x.k)}</span><strong>${esc(x.t)}</strong><span class="d">${esc(x.d)}</span></li>`).join("") : `<li><span class="d">No match. Try fewer words.</span></li>`;
@@ -1910,7 +1910,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
       case "pv-router": { const c = craftById(id); if (c) previewRouter(c); return true; }
       case "pv-sub": { const c = craftById(id); const s = c && c.skills.find((x) => x.name === el.dataset.name); if (s) previewSub(c, s); return true; }
       case "dl-super": await downloadItems([{ kind: "super", topic: id }], `${id}.zip`); return true;
-      case "dl-sub": await downloadItems([{ kind: "sub", topic: id, name: el.dataset.name }], `${el.dataset.name.replace(/[^\w.-]+/g, "-")}.zip`); return true;
+      case "dl-sub": { const c = craftById(id); await downloadItems([{ kind: "sub", topic: id, name: el.dataset.name }], `subskill-${el.dataset.name.replace(/[^\w.-]+/g, "-")}.zip`); if (c) setTimeout(() => toast(`That was one sub-skill of ${c.name}. The ${c.id} super skill already carries it with every other guide.`), 1600); return true; }
       case "dl-all-super": await downloadItems(crafts().map((c) => ({ kind: "super", topic: c.id })), "skill-garden-super-skills.zip"); return true;
       case "bundle-toggle": toggleBundle(el.dataset.kind, el.dataset.topic, el.dataset.name); return true;
       case "bundle-open": openSheet(); return true;
