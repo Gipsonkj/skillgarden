@@ -9,7 +9,7 @@
 // references/, scripts/ or templates/ files. Text files ride along as topic.files and
 // come with the skill's download. A topic that already has the same content is left alone;
 // a changed one gets a new version. New topics join the weekly scout (one topic at a time).
-// The three hand-made starter topics that a super skill replaces are switched off, history kept.
+// The three hand-made starter topics that a super skill replaces are folded into it, history kept.
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -69,8 +69,28 @@ for (const [i, slug] of slugs.entries()) {
     version, content, files, updatedAt: now,
   });
   cur ? updated++ : made++;
-  const old = SUPERSEDES[slug] && (await call("GET", `/doc/topics/${SUPERSEDES[slug]}`))?.data;
-  if (old && old.active !== false) { await call("PUT", `/doc/topics/${SUPERSEDES[slug]}`, { ...old, active: false }); console.log(`  switched off ${SUPERSEDES[slug]} (replaced by ${slug})`); }
   console.log(`${cur ? "updated" : "added  "} ${slug} v${version} (${Object.keys(files).length} files)`);
+}
+// Fold each hand-made starter topic into the super skill that replaced it, so there's one
+// card per craft. Its versions become earlier versions (v0.1, v0.2…), and its reels, review
+// history, Instagram collections and watched repos move over. Nothing is lost.
+for (const [slug, oldId] of Object.entries(SUPERSEDES)) {
+  if (only.length && !only.includes(slug)) continue;
+  const old = (await call("GET", `/doc/topics/${oldId}`))?.data;
+  const cur = (await call("GET", `/doc/topics/${slug}`))?.data;
+  if (!old || !cur) continue;
+  const uniq = (...lists) => [...new Map(lists.flat().filter(Boolean).map((x) => [String(x).toLowerCase(), x])).values()];
+  const writes = [];
+  for (const { id, data } of await call("GET", "/col/versions")) {
+    if (data.topicId !== oldId) continue;
+    writes.push({ op: "set", collection: "versions", doc_id: `${slug}--starter-v${data.version}`, data: { ...data, topicId: slug, version: Number(`0.${data.version}`), source: "starter", summary: `${old.name} (starter skill): ${data.summary || ""}`.replace(/: $/, ""), foldedFrom: oldId } });
+    writes.push({ op: "delete", collection: "versions", doc_id: id });
+  }
+  for (const col of ["candidates", "inbox"]) for (const { id, data } of await call("GET", `/col/${col}`))
+    if (data.topicId === oldId) writes.push({ op: "update", collection: col, doc_id: id, data: { topicId: slug } });
+  writes.push({ op: "update", collection: "topics", doc_id: slug, data: { collections: uniq(cur.collections || [], old.collections || []), repos: uniq(cur.repos || [], old.repos || []) } });
+  writes.push({ op: "delete", collection: "topics", doc_id: oldId });
+  for (let i = 0; i < writes.length; i += 50) await call("POST", "/batch", { writes: writes.slice(i, i + 50) });
+  console.log(`  folded ${oldId} into ${slug} (${writes.length - 2} records moved)`);
 }
 console.log(`\nDone: ${made} added, ${updated} updated, ${same} unchanged. Open http://localhost:${process.env.PORT || 4747} → Explore.`);
