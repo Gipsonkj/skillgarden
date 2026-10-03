@@ -33,19 +33,22 @@ cd local && node server.mjs                 # app at http://localhost:4747
 node local/import-superskills.mjs           # after editing superskills/ by hand (server running)
 claude plugin validate .                    # after touching the marketplace or super skills
 cd connector && npx wrangler dev --var ACCESS_KEYS:test-key --var REF:superskills-29   # site + connector locally
-cd connector && npx wrangler deploy         # the user runs this (needs CLOUDFLARE_API_TOKEN); rebuilds the site first
+cd connector && npx wrangler deploy         # the user runs this (wrangler login or CLOUDFLARE_API_TOKEN); rebuilds the site first
 ```
 
 Check UI changes in the browser on the local app; check downloads by unzipping them.
 
 ## State
 
-- Work happens on branch `superskills-29`, PR #1 (open). Never push to `main`; the user
-  merges. A second PR from the "Campaign guide review" thread is based on this branch.
-- The connector reads GitHub `main` (`REF` in `connector/wrangler.toml`), so it shows content
-  only after PR #1 is merged. The website is built from this Mac at deploy time.
-- Plugin is installed on this Mac from `Gipsonkj/skillgarden#superskills-29`; re-add without
-  `#ref` after the merge.
+- Work happens on branch `superskills-29`. Never push to `main`; the user merges. PR #1 and
+  PR #2 are merged (3 Oct 2026); new work reaches `main` through a new PR from this branch.
+- Live at https://skillgarden.gipsonkj.workers.dev (Worker `skillgarden`, account subdomain
+  `gipsonkj`). The connector reads GitHub `main` (`REF` in `connector/wrangler.toml`), so merged
+  skills show up there with no redeploy. The website is built from this Mac at deploy time, so
+  redeploy after approving changes. Wrangler on this Mac is signed in with `wrangler login`.
+- claude.ai has the connector as "SKillGarden-MCP" (key at the end of the URL).
+- Plugin is installed on this Mac from `Gipsonkj/skillgarden` (`main`);
+  `claude plugin marketplace update skillgarden` picks up merged changes.
 - Publishing approved changes to GitHub automatically is not built: it needs the user's
   explicit approval first.
 

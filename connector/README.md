@@ -26,13 +26,17 @@ npx wrangler deploy                     # prints https://skillgarden.<you>.worke
 ```
 
 The API token needs the "Edit Cloudflare Workers" template (My Profile → API Tokens).
+Instead of a token you can run `npx wrangler login` once.
 If you have several Cloudflare accounts, also `export CLOUDFLARE_ACCOUNT_ID=<id>`.
+If the deploy says you need a workers.dev subdomain, pick one in the dashboard under
+Workers & Pages → Account details → Subdomain, then deploy again.
 
 ## Connect the connector
 
 - **claude.ai / Claude apps:** Settings → Connectors → Add custom connector, URL
-  `https://skillgarden.<you>.workers.dev/mcp/<your-key>`, OAuth fields blank.
-  claude.ai custom connectors can't send a header, so the key goes at the end of the URL.
+  `https://skillgarden.<you>.workers.dev/mcp/<your-key>`, Authentication "No sign-in".
+  The dialog can also send the key as a request header instead: URL ending in `/mcp`, header
+  `Authorization` with value `Bearer <your-key>`.
 - **Claude Code:** `claude mcp add --transport http skillgarden https://…/mcp --header "Authorization: Bearer <key>"`
   (the plugin is the better route in Claude Code).
 
