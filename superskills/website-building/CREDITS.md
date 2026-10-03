@@ -27,6 +27,8 @@ The references in this skill are written fresh from the sources below. Scripts a
 | web-artifacts-builder | [anthropics/skills](https://github.com/anthropics/skills/tree/main/skills/web-artifacts-builder) | Apache-2.0 | Single-file React deliverable approach and anti-slop defaults (init/bundle scripts not included) |
 | webapp-testing | [anthropics/skills](https://github.com/anthropics/skills/tree/main/skills/webapp-testing) | Apache-2.0 | Reconnaissance-then-action Playwright pattern; copied `scripts/webapp-testing/with_server.py` |
 | audit-website | [squirrelscan/skills](https://github.com/squirrelscan/skills/tree/main/skills/audit-website) | MIT | squirrelscan crawl modes, fix loop, score targets |
+| cinematic-demo-sites | [Gipsonkj/skillgarden](https://github.com/Gipsonkj/skillgarden/tree/main/authored/cinematic-demo-sites) | MIT | Still → i2v → frame-sequence hero pipeline, still and Wan motion formulas, Wan call parameters and timeout/queue fixes, shot-not-generated still direction, identity and era rules, concat/xfade trap, hero and booking rules, Cloudflare Pages headless deploy (motion-and-scroll, deploy-netlify-cloudflare). Its "free" self-hosted endpoint is described as billed per GPU second; its showcase-page step and copy-protection deterrents were left out. |
+| web-design-asset-stack | [Gipsonkj/skillgarden](https://github.com/Gipsonkj/skillgarden/tree/main/authored/web-design-asset-stack) | MIT | Four symptom-to-move composition fixes, pairing law, composition levers, studied site mechanisms (design-direction); library verdicts incl. Lenis caveats, free GSAP plugins, Vanta replacement, component-shop caution (stacks-astro-vue-static, motion-and-scroll) |
 
 ## Also see (not included)
 

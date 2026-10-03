@@ -24,6 +24,7 @@ All sources below are license_ok and not non-commercial. Reference files are dis
 | imagen | https://github.com/sanjay3290/ai-skills/tree/main/skills/imagen | Apache-2.0 | Use cases for frontend placeholder and UI assets |
 | comfyui-workflow-builder | https://github.com/mckruz/comfyui-expert/tree/master/skills/comfyui-workflow-builder | MIT | API-JSON node format, validation steps, VRAM table, common mistakes |
 | image-prompt | https://github.com/gongnyang/gongnyang-prompt-kit/tree/main/skills/image-prompt | MIT | GPT Image 2 positive-phrasing rule, banned SD-era vocabulary, role-labelled text, 3x3 grid positions, canvas size as text-accuracy lever |
+| bytedance-modelark | https://github.com/Gipsonkj/skillgarden/tree/main/authored/bytedance-modelark | MIT | Seedream 5.0 on ModelArk: endpoint, canvas floor and working sizes, model activation, phone-photo realism recipe (hosted-models-flux-replicate-fal); `scripts/bytedance-modelark/ark.py` copied with LICENSE |
 
 ## Also see (not included)
 

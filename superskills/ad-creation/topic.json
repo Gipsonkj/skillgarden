@@ -31,6 +31,11 @@
       "id": "t3",
       "prompt": "Our Meta ads' CTR dropped from 1.4% to 0.7% over three weeks while frequency rose to 4.2. Here are 6 ads with thumbstop, hold rate, CTR and CPA. What should we do next?",
       "good": "Diagnoses fatigue from the time series (frequency up, CTR down), reads the funnel per ad to find the weak stage, judges concepts not single ads, proposes new hooks/first frames and new formats rather than near-duplicates, keeps one variable per test, sets minimum data thresholds, and logs learnings."
+    },
+    {
+      "id": "t4",
+      "prompt": "We sell a $49 anti-fatigue standing-desk mat. From our 120 reviews, write three Meta feed ad concepts with copy, rewrite the landing page hero so it matches them, and tell me how we'll know after two weeks whether the winning ad really won and isn't just noise.",
+      "good": "States a short plan first: concepts and copy here (creative-strategy.md, ad-copywriting.md, meta-ads-creative.md, testing-iteration.md), the hero through content-creation (conversion-copy.md: headline and CTA echo the ads' main claim, no invented proof), the readout through data-analysis (experiments-causal.md, statistics.md: one primary metric and the sample size fixed before launch, the difference reported with a confidence interval). Grounds each angle in quoted reviews; primary text front-loaded within 125 visible characters with counts; runs the copy validator; message-match map; one variable per test; checks the Done means of all three crafts."
     }
   ]
 }

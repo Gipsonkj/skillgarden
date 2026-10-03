@@ -24,6 +24,18 @@ Everything that is words on a page: copy that sells, articles that rank and get 
 13. **Short copy ships as options.** Headlines and hooks: 5-10 variants across angles, then one pick justified by the reader's feeling.
 14. **Proof and honesty over hype.** Name sources, keep conditions on numbers, include the trade-off or dead end, never overstate a feature.
 
+## Plan the request
+
+Work out what the request needs before opening a guide; most real requests need more than one.
+
+1. **Split it into parts:** each thing the user needs at the end. A one-part request goes straight to the table below.
+2. **Give each part its best source.** This craft's guides first; several is normal, read in the order the work happens. A part listed under "Other crafts" goes to that craft's guide, which goes deeper than any short version here. A part that needs a tool, API or edge case no guide covers goes to the original skill under "Go deeper".
+3. **Say the plan in a line** before starting, then read only the guides it names. For example: "Launch article plus social cut-downs: `references/brand-voice.md` → `references/long-form-articles.md` → `references/humanize-ai-writing.md` → `references/repurposing.md`; keyword targets from `seo` → `references/keywords-content.md`; posting plan from `social-media` → `references/platform-playbook.md`."
+4. **Carry decisions forward.** The brief, tokens, copy and file names from earlier parts feed the later ones. When two guides disagree, follow the one written for that part and say so.
+5. **Check the result** against "Done means" here and in every other craft you used.
+
+**Opening another craft:** with the Skill Garden plugin, load the skill `skillgarden:<craft>` or read its guides beside this folder at `../<craft>/references/`; on the Skill Garden connector, call `get_super_skill` and `get_guide`. If that craft isn't installed, name it to the user and carry on with this one. For a request that spans three or more crafts, start with the planner: the skill `skillgarden:garden`, or `get_super_skill` with craft `garden` on the connector.
+
 ## Pick the right guide
 
 | Task | Read |
@@ -49,6 +61,31 @@ Run only in the optimize step of long-form SEO pieces, as described in [referenc
 | `scripts/content-production/seo_optimizer.py draft.md --keyword "kw" --secondary "a,b"` | Keyword placement and density, structure, meta suggestions |
 | `scripts/content-production/content_scorer.py draft.md "kw"` | 0-100 score on readability, SEO, structure, engagement (target 70+) |
 | `scripts/content-production/content_quality_gates.py draft.md --json` | Publish gates: heading order, paragraph length, alt text, sourced stats, title/meta length, freshness marker |
+
+## Other crafts
+
+| When the request also needs | Use |
+|---|---|
+| Platform-native posts, threads and a posting schedule (beyond the drafts in `references/repurposing.md`) | `social-media` → `references/platform-playbook.md`, `references/x-threads.md`, `references/publishing-apis.md` |
+| LinkedIn posts with a pre-publish lint, or ghostwriting for a founder | `linkedin-automation` → `references/post-writing.md`, `references/ghostwriting.md` |
+| Keyword research, schema or AI-search visibility (beyond the on-page basics in `references/long-form-articles.md`) | `seo` → `references/keywords-content.md`, `references/schema.md`, `references/ai-search.md` |
+| Paid ad copy with character limits and policy checks | `ad-creation` → `references/ad-copywriting.md`, `references/platform-specs.md` |
+| Hero images, social graphics or illustrations for the piece | `image-creation` → `references/marketing-brand-images.md`, `references/web-frontend-assets.md` |
+| The landing page itself: design, build and deploy | `website-building` → `references/design-direction.md`, `references/stacks-astro-vue-static.md`, `references/deploy-vercel.md` |
+| A designed white paper, report or one-pager as PDF or Word | `docs-office` → `references/document-design.md`, `references/pdf.md`, `references/word-docx.md` |
+| A video script broken into scenes and shots | `storyboarding` → `references/script-and-scene-craft.md`, `references/shot-lists-and-boards.md` |
+| An article turned into a podcast or narrated audio | `audio-generation` → `references/podcast-and-dialogue.md`, `references/voiceover-tts.md` |
+
+## Go deeper (original skills)
+
+The guides above distil these. Open one when a part needs its full detail, read it as reference, and read any script before running it.
+
+| When you need | Original skill |
+|---|---|
+| Internal comms in house formats: status reports, 3P updates, company newsletters, incident reports | [internal-comms](https://github.com/anthropics/skills/tree/main/skills/internal-comms) (Apache-2.0; follows its examples folder) |
+| Humanizing Chinese text | [humanizer-zh](https://github.com/op7418/humanizer-zh/tree/main) (MIT) |
+| De-AI repair of fiction's narrative architecture, and Hemingway-style edits | [sepia](https://github.com/Nanako0129/sepia/tree/main/skills/sepia) (MIT) |
+| Building brand guidelines before enforcing them, with the companion discover-brand and guideline-generation skills | [brand-voice-enforcement](https://github.com/anthropics/knowledge-work-plugins/tree/main/partner-built/brand-voice/skills/brand-voice-enforcement) (Apache-2.0) |
 
 ## Default workflow
 

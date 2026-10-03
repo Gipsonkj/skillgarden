@@ -26,6 +26,11 @@
       "id": "t3",
       "prompt": "Rewrite my LinkedIn headline and the first part of my About section. Current headline: 'Senior Data Engineer at Acme'. I help mid-size retailers fix their inventory forecasts; last year I cut stockouts 31% for a 200-store chain.",
       "good": "Headline under 220 characters, strongest segment in the first ~60 characters, names the audience (mid-size retailers), the outcome, one true proof (31% fewer stockouts, 200 stores), and keeps a searchable role term (Data Engineer). About opening fits the ~265-300 character fold with tension, audience and proof, in first person, ending with a CTA. Nothing invented beyond the user's facts. Does not fetch or scrape the profile."
+    },
+    {
+      "id": "t4",
+      "prompt": "Our post about cutting month-end close from 10 days to 3 got 40 comments. Turn it into a 7-slide LinkedIn document carousel with on-brand slide images (brand colours #0B3D2E and #F2C14E), and write two sponsored-content versions for a $1,500 test aimed at finance directors.",
+      "good": "States a short plan first: the carousel here (carousels-documents.md, post-writing.md), slide visuals through image-creation (text-in-images.md, marketing-brand-images.md: visuals made without text and exact type set afterwards, one brand block repeated in every prompt), the ads through ad-creation (ad-copywriting.md, platform-specs.md, testing-iteration.md: intro text front-loaded inside the 150 visible characters, counts shown, one variable per test). Gets the slide brief approved before any image prompt; 7 slides at 1080x1350 as a PDF with selectable text; caption hook inside 140 characters; uses only the post's real numbers; checks the Done means of all three crafts."
     }
   ]
 }

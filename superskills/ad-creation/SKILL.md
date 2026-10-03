@@ -26,6 +26,18 @@ Covers paid ad creative from the first brief to the next iteration: deciding whi
 
 Where sources conflict on numbers (impression thresholds, refresh cadence), treat the numbers here as minimums and defer to the account's own data; one source rightly warns there is no universal fatigue cadence.
 
+## Plan the request
+
+Work out what the request needs before opening a guide; most real requests need more than one.
+
+1. **Split it into parts:** each thing the user needs at the end. A one-part request goes straight to the table below.
+2. **Give each part its best source.** This craft's guides first; several is normal, read in the order the work happens. A part listed under "Other crafts" goes to that craft's guide, which goes deeper than any short version here. A part that needs a tool, API or edge case no guide covers goes to the original skill under "Go deeper".
+3. **Say the plan in a line** before starting, then read only the guides it names. For example: "Meta launch for a desk mat: `references/creative-strategy.md` → `references/ad-copywriting.md` → `references/meta-ads-creative.md` → `references/testing-iteration.md`; landing hero from `content-creation` → `references/conversion-copy.md`; static layouts from `poster-design` → `references/banners-social.md`."
+4. **Carry decisions forward.** The brief, tokens, copy and file names from earlier parts feed the later ones. When two guides disagree, follow the one written for that part and say so.
+5. **Check the result** against "Done means" here and in every other craft you used.
+
+**Opening another craft:** with the Skill Garden plugin, load the skill `skillgarden:<craft>` or read its guides beside this folder at `../<craft>/references/`; on the Skill Garden connector, call `get_super_skill` and `get_guide`. If that craft isn't installed, name it to the user and carry on with this one. For a request that spans three or more crafts, start with the planner: the skill `skillgarden:garden`, or `get_super_skill` with craft `garden` on the connector.
+
 ## Pick the right guide
 
 | Task | Read |
@@ -42,6 +54,33 @@ Where sources conflict on numbers (impression thresholds, refresh cadence), trea
 | Testing plan, iterating from data, creative audit, fatigue, monthly retro | [references/testing-iteration.md](references/testing-iteration.md) |
 
 Call a sub-capability by naming the task, or say "use ad-creation: <capability>" (for example "use ad-creation: competitor teardown").
+
+## Other crafts
+
+| When the request also needs | Use |
+|---|---|
+| Google Search, PMax or Shopping builds: keywords, bidding, conversion tracking (beyond the RSA copy here) | `google-ads` → `references/campaign-build.md`, `references/keywords-negatives.md`, `references/conversion-tracking.md` |
+| Landing page copy that matches the ads, or a brand voice to write them in | `content-creation` → `references/conversion-copy.md`, `references/brand-voice.md` |
+| Static layouts, type hierarchy and one design resized to every placement, or bulk in Canva | `poster-design` → `references/banners-social.md`, `references/foundations.md`, `references/canva.md` |
+| Product shots consistent across a batch, background swaps, model-specific prompts (beyond `references/ai-ad-production.md`) | `image-creation` → `references/editing-references-consistency.md`, `references/prompting-fundamentals.md` |
+| Real footage cut into a video ad, HyperFrames motion ads, captions and export checks | `ai-video` → `references/footage-editing-ffmpeg.md`, `references/hyperframes-workflows.md`, `references/delivery-qa.md` |
+| A voiceover, music bed or final mix at the platform's loudness | `audio-generation` → `references/voiceover-tts.md`, `references/music-generation.md`, `references/mixing-and-mastering.md` |
+| Organic posts and a calendar beside the ads (posts plus ads together: the `campaign` chain) | `social-media` → `references/hooks-and-voice.md`, `references/strategy-calendar.md` |
+| Whether a test winner is real: sample size, significance and an honest readout | `data-analysis` → `references/experiments-causal.md`, `references/statistics.md` |
+
+## Go deeper (original skills)
+
+The guides above distil these. Open one when a part needs its full detail, read it as reference, and read any script before running it.
+
+| When you need | Original skill |
+|---|---|
+| Launching Meta campaigns through the Marketing API and verifying Pixel and CAPI tracking | [meta-ads](https://github.com/boringmarketer/meta-ads-skill) (MIT; needs Business Manager and Marketing API access) |
+| Generated UGC-style ads: talking-head, testimonial, unboxing, before-after and faceless voiceover videos | [ugc](https://github.com/fal-ai-community/skills/tree/main/skills/ugc) (MIT, stated in README; needs the genmedia CLI and FAL_KEY; nothing copied here) |
+| A finished FLUX 3 product video ad with action-to-word sync and QC gates | [flux-3-product-ads](https://github.com/black-forest-labs/skills/tree/master/skills/flux-3-product-ads) (MIT; needs a BFL API key) |
+| Competitor ads across Meta, Google, TikTok, LinkedIn and X libraries, with their landing pages | [apify-ads-intelligence](https://github.com/apify/awesome-skills/tree/main/skills/apify-ads-intelligence) (Apache-2.0; needs APIFY_TOKEN, paid runs) |
+| A creative audit across platforms: format coverage, fatigue, accessibility and policy | [ads-creative](https://github.com/AgriciDaniel/claude-ads/tree/main/skills/ads-creative) (MIT; part of the claude-ads plugin) |
+| TikTok Ads setup: Pixel, Events API and Spark Ads | [tiktok-ads](https://github.com/kostja94/marketing-skills/tree/main/skills/paid-ads/platforms/tiktok-ads) (MIT) |
+| A whole UGC programme: review generation, contests, rights and reuse in paid ads | [ugc-strategy](https://github.com/arnabbagxd/brand-building-skills/tree/main/skills/ugc-strategy) (MIT) |
 
 ## Default workflow
 

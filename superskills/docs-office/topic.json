@@ -31,6 +31,11 @@
       "id": "t3",
       "prompt": "Fill in this rental application PDF with my details (I'll paste them) and merge it with my payslip PDF into one file.",
       "good": "Inspects the form fields first and maps the user's details to exact field names; uses correct value formats for checkboxes and dropdowns; enters only data the user supplied; handles a flat (non-fillable) form by overlaying text and re-rendering to check alignment; merges with pypdf/qpdf; renders the result and confirms every field and page; does not send personal data to external services."
+    },
+    {
+      "id": "t4",
+      "prompt": "Using our 2026 actuals in finance.xlsx and the notes below, add a 24-month cash runway forecast with low, base and high cases to the workbook, then build an 8-slide editable board update deck that shows it next to our product status and top risks.",
+      "good": "States a short plan first: the forecast through trading-finance (startup-corporate-finance.md, excel-modeling-standards.md: driver-based scenarios, runway from the forward plan, every input sourced), status and risks through product-management (stakeholder-comms.md: honest Green/Yellow/Red, ROAM risks, asks with dates), the file work here (excel-xlsx.md, deck-writing.md, powerpoint-pptx.md). Edits the workbook in place on a copy, keeps formulas live and runs formula_check.py; writes assertion titles that pass the ghost-deck test; marks missing numbers [DATA NEEDED]; renders every slide and checks it; checks the Done means of all three crafts."
     }
   ]
 }

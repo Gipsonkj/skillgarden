@@ -1,6 +1,6 @@
 ---
 name: image-creation
-description: Create and edit images with AI models or code. Covers prompt writing for any image model; text and typography inside images; editing, inpainting, reference images, character/product consistency and transparent backgrounds; OpenAI GPT Image (Images API, Codex image_gen); Google Gemini / Nano Banana; FLUX, Replicate, fal.ai, OpenRouter, Seedream, Recraft, Ideogram, Higgsfield; local Stable Diffusion, diffusers and ComfyUI workflows; p5.js/SVG generative art; website heroes, design comps, game and UI assets; marketing, social, ad, product and brand images. Use when asked to generate an image, picture, illustration, photo, hero image, banner, thumbnail, poster, sprite, icon, texture, logo concept, mockup or OG image; to edit, restyle, remove or replace something in an image, change a background or make it transparent; to keep a character or product consistent; to write or fix an image prompt; to pick an image model; to build a ComfyUI workflow; or to make generative/algorithmic art.
+description: Create and edit images with AI models or code. Covers prompt writing for any image model; text and typography inside images; editing, inpainting, reference images, character/product consistency and transparent backgrounds; OpenAI GPT Image (Images API, Codex image_gen); Google Gemini / Nano Banana; FLUX, Replicate, fal.ai, OpenRouter, Seedream/ByteDance ModelArk, Recraft, Ideogram, Higgsfield; local Stable Diffusion, diffusers and ComfyUI workflows; p5.js/SVG generative art; website heroes, design comps, game and UI assets; marketing, social, ad, product and brand images. Use when asked to generate an image, picture, illustration, photo, hero image, banner, thumbnail, poster, sprite, icon, texture, logo concept, mockup or OG image; to edit, restyle, remove or replace something in an image, change a background or make it transparent; to keep a character or product consistent; to write or fix an image prompt; to pick an image model; to build a ComfyUI workflow; or to make generative/algorithmic art.
 ---
 
 # Image creation
@@ -22,7 +22,19 @@ This skill covers making raster images with AI models (OpenAI, Google, FLUX and 
 11. **Look at every output at 100%.** Check spelling letter by letter, hands, faces, edges, product labels, stray logos and watermarks, the aspect ratio, and whether the things that had to stay the same did.
 12. **Respect rights and safety.** Leave out real public figures, trademarks and living artists' names. Invent brand names for mockups. Generated images are illustrations, not evidence. Don't upload private images to a provider. Leave safety checkers on.
 13. **Save files properly.** Use descriptive, versioned file names (`hero-v2.webp`). Put final files in the project, not in a tool's temp folder. Report the final prompt, model, size and seed.
-14. **Never put keys in chat.** Ask the user to set `OPENAI_API_KEY`, `GEMINI_API_KEY`, `OPENROUTER_API_KEY`, `FAL_KEY` or `REPLICATE_API_TOKEN` locally. If the user already has an image tool or wrapper set up, use it.
+14. **Never put keys in chat.** Ask the user to set `OPENAI_API_KEY`, `GEMINI_API_KEY`, `OPENROUTER_API_KEY`, `FAL_KEY`, `REPLICATE_API_TOKEN` or `ARK_API_KEY` locally. If the user already has an image tool or wrapper set up, use it.
+
+## Plan the request
+
+Work out what the request needs before opening a guide; most real requests need more than one.
+
+1. **Split it into parts:** each thing the user needs at the end. A one-part request goes straight to the table below.
+2. **Give each part its best source.** This craft's guides first; several is normal, read in the order the work happens. A part listed under "Other crafts" goes to that craft's guide, which goes deeper than any short version here. A part that needs a tool, API or edge case no guide covers goes to the original skill under "Go deeper".
+3. **Say the plan in a line** before starting, then read only the guides it names. For example: "Launch hero, social set and a teaser clip: `references/prompting-fundamentals.md` → `references/web-frontend-assets.md` → `references/marketing-brand-images.md` → `references/editing-references-consistency.md`; headline copy from `content-creation` → `references/conversion-copy.md`; the clip from `ai-video` → `references/generative-prompting.md`."
+4. **Carry decisions forward.** The brief, tokens, copy and file names from earlier parts feed the later ones. When two guides disagree, follow the one written for that part and say so.
+5. **Check the result** against "Done means" here and in every other craft you used.
+
+**Opening another craft:** with the Skill Garden plugin, load the skill `skillgarden:<craft>` or read its guides beside this folder at `../<craft>/references/`; on the Skill Garden connector, call `get_super_skill` and `get_guide`. If that craft isn't installed, name it to the user and carry on with this one. For a request that spans three or more crafts, start with the planner: the skill `skillgarden:garden`, or `get_super_skill` with craft `garden` on the connector.
 
 ## Pick the right guide
 
@@ -33,7 +45,7 @@ This skill covers making raster images with AI models (OpenAI, Google, FLUX and 
 | Edit, inpaint or outpaint, swap a background, remove an object, try-on, style transfer, keep a character or product consistent, transparent PNGs, exact dimensions | [references/editing-references-consistency.md](references/editing-references-consistency.md) |
 | OpenAI GPT Image (models, sizes, transparency, edits, Codex `image_gen`) | [references/openai-gpt-image.md](references/openai-gpt-image.md) + `scripts/imagegen/image_gen.py` |
 | Gemini / Nano Banana (Pro, 2, Lite; 512-4K) | [references/gemini-nano-banana.md](references/gemini-nano-banana.md) + `scripts/nano-banana-pro/generate_image.py` |
-| FLUX.2, Replicate, fal.ai, OpenRouter, Seedream, Recraft, Ideogram, Higgsfield; picking a model | [references/hosted-models-flux-replicate-fal.md](references/hosted-models-flux-replicate-fal.md) + `scripts/generate-image/generate_image.py` |
+| FLUX.2, Replicate, fal.ai, OpenRouter, Seedream (also direct on ByteDance ModelArk, phone-photo realism recipe), Recraft, Ideogram, Higgsfield; picking a model | [references/hosted-models-flux-replicate-fal.md](references/hosted-models-flux-replicate-fal.md) + `scripts/generate-image/generate_image.py`, `scripts/bytedance-modelark/ark.py` |
 | Local Stable Diffusion / SDXL / FLUX dev with diffusers, ControlNet, LoRA, ComfyUI workflow JSON | [references/local-open-models.md](references/local-open-models.md) |
 | Generative or algorithmic art, flow fields, particles, seeded p5.js, SVG patterns | [references/algorithmic-art.md](references/algorithmic-art.md) + `templates/algorithmic-art/viewer.html` |
 | Website heroes, section images, design comps for a landing page, game sprites, UI icons, textures, web optimisation, OG images | [references/web-frontend-assets.md](references/web-frontend-assets.md) |
@@ -47,9 +59,36 @@ You can name a task, or say "use image-creation: <capability>" (for example "ima
 |---|---|---|
 | `scripts/imagegen/image_gen.py` | OpenAI generate / edit / JSONL batch from any shell; transparent PNGs; `--dry-run` to preview the request | `OPENAI_API_KEY`, `pip install openai` |
 | `scripts/nano-banana-pro/generate_image.py` | Quick Gemini (Nano Banana Pro) generate or single-image edit at 1K/2K/4K | `GEMINI_API_KEY`, `uv` |
+| `scripts/bytedance-modelark/ark.py` | Seedream 5.0 stills straight from ByteDance (`image out.jpg --size 2560x1920`, prompt on stdin); free `models` listing first | `ARK_API_KEY`, Python stdlib only |
 | `scripts/generate-image/generate_image.py` | Any OpenRouter model (Gemini, GPT Image, FLUX.2, Seedream, Recraft SVG…); free `--list-models` / `--model-info` / `--dry-run` before paying | `OPENROUTER_API_KEY`, Python stdlib only |
 
 Run scripts from the user's working directory so the output lands there. Each script's folder includes the source licence.
+
+## Other crafts
+
+| When the request also needs | Use |
+|---|---|
+| Turning a still into a video clip, or animating between keyframes | `ai-video` → `references/generative-prompting.md`, `references/vendor-apis.md` |
+| A shot-by-shot story with the same characters, planned before any keyframes | `storyboarding` → `references/shot-lists-and-boards.md`, `references/keyframes-and-consistency.md` |
+| A finished poster, cover or banner where layout and type carry the design | `poster-design` → `references/foundations.md`, `references/ai-image-posters.md`, `references/banners-social.md` |
+| A final logo, brand kit or favicon set (beyond the logo concepts in `references/marketing-brand-images.md`) | `poster-design` → `references/logos.md`, `references/brand-kits.md`, `references/web-assets.md` |
+| Ad angles, ad copy and platform specs around the image | `ad-creation` → `references/creative-strategy.md`, `references/ad-copywriting.md`, `references/platform-specs.md` |
+| Headline or overlay copy that has to sell | `content-creation` → `references/conversion-copy.md` |
+| The page around a hero or section image: layout, type and tokens | `frontend-ui-design` → `references/design-direction.md`, `references/visual-system.md` |
+| Captions, hashtags and a posting plan for the social images | `social-media` → `references/platform-playbook.md`, `references/hooks-and-voice.md` |
+
+## Go deeper (original skills)
+
+The guides above distil these. Open one when a part needs its full detail, read it as reference, and read any script before running it.
+
+| When you need | Original skill |
+|---|---|
+| GPT Image 2 style and scene templates with example cases and pitfalls | [gpt-image-2-style-library](https://github.com/freestylefly/awesome-gpt-image-2/tree/main/agents/skills/gpt-image-2-style-library) (MIT; its template library wasn't copied here) |
+| Search, price and run any of 1,200+ fal endpoints, including queued async jobs | [genmedia](https://github.com/fal-ai-community/skills/tree/main/skills/genmedia) (MIT, stated in README; needs the genmedia CLI and `FAL_KEY`) |
+| Larger ComfyUI graphs (LoRA stacks, upscaling, face detailing) with its sibling API and troubleshooting skills | [comfyui-workflow-builder](https://github.com/mckruz/comfyui-expert/tree/master/skills/comfyui-workflow-builder) (MIT) |
+| Gemini SDK code beyond images (video, TTS, multimodal) from Google's own skill | [gemini-api-dev](https://github.com/google-gemini/gemini-skills/tree/main/skills/gemini-api-dev) (Apache-2.0) |
+| One tool across many providers, including DashScope, with batch runs from prompt files | [baoyu-image-gen](https://github.com/jimliu/baoyu-skills/tree/main/skills/baoyu-image-gen) (MIT; Bun or Node runtime) |
+| Category templates (posters, typography, promo) and a validator for GPT Image 2 prompts | [image-prompt](https://github.com/gongnyang/gongnyang-prompt-kit/tree/main/skills/image-prompt) (MIT; Korean-language) |
 
 ## Default workflow
 

@@ -26,6 +26,11 @@
       "id": "t3",
       "prompt": "Build an n8n workflow: Stripe webhook for refunds -> append a row to Google Sheets -> post a Slack message if the refund is over $500.",
       "good": "Uses webhook data under $json.body, verifies the Stripe signature or a secret, responds quickly; discovers nodes and current typeVersions; omits placeholder credentials and has the user confirm credentials per node; dedupes on refund ID; compares amounts in cents; validates, reads back connections, tests with pinned data asking before real Slack posts; adds an error workflow, descriptive node names and description; activates only after testing and gives a handoff note."
+    },
+    {
+      "id": "t4",
+      "prompt": "Every Monday morning, check the prices of the 40 products we track on three supplier websites, append them to our Google Sheet, and email me any that moved more than 5%. Run it in the cloud as a small script, not on my laptop.",
+      "good": "States a short plan first: automation-design.md, web-extraction.md and app-integrations.md here (a supplier feed or API before a browser; robots.txt and terms respected; throttled); the sheet through docs-office (google-workspace.md: gws with the fewest scopes, schema checked before sheets +append); the schedule through cloud-devops (gcp.md: a Cloud Run job on Cloud Scheduler, credentials from Secret Manager). Confirms the plan with run time and timezone; dedupes per product and week; drafts the email or asks before the first real send; adds an error path that tells a human; checks the Done means of all three crafts."
     }
   ]
 }

@@ -1,0 +1,508 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- The public landing page. build-site.mjs fills the {{…}} counts and the CRAFTS and CHAINS lists from
+     the catalog, writes this to public/index.html and the app to public/explore/. The hero film
+     (film/) is the ../hero-film master cut seed -> basket and encoded for scrubbing: 16 fps, a
+     keyframe every 4 frames (poster.jpg is its first frame). The stills under
+     "How the garden grows" are its keyframes (img/). -->
+<title>Skill Garden: one super skill for every craft Claude works in</title>
+<meta name="description" content="{{CRAFTS}} super skills for Claude, each grown from the best public community skills for its craft. Ranked, credited, re-scouted every week. Install once and ask in plain words.">
+<meta property="og:title" content="Skill Garden">
+<meta property="og:description" content="{{CRAFTS}} super skills for Claude, grown from the best community skills.">
+<meta property="og:image" content="/film/poster.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b1210'/%3E%3Cpath d='M16 27V15' stroke='%236fe3b0' stroke-width='2.4' stroke-linecap='round'/%3E%3Cpath d='M16 18c-4 0-7-2.6-7-6.5 4 0 7 2.6 7 6.5zM16 15c0-4 2.8-7 6.8-7 0 4-2.8 7-6.8 7z' fill='%236fe3b0'/%3E%3Ccircle cx='16' cy='27' r='2.6' fill='%23f2c14e'/%3E%3C/svg%3E">
+<link rel="preload" as="image" href="/film/poster.jpg" fetchpriority="high">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..700&family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400..650&display=swap">
+<script>
+  // Old links to the app (/#/c/seo, /#/chain/campaign) now live under /explore/.
+  if (location.hash.startsWith("#/")) location.replace("/explore/" + location.hash);
+</script>
+<style>
+  :root {
+    /* Page: the app's light tokens. Hero: colours taken from the film. */
+    --ground: oklch(0.976 0.005 160);
+    --surface: oklch(0.956 0.008 160);
+    --raised: oklch(0.996 0.002 160);
+    --ink: oklch(0.21 0.018 165);
+    --ink-2: oklch(0.41 0.018 165);
+    --ink-3: oklch(0.52 0.016 165);
+    --line: oklch(0.885 0.011 160);
+    --line-2: oklch(0.925 0.009 160);
+    --accent: oklch(0.5 0.1 165);
+    --accent-ink: oklch(0.99 0.01 165);
+    --accent-soft: oklch(0.925 0.04 165);
+
+    --film-bg: #0b1210;                      /* the film's darkest colour */
+    --ink-light: oklch(0.97 0.01 150);       /* words over dark frames */
+    --ink-dark: oklch(0.2 0.02 165);         /* words over light frames */
+    --mint: oklch(0.84 0.12 165);            /* the hero's one button, the stems' colour */
+    --mint-ink: oklch(0.2 0.04 165);
+
+    --display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+    --body: "Public Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+    --ease: cubic-bezier(0.23, 1, 0.32, 1);
+    --r: 12px;
+    /* 4 px spacing scale */
+    --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px; --s8: 64px; --s9: 96px;
+    --wrap: min(1200px, 100% - 2 * clamp(16px, 5vw, 48px));
+    color-scheme: light;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; overflow-x: clip; }
+  body { margin: 0; background: var(--ground); color: var(--ink); font: 400 16px/1.6 var(--body); -webkit-font-smoothing: antialiased; }
+  h1, h2, h3 { font-family: var(--display); font-weight: 640; letter-spacing: -.015em; line-height: 1.15; margin: 0; text-wrap: balance; }
+  p { margin: 0; }
+  a { color: var(--accent); text-underline-offset: 3px; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+  .wrap { width: var(--wrap); margin-inline: auto; }
+
+  /* ---------- hero: a scroll story. The stage stays pinned while the track scrolls
+     past it, and the scroll moves the film from seed to harvest. Without the film
+     (reduced motion, data saver, no JS) the track is one screen and nothing pins. ---------- */
+  .hero { position: relative; height: 100svh; min-height: 560px; color: var(--ink-light); transition: color .4s; }
+  .hero[data-scrub] { height: 300svh; min-height: 1680px; }
+  .stage { position: sticky; top: 0; height: 100svh; min-height: 560px; overflow: hidden; background: var(--film-bg) url("/film/poster.jpg") center / cover no-repeat; }
+  .film { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+  .shade { position: absolute; inset: 0; pointer-events: none; transition: opacity .4s;
+    background: linear-gradient(180deg, rgb(6 12 10 / .55), transparent 24%, transparent 46%, rgb(6 12 10 / .78)); }
+
+  .nav { position: absolute; z-index: 2; inset: 0 0 auto; display: flex; align-items: center; justify-content: space-between; gap: var(--s4);
+    padding: max(var(--s5), env(safe-area-inset-top)) clamp(16px, 4vw, 48px) var(--s4); }
+  .nav a { color: inherit; text-decoration: none; }
+  .brand { display: inline-flex; align-items: center; gap: 10px; font: 650 19px/1 var(--display); letter-spacing: -.02em; }
+  .brand svg { width: 30px; height: 30px; flex: none; }
+  .links { display: flex; align-items: center; gap: var(--s5); font-size: 15px; font-weight: 500; }
+  .links a:not(.go) { opacity: .86; transition: opacity .15s var(--ease); }
+  .links a:not(.go):hover { opacity: 1; text-decoration: underline; }
+  .go { background: var(--ink-light); color: var(--ink-dark) !important; padding: 9px 18px; border-radius: 999px; font-weight: 600; white-space: nowrap; transition: transform .12s var(--ease); }
+  .go:active { transform: scale(.97); }
+
+  .caption { position: absolute; z-index: 1; left: clamp(16px, 6vw, 88px); right: clamp(16px, 6vw, 88px); bottom: max(11vh, 64px);
+    text-shadow: 0 1px 3px rgb(4 10 8 / .5), 0 2px 32px rgb(4 10 8 / .6); }
+  .words { max-width: 760px; }
+  .kicker { margin: 0; max-width: 46ch; font: 550 15px/1.5 var(--body); letter-spacing: 0; }
+  .line { margin: var(--s4) 0 0; max-width: 13ch; font: 650 clamp(38px, 4.8vw, 72px)/1 var(--display); letter-spacing: -.04em; text-wrap: balance;
+    font-variation-settings: "opsz" 96; }
+  .line[data-first] { animation: line-in-first .55s var(--ease) both; }
+  .line[data-enter] { animation: line-rise .35s var(--ease) both; }
+  /* Words light up in order as the scroll passes through the line: --sp (0..1) is set by the
+     scroll loop, word --i of --n turns on as --sp passes i/n, over a soft ramp of about two words. */
+  .line .w { opacity: clamp(.26, calc((var(--sp, 1) * (var(--n) + 1.5) - var(--i)) / 1.5), 1); transition: opacity .12s linear; }
+  @keyframes line-in-first { from { transform: translateY(10px); filter: blur(6px); } to { transform: none; filter: none; } }
+  @keyframes line-rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+  /* The hint at the top of the story; gone once the scroll starts. */
+  .cue { display: none; position: absolute; z-index: 1; left: 50%; bottom: 18px; transform: translateX(-50%); align-items: center; gap: 8px;
+    font: 550 13px/1 var(--body); letter-spacing: .01em; opacity: .8; transition: opacity .3s var(--ease); pointer-events: none; text-shadow: 0 1px 8px rgb(4 10 8 / .7); }
+  .hero[data-scrub] .cue { display: inline-flex; }
+  .cue[data-gone="1"] { opacity: 0; }
+  .cue svg { width: 14px; height: 14px; animation: cue-bob 1.6s var(--ease) infinite alternate; }
+  @keyframes cue-bob { to { transform: translateY(4px); } }
+
+  .actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s3) var(--s5); margin-top: var(--s6); }
+  .primary { display: inline-flex; align-items: center; min-height: 48px; padding: 0 26px; border-radius: 999px; background: var(--mint); color: var(--mint-ink);
+    font-weight: 650; font-size: 16px; text-decoration: none; text-shadow: none; transition: transform .12s var(--ease), background-color .4s; }
+  .primary:hover { background: oklch(0.88 0.11 165); }
+  .primary:active { transform: scale(.97); }
+  .secondary { color: inherit; font-weight: 550; text-underline-offset: 5px; min-height: 44px; display: inline-flex; align-items: center; }
+  .hero a:focus-visible { outline-color: currentColor; }
+
+  .hero[data-ink="dark"] { color: var(--ink-dark); }
+  .hero[data-ink="dark"] .shade { opacity: 0; }
+  .hero[data-ink="dark"] .caption { text-shadow: 0 1px 14px rgb(255 255 255 / .5); }
+  .hero[data-ink="dark"] .go { background: var(--ink-dark); color: var(--ink-light) !important; }
+  /* The ink is sampled behind the words; the top of every frame stays night-dark, so the nav keeps light ink. */
+  .hero[data-ink="dark"] .nav { color: var(--ink-light); }
+  .hero[data-ink="dark"] .nav .go { background: var(--ink-light); color: var(--ink-dark) !important; }
+  .hero[data-ink="dark"] .primary { background: var(--ink-dark); color: var(--ink-light); }
+
+  @media (max-width: 760px) {
+    .links a:not(.go) { display: none; }
+    .brand { font-size: 17px; }
+    .line { font-size: clamp(36px, 10.5vw, 50px); }
+    .cue { display: none !important; }
+    .kicker { font-size: 13.5px; }
+    .kicker span { background: rgb(8 16 13 / .62); padding: 3px 9px; border-radius: 8px; line-height: 2; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+    .hero[data-ink="dark"] .kicker span { background: rgb(250 252 250 / .9); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .line, .line[data-first], .line[data-enter] { animation: none; }
+    .line .w { opacity: 1; transition: none; }
+  }
+
+  /* ---------- below the film ---------- */
+  section { padding-block: clamp(56px, 9vw, var(--s9)); }
+  section + section { border-top: 1px solid var(--line-2); }
+  .sec-head { display: grid; gap: var(--s3); max-width: 62ch; margin-bottom: var(--s7); }
+  .sec-head h2 { font-size: clamp(28px, 3.4vw, 42px); }
+  .sec-head p { color: var(--ink-2); font-size: 17px; }
+
+  .answer { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: var(--s7); align-items: start; }
+  .answer h2 { font-size: clamp(30px, 3.8vw, 48px); max-width: 18ch; }
+  .answer p { margin-top: var(--s5); font-size: 18px; color: var(--ink-2); max-width: 58ch; }
+  .facts { margin: 0; display: grid; gap: 0; border-top: 1px solid var(--line); }
+  .facts div { display: grid; grid-template-columns: 5.5ch minmax(0, 1fr); gap: var(--s4); align-items: baseline; padding: var(--s4) 0; border-bottom: 1px solid var(--line); }
+  .facts dt { font: 640 28px/1 var(--display); font-variant-numeric: tabular-nums; color: var(--ink); }
+  .facts dd { margin: 0; color: var(--ink-2); font-size: 15px; }
+  @media (max-width: 860px) { .answer { grid-template-columns: minmax(0, 1fr); } }
+
+  /* How the garden grows: the film's own frames, in order */
+  .strip { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--s5); counter-reset: st; }
+  .strip li { display: grid; gap: var(--s3); align-content: start; counter-increment: st; }
+  /* height: auto, or the img's height="1000" attribute wins over aspect-ratio and each still stands 1000px tall */
+  .strip img { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; object-position: 50% 25%; border-radius: var(--r); background: var(--film-bg); display: block; }
+  .strip h3 { font-size: 20px; display: flex; gap: 10px; align-items: baseline; }
+  .strip h3::before { content: counter(st); font: 500 13px var(--mono); color: var(--ink-3); }
+  .strip p { color: var(--ink-2); font-size: 15px; }
+  @media (max-width: 900px) {
+    .strip { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(240px, 72%); overflow-x: auto; scroll-snap-type: x mandatory;
+      padding-bottom: var(--s3); margin-inline: calc(-1 * clamp(16px, 5vw, 48px)); padding-inline: clamp(16px, 5vw, 48px); scroll-padding-inline: clamp(16px, 5vw, 48px); }
+    .strip li { scroll-snap-align: start; }
+  }
+
+  /* The crafts, grouped the way the app groups them */
+  .beds { columns: 3 280px; column-gap: var(--s7); }
+  .bed { break-inside: avoid; margin: 0 0 var(--s6); }
+  .bed h3 { font-size: 15px; font-weight: 600; color: var(--ink-3); font-family: var(--body); letter-spacing: 0; padding-bottom: var(--s2); border-bottom: 1px solid var(--line); }
+  .bed ul { list-style: none; margin: 0; padding: 0; }
+  .bed a { display: grid; grid-template-columns: 14px minmax(0, 1fr) auto; gap: var(--s3); align-items: center; padding: 10px 0; border-bottom: 1px solid var(--line-2);
+    color: var(--ink); text-decoration: none; font-weight: 550; transition: color .15s var(--ease); }
+  .bed a:hover { color: var(--accent); }
+  .bed a i { width: 10px; height: 10px; border-radius: 50% 50% 50% 0; background: hsl(var(--h) 52% 46%); transform: rotate(-45deg); }
+  .bed a small { font: 400 13px var(--mono); color: var(--ink-3); font-variant-numeric: tabular-nums; }
+  .more { margin-top: var(--s5); display: flex; flex-wrap: wrap; gap: var(--s3); }
+  .btn { display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px; border-radius: 10px; border: 1px solid var(--line); background: var(--raised);
+    color: var(--ink); font-weight: 600; font-size: 15px; text-decoration: none; transition: border-color .15s var(--ease), transform .12s var(--ease); }
+  .btn:hover { border-color: var(--ink-3); }
+  .btn:active { transform: scale(.97); }
+  .btn.solid { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+  .btn.solid:hover { background: oklch(0.45 0.1 165); }
+
+  /* Chains */
+  .chains { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+  .chains a { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: var(--s2) var(--s6); padding: var(--s5) 0; border-bottom: 1px solid var(--line); color: inherit; text-decoration: none; }
+  .chains a:hover h3 { color: var(--accent); }
+  .chains h3 { font-size: 22px; transition: color .15s var(--ease); }
+  .chains .path { color: var(--ink-3); font-size: 14px; margin-top: var(--s1); }
+  .chains p { color: var(--ink-2); }
+  @media (max-width: 760px) { .chains a { grid-template-columns: minmax(0, 1fr); } }
+
+  /* Install */
+  .ways { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--s5); }
+  .way { padding: var(--s6); border: 1px solid var(--line); border-radius: 16px; background: var(--raised); display: grid; gap: var(--s4); align-content: start; }
+  .way h3 { font-size: 22px; }
+  .way p, .way li { color: var(--ink-2); font-size: 15px; }
+  .way ol { margin: 0; padding-left: 20px; display: grid; gap: var(--s2); }
+  .cmd { position: relative; margin: 0; font: 13.5px/1.7 var(--mono); background: var(--ink); color: var(--ground); border-radius: 10px; padding: 12px 84px 12px 14px; overflow-x: auto; white-space: pre; }
+  .cmd button { position: absolute; right: 8px; top: 8px; appearance: none; border: 1px solid oklch(0.7 0 0 / .4); border-radius: 7px; padding: 4px 10px;
+    font: 500 12px var(--mono); background: var(--ink); color: inherit; cursor: pointer; min-height: 28px; }
+  .cmd button:hover { border-color: oklch(0.9 0 0 / .7); }
+  @media (max-width: 860px) { .ways { grid-template-columns: minmax(0, 1fr); } .way { padding: var(--s5); } }
+
+  footer { padding-block: var(--s7) var(--s8); border-top: 1px solid var(--line-2); color: var(--ink-3); font-size: 14px; }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: var(--s4) var(--s6); justify-content: space-between; align-items: baseline; }
+  footer p { max-width: 70ch; }
+  footer nav { display: flex; gap: var(--s5); }
+</style>
+</head>
+<body>
+<header class="hero" data-film-hero data-ink="light">
+ <div class="stage">
+  <video class="film" poster="/film/poster.jpg" muted playsinline preload="none" tabindex="-1" aria-hidden="true"
+         data-wide="/film/hero.mp4" data-small="/film/hero-sm.mp4" data-tall="/film/hero-tall.mp4"></video>
+  <div class="shade"></div>
+  <nav class="nav" aria-label="Main">
+    <a class="brand" href="/" aria-label="Skill Garden home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#0b1210" stroke="currentColor" stroke-opacity=".25"/><path d="M16 26V15" stroke="#6fe3b0" stroke-width="2.2" stroke-linecap="round"/><path d="M16 18c-4 0-7-2.6-7-6.5 4 0 7 2.6 7 6.5zM16 15c0-4 2.8-7 6.8-7 0 4-2.8 7-6.8 7z" fill="#6fe3b0"/><circle cx="16" cy="26" r="2.4" fill="#f2c14e"/></svg>
+      Skill Garden
+    </a>
+    <div class="links">
+      <a href="#grow">How it grows</a>
+      <a href="#crafts">Crafts</a>
+      <a href="#install">Install</a>
+      <a href="https://github.com/Gipsonkj/skillgarden">GitHub</a>
+      <a class="go" href="/explore/">Explore</a>
+    </div>
+  </nav>
+  <div class="caption">
+    <div class="words">
+      <h1 class="kicker"><span>Skill Garden: {{CRAFTS}} super skills for Claude, grown from the best community skills</span></h1>
+      <p class="line" data-first aria-hidden="true">Plant one skill.</p>
+    </div>
+    <div class="actions">
+      <a class="primary" href="/explore/">Explore the garden</a>
+      <a class="secondary" href="#install">Install in Claude</a>
+    </div>
+  </div>
+  <p class="cue" aria-hidden="true">Scroll to grow it <svg viewBox="0 0 16 16"><path d="M3 6l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></p>
+ </div>
+</header>
+
+<main>
+  <section id="about">
+    <div class="wrap answer">
+      <div>
+        <h2>The best Claude skills, grown into one per craft</h2>
+        <p>Skill Garden collects the best public skills for {{CRAFTS}} crafts, from website building to Google Ads, and distils each craft into one super skill. Install it once and ask in plain words: Claude opens only the guide your task needs. Every source skill is ranked, credited to its author and re-scouted every week.</p>
+      </div>
+      <dl class="facts">
+        <div><dt>{{CRAFTS}}</dt><dd>crafts, each with one super skill</dd></div>
+        <div><dt>{{SKILLS}}</dt><dd>community skills ranked and credited</dd></div>
+        <div><dt>{{SHARED}}</dt><dd>free to download, licence permitting</dd></div>
+        <div><dt>{{CHAINS}}</dt><dd>chains that run several crafts from one ask</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section id="grow">
+    <div class="wrap">
+      <header class="sec-head">
+        <h2>How the garden grows</h2>
+        <p>Nothing reaches a super skill without being found, ranked, distilled and approved first.</p>
+      </header>
+      <ol class="strip">
+        <li><img src="/img/seed.jpg" alt="A glowing golden seed resting in dark soil at night" width="800" height="1000" loading="lazy" decoding="async">
+          <h3>Scout</h3><p>Every Sunday a scout looks for new public skills, one craft at a time, on GitHub, in skill lists and in expert picks.</p></li>
+        <li><img src="/img/sprout.jpg" alt="A luminous mint sprout rising from the split seed" width="800" height="1000" loading="lazy" decoding="async">
+          <h3>Rank</h3><p>Each find is ranked by stars, installs and expert lists, and its licence is checked. Non-commercial skills stay link-only.</p></li>
+        <li><img src="/img/garden.jpg" alt="A night garden of glowing stems with golden blooms" width="800" height="1000" loading="lazy" decoding="async">
+          <h3>Distil</h3><p>The best techniques become short guides behind one router per craft. A change goes in only after it is reviewed and approved.</p></li>
+        <li><img src="/img/harvest.jpg" alt="A glass lantern full of glowing golden blooms on the soil" width="800" height="1000" loading="lazy" decoding="async">
+          <h3>Harvest</h3><p>You install one super skill. Ask in plain words and Claude opens only the guide your task needs.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="crafts">
+    <div class="wrap">
+      <header class="sec-head">
+        <h2>{{CRAFTS}} crafts in bloom</h2>
+        <p>Each craft is one super skill, with every community skill behind it ranked best first. Open one to read its guides, preview its sources and download it.</p>
+      </header>
+      <div class="beds">
+<!--CRAFTS-->
+      </div>
+      <div class="more">
+        <a class="btn solid" href="/explore/">Explore all {{SKILLS}} skills</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="chains">
+    <div class="wrap">
+      <header class="sec-head">
+        <h2>Chains: one ask, several crafts in order</h2>
+        <p>A chain runs super skills one after another, each step using the guide made for it.</p>
+      </header>
+      <ul class="chains">
+<!--CHAINS-->
+      </ul>
+    </div>
+  </section>
+
+  <section id="install">
+    <div class="wrap">
+      <header class="sec-head">
+        <h2>Bring it to Claude</h2>
+        <p>Use the plugin in Claude Code, or upload super skills to claude.ai one craft at a time.</p>
+      </header>
+      <div class="ways">
+        <div class="way">
+          <h3>Claude Code: all {{CRAFTS}} as a plugin</h3>
+          <p>Run these two commands in a terminal. Every super skill and chain then loads in every session.</p>
+          <pre class="cmd"><code>claude plugin marketplace add Gipsonkj/skillgarden</code><button type="button" data-copy>Copy</button></pre>
+          <pre class="cmd"><code>claude plugin install skillgarden@skillgarden</code><button type="button" data-copy>Copy</button></pre>
+          <p>Then ask normally, for example "animate this modal so it feels snappy". To pick up new versions, run <code>claude plugin marketplace update skillgarden</code>.</p>
+        </div>
+        <div class="way">
+          <h3>claude.ai and the Claude apps</h3>
+          <ol>
+            <li>Open a craft in the garden and press Download.</li>
+            <li>In claude.ai, go to Settings, then Capabilities, then Skills.</li>
+            <li>Upload the zip and turn it on.</li>
+          </ol>
+          <p>Want them all? The garden has a "Download all super skills" button.</p>
+          <div><a class="btn" href="/explore/">Choose a craft</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Every skill in the garden is credited to its author with its licence. Skills with a non-commercial licence, or none, are linked, never copied.</p>
+    <nav aria-label="Footer"><a href="/explore/">Explore</a><a href="https://github.com/Gipsonkj/skillgarden">GitHub</a></nav>
+  </div>
+</footer>
+
+<script>
+// Copy buttons for the install commands.
+document.addEventListener("click", async (e) => {
+  const b = e.target.closest("[data-copy]");
+  if (!b) return;
+  const text = b.previousElementSibling.textContent;
+  try { await navigator.clipboard.writeText(text); b.textContent = "Copied"; }
+  catch { b.textContent = "Select it"; }
+  setTimeout(() => { b.textContent = "Copy"; }, 1600);
+});
+
+// The hero film as a scroll story (Skillkraft's original homepage pattern): the stage stays
+// pinned for two more screens while the scroll moves the film from seed to harvest. Each line
+// owns a quarter of the way and its words light up one at a time. The film files are encoded
+// for scrubbing (16 fps, a keyframe every 4 frames), and the picture eases toward the scroll
+// position and asks for one seek at a time, so a fast scroll never queues up stale frames.
+// The ink is read from the pixels behind the words.
+(() => {
+  const LINES = ["Plant one skill.", "Let it grow.", "{{CRAFTS}} crafts in bloom.", "Harvest what works."];
+  const N = LINES.length;
+
+  const hero = document.querySelector("[data-film-hero]");
+  const stage = hero.querySelector(".stage");
+  const v = hero.querySelector("video");
+  const words = hero.querySelector(".words");
+  const cue = hero.querySelector(".cue");
+  let line = hero.querySelector(".line");
+
+  const wide = innerWidth > 820, tall = innerHeight > innerWidth;
+  const src = wide ? v.dataset.wide : tall ? v.dataset.tall : v.dataset.small;
+
+  // Reduced motion, data saver or 2G/3G: the poster and the first line, one screen tall.
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const conn = navigator.connection;
+  const lean = !!(conn && (conn.saveData || /(^|-)(2g|3g)$/.test(conn.effectiveType || "")));
+  if (reduce || lean) return;
+  hero.dataset.scrub = "";
+
+  let shown = 0, eased = 0, raf = 0, sampled = 0, ready = false, seeking = false, cueGone = "0";
+  const show = (n) => {
+    const next = line.cloneNode(false);
+    next.removeAttribute("data-first");
+    next.dataset.enter = "";
+    const list = LINES[n].split(" ");
+    next.style.setProperty("--n", list.length);
+    list.forEach((w, i) => {
+      const span = document.createElement("span");
+      span.className = "w";
+      span.style.setProperty("--i", i);
+      span.textContent = w;
+      if (i) next.append(" ");
+      next.append(span);
+    });
+    line.replaceWith(next);
+    line = next;
+  };
+
+  const cv = document.createElement("canvas");
+  cv.width = cv.height = 8;
+  const ctx = cv.getContext("2d", { willReadFrequently: true });
+  // The text's own boxes, not the 760px block around them: the block reaches the glowing
+  // centre of the frame while the words sit on darker soil.
+  const textBox = () => {
+    const rg = document.createRange();
+    const rs = [words.querySelector(".kicker span"), line].filter(Boolean).map((el) => { rg.selectNodeContents(el); return rg.getBoundingClientRect(); });
+    const left = Math.min(...rs.map((x) => x.left)), top = Math.min(...rs.map((x) => x.top));
+    return { left, top, width: Math.max(...rs.map((x) => x.right)) - left, height: Math.max(...rs.map((x) => x.bottom)) - top };
+  };
+  const behind = () => {
+    const vw = v.videoWidth, vh = v.videoHeight;
+    if (!vw || !vh) return null;
+    const b = v.getBoundingClientRect(), r = textBox();
+    const k = Math.max(b.width / vw, b.height / vh);
+    const ox = (vw * k - b.width) / 2, oy = (vh * k - b.height) / 2;
+    const x = Math.max(0, (r.left - b.left + ox) / k), y = Math.max(0, (r.top - b.top + oy) / k);
+    const w = Math.min(vw - x, r.width / k), h = Math.min(vh - y, r.height / k);
+    return w > 1 && h > 1 ? [x, y, w, h] : null;
+  };
+  const sample = () => {
+    if (!ctx || v.readyState < 2) return;
+    try {
+      const r = behind();
+      if (r) ctx.drawImage(v, r[0], r[1], r[2], r[3], 0, 0, 8, 8);
+      else ctx.drawImage(v, 0, 0, 8, 8);
+      const px = ctx.getImageData(0, 0, 8, 8).data;
+      let sum = 0;
+      for (let i = 0; i < px.length; i += 4) sum += px[i] * 0.2126 + px[i + 1] * 0.7152 + px[i + 2] * 0.0722;
+      const mean = sum / 64;
+      if (hero.dataset.ink !== "dark" && mean > 140) hero.dataset.ink = "dark";
+      else if (hero.dataset.ink !== "light" && mean < 116) hero.dataset.ink = "light";
+    } catch {}
+  };
+
+  // How far the track has scrolled past the pinned stage, 0..1.
+  const progress = () => {
+    const run = hero.offsetHeight - stage.offsetHeight;
+    return run > 0 ? Math.min(1, Math.max(0, -hero.getBoundingClientRect().top / run)) : 0;
+  };
+
+  const frame = (now) => {
+    raf = requestAnimationFrame(frame);
+    const target = progress();
+    eased += (target - eased) * 0.18;
+    if (Math.abs(target - eased) < 0.0004) eased = target;
+    const p = eased;
+
+    const n = Math.min(N - 1, Math.floor(p * N));
+    if (n !== shown) { shown = n; show(n); }
+    // The first line is lit from the first paint; later lines light up over the first
+    // half of their stretch and then hold.
+    const sp = n === 0 ? 1 : Math.min(1, (p * N - n) / 0.5);
+    line.style.setProperty("--sp", sp.toFixed(3));
+
+    const gone = p > 0.02 ? "1" : "0";
+    if (cue && gone !== cueGone) { cueGone = gone; cue.dataset.gone = gone; }
+
+    if (ready && !seeking) {
+      const want = p * Math.max(0, v.duration - 0.05);
+      if (Math.abs(v.currentTime - want) > 0.03) { seeking = true; v.currentTime = want; }
+    }
+    if (now - sampled > 500) { sampled = now; sample(); }
+  };
+
+  v.addEventListener("seeked", () => { seeking = false; });
+  v.addEventListener("loadedmetadata", () => { ready = true; }, { once: true });
+  // iOS shows a seeked frame only once the video has played; a muted play-pause is allowed.
+  v.addEventListener("loadeddata", () => { v.play().then(() => v.pause()).catch(() => {}); }, { once: true });
+
+  // The whole film comes down first, as a blob: Cloudflare's static files ignore Range
+  // requests, and without them a browser can't seek (Safari won't play at all). From a blob
+  // every seek is local, so scrubbing never waits on the network.
+  let loaded = false;
+  const load = () => {
+    if (loaded) return;
+    loaded = true;
+    fetch(src)
+      .then((r) => (r.ok ? r.blob() : Promise.reject()))
+      .then((b) => { v.preload = "auto"; v.src = URL.createObjectURL(b); v.load(); })
+      .catch(() => {});
+  };
+  // Wide screens load the film at once; phones after load and idle, or on the first touch,
+  // scroll or key, whichever comes first, so the film stays off the critical path.
+  const kicks = ["pointerdown", "touchstart", "keydown", "scroll", "wheel"];
+  function start() {
+    kicks.forEach((k) => removeEventListener(k, start));
+    load();
+  }
+  if (wide) load();
+  else {
+    kicks.forEach((k) => addEventListener(k, start, { passive: true }));
+    const whenIdle = () => ("requestIdleCallback" in window ? requestIdleCallback(start, { timeout: 2500 }) : setTimeout(start, 1200));
+    if (document.readyState === "complete") whenIdle(); else addEventListener("load", whenIdle, { once: true });
+  }
+
+  // The loop runs only while the story is on screen.
+  new IntersectionObserver(([e]) => {
+    if (e.isIntersecting) { if (!raf) raf = requestAnimationFrame(frame); }
+    else if (raf) { cancelAnimationFrame(raf); raf = 0; }
+  }).observe(hero);
+})();
+</script>
+</body>
+</html>

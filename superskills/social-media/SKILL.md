@@ -27,6 +27,18 @@ Covers organic social end to end: decide where and what to post, write platform-
 
 Where sources conflicted, the stricter or better-evidenced rule won: hashtag counts follow official limits (Instagram and TikTok max 5), X rules separate code-visible mechanics from reported numbers, and the promo cap uses the lower figure.
 
+## Plan the request
+
+Work out what the request needs before opening a guide; most real requests need more than one.
+
+1. **Split it into parts:** each thing the user needs at the end. A one-part request goes straight to the table below.
+2. **Give each part its best source.** This craft's guides first; several is normal, read in the order the work happens. A part listed under "Other crafts" goes to that craft's guide, which goes deeper than any short version here. A part that needs a tool, API or edge case no guide covers goes to the original skill under "Go deeper".
+3. **Say the plan in a line** before starting, then read only the guides it names. For example: "Launch week on X and LinkedIn: `references/strategy-calendar.md` → `references/hooks-and-voice.md` → `references/x-threads.md` → `references/publishing-apis.md`; post images from `image-creation` → `references/marketing-brand-images.md`; the LinkedIn post from `linkedin-automation` → `references/post-writing.md`."
+4. **Carry decisions forward.** The brief, tokens, copy and file names from earlier parts feed the later ones. When two guides disagree, follow the one written for that part and say so.
+5. **Check the result** against "Done means" here and in every other craft you used.
+
+**Opening another craft:** with the Skill Garden plugin, load the skill `skillgarden:<craft>` or read its guides beside this folder at `../<craft>/references/`; on the Skill Garden connector, call `get_super_skill` and `get_guide`. If that craft isn't installed, name it to the user and carry on with this one. For a request that spans three or more crafts, start with the planner: the skill `skillgarden:garden`, or `get_super_skill` with craft `garden` on the connector.
+
 ## Pick the right guide
 
 | Task | Read |
@@ -45,6 +57,30 @@ Where sources conflicted, the stricter or better-evidenced rule won: hashtag cou
 | Publishing and scheduling: xurl, X API, Composio TikTok/YouTube, SocialClaw, HubSpot, CSV | [references/publishing-apis.md](references/publishing-apis.md) |
 
 Call a capability by naming the task, or say "use social-media: <capability>" (for example "use social-media: carousels").
+
+## Other crafts
+
+| When the request also needs | Use |
+|---|---|
+| Instagram in depth: scored Reel hooks, Graph API publishing, comment-to-DM | `instagram-automation` → `references/reels-scripting.md`, `references/graph-api-publishing.md`, `references/dms-and-comments.md` |
+| LinkedIn in depth: post lint, profile audit, ghostwriting | `linkedin-automation` → `references/post-writing.md`, `references/profile-optimization.md`, `references/ghostwriting.md` |
+| The long-form source piece, a newsletter, or a full brand voice guide | `content-creation` → `references/long-form-articles.md`, `references/newsletters.md`, `references/brand-voice.md` |
+| Photos or illustrations generated for posts | `image-creation` → `references/marketing-brand-images.md`, `references/editing-references-consistency.md` |
+| Designed post graphics, carousel slides or a thumbnail where type and layout matter | `poster-design` → `references/banners-social.md`, `references/thumbnails.md` |
+| Editing, captioning and rendering the short-form video itself | `ai-video` → `references/footage-editing-ffmpeg.md`, `references/captions-talking-head.md`, `references/delivery-qa.md` |
+| Paid ads or boosting a post | `ad-creation` → `references/creative-strategy.md`, `references/meta-ads-creative.md`, `references/short-form-video-ugc.md` |
+| A posting pipeline that runs on a schedule in n8n or Make | `automation` → `references/automation-design.md`, `references/n8n.md`, `references/make.md` |
+
+## Go deeper (original skills)
+
+The guides above distil these. Open one when a part needs its full detail, read it as reference, and read any script before running it.
+
+| When you need | Original skill |
+|---|---|
+| X sub-skills for hook extraction from viral posts, replies and weekly plans | [x-marketing](https://github.com/sergebulaev/x-skills/tree/main) (MIT; publishing needs a Publora key) |
+| The full STEPPS framework applied to a campaign or feature | [contagious](https://github.com/wondelai/skills/tree/main/contagious) (MIT) |
+| Generating YouTube thumbnails with Higgsfield models | [higgsfield-youtube-thumbnail](https://github.com/higgsfield-ai/skills/tree/main/higgsfield-youtube-thumbnail) (MIT; paid credits; its commands weren't copied here) |
+| A self-hosted scheduler for 28+ channels, with analytics | [postiz](https://github.com/gitroomhq/postiz-agent/tree/main/skills/postiz) (no licence asserted: read only) |
 
 ## Default workflow
 

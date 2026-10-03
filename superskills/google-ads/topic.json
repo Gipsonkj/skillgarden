@@ -31,6 +31,11 @@
       "id": "t3",
       "prompt": "Our Google Ads conversions dropped 40% this week but spend is flat. What happened and what should we do?",
       "good": "Confirms the drop over complete days vs an equal prior window; splits by conversion action, campaign and device; checks tag/consent/landing page and offline upload health; checks change history (30-day limit) and conversion lag; separates tracking failure from real demand change; warns against pausing or re-bidding during diagnosis; gives a verification plan."
+    },
+    {
+      "id": "t4",
+      "prompt": "Launch Google Search ads for our UK payroll software for accountancy firms (£4,000 a month, goal: demo requests). Our demo page converts at 1.1%, so fix it to match the ads, and give the sales team a weekly dashboard of leads and cost per demo.",
+      "good": "States a short plan first: the build here (conversion-tracking.md first, then campaign-build.md, keywords-negatives.md, ad-copy-assets.md, bidding-budgets.md), the page through website-building (plan-and-copy.md, performance-cwv.md: headline echoes the ad and the query, one CTA, fast on mobile), the dashboard through data-analysis (dashboards-kpis.md: cost per demo defined with numerator, denominator and window). Fires a test demo conversion before launch; splits brand from non-brand; phrase and exact match with Maximize Conversions to start; RSA lines with counts shown; no change applied without an approved diff; checks the Done means of all three crafts."
     }
   ]
 }

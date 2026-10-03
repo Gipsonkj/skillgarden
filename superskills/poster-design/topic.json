@@ -26,6 +26,11 @@
       "id": "t3",
       "prompt": "Create a logo for 'Harbor', a calm budgeting app. Give me three concepts as SVG and tell me how you tested them.",
       "good": "Brief with adjectives and category clichés to avoid; three different mark types with one-sentence ideas; clean SVG (256 viewBox, paths not live text, exact angles, evenodd holes); tests at 16-32 px, one-colour and reversed, squint/mirror/rotation, distinctiveness; renders actually viewed; stops for the user's choice before building a full kit; trademark caveat."
+    },
+    {
+      "id": "t4",
+      "prompt": "Make the graphics for a small community film festival, 'Short Nights', 6-8 March at the Old Mill Cinema: generated key art with no lettering, an A3 print poster, and an Instagram post and story. We have no copy yet, so write a headline and a two-line blurb too.",
+      "good": "States a short plan first: key art through image-creation (prompting-fundamentals.md: a text-free prompt with empty space reserved for type, a few takes compared), the headline and blurb through content-creation (conversion-copy.md: specific and short, no invented claims), then the set here (ai-image-posters.md, print-and-academic-posters.md, banners-social.md). Type goes on as a separate layer; A3 at 297x420 mm with 3 mm bleed; 1080x1350 and 1080x1920 with story safe zones, layouts reflowed rather than scaled; one frozen style block across the set; every word checked; checks the Done means of all three crafts."
     }
   ]
 }

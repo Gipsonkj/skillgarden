@@ -31,6 +31,11 @@
       "id": "t3",
       "prompt": "We noticed that patients on drug X in our hospital records had fewer fractures. Help me turn this into hypotheses and a study I could actually run.",
       "good": "Freezes the observation and separates it from hypotheses; lists rival explanations (confounding by indication, selection, reverse causation, measurement artefact, chance); states the causal estimand; writes discriminating predictions with negative controls; proposes a fitting design such as target-trial emulation or an active-comparator new-user cohort, with sample size reasoning and pre-registration; bounds the literature check by date and databases; notes ethics approval."
+    },
+    {
+      "id": "t4",
+      "prompt": "Do a scoping review of studies from the last five years on how accurately consumer sleep trackers measure total sleep time against polysomnography, chart the reported mean bias per device, and turn it into a 12-slide editable deck for our department seminar.",
+      "good": "States a short plan first: the review here (literature-search.md, database-apis.md, literature-review.md, citations.md), the chart through data-analysis (visualization.md: chart picked from the question, title states the finding, uncertainty shown where studies report it), the deck through docs-office (deck-writing.md, powerpoint-pptx.md: assertion titles that pass the ghost-deck test, every slide rendered and checked). Searches at least two databases and logs queries, dates and counts; follows PRISMA-ScR; no pooled estimate without a proper meta-analysis plan; every study resolved and checked, preprints labelled, nothing invented; checks the Done means of all three crafts."
     }
   ]
 }

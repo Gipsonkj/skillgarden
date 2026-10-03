@@ -29,7 +29,6 @@
   --del: oklch(0.93 0.04 35);
   --tl: 34%;
   --tbg: 93%;
-  --grid: oklch(0.5 0.02 165 / 0.07);
   --glass: oklch(0.976 0.005 160 / 0.78);
   --shadow: 0 1px 2px oklch(0.2 0.02 165 / 0.06), 0 8px 24px -12px oklch(0.2 0.02 165 / 0.22);
   --shadow-lg: 0 2px 6px oklch(0.2 0.02 165 / 0.08), 0 30px 60px -24px oklch(0.2 0.02 165 / 0.35);
@@ -40,21 +39,6 @@
   --r: 10px;
   color-scheme: light;
 }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --ground: oklch(0.165 0.012 170); --surface: oklch(0.195 0.013 170); --raised: oklch(0.222 0.014 170);
-    --ink: oklch(0.945 0.008 160); --ink-2: oklch(0.77 0.015 160); --ink-3: oklch(0.6 0.015 160);
-    --line: oklch(0.32 0.014 170); --line-2: oklch(0.265 0.013 170);
-    --accent: oklch(0.79 0.12 165); --accent-ink: oklch(0.18 0.03 165); --accent-soft: oklch(0.31 0.05 165);
-    --bloom: oklch(0.83 0.12 80); --bloom-soft: oklch(0.32 0.05 80); --pollen: oklch(0.86 0.15 92);
-    --good: oklch(0.78 0.13 150); --good-soft: oklch(0.3 0.05 150); --bad: oklch(0.74 0.13 35); --bad-soft: oklch(0.3 0.05 35);
-    --tie: oklch(0.62 0.01 160); --add: oklch(0.3 0.05 150); --del: oklch(0.3 0.05 35); --tl: 76%; --tbg: 17%;
-    --grid: oklch(0.85 0.05 165 / 0.05); --glass: oklch(0.165 0.012 170 / 0.72);
-    --shadow: 0 1px 2px oklch(0 0 0 / 0.4), 0 10px 26px -12px oklch(0 0 0 / 0.6);
-    --shadow-lg: 0 2px 6px oklch(0 0 0 / 0.4), 0 34px 70px -26px oklch(0 0 0 / 0.8);
-    color-scheme: dark;
-  }
-}
 :root[data-theme="dark"] {
   --ground: oklch(0.165 0.012 170); --surface: oklch(0.195 0.013 170); --raised: oklch(0.222 0.014 170);
   --ink: oklch(0.945 0.008 160); --ink-2: oklch(0.77 0.015 160); --ink-3: oklch(0.6 0.015 160);
@@ -63,7 +47,7 @@
   --bloom: oklch(0.83 0.12 80); --bloom-soft: oklch(0.32 0.05 80); --pollen: oklch(0.86 0.15 92);
   --good: oklch(0.78 0.13 150); --good-soft: oklch(0.3 0.05 150); --bad: oklch(0.74 0.13 35); --bad-soft: oklch(0.3 0.05 35);
   --tie: oklch(0.62 0.01 160); --add: oklch(0.3 0.05 150); --del: oklch(0.3 0.05 35); --tl: 76%; --tbg: 17%;
-  --grid: oklch(0.85 0.05 165 / 0.05); --glass: oklch(0.165 0.012 170 / 0.72);
+  --glass: oklch(0.165 0.012 170 / 0.72);
   --shadow: 0 1px 2px oklch(0 0 0 / 0.4), 0 10px 26px -12px oklch(0 0 0 / 0.6);
   --shadow-lg: 0 2px 6px oklch(0 0 0 / 0.4), 0 34px 70px -26px oklch(0 0 0 / 0.8);
   color-scheme: dark;
@@ -93,7 +77,10 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .top-actions { display: flex; gap: 8px; align-items: center; }
 .tabs { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; border-bottom: 1px solid var(--line); margin-top: 14px; }
 .tabs::-webkit-scrollbar { display: none; }
-.sg-public .tab:not([data-view="explore"]), .sg-public #runNow { display: none !important; }
+.sg-public .tabs, .sg-public #runNow { display: none !important; }
+.sg-public .chrome { padding-bottom: 12px; }
+.pub-only { display: none !important; }
+.sg-public .pub-only { display: inline-flex !important; }
 .tab { appearance: none; background: none; border: 0; padding: 10px 12px 11px; font-weight: 560; color: var(--ink-2); cursor: pointer; white-space: nowrap; border-bottom: 2px solid transparent; margin-bottom: -1px; display: inline-flex; align-items: center; gap: 7px; }
 .tab:hover { color: var(--ink); }
 .tab[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); }
@@ -331,7 +318,6 @@ main { padding-top: 24px; }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 
 /* ---------- product shell ---------- */
-body { background-color: var(--ground); background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px); background-size: 48px 48px; background-attachment: fixed; }
 .app { max-width: 1240px; }
 .chrome { background: var(--glass); backdrop-filter: blur(14px) saturate(1.2); -webkit-backdrop-filter: blur(14px) saturate(1.2); margin-inline: -20px; padding-inline: 20px; border-bottom: 1px solid var(--line-2); }
 @media (max-width: 520px) { .chrome { margin-inline: -16px; padding-inline: 16px; } }
@@ -357,35 +343,25 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
 .icon-btn .dot:empty { display: none; }
 .btn { transition: background .15s var(--ease), border-color .15s var(--ease), transform .12s var(--ease); }
 .btn:active { transform: scale(.97); }
-.eyebrow { font: 500 11.5px/1.3 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+.eyebrow { font: 560 13px/1.35 var(--body); color: var(--ink-3); }
 
 /* ---------- explore: hero ---------- */
 .hero { display: grid; grid-template-columns: minmax(0, 1.02fr) minmax(0, 1fr); gap: 28px; align-items: stretch; margin: 8px 0 30px; }
 @media (max-width: 900px) { .hero { grid-template-columns: minmax(0, 1fr); } }
 .hero-copy { display: grid; align-content: center; gap: 18px; padding: 10px 0; }
 .hero h2 { font-size: clamp(34px, 5vw, 56px); line-height: 1.02; font-weight: 640; letter-spacing: -.025em; font-variation-settings: "opsz" 96; max-width: 15ch; }
-.hero h2 em { font-style: normal; color: var(--accent); }
 .hero .lede { font-size: 17px; color: var(--ink-2); max-width: 52ch; }
 .hero-ctas { display: flex; flex-wrap: wrap; gap: 10px; }
 .btn.lg { padding: 11px 18px; font-size: 15px; border-radius: 10px; }
-.readout { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border: 1px solid var(--line); border-radius: 12px; background: var(--raised); overflow: hidden; }
-.readout div { padding: 12px 14px; border-left: 1px solid var(--line-2); min-width: 0; }
-.readout div:first-child { border-left: 0; }
-.readout b { display: block; font: 600 24px/1.1 var(--display); font-variant-numeric: tabular-nums; }
-.readout span { font: 500 10.5px/1.3 var(--mono); letter-spacing: .07em; text-transform: uppercase; color: var(--ink-3); }
-@media (max-width: 520px) { .readout { grid-template-columns: repeat(2, minmax(0, 1fr)); } .readout div:nth-child(3) { border-left: 0; } .readout div:nth-child(n+3) { border-top: 1px solid var(--line-2); } }
+.hero-stats { color: var(--ink-2); font-size: 14.5px; }
+.hero-stats b { color: var(--ink); font-weight: 650; font-variant-numeric: tabular-nums; }
 .hero-art { position: relative; min-height: 380px; border-radius: 18px; border: 1px solid var(--line); background: radial-gradient(120% 90% at 50% 100%, var(--accent-soft), transparent 62%), var(--raised); overflow: hidden; box-shadow: var(--shadow); }
 .hero-art canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; cursor: crosshair; }
 .garden-cap { position: absolute; left: 16px; top: 14px; right: 16px; display: flex; justify-content: space-between; gap: 10px; pointer-events: none; }
 .garden-cap strong { font: 620 16px var(--display); display: block; }
-.garden-cap .eyebrow { display: block; margin-bottom: 3px; }
+.garden-cap .eyebrow { display: block; margin-bottom: 2px; }
 .garden-cap .r { text-align: right; }
 
-.steps3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; margin-bottom: 34px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-.steps3 > div { padding: 16px 18px 18px 0; display: grid; gap: 4px; align-content: start; }
-.steps3 > div + div { padding-left: 18px; border-left: 1px solid var(--line-2); }
-.steps3 b { font: 620 16px var(--display); }
-.steps3 p { color: var(--ink-2); font-size: 14px; }
 .ex-sec { margin: 0 0 34px; display: grid; gap: 14px; }
 .ex-sec > header h2 { font-size: 22px; }
 .ex-sec > header p { color: var(--ink-2); font-size: 14px; max-width: 70ch; }
@@ -407,7 +383,6 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
 .credit-links { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 13.5px; }
 .credit-links a, .credit-links span { overflow-wrap: anywhere; }
 .credits { list-style: none; margin: 0; padding: 0; }
-@media (max-width: 720px) { .steps3 { grid-template-columns: minmax(0, 1fr); } .steps3 > div + div { padding-left: 0; border-left: 0; border-top: 1px solid var(--line-2); } }
 
 .ex-bar { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; justify-content: space-between; margin-bottom: 16px; padding: 10px 0; }
 .ex-bar h2 { font-size: 24px; }
@@ -416,23 +391,24 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
 .ex-search input:focus { outline: 2px solid var(--accent); outline-offset: 0; border-color: transparent; }
 .ex-search svg { position: absolute; left: 11px; top: 50%; translate: 0 -50%; width: 15px; height: 15px; color: var(--ink-3); }
 .cat-row { display: flex; flex-wrap: wrap; gap: 6px; }
+.bed + .bed { margin-top: 30px; }
+.bed > h3 { font-size: 17px; font-weight: 640; margin-bottom: 12px; display: flex; align-items: baseline; gap: 10px; }
+.bed > h3 span { font: 400 13.5px var(--body); color: var(--ink-3); }
 
 /* topic cards */
 .tgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(268px, 1fr)); gap: 14px; }
 .tcard { --h: 165; appearance: none; text-align: left; position: relative; display: grid; gap: 10px; align-content: start; padding: 18px 18px 16px; border-radius: 14px; border: 1px solid var(--line); background: var(--raised); cursor: pointer; color: inherit; min-width: 0; overflow: hidden; transition: transform .25s var(--ease), border-color .2s var(--ease), box-shadow .25s var(--ease); }
-.tcard::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 3px; background: hsl(var(--h) 55% 50%); opacity: .75; transform: scaleX(.18); transform-origin: left; transition: transform .35s var(--ease); }
-@media (hover: hover) { .tcard:hover { transform: translateY(-2px); border-color: hsl(var(--h) 40% 55% / .6); box-shadow: var(--shadow-lg); } .tcard:hover::before { transform: scaleX(1); } }
-.tc-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
-.tc-head .eyebrow { color: hsl(var(--h) 45% var(--tl)); }
+@media (hover: hover) { .tcard:hover { transform: translateY(-2px); border-color: hsl(var(--h) 40% 55% / .6); box-shadow: var(--shadow-lg); } }
+.tcard:active { transform: none; }
+.tc-head { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--ink-3); }
+.tc-head i { width: 9px; height: 9px; border-radius: 50%; background: hsl(var(--h) 55% 50%); flex: none; }
 .tcard h3 { font-size: 19px; }
 .tcard p { color: var(--ink-2); font-size: 13.5px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.tc-top { font-size: 13px; color: var(--ink-3); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.tc-meta { display: flex; gap: 16px; padding-top: 10px; border-top: 1px solid var(--line-2); margin: 0; }
-.tc-meta div { display: grid; gap: 1px; }
-.tc-meta dt { font: 500 10px var(--mono); text-transform: uppercase; letter-spacing: .07em; color: var(--ink-3); }
-.tc-meta dd { margin: 0; font: 600 15px var(--display); font-variant-numeric: tabular-nums; }
-.tc-meta dd.pol { color: var(--bloom); }
-.spark { display: block; width: 100%; height: 26px; }
+.tc-top { list-style: none; margin: 0; padding: 10px 0 0; border-top: 1px solid var(--line-2); display: grid; gap: 3px; font-size: 13.5px; }
+.tc-top li { display: flex; gap: 8px; min-width: 0; }
+.tc-top li span { flex: none; width: 1.2em; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+.tc-top li b { font-weight: 560; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+.tc-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; font-size: 13px; color: var(--ink-3); }
 .foot-note { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--line-2); color: var(--ink-3); font-size: 13px; max-width: 80ch; }
 
 /* ---------- topic page ---------- */
@@ -447,13 +423,13 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
 .t-stats { display: flex; gap: 22px; }
 .t-stats div { display: grid; }
 .t-stats b { font: 620 28px/1 var(--display); font-variant-numeric: tabular-nums; }
-.t-stats span { font: 500 10.5px var(--mono); letter-spacing: .07em; text-transform: uppercase; color: var(--ink-3); margin-top: 4px; }
+.t-stats span { font-size: 13px; color: var(--ink-3); margin-top: 4px; }
 
 .super { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 0; border: 1px solid var(--line); border-radius: 16px; background: var(--raised); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 34px; }
 @media (max-width: 900px) { .super { grid-template-columns: minmax(0, 1fr); } }
 .super-main { padding: 22px 24px; display: grid; gap: 14px; align-content: start; min-width: 0; }
 .super-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
-.badge { display: inline-flex; align-items: center; gap: 6px; font: 600 11.5px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; padding: 5px 9px; border-radius: 6px; background: var(--accent); color: var(--accent-ink); }
+.badge { display: inline-flex; align-items: center; gap: 6px; font: 620 12.5px/1 var(--body); padding: 5px 9px; border-radius: 6px; background: var(--accent); color: var(--accent-ink); }
 .super-main h3 { font: 600 22px var(--mono); letter-spacing: -.02em; }
 .super-main .desc { color: var(--ink-2); font-size: 14.5px; max-width: 70ch; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
 .caps { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 6px; }
@@ -479,7 +455,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
 .specimen b { font-weight: 600; color: var(--ink); }
 .specimen span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .specimen.lock { border-style: dashed; }
-.pol-tag { display: inline-flex; align-items: center; gap: 5px; font: 600 11px/1 var(--mono); letter-spacing: .04em; text-transform: uppercase; padding: 4px 7px; border-radius: 99px; background: var(--bloom-soft); color: var(--bloom); }
+.pol-tag { display: inline-flex; align-items: center; gap: 5px; font: 600 12px/1 var(--body); padding: 4px 8px; border-radius: 99px; background: var(--bloom-soft); color: var(--bloom); }
 .pol-tag::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--pollen); box-shadow: 0 0 0 3px oklch(0.85 0.15 90 / .25); }
 
 .subs-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 10px 16px; margin-bottom: 12px; }
@@ -503,14 +479,14 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
 /* ---------- overlays: drawer, sheet, palette ---------- */
 .scrim { position: fixed; inset: 0; z-index: 30; background: oklch(0.15 0.02 165 / .38); backdrop-filter: blur(3px); opacity: 0; pointer-events: none; transition: opacity .25s var(--ease); }
 .scrim.on { opacity: 1; pointer-events: auto; }
-.drawer { position: fixed; z-index: 31; top: 0; right: 0; bottom: 0; width: min(720px, 100vw); background: var(--ground); border-left: 1px solid var(--line); box-shadow: var(--shadow-lg); transform: translateX(104%); transition: transform .32s var(--ease); display: grid; grid-template-rows: auto minmax(0, 1fr); }
-.drawer.on { transform: none; }
+.drawer { position: fixed; z-index: 31; top: 0; right: 0; bottom: 0; width: min(720px, 100vw); background: var(--ground); border-left: 1px solid var(--line); box-shadow: var(--shadow-lg); transform: translateX(104%); visibility: hidden; transition: transform .32s var(--ease), visibility 0s .32s; display: grid; grid-template-rows: auto minmax(0, 1fr); }
+.drawer.on { transform: none; visibility: visible; transition: transform .32s var(--ease); }
 .drawer-head { display: flex; gap: 12px; align-items: start; justify-content: space-between; padding: 18px 22px 14px; border-bottom: 1px solid var(--line); background: var(--raised); }
 .drawer-head h3 { font-size: 21px; overflow-wrap: anywhere; }
 .drawer-body { overflow-y: auto; padding: 18px 22px 40px; display: grid; gap: 16px; align-content: start; }
 .drawer-body .reader { max-width: none; }
 .prov { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 7px 16px; margin: 0; font-size: 13.5px; padding: 14px 16px; border: 1px solid var(--line); border-radius: 12px; background: var(--raised); }
-.prov dt { font: 500 10.5px/1.9 var(--mono); text-transform: uppercase; letter-spacing: .07em; color: var(--ink-3); }
+.prov dt { font: 500 12.5px/1.75 var(--body); color: var(--ink-3); }
 .prov dd { margin: 0; overflow-wrap: anywhere; }
 .files-mini { display: flex; flex-wrap: wrap; gap: 5px; }
 .files-mini span { font: 11.5px var(--mono); padding: 2px 6px; border-radius: 4px; background: var(--line-2); color: var(--ink-2); }
@@ -526,7 +502,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
 .sheet-head p { color: var(--ink-3); font-size: 13px; margin-top: 2px; }
 .sheet ul { list-style: none; margin: 0; padding: 0 10px; overflow-y: auto; }
 .sheet li { display: flex; align-items: center; gap: 10px; padding: 9px 8px; border-top: 1px solid var(--line-2); }
-.sheet li .k { font: 500 10px var(--mono); text-transform: uppercase; letter-spacing: .07em; color: var(--ink-3); width: 46px; flex: none; }
+.sheet li .k { font: 500 12px var(--body); color: var(--ink-3); width: 46px; flex: none; }
 .sheet li strong { font-weight: 600; font-size: 14px; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .sheet-foot { padding: 12px 18px 16px; border-top: 1px solid var(--line); display: flex; gap: 8px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
 
@@ -536,7 +512,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
 .pal-list { max-height: min(420px, 60vh); overflow-y: auto; padding: 6px; margin: 0; list-style: none; }
 .pal-list li { display: flex; align-items: center; gap: 12px; padding: 9px 12px; border-radius: 9px; cursor: pointer; min-width: 0; }
 .pal-list li[aria-selected="true"] { background: var(--accent-soft); }
-.pal-list .k { font: 500 10px var(--mono); text-transform: uppercase; letter-spacing: .07em; color: var(--ink-3); width: 62px; flex: none; }
+.pal-list .k { font: 500 12px var(--body); color: var(--ink-3); width: 62px; flex: none; }
 .pal-list strong { font-weight: 600; font-size: 14.5px; white-space: nowrap; }
 .pal-list span.d { color: var(--ink-3); font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
 .pal-foot { display: flex; gap: 14px; padding: 9px 14px; border-top: 1px solid var(--line-2); font-size: 12px; color: var(--ink-3); }
@@ -561,6 +537,8 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
       </span>
     </button>
     <div class="top-actions">
+      <a class="btn ghost small pub-only" href="/#install">Install</a>
+      <a class="btn ghost small pub-only" href="https://github.com/Gipsonkj/skillgarden" target="_blank" rel="noopener noreferrer">GitHub</a>
       <button class="search-btn" data-act="palette" aria-label="Search skills"><svg viewBox="0 0 20 20" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="9" cy="9" r="6"/><path d="m14 14 4 4" stroke-linecap="round"/></svg><span>Search skills, crafts, actions</span><kbd>⌘K</kbd></button>
       <button class="icon-btn" data-act="theme" aria-label="Switch light or dark"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="10" cy="10" r="7"/><path d="M10 3a7 7 0 0 0 0 14z" fill="currentColor"/></svg></button>
       <button class="btn small" id="runNow" data-act="run-now" hidden>Run scout now</button>
@@ -585,7 +563,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
 <button class="bundle-fab" id="bundleFab" data-act="bundle-open" hidden><svg viewBox="0 0 20 20" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M3 6.5 10 3l7 3.5v7L10 17l-7-3.5z"/><path d="M3 6.5 10 10l7-3.5M10 10v7"/></svg>Your bundle <b id="bundleCount">0</b></button>
 <section class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="Your bundle" aria-hidden="true"></section>
 <div class="palette" id="palette" role="dialog" aria-modal="true" aria-label="Search" aria-hidden="true">
-  <input id="palInput" type="text" placeholder="Search 29 crafts and 700+ skills…" autocomplete="off" spellcheck="false" role="combobox" aria-expanded="true" aria-controls="palList">
+  <input id="palInput" type="text" placeholder="Search crafts and skills…" autocomplete="off" spellcheck="false" role="combobox" aria-expanded="true" aria-controls="palList">
   <ul class="pal-list" id="palList" role="listbox"></ul>
   <div class="pal-foot"><span><kbd>↑</kbd> <kbd>↓</kbd> move</span><span><kbd>↵</kbd> open</span><span><kbd>esc</kbd> close</span></div>
 </div>
@@ -822,7 +800,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
     const ci = $("#c-inbox"); ci.textContent = needs ? String(needs) : ""; ci.className = "count" + (needs ? " hot" : "");
     $("#c-skills").textContent = S.topics.length ? String(S.topics.filter((t) => t.active !== false).length) : "";
     const st = $("#status");
-    if (window.SG_PUBLIC) { const n = crafts().length, k = crafts().reduce((a, c) => a + c.skills.length, 0); st.textContent = n ? `${n} super skills · ${k} ranked sub-skills · refreshed weekly` : "Opening the garden…"; }
+    if (window.SG_PUBLIC) { const n = crafts().length, k = crafts().reduce((a, c) => a + c.skills.length, 0); st.textContent = n ? `${n} super skills, ${k} ranked sub-skills, refreshed weekly` : "Opening the garden…"; }
     else if (!S.db) { st.textContent = S.dbMissing ? "Sign in to claude.ai to open your garden." : "Opening the garden…"; }
     else {
       const run = runningRun();
@@ -994,7 +972,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
       if (S.newTopicOpen && sk.dataset.mode === "grid") { updateNewTopicOnly(); return; }
       sk.dataset.mode = "grid";
       const cards = S.topics.map(topicCard).join("");
-      sk.innerHTML = `<div class="section-head"><div><h2>Your super skills</h2><p>The same 29 crafts as Explore, seen from the workshop side: edit each super skill, set its tests and sources, and see every version. Explore is where you browse and download them.</p></div><div class="row-actions">${S.topics.length ? `<button class="btn" data-act="download-all">Download all</button>` : ""}</div></div>
+      sk.innerHTML = `<div class="section-head"><div><h2>Your super skills</h2><p>The same crafts as Explore, seen from the workshop side: edit each super skill, set its tests and sources, and see every version. Explore is where you browse and download them.</p></div><div class="row-actions">${S.topics.length ? `<button class="btn" data-act="download-all">Download all</button>` : ""}</div></div>
         ${loadingOr("topics", `<div class="grid-topics">${cards}${S.newTopicOpen ? newTopicForm() : `<button class="topic-card add-card" data-act="new-topic"${S.canWrite ? "" : " disabled"}><strong>Add a topic</strong><span>Name it, link your Instagram collection, and the scout drafts v1 tomorrow.</span></button>`}</div>`)}`;
       return;
     }
@@ -1698,7 +1676,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
   // sub-skills. The super skill's live text comes from the topics collection, so a generation
   // approved in Review is what people download.
   const CATS = [
-    { id: "build", name: "Build", ids: ["website-building", "app-building", "frontend-ui-design", "backend-databases", "cloud-devops", "coding-practices", "testing-qa", "security"] },
+    { id: "build", name: "Build", ids: ["website-building", "app-building", "frontend-ui-design", "figma-design", "backend-databases", "cloud-devops", "coding-practices", "testing-qa", "security"] },
     { id: "agents", name: "Agents & automation", ids: ["ai-agents", "automation", "claude-meta"] },
     { id: "create", name: "Create", ids: ["poster-design", "motion-animation", "ai-video", "audio-generation", "image-creation", "storyboarding", "content-creation"] },
     { id: "grow", name: "Grow", ids: ["social-media", "instagram-automation", "linkedin-automation", "ad-creation", "google-ads", "seo"] },
@@ -1738,7 +1716,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
     const el = $("#ex"); if (!el) return;
     if (!EX.catalogTried) loadCatalog();
     const list = crafts();
-    if (!list.length) { setHTML(el, (!EX.catalogTried || !S.loaded.topics) && !S.dbMissing ? `<p class="skeleton">Loading the catalog…</p>` : `<div class="empty"><h3>No crafts yet</h3><p>Run the local app from the SkillGarden folder so the catalog of 29 crafts can load, or import super skills with <code>node local/import-superskills.mjs</code>.</p></div>`); return; }
+    if (!list.length) { setHTML(el, (!EX.catalogTried || !S.loaded.topics) && !S.dbMissing ? `<p class="skeleton">Loading the catalog…</p>` : `<div class="empty"><h3>No crafts yet</h3><p>Run the local app from the SkillGarden folder so the catalog of crafts can load, or import super skills with <code>node local/import-superskills.mjs</code>.</p></div>`); return; }
     const ch = EX.chain && (EX.chains || []).find((x) => x.id === EX.chain);
     if (ch) { if (el.dataset.mode !== "chain:" + ch.id) { el.dataset.mode = "chain:" + ch.id; el._h = null; window.scrollTo({ top: 0 }); } setHTML(el, chainPage(ch)); return; }
     const c = EX.topic && craftById(EX.topic);
@@ -1757,7 +1735,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
     const list = EX.chains || [];
     if (!list.length) return "";
     return `<section class="ex-sec"><header><h2>Chains</h2><p>One ask runs several crafts in order. "Run a campaign" does the research, angles, hooks, posts, ads and test plan, each step with the guide made for it.</p></header>
-      <div class="chain-grid">${list.map((x) => `<button class="chain-card" data-act="ex-chain" data-id="${esc(x.id)}"><span class="eyebrow">Chain · ${plural(x.steps.length, "step")}</span><h3>${esc(x.name)}</h3><p>${esc(x.blurb || "")}</p>
+      <div class="chain-grid">${list.map((x) => `<button class="chain-card" data-act="ex-chain" data-id="${esc(x.id)}"><span class="eyebrow">${plural(x.steps.length, "step")}</span><h3>${esc(x.name)}</h3><p>${esc(x.blurb || "")}</p>
         <div class="chain-path">${[...new Set(x.steps.map((st) => st.craft))].map((id) => esc(craftName(id))).join(" <span aria-hidden=\"true\">→</span> ")}</div></button>`).join("")}</div></section>`;
   }
   function chainPage(x) {
@@ -1765,7 +1743,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
     const missing = crafts.filter((id) => { const c = craftById(id); return !c || !c.live; });
     return `<nav class="crumbs" aria-label="Breadcrumb"><button data-act="ex-home">Explore</button><span aria-hidden="true">/</span><span>Chains</span><span aria-hidden="true">/</span><span>${esc(x.name)}</span></nav>
     <header class="t-hero reveal" style="--h:150">
-      <div><span class="eyebrow">Chain · ${plural(x.steps.length, "step")} · ${plural(crafts.length, "craft")}</span><h2>${esc(x.name)}</h2><p class="lede">${esc(x.blurb || "")}</p></div>
+      <div><span class="eyebrow">Chain</span><h2>${esc(x.name)}</h2><p class="lede">${esc(x.blurb || "")}</p></div>
       <div class="t-stats"><div><b>${x.steps.length}</b><span>Steps</span></div><div><b>${crafts.length}</b><span>Crafts</span></div></div>
     </header>
     <section class="super reveal">
@@ -1774,7 +1752,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
         <p class="desc">${esc(x.description || "")}</p>
         <div class="row-actions"><button class="btn primary" data-act="dl-chain" data-id="${esc(x.id)}"${missing.length ? " disabled" : ""}>Download chain + its ${crafts.length} super skills (.zip)</button></div>
         <ol class="chain-steps">${x.steps.map((st) => `<li><div><h4>${esc(st.title)}</h4><p>${esc(st.output || "")}</p>
-          <div class="caps">${st.uses.map((u) => `<button class="cap" data-act="pv-ref" data-id="${esc(u.craft)}" data-path="${esc(u.guide)}"><i></i><span>${esc(craftName(u.craft))} · ${esc(humanRef(u.guide))}</span></button>`).join("")}</div></div></li>`).join("")}</ol>
+          <div class="caps">${st.uses.map((u) => `<button class="cap" data-act="pv-ref" data-id="${esc(u.craft)}" data-path="${esc(u.guide)}"><i></i><span>${esc(craftName(u.craft))}: ${esc(humanRef(u.guide))}</span></button>`).join("")}</div></div></li>`).join("")}</ol>
       </div>
       <aside class="install">
         <h4>Use it</h4>
@@ -1813,53 +1791,43 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
     const skills = list.reduce((a, c) => a + c.skills.length, 0);
     const dl = list.reduce((a, c) => a + c.skills.filter((s) => s.local).length, 0);
     const tr = list.reduce((a, c) => a + c.skills.filter((s) => s.trending).length, 0);
-    return [[list.length, "Crafts"], [skills || list.reduce((a, c) => a + refsOf(c).length, 0), skills ? "Ranked skills" : "Capabilities"], [dl || list.filter((c) => c.live).length, dl ? "Downloadable" : "Super skills"], [tr, "Trending now"]]
-      .map(([n, l]) => `<div><b>${n}</b><span>${l}</span></div>`).join("");
+    if (!skills) return `<b>${list.length}</b> crafts, <b>${list.reduce((a, c) => a + refsOf(c).length, 0)}</b> guides.`;
+    return `<b>${list.length}</b> crafts, <b>${skills}</b> ranked skills, <b>${dl}</b> you can download${tr ? `, <b>${tr}</b> trending this week` : ""}.`;
   }
   function homeShell(list) {
     return `<section class="hero reveal">
       <div class="hero-copy">
-        <p class="eyebrow">Re-scouted every week · ranked by stars, installs and expert lists</p>
-        <h2>One <em>super skill</em> for every craft Claude works in.</h2>
-        <p class="lede">Each craft bundles the best public skills into one router. Install it once, ask in plain words, and Claude opens the right technique for the job. Every sub-skill is here too, ranked and credited to its author.</p>
+        <h2>One super skill for every craft Claude works in.</h2>
+        <p class="lede">Each craft bundles the best public skills into one router. Install it once, ask in plain words, and Claude opens the right technique for the job. Every sub-skill is here too, ranked and credited to its author, and the list is re-scouted every week.</p>
         <div class="hero-ctas"><button class="btn primary lg" data-act="ex-scroll">Browse the crafts</button><button class="btn lg" data-act="dl-all-super">Download all super skills</button></div>
-        <div class="readout" id="exStats"></div>
+        <p class="hero-stats" id="exStats"></p>
       </div>
       <div class="hero-art" id="gardenWrap"><canvas id="garden" aria-label="Garden of crafts. Each stem is one craft; taller stems have more ranked skills." role="img"></canvas>
-        <div class="garden-cap" aria-hidden="true"><div><span class="eyebrow" id="gcEye">The garden · ${list.length} crafts</span><strong id="gcName">Point at a stem</strong></div><div class="r"><span class="eyebrow">Skills</span><strong id="gcNum" class="mono" style="font-size:16px">—</strong></div></div>
+        <div class="garden-cap" aria-hidden="true"><div><span class="eyebrow" id="gcEye">${list.length} crafts</span><strong id="gcName">Point at a stem</strong></div><div class="r"><span class="eyebrow">Skills</span><strong id="gcNum" class="mono" style="font-size:16px">—</strong></div></div>
       </div>
     </section>
-    <section class="steps3">
-      <div><span class="eyebrow">01</span><b>Pick a craft</b><p>Website building, motion, ads, data… 29 of them, each with its sub-skills ranked best first.</p></div>
-      <div><span class="eyebrow">02</span><b>Install one super skill</b><p>Unzip it into <code class="mono">~/.claude/skills</code>, or upload it in claude.ai. It works in any session.</p></div>
-      <div><span class="eyebrow">03</span><b>Ask in plain words</b><p>The router reads only the guide your task needs, so Claude gets the best technique without the clutter.</p></div>
-    </section>
-    <div id="exChains"></div>
     <div class="ex-bar" id="crafts"><h2>Crafts</h2><div class="cat-row" id="exCats"></div><label class="ex-search"><span class="sr">Filter crafts</span><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="9" cy="9" r="6"/><path d="m14 14 4 4" stroke-linecap="round"/></svg><input id="exq" type="search" placeholder="Filter crafts and skills" value="${esc(EX.q)}"></label></div>
-    <div class="tgrid" id="exGrid"></div>
-    <div id="exFeed" style="margin-top:34px"></div>
+    <div id="exGrid"></div>
+    <div id="exChains" style="margin-top:44px"></div>
+    <div id="exFeed"></div>
     <p class="foot-note">Every skill keeps its author's license. Sub-skills are credited to their repositories; skills with a non-commercial license or no reuse license are linked to their source, never redistributed. Scripts from third parties are copied as they are: read them before you run them.</p>`;
   }
-  function sparkSvg(c) {
-    const top = c.skills.slice(0, 12).map((s) => Math.log10(N(s.stars) + 10));
-    if (!top.length) return "";
-    const mx = Math.max(...top), w = 240, h = 26, bw = w / 12;
-    return `<svg class="spark" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" aria-hidden="true">${top.map((v, i) => { const bh = Math.max(2, (v / mx) * (h - 2)); return `<rect x="${(i * bw + 1).toFixed(1)}" y="${(h - bh).toFixed(1)}" width="${(bw - 3).toFixed(1)}" height="${bh.toFixed(1)}" rx="1.5" fill="hsl(${N(c.hue)} 50% 50% / ${(0.85 - i * 0.05).toFixed(2)})"/>`; }).join("")}</svg>`;
+  function cardHtml(c, showCat) {
+    const refs = refsOf(c).length, tr = c.skills.filter((s) => s.trending).length;
+    return `<button class="tcard" data-act="ex-topic" data-id="${esc(c.id)}" style="--h:${N(c.hue)}">
+        ${showCat ? `<div class="tc-head"><i aria-hidden="true"></i>${esc(catOf(c.id).name)}</div>` : ""}
+        <h3>${esc(c.name)}</h3><p>${esc(c.blurb || "")}</p>
+        ${c.skills.length ? `<ol class="tc-top" aria-label="Top skills">${c.skills.slice(0, 3).map((s, i) => `<li><span>${i + 1}</span><b>${esc(s.name)}</b></li>`).join("")}</ol>` : ""}
+        <div class="tc-foot"><span>${plural(refs, "guide")}, ${plural(c.skills.length, "skill")}</span>${tr ? `<span class="pill bloom">${tr} trending</span>` : ""}</div>
+      </button>`;
   }
   function gridHtml(list) {
     const q = EX.q.trim().toLowerCase();
     const shown = list.filter((c) => (EX.cat === "all" || catOf(c.id).id === EX.cat) && (!q || [c.name, c.blurb, ...c.skills.map((s) => s.name + " " + s.purpose)].join(" ").toLowerCase().includes(q)));
-    if (!shown.length) return `<div class="empty" style="grid-column:1/-1"><h3>Nothing matches “${esc(EX.q)}”</h3><p>Try a broader word, or press <kbd>⌘K</kbd> to search every skill.</p></div>`;
-    return shown.map((c) => {
-      const refs = refsOf(c).length, tr = c.skills.filter((s) => s.trending).length;
-      return `<button class="tcard" data-act="ex-topic" data-id="${esc(c.id)}" style="--h:${N(c.hue)}">
-        <div class="tc-head"><span class="eyebrow">${esc(catOf(c.id).name)}</span><span class="mono muted">${String(c.order).padStart(2, "0")}</span></div>
-        <h3>${esc(c.name)}</h3><p>${esc(c.blurb || "")}</p>
-        ${sparkSvg(c)}
-        ${c.skills.length ? `<div class="tc-top">Top: ${c.skills.slice(0, 3).map((s) => esc(s.name)).join(" · ")}</div>` : ""}
-        <dl class="tc-meta"><div><dt>Guides</dt><dd>${refs || "—"}</dd></div><div><dt>Sub-skills</dt><dd>${c.skills.length || "—"}</dd></div><div><dt>Trending</dt><dd class="${tr ? "pol" : ""}">${tr}</dd></div>${c.live ? `<div><dt>Version</dt><dd>v${N(c.live.version)}</dd></div>` : ""}</dl>
-      </button>`;
-    }).join("");
+    if (!shown.length) return `<div class="empty"><h3>Nothing matches “${esc(EX.q)}”</h3><p>Try a broader word, or press <kbd>⌘K</kbd> to search every skill.</p></div>`;
+    if (q || EX.cat !== "all") return `<div class="tgrid">${shown.map((c) => cardHtml(c, true)).join("")}</div>`;
+    return CATS.map((k) => { const cs = shown.filter((c) => catOf(c.id).id === k.id); return cs.length ? `<section class="bed"><h3>${esc(k.name)} <span>${plural(cs.length, "craft")}</span></h3><div class="tgrid">${cs.map((c) => cardHtml(c)).join("")}</div></section>` : ""; }).join("")
+      + (shown.some((c) => catOf(c.id).id === "other") ? `<section class="bed"><h3>More</h3><div class="tgrid">${shown.filter((c) => catOf(c.id).id === "other").map((c) => cardHtml(c)).join("")}</div></section>` : "");
   }
 
   function specimen(s) {
@@ -1886,12 +1854,12 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
       : `<div class="code">Use the ${esc(c.id)} skill: &lt;your task&gt;<button class="cp" data-act="copy-text" data-text="Use the ${esc(c.id)} skill: ">Copy</button></div><ol><li>Claude also picks it up without the name when the task matches its description.</li><li>To steer it, name a guide: “use ${esc(c.id)}, ${esc(refs[0] ? humanRef(refs[0]).toLowerCase() : "the main guide")}”.</li></ol>`;
     return `<nav class="crumbs" aria-label="Breadcrumb"><button data-act="ex-home">Explore</button><span aria-hidden="true">/</span><button data-act="ex-cat-home" data-id="${cat.id}">${esc(cat.name)}</button><span aria-hidden="true">/</span><span>${esc(c.name)}</span></nav>
     <header class="t-hero reveal" style="--h:${N(c.hue)}">
-      <div><span class="eyebrow">${esc(cat.name)} · craft ${String(c.order).padStart(2, "0")}</span><h2>${esc(c.name)}</h2><p class="lede">${esc(c.blurb || "")}</p></div>
-      <div class="t-stats"><div><b>${refs.length}</b><span>Guides</span></div><div><b>${c.skills.length}</b><span>Sub-skills</span></div><div><b>${tr}</b><span>Trending</span></div></div>
+      <div><span class="eyebrow">${esc(cat.name)}</span><h2>${esc(c.name)}</h2><p class="lede">${esc(c.blurb || "")}</p></div>
+      <div class="t-stats"><div><b>${refs.length}</b><span>Guides</span></div><div><b>${c.skills.length}</b><span>Sub-skills</span></div>${tr ? `<div><b>${tr}</b><span>Trending</span></div>` : ""}</div>
     </header>
     ${t || c.superskill ? `<section class="super reveal">
       <div class="super-main">
-        <div class="super-head"><span class="badge">Super skill</span>${t ? `<span class="mono muted">v${N(t.version)} · updated ${esc(ago(t.updatedAt) || "—")}</span>` : ""}</div>
+        <div class="super-head"><span class="badge">Super skill</span>${t ? `<span class="muted" style="font-size:13px">Version ${N(t.version)}${t.updatedAt ? `, updated ${esc(ago(t.updatedAt))}` : ""}</span>` : ""}</div>
         <h3>${esc(c.id)}</h3>
         <p class="desc">${esc(desc)}</p>
         <div class="row-actions">
@@ -1899,7 +1867,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
           <button class="btn${inBundle("super", c.id) ? " added" : ""}" data-act="bundle-toggle" data-kind="super" data-topic="${esc(c.id)}"${t ? "" : " disabled"}>${inBundle("super", c.id) ? "In your bundle" : "Add to bundle"}</button>
           <button class="btn ghost" data-act="pv-router" data-id="${esc(c.id)}"${t ? "" : " disabled"}>Read the router</button>
         </div>
-        ${refs.length ? `<div><p class="eyebrow" style="margin-bottom:8px">What it can do · open any guide</p><div class="caps">${refs.map((r) => `<button class="cap" data-act="pv-ref" data-id="${esc(c.id)}" data-path="${esc(r)}" title="${esc(refTitle(c, r))}"><i></i><span>${esc(refTitle(c, r).split(/[:(]| — | - /)[0].trim())}</span></button>`).join("")}</div></div>` : ""}
+        ${refs.length ? `<div><p class="eyebrow" style="margin-bottom:8px">What it can do. Open any guide to read it.</p><div class="caps">${refs.map((r) => `<button class="cap" data-act="pv-ref" data-id="${esc(c.id)}" data-path="${esc(r)}" title="${esc(refTitle(c, r))}"><i></i><span>${esc(refTitle(c, r).split(/[:(]| — | - /)[0].trim())}</span></button>`).join("")}</div></div>` : ""}
         ${t ? "" : `<p class="muted">Import the super skills into this app to download them: <code class="mono">node local/import-superskills.mjs</code></p>`}
       </div>
       <aside class="install">
@@ -2055,7 +2023,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
   window.addEventListener("hashchange", onHash);
 
   function toggleTheme() {
-    const cur = document.documentElement.dataset.theme || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    const cur = document.documentElement.dataset.theme || "light";
     const next = cur === "dark" ? "light" : "dark";
     document.documentElement.dataset.theme = next; store.set("theme", next); gardenColors = null;
   }
@@ -2070,7 +2038,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
     let W = 0, H = 0, hover = -1, raf = 0;
     const seeds = Array.from({ length: 26 }, (_, i) => ({ x: Math.random(), y: Math.random(), r: 0.6 + Math.random() * 1.6, v: 0.00004 + Math.random() * 0.00008, p: i }));
     const size = () => { const r = cv.getBoundingClientRect(), d = Math.min(2, devicePixelRatio || 1); W = r.width; H = r.height; cv.width = W * d; cv.height = H * d; ctx.setTransform(d, 0, 0, d, 0, 0); if (still) draw(0); };
-    const colors = () => { if (gardenColors) return gardenColors; const cs = getComputedStyle(document.documentElement); const g = (n) => cs.getPropertyValue(n).trim(); return (gardenColors = { accent: g("--accent"), ink3: g("--ink-3"), line: g("--line"), pollen: g("--pollen"), dark: (document.documentElement.dataset.theme || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")) === "dark" }); };
+    const colors = () => { if (gardenColors) return gardenColors; const cs = getComputedStyle(document.documentElement); const g = (n) => cs.getPropertyValue(n).trim(); return (gardenColors = { accent: g("--accent"), ink3: g("--ink-3"), line: g("--line"), pollen: g("--pollen"), dark: document.documentElement.dataset.theme === "dark" }); };
     const stems = () => crafts().map((c) => ({ id: c.id, name: c.name, n: c.skills.length || refsOf(c).length, tr: c.skills.filter((s) => s.trending).length, hue: N(c.hue) }));
     function draw(t) {
       if (!cv.isConnected) { cancelAnimationFrame(raf); return; }
@@ -2111,7 +2079,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
     }
     cv.addEventListener("pointermove", (ev) => {
       const i = pick(ev); if (i === hover) return; hover = i; const s = stems()[i];
-      $("#gcName").textContent = s ? s.name : "Point at a stem"; $("#gcNum").textContent = s ? `${s.n}${s.tr ? ` · ${s.tr} trending` : ""}` : "—";
+      $("#gcName").textContent = s ? s.name : "Point at a stem"; $("#gcNum").textContent = s ? `${s.n}${s.tr ? `, ${s.tr} trending` : ""}` : "—";
       cv.style.cursor = s ? "pointer" : "crosshair"; if (still) draw(0);
     });
     cv.addEventListener("pointerleave", () => { hover = -1; $("#gcName").textContent = "Point at a stem"; $("#gcNum").textContent = "—"; if (still) draw(0); });
@@ -2123,7 +2091,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
   async function exploreAct(act, el) {
     const id = el.dataset.id;
     switch (act) {
-      case "ex-home": if (location.hash !== "#/") location.hash = "#/"; else onHash(); return true;
+      case "ex-home": if (window.SG_PUBLIC && el.classList.contains("brand")) { location.href = "/"; return true; } if (location.hash !== "#/") location.hash = "#/"; else onHash(); return true;
       case "ex-topic": openCraft(id); return true;
       case "ex-chain": location.hash = "#/chain/" + id; return true;
       case "dl-chain": { const x = (EX.chains || []).find((c) => c.id === id); if (x) await downloadChain(x); return true; }

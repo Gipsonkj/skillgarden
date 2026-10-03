@@ -26,6 +26,11 @@
       "id": "t3",
       "prompt": "I have a 2-hour interview recorded as four 30-minute WAV files from a body mic. Get me a speaker-labeled transcript and English subtitles.",
       "good": "Merge the segments in order before ASR (not transcribe separately), convert to 16 kHz mono; pick a diarizing route with keyterms; verify length plausibility, ending, speaker count and repetition loops; subtitle cues with max 2 lines, about 42 characters per line and reading-speed limits built from word timestamps."
+    },
+    {
+      "id": "t4",
+      "prompt": "We recorded a 20-minute interview with our head of support (support.wav, two speakers). Turn it into a 5-minute podcast episode with a short music intro, write show notes from what was said, and cut a 30-second captioned clip for Instagram Reels.",
+      "good": "States a short plan first: transcript, edit and intro here (transcription.md: word timestamps, two speaker labels, plausibility checks; music-generation.md; mixing-and-mastering.md: -16 LUFS, -1 dBTP), show notes through content-creation (writing-from-raw-material.md, repurposing.md: only what was said, quotes verbatim), the clip through ai-video (captions-talking-head.md, delivery-qa.md: 1080x1920, captions inside the safe zone, -14 LUFS for social). Cuts at real silences with short fades; the intro bed fades under the first words; names checked against the transcript; checks the Done means of all three crafts."
     }
   ]
 }

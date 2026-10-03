@@ -31,6 +31,11 @@
       "id": "t3",
       "prompt": "Set up posting to X and TikTok from Claude so I can schedule next week's content automatically.",
       "good": "Recommends official routes (xurl or X API v2, Composio TikTok or a scheduler the user already has); drafts first and publishes only after explicit approval; future-time and rate-limit checks; secrets kept out of commands and files; warns that browser automation of x.com and cookie scraping risk account bans; TikTok unaudited apps may be limited to private posts."
+    },
+    {
+      "id": "t4",
+      "prompt": "Plan a two-week launch on X and Instagram for our budgeting app: a launch thread, three Reel scripts and a 7-slide carousel with designed slides, then schedule everything through official APIs.",
+      "good": "States a short plan first: calendar, thread and X publishing here (strategy-calendar.md, x-threads.md, publishing-apis.md), Reels and Instagram publishing through instagram-automation (reels-scripting.md, graph-api-publishing.md: scored hooks, content_publishing_limit checked, Graph API only), slide design through poster-design (banners-social.md: 1080x1350, one grid, readable type). No identical copy across platforms; no invented user numbers; nothing published without an explicit yes, and provider IDs read back; checks the Done means of all three crafts."
     }
   ]
 }

@@ -1,0 +1,15 @@
+{
+  "name": "example_tour",
+  "url": "https://example.com/dashboard",
+  "fullscreen": true,
+  "cap": 120,
+  "pad": 1.8,
+  "tail": 1.2,
+  "steps": [
+    { "dwell": 1.4 },
+    { "click": "View syllabus", "wait": 2.4 },
+    { "scroll": 3, "by": 400, "gap": 1.0 },
+    { "click": "Certificates", "exact": true, "wait": 3.1 },
+    { "click": "Settings", "exact": true, "wait": 3.1 }
+  ]
+}

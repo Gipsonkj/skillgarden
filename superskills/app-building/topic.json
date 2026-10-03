@@ -31,6 +31,11 @@
       "id": "t3",
       "prompt": "My Expo app is ready. Get it on TestFlight for my two co-founders today.",
       "good": "Checks eas.json, app.json identifiers and Apple account state first; asks the user to run credential prompts themselves; uses eas build -p ios --profile production with auto-submit or npx testflight; adds internal testers (no review needed); reports the build ID and the furthest verified state (uploaded/processed/available to testers), not 'it's live'; does not submit for App Review."
+    },
+    {
+      "id": "t4",
+      "prompt": "Build an Expo app for members of a small climbing gym: sign in, book a class, see and cancel their bookings. Keep the data in Supabase, and design an app icon we can use for the store listings.",
+      "good": "States a short plan first: the app here (native-feel-design.md, expo-react-native.md, testing-simulators.md), data and sign-in through backend-databases (supabase.md and postgres-schema.md: classes and bookings tables with RLS on every table, only the publishable key in the app, the service_role key never shipped; auth.md for sessions), the icon through poster-design (logos.md: one simple mark that still reads at 16 px; web-assets.md for the icon sizes). Maps navigation before code (tabs, push to class detail, sheet to book); builds loading, empty and error states; checks both themes and large text on simulator and emulator; checks the Done means of all three crafts."
     }
   ]
 }

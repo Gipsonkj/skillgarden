@@ -26,6 +26,18 @@ The habits that make code changes correct, small and reviewable: find root cause
 
 *Conflicts resolved:* simplicity (5) never overrides boundary safety (6). TDD (3) is the default; skipping it for a throwaway prototype or config change is the user's call, not yours. Surgical scope (7) still allows a minimal refactor when it is the only way to make the requested change testable; say so and keep it in its own commit.
 
+## Plan the request
+
+Work out what the request needs before opening a guide; most real requests need more than one.
+
+1. **Split it into parts:** each thing the user needs at the end. A one-part request goes straight to the table below.
+2. **Give each part its best source.** This craft's guides first; several is normal, read in the order the work happens. A part listed under "Other crafts" goes to that craft's guide, which goes deeper than any short version here. A part that needs a tool, API or edge case no guide covers goes to the original skill under "Go deeper".
+3. **Say the plan in a line** before starting, then read only the guides it names. For example: "Invoices page slow and leaking data: `references/debugging.md` → `references/tdd-and-testing.md` → `references/verification.md`; the query from `backend-databases` → `references/query-performance.md`; the access check from `security` → `references/secure-coding.md`."
+4. **Carry decisions forward.** The brief, tokens, copy and file names from earlier parts feed the later ones. When two guides disagree, follow the one written for that part and say so.
+5. **Check the result** against "Done means" here and in every other craft you used.
+
+**Opening another craft:** with the Skill Garden plugin, load the skill `skillgarden:<craft>` or read its guides beside this folder at `../<craft>/references/`; on the Skill Garden connector, call `get_super_skill` and `get_guide`. If that craft isn't installed, name it to the user and carry on with this one. For a request that spans three or more crafts, start with the planner: the skill `skillgarden:garden`, or `get_super_skill` with craft `garden` on the connector.
+
 ## Pick the right guide
 
 | Task | Read |
@@ -48,6 +60,32 @@ The habits that make code changes correct, small and reviewable: find root cause
 | `scripts/git-guardrails-claude-code/block-dangerous-git.sh` | User wants Claude Code blocked from `git push`, `reset --hard`, `clean -f`, `branch -D` and similar; install as a `PreToolUse` hook (see git-workflow.md) |
 | `templates/diagnosing-bugs/hitl-loop.template.sh` | Last-resort feedback loop when a bug can only be reproduced by a human following steps |
 | `templates/requesting-code-review/code-reviewer.md` | Dispatching a reviewer subagent: fill in what was built, requirements, BASE and HEAD SHAs |
+
+## Other crafts
+
+| When the request also needs | Use |
+|---|---|
+| Test levels, runner idioms (pytest, Vitest, Go) or E2E suites (beyond `references/tdd-and-testing.md`) | `testing-qa` → `references/test-strategy.md`, `references/unit-runners-by-language.md`, `references/playwright-e2e.md` |
+| A flaky test that only fails in CI: flake classes and proof in CI (beyond `references/debugging.md`) | `testing-qa` → `references/flaky-tests.md` |
+| A security pass on the change: auth, input, injection, scans, new dependencies | `security` → `references/secure-coding.md`, `references/static-analysis.md`, `references/supply-chain.md` |
+| A slow query, N+1, missing index or schema migration behind the bug | `backend-databases` → `references/query-performance.md`, `references/postgres-schema.md` |
+| Core Web Vitals, Lighthouse or Next.js App Router work (beyond `references/react-nextjs-performance.md`) | `website-building` → `references/performance-cwv.md`, `references/nextjs-react.md` |
+| CI that runs tests, lint and typecheck on every PR; quality gates, Dependabot | `cloud-devops` → `references/ci-cd.md` |
+| A written spec or implementation plan, or running it with subagents | `claude-meta` → `references/planning-and-execution.md`, `references/subagents-and-delegation.md` |
+| Hooks and CLAUDE.md rules that keep these habits on in every session | `claude-meta` → `references/hooks-and-guardrails.md`, `references/claude-md-and-rules.md` |
+
+## Go deeper (original skills)
+
+The guides above distil these. Open one when a part needs its full detail, read it as reference, and read any script before running it.
+
+| When you need | Original skill |
+|---|---|
+| All 40+ React and Next.js performance rules with bad and good code examples | [vercel-react-best-practices](https://github.com/vercel-labs/agent-skills/tree/main/skills/react-best-practices) (MIT; the full rule files weren't copied here) |
+| Per-language coding standards (Python, Go, Rust, C++) beside the cross-project baseline | [coding-standards](https://github.com/affaan-m/everything-claude-code/tree/main/skills/coding-standards) (MIT; per-language siblings in the same repo) |
+| An always-on laziest-solution mode with lite, full and ultra levels, plus review, audit and debt companions | [ponytail](https://github.com/DietrichGebert/ponytail/tree/main/skills/ponytail) (MIT) |
+| One gate pipeline (AI review, tests, lint, docs, push, PR, CI) before changes reach the remote | [no-mistakes](https://github.com/kunchenguid/no-mistakes/tree/main/skills/no-mistakes) (MIT; needs the no-mistakes CLI) |
+| Lint rules that reject AI-typical TypeScript and JavaScript patterns | [install-anti-slop](https://github.com/dmmulroy/anti-slop/tree/main/skills/install-anti-slop) (MIT; JS/TS only, needs Oxlint) |
+| Architecture, sequence or data-flow diagrams of the real code as standalone HTML | [archify](https://github.com/tt-a1i/archify/tree/main/archify) (MIT; about 10 MB of assets, so not bundled) |
 
 ## Default workflow
 

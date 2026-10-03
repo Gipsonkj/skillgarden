@@ -31,6 +31,11 @@
       "id": "t3",
       "prompt": "Turn this spec for team-shared folders into tickets in our Jira project PAY.",
       "good": "Drafts vertical-slice tickets (not layer-by-layer) each with end-to-end behaviour, 4-6 acceptance criteria and blocked-by edges; shows the numbered list for approval before creating anything; creates in dependency order with native blocks links after approval; reads back created keys; never asks for an API token in chat."
+    },
+    {
+      "id": "t4",
+      "prompt": "Write a PRD for adding usage-based pricing to our project-tracking SaaS. Include the dashboard we'll watch after launch and a rough 12-month revenue impact model with assumptions we can argue about.",
+      "good": "States a short plan first: the PRD here (prd-specs.md, then risk-reviews.md for a pre-mortem), the metrics through data-analysis (dashboards-kpis.md: each KPI with formula, source, owner and target; MRR split into new, expansion, contraction and churn), the model through trading-finance (startup-corporate-finance.md, excel-modeling-standards.md: driver-based revenue build, low/base/high scenarios, every input sourced or flagged as an assumption). Asks 2-6 focused questions or tags assumptions; problem before solution; explicit non-goals; measurable goals with a counter-metric; no invented numbers; checks the Done means of all three crafts."
     }
   ]
 }

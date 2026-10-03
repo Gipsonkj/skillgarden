@@ -24,6 +24,18 @@ Getting repetitive work done by machines: deciding the vehicle (direct API call,
 
 Conflicts resolved: *Picking connections.* Zapier's SDK guide says take the first connection; Make's says always ask. Rule here: reads may use the first match, but any write or send uses a connection the user picked. *`networkidle`.* webapp-testing waits for it before DOM inspection; playwright-skill and Playwright docs avoid it. Rule here: fine in quick reconnaissance scripts, never in `@playwright/test` suites (wait for a locator or URL instead). *Paid browser/extraction services* advertising CAPTCHA solving or proxy rotation: use them only for legitimate isolation or scale, never to get around a site's protections.
 
+## Plan the request
+
+Work out what the request needs before opening a guide; most real requests need more than one.
+
+1. **Split it into parts:** each thing the user needs at the end. A one-part request goes straight to the table below.
+2. **Give each part its best source.** This craft's guides first; several is normal, read in the order the work happens. A part listed under "Other crafts" goes to that craft's guide, which goes deeper than any short version here. A part that needs a tool, API or edge case no guide covers goes to the original skill under "Go deeper".
+3. **Say the plan in a line** before starting, then read only the guides it names. For example: "Weekly price check: `references/automation-design.md` → `references/web-extraction.md` → `references/app-integrations.md`; the sheet from `docs-office` → `references/google-workspace.md`; the schedule from `cloud-devops` → `references/gcp.md`."
+4. **Carry decisions forward.** The brief, tokens, copy and file names from earlier parts feed the later ones. When two guides disagree, follow the one written for that part and say so.
+5. **Check the result** against "Done means" here and in every other craft you used.
+
+**Opening another craft:** with the Skill Garden plugin, load the skill `skillgarden:<craft>` or read its guides beside this folder at `../<craft>/references/`; on the Skill Garden connector, call `get_super_skill` and `get_guide`. If that craft isn't installed, name it to the user and carry on with this one. For a request that spans three or more crafts, start with the planner: the skill `skillgarden:garden`, or `get_super_skill` with craft `garden` on the connector.
+
 ## Pick the right guide
 
 | Task | Read |
@@ -39,6 +51,31 @@ Conflicts resolved: *Picking connections.* Zapier's SDK guide says take the firs
 | Extract structured data from websites; Firecrawl agent | [references/web-extraction.md](references/web-extraction.md) |
 
 Call a sub-capability by naming the task, or say "use automation: n8n", "use automation: playwright-testing", etc.
+
+## Other crafts
+
+| When the request also needs | Use |
+|---|---|
+| The prompt for an AI step, or an agent or MCP server instead of a fixed workflow | `ai-agents` → `references/agent-prompts.md`, `references/agent-or-workflow.md`, `references/mcp-servers.md` |
+| A full Playwright suite in CI or flaky-test fixes (beyond `references/playwright-testing.md`) | `testing-qa` → `references/playwright-e2e.md`, `references/flaky-tests.md` |
+| Verifying webhook signatures, and storing and rotating the automation's secrets | `security` → `references/secure-coding.md`, `references/secrets.md` |
+| A script that runs on a schedule in the cloud: Cloud Run jobs, Workers Cron Triggers | `cloud-devops` → `references/gcp.md`, `references/cloudflare.md` |
+| Reading or writing Google Docs, Sheets or Drive files, or an Excel report | `docs-office` → `references/google-workspace.md`, `references/excel-xlsx.md` |
+| Scheduling posts to social platforms through their official APIs | `social-media` → `references/publishing-apis.md` |
+| Instagram posting, comments or DMs: what Meta allows, official Graph API only | `instagram-automation` → `references/tos-and-safe-automation.md`, `references/graph-api-publishing.md` |
+| LinkedIn posting or outreach: safe limits, official API, no bots or scraping | `linkedin-automation` → `references/tos-and-safe-automation.md`, `references/publishing-official-api.md` |
+
+## Go deeper (original skills)
+
+The guides above distil these. Open one when a part needs its full detail, read it as reference, and read any script before running it.
+
+| When you need | Original skill |
+|---|---|
+| Per-service Google Workspace skills (Calendar, Drive, Sheets, Tasks) and recipes on the gws CLI | [gws-workflow](https://github.com/googleworkspace/cli/tree/main/skills/gws-workflow) (Apache-2.0; about 95 sibling skills in the repo) |
+| DevTools companions for accessibility debugging, memory leaks and LCP optimisation | [chrome-devtools](https://github.com/ChromeDevTools/chrome-devtools-mcp/tree/main/skills/chrome-devtools) (Apache-2.0; needs chrome-devtools-mcp) |
+| Python in n8n Code nodes, through its n8n-code-python counterpart | [n8n-code-javascript](https://github.com/czlonkowski/n8n-skills/tree/main/skills/n8n-code-javascript) (MIT) |
+| Diagnosing, modifying or reading the run history of durable Zapier workflows | [workflows-create](https://github.com/zapier/agent-skills/tree/main/skills/workflows/create) (MIT; workflows-doctor, -modify and -history are siblings) |
+| Make module configuration and the MCP reference, through its sibling skills | [make-scenario-building](https://github.com/integromat/make-skills/tree/main/skills/make-scenario-building) (MIT; pairs with make-module-configuring and make-mcp-reference) |
 
 ## Default workflow
 

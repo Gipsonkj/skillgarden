@@ -466,7 +466,7 @@
    "blurb": "Brief to live URL: copy, a design that doesn't look AI-made, Next.js or Astro builds, Core Web Vitals, SEO, browser checks, deploys.",
    "hue": 205,
    "superskill": {
-    "description": "Plan, design, build, verify and ship websites that do not look AI-generated. Use for landing pages, marketing and product sites, portfolios, docs and blogs; writing page copy and CTAs or reviewing conversion (CRO); choosing a design direction, palette and type and avoiding generic \"AI slop\"; scroll storytelling, scroll-scrubbed video, parallax heroes and page motion; Next.js App Router and React performance rules, Server Actions, Cache Components adoption and next dev runtime checks; Astro, Vue 3 and single-file HTML sites; Core Web Vitals (LCP, INP, CLS) audits and fixes; technical SEO, sitemaps, canonicals, hreflang, JSON-LD and AI crawler controls; Lighthouse, accessibility, Playwright browser tests and whole-site audits; deploying to Vercel, Netlify or Cloudflare, env vars and failed builds.",
+    "description": "Plan, design, build, verify and ship websites that do not look AI-generated. Use for landing pages, marketing and product sites, portfolios, docs and blogs; writing page copy and CTAs or reviewing conversion (CRO); choosing a design direction, palette and type and avoiding generic \"AI slop\"; fixing pages that look boring or plain; picking Lenis, GSAP or component libraries; scroll storytelling, scroll-scrubbed video, parallax heroes and page motion; cinematic demo sites with an AI film hero (stills, image-to-video, frame sequence); Next.js App Router and React performance rules, Server Actions, Cache Components adoption and next dev runtime checks; Astro, Vue 3 and single-file HTML sites; Core Web Vitals (LCP, INP, CLS) audits and fixes; technical SEO, sitemaps, canonicals, hreflang, JSON-LD and AI crawler controls; Lighthouse, accessibility, Playwright browser tests and whole-site audits; deploying to Vercel, Netlify, Cloudflare Workers or Pages, env vars and failed builds.",
     "references": [
      "references/deploy-netlify-cloudflare.md",
      "references/deploy-vercel.md",
@@ -660,6 +660,38 @@
      "local": "skills/02_Website_Building/11_auteur"
     },
     {
+     "name": "cinematic-demo-sites",
+     "purpose": "Turns a local business into a deployed scroll-scrubbed cinematic demo site: photoreal stills, image-to-video clips, frame sequence, scroll hero, Cloudflare deploy.",
+     "how_to_use": "Needs $GEMINI_API_KEY and an image-to-video endpoint (e.g. your own RunPod Wan). Use for demo or pitch sites.",
+     "url": "https://github.com/Gipsonkj/skillgarden/tree/main/authored/cinematic-demo-sites",
+     "repo": "Gipsonkj/skillgarden",
+     "stars": 0,
+     "license": "MIT",
+     "evidence": "Written by the Skill Garden author from shipped work; cleaned public copy, MIT (3 Oct 2026).",
+     "notes": "",
+     "rank": 12,
+     "trending": false,
+     "nonCommercial": false,
+     "redistributable": true,
+     "local": "skills/02_Website_Building/12_cinematic-demo-sites"
+    },
+    {
+     "name": "web-design-asset-stack",
+     "purpose": "The 2026 build-and-taste stack for sites that don't look AI-generated: which animation library, component shop, design skill or template to use, plus composition rules and award-site references.",
+     "how_to_use": "Use when starting a landing page or portfolio, or when a design looks plain.",
+     "url": "https://github.com/Gipsonkj/skillgarden/tree/main/authored/web-design-asset-stack",
+     "repo": "Gipsonkj/skillgarden",
+     "stars": 0,
+     "license": "MIT",
+     "evidence": "Written by the Skill Garden author from shipped work; cleaned public copy, MIT (3 Oct 2026).",
+     "notes": "",
+     "rank": 13,
+     "trending": false,
+     "nonCommercial": false,
+     "redistributable": true,
+     "local": "skills/02_Website_Building/13_web-design-asset-stack"
+    },
+    {
      "name": "vercel-cli",
      "purpose": "Deploy, inspect and troubleshoot Vercel projects from the CLI: builds, env vars, domains/DNS, logs, metrics.",
      "how_to_use": "Needs the Vercel CLI and a logged-in Vercel account.",
@@ -669,11 +701,11 @@
      "license": "Apache-2.0",
      "evidence": "Official Vercel (in vercel/vercel CLI repo); skills.sh ~5.9k installs",
      "notes": "",
-     "rank": 12,
+     "rank": 14,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/02_Website_Building/12_vercel-cli"
+     "local": "skills/02_Website_Building/14_vercel-cli"
     },
     {
      "name": "vercel-optimize",
@@ -685,11 +717,11 @@
      "license": "MIT",
      "evidence": "Official Vercel; skills.sh ~88k installs",
      "notes": "",
-     "rank": 13,
+     "rank": 15,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/02_Website_Building/13_vercel-optimize"
+     "local": "skills/02_Website_Building/15_vercel-optimize"
     },
     {
      "name": "nextjs-on-cloudflare",
@@ -701,11 +733,11 @@
      "license": "Apache-2.0",
      "evidence": "Official Cloudflare; skills.sh ~22.7k installs",
      "notes": "Short router skill that points to vinext/OpenNext docs.",
-     "rank": 14,
+     "rank": 16,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/02_Website_Building/14_nextjs-on-cloudflare"
+     "local": "skills/02_Website_Building/16_nextjs-on-cloudflare"
     },
     {
      "name": "netlify-deploy",
@@ -717,11 +749,11 @@
      "license": "MIT",
      "evidence": "Official Netlify; in VoltAgent list; ~2.9k installs",
      "notes": "Sibling `netlify-frameworks` covers Next.js/Astro/Nuxt/SvelteKit adapters.",
-     "rank": 15,
+     "rank": 17,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/02_Website_Building/15_netlify-deploy"
+     "local": "skills/02_Website_Building/17_netlify-deploy"
     },
     {
      "name": "netlify-frameworks",
@@ -733,11 +765,11 @@
      "license": "MIT",
      "evidence": "Official Netlify; ~2.7k installs",
      "notes": "",
-     "rank": 16,
+     "rank": 18,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/02_Website_Building/16_netlify-frameworks"
+     "local": "skills/02_Website_Building/18_netlify-frameworks"
     },
     {
      "name": "astro",
@@ -749,11 +781,11 @@
      "license": "MIT",
      "evidence": "Most-installed Astro skill on skills.sh (~16.3k installs)",
      "notes": "Community repo (14 stars); no official withastro skill for site-building exists yet.",
-     "rank": 17,
+     "rank": 19,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/02_Website_Building/17_astro"
+     "local": "skills/02_Website_Building/19_astro"
     },
     {
      "name": "vue-best-practices",
@@ -765,11 +797,11 @@
      "license": "MIT",
      "evidence": "vuejs-ai/skills 2.9k stars; skills.sh 40k installs; fills the Vue/Nuxt gap (list is Next/Astro only)",
      "notes": "",
-     "rank": 18,
+     "rank": 20,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/02_Website_Building/18_vue-best-practices"
+     "local": "skills/02_Website_Building/20_vue-best-practices"
     },
     {
      "name": "nextjs-app-router-patterns",
@@ -781,11 +813,11 @@
      "license": "MIT",
      "evidence": "wshobson/agents 40k stars; skills.sh ~31k installs",
      "notes": "Written for Next 14+; check against current Next.js docs.",
-     "rank": 19,
+     "rank": 21,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/02_Website_Building/19_nextjs-app-router-patterns"
+     "local": "skills/02_Website_Building/21_nextjs-app-router-patterns"
     },
     {
      "name": "seo-audit",
@@ -797,11 +829,11 @@
      "license": "MIT",
      "evidence": "marketingskills 52k stars; skills.sh ~219k installs",
      "notes": "",
-     "rank": 20,
+     "rank": 22,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/02_Website_Building/20_seo-audit"
+     "local": "skills/02_Website_Building/22_seo-audit"
     },
     {
      "name": "cro",
@@ -813,11 +845,11 @@
      "license": "MIT",
      "evidence": "marketingskills 52k stars; skills.sh Hot list this week",
      "notes": "Marketing-focused complement to building landing pages.",
-     "rank": 21,
+     "rank": 23,
      "trending": true,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/02_Website_Building/21_cro"
+     "local": "skills/02_Website_Building/23_cro"
     },
     {
      "name": "webapp-testing",
@@ -829,11 +861,11 @@
      "license": "Apache-2.0",
      "evidence": "Official Anthropic; skills.sh ~169k installs",
      "notes": "",
-     "rank": 22,
+     "rank": 24,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/02_Website_Building/22_webapp-testing"
+     "local": "skills/02_Website_Building/24_webapp-testing"
     },
     {
      "name": "audit-website",
@@ -845,11 +877,11 @@
      "license": "MIT",
      "evidence": "skills.sh ~72k installs",
      "notes": "Small repo (94 stars); depends on a third-party CLI.",
-     "rank": 23,
+     "rank": 25,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/02_Website_Building/23_audit-website"
+     "local": "skills/02_Website_Building/25_audit-website"
     }
    ]
   },
@@ -1240,7 +1272,7 @@
    "blurb": "UI and web motion that feels right: easing, timing, GSAP, scroll, React, Reanimated, Lottie, Three.js and Manim.",
    "hue": 320,
    "superskill": {
-    "description": "Design, build, review and fix animation and motion for interfaces, the web, apps and short motion assets. Use when asked to animate anything or make it feel smooth or snappy; choose easing, duration or springs; add hover, press, modal, drawer, toast, accordion or stagger motion; review or audit animation code or find places that need motion; name an effect ('what is this animation called'); write GSAP tweens, timelines, SplitText, Flip or ScrollTrigger; build scroll reveals, pinned or scrubbed scroll scenes, parallax, Lenis or Apple-style frame sequences; add React view transitions, shared-element morphs or Framer Motion (motion/react); animate React Native or Expo with Reanimated, gestures and haptics; author or play Lottie and dotLottie; animate an SVG logo; make a Slack GIF or emoji; animate Three.js scenes, GLTF clips or cameras; make Manim math or algorithm explainers; write seek-safe animation for HyperFrames video compositions.",
+    "description": "Design, build, review and fix animation and motion for interfaces, the web, apps and short motion assets. Use when asked to animate anything or make it feel smooth or snappy; choose easing, duration or springs; add hover, press, modal, drawer, toast, accordion or stagger motion; review or audit animation code or find places that need motion; name an effect ('what is this animation called'); write GSAP tweens, timelines, SplitText, Flip or ScrollTrigger; build scroll reveals, pinned or scrubbed scroll scenes, parallax, Lenis or Apple-style frame sequences; add React view transitions, shared-element morphs or Framer Motion (motion/react); animate React Native or Expo with Reanimated, gestures and haptics; author or play Lottie and dotLottie; animate an SVG logo; make a Slack GIF or emoji; animate Three.js scenes, GLTF clips or cameras; make Manim math or algorithm explainers; write seek-safe HyperFrames video animation and keyframes (punch-in, Ken Burns, camera move, whip pan).",
     "references": [
      "references/animation-vocabulary.md",
      "references/gsap.md",
@@ -1452,6 +1484,22 @@
      "local": "skills/04_Motion_Animation/12_motion-graphics"
     },
     {
+     "name": "hyperframes-keyframes",
+     "purpose": "Seek-safe 2D/3D keyframes for HyperFrames: punch-ins, zooms, reframes, Ken Burns, camera moves and match or whip hand-offs, with GSAP, CSS, Anime.js, WAAPI or FLIP.",
+     "how_to_use": "Use when a video composition needs camera moves or keyframed reframes that must render the same on every seek.",
+     "url": "https://github.com/heygen-com/hyperframes/tree/main/skills/hyperframes-keyframes",
+     "repo": "heygen-com/hyperframes",
+     "stars": 56135,
+     "license": "Apache-2.0",
+     "evidence": "Part of the official HyperFrames skill family (heygen-com/hyperframes); the hyperframes router skill sends work here. Found in soorajplankuveedu/claude-knowledge-backup (vendor copy) on 3 Oct 2026; installed from upstream.",
+     "notes": "",
+     "rank": 13,
+     "trending": false,
+     "nonCommercial": false,
+     "redistributable": true,
+     "local": "skills/04_Motion_Animation/13_hyperframes-keyframes"
+    },
+    {
      "name": "figma-implement-motion",
      "purpose": "Translates Figma motion/animation data (via the Figma MCP get_motion_context) into production animation code.",
      "how_to_use": "Use with the Figma MCP server when a Figma node is animated or the user says 'implement this motion'.",
@@ -1461,7 +1509,7 @@
      "license": "none",
      "evidence": "Vendor-official (Figma); substantive (~23KB).",
      "notes": "Repo has no license file -> link-only. Requires Figma MCP server.",
-     "rank": 13,
+     "rank": 14,
      "trending": false,
      "nonCommercial": false,
      "redistributable": false,
@@ -1477,11 +1525,11 @@
      "license": "MIT (README / SKILL.md)",
      "evidence": "Official Vercel Labs; claudemarketplaces ~100K installs",
      "notes": "README states MIT but no LICENSE file.",
-     "rank": 14,
+     "rank": 15,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/04_Motion_Animation/14_vercel-react-view-transitions"
+     "local": "skills/04_Motion_Animation/15_vercel-react-view-transitions"
     },
     {
      "name": "text-to-lottie",
@@ -1493,11 +1541,11 @@
      "license": "MIT",
      "evidence": "5.5k stars; skills.sh ~9.9K installs; top of awesome-claude-video-skills motion list",
      "notes": "",
-     "rank": 15,
+     "rank": 16,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/04_Motion_Animation/15_text-to-lottie"
+     "local": "skills/04_Motion_Animation/16_text-to-lottie"
     },
     {
      "name": "scroll-scrubbed-visual-sequence",
@@ -1509,11 +1557,11 @@
      "license": "MIT",
      "evidence": "Meng To (Design+Code) skills repo, 6.6k stars; the generic public counterpart of a scroll-scrubbed cinematic hero.",
      "notes": "mengto/skills was in sources_checked but none of its skills were listed.",
-     "rank": 16,
+     "rank": 17,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/04_Motion_Animation/16_scroll-scrubbed-visual-sequence"
+     "local": "skills/04_Motion_Animation/17_scroll-scrubbed-visual-sequence"
     },
     {
      "name": "cinematic-scroll-storytelling",
@@ -1525,11 +1573,11 @@
      "license": "MIT",
      "evidence": "mengto/skills 6.6k stars; skills.sh ~1.6K installs.",
      "notes": "",
-     "rank": 17,
+     "rank": 18,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/04_Motion_Animation/17_cinematic-scroll-storytelling"
+     "local": "skills/04_Motion_Animation/18_cinematic-scroll-storytelling"
     },
     {
      "name": "pixel2motion",
@@ -1541,11 +1589,11 @@
      "license": "MIT",
      "evidence": "Created 2026-06-12, 2.4k stars in under 4 months",
      "notes": "",
-     "rank": 18,
+     "rank": 19,
      "trending": true,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/04_Motion_Animation/18_pixel2motion"
+     "local": "skills/04_Motion_Animation/19_pixel2motion"
     },
     {
      "name": "motion-design",
@@ -1557,11 +1605,11 @@
      "license": "MIT",
      "evidence": "Official LottieFiles; skills.sh ~14K installs",
      "notes": "",
-     "rank": 19,
+     "rank": 20,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/04_Motion_Animation/19_motion-design"
+     "local": "skills/04_Motion_Animation/20_motion-design"
     },
     {
      "name": "design-motion-principles",
@@ -1573,11 +1621,11 @@
      "license": "MIT",
      "evidence": "1.2k stars; skills.sh ~10.7K installs",
      "notes": "",
-     "rank": 20,
+     "rank": 21,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/04_Motion_Animation/20_design-motion-principles"
+     "local": "skills/04_Motion_Animation/21_design-motion-principles"
     },
     {
      "name": "manim-video",
@@ -1589,11 +1637,11 @@
      "license": "MIT",
      "evidence": "Nous Research Hermes Agent (250k stars); same skill adopted by browser-use/video-use; skills.sh ~400 installs",
      "notes": "",
-     "rank": 21,
+     "rank": 22,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/04_Motion_Animation/21_manim-video"
+     "local": "skills/04_Motion_Animation/22_manim-video"
     },
     {
      "name": "slack-gif-creator",
@@ -1605,11 +1653,11 @@
      "license": "Apache-2.0",
      "evidence": "Official Anthropic; skills.sh ~71K installs",
      "notes": "",
-     "rank": 22,
+     "rank": 23,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/04_Motion_Animation/22_slack-gif-creator"
+     "local": "skills/04_Motion_Animation/23_slack-gif-creator"
     },
     {
      "name": "manimce-best-practices",
@@ -1621,11 +1669,11 @@
      "license": "MIT",
      "evidence": "1.1k stars; listed in awesome-claude-video-skills explainers",
      "notes": "",
-     "rank": 23,
+     "rank": 24,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/04_Motion_Animation/23_manimce-best-practices"
+     "local": "skills/04_Motion_Animation/24_manimce-best-practices"
     },
     {
      "name": "anidoodle",
@@ -1637,11 +1685,11 @@
      "license": "Apache-2.0",
      "evidence": "Created 2026-09-22, ~760 stars in ~10 days",
      "notes": "",
-     "rank": 24,
+     "rank": 25,
      "trending": true,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/04_Motion_Animation/24_anidoodle"
+     "local": "skills/04_Motion_Animation/25_anidoodle"
     },
     {
      "name": "animate-expo",
@@ -1653,11 +1701,11 @@
      "license": "MIT",
      "evidence": "Emil Kowalski; skills.sh ~78K installs; also shipped verbatim as expo/skills expo-animation",
      "notes": "",
-     "rank": 25,
+     "rank": 26,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/04_Motion_Animation/25_animate-expo"
+     "local": "skills/04_Motion_Animation/26_animate-expo"
     },
     {
      "name": "threejs-animation",
@@ -1669,11 +1717,11 @@
      "license": "MIT (stated in README)",
      "evidence": "3.4k stars; skills.sh ~16K installs",
      "notes": "README says MIT but no LICENSE file.",
-     "rank": 26,
+     "rank": 27,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/04_Motion_Animation/26_threejs-animation"
+     "local": "skills/04_Motion_Animation/27_threejs-animation"
     },
     {
      "name": "gsap-framer-scroll-animation",
@@ -1685,11 +1733,11 @@
      "license": "MIT",
      "evidence": "GitHub's awesome-copilot (39.6k stars); skills.sh ~3.8K installs",
      "notes": "",
-     "rank": 27,
+     "rank": 28,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/04_Motion_Animation/27_gsap-framer-scroll-animation"
+     "local": "skills/04_Motion_Animation/28_gsap-framer-scroll-animation"
     }
    ]
   },
@@ -2601,13 +2649,14 @@
    "blurb": "Make, generate, edit and deliver video: HyperFrames, video-model prompts, ffmpeg cuts, captions, beat cuts and QA.",
    "hue": 12,
    "superskill": {
-    "description": "Make, edit, generate and deliver video with AI help. Covers picking the route (HTML/HyperFrames composition, generative text/image-to-video, footage edit, AI presenter); HyperFrames workflows (init, compositions, lint/check, render); prompting video models and vendor APIs (Gemini Omni/Veo, Runway, fal genmedia, LTX-2, FLUX 3, MiniMax, HeyGen avatars); cutting footage by transcript with ffmpeg (trim, silence/filler removal, reframe 9:16, grade, EDL renders); captions and subtitles, talking-head recuts with overlay cards; beat-synced music videos, product launch/brag videos and faceless explainers; delivery (loudness, safe zones, platform specs, QA contact sheets). Use when asked to make a video, promo, explainer, reel/short, captioned clip, music video, AI b-roll, animate a photo, edit/cut footage, add subtitles, write a video-model prompt, call a video API, or export for TikTok/Reels/YouTube.",
+    "description": "Make, edit, generate and deliver video with AI help. Covers picking the route (HyperFrames/HTML composition, text/image-to-video, footage edit, AI presenter); HyperFrames (composition contract, CLI check/render, registry, Studio, design spec, narration, beat plans, audio-reactive visuals); video-model prompts and APIs (Gemini Omni/Veo, Runway, Seedance on ByteDance ModelArk, fal, LTX-2, FLUX 3, HeyGen avatars); transcript cuts with ffmpeg (trim, fillers, 9:16 reframe, grade, EDL); captions, talking-head recuts; beat-cut music videos and films from AI stills; launch, promo, site-tour and explainer videos; real macOS screen recordings of web apps; delivery (loudness, safe zones, specs, QA). Use when asked to make a video, promo, product tour, explainer, reel/short, captioned clip, music video or beat cut, AI b-roll, animate a photo, screen-record a web app, edit/cut footage, add subtitles, write a video-model prompt, call a video API (Seedance, Runway, Veo), or export for TikTok/Reels/YouTube.",
     "references": [
      "references/captions-talking-head.md",
      "references/delivery-qa.md",
      "references/explainers-and-promos.md",
      "references/footage-editing-ffmpeg.md",
      "references/generative-prompting.md",
+     "references/hyperframes-creative-direction.md",
      "references/hyperframes-workflows.md",
      "references/music-beat-cut.md",
      "references/plan-and-route.md",
@@ -2732,6 +2781,54 @@
      "local": "skills/07_AI_Video_Creation/07_embedded-captions"
     },
     {
+     "name": "product-launch-video",
+     "purpose": "Turns a product URL, script or brief into a launch or promo video: SaaS promos, feature reveals, demos and site tours, built as a HyperFrames composition.",
+     "how_to_use": "Give it the product URL or brief; it plans beats, captures the site and renders through HyperFrames. Needs Node and the HyperFrames CLI.",
+     "url": "https://github.com/heygen-com/hyperframes/tree/main/skills/product-launch-video",
+     "repo": "heygen-com/hyperframes",
+     "stars": 56135,
+     "license": "Apache-2.0",
+     "evidence": "Part of the official HyperFrames skill family (heygen-com/hyperframes); the hyperframes router skill sends work here. Found in soorajplankuveedu/claude-knowledge-backup (vendor copy) on 3 Oct 2026; installed from upstream.",
+     "notes": "",
+     "rank": 8,
+     "trending": true,
+     "nonCommercial": false,
+     "redistributable": true,
+     "local": "skills/07_AI_Video_Creation/08_product-launch-video"
+    },
+    {
+     "name": "hyperframes-core",
+     "purpose": "The HyperFrames composition contract: data-* timing attributes, clips, tracks, sub-compositions, variables, media playback and deterministic-render rules.",
+     "how_to_use": "Read before writing any HyperFrames composition HTML; the other HyperFrames skills assume it.",
+     "url": "https://github.com/heygen-com/hyperframes/tree/main/skills/hyperframes-core",
+     "repo": "heygen-com/hyperframes",
+     "stars": 56135,
+     "license": "Apache-2.0",
+     "evidence": "Part of the official HyperFrames skill family (heygen-com/hyperframes); the hyperframes router skill sends work here. Found in soorajplankuveedu/claude-knowledge-backup (vendor copy) on 3 Oct 2026; installed from upstream.",
+     "notes": "",
+     "rank": 9,
+     "trending": false,
+     "nonCommercial": false,
+     "redistributable": true,
+     "local": "skills/07_AI_Video_Creation/09_hyperframes-core"
+    },
+    {
+     "name": "hyperframes-creative",
+     "purpose": "Creative direction for HyperFrames videos: design spec (frame.md/design.md), palettes, typography, narration, beat planning and audio-reactive visuals.",
+     "how_to_use": "Use for look, voice and pacing decisions; pair with hyperframes-animation for motion.",
+     "url": "https://github.com/heygen-com/hyperframes/tree/main/skills/hyperframes-creative",
+     "repo": "heygen-com/hyperframes",
+     "stars": 56135,
+     "license": "Apache-2.0",
+     "evidence": "Part of the official HyperFrames skill family (heygen-com/hyperframes); the hyperframes router skill sends work here. Found in soorajplankuveedu/claude-knowledge-backup (vendor copy) on 3 Oct 2026; installed from upstream.",
+     "notes": "",
+     "rank": 10,
+     "trending": false,
+     "nonCommercial": false,
+     "redistributable": true,
+     "local": "skills/07_AI_Video_Creation/10_hyperframes-creative"
+    },
+    {
      "name": "video-use",
      "purpose": "Conversational video editor: transcribes footage, plans cuts, color grades, generates overlay animations and burns subtitles for talking heads, montages, tutorials and interviews, iterating with the user.",
      "how_to_use": "Install the repo as a skill; ask Claude to edit a local video. Needs ffmpeg and a transcription backend (see install.md).",
@@ -2741,11 +2838,11 @@
      "license": "MIT",
      "evidence": "27.9k stars (browser-use org); listed in zhuyansen/awesome-claude-video-skills editing section",
      "notes": "",
-     "rank": 8,
+     "rank": 11,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/07_AI_Video_Creation/08_video-use"
+     "local": "skills/07_AI_Video_Creation/11_video-use"
     },
     {
      "name": "brag",
@@ -2757,11 +2854,91 @@
      "license": "MIT",
      "evidence": "Created 2026-06-16 and already 13k stars - one of the fastest-rising video skills of 2026; spawned clones (brag-codex)",
      "notes": "",
-     "rank": 9,
+     "rank": 12,
      "trending": true,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/07_AI_Video_Creation/09_brag"
+     "local": "skills/07_AI_Video_Creation/12_brag"
+    },
+    {
+     "name": "hyperframes-registry",
+     "purpose": "Searches and installs about 400 hosted HyperFrames blocks (glitch, film grain, charts, terminal windows, maps, confetti) before you hand-build a named effect.",
+     "how_to_use": "Search the registry first whenever a brief names a look or transition; install with the HyperFrames CLI.",
+     "url": "https://github.com/heygen-com/hyperframes/tree/main/skills/hyperframes-registry",
+     "repo": "heygen-com/hyperframes",
+     "stars": 56135,
+     "license": "Apache-2.0",
+     "evidence": "Part of the official HyperFrames skill family (heygen-com/hyperframes); the hyperframes router skill sends work here. Found in soorajplankuveedu/claude-knowledge-backup (vendor copy) on 3 Oct 2026; installed from upstream.",
+     "notes": "",
+     "rank": 13,
+     "trending": false,
+     "nonCommercial": false,
+     "redistributable": true,
+     "local": "skills/07_AI_Video_Creation/13_hyperframes-registry"
+    },
+    {
+     "name": "hyperframes-cli",
+     "purpose": "The HyperFrames CLI loop: init, add, lint, check, snapshot, preview, render (single, batch, cloud, Lambda), publish and doctor.",
+     "how_to_use": "Use when running or debugging HyperFrames from the terminal; needs Node.",
+     "url": "https://github.com/heygen-com/hyperframes/tree/main/skills/hyperframes-cli",
+     "repo": "heygen-com/hyperframes",
+     "stars": 56135,
+     "license": "Apache-2.0",
+     "evidence": "Part of the official HyperFrames skill family (heygen-com/hyperframes); the hyperframes router skill sends work here. Found in soorajplankuveedu/claude-knowledge-backup (vendor copy) on 3 Oct 2026; installed from upstream.",
+     "notes": "",
+     "rank": 14,
+     "trending": false,
+     "nonCommercial": false,
+     "redistributable": true,
+     "local": "skills/07_AI_Video_Creation/14_hyperframes-cli"
+    },
+    {
+     "name": "hyperframes-studio",
+     "purpose": "Lays out a HyperFrames project for Studio: one caption track, one element kind per track, every scene a sub-composition, safe zones.",
+     "how_to_use": "Use when people will open and edit the project in HyperFrames Studio.",
+     "url": "https://github.com/heygen-com/hyperframes/tree/main/skills/hyperframes-studio",
+     "repo": "heygen-com/hyperframes",
+     "stars": 56135,
+     "license": "Apache-2.0",
+     "evidence": "Part of the official HyperFrames skill family (heygen-com/hyperframes); the hyperframes router skill sends work here. Found in soorajplankuveedu/claude-knowledge-backup (vendor copy) on 3 Oct 2026; installed from upstream.",
+     "notes": "",
+     "rank": 15,
+     "trending": false,
+     "nonCommercial": false,
+     "redistributable": true,
+     "local": "skills/07_AI_Video_Creation/15_hyperframes-studio"
+    },
+    {
+     "name": "beat-cut-films",
+     "purpose": "Short vertical beat-cut films from AI stills: analyse a reference for palette and rhythm, make a style-locked image set, cut it to detected musical accents, render.",
+     "how_to_use": "Use for music-cut promos, reels or title sequences from generated art, or when a cut doesn't match the music.",
+     "url": "https://github.com/Gipsonkj/skillgarden/tree/main/authored/beat-cut-films",
+     "repo": "Gipsonkj/skillgarden",
+     "stars": 0,
+     "license": "MIT",
+     "evidence": "Written by the Skill Garden author from shipped work; cleaned public copy, MIT (3 Oct 2026).",
+     "notes": "",
+     "rank": 16,
+     "trending": false,
+     "nonCommercial": false,
+     "redistributable": true,
+     "local": "skills/07_AI_Video_Creation/16_beat-cut-films"
+    },
+    {
+     "name": "screen-record-web",
+     "purpose": "Real macOS screen recordings of a website or logged-in web app: real cursor moves, clicks and page loads, captured with screencapture from a JSON route.",
+     "how_to_use": "macOS only; needs Chrome, ffmpeg and clang. Use for product tours and demo or ad footage of a real UI.",
+     "url": "https://github.com/Gipsonkj/skillgarden/tree/main/authored/screen-record-web",
+     "repo": "Gipsonkj/skillgarden",
+     "stars": 0,
+     "license": "MIT",
+     "evidence": "Written by the Skill Garden author from shipped work; cleaned public copy, MIT (3 Oct 2026).",
+     "notes": "",
+     "rank": 17,
+     "trending": false,
+     "nonCommercial": false,
+     "redistributable": true,
+     "local": "skills/07_AI_Video_Creation/17_screen-record-web"
     },
     {
      "name": "hypit",
@@ -2773,7 +2950,7 @@
      "license": "NOASSERTION",
      "evidence": "Created 2026-07-29, ~18.9k stars in ~2 months; top 'frameworks' entry in awesome-claude-video-skills",
      "notes": "License NOASSERTION; relies on paid generation APIs; face-swap features carry consent/ToS risk.",
-     "rank": 10,
+     "rank": 18,
      "trending": true,
      "nonCommercial": false,
      "redistributable": false,
@@ -2789,11 +2966,11 @@
      "license": "MIT",
      "evidence": "Part of Everything Claude Code (271k stars); claudemarketplaces ~6.6K installs; skills.sh ~12K installs (ecc mirror)",
      "notes": "",
-     "rank": 11,
+     "rank": 19,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/07_AI_Video_Creation/11_video-editing"
+     "local": "skills/07_AI_Video_Creation/19_video-editing"
     },
     {
      "name": "video",
@@ -2805,11 +2982,11 @@
      "license": "MIT",
      "evidence": "marketingskills (52k stars); claudemarketplaces ~58K installs",
      "notes": "",
-     "rank": 12,
+     "rank": 20,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/07_AI_Video_Creation/12_video"
+     "local": "skills/07_AI_Video_Creation/20_video"
     },
     {
      "name": "video-generation",
@@ -2821,11 +2998,11 @@
      "license": "MIT",
      "evidence": "ByteDance DeerFlow (83k stars); skills.sh/claudemarketplaces ~2.6K installs",
      "notes": "Written for DeerFlow's runtime; the prompt structure ports to Claude Code but scripts assume DeerFlow tools.",
-     "rank": 13,
+     "rank": 21,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/07_AI_Video_Creation/13_video-generation"
+     "local": "skills/07_AI_Video_Creation/21_video-generation"
     },
     {
      "name": "gemini-omni-flash-api",
@@ -2837,11 +3014,27 @@
      "license": "Apache-2.0",
      "evidence": "Official Google Gemini skills repo; companion gemini-api-dev (22.7K skills.sh installs) covers Veo + TTS",
      "notes": "",
-     "rank": 14,
+     "rank": 22,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/07_AI_Video_Creation/14_gemini-omni-flash-api"
+     "local": "skills/07_AI_Video_Creation/22_gemini-omni-flash-api"
+    },
+    {
+     "name": "bytedance-modelark",
+     "purpose": "Seedream stills, Seedance image-to-video, multi-reference video and video edits on ByteDance's first-party BytePlus ModelArk API, with the real gotchas.",
+     "how_to_use": "Needs $ARK_API_KEY. Use for Seedance/Seedream work or the cheapest working image-to-video.",
+     "url": "https://github.com/Gipsonkj/skillgarden/tree/main/authored/bytedance-modelark",
+     "repo": "Gipsonkj/skillgarden",
+     "stars": 0,
+     "license": "MIT",
+     "evidence": "Written by the Skill Garden author from shipped work; cleaned public copy, MIT (3 Oct 2026).",
+     "notes": "",
+     "rank": 23,
+     "trending": false,
+     "nonCommercial": false,
+     "redistributable": true,
+     "local": "skills/07_AI_Video_Creation/23_bytedance-modelark"
     },
     {
      "name": "ltx2",
@@ -2853,11 +3046,11 @@
      "license": "MIT",
      "evidence": "claude-code-video-toolkit (2.2k stars); toolkit already cited for acestep in audio_generation. Self-hosted open-weights i2v, the same shape as a stills->i2v cinematic pipeline.",
      "notes": "Repo was in sources_checked but this skill was not listed.",
-     "rank": 15,
+     "rank": 24,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/07_AI_Video_Creation/15_ltx2"
+     "local": "skills/07_AI_Video_Creation/24_ltx2"
     },
     {
      "name": "ffmpeg-skill",
@@ -2869,11 +3062,11 @@
      "license": "MIT",
      "evidence": "Top-starred standalone ffmpeg skill on GitHub (1.45k stars)",
      "notes": "",
-     "rank": 16,
+     "rank": 25,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/07_AI_Video_Creation/16_ffmpeg-skill"
+     "local": "skills/07_AI_Video_Creation/25_ffmpeg-skill"
     },
     {
      "name": "heygen-video",
@@ -2885,11 +3078,11 @@
      "license": "MIT",
      "evidence": "Official HeyGen; skills.sh ~2.6K installs",
      "notes": "Paid HeyGen API.",
-     "rank": 17,
+     "rank": 26,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/07_AI_Video_Creation/17_heygen-video"
+     "local": "skills/07_AI_Video_Creation/26_heygen-video"
     },
     {
      "name": "vox-director",
@@ -2901,11 +3094,11 @@
      "license": "MIT",
      "evidence": "Created 2026-07-10, 2.1k stars in under 3 months; top of awesome-claude-video-skills explainer list",
      "notes": "Depends on Atlas Cloud paid API.",
-     "rank": 18,
+     "rank": 27,
      "trending": true,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/07_AI_Video_Creation/18_vox-director"
+     "local": "skills/07_AI_Video_Creation/27_vox-director"
     },
     {
      "name": "flux-3-video",
@@ -2917,11 +3110,11 @@
      "license": "MIT",
      "evidence": "Vendor-official (Black Forest Labs); new FLUX 3 video skill family; sibling flux-3-product-ads already used elsewhere in the library.",
      "notes": "Router SKILL.md is short (~2KB); value is in the family of flux-3-* specialist skills.",
-     "rank": 19,
+     "rank": 28,
      "trending": true,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/07_AI_Video_Creation/19_flux-3-video"
+     "local": "skills/07_AI_Video_Creation/28_flux-3-video"
     },
     {
      "name": "lanshu-create-ai-presenter-video",
@@ -2933,11 +3126,11 @@
      "license": "MIT",
      "evidence": "Created 2026-08-20, ~2k stars in ~6 weeks; listed in awesome-claude-video-skills avatars",
      "notes": "Requires consent for the presenter likeness.",
-     "rank": 20,
+     "rank": 29,
      "trending": true,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/07_AI_Video_Creation/20_lanshu-create-ai-presenter-video"
+     "local": "skills/07_AI_Video_Creation/29_lanshu-create-ai-presenter-video"
     },
     {
      "name": "onetake",
@@ -2949,7 +3142,7 @@
      "license": "NOASSERTION",
      "evidence": "Created 2026-09-26 and ~1.3k stars within a week - fastest riser in awesome-claude-video-skills promo list",
      "notes": "No license declared. NON-COMMERCIAL license: personal/non-commercial use only.",
-     "rank": 21,
+     "rank": 30,
      "trending": true,
      "nonCommercial": true,
      "redistributable": false,
@@ -2965,11 +3158,11 @@
      "license": "MIT (stated in README)",
      "evidence": "Official fal.ai community repo; skills.sh ~540 installs (fal set totals 9.3K)",
      "notes": "README says MIT but no LICENSE file; paid fal API.",
-     "rank": 22,
+     "rank": 31,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/07_AI_Video_Creation/22_genmedia"
+     "local": "skills/07_AI_Video_Creation/31_genmedia"
     },
     {
      "name": "rw-generate-video",
@@ -2981,11 +3174,11 @@
      "license": "MIT",
      "evidence": "Official Runway vendor skill",
      "notes": "Paid Runway API.",
-     "rank": 23,
+     "rank": 32,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/07_AI_Video_Creation/23_rw-generate-video"
+     "local": "skills/07_AI_Video_Creation/32_rw-generate-video"
     }
    ]
   },
@@ -3343,7 +3536,7 @@
    "blurb": "Generate, edit and keep images consistent with GPT Image, Nano Banana, FLUX and local models, plus code-made art.",
    "hue": 330,
    "superskill": {
-    "description": "Create and edit images with AI models or code. Covers prompt writing for any image model; text and typography inside images; editing, inpainting, reference images, character/product consistency and transparent backgrounds; OpenAI GPT Image (Images API, Codex image_gen); Google Gemini / Nano Banana; FLUX, Replicate, fal.ai, OpenRouter, Seedream, Recraft, Ideogram, Higgsfield; local Stable Diffusion, diffusers and ComfyUI workflows; p5.js/SVG generative art; website heroes, design comps, game and UI assets; marketing, social, ad, product and brand images. Use when asked to generate an image, picture, illustration, photo, hero image, banner, thumbnail, poster, sprite, icon, texture, logo concept, mockup or OG image; to edit, restyle, remove or replace something in an image, change a background or make it transparent; to keep a character or product consistent; to write or fix an image prompt; to pick an image model; to build a ComfyUI workflow; or to make generative/algorithmic art.",
+    "description": "Create and edit images with AI models or code. Covers prompt writing for any image model; text and typography inside images; editing, inpainting, reference images, character/product consistency and transparent backgrounds; OpenAI GPT Image (Images API, Codex image_gen); Google Gemini / Nano Banana; FLUX, Replicate, fal.ai, OpenRouter, Seedream/ByteDance ModelArk, Recraft, Ideogram, Higgsfield; local Stable Diffusion, diffusers and ComfyUI workflows; p5.js/SVG generative art; website heroes, design comps, game and UI assets; marketing, social, ad, product and brand images. Use when asked to generate an image, picture, illustration, photo, hero image, banner, thumbnail, poster, sprite, icon, texture, logo concept, mockup or OG image; to edit, restyle, remove or replace something in an image, change a background or make it transparent; to keep a character or product consistent; to write or fix an image prompt; to pick an image model; to build a ComfyUI workflow; or to make generative/algorithmic art.",
     "references": [
      "references/algorithmic-art.md",
      "references/editing-references-consistency.md",
@@ -3537,6 +3730,22 @@
      "local": "skills/09_Image_Creation/11_flux-image-best-practices"
     },
     {
+     "name": "bytedance-modelark",
+     "purpose": "Seedream stills, Seedance image-to-video, multi-reference video and video edits on ByteDance's first-party BytePlus ModelArk API, with the real gotchas.",
+     "how_to_use": "Needs $ARK_API_KEY. Use for Seedance/Seedream work or the cheapest working image-to-video.",
+     "url": "https://github.com/Gipsonkj/skillgarden/tree/main/authored/bytedance-modelark",
+     "repo": "Gipsonkj/skillgarden",
+     "stars": 0,
+     "license": "MIT",
+     "evidence": "Written by the Skill Garden author from shipped work; cleaned public copy, MIT (3 Oct 2026).",
+     "notes": "",
+     "rank": 12,
+     "trending": false,
+     "nonCommercial": false,
+     "redistributable": true,
+     "local": "skills/09_Image_Creation/12_bytedance-modelark"
+    },
+    {
      "name": "nano-banana-pro-openrouter",
      "purpose": "Generate or edit images via OpenRouter with Gemini 3 Pro Image (Nano Banana Pro): prompt-only generation, edits and multi-image compositing at 1K/2K/4K.",
      "how_to_use": "Triggers on image generation/edit requests; needs OPENROUTER_API_KEY and uv/Python.",
@@ -3546,11 +3755,11 @@
      "license": "MIT",
      "evidence": "GitHub's official awesome-copilot (39.6k stars); skills.sh ~10k installs",
      "notes": "",
-     "rank": 12,
+     "rank": 13,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/09_Image_Creation/12_nano-banana-pro-openrouter"
+     "local": "skills/09_Image_Creation/13_nano-banana-pro-openrouter"
     },
     {
      "name": "nano-banana-pro",
@@ -3562,11 +3771,11 @@
      "license": "CC0-1.0",
      "evidence": "skills.sh ~3.2k installs (nano-banana-2 ~0.9k)",
      "notes": "CC0 licensed.",
-     "rank": 13,
+     "rank": 14,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/09_Image_Creation/13_nano-banana-pro"
+     "local": "skills/09_Image_Creation/14_nano-banana-pro"
     },
     {
      "name": "nano-banana-pro",
@@ -3578,11 +3787,11 @@
      "license": "MIT",
      "evidence": "7.2k-star repo by a well-known developer; also distributed via openclaw",
      "notes": "",
-     "rank": 14,
+     "rank": 15,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/09_Image_Creation/14_nano-banana-pro"
+     "local": "skills/09_Image_Creation/15_nano-banana-pro"
     },
     {
      "name": "nano-banana",
@@ -3594,11 +3803,11 @@
      "license": "MIT",
      "evidence": "414 stars; skills.sh ~660 installs",
      "notes": "",
-     "rank": 15,
+     "rank": 16,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/09_Image_Creation/15_nano-banana"
+     "local": "skills/09_Image_Creation/16_nano-banana"
     },
     {
      "name": "higgsfield-generate",
@@ -3610,11 +3819,11 @@
      "license": "MIT",
      "evidence": "Official Higgsfield; repo created Apr 2026 and already 1.2k stars; sibling skills ~72k installs on skills.sh",
      "notes": "Paid service.",
-     "rank": 16,
+     "rank": 17,
      "trending": true,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/09_Image_Creation/16_higgsfield-generate"
+     "local": "skills/09_Image_Creation/17_higgsfield-generate"
     },
     {
      "name": "gpt-image-2-style-library",
@@ -3626,11 +3835,11 @@
      "license": "MIT",
      "evidence": "33.8k-star prompt library repo; skills.sh ~3.8k installs",
      "notes": "SKILL.md is short; value is in the repo's template library.",
-     "rank": 17,
+     "rank": 18,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/09_Image_Creation/17_gpt-image-2-style-library"
+     "local": "skills/09_Image_Creation/18_gpt-image-2-style-library"
     },
     {
      "name": "stable-diffusion",
@@ -3642,11 +3851,11 @@
      "license": "MIT",
      "evidence": "Part of Hermes Agent (250k stars); top hit on skillsmp image search",
      "notes": "Hermes-agent oriented; adaptable to Claude.",
-     "rank": 18,
+     "rank": 19,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/09_Image_Creation/18_stable-diffusion"
+     "local": "skills/09_Image_Creation/19_stable-diffusion"
     },
     {
      "name": "imagen",
@@ -3658,11 +3867,11 @@
      "license": "Apache-2.0",
      "evidence": "Listed in ComposioHQ awesome list; skills.sh ~580 installs",
      "notes": "",
-     "rank": 19,
+     "rank": 20,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/09_Image_Creation/19_imagen"
+     "local": "skills/09_Image_Creation/20_imagen"
     },
     {
      "name": "comfyui-workflow-builder",
@@ -3674,11 +3883,11 @@
      "license": "MIT",
      "evidence": "Top ComfyUI skill on skills.sh (~1.9K installs; pack of 15 ComfyUI skills).",
      "notes": "Low stars; the only substantive ComfyUI (local open-model) entry - list has none.",
-     "rank": 20,
+     "rank": 21,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/09_Image_Creation/20_comfyui-workflow-builder"
+     "local": "skills/09_Image_Creation/21_comfyui-workflow-builder"
     },
     {
      "name": "image-prompt",
@@ -3690,11 +3899,11 @@
      "license": "MIT",
      "evidence": "Repo created Jun 2026, 327 stars in ~3 months (fast-rising)",
      "notes": "Korean-language skill.",
-     "rank": 21,
+     "rank": 22,
      "trending": true,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/09_Image_Creation/21_image-prompt"
+     "local": "skills/09_Image_Creation/22_image-prompt"
     },
     {
      "name": "ai-image-generation",
@@ -3706,7 +3915,7 @@
      "license": "NONE (README says MIT, no LICENSE file)",
      "evidence": "Previously one of skills.sh's most-installed image skills (heavily forked); 757 stars",
      "notes": "No LICENSE file (README says MIT) -> link-only; many copies on skills.sh with inflated installs.",
-     "rank": 22,
+     "rank": 23,
      "trending": false,
      "nonCommercial": false,
      "redistributable": false,
@@ -5315,7 +5524,7 @@
    "blurb": "Ship and run apps: hosting choice, Docker, Kubernetes, Terraform, CI/CD, Cloudflare, GCP, AWS, Azure and observability.",
    "hue": 192,
    "superskill": {
-    "description": "Deploy, run and operate apps in the cloud. Covers choosing a host, Dockerfiles and Compose, Kubernetes manifests and debugging (incl. GKE/EKS), Terraform/OpenTofu (style, state, modules, tests, safe apply/destroy), CI/CD with GitHub Actions (quality gates, OIDC, previews, rollbacks), Cloudflare Workers/Wrangler/Durable Objects, Google Cloud Run/Firebase App Hosting, AWS (IAM policies and roles, Lambda, ECS/EKS/ECR, CDK), Azure (azd deploy, Container Apps/App Service diagnostics, KQL), and observability (OpenTelemetry, Grafana dashboards, RED/USE, alerts). Use when asked to deploy or ship an app, \"put this live\", write a Dockerfile or compose.yaml, shrink or harden an image, write k8s YAML or debug CrashLoopBackOff/Pending pods, write or review Terraform, set up a CI pipeline or GitHub Actions workflow, configure wrangler.jsonc, deploy to Cloud Run, write an IAM policy, build a Lambda, run azd up, instrument with OpenTelemetry, build a Grafana dashboard, or debug a production outage.",
+    "description": "Deploy, run and operate apps in the cloud. Covers choosing a host, Dockerfiles and Compose, Kubernetes manifests and debugging (GKE/EKS), Terraform/OpenTofu (style, state, modules, tests, safe destroy), GitHub Actions CI/CD (quality gates, OIDC, previews, rollbacks), Cloudflare Workers/Wrangler/Durable Objects, Google Cloud Run (incl. Next.js behind Firebase Hosting) and Firebase App Hosting, AWS (IAM, Lambda, ECS/EKS/ECR, CDK), Azure (azd, Container Apps/App Service diagnostics, KQL), and observability (OpenTelemetry, Grafana, RED/USE, alerts). Use when asked to deploy or ship an app, \"put this live\", write a Dockerfile or compose.yaml, shrink or harden an image, write k8s YAML or debug CrashLoopBackOff/Pending pods, write or review Terraform, set up a GitHub Actions pipeline, configure wrangler.jsonc, deploy to Cloud Run, fix gcloud \"No module named grpc\", write an IAM policy, build a Lambda, run azd up, add OpenTelemetry, build a Grafana dashboard, or debug a production outage.",
     "references": [
      "references/aws.md",
      "references/azure.md",
@@ -5525,6 +5734,22 @@
      "local": "skills/14_Cloud_DevOps/12_firebase-app-hosting-basics"
     },
     {
+     "name": "gcloud-app-deploy",
+     "purpose": "Deploys a Next.js or Node app to Cloud Run behind Firebase Hosting: standalone Docker build, domain rewrite, env vars, GitHub Actions via Workload Identity Federation, and fixes for common gcloud failures.",
+     "how_to_use": "Needs gcloud and firebase CLIs and a Google Cloud project.",
+     "url": "https://github.com/Gipsonkj/skillgarden/tree/main/authored/gcloud-app-deploy",
+     "repo": "Gipsonkj/skillgarden",
+     "stars": 0,
+     "license": "MIT",
+     "evidence": "Written by the Skill Garden author from shipped work; cleaned public copy, MIT (3 Oct 2026).",
+     "notes": "",
+     "rank": 13,
+     "trending": false,
+     "nonCommercial": false,
+     "redistributable": true,
+     "local": "skills/14_Cloud_DevOps/13_gcloud-app-deploy"
+    },
+    {
      "name": "gke-basics",
      "purpose": "Core GKE operations: cluster provisioning, credentials, Autopilot vs Standard selection and basic workload management.",
      "how_to_use": "Triggers on GKE cluster tasks; needs gcloud + kubectl.",
@@ -5534,11 +5759,11 @@
      "license": "Apache-2.0",
      "evidence": "Official Google; skills.sh 12.8k installs",
      "notes": "",
-     "rank": 13,
+     "rank": 14,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/14_Cloud_DevOps/13_gke-basics"
+     "local": "skills/14_Cloud_DevOps/14_gke-basics"
     },
     {
      "name": "github-actions-templates",
@@ -5550,11 +5775,11 @@
      "license": "MIT",
      "evidence": "wshobson/agents 40k stars; skills.sh 16.4k installs",
      "notes": "",
-     "rank": 14,
+     "rank": 15,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/14_Cloud_DevOps/14_github-actions-templates"
+     "local": "skills/14_Cloud_DevOps/15_github-actions-templates"
     },
     {
      "name": "ci-cd-and-automation",
@@ -5566,11 +5791,11 @@
      "license": "MIT",
      "evidence": "addyosmani/agent-skills 100k stars; skills.sh ~41.8k installs",
      "notes": "",
-     "rank": 15,
+     "rank": 16,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/14_Cloud_DevOps/15_ci-cd-and-automation"
+     "local": "skills/14_Cloud_DevOps/16_ci-cd-and-automation"
     },
     {
      "name": "kubernetes-specialist",
@@ -5582,11 +5807,11 @@
      "license": "MIT",
      "evidence": "Jeffallan/claude-skills 11.7k stars; skills.sh 13.4k installs",
      "notes": "",
-     "rank": 16,
+     "rank": 17,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/14_Cloud_DevOps/16_kubernetes-specialist"
+     "local": "skills/14_Cloud_DevOps/17_kubernetes-specialist"
     },
     {
      "name": "terraform-test",
@@ -5598,11 +5823,11 @@
      "license": "MPL-2.0",
      "evidence": "Official HashiCorp; skills.sh 8.3k installs",
      "notes": "",
-     "rank": 17,
+     "rank": 18,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/14_Cloud_DevOps/17_terraform-test"
+     "local": "skills/14_Cloud_DevOps/18_terraform-test"
     },
     {
      "name": "docker-patterns",
@@ -5614,11 +5839,11 @@
      "license": "MIT",
      "evidence": "ECC 271k stars; skills.sh 4.7k installs",
      "notes": "",
-     "rank": 18,
+     "rank": 19,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/14_Cloud_DevOps/18_docker-patterns"
+     "local": "skills/14_Cloud_DevOps/19_docker-patterns"
     },
     {
      "name": "k8s-security-policies",
@@ -5630,11 +5855,11 @@
      "license": "MIT",
      "evidence": "wshobson/agents 40k stars; skills.sh 14.2k installs",
      "notes": "",
-     "rank": 19,
+     "rank": 20,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/14_Cloud_DevOps/19_k8s-security-policies"
+     "local": "skills/14_Cloud_DevOps/20_k8s-security-policies"
     },
     {
      "name": "grafana-dashboards",
@@ -5646,11 +5871,11 @@
      "license": "MIT",
      "evidence": "wshobson/agents 40k stars; skills.sh 12.5k installs",
      "notes": "",
-     "rank": 20,
+     "rank": 21,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/14_Cloud_DevOps/20_grafana-dashboards"
+     "local": "skills/14_Cloud_DevOps/21_grafana-dashboards"
     },
     {
      "name": "aws-iam",
@@ -5662,11 +5887,11 @@
      "license": "Apache-2.0",
      "evidence": "Official AWS (new Apr 2026 toolkit); skills.sh ~9k installs",
      "notes": "Same skill also shipped at plugins/aws-core/skills/aws-iam.",
-     "rank": 21,
+     "rank": 22,
      "trending": true,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/14_Cloud_DevOps/21_aws-iam"
+     "local": "skills/14_Cloud_DevOps/22_aws-iam"
     },
     {
      "name": "aws-containers",
@@ -5678,11 +5903,11 @@
      "license": "Apache-2.0",
      "evidence": "Official AWS; skills.sh ~8.2k installs",
      "notes": "Toolkit also has aws-serverless, aws-observability, aws-cdk; the existing awslabs/agent-plugins aws-lambda entry may be superseded by this repo.",
-     "rank": 22,
+     "rank": 23,
      "trending": true,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/14_Cloud_DevOps/22_aws-containers"
+     "local": "skills/14_Cloud_DevOps/23_aws-containers"
     },
     {
      "name": "opentelemetry",
@@ -5694,11 +5919,11 @@
      "license": "Apache-2.0",
      "evidence": "Official Grafana Labs",
      "notes": "",
-     "rank": 23,
+     "rank": 24,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/14_Cloud_DevOps/23_opentelemetry"
+     "local": "skills/14_Cloud_DevOps/24_opentelemetry"
     },
     {
      "name": "docker-build-strategies",
@@ -5710,11 +5935,11 @@
      "license": "Apache-2.0",
      "evidence": "Official Docker; skills.sh ~385 installs (new)",
      "notes": "",
-     "rank": 24,
+     "rank": 25,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/14_Cloud_DevOps/24_docker-build-strategies"
+     "local": "skills/14_Cloud_DevOps/25_docker-build-strategies"
     },
     {
      "name": "aws-lambda",
@@ -5726,11 +5951,11 @@
      "license": "Apache-2.0",
      "evidence": "Official AWS Labs; skills.sh 247 installs",
      "notes": "Sibling skill 'deploy' (deploy-on-aws) deploys any codebase to AWS.",
-     "rank": 25,
+     "rank": 26,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/14_Cloud_DevOps/25_aws-lambda"
+     "local": "skills/14_Cloud_DevOps/26_aws-lambda"
     },
     {
      "name": "aws-cdk-development",
@@ -5742,11 +5967,11 @@
      "license": "MIT",
      "evidence": "Listed in ComposioHQ/awesome-claude-skills (aws-skills); 365 stars",
      "notes": "",
-     "rank": 26,
+     "rank": 27,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/14_Cloud_DevOps/26_aws-cdk-development"
+     "local": "skills/14_Cloud_DevOps/27_aws-cdk-development"
     }
    ]
   },
@@ -8023,7 +8248,7 @@
    "blurb": "Distinctive, accessible web UI: design direction, tokens, states, motion, WCAG 2.2, break testing, audits and redesigns.",
    "hue": 200,
    "superskill": {
-    "description": "Design and build distinctive, accessible, production-grade web interfaces that don't look AI-generated. Use for landing pages, app screens, dashboards, components and design systems; design direction from a brief (mode, Design Read, tokens); anti-slop review of generic UI (purple gradients, three equal cards, eyebrow labels, Inter everywhere); typography, colour, OKLCH tokens, spacing, dark mode; component states, forms, empty/loading/error, UX copy; shadcn/ui, Tailwind v4, React composition and library picks; animation, easing, springs, gestures, reduced motion; WCAG 2.2 AA accessibility audits; responsive layout and worst-case data testing (long names, RTL, 1,000 rows); UI audits, diff reviews, polish passes; redesigning an existing site; DESIGN.md files and single-file HTML mockups or prototypes. Triggers: \"build a landing page\", \"looks generic\", \"review my UI\", \"add animation\", \"is this accessible\", \"break this component\", \"redesign\", \"prototype this flow\".",
+    "description": "Design and build distinctive, accessible, production-grade web interfaces that don't look AI-generated. Use for landing pages, app screens, dashboards, components and design systems; design direction from a brief (mode, Design Read, tokens); anti-slop review of generic UI (purple gradients, three equal cards, Inter everywhere); typography, colour, OKLCH tokens, spacing, dark mode; component states, forms, empty/loading/error, UX copy; shadcn/ui, Tailwind v4, React composition, library picks, Sonner toasts; animation, easing, springs, gestures, reduced motion; WCAG 2.2 AA accessibility audits; responsive layout and worst-case data (long names, RTL, 1,000 rows); UI audits, diff reviews, polish passes; redesigning an existing site; DESIGN.md files, single-file HTML mockups or prototypes, and live variant pickers. Triggers: \"build a landing page\", \"looks generic\", \"review my UI\", \"add animation\", \"is this accessible\", \"break this component\", \"redesign\", \"prototype this flow\", \"show me a few versions\".",
     "references": [
      "references/accessibility.md",
      "references/anti-slop.md",
@@ -8362,6 +8587,22 @@
      "local": "skills/21_Frontend_UI_UX_Design/20_html-prototype"
     },
     {
+     "name": "prototype",
+     "purpose": "Builds several genuinely different versions of a UI piece behind a live visual picker so you can flip through them and promote the one that feels right.",
+     "how_to_use": "Only runs when invoked by name (\"use prototype: <the piece>\"); it does not trigger on its own.",
+     "url": "https://github.com/emilkowalski/skills/tree/main/skills/prototype",
+     "repo": "emilkowalski/skills",
+     "stars": 42934,
+     "license": "MIT",
+     "evidence": "Emil Kowalski's skills repo, same family as animate, review-animations and pick-ui-library. Found in soorajplankuveedu/claude-knowledge-backup (vendor copy) on 3 Oct 2026; installed from upstream.",
+     "notes": "",
+     "rank": 21,
+     "trending": false,
+     "nonCommercial": false,
+     "redistributable": true,
+     "local": "skills/21_Frontend_UI_UX_Design/21_prototype"
+    },
+    {
      "name": "frontend-ui-engineering",
      "purpose": "Production-quality, accessible, responsive UI engineering: component structure, state, layout, WCAG, avoiding generic AI look.",
      "how_to_use": "Triggers when building or modifying pages/components.",
@@ -8371,11 +8612,11 @@
      "license": "MIT",
      "evidence": "addyosmani/agent-skills 100k stars; skills.sh ~49k installs",
      "notes": "",
-     "rank": 21,
+     "rank": 22,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/21_Frontend_UI_UX_Design/21_frontend-ui-engineering"
+     "local": "skills/21_Frontend_UI_UX_Design/22_frontend-ui-engineering"
     },
     {
      "name": "pick-ui-library",
@@ -8387,11 +8628,27 @@
      "license": "MIT",
      "evidence": "emilkowalski/skills 43k stars; skills.sh 132k installs",
      "notes": "",
-     "rank": 22,
+     "rank": 23,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/21_Frontend_UI_UX_Design/22_pick-ui-library"
+     "local": "skills/21_Frontend_UI_UX_Design/23_pick-ui-library"
+    },
+    {
+     "name": "ask-sonner",
+     "purpose": "Guide to Sonner, the React toast library: Toaster setup, toast() variants, promise and loading toasts, styling, theming, positioning, and fixes for toasts that don't show or double up.",
+     "how_to_use": "Use when adding or debugging Sonner toasts in a React app.",
+     "url": "https://github.com/emilkowalski/skills/tree/main/skills/ask-sonner",
+     "repo": "emilkowalski/skills",
+     "stars": 42934,
+     "license": "MIT",
+     "evidence": "Emil Kowalski's skills repo, same family as animate, review-animations and pick-ui-library. Found in soorajplankuveedu/claude-knowledge-backup (vendor copy) on 3 Oct 2026; installed from upstream.",
+     "notes": "",
+     "rank": 24,
+     "trending": false,
+     "nonCommercial": false,
+     "redistributable": true,
+     "local": "skills/21_Frontend_UI_UX_Design/24_ask-sonner"
     },
     {
      "name": "interface-review",
@@ -8403,11 +8660,11 @@
      "license": "MIT",
      "evidence": "7.4k stars; sibling better-typography ~27k, better-colors ~26k installs",
      "notes": "Repo also has better-ui, better-typography, better-colors, better-layout.",
-     "rank": 23,
+     "rank": 25,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/21_Frontend_UI_UX_Design/23_interface-review"
+     "local": "skills/21_Frontend_UI_UX_Design/25_interface-review"
     },
     {
      "name": "baseline-ui",
@@ -8419,11 +8676,11 @@
      "license": "MIT",
      "evidence": "9.3k stars; skills.sh ~21.5k installs; in VoltAgent list",
      "notes": "Sibling fixing-accessibility (~19.5k) and fixing-motion-performance (~24k).",
-     "rank": 24,
+     "rank": 26,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/21_Frontend_UI_UX_Design/24_baseline-ui"
+     "local": "skills/21_Frontend_UI_UX_Design/26_baseline-ui"
     },
     {
      "name": "design-md",
@@ -8435,11 +8692,11 @@
      "license": "Apache-2.0",
      "evidence": "Official Google Labs (8.4k stars); skills.sh ~63k installs",
      "notes": "Stitch-oriented.",
-     "rank": 25,
+     "rank": 27,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/21_Frontend_UI_UX_Design/25_design-md"
+     "local": "skills/21_Frontend_UI_UX_Design/27_design-md"
     },
     {
      "name": "extract-design-system",
@@ -8451,11 +8708,11 @@
      "license": "MIT",
      "evidence": "skills.sh ~130k installs",
      "notes": "Small repo (231 stars) despite high installs.",
-     "rank": 26,
+     "rank": 28,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/21_Frontend_UI_UX_Design/26_extract-design-system"
+     "local": "skills/21_Frontend_UI_UX_Design/28_extract-design-system"
     },
     {
      "name": "theme-factory",
@@ -8467,11 +8724,11 @@
      "license": "Apache-2.0",
      "evidence": "Official Anthropic; skills.sh ~89k installs; in ComposioHQ list",
      "notes": "",
-     "rank": 27,
+     "rank": 29,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/21_Frontend_UI_UX_Design/27_theme-factory"
+     "local": "skills/21_Frontend_UI_UX_Design/29_theme-factory"
     }
    ]
   },
@@ -11591,7 +11848,7 @@
    "blurb": "Skills, CLAUDE.md, hooks, subagents, plans and context: set Claude up to do long tasks well.",
    "hue": 22,
    "superskill": {
-    "description": "Expert guide to working with and extending Claude Code and agents. Use when writing, editing, testing or packaging a skill (SKILL.md, description triggering, evals); writing or auditing CLAUDE.md, AGENTS.md or rules files; creating hooks or guardrails (PreToolUse, Stop, block git push, auto-format, \"whenever X do Y\"); defining subagents or delegating tasks to them; brainstorming, grilling a plan, writing specs or implementation plans and executing them; managing context, compaction, long sessions, handoffs, memory and planning files; terse/low-token output; capturing lessons as skills, finding or vetting skills to install, recommending Claude Code automations; or delegating to or cross-reviewing with the Codex CLI. Also use when the user says \"use claude-meta\", \"make a skill\", \"grill me\", \"handoff\", or \"caveman mode\".",
+    "description": "Expert guide to working with and extending Claude Code and agents. Use when writing, editing, testing or packaging a skill (SKILL.md, description triggering, evals); writing or auditing CLAUDE.md, AGENTS.md or rules files; creating hooks or guardrails (PreToolUse, Stop, block git push, auto-format, \"whenever X do Y\"); defining subagents or delegating tasks to them; brainstorming, grilling a plan, writing specs or implementation plans and executing them; managing context, compaction, long sessions, handoffs, memory and planning files; terse/low-token output; capturing lessons as skills, turning saved reels, bookmarks or creator freebies into a skill stack, finding or vetting skills to install, recommending Claude Code automations; or delegating to or cross-reviewing with the Codex CLI. Also use when the user says \"use claude-meta\", \"make a skill\", \"grill me\", \"handoff\", or \"caveman mode\".",
     "references": [
      "references/claude-md-and-rules.md",
      "references/codex-cross-review.md",
@@ -11600,6 +11857,7 @@
      "references/learning-and-skill-discovery.md",
      "references/planning-and-execution.md",
      "references/skill-authoring.md",
+     "references/skill-stack-from-saves.md",
      "references/skill-testing-and-triggering.md",
      "references/subagents-and-delegation.md"
     ],
@@ -12038,6 +12296,608 @@
      "nonCommercial": false,
      "redistributable": true,
      "local": "skills/29_Claude_Expert_Meta-skills/27_git-guardrails-claude-code"
+    }
+   ]
+  },
+  {
+   "id": "figma-design",
+   "order": 30,
+   "name": "Figma & design systems",
+   "blurb": "Figma MCP, tokens and variables, code-Figma sync and drift, component and screen-reader specs, hand-off, design-to-code and audits.",
+   "hue": 290,
+   "superskill": {
+    "description": "Work with Figma files and design systems through the Figma MCP server or other design bridges. Use for reading Figma frames without wasting calls; safe canvas writes with use_figma; design tokens and Figma variables (tiers, naming, modes, scopes, code syntax, DTCG, Style Dictionary, Tailwind v4); syncing tokens between Figma and code, drift and parity checks; component specs and docs (API, anatomy, structure, colour, uSpec); accessibility and screen-reader specs (VoiceOver, TalkBack, ARIA); hand-off specs; implementing Figma designs as code that reuses existing components and tokens; design-system audits and fixes; building variables, components and libraries in Figma; Penpot and OpenPencil (.fig). Says when to load Figma's own skills (figma-use, figma-design-to-code, figma-generate-library, figma-code-connect). Triggers: \"implement this Figma frame\", \"export our Figma variables\", \"sync tokens\", \"spec this component\", \"screen reader spec\", \"audit our design system\", \"hand-off doc\".",
+    "references": [
+     "references/accessibility-specs.md",
+     "references/building-in-figma.md",
+     "references/component-specs.md",
+     "references/design-system-audits.md",
+     "references/design-to-code.md",
+     "references/design-tokens.md",
+     "references/figma-mcp.md",
+     "references/handoff-specs.md",
+     "references/other-design-tools.md",
+     "references/token-sync-and-drift.md"
+    ],
+    "path": "superskills/figma-design"
+   },
+   "zip": "zips/30_Figma_Design_Systems.zip",
+   "skills": [
+    {
+     "name": "figma-use",
+     "purpose": "Foundation skill for writing to the Figma canvas through the MCP `use_figma` tool: Plugin API rules, node creation and editing, variables, components and auto layout.",
+     "how_to_use": "Install Figma's own Claude Code plugin from figma/mcp-server-guide (`claude plugin install figma@claude-plugins-official`), which sets up the remote Figma MCP server (https://mcp.figma.com/mcp) and bundles this skill. Load before any `use_figma` call (create/edit nodes, variables, components).",
+     "url": "https://github.com/figma/mcp-server-guide/tree/main/skills/figma-use",
+     "repo": "figma/mcp-server-guide",
+     "stars": 2043,
+     "license": "Figma Developer Terms",
+     "evidence": "Official Figma; skills.sh ~7.9k installs; also mirrored in openai/skills (2.7k installs). Found in soorajplankuveedu/claude-knowledge-backup on 3 Oct 2026.",
+     "notes": "Governed by the Figma Developer Terms (no open-source licence file); link-only. Beta feature.",
+     "rank": 1,
+     "trending": false,
+     "nonCommercial": false,
+     "redistributable": false,
+     "local": null
+    },
+    {
+     "name": "figma-design-to-code",
+     "purpose": "Implements a Figma frame or component as production code via `get_design_context`, reusing the project's components and tokens.",
+     "how_to_use": "Install Figma's own Claude Code plugin from figma/mcp-server-guide (`claude plugin install figma@claude-plugins-official`), which sets up the remote Figma MCP server (https://mcp.figma.com/mcp) and bundles this skill. Triggers on 'implement this Figma design' / a Figma URL; needs the Figma MCP connected.",
+     "url": "https://github.com/figma/mcp-server-guide/tree/main/skills/figma-design-to-code",
+     "repo": "figma/mcp-server-guide",
+     "stars": 2043,
+     "license": "Figma Developer Terms",
+     "evidence": "Official Figma; skills.sh ~1.8k (plus ~6k under its earlier name implement-design) installs. Found in soorajplankuveedu/claude-knowledge-backup on 3 Oct 2026.",
+     "notes": "Governed by the Figma Developer Terms (no open-source licence file); link-only. Beta feature.",
+     "rank": 2,
+     "trending": false,
+     "nonCommercial": false,
+     "redistributable": false,
+     "local": null
+    },
+    {
+     "name": "figma-generate-design",
+     "purpose": "Builds or updates full screens and multi-section pages in Figma from code or a description, using the file's design system components and variables.",
+     "how_to_use": "Install Figma's own Claude Code plugin from figma/mcp-server-guide (`claude plugin install figma@claude-plugins-official`), which sets up the remote Figma MCP server (https://mcp.figma.com/mcp) and bundles this skill. Use with figma-use for 'push this page to Figma' or 'build a landing page in Figma'.",
+     "url": "https://github.com/figma/mcp-server-guide/tree/main/skills/figma-generate-design",
+     "repo": "figma/mcp-server-guide",
+     "stars": 2043,
+     "license": "Figma Developer Terms",
+     "evidence": "Official Figma; skills.sh ~5.4k installs. Found in soorajplankuveedu/claude-knowledge-backup on 3 Oct 2026.",
+     "notes": "Governed by the Figma Developer Terms (no open-source licence file); link-only. Beta feature.",
+     "rank": 3,
+     "trending": false,
+     "nonCommercial": false,
+     "redistributable": false,
+     "local": null
+    },
+    {
+     "name": "design-system-patterns",
+     "purpose": "Design-token hierarchy (primitive, semantic, component), theming infrastructure, component API patterns and Figma-to-code token pipelines.",
+     "how_to_use": "Auto-triggers when creating tokens, theme switching or component-library foundations; no prerequisites.",
+     "url": "https://github.com/wshobson/agents/tree/main/plugins/ui-design/skills/design-system-patterns",
+     "repo": "wshobson/agents",
+     "stars": 40173,
+     "license": "MIT",
+     "evidence": "wshobson/agents (40k stars); skills.sh ~15.2k installs; in VoltAgent and hesreallyhim lists",
+     "notes": "",
+     "rank": 4,
+     "trending": false,
+     "nonCommercial": false,
+     "redistributable": true,
+     "local": "skills/30_Figma_Design_Systems/04_design-system-patterns"
+    },
+    {
+     "name": "design-system",
+     "purpose": "Audits a design system (naming, hardcoded values, token coverage, component completeness), documents components, and designs new patterns that fit the system.",
+     "how_to_use": "Run `/design-system audit | document <component> | extend <pattern>`; uses a connected design tool (Figma) if available.",
+     "url": "https://github.com/anthropics/knowledge-work-plugins/tree/main/design/skills/design-system",
+     "repo": "anthropics/knowledge-work-plugins",
+     "stars": 26016,
+     "license": "Apache-2.0",
+     "evidence": "Official Anthropic (Cowork knowledge-work design plugin); skills.sh ~3.9k installs",
+     "notes": "",
+     "rank": 5,
+     "trending": false,
+     "nonCommercial": false,
+     "redistributable": true,
+     "local": "skills/30_Figma_Design_Systems/05_design-system"
+    },
+    {
+     "name": "figma-implement-design",
+     "purpose": "Translates Figma designs into application code with close visual fidelity, step by step from design context and screenshots.",
+     "how_to_use": "Codex/agent skill; needs the Figma MCP server connected; triggers on Figma URLs and 'implement design'.",
+     "url": "https://github.com/openai/skills/tree/main/skills/.curated/figma-implement-design",
+     "repo": "openai/skills",
+     "stars": 27854,
+     "license": "Figma Developer Terms",
+     "evidence": "OpenAI curated skills catalog (27.8k stars), authored by Figma; skills.sh ~6.3k installs",
+     "notes": "LICENSE.txt in the folder says use is governed by the Figma Developer Terms; link-only. Overlaps figma-design-to-code.",
+     "rank": 6,
+     "trending": false,
+     "nonCommercial": false,
+     "redistributable": false,
+     "local": null
+    },
+    {
+     "name": "figma-generate-library",
+     "purpose": "Builds or updates a professional design-system library in Figma from a codebase: variables and modes, component sets with variant properties and variable bindings, foundations docs, code-to-Figma gap reconciliation.",
+     "how_to_use": "Install Figma's own Claude Code plugin from figma/mcp-server-guide (`claude plugin install figma@claude-plugins-official`), which sets up the remote Figma MCP server (https://mcp.figma.com/mcp) and bundles this skill. Use with figma-use when asked to create variables/tokens or a component library in Figma.",
+     "url": "https://github.com/figma/mcp-server-guide/tree/main/skills/figma-generate-library",
+     "repo": "figma/mcp-server-guide",
+     "stars": 2043,
+     "license": "Figma Developer Terms",
+     "evidence": "Official Figma; skills.sh ~3.9k installs. Found in soorajplankuveedu/claude-knowledge-backup on 3 Oct 2026.",
+     "notes": "Governed by the Figma Developer Terms (no open-source licence file); link-only. Beta feature.",
+     "rank": 7,
+     "trending": false,
+     "nonCommercial": false,
+     "redistributable": false,
+     "local": null
+    },
+    {
+     "name": "design-handoff",
+     "purpose": "Generates developer handoff specs from a design: layout, tokens used, component props, states, responsive behaviour, edge cases, motion and accessibility notes.",
+     "how_to_use": "Run `/design-handoff <Figma URL or description>`; pulls from Figma when a design connector is attached.",
+     "url": "https://github.com/anthropics/knowledge-work-plugins/tree/main/design/skills/design-handoff",
+     "repo": "anthropics/knowledge-work-plugins",
+     "stars": 26016,
+     "license": "Apache-2.0",
+     "evidence": "Official Anthropic (Cowork knowledge-work design plugin); skills.sh ~3.3k installs",
+     "notes": "",
+     "rank": 8,
+     "trending": false,
+     "nonCommercial": false,
+     "redistributable": true,
+     "local": "skills/30_Figma_Design_Systems/08_design-handoff"
+    },
+    {
+     "name": "figma-code-connect",
+     "purpose": "Creates and maintains Figma Code Connect template files (.figma.ts/.figma.js) that map Figma components to real code snippets.",
+     "how_to_use": "Install Figma's own Claude Code plugin from figma/mcp-server-guide (`claude plugin install figma@claude-plugins-official`), which sets up the remote Figma MCP server (https://mcp.figma.com/mcp) and bundles this skill. Triggers on 'Code Connect' or component-to-code mapping; Code Connect needs an Organization or Enterprise Figma plan.",
+     "url": "https://github.com/figma/mcp-server-guide/tree/main/skills/figma-code-connect",
+     "repo": "figma/mcp-server-guide",
+     "stars": 2043,
+     "license": "Figma Developer Terms",
+     "evidence": "Official Figma; skills.sh ~3.1k installs",
+     "notes": "Governed by the Figma Developer Terms (no open-source licence file); link-only. Beta feature.",
+     "rank": 9,
+     "trending": false,
+     "nonCommercial": false,
+     "redistributable": false,
+     "local": null
+    },
+    {
+     "name": "penpot-uiux-design",
+     "purpose": "Designs UI screens and design systems in Penpot (open-source design tool) through the Penpot MCP tools: layout, components, tokens, accessibility and platform guidelines.",
+     "how_to_use": "Needs the Penpot MCP server connected; triggers on Penpot design tasks.",
+     "url": "https://github.com/github/awesome-copilot/tree/main/skills/penpot-uiux-design",
+     "repo": "github/awesome-copilot",
+     "stars": 39653,
+     "license": "MIT",
+     "evidence": "GitHub awesome-copilot (39.6k stars); skills.sh ~12.8k installs",
+     "notes": "Penpot-specific. Official Penpot also ships penpot/penpot-ai-kit (CC-BY-4.0, 93 stars) with audit-tokens and handoff skills.",
+     "rank": 10,
+     "trending": false,
+     "nonCommercial": false,
+     "redistributable": true,
+     "local": "skills/30_Figma_Design_Systems/10_penpot-uiux-design"
+    },
+    {
+     "name": "create-voice",
+     "purpose": "Writes screen-reader specifications for a component: what VoiceOver (iOS), TalkBack (Android) and ARIA (web) announce for each element and state, focus order and grouping.",
+     "how_to_use": "Say 'create a screen reader spec for <component>'. Reads the component through the Figma MCP (official or figma-console) and renders the spec into Figma or a .md file.",
+     "url": "https://github.com/redongreen/uSpec/tree/main/skills/create-voice",
+     "repo": "redongreen/uSpec",
+     "stars": 244,
+     "license": "MIT",
+     "evidence": "uSpec (design-system documentation toolkit, MIT, active Sep 2026); skills.sh 26 installs; documented at uspec docs site. Found in soorajplankuveedu/claude-knowledge-backup on 3 Oct 2026.",
+     "notes": "Skill file is large (40-115 KB); it leans on the repo-level references/ folder (not inside the skill folder). Sibling skills: create-property, create-structure, create-motion, extract-api/color/structure/voice, firstrun.",
+     "rank": 11,
+     "trending": false,
+     "nonCommercial": false,
+     "redistributable": true,
+     "local": "skills/30_Figma_Design_Systems/11_create-voice"
+    },
+    {
+     "name": "create-component-md",
+     "purpose": "Produces a complete, portable component.md for a design-system component (anatomy, API, structure, colour, voice) from the Figma source, with validation of the evidence.",
+     "how_to_use": "Say 'create component md for <component>'; uses the uSpec CLI for rendering/caching (optional). Reads the component through the Figma MCP (official or figma-console) and renders the spec into Figma or a .md file.",
+     "url": "https://github.com/redongreen/uSpec/tree/main/skills/create-component-md",
+     "repo": "redongreen/uSpec",
+     "stars": 244,
+     "license": "MIT",
+     "evidence": "uSpec (design-system documentation toolkit, MIT, active Sep 2026); skills.sh 13 installs; documented at uspec docs site",
+     "notes": "Skill file is large (40-115 KB); it leans on the repo-level references/ folder (not inside the skill folder). Sibling skills: create-property, create-structure, create-motion, extract-api/color/structure/voice, firstrun.",
+     "rank": 12,
+     "trending": false,
+     "nonCommercial": false,
+     "redistributable": true,
+     "local": "skills/30_Figma_Design_Systems/12_create-component-md"
+    },
+    {
+     "name": "figma-create-new-file",
+     "purpose": "Creates a new blank Figma Design, FigJam or Slides file via the MCP before other write work.",
+     "how_to_use": "Install Figma's own Claude Code plugin from figma/mcp-server-guide (`claude plugin install figma@claude-plugins-official`), which sets up the remote Figma MCP server (https://mcp.figma.com/mcp) and bundles this skill. Load before any `create_new_file` call.",
+     "url": "https://github.com/figma/mcp-server-guide/tree/main/skills/figma-create-new-file",
+     "repo": "figma/mcp-server-guide",
+     "stars": 2043,
+     "license": "Figma Developer Terms",
+     "evidence": "Official Figma; skills.sh ~3.1k installs",
+     "notes": "Governed by the Figma Developer Terms (no open-source licence file); link-only. Beta feature.",
+     "rank": 13,
+     "trending": false,
+     "nonCommercial": false,
+     "redistributable": false,
+     "local": null
+    },
+    {
+     "name": "figma-lint-design",
+     "purpose": "Lints a Figma node tree for WCAG 2.2 accessibility and design-system quality (contrast, target size, colour-only signals, hardcoded colours, missing text styles, detached components) with severities.",
+     "how_to_use": "Say 'lint this frame' / 'design QA'; runs scripts/lint-design.js through `use_figma`.",
+     "url": "https://github.com/southleft/figma-console-mcp-skills/tree/main/skills/figma-lint-design",
+     "repo": "southleft/figma-console-mcp-skills",
+     "stars": 86,
+     "license": "MIT",
+     "evidence": "Companion skill pack of southleft/figma-console-mcp (2,433 stars, MIT); skills.sh ~134 installs; created May 2026",
+     "notes": "Runs bundled Plugin-API scripts through the official Figma MCP `use_figma` tool (any Figma plan); expects Figma's figma-use skill to be loaded too.",
+     "rank": 14,
+     "trending": true,
+     "nonCommercial": false,
+     "redistributable": true,
+     "local": "skills/30_Figma_Design_Systems/14_figma-lint-design"
+    },
+    {
+     "name": "figma-export-tokens",
+     "purpose": "Exports Figma variables (all modes, aliases resolved) to DTCG JSON, CSS variables, Tailwind v4/v3, SCSS, TS, Style Dictionary or Tokens Studio with a deterministic Node converter.",
+     "how_to_use": "Say 'export tokens from Figma'; read via `use_figma`, then `node scripts/convert-tokens.mjs`.",
+     "url": "https://github.com/southleft/figma-console-mcp-skills/tree/main/skills/figma-export-tokens",
+     "repo": "southleft/figma-console-mcp-skills",
+     "stars": 86,
+     "license": "MIT",
+     "evidence": "Companion skill pack of southleft/figma-console-mcp (2,433 stars, MIT); skills.sh ~136 installs; created May 2026",
+     "notes": "Runs bundled Plugin-API scripts through the official Figma MCP `use_figma` tool (any Figma plan); expects Figma's figma-use skill to be loaded too.",
+     "rank": 15,
+     "trending": true,
+     "nonCommercial": false,
+     "redistributable": true,
+     "local": "skills/30_Figma_Design_Systems/15_figma-export-tokens"
+    },
+    {
+     "name": "figma-import-tokens",
+     "purpose": "Pushes DTCG/tokens.json values into Figma variables (collections, modes, aliases) non-destructively, matching existing variables by saved id, key or name so re-imports update instead of duplicating.",
+     "how_to_use": "Say 'import tokens into Figma'; `node scripts/parse-tokens.mjs` then run scripts/apply-tokens.js through `use_figma`.",
+     "url": "https://github.com/southleft/figma-console-mcp-skills/tree/main/skills/figma-import-tokens",
+     "repo": "southleft/figma-console-mcp-skills",
+     "stars": 86,
+     "license": "MIT",
+     "evidence": "Companion skill pack of southleft/figma-console-mcp (2,433 stars, MIT); skills.sh ~119 installs; created May 2026",
+     "notes": "Runs bundled Plugin-API scripts through the official Figma MCP `use_figma` tool (any Figma plan); expects Figma's figma-use skill to be loaded too.",
+     "rank": 16,
+     "trending": true,
+     "nonCommercial": false,
+     "redistributable": true,
+     "local": "skills/30_Figma_Design_Systems/16_figma-import-tokens"
+    },
+    {
+     "name": "create-anatomy",
+     "purpose": "Annotates a component's anatomy in Figma: numbered markers on every sub-element with a table of names, types and notes.",
+     "how_to_use": "Say 'create anatomy for <component>'. Reads the component through the Figma MCP (official or figma-console) and renders the spec into Figma or a .md file.",
+     "url": "https://github.com/redongreen/uSpec/tree/main/skills/create-anatomy",
+     "repo": "redongreen/uSpec",
+     "stars": 244,
+     "license": "MIT",
+     "evidence": "uSpec (design-system documentation toolkit, MIT, active Sep 2026); skills.sh 16 installs; documented at uspec docs site",
+     "notes": "Skill file is large (40-115 KB); it leans on the repo-level references/ folder (not inside the skill folder). Sibling skills: create-property, create-structure, create-motion, extract-api/color/structure/voice, firstrun.",
+     "rank": 17,
+     "trending": false,
+     "nonCommercial": false,
+     "redistributable": true,
+     "local": "skills/30_Figma_Design_Systems/17_create-anatomy"
+    },
+    {
+     "name": "create-api",
+     "purpose": "Documents a component's API (properties, values, defaults, configuration examples) from its Figma variant properties.",
+     "how_to_use": "Say 'create API spec for <component>'. Reads the component through the Figma MCP (official or figma-console) and renders the spec into Figma or a .md file.",
+     "url": "https://github.com/redongreen/uSpec/tree/main/skills/create-api",
+     "repo": "redongreen/uSpec",
+     "stars": 244,
+     "license": "MIT",
+     "evidence": "uSpec (design-system documentation toolkit, MIT, active Sep 2026); skills.sh ~13 installs; documented at uspec docs site",
+     "notes": "Skill file is large (40-115 KB); it leans on the repo-level references/ folder (not inside the skill folder). Sibling skills: create-property, create-structure, create-motion, extract-api/color/structure/voice, firstrun.",
+     "rank": 18,
+     "trending": false,
+     "nonCommercial": false,
+     "redistributable": true,
+     "local": "skills/30_Figma_Design_Systems/18_create-api"
+    },
+    {
+     "name": "create-color",
+     "purpose": "Produces a colour annotation spec mapping each component element and state to its design token, per mode (light/dark).",
+     "how_to_use": "Say 'create color annotation for <component>'. Reads the component through the Figma MCP (official or figma-console) and renders the spec into Figma or a .md file.",
+     "url": "https://github.com/redongreen/uSpec/tree/main/skills/create-color",
+     "repo": "redongreen/uSpec",
+     "stars": 244,
+     "license": "MIT",
+     "evidence": "uSpec (design-system documentation toolkit, MIT, active Sep 2026); skills.sh ~13 installs; documented at uspec docs site",
+     "notes": "Skill file is large (40-115 KB); it leans on the repo-level references/ folder (not inside the skill folder). Sibling skills: create-property, create-structure, create-motion, extract-api/color/structure/voice, firstrun.",
+     "rank": 19,
+     "trending": false,
+     "nonCommercial": false,
+     "redistributable": true,
+     "local": "skills/30_Figma_Design_Systems/19_create-color"
+    },
+    {
+     "name": "figma-check-design-parity",
+     "purpose": "Compares a Figma component with its code implementation and scores drift in properties, tokens and variants, listing fixes on either side.",
+     "how_to_use": "Say 'check parity between Figma and code for <component>'.",
+     "url": "https://github.com/southleft/figma-console-mcp-skills/tree/main/skills/figma-check-design-parity",
+     "repo": "southleft/figma-console-mcp-skills",
+     "stars": 86,
+     "license": "MIT",
+     "evidence": "Companion skill pack of southleft/figma-console-mcp (2,433 stars, MIT); skills.sh ~124 installs; created May 2026",
+     "notes": "Runs bundled Plugin-API scripts through the official Figma MCP `use_figma` tool (any Figma plan); expects Figma's figma-use skill to be loaded too.",
+     "rank": 20,
+     "trending": true,
+     "nonCommercial": false,
+     "redistributable": true,
+     "local": "skills/30_Figma_Design_Systems/20_figma-check-design-parity"
+    },
+    {
+     "name": "open-pencil",
+     "purpose": "Works with Figma .fig files and the open-source OpenPencil editor: inspect trees, query nodes, list variables, analyse colours/type/spacing, lint, export PNG/SVG/PDF/JSX and edit programmatically.",
+     "how_to_use": "Needs the OpenPencil CLI/MCP (`@open-pencil/cli`, local server on 127.0.0.1); triggers on .fig files or OpenPencil.",
+     "url": "https://github.com/open-pencil/skills/tree/master/skills/open-pencil",
+     "repo": "open-pencil/skills",
+     "stars": 16,
+     "license": "MIT",
+     "evidence": "Official skill of open-pencil/open-pencil (8.7k stars since Feb 2026, MIT); skills.sh ~2.1k installs",
+     "notes": "Skill repo itself has few stars; ranked on the product repo.",
+     "rank": 21,
+     "trending": true,
+     "nonCommercial": false,
+     "redistributable": true,
+     "local": "skills/30_Figma_Design_Systems/21_open-pencil"
+    },
+    {
+     "name": "figma-codegen",
+     "purpose": "Generates framework-aware code from a Figma design, matching the project's stack profile and reusing existing components and tokens; pairs with figma-build for code-to-Figma.",
+     "how_to_use": "Needs the figwright MCP server (free, two-way Figma bridge); triggers on Figma-to-code requests.",
+     "url": "https://github.com/awdr74100/figwright/tree/main/skills/figma-codegen",
+     "repo": "awdr74100/figwright",
+     "stars": 964,
+     "license": "MIT",
+     "evidence": "figwright (964 stars, created Jun 2026); skills.sh ~970 installs",
+     "notes": "",
+     "rank": 22,
+     "trending": true,
+     "nonCommercial": false,
+     "redistributable": true,
+     "local": "skills/30_Figma_Design_Systems/22_figma-codegen"
+    },
+    {
+     "name": "token-sync-layer",
+     "purpose": "Syncs Figma variables into code-ready tokens via DTCG JSON and Style Dictionary, emitting framework outputs (shadcn/Tailwind, MUI, CSS, Swift, Kotlin) and a reusable 'sync figma tokens' command.",
+     "how_to_use": "Part of the Throughline Claude Code plugin; needs Figma MCP access and Node for Style Dictionary.",
+     "url": "https://github.com/jrpease/throughline/tree/main/skills/token-sync-layer",
+     "repo": "jrpease/throughline",
+     "stars": 78,
+     "license": "MIT",
+     "evidence": "Throughline plugin (MIT, created Jun 2026); one of 12 design-system pipeline skills (token-builder, design-system-audit, component-builder)",
+     "notes": "",
+     "rank": 23,
+     "trending": false,
+     "nonCommercial": false,
+     "redistributable": true,
+     "local": "skills/30_Figma_Design_Systems/23_token-sync-layer"
+    },
+    {
+     "name": "figma-create-design-system-rules",
+     "purpose": "Generates project-specific design-system rules (CLAUDE.md/AGENTS.md style) that steer Figma-to-code output towards the codebase's components and tokens.",
+     "how_to_use": "Needs the Figma MCP server; say 'create design system rules'.",
+     "url": "https://github.com/openai/skills/tree/main/skills/.curated/figma-create-design-system-rules",
+     "repo": "openai/skills",
+     "stars": 27854,
+     "license": "Figma Developer Terms",
+     "evidence": "OpenAI curated skills catalog, authored by Figma",
+     "notes": "Figma Developer Terms (folder LICENSE.txt); link-only.",
+     "rank": 24,
+     "trending": false,
+     "nonCommercial": false,
+     "redistributable": false,
+     "local": null
+    },
+    {
+     "name": "figma-swiftui",
+     "purpose": "Translates between Figma and SwiftUI in both directions (design to SwiftUI views, SwiftUI screens and tokens back to Figma).",
+     "how_to_use": "Install Figma's own Claude Code plugin from figma/mcp-server-guide (`claude plugin install figma@claude-plugins-official`), which sets up the remote Figma MCP server (https://mcp.figma.com/mcp) and bundles this skill. Triggers on Swift/SwiftUI/iOS Figma work.",
+     "url": "https://github.com/figma/mcp-server-guide/tree/main/skills/figma-swiftui",
+     "repo": "figma/mcp-server-guide",
+     "stars": 2043,
+     "license": "Figma Developer Terms",
+     "evidence": "Official Figma; skills.sh ~1.0k installs",
+     "notes": "Governed by the Figma Developer Terms (no open-source licence file); link-only. Beta feature.",
+     "rank": 25,
+     "trending": false,
+     "nonCommercial": false,
+     "redistributable": false,
+     "local": null
+    },
+    {
+     "name": "figma-generative-plugins",
+     "purpose": "Authors and updates reusable generative Figma plugins through the MCP.",
+     "how_to_use": "Install Figma's own Claude Code plugin from figma/mcp-server-guide (`claude plugin install figma@claude-plugins-official`), which sets up the remote Figma MCP server (https://mcp.figma.com/mcp) and bundles this skill. Load before `create_generative_plugin` / `update_generative_plugin`.",
+     "url": "https://github.com/figma/mcp-server-guide/tree/main/skills/figma-generative-plugins",
+     "repo": "figma/mcp-server-guide",
+     "stars": 2043,
+     "license": "Figma Developer Terms",
+     "evidence": "Official Figma; skills.sh ~250 installs",
+     "notes": "Governed by the Figma Developer Terms (no open-source licence file); link-only. Beta feature.",
+     "rank": 26,
+     "trending": false,
+     "nonCommercial": false,
+     "redistributable": false,
+     "local": null
+    },
+    {
+     "name": "figma-use-figjam",
+     "purpose": "Context for using `use_figma` inside FigJam boards (stickies, connectors, sections).",
+     "how_to_use": "Install Figma's own Claude Code plugin from figma/mcp-server-guide (`claude plugin install figma@claude-plugins-official`), which sets up the remote Figma MCP server (https://mcp.figma.com/mcp) and bundles this skill. Load alongside figma-use for FigJam work.",
+     "url": "https://github.com/figma/mcp-server-guide/tree/main/skills/figma-use-figjam",
+     "repo": "figma/mcp-server-guide",
+     "stars": 2043,
+     "license": "Figma Developer Terms",
+     "evidence": "Official Figma; skills.sh ~1.75k installs",
+     "notes": "Governed by the Figma Developer Terms (no open-source licence file); link-only. Beta feature.",
+     "rank": 27,
+     "trending": false,
+     "nonCommercial": false,
+     "redistributable": false,
+     "local": null
+    },
+    {
+     "name": "figma-use-slides",
+     "purpose": "Context for using `use_figma` inside Figma Slides decks.",
+     "how_to_use": "Install Figma's own Claude Code plugin from figma/mcp-server-guide (`claude plugin install figma@claude-plugins-official`), which sets up the remote Figma MCP server (https://mcp.figma.com/mcp) and bundles this skill. Load alongside figma-use for Slides work.",
+     "url": "https://github.com/figma/mcp-server-guide/tree/main/skills/figma-use-slides",
+     "repo": "figma/mcp-server-guide",
+     "stars": 2043,
+     "license": "Figma Developer Terms",
+     "evidence": "Official Figma; skills.sh ~1.46k installs",
+     "notes": "Governed by the Figma Developer Terms (no open-source licence file); link-only. Beta feature.",
+     "rank": 28,
+     "trending": false,
+     "nonCommercial": false,
+     "redistributable": false,
+     "local": null
+    },
+    {
+     "name": "figma-generate-diagram",
+     "purpose": "Creates flowcharts, architecture, sequence, ER, state and Gantt diagrams in FigJam via the MCP `generate_diagram` tool.",
+     "how_to_use": "Install Figma's own Claude Code plugin from figma/mcp-server-guide (`claude plugin install figma@claude-plugins-official`), which sets up the remote Figma MCP server (https://mcp.figma.com/mcp) and bundles this skill. Load before any `generate_diagram` call.",
+     "url": "https://github.com/figma/mcp-server-guide/tree/main/skills/figma-generate-diagram",
+     "repo": "figma/mcp-server-guide",
+     "stars": 2043,
+     "license": "Figma Developer Terms",
+     "evidence": "Official Figma; skills.sh n/a (new) installs",
+     "notes": "Governed by the Figma Developer Terms (no open-source licence file); link-only. Beta feature.",
+     "rank": 29,
+     "trending": false,
+     "nonCommercial": false,
+     "redistributable": false,
+     "local": null
+    },
+    {
+     "name": "figma-shaders",
+     "purpose": "Authors and iterates shader effects and procedural fills in Figma through the MCP shader tools.",
+     "how_to_use": "Install Figma's own Claude Code plugin from figma/mcp-server-guide (`claude plugin install figma@claude-plugins-official`), which sets up the remote Figma MCP server (https://mcp.figma.com/mcp) and bundles this skill. Load before `create_shader` / `update_shader`.",
+     "url": "https://github.com/figma/mcp-server-guide/tree/main/skills/figma-shaders",
+     "repo": "figma/mcp-server-guide",
+     "stars": 2043,
+     "license": "Figma Developer Terms",
+     "evidence": "Official Figma; skills.sh n/a (new) installs. Found in soorajplankuveedu/claude-knowledge-backup on 3 Oct 2026.",
+     "notes": "Governed by the Figma Developer Terms (no open-source licence file); link-only. Beta feature.",
+     "rank": 30,
+     "trending": false,
+     "nonCommercial": false,
+     "redistributable": false,
+     "local": null
+    },
+    {
+     "name": "audit-design-system",
+     "purpose": "Audits a Figma screen or component for design-system drift: missing shared components, local overrides and unbound tokens.",
+     "how_to_use": "Needs the Figma MCP; run on a selected frame.",
+     "url": "https://github.com/edenspiekermann/Skills/tree/main/skills/audit-design-system",
+     "repo": "edenspiekermann/Skills",
+     "stars": 67,
+     "license": "none",
+     "evidence": "Edenspiekermann (design agency) skill set. Found in soorajplankuveedu/claude-knowledge-backup on 3 Oct 2026.",
+     "notes": "No licence file in the repo; link-only.",
+     "rank": 31,
+     "trending": false,
+     "nonCommercial": false,
+     "redistributable": false,
+     "local": null
+    },
+    {
+     "name": "fix-design-system-finding",
+     "purpose": "Fixes one design-system finding in Figma (swap to the shared component, remove an override, bind a token).",
+     "how_to_use": "Run after audit-design-system on a specific finding.",
+     "url": "https://github.com/edenspiekermann/Skills/tree/main/skills/fix-design-system-finding",
+     "repo": "edenspiekermann/Skills",
+     "stars": 67,
+     "license": "none",
+     "evidence": "Edenspiekermann (design agency) skill set. Found in soorajplankuveedu/claude-knowledge-backup on 3 Oct 2026.",
+     "notes": "No licence file in the repo; link-only.",
+     "rank": 32,
+     "trending": false,
+     "nonCommercial": false,
+     "redistributable": false,
+     "local": null
+    },
+    {
+     "name": "apply-design-system",
+     "purpose": "Reviews an existing design and connects it to design-system components.",
+     "how_to_use": "Needs the Figma MCP.",
+     "url": "https://github.com/edenspiekermann/Skills/tree/main/skills/apply-design-system",
+     "repo": "edenspiekermann/Skills",
+     "stars": 67,
+     "license": "none",
+     "evidence": "Edenspiekermann (design agency) skill set. Found in soorajplankuveedu/claude-knowledge-backup on 3 Oct 2026.",
+     "notes": "No licence file in the repo; link-only.",
+     "rank": 33,
+     "trending": false,
+     "nonCommercial": false,
+     "redistributable": false,
+     "local": null
+    },
+    {
+     "name": "cc-figma-tokens",
+     "purpose": "Builds or updates Figma variable collections (Primitives and Semantic) from component-contract token files.",
+     "how_to_use": "Needs the Figma MCP; prerequisite for cc-figma-component.",
+     "url": "https://github.com/nvillapiano/component-contracts-figma/tree/main/skills/cc-figma-tokens",
+     "repo": "nvillapiano/component-contracts-figma",
+     "stars": 32,
+     "license": "none",
+     "evidence": "Contract-driven token workflow. Found in soorajplankuveedu/claude-knowledge-backup on 3 Oct 2026.",
+     "notes": "No licence file in the repo; link-only.",
+     "rank": 34,
+     "trending": false,
+     "nonCommercial": false,
+     "redistributable": false,
+     "local": null
+    },
+    {
+     "name": "sync-figma-token",
+     "purpose": "Syncs design tokens between code and Figma variables with drift reporting, an approval gate before applying, and saved reports.",
+     "how_to_use": "Ships as a plugin with an .mcp.json; needs the Figma MCP.",
+     "url": "https://github.com/firebenders/sync-figma-token-skill/tree/main/skills/sync-figma-token",
+     "repo": "firebenders/sync-figma-token-skill",
+     "stars": 27,
+     "license": "none",
+     "evidence": "Packaged as a Claude Code / Cursor plugin. Found in soorajplankuveedu/claude-knowledge-backup on 3 Oct 2026.",
+     "notes": "No licence file in the repo; link-only.",
+     "rank": 35,
+     "trending": false,
+     "nonCommercial": false,
+     "redistributable": false,
+     "local": null
+    },
+    {
+     "name": "cc-figma-component",
+     "purpose": "Generates a fully variable-bound Figma component set from a JSON component contract.",
+     "how_to_use": "Needs the Figma MCP and cc-figma-tokens run first.",
+     "url": "https://github.com/nvillapiano/component-contracts-figma/tree/main/skills/cc-figma-component",
+     "repo": "nvillapiano/component-contracts-figma",
+     "stars": 32,
+     "license": "none",
+     "evidence": "Contract-driven component workflow. Found in soorajplankuveedu/claude-knowledge-backup on 3 Oct 2026.",
+     "notes": "No licence file in the repo; link-only.",
+     "rank": 36,
+     "trending": false,
+     "nonCommercial": false,
+     "redistributable": false,
+     "local": null
     }
    ]
   }

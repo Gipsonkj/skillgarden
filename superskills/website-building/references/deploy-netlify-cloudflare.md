@@ -1,4 +1,4 @@
-> Distilled from: netlify-deploy (netlify/context-and-tools, MIT), netlify-frameworks (netlify/context-and-tools, MIT), nextjs-on-cloudflare (cloudflare/skills, Apache-2.0)
+> Distilled from: netlify-deploy (netlify/context-and-tools, MIT), netlify-frameworks (netlify/context-and-tools, MIT), nextjs-on-cloudflare (cloudflare/skills, Apache-2.0), cinematic-demo-sites (Gipsonkj/skillgarden, MIT)
 
 # Deploying on Netlify and Cloudflare
 
@@ -87,6 +87,13 @@ Private repos build only for recognised authors; an unknown author's merge sits 
 ### Static sites and other frameworks
 
 Use Cloudflare's current framework guide for the stack (Astro, Vite, SvelteKit and others have Workers adapters). Deploy with `npx wrangler deploy` after `wrangler login` (the user signs in). Preview with `npx wrangler dev`. Secrets go in `wrangler secret put NAME`, never in `wrangler.toml`.
+
+### Static demo sites on Cloudflare Pages
+
+- `wrangler pages deploy <dir>` does **not** create the project: run `npx wrangler pages project create <slug> --production-branch=main` first (safe to repeat).
+- Wrangler's cached OAuth login works only in an interactive terminal; from an agent's non-interactive shell it fails asking for `CLOUDFLARE_API_TOKEN`. Ask the user to export an API token scoped to Cloudflare Pages: Edit, plus `CLOUDFLARE_ACCOUNT_ID`; then deploys run headless. Wrapping the call in `script -q /dev/null npx wrangler …` fakes a TTY, but only while the OAuth token is still valid.
+- Link the clean alias `https://<slug>.pages.dev`; the hash-prefixed URL in the output belongs to that one deployment.
+- With several demo sites, script one command that builds and deploys each, and still show the user the previews before calling them live.
 
 ## Pitfalls
 

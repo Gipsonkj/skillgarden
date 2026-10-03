@@ -31,6 +31,11 @@
       "id": "t3",
       "prompt": "Write tests for this Python function that parses and formats ISO durations like 'PT1H30M' into seconds and back.",
       "good": "Watches tests fail first or explains the TDD order; example tests with hand-derived expected values and named edge cases (zero, missing parts, invalid strings raise); a property-based roundtrip test (Hypothesis) offered or used if installed, with generators building valid durations rather than filtering; no tautological assertions; pytest parametrize with ids; runs the suite and reports results."
+    },
+    {
+      "id": "t4",
+      "prompt": "Add Playwright E2E tests for the signup and checkout flows of our Next.js shop and run them on every pull request in GitHub Actions, split across four machines. The checkout form must also pass an accessibility check.",
+      "good": "States a short plan first: test-strategy.md and playwright-e2e.md here; the workflow through cloud-devops (ci-cd.md: least-privilege permissions, pinned actions, cached dependencies, a four-way shard matrix, reports uploaded on failure); the accessibility check through frontend-ui-design (accessibility.md: labelled inputs, a full keyboard path, visible focus). Role-based locators, web-first assertions, no fixed waits; storageState auth and unique test data; payments stubbed; shard reports merged and traces kept on retry; watches each test fail first; runs it in CI or says it couldn't; checks the Done means of all three crafts."
     }
   ]
 }

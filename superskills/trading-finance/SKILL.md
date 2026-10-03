@@ -31,6 +31,18 @@ Covers corporate-finance modeling (DCF, comps, three-statement, LBO, merger), eq
 13. **Secrets stay out of the conversation.** Keys in the user's environment or vendor profile only; never printed, logged or written to files.
 14. **Disclose limits.** Every report carries a research-only, not-investment-advice line; backtests carry the hypothetical-performance disclosure.
 
+## Plan the request
+
+Work out what the request needs before opening a guide; most real requests need more than one.
+
+1. **Split it into parts:** each thing the user needs at the end. A one-part request goes straight to the table below.
+2. **Give each part its best source.** This craft's guides first; several is normal, read in the order the work happens. A part listed under "Other crafts" goes to that craft's guide, which goes deeper than any short version here. A part that needs a tool, API or edge case no guide covers goes to the original skill under "Go deeper".
+3. **Say the plan in a line** before starting, then read only the guides it names. For example: "DCF with an initiation note: `references/excel-modeling-standards.md` → `references/dcf-valuation.md` → `references/comps-analysis.md` → `references/equity-research.md`; football-field chart from `data-analysis` → `references/visualization.md`; the note as a PDF from `docs-office` → `references/pdf.md`."
+4. **Carry decisions forward.** The brief, tokens, copy and file names from earlier parts feed the later ones. When two guides disagree, follow the one written for that part and say so.
+5. **Check the result** against "Done means" here and in every other craft you used.
+
+**Opening another craft:** with the Skill Garden plugin, load the skill `skillgarden:<craft>` or read its guides beside this folder at `../<craft>/references/`; on the Skill Garden connector, call `get_super_skill` and `get_guide`. If that craft isn't installed, name it to the user and carry on with this one. For a request that spans three or more crafts, start with the planner: the skill `skillgarden:garden`, or `get_super_skill` with craft `garden` on the connector.
+
 ## Pick the right guide
 
 | Task | Read |
@@ -60,6 +72,30 @@ Call a sub-capability by naming the task, or say "use trading-finance: <capabili
 | `scripts/vectorbt/parameter_sweep.py` | Example vectorised EMA-crossover grid with 70/30 out-of-sample check; swap in real data. Needs `vectorbt`, `pandas`, `numpy`. |
 
 Missing Python packages: tell the user which to install; do not install them silently. None of the scripts place orders or need API keys.
+
+## Other crafts
+
+| When the request also needs | Use |
+|---|---|
+| Editing an existing .xlsx without breaking it, or fixing #REF! and #NAME? errors (beyond `references/excel-modeling-standards.md`) | `docs-office` → `references/excel-xlsx.md` |
+| The research note or valuation as a designed PDF, Word report or slide deck | `docs-office` → `references/document-design.md`, `references/pdf.md`, `references/deck-writing.md` |
+| Wrangling and charting price or fundamentals data; regression and time-series tests | `data-analysis` → `references/dataframes.md`, `references/statistics.md`, `references/visualization.md` |
+| Academic evidence for a factor or anomaly: finding papers and checking citations | `research-science` → `references/literature-search.md`, `references/citations.md` |
+| Unit and property tests for pricing, risk-metric or backtest code | `testing-qa` → `references/tdd-and-unit-tests.md`, `references/property-and-mutation.md` |
+| Keeping data or exchange API keys out of code, or handling a leaked key | `security` → `references/secrets.md` |
+| A scheduled, read-only data pull or report refresh | `automation` → `references/automation-design.md`, `references/n8n.md` |
+
+## Go deeper (original skills)
+
+The guides above distil these. Open one when a part needs its full detail, read it as reference, and read any script before running it.
+
+| When you need | Original skill |
+|---|---|
+| Sibling quant skills: pandas-ta, TA-Lib, regime detection and more | [vectorbt](https://github.com/agiprolabs/claude-trading-skills/tree/main/skills/vectorbt) (MIT; the repo holds 68 trading and quant skills) |
+| A full initiation report run as its five tasks: research, model, valuation, charts, report | [initiating-coverage](https://github.com/anthropics/financial-services/tree/main/plugins/vertical-plugins/equity-research/skills/initiating-coverage) (Apache-2.0; long, heavy on tokens) |
+| A nine-chapter single-stock deep-dive report structure | [equity-research](https://github.com/rollingSirius/equity-research-skill) (MIT; mostly Chinese instructions) |
+| P/L diagrams and simulations for option spreads | [options-strategy-advisor](https://github.com/tradermonty/claude-trading-skills/tree/main/skills/options-strategy-advisor) (MIT) |
+| ccxt from TypeScript, Go, Java, PHP, C# or Rust, or WebSocket ticker and order-book streams | [ccxt-python](https://github.com/ccxt/ccxt/tree/master/.claude/skills/ccxt-python) (MIT; sibling skills per language; the ground rules above still apply) |
 
 ## Default workflow
 

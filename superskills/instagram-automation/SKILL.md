@@ -37,6 +37,18 @@ Full risk table and the wording to use when declining: [references/tos-and-safe-
 13. **Consistency beats volume.** Stick to one clear topic and 3-5 good feed posts a week, plus Stories, rather than daily filler.
 14. **Secrets stay secret.** Tokens and API keys live in environment variables and are never printed or committed. Never type an Instagram password into a third-party tool.
 
+## Plan the request
+
+Work out what the request needs before opening a guide; most real requests need more than one.
+
+1. **Split it into parts:** each thing the user needs at the end. A one-part request goes straight to the table below.
+2. **Give each part its best source.** This craft's guides first; several is normal, read in the order the work happens. A part listed under "Other crafts" goes to that craft's guide, which goes deeper than any short version here. A part that needs a tool, API or edge case no guide covers goes to the original skill under "Go deeper".
+3. **Say the plan in a line** before starting, then read only the guides it names. For example: "Week of bakery posts: `references/content-strategy.md` → `references/reels-scripting.md` → `references/captions-hashtags-ctas.md` → `references/graph-api-publishing.md`; Reel cuts and captions from `ai-video` → `references/captions-talking-head.md`; carousel slides from `poster-design` → `references/banners-social.md`."
+4. **Carry decisions forward.** The brief, tokens, copy and file names from earlier parts feed the later ones. When two guides disagree, follow the one written for that part and say so.
+5. **Check the result** against "Done means" here and in every other craft you used.
+
+**Opening another craft:** with the Skill Garden plugin, load the skill `skillgarden:<craft>` or read its guides beside this folder at `../<craft>/references/`; on the Skill Garden connector, call `get_super_skill` and `get_guide`. If that craft isn't installed, name it to the user and carry on with this one. For a request that spans three or more crafts, start with the planner: the skill `skillgarden:garden`, or `get_super_skill` with craft `garden` on the connector.
+
 ## Pick the right guide
 
 | Task | Read |
@@ -52,6 +64,30 @@ Full risk table and the wording to use when declining: [references/tos-and-safe-
 | Insights, Reels metrics, why a post flopped, reporting | [references/analytics.md](references/analytics.md) |
 
 To call one capability directly, name the task, or say "use instagram-automation: carousels".
+
+## Other crafts
+
+| When the request also needs | Use |
+|---|---|
+| The same idea adapted for X, TikTok, LinkedIn or YouTube | `social-media` → `references/repurposing-crossposting.md`, `references/platform-playbook.md` |
+| Creator deals, briefs, rates and FTC disclosure (beyond the vetting in `references/influencer-research.md`) | `social-media` → `references/influencer-marketing.md` |
+| Photos or illustrations generated for posts and slides | `image-creation` → `references/marketing-brand-images.md`, `references/editing-references-consistency.md` |
+| Finished slide design or a Reel cover (beyond the design notes in `references/carousels.md`) | `poster-design` → `references/banners-social.md`, `references/thumbnails.md` |
+| Cutting, captioning and exporting the Reel footage | `ai-video` → `references/footage-editing-ffmpeg.md`, `references/captions-talking-head.md`, `references/delivery-qa.md` |
+| Paid Instagram and Facebook ads | `ad-creation` → `references/meta-ads-creative.md`, `references/ad-copywriting.md` |
+| A brand voice guide, or the long-form piece to repurpose | `content-creation` → `references/brand-voice.md`, `references/long-form-articles.md` |
+| Publish or comment-to-DM flows run on a schedule, still through the official API | `automation` → `references/automation-design.md`, `references/n8n.md` |
+
+## Go deeper (original skills)
+
+The guides above distil these. Open one when a part needs its full detail, read it as reference, and read any script before running it.
+
+| When you need | Original skill |
+|---|---|
+| The rest of its 13-skill suite: Stories, profile audits, comment and DM drafts | [ig-reel](https://github.com/Jakeschincariol/instagram-agent-skill/tree/main/skills/ig-reel) (MIT; drafting only) |
+| Deeper hook and caption work in the sibling viral-hooks and viral-captions-and-ctas skills | [viral-instagram-reels](https://github.com/vyralcontent/content-skills/tree/main/skills/viral-instagram-reels) (MIT) |
+| Hook extraction from viral Reels and nine sub-skills (captions, carousels, hashtags, profile) | [instagram-marketing](https://github.com/sergebulaev/instagram-skills/tree/main) (MIT; publishing needs a Publora key) |
+| An HTML template for a connected multi-card carousel, exported to images | [social-carousel](https://github.com/nexu-io/open-design/tree/main/design-templates/social-carousel) (Apache-2.0; the template wasn't copied here) |
 
 ## Default workflow
 

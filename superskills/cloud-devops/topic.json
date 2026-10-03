@@ -31,6 +31,11 @@
       "id": "t3",
       "prompt": "Our Kubernetes deployment shows pods in CrashLoopBackOff right after a new release. Walk me through finding the cause and getting users back to working.",
       "good": "Mitigates first with kubectl rollout undo (or previous image) and checks rollout status; then diagnoses with describe pod events, logs --previous, events sorted by time; checks exit code (137 OOMKilled vs app error), missing env/secret, wrong command/port, overly aggressive liveness probe; compares the diff between releases; suggests readiness/startup probes and resource limits; no destructive steps without confirmation."
+    },
+    {
+      "id": "t4",
+      "prompt": "Move our Node API and its Postgres database off a single VPS onto AWS: ECS Fargate for the API, RDS for Postgres, Terraform for all of it, and GitHub Actions to deploy. Make sure no secrets leak along the way.",
+      "good": "States a short plan first: infra here (platform-choice.md, docker.md, terraform.md, aws.md, ci-cd.md), the database move through backend-databases (postgres-schema.md: forward-only migrations as a release step; query-performance.md: pooling and timeouts), secrets and workflows through security (secrets.md and github-actions.md: secret scanning in CI, actions pinned to a SHA, minimal permissions). Confirms account and region first; applies only a reviewed plan; OIDC to AWS with sub pinned, no static keys; RDS credentials in Secrets Manager, not tfvars; a cutover and rollback plan; checks the Done means of all three crafts and says what wasn't verified."
     }
   ]
 }

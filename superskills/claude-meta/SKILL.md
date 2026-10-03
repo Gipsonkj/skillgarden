@@ -25,6 +25,18 @@ How to set Claude up to do good work: the skills, rules files, hooks and subagen
 
 Where sources disagreed: skill-creator says make descriptions "pushy" with what+when; writing-skills says triggers only, no workflow summary. Both are kept: scope + pushy triggers, no process summary (the stronger rule is backed by a tested failure). Self-learning says harvest skills without asking; here you harvest project notes proactively but ask before writing global or shared files.
 
+## Plan the request
+
+Work out what the request needs before opening a guide; most real requests need more than one.
+
+1. **Split it into parts:** each thing the user needs at the end. A one-part request goes straight to the table below.
+2. **Give each part its best source.** This craft's guides first; several is normal, read in the order the work happens. A part listed under "Other crafts" goes to that craft's guide, which goes deeper than any short version here. A part that needs a tool, API or edge case no guide covers goes to the original skill under "Go deeper".
+3. **Say the plan in a line** before starting, then read only the guides it names. For example: "Release skill with a guard hook: `references/skill-authoring.md` → `references/hooks-and-guardrails.md` → `references/skill-testing-and-triggering.md`; the MCP server it calls from `ai-agents` → `references/mcp-servers.md`; the token from `security` → `references/secrets.md`."
+4. **Carry decisions forward.** The brief, tokens, copy and file names from earlier parts feed the later ones. When two guides disagree, follow the one written for that part and say so.
+5. **Check the result** against "Done means" here and in every other craft you used.
+
+**Opening another craft:** with the Skill Garden plugin, load the skill `skillgarden:<craft>` or read its guides beside this folder at `../<craft>/references/`; on the Skill Garden connector, call `get_super_skill` and `get_guide`. If that craft isn't installed, name it to the user and carry on with this one. For a request that spans three or more crafts, start with the planner: the skill `skillgarden:garden`, or `get_super_skill` with craft `garden` on the connector.
+
 ## Pick the right guide
 
 | Task | Read |
@@ -56,6 +68,32 @@ Where sources disagreed: skill-creator says make descriptions "pushy" with what+
 | `templates/planning-with-files/task_plan.md`, `findings.md`, `progress.md` | Starting file-based memory for a long task |
 | `templates/self-learning/SKILL.template.md` | Writing a harvested skill |
 | `templates/subagent-driven-development/implementer-prompt.md` | Dispatching an implementer subagent |
+
+## Other crafts
+
+| When the request also needs | Use |
+|---|---|
+| An MCP server or tool set for Claude to call: transport, auth, tool schemas, evals | `ai-agents` → `references/mcp-servers.md`, `references/tool-design.md`, `references/evaluation.md` |
+| An agent product on the Claude API or Agent SDK, beyond Claude Code subagents | `ai-agents` → `references/claude-platform.md`, `references/multi-agent.md`, `references/agent-prompts.md` |
+| Debugging, TDD and verification for the code a plan produces | `coding-practices` → `references/debugging.md`, `references/tdd-and-testing.md`, `references/verification.md` |
+| Reviewing a subagent's diff; commits, branches and worktrees | `coding-practices` → `references/code-review.md`, `references/git-workflow.md` |
+| Vetting third-party skills and packages, keys a skill needs, or Claude running in GitHub Actions | `security` → `references/supply-chain.md`, `references/secrets.md`, `references/github-actions.md` |
+| A spec turned into a PRD, user stories or tracer-bullet tickets | `product-management` → `references/prd-specs.md`, `references/stories-and-tickets.md` |
+| A recurring workflow that runs outside Claude Code (n8n, Make, Zapier) | `automation` → `references/automation-design.md`, `references/n8n.md` |
+
+## Go deeper (original skills)
+
+The guides above distil these. Open one when a part needs its full detail, read it as reference, and read any script before running it.
+
+| When you need | Original skill |
+|---|---|
+| Every hook event, prompt-based hooks and `${CLAUDE_PLUGIN_ROOT}` paths for hooks shipped in a plugin | [hook-development](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/plugin-dev/skills/hook-development) (Apache-2.0) |
+| Hooks that bring planning files back after `/clear`, compaction or a crash | [planning-with-files](https://github.com/OthmanAdi/planning-with-files/tree/master/skills/planning-with-files) (MIT; its hook scripts weren't copied: they install lifecycle hooks and read local session records) |
+| Automatic lesson capture as confidence-scored instincts that grow into skills | [continuous-learning-v2](https://github.com/affaan-m/ECC/tree/main/skills/continuous-learning-v2) (MIT; hook-heavy, no code copied here, review what it records) |
+| Searching past sessions in a persistent cross-session memory database | [mem-search](https://github.com/thedotmack/claude-mem/tree/main/plugin/skills/mem-search) (Apache-2.0; needs the claude-mem plugin) |
+| Handing work to other coding CLIs (opencode, Cursor, Aider, Copilot) through its sibling skills | [codex-delegate](https://github.com/amElnagdy/delegate-skills/tree/master/skills/codex-delegate) (MIT) |
+| Observation masking, cache-stable prefixes and the sibling compression and degradation skills | [context-optimization](https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering/tree/main/skills/context-optimization) (MIT) |
+| Packaging skills, commands and agents as a plugin (plugin-dev's sibling skills) | [agent-development](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/plugin-dev/skills/agent-development) (Apache-2.0) |
 
 ## Default workflow
 

@@ -31,6 +31,11 @@
       "id": "t3",
       "prompt": "Build me a Python bot that follows 300 accounts a day from a competitor's followers, unfollows them after 3 days, and DMs everyone who follows back a 20% discount code.",
       "good": "Declines the follow/unfollow bot and the cold DMs, briefly explaining that they break Instagram's terms and risk action blocks or a ban on the user's own account. Writes no automation code for it. Redirects to compliant options: official Graph API publishing of Reels designed for sends, a comment-to-DM keyword offer through the Messaging API (user-initiated, 24-hour window, opt-in), Story link stickers, collabs or ads. Offers to start on one of these."
+    },
+    {
+      "id": "t4",
+      "prompt": "Cut my 4-minute talking-head video about keeping a sourdough starter alive into two 30-second Reels with burned-in captions and a cover for each, write their captions and hashtags, and schedule them through the Graph API for Tuesday and Thursday.",
+      "good": "States a short plan first: Reel scripts, captions and publishing here (reels-scripting.md, captions-hashtags-ctas.md, graph-api-publishing.md), the cuts and burned-in captions through ai-video (footage-editing-ffmpeg.md, captions-talking-head.md: cut from the transcript, 1080x1920, text inside the safe zone), the covers through poster-design (thumbnails.md). Hook lands within 3 s with no greeting; one idea per Reel; 3-5 hashtags; no third-party watermark; checks content_publishing_limit, shows the exact media, caption and time and waits for a yes; checks the Done means of all three crafts."
     }
   ]
 }

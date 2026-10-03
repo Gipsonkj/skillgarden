@@ -1,4 +1,4 @@
-> Distilled from: auteur (agiwhitelist/auteur, MIT), scroll-craft (nateherkai/scroll-craft, MIT), core-web-vitals (addyosmani/web-quality-skills, MIT)
+> Distilled from: auteur (agiwhitelist/auteur, MIT), scroll-craft (nateherkai/scroll-craft, MIT), core-web-vitals (addyosmani/web-quality-skills, MIT), cinematic-demo-sites and web-design-asset-stack (Gipsonkj/skillgarden, MIT)
 
 # Motion, scroll storytelling and cinematic heroes
 
@@ -44,7 +44,8 @@ Frequency gate (stop at the first row that matches):
 - `will-change: transform` only on elements actively animating.
 - Grain/noise overlays only on a `position: fixed; inset: 0; pointer-events: none` layer.
 - Full-screen shader passes (bloom, grain, depth of field) cost per pixel, not per object: cap `devicePixelRatio` at 2, and measure frame rate at DPR 2 on a production build (a dev server costs about 2x per frame). Cut a pass or resolution before cutting geometry. Measure by switching passes off one at a time.
-- Library routing: Motion (Framer) for component and state animation; GSAP + ScrollTrigger (+ Lenis smooth scroll) for pinned, scrubbed, horizontal scrollytelling. Do not mix GSAP/Three.js and Motion in one component tree.
+- Library routing: Motion (Framer) for component and state animation; GSAP + ScrollTrigger (+ Lenis smooth scroll) for pinned, scrubbed, horizontal scrollytelling. Do not mix GSAP/Three.js and Motion in one component tree. Library verdicts (Lenis, GSAP plugins, shaders, component shops) are in `stacks-astro-vue-static.md`.
+- Lenis (~3 KB) does not support CSS `scroll-snap` (use `lenis/snap`) and its interpolated scroll fights native CSS scroll-driven animations: pick one lane. Tick it from GSAP's ticker, not its own rAF loop.
 
 ## 4. Motion budget per page
 
@@ -81,6 +82,7 @@ Write a **feeling curve** before choosing devices: one line per act (the emotion
 
 ### Scrub video recipe
 
+- For a full-bleed photoreal film hero, prefer a canvas JPG frame sequence (section 9): a scrubbed `<video>` stutters on iOS Safari. Scrub a real video only with the rules below and a real-iPhone test.
 - Encode for seeking, not playback: dense keyframes. Desktop 1080p `-g 8 -keyint_min 8 -sc_threshold 0 -crf 20`; mobile 720p `-g 4 -crf 24`; `-movflags +faststart`; strip audio (`-an`).
   `ffmpeg -i in.mp4 -an -c:v libx264 -preset slow -crf 20 -pix_fmt yuv420p -g 8 -keyint_min 8 -sc_threshold 0 -movflags +faststart out.mp4`
 - Hero video ≤ 2 MB, poster ≤ 300 KB; image-sequence frames ≤ 150 KB each at 1440w.
@@ -112,6 +114,48 @@ node scripts/auteur/shoot.mjs http://localhost:4500 --stops 7 --breakpoints 390,
 ```
 
 (needs `playwright` installed in the project). Look at every frame for: text overflow, blank or half-fired scenes, cues that never reach full opacity, dead scroll (nothing changes for a viewport), contrast on the brightest frame under each line, two adjacent scenes with the same layout, a reduced-motion journey that is a broken ruin. Full-page captures misplace `fixed` and `sticky` elements; judge those from viewport frames. Tab through for focus order. Then state honestly what was verified and what still needs a real phone.
+
+## 9. Cinematic demo site: AI stills → image-to-video → frame-sequence hero
+
+A one-page site for a local business whose hero is a full-bleed film that advances on scroll, built from 3 AI stills animated into short clips and stitched into one scrub. Below it: a short story, 3 offer tiles, a contact or booking CTA. The aim is that the owner sees their own shop and wants the site.
+
+**Why it looks real.** (1) Make a photoreal still first, then animate that still (i2v); never text-to-video here, it drifts and looks fake. i2v is faithful, so an AI-looking still becomes an AI-looking clip: if a clip reads fake, fix the still, not the video. (2) One small motion per clip plus "slow, no cuts"; big motion warps (melting glass, extra fingers). The crossfades carry the story. (3) Fine detail (food, craft) reads best barely moving.
+
+| Step | Do | Numbers |
+|---|---|---|
+| 1 Tokens | Palette, display and body font, one signature idea, all from the subject's own world; refuse the category reflex (design-direction.md) | 4-6 hex colours |
+| 2 Stills | 3 photoreal stills in **heritage → craft → payoff** order: the place, wide and atmospheric; hands on the core element (fire, blade, dough, the pour); the finished result or a happy customer | Nano Banana Pro: 16:9 = 1376×768, 9:16 = 768×1376 |
+| 3 Motion | i2v each still to ~5 s | Wan 2.2 on your own RunPod endpoint (billed per GPU second), 1280×720 or 720×1280 |
+| 4 Stitch | Normalise the clips, 0.6 s crossfades, extract a JPG frame sequence plus a poster, one per aspect | ~85 frames; JPG, since many ffmpeg builds lack a webp encoder |
+| 5 Assemble | Tokens and real copy in the business's own language go into a scroll-hero template driven by one config file per site | |
+| 6 Ship | Cloudflare Pages preview (deploy-netlify-cloudflare.md) | |
+
+Cost per site: 3 paid stills, about 30 min of GPU time on your own endpoint, free static hosting.
+
+### Still prompts
+
+- Formula: `[specific subject with real props], [emotion/action], [warm | atmospheric | dramatic] light, cinematic photorealistic, 16:9`. Food adds "appetising, cinematic food photography", rooms "moody atmospheric dramatic light", people "confident, warm light". Concrete props and place; no logos or text in the image.
+- Nano Banana doesn't subtract: write "an empty street", not "no cars". Put the ratio in `generationConfig.imageConfig.aspectRatio` and state it in the prompt too.
+- **What reads as generated**: subject dead centre, even light everywhere, every background face resolved and pleasant, everyone aware of the camera, front-to-back sharpness, props crammed in to signal the theme. **Direct it like a photographer instead**: name the film stock, focal length and a wide aperture; ONE dominant light with real falloff into shadow; off-centre framing with a foreground object intruding at a corner; subject sharp, foreground and background soft; background people turned away and unresolved, nobody posing; slight motion blur on the moving thing; two or three props. End with "Documentary photojournalism. Not a render, not CGI, not symmetrical, not a promotional photo." Those closing register cues measurably changed the output.
+- A real person (with their consent): lock identity with image-to-image from their photo sent as an image part, never a text description of the face (that invents a new person). "Old" gets read as "the person is old": say "no ageing at all" plus the garment list, and age the place by naming the year and period dress. "Old but well-kept" must be said, or you get grime.
+- Ask once before burning rounds (four of five still rounds once went on discovering these): the person as they are or aged? Which decade and city? Worn-in or clean? Background people in period or present-day dress?
+
+### Motion on Wan 2.2 (your own RunPod serverless endpoint)
+
+- Prompt: `[one subtle motion taken from the still], slow, no cuts`, e.g. "steam gently rising off a fresh currywurst, close-up, slow, no cuts"; "the doner spit slowly rotating, meat glistening, heat-lamp glow, slow, no cuts".
+- Call: `POST /run`, poll `/status/<id>`, `Authorization: Bearer $RUNPOD_API_KEY`. Input: `prompt`, `image_base64` (raw base64), `negative_prompt: "blurry, low quality, distorted, warped, deformed, extra fingers, mutated hands"`, `cfg: 2.0`, `width`/`height`, `length: 81`, `steps: 10`, `context_overlap: 48`. Output is `{ video: <base64 mp4> }`, not a URL.
+- 81 frames at 1280×720 hits `executionTimeout` at ~630 s every time. Drop `length` to ~57 and keep 720p; 1024×576 at 81 frames finishes (~360 s) but is soft and falls apart under a later push-in.
+- Workers are limited: 50+ jobs at once leave most past the poll deadline ("saved 6/31"). Submit in waves, poll for 40 min (150-180 min on a congested queue), and loop re-rendering only the missing clips. Run pollers as tracked background tasks, not `nohup … &`, so you see when they finish.
+- Wan warps on camera moves: do push-ins in post with `zoompan` (a 2.4× push landing at 720p needs a 1080p source). Paid models (Seedance, Sora, Kling) can execute a real move when directed like a DP: a header line (duration, aspect, grade and stock), timecoded beats that name the camera action, optics and light per beat, what moves and what stays still, and a closing "prioritise / keep / avoid" note. Behaviour varies by model version: check every clip.
+
+### Stitching and the hero
+
+- **Never mix the concat demuxer with `xfade`.** `-c copy` concat leaves timestamps that make `xfade` silently drop every input after the first: the film is the length of clip one and nothing errors. Build the whole join as one `filter_complex`; a hard cut is a 1-frame xfade (`duration=0.04`).
+- Grade generated clips toward any real footage in the same cut (`colorbalance` takes `rs/gs/bs`, `rm/gm/bm`, `rh/gh/bh`; there is no `ms`; plus `eq=saturation=…:contrast=…`).
+- The hero draws the JPG frames to a full-bleed canvas. `ResizeObserver` plus `100dvh` (fixes the "shows half on a phone" bug); `prefers-reduced-motion` gets the static poster.
+- One `<h1>`, real copy in the business's language (not translated English), contact CTA in one tap. Appointment businesses (barber, salon, spa, nails, tattoo, dental, workshop, gym) get a booking block: 3 steps, a mock day and time picker (selected highlighted, booked crossed out), then a WhatsApp or phone CTA.
+- Demo honesty: a "DEMO · <studio>" badge and credit footer; a concept for a real business is labelled as not its official site.
+- Image key out of credit (`429 RESOURCE_EXHAUSTED`): the user tops it up. Don't switch to a vendor nobody chose.
 
 ## Pitfalls
 

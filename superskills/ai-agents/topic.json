@@ -26,6 +26,11 @@
       "id": "t3",
       "prompt": "Our research agent gets worse the longer it runs and sometimes contradicts itself. We are thinking of splitting it into five sub-agents. What would you do?",
       "good": "Diagnoses context degradation first (stale tool output, no compaction/clearing, big pasted docs) and fixes that; considers memory/validity issues for contradictions; only then proposes sub-agents for independent parts with self-contained briefs, short return schemas and shared files, capped worker count and budgets; insists on measuring against a single-agent baseline with an eval set."
+    },
+    {
+      "id": "t4",
+      "prompt": "Build a remote MCP server so our support team can search, read and update tickets through our helpdesk's REST API from Claude. Host it on Cloudflare Workers, keep the helpdesk API key out of the code, and show me the tools work before we roll it out.",
+      "good": "States a short plan first: agent-or-workflow.md, tool-design.md, mcp-servers.md and evaluation.md here; hosting through cloud-devops (cloudflare.md: Wrangler, the key set with wrangler secret put, never in config); the key and abuse paths through security (secrets.md, threat-modeling.md: injected ticket text, who may update what). Separate read and write tools with readOnlyHint and destructiveHint; updates gated behind confirmation; OAuth with audience checks and no token passthrough; actionable errors and pagination; an Inspector smoke test and a read-only 10-question eval; checks the Done means of all three crafts."
     }
   ]
 }

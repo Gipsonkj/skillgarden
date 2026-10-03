@@ -1,0 +1,41 @@
+{
+  "name": "Figma & design systems",
+  "blurb": "Figma MCP, tokens and variables, code-Figma sync and drift, component and screen-reader specs, hand-off, design-to-code and audits.",
+  "hue": 290,
+  "collections": [],
+  "repos": [
+    "redongreen/uSpec",
+    "southleft/figma-console-mcp-skills",
+    "anthropics/knowledge-work-plugins",
+    "awdr74100/figwright"
+  ],
+  "searches": [
+    "Figma MCP use_figma agent skill new",
+    "design tokens Figma variables sync skill DTCG Style Dictionary",
+    "component spec documentation agent skill Figma accessibility",
+    "design system audit skill Figma drift parity",
+    "Figma design to code skill Claude Code Connect"
+  ],
+  "tests": [
+    {
+      "id": "t1",
+      "prompt": "Export the variables from our Figma file (https://www.figma.com/design/AbC123/Brand-Library) into Tailwind v4 and CSS for our Next.js app. We have Light and Dark modes.",
+      "good": "Parses the file key; notes get_variable_defs is default-mode only and the REST Variables API is Enterprise-only; runs read-variables.js via use_figma (read-only), then convert-tokens.mjs to tailwind-v4 and css-vars with both modes; reports converter warnings; normalises opacity 0-100 to 0-1 and rounds float noise; keeps semantic tokens as var() references with a dark block; checks text/background contrast in both modes; lands it as a reviewable diff, never hand-editing generated files; states who owns the tokens."
+    },
+    {
+      "id": "t2",
+      "prompt": "Write a screen reader spec for our text field component (label, input, helper text, error message, and a clear button that appears when there's text).",
+      "good": "Runs a merge analysis first: label, helper and error merge into the input; clear button is a conditional second stop; error is a live region, not a stop. Gives a focus order section, collapses states with identical semantics, keeps error and disabled separate, and provides VoiceOver, TalkBack and ARIA tables per stop (label/value/traits/hint; content/role/state; native input with label, aria-describedby, aria-invalid) each with Do NOT rows (no double-read label, placeholder not the name, clear icon labelled). States the disabled policy."
+    },
+    {
+      "id": "t3",
+      "prompt": "Audit our Figma component library against the React components in packages/ui and tell me what's out of sync. Then fix it.",
+      "good": "Agrees scope and files and respects the seat's call limits; runs lint-design.js (design-system and wcag rules) per page and check-parity.js with a CODE_SPEC per key component; searches code for raw colours and arbitrary values; reports findings with node ids or file paths, severity and fix, grouped by root cause, with a parity score and probable renames; proposes fixes and asks before any Figma write or library publish; re-runs checks and shows before and after."
+    },
+    {
+      "id": "t4",
+      "prompt": "Turn the checkout frame in our Figma file (https://www.figma.com/design/XyZ789/Checkout?node-id=12-34) into React components in our Next.js + shadcn/ui app, using our existing tokens. Add tests that catch it when the build drifts from the design.",
+      "good": "States a short plan first: the bridge here (figma-mcp.md: get_metadata, then targeted reads; token-sync-and-drift.md; design-to-code.md: reuse existing components and map every value to a token, gaps listed), the build through frontend-ui-design (components-and-states.md and react-shadcn-tailwind.md: every field and button state, including loading, error and disabled), the tests through testing-qa (playwright-e2e.md: toHaveScreenshot at a fixed viewport with dynamic regions masked, role-based locators for the pay flow). Runs check-parity.js on key components; compares renders at mobile and desktop; checks the Done means of all three crafts and says what wasn't verified."
+    }
+  ]
+}

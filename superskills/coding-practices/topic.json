@@ -26,6 +26,11 @@
       "id": "t3",
       "prompt": "Review this PR before I merge: it adds a 'refunded' order status and a refund endpoint that updates the order and calls Stripe.",
       "good": "Pins the diff range; checks against the stated requirements; flags enum completeness (every switch/filter/display on order status), check-then-write races and idempotency on the refund, authz on the endpoint, Stripe errors and partial failure (DB vs Stripe consistency), and tests that mock only Stripe; labels findings Critical/Important/Nit with file:line and a concrete fix; notes strengths; ends with a clear merge verdict and reasoning."
+    },
+    {
+      "id": "t4",
+      "prompt": "Since last week's release the invoices page in our Next.js app takes 6 seconds to load, and one customer saw another company's invoice total. Find the root cause of both, fix them test-first, and get the branch ready for a PR.",
+      "good": "States a short plan first: debugging.md, tdd-and-testing.md and verification.md here; the slow page through backend-databases (query-performance.md: EXPLAIN ANALYZE, N+1, a missing index); the leak through security (secure-coding.md: every query scoped to the caller's org). Treats the leak as Critical and fixes it first; bisects the release range if the cause isn't obvious; writes a failing test for each bug (cross-tenant read, query count) before fixing; states each root cause with evidence; runs suite, lint, typecheck and build fresh; doesn't push or open the PR without a yes; checks the Done means of all three crafts."
     }
   ]
 }

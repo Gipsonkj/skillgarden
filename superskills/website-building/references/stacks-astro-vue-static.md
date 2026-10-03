@@ -1,6 +1,6 @@
-> Distilled from: astro (astrolicious/agent-skills, MIT), vue-best-practices (vuejs-ai/skills, MIT), web-artifacts-builder (anthropics/skills, Apache-2.0), netlify-frameworks (netlify/context-and-tools, MIT)
+> Distilled from: astro (astrolicious/agent-skills, MIT), vue-best-practices (vuejs-ai/skills, MIT), web-artifacts-builder (anthropics/skills, Apache-2.0), netlify-frameworks (netlify/context-and-tools, MIT), web-design-asset-stack (Gipsonkj/skillgarden, MIT)
 
-# Choosing the stack; Astro, Vue and single-file sites
+# Choosing the stack; Astro, Vue, single-file sites and add-on libraries
 
 Pick the lightest stack that does the job. Every framework you add is JavaScript the visitor downloads and a build that can break.
 
@@ -72,6 +72,21 @@ Default: Composition API with `<script setup lang="ts">`. Options API only if th
 ## 5. SPA hosting reminder
 
 Client-routed SPAs need the host to serve `index.html` for unknown paths (Netlify `/* /index.html 200`, Vercel rewrites). Remove that rule if you later add SSR. See the deploy guides.
+
+## 6. Animation and component libraries: verdicts
+
+Decision order: if the page renders but looks flat, it's a taste problem (design-direction.md section 7), so install nothing. Then prefer a design skill or rule over a library. Then take the smallest library that solves the job. Check the last release date of anything a reel or roundup recommends.
+
+| Library | Verdict | Notes (September 2026) |
+|---|---|---|
+| Lenis (~3 KB) | Take | Inertial smooth scroll; the biggest "feels expensive" upgrade per KB. Caveats in motion-and-scroll.md section 3 |
+| GSAP | Take | Every former Club plugin (SplitText, ScrollSmoother, MorphSVG, DrawSVG) is free with no licence key since the Webflow acquisition |
+| anime.js | Take when GSAP is overkill | One small library for simple timelines |
+| `@paper-design/shaders` | Take for shader backgrounds | Apache-2.0, zero deps, no network calls, ~25 canvas shaders (mesh gradient, fluted glass, god rays, grain gradient, liquid metal). Still 0.0.x with breaking changes inside 0.0.x: pin the exact version |
+| Vanta.js | Refuse | No release since 2022, pinned to three r134. Use the shaders above |
+| React Bits, Aceternity UI, Skiper UI, Watermelon UI, Vengeance UI | With care | Copy-paste component shops. Their components are recognisable, so use them for mechanics you'd otherwise hand-roll, never for the page's identity. Check each licence before shipping |
+
+Naming the effect is most of a motion brief. Vocabulary that maps to known builds: glass gallery cube, curve gallery, scattered grid text, liquid carousel, 3D globe carousel, 3D image-stack scroll; categories: scroll animations, mouse effects, page transitions, text animations, WebGL shaders, physics effects, SVG animations.
 
 ## Pitfalls
 

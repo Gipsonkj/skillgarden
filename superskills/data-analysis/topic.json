@@ -31,6 +31,11 @@
       "id": "t3",
       "prompt": "Build a model to predict which customers will churn next month from our customer_monthly table (one row per customer per month with usage features and a churned flag). Accuracy is 97%, is that good?",
       "good": "Points out class imbalance makes 97% accuracy meaningless; compares to a DummyClassifier baseline; uses PR AUC / recall at precision and calibration; splits by time (train on earlier months, test on later) and groups by customer so no customer leaks across; checks features are known before the prediction month; all preprocessing inside a Pipeline; picks a threshold from costs; reports importance as non-causal."
+    },
+    {
+      "id": "t4",
+      "prompt": "Here's 18 months of our subscription data (customer_id, plan, start_date, cancel_date, mrr). Work out monthly logo and revenue churn by signup cohort, show what current churn means for our 14-month runway, and put it in a six-slide PowerPoint for Thursday's board meeting.",
+      "good": "States a short plan first: the analysis here (data-profiling.md, sql.md, statistics.md, visualization.md), the runway through trading-finance (startup-corporate-finance.md: burn and runway rebuilt from the churn figures, assumptions labelled), the deck through docs-office (deck-writing.md, powerpoint-pptx.md: one finding per slide title). Defines logo and revenue churn with numerator, denominator and window; checks the customer_id grain and duplicate subscriptions; labels the partial current month; cohort chart with insight titles, colourblind-safe and not colour-only; keeps the queries reproducible; checks the Done means of all three crafts."
     }
   ]
 }

@@ -31,6 +31,11 @@
       "id": "t3",
       "prompt": "Add animation to our dropdown menu, command palette (Cmd+K) and toast notifications.",
       "good": "Refuses or minimises animation on the command palette (keyboard, used constantly); dropdown scales from ~0.96 with origin at the trigger, 150-200 ms ease-out with a named cubic-bezier token; toasts use transitions so rapid toasts retarget and exit the way they entered; only transform/opacity; never scale(0); prefers-reduced-motion fallback; no bounce."
+    },
+    {
+      "id": "t4",
+      "prompt": "Redesign the settings page of our Next.js + Tailwind v4 app so it stops looking generic. Our Figma library holds the colour and spacing variables and the code has drifted from them. Also add an end-to-end test for the new save flow.",
+      "good": "States a short plan first: redesign here (redesign.md, visual-system.md, components-and-states.md), tokens through figma-design (design-tokens.md and token-sync-and-drift.md: export the Figma variables and map them, never invent new values), the test through testing-qa (playwright-e2e.md: role-based locators, web-first assertions, no fixed waits). Reports what it will keep before changing anything; builds every state of the save flow (saving, saved, error, disabled); checks the Done means of all three crafts and says what wasn't verified."
     }
   ]
 }

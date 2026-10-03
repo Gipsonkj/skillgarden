@@ -25,6 +25,18 @@ Turn a brief, script or reference video into a plan someone can execute with a c
 14. **Answer the size of the question.** One prompt request gets one prompt; a full script gets the pipeline. Ask at most one question, only when a wrong guess would waste the whole deliverable (target model for model-specific prompts, aspect ratio for a vertical-only campaign); otherwise state assumptions and proceed. (Some short-drama sources insist on blocking until model and ratio are chosen; we ask only when it changes the output.)
 15. **Identity lives once per generation.** Repeat the full identity/style block in every separate generation; inside one multi-shot generation, put it once in the Overall block and never re-describe the character per segment.
 
+## Plan the request
+
+Work out what the request needs before opening a guide; most real requests need more than one.
+
+1. **Split it into parts:** each thing the user needs at the end. A one-part request goes straight to the table below.
+2. **Give each part its best source.** This craft's guides first; several is normal, read in the order the work happens. A part listed under "Other crafts" goes to that craft's guide, which goes deeper than any short version here. A part that needs a tool, API or edge case no guide covers goes to the original skill under "Go deeper".
+3. **Say the plan in a line** before starting, then read only the guides it names. For example: "30-second vertical ad: `references/story-structure.md` → `references/shot-lists-and-boards.md` → `references/keyframes-and-consistency.md` → `references/ai-video-prompts.md`; keyframe stills from `image-creation` → `references/editing-references-consistency.md`; voiceover from `audio-generation` → `references/voiceover-tts.md`."
+4. **Carry decisions forward.** The brief, tokens, copy and file names from earlier parts feed the later ones. When two guides disagree, follow the one written for that part and say so.
+5. **Check the result** against "Done means" here and in every other craft you used.
+
+**Opening another craft:** with the Skill Garden plugin, load the skill `skillgarden:<craft>` or read its guides beside this folder at `../<craft>/references/`; on the Skill Garden connector, call `get_super_skill` and `get_guide`. If that craft isn't installed, name it to the user and carry on with this one. For a request that spans three or more crafts, start with the planner: the skill `skillgarden:garden`, or `get_super_skill` with craft `garden` on the connector.
+
 ## Pick the right guide
 
 Call a capability by naming the task, or say "use storyboarding: <capability>".
@@ -43,6 +55,31 @@ Call a capability by naming the task, or say "use storyboarding: <capability>".
 | Project folders, IDs, asset naming, revisions, storyboard-app (MCP) projects, handoff | [references/storyboard-projects.md](references/storyboard-projects.md) |
 
 Load only the file(s) the task needs.
+
+## Other crafts
+
+| When the request also needs | Use |
+|---|---|
+| Running the video models, cutting and delivering the clips once the board is approved | `ai-video` → `references/vendor-apis.md`, `references/footage-editing-ffmpeg.md`, `references/delivery-qa.md` |
+| Rendering the character sheets, location plates and keyframe stills | `image-creation` → `references/editing-references-consistency.md`, `references/prompting-fundamentals.md` |
+| Voiceover, music and sound effects laid on the timeline | `audio-generation` → `references/voiceover-tts.md`, `references/music-generation.md`, `references/sound-effects.md` |
+| Motion-graphics scenes (kinetic type, animated diagrams) instead of filmed or generated shots | `motion-animation` → `references/motion-principles.md`, `references/hyperframes-animation.md` |
+| Ad angles, hooks and platform specs behind an ad storyboard | `ad-creation` → `references/creative-strategy.md`, `references/short-form-video-ugc.md`, `references/platform-specs.md` |
+| Captions, hashtags and platform norms for a Reel, TikTok or Short | `social-media` → `references/short-form-video.md`, `references/platform-playbook.md` |
+| The board as a deck or PDF for client sign-off | `docs-office` → `references/html-slides.md`, `references/powerpoint-pptx.md`, `references/pdf.md` |
+
+## Go deeper (original skills)
+
+The guides above distil these. Open one when a part needs its full detail, read it as reference, and read any script before running it.
+
+| When you need | Original skill |
+|---|---|
+| The director's book, sound plans and style overlays; the bundled templates link to its files | [cinematic-director](https://github.com/wuwangzhang1216/DirectorSKILL/tree/main) (MIT) |
+| Auditing and splitting prompts for more generators (Runway, Sora) and director treatments | [video](https://github.com/smixs/visual-skills/tree/main/video) (CC-BY-4.0; attribution to Serge Shima required) |
+| Seedance 2.5 long and exact-timeline videos, transitions and acted dialogue in full | [seedance-2-5-video-director](https://github.com/liyue-aigc/seedance-2-5-video-director/tree/main) (MIT; Chinese-first) |
+| A feature, stage play or series from premise to revision, with saved state and a story bible | [sw-workflow](https://github.com/jtydhr88/screenwriting-skills/tree/main/plugins/screenwriting/skills/sw-workflow) (MIT; install the screenwriting plugin) |
+| An industrial short-drama pipeline with multi-agent roles for Seedance 2.x and MiniMax H3 | [short-drama-director](https://github.com/lixiaoxiao9888-create/manju-laoli-skill/tree/main/short-drama-director) (MIT; Chinese-language) |
+| Batch-generating the panel images once a comic page is planned | [baoyu-comic](https://github.com/JimLiu/baoyu-skills/tree/main/skills/baoyu-comic) (MIT; needs the baoyu-image-gen backend) |
 
 ## Default workflow
 

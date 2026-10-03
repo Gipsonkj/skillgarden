@@ -34,6 +34,18 @@ SEO is getting the right pages crawled, indexed and chosen: by Google and Bing r
 13. **Never promise rankings, traffic, indexing or AI citations.** Report dated rates and ranges instead.
 14. **Ask before side effects.** Installing CLIs, scheduling cron jobs, IndexNow pings, directory and review submissions, and GBP edits all need the owner's approval.
 
+## Plan the request
+
+Work out what the request needs before opening a guide; most real requests need more than one.
+
+1. **Split it into parts:** each thing the user needs at the end. A one-part request goes straight to the table below.
+2. **Give each part its best source.** This craft's guides first; several is normal, read in the order the work happens. A part listed under "Other crafts" goes to that craft's guide, which goes deeper than any short version here. A part that needs a tool, API or edge case no guide covers goes to the original skill under "Go deeper".
+3. **Say the plan in a line** before starting, then read only the guides it names. For example: "Traffic drop after a migration: `references/audit.md` → `references/technical.md` → `references/keywords-content.md`; code fixes from `website-building` → `references/nextjs-react.md`; rewrites from `content-creation` → `references/long-form-articles.md`."
+4. **Carry decisions forward.** The brief, tokens, copy and file names from earlier parts feed the later ones. When two guides disagree, follow the one written for that part and say so.
+5. **Check the result** against "Done means" here and in every other craft you used.
+
+**Opening another craft:** with the Skill Garden plugin, load the skill `skillgarden:<craft>` or read its guides beside this folder at `../<craft>/references/`; on the Skill Garden connector, call `get_super_skill` and `get_guide`. If that craft isn't installed, name it to the user and carry on with this one. For a request that spans three or more crafts, start with the planner: the skill `skillgarden:garden`, or `get_super_skill` with craft `garden` on the connector.
+
 ## Pick the right guide
 
 | Task | Read |
@@ -49,6 +61,32 @@ SEO is getting the right pages crawled, indexed and chosen: by Google and Bing r
 | Backlink review, link earning, disavow, directory submissions, Product Hunt, competitor and alternative pages | [references/offpage-competitors.md](references/offpage-competitors.md) |
 | Specific tools: Search Console, PSI and CrUX APIs, Screaming Frog, squirrelscan, Firecrawl, DataForSEO, OpenSEO, claude-seo, the `seo` CLI, Apify | [references/tools-vendors.md](references/tools-vendors.md) |
 | Tracking a directory submission campaign | [templates/directory-submissions/submission-tracker-template.csv](templates/directory-submissions/submission-tracker-template.csv) |
+
+## Other crafts
+
+| When the request also needs | Use |
+|---|---|
+| Writing the articles or page copy, or a full content calendar (beyond the briefs in `references/keywords-content.md`) | `content-creation` → `references/long-form-articles.md`, `references/content-strategy.md`, `references/conversion-copy.md` |
+| Code fixes for rendering, metadata or Core Web Vitals (beyond the checks in `references/technical.md`) | `website-building` → `references/nextjs-react.md`, `references/performance-cwv.md` |
+| Large Search Console exports in SQL or BigQuery, or measuring a change's real effect | `data-analysis` → `references/sql.md`, `references/warehouses.md`, `references/experiments-causal.md` |
+| Paid search on the same queries, or testing titles and offers with ads first | `google-ads` → `references/campaign-build.md`, `references/keywords-negatives.md` |
+| Open Graph images, favicons and share previews | `poster-design` → `references/web-assets.md` |
+| YouTube titles, descriptions and chapters for video search | `social-media` → `references/youtube-seo-thumbnails.md` |
+| The audit delivered as a client-ready PDF or slide deck | `docs-office` → `references/pdf.md`, `references/deck-writing.md` |
+
+## Go deeper (original skills)
+
+The guides above distil these. Open one when a part needs its full detail, read it as reference, and read any script before running it.
+
+| When you need | Original skill |
+|---|---|
+| Industry-aware audits from a 30+ skill suite, including the backlinks, maps, images and hreflang skills not copied here | [claude-seo](https://github.com/AgriciDaniel/claude-seo/tree/main/skills/seo) (MIT; optional DataForSEO, Ahrefs or Firecrawl keys) |
+| GEO audits with citability scoring, brand-mention scans, llms.txt generation and client-ready reports | [geo](https://github.com/zubair-trabzada/geo-seo-claude/tree/main/geo) (MIT) |
+| A 260+ rule site audit (SEO, performance, security, accessibility) fixed in source and re-run | [audit-website](https://github.com/squirrelscan/skills/tree/main/skills/audit-website) (MIT; needs the squirrelscan CLI) |
+| Recurring checks of whether you and competitors are cited in AI Overviews, ChatGPT, Perplexity, Copilot and Gemini | [apify-ai-search-visibility-tracker](https://github.com/apify/awesome-skills/tree/main/skills/apify-ai-search-visibility-tracker) (Apache-2.0; needs APIFY_TOKEN, paid runs) |
+| 70+ audit tools in a local CLI: rankings, keywords, backlinks, indexing, redirects, Core Web Vitals | [seo (iannuttall)](https://github.com/iannuttall/seo/tree/main/skills/seo) (Apache-2.0; needs the bundled CLI and some data-provider keys) |
+| An audit against live search data that returns only the few changes most likely to grow converting traffic | [seo-audit](https://github.com/every-app/open-seo/tree/main/plugins/openseo/skills/seo-audit) (MIT; needs the OpenSEO app and DataForSEO credentials) |
+| Keyword research in English and Chinese, from a 16-skill SEO and GEO set | [keyword-research](https://github.com/aaron-he-zhu/aaron-marketing-skills/tree/main/seo-geo/survey/keyword-research) (Apache-2.0) |
 
 ## Default workflow
 

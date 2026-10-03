@@ -31,6 +31,11 @@
       "id": "t3",
       "prompt": "Turn this 900-word blog post about compound interest into a 60-second narrated explainer for YouTube Shorts. Give me the plan you would get approved first.",
       "good": "States a one-sentence message and 1080x1920 aspect; picks one explainer structure and does not follow paragraph order; hook in the first 3 s with the thesis by beat 2; 10-12 beats with timings that add up to about 60 s and about 140 voiceover words; on-screen numbers set in code; captions from word timings; asks for approval before rendering."
+    },
+    {
+      "id": "t4",
+      "prompt": "Make a 45-second TikTok teaser for our note-taking app: a few AI b-roll shots of the same person sketching ideas in a cafe, a real screen recording of the app, a voiceover and a music bed, with captions. Plan the shots before generating anything.",
+      "good": "States a short plan first: shots through storyboarding (shot-lists-and-boards.md, keyframes-and-consistency.md: one identity string so the person stays the same), voiceover and bed through audio-generation (voiceover-tts.md, music-generation.md: about 100 words of VO, one voice, instrumental bed), then here: hybrid route (plan-and-route.md), b-roll prompts (generative-prompting.md), screen recording and assembly (explainers-and-promos.md), delivery (delivery-qa.md). Hook in 3 s; app name and UI text in code; model and cost stated before paid takes; captions last inside the TikTok safe zone; -14 LUFS; checks the Done means of all three crafts."
     }
   ]
 }

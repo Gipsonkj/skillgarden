@@ -1,4 +1,4 @@
-> Distilled from: auteur (agiwhitelist/auteur, MIT), scroll-craft (nateherkai/scroll-craft, MIT), web-artifacts-builder (anthropics/skills, Apache-2.0)
+> Distilled from: auteur (agiwhitelist/auteur, MIT), scroll-craft (nateherkai/scroll-craft, MIT), web-artifacts-builder (anthropics/skills, Apache-2.0), web-design-asset-stack (Gipsonkj/skillgarden, MIT)
 
 # Design direction: commit before you code, refuse the defaults
 
@@ -98,7 +98,41 @@ near-black background by default; tiny mono "service" labels in corners; logo-le
 - Tables for tabular data with `font-variant-numeric: tabular-nums`; footer is a real place (sitemap, contact, legal).
 - Progressive enhancement: the page reads as a complete document with CSS and JS off.
 
-## 7. Self-check before verifying
+## 7. When it renders but looks flat: composition before libraries
+
+Most "make it look better" requests are a composition problem. Fix the rule layer before installing anything (library verdicts are in `stacks-astro-vue-static.md`).
+
+| Symptom | Move |
+|---|---|
+| Looks boring | Re-cut the layout: break the centred stack into a deliberate asymmetric relationship |
+| Doesn't stand out | Exaggerate scale: one element far bigger than reasonable, cropping or bleeding off the edge |
+| Looks plain | Add detail: texture, secondary marks, small annotation type, a border. Clean is not the same as empty |
+| No focus point | Use contrast: one thing differs in colour, weight, size or temperature and everything else defers |
+
+The hero usually needs scale, interior sections usually need contrast, and a sterile page needs detail, not more whitespace.
+
+**The pairing law.** One treatment reads as fine; two stacked read as intentional; three read as a mess. Pick two and commit: black and white plus colour pops (iconic), blur plus grain, vintage photography plus modern type (timeless), low exposure plus candlelight (intimate), portraits plus type, a print artefact (crossword, envelope, paper) plus photography (nostalgic). On a website: desaturated photography plus one saturated accent, or archival texture plus a contemporary grotesque.
+
+**Composition levers**, to diagnose ("this hero has no tension") or to brief ("build this section on isolation and negative space"): accent, isolation, grouping, framing, negative space, golden ratio, movement, diptych, tension, symmetry. Every page should name its two paired treatments and one or two levers; if it can't, it has no design read.
+
+### Study real sites, steal the mechanism
+
+Pick a reference whose *mechanism* fits the job, not whose colours you like, and name the mechanism before building. Award-level pages usually carry the whole page on one committed idea; ambition goes into commitment, not effect count. Examples seen in September 2026 (third-party sites change; check before citing one):
+
+| Mechanism | Example |
+|---|---|
+| One colour field and one flat illustrated figure, no chrome | sandracreates.com |
+| One hero object against a contrasting field | heatbureau.com |
+| Oversized cropped wordmark bleeding off both edges over product photography | wairk.fr |
+| One 3D character in near-empty white | nic0martins.com |
+| Borderless wall-to-wall thumbnail grid | omrimalka.art |
+| Zine collage: cut paper, stickers, overprinted type, hand-drawn marks | elimarigodesign.com |
+| Words flipping grey to solid as the reading line passes, nothing else | lircle.co |
+| Three sticky cards and zero animation libraries | indisea.com |
+
+Framer templates are references only: Framer has no HTML export, so they are a delivery format only when the client stays on Framer. Reels and roundups teach names, not currency: check a tool's last release before installing it.
+
+## 8. Self-check before verifying
 
 1. Could a stranger guess the category from the palette alone? Then the reflex won.
 2. Is there one element a visitor would describe to a friend?

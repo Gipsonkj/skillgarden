@@ -65,7 +65,8 @@ for (const [i, slug] of slugs.entries()) {
     ...(cur || { active: ACTIVE, collections: meta.collections || [], order: order0 + i + 1, repos: meta.repos || [] }),
     name: meta.name, blurb: meta.blurb, hue: meta.hue ?? (i * 37) % 360,
     searches: cur?.searches?.length ? cur.searches : meta.searches || [],
-    tests: cur?.tests?.length ? cur.tests : meta.tests || [],
+    // Tests edited in the app stay; seed tests it doesn't have yet (by id, e.g. a new t4) are added.
+    tests: cur?.tests?.length ? [...cur.tests, ...(meta.tests || []).filter((x) => !cur.tests.some((c) => c.id === x.id))] : meta.tests || [],
     version, content, files, updatedAt: now,
   });
   cur ? updated++ : made++;

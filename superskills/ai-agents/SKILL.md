@@ -26,6 +26,18 @@ Building systems where a model calls tools in a loop: deciding whether you need 
 
 Conflicts resolved: *consolidate vs one-tool-per-action.* tool-design (muratcankoylan) favours merging narrow tools; Anthropic's MCP guides favour one tool per action under ~15 and forbid mixing read and write. Rule here: one tool per action by default, merge only always-chained steps of the same risk level, never merge a read with a write (Directory review rejects it). *Prompt-level vs tool-level safety.* Prompts alone are not a boundary, so the stronger rule wins: enforce in tools and permissions, mention in the prompt.
 
+## Plan the request
+
+Work out what the request needs before opening a guide; most real requests need more than one.
+
+1. **Split it into parts:** each thing the user needs at the end. A one-part request goes straight to the table below.
+2. **Give each part its best source.** This craft's guides first; several is normal, read in the order the work happens. A part listed under "Other crafts" goes to that craft's guide, which goes deeper than any short version here. A part that needs a tool, API or edge case no guide covers goes to the original skill under "Go deeper".
+3. **Say the plan in a line** before starting, then read only the guides it names. For example: "Helpdesk MCP server: `references/agent-or-workflow.md` → `references/tool-design.md` → `references/mcp-servers.md` → `references/evaluation.md`; hosting from `cloud-devops` → `references/cloudflare.md`; key and abuse paths from `security` → `references/secrets.md`."
+4. **Carry decisions forward.** The brief, tokens, copy and file names from earlier parts feed the later ones. When two guides disagree, follow the one written for that part and say so.
+5. **Check the result** against "Done means" here and in every other craft you used.
+
+**Opening another craft:** with the Skill Garden plugin, load the skill `skillgarden:<craft>` or read its guides beside this folder at `../<craft>/references/`; on the Skill Garden connector, call `get_super_skill` and `get_guide`. If that craft isn't installed, name it to the user and carry on with this one. For a request that spans three or more crafts, start with the planner: the skill `skillgarden:garden`, or `get_super_skill` with craft `garden` on the connector.
+
 ## Pick the right guide
 
 | Task | Read |
@@ -43,6 +55,33 @@ Conflicts resolved: *consolidate vs one-tool-per-action.* tool-design (muratcank
 | Real-time voice agents (ElevenLabs; ADK Live alternatives) | [references/voice-agents-elevenlabs.md](references/voice-agents-elevenlabs.md) |
 
 Call a sub-capability by naming the task, or say "use ai-agents: mcp-servers", "use ai-agents: evaluation", etc. For no-code automations (n8n, Make, Zapier) and browser control, use the `automation` super skill.
+
+## Other crafts
+
+| When the request also needs | Use |
+|---|---|
+| A no-code workflow (n8n, Make, Zapier) or a browser the agent drives | `automation` → `references/automation-design.md`, `references/n8n.md`, `references/browser-automation.md` |
+| Hosting a remote MCP server or agent: Workers, Cloud Run, secrets, cost | `cloud-devops` → `references/cloudflare.md`, `references/gcp.md`, `references/platform-choice.md` |
+| A threat model of the agent, AI agents in CI, or storing its API keys | `security` → `references/threat-modeling.md`, `references/github-actions.md`, `references/secrets.md` |
+| Unit and integration tests for the tool code (beyond the model evals in `references/evaluation.md`) | `testing-qa` → `references/test-strategy.md`, `references/tdd-and-unit-tests.md` |
+| Claude Code skills, subagent definitions or hooks rather than an API-built agent | `claude-meta` → `references/skill-authoring.md`, `references/subagents-and-delegation.md`, `references/hooks-and-guardrails.md` |
+| A chat screen for the agent: loading, empty, error and feedback states | `frontend-ui-design` → `references/components-and-states.md`, `references/react-shadcn-tailwind.md` |
+| PDFs and Office files turned into clean Markdown chunks for retrieval | `docs-office` → `references/convert-extract.md` |
+| Choosing or designing the voice, ElevenLabs TTS or STT (beyond `references/voice-agents-elevenlabs.md`) | `audio-generation` → `references/voiceover-tts.md`, `references/elevenlabs.md` |
+
+## Go deeper (original skills)
+
+The guides above distil these. Open one when a part needs its full detail, read it as reference, and read any script before running it.
+
+| When you need | Original skill |
+|---|---|
+| The full Claude API and SDK reference: models, streaming, tool use, caching, MCP connector | [claude-api](https://github.com/anthropics/skills/tree/main/skills/claude-api) (Apache-2.0) |
+| A step-by-step MCP server build in Python FastMCP or the TypeScript SDK | [mcp-builder](https://github.com/anthropics/skills/tree/main/skills/mcp-builder) (Apache-2.0) |
+| Packaging a local server as an MCPB bundle, through its build-mcpb companion | [build-mcp-server](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/mcp-server-dev/skills/build-mcp-server) (Apache-2.0; build-mcp-app and build-mcpb sit in the same plugin) |
+| Deploying ADK agents to Agent Runtime, Cloud Run or GKE with CI/CD, secrets and rollback | [google-agents-cli-deploy](https://github.com/google/agents-cli/tree/main/skills/google-agents-cli-deploy) (Apache-2.0; needs gcloud and agents-cli) |
+| Microsoft Foundry end to end: deploy, invoke, evaluate and fine-tune hosted agents | [microsoft-foundry](https://github.com/microsoft/azure-skills/tree/main/skills/microsoft-foundry) (MIT; needs Azure and azd) |
+| LangChain Deep Agents, with its orchestration and memory companion skills | [deep-agents-core](https://github.com/langchain-ai/langchain-skills/tree/main/config/skills/deep-agents-core) (MIT) |
+| CrewAI agents: role, goal, backstory, delegation, knowledge sources, guardrails | [design-agent](https://github.com/crewaiinc/skills/tree/main/skills/design-agent) (MIT stated in README, no licence file: read only) |
 
 ## Default workflow
 

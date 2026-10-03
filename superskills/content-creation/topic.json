@@ -26,6 +26,11 @@
       "id": "t3",
       "prompt": "Turn my 1,800-word blog post about switching our team to async standups into a LinkedIn post, an X thread and a newsletter section. Keep my voice.",
       "good": "Extracts 3-7 standalone insights and assigns one idea per output; LinkedIn hook in the first two lines and 3-5 short paragraphs; X posts under 280 chars each advancing the argument; newsletter section opens on the point; no identical copy across platforms; no claims beyond the source; no engagement bait; notes that a voice sample or profile is used or requested."
+    },
+    {
+      "id": "t4",
+      "prompt": "Write a 1,500-word blog post on how small accounting firms can shorten month-end close, in our voice (three past posts attached). It should rank for 'month-end close checklist', and I need a LinkedIn post to promote it.",
+      "good": "States a short plan first: voice and article here (brand-voice.md, long-form-articles.md, humanize-ai-writing.md), search intent, title and meta through seo (keywords-content.md: check the SERP for intent, one primary keyword, no stuffing), the promo post through linkedin-automation (post-writing.md: hook in the first lines, link in the first comment, run the pre-publish lint). Builds a voice profile from the three posts; leads with the point; invents no statistics or client stories and flags [NEED: ...]; runs the AI-tell audit; checks the Done means of all three crafts."
     }
   ]
 }

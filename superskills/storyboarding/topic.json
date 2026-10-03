@@ -31,6 +31,11 @@
       "id": "t3",
       "prompt": "Turn my 4-shot board for a rainy rooftop confrontation into Seedance 2.5 prompts, 15 seconds total.",
       "good": "Asset roles declared per reference; one-line summary then timestamped stages of 3 s or more that sum to 15 s, each with one action and a visible end state; dialogue in {} with delivery; positive descriptions instead of negated words; continuity and specific prohibitions at the end; does not claim to generate the video."
+    },
+    {
+      "id": "t4",
+      "prompt": "Storyboard a 20-second 9:16 teaser for our indie board game: a shot list, a consistent look for the two painted hero characters, a keyframe image for every shot, and a voiceover line with a music cue.",
+      "good": "States a short plan first: beats, shots and consistency here (story-structure.md, shot-lists-and-boards.md, keyframes-and-consistency.md), keyframe stills through image-creation (editing-references-consistency.md: character sheets first, the same references and locked style block on every call), voiceover and music through audio-generation (voiceover-tts.md, music-generation.md). Hook in the first 1-2 s; durations derived from the voiceover and summing to 20 s; identity strings pasted verbatim; keyframes show the start state only; checks the Done means of all three crafts and does not claim to render the video."
     }
   ]
 }

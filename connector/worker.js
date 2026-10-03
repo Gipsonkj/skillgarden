@@ -17,13 +17,13 @@ const CACHE_SECONDS = 300;
 const TOOLS = [
   {
     name: "list_crafts",
-    description: "List the 29 Skill Garden crafts (topics). Each has one super skill that routes to distilled guides. Call this first to find the craft id for a task.",
+    description: "List the Skill Garden crafts (topics). Each has one super skill that routes to distilled guides. Call this first to find the craft id for a task.",
     inputSchema: { type: "object", properties: {}, additionalProperties: false },
   },
   {
     name: "get_super_skill",
-    description: "Get a craft's super skill: its router (SKILL.md), which says which guide to read for which task, plus the list of its guide files. Then call get_guide for the guide the task needs.",
-    inputSchema: { type: "object", properties: { craft: { type: "string", description: "Craft id from list_crafts, e.g. backend-databases" } }, required: ["craft"], additionalProperties: false },
+    description: "Get a craft's super skill: its router (SKILL.md), which says how to plan the request, which guide to read for which part and which other crafts to hand parts to, plus the list of its guide files. Then call get_guide for the guides the plan needs. Craft \"garden\" is the planner for requests that need several crafts.",
+    inputSchema: { type: "object", properties: { craft: { type: "string", description: "Craft id from list_crafts, e.g. backend-databases, or garden for the planner" } }, required: ["craft"], additionalProperties: false },
   },
   {
     name: "get_guide",
@@ -77,14 +77,16 @@ async function tree(env) {
     const r = await fetch(`https://api.github.com/repos/${env.REPO}/git/trees/${env.REF}?recursive=1`, { headers: ghHeaders(env) });
     if (!r.ok) throw new Error(`GitHub returned ${r.status} listing the repo`);
     const files = {};
-    const chains = [];
+    const chains = [], planners = [];
     for (const e of (await r.json()).tree || []) {
-      const m = e.type === "blob" && /^superskills\/([^/]+)\/(.+)$/.exec(e.path);
-      if (m) (files[m[1]] ||= []).push({ path: m[2], size: e.size });
+      const m = e.type === "blob" && /^(superskills|planner)\/([^/]+)\/(.+)$/.exec(e.path);
+      if (m) (files[m[2]] ||= []).push({ path: m[3], size: e.size });
+      if (m && m[1] === "planner" && m[3] === "SKILL.md") planners.push(m[2]);
       const k = e.type === "blob" && /^chains\/([a-z0-9][a-z0-9-]{0,60})\/chain\.json$/.exec(e.path);
       if (k) chains.push(k[1]);
     }
     Object.defineProperty(files, "chains", { value: chains.sort(), enumerable: false });
+    Object.defineProperty(files, "planners", { value: planners, enumerable: false });
     return files;
   });
 }
@@ -107,18 +109,22 @@ async function credits(env, craft) {
 const SLUG = /^[a-z0-9][a-z0-9-]{0,60}$/;
 const text = (t) => ({ content: [{ type: "text", text: t }] });
 const fail = (t) => ({ content: [{ type: "text", text: t }], isError: true });
+// Super skills live in superskills/<craft>; the planner in planner/garden.
+const home = (files, craft) => ((files.planners || []).includes(craft) ? `planner/${craft}` : `superskills/${craft}`);
 
 async function callTool(env, name, args = {}) {
   if (name === "list_crafts") {
     const [topics, files] = await Promise.all([catalog(env), tree(env)]);
     const rows = topics.filter((t) => files[t.id]).map((t) => `- ${t.id}: ${t.name}. ${t.blurb || ""} (${(files[t.id] || []).filter((f) => f.path.startsWith("references/")).length} guides, ${(t.skills || []).length} ranked sub-skills)`);
     const chains = files.chains || [];
-    return text(`${rows.length} crafts. Call get_super_skill with a craft id.\n\n${rows.join("\n")}${chains.length ? `\n\nChains (several crafts in order from one ask; call get_chain): ${chains.join(", ")}` : ""}`);
+    const plan = (files.planners || []).includes("garden") ? `\n\nA request that needs several crafts: call get_super_skill with craft "garden" (the planner) first.` : "";
+    return text(`${rows.length} crafts. Call get_super_skill with a craft id.\n\n${rows.join("\n")}${chains.length ? `\n\nChains (several crafts in order from one ask; call get_chain): ${chains.join(", ")}` : ""}${plan}`);
   }
   if (name === "get_super_skill") {
     const craft = String(args.craft || "");
     if (!SLUG.test(craft)) return fail("Give a craft id from list_crafts.");
-    const [skill, files] = await Promise.all([raw(env, `superskills/${craft}/SKILL.md`), tree(env)]);
+    const files = await tree(env);
+    const skill = await raw(env, `${home(files, craft)}/SKILL.md`);
     if (!skill) return fail(`No super skill called "${craft}". Call list_crafts for the ids.`);
     const list = (files[craft] || []).filter((f) => f.path !== "SKILL.md" && f.path !== "topic.json").map((f) => `- ${f.path}`).join("\n");
     const history = await credits(env, craft);
@@ -127,9 +133,9 @@ async function callTool(env, name, args = {}) {
   if (name === "get_guide") {
     const craft = String(args.craft || ""), p = String(args.path || "").replace(/^\.?\//, "");
     if (!SLUG.test(craft)) return fail("Give a craft id from list_crafts.");
-    const files = (await tree(env))[craft] || [];
+    const all = await tree(env), files = all[craft] || [];
     if (!files.some((f) => f.path === p)) return fail(`"${p}" isn't in ${craft}. Call get_super_skill to see its files.`);
-    const body = await raw(env, `superskills/${craft}/${p}`);
+    const body = await raw(env, `${home(all, craft)}/${p}`);
     return body == null ? fail("That file couldn't be read.") : text(body);
   }
   if (name === "get_chain") {
@@ -197,7 +203,7 @@ async function handle(env, msg) {
       protocolVersion: params?.protocolVersion || PROTOCOL,
       capabilities: { tools: {} },
       serverInfo: { name: "skillgarden", version: "1.0.0" },
-      instructions: "Skill Garden super skills. For a task, call list_crafts, then get_super_skill for the matching craft, then get_guide for the guide its router names. Follow the guide. For a multi-step job such as a whole marketing campaign, sales outreach or a launch video, call get_chain first.",
+      instructions: "Skill Garden super skills. For a task, call list_crafts, then get_super_skill for the matching craft, then get_guide for the guides its router names. Each router says how to split a request into parts and which other crafts' guides serve parts it doesn't cover best; read those with get_guide too. For a request that needs several crafts, call get_super_skill with craft \"garden\" (the planner) first. For a whole marketing campaign, sales outreach or a launch video, call get_chain.",
     });
     if (method === "ping") return ok({});
     if (method === "tools/list") return ok({ tools: TOOLS });

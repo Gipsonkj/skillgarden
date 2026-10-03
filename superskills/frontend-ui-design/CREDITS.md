@@ -29,6 +29,8 @@ This super skill is distilled from the open-source agent skills below. Reference
 | baseline-ui | https://github.com/ibelick/ui-skills/tree/main/skills/baseline-ui | MIT | Baseline rules for Tailwind UI, motion limits |
 | design-md | https://github.com/google-labs-code/stitch-skills/tree/main/plugins/stitch-utilities/skills/design-md | Apache-2.0 | DESIGN.md structure; `templates/design-md/DESIGN.example.md` copied |
 | extract-design-system | https://github.com/arvindrk/extract-design-system/tree/main/skills/extract-design-system | MIT | Idea of reading tokens from a live site. Its `npx` install/run steps were not included |
+| prototype | https://github.com/emilkowalski/skills/tree/main/skills/prototype | MIT | Several-variants workflow: one piece, named divergent axes, isolated surface, one variant at a time in context, verify, present and stop, keep/riff (design-md-and-prototypes); `templates/prototype/PICKER.md` copied verbatim with `LICENSE.source-repo` |
+| ask-sonner | https://github.com/emilkowalski/skills/tree/main/skills/ask-sonner | MIT | Sonner setup, call picker, recipes, styling ladder, theme, troubleshooting table, Toaster and toast() defaults (react-shadcn-tailwind). Its scripted first-reply line was left out |
 
 ## Also see (not included)
 

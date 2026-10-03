@@ -1,6 +1,6 @@
 ---
 name: cloud-devops
-description: Deploy, run and operate apps in the cloud. Covers choosing a host, Dockerfiles and Compose, Kubernetes manifests and debugging (incl. GKE/EKS), Terraform/OpenTofu (style, state, modules, tests, safe apply/destroy), CI/CD with GitHub Actions (quality gates, OIDC, previews, rollbacks), Cloudflare Workers/Wrangler/Durable Objects, Google Cloud Run/Firebase App Hosting, AWS (IAM policies and roles, Lambda, ECS/EKS/ECR, CDK), Azure (azd deploy, Container Apps/App Service diagnostics, KQL), and observability (OpenTelemetry, Grafana dashboards, RED/USE, alerts). Use when asked to deploy or ship an app, "put this live", write a Dockerfile or compose.yaml, shrink or harden an image, write k8s YAML or debug CrashLoopBackOff/Pending pods, write or review Terraform, set up a CI pipeline or GitHub Actions workflow, configure wrangler.jsonc, deploy to Cloud Run, write an IAM policy, build a Lambda, run azd up, instrument with OpenTelemetry, build a Grafana dashboard, or debug a production outage.
+description: Deploy, run and operate apps in the cloud. Covers choosing a host, Dockerfiles and Compose, Kubernetes manifests and debugging (GKE/EKS), Terraform/OpenTofu (style, state, modules, tests, safe destroy), GitHub Actions CI/CD (quality gates, OIDC, previews, rollbacks), Cloudflare Workers/Wrangler/Durable Objects, Google Cloud Run (incl. Next.js behind Firebase Hosting) and Firebase App Hosting, AWS (IAM, Lambda, ECS/EKS/ECR, CDK), Azure (azd, Container Apps/App Service diagnostics, KQL), and observability (OpenTelemetry, Grafana, RED/USE, alerts). Use when asked to deploy or ship an app, "put this live", write a Dockerfile or compose.yaml, shrink or harden an image, write k8s YAML or debug CrashLoopBackOff/Pending pods, write or review Terraform, set up a GitHub Actions pipeline, configure wrangler.jsonc, deploy to Cloud Run, fix gcloud "No module named grpc", write an IAM policy, build a Lambda, run azd up, add OpenTelemetry, build a Grafana dashboard, or debug a production outage.
 ---
 
 # Cloud and DevOps
@@ -26,6 +26,18 @@ Getting code from a repo to a running, observable, reversible deployment. This s
 
 Conflict resolved: Terraform naming. HashiCorp's guide allows `main` for a lone resource; terraform-skill prefers descriptive names and reserves `this` for true singletons. Rule here: descriptive name first, `main` only when there is exactly one and no better noun.
 
+## Plan the request
+
+Work out what the request needs before opening a guide; most real requests need more than one.
+
+1. **Split it into parts:** each thing the user needs at the end. A one-part request goes straight to the table below.
+2. **Give each part its best source.** This craft's guides first; several is normal, read in the order the work happens. A part listed under "Other crafts" goes to that craft's guide, which goes deeper than any short version here. A part that needs a tool, API or edge case no guide covers goes to the original skill under "Go deeper".
+3. **Say the plan in a line** before starting, then read only the guides it names. For example: "API to AWS with Terraform and CI: `references/platform-choice.md` → `references/docker.md` → `references/terraform.md` → `references/aws.md` → `references/ci-cd.md`; database cutover from `backend-databases` → `references/postgres-schema.md`; secrets from `security` → `references/secrets.md`, `references/github-actions.md`."
+4. **Carry decisions forward.** The brief, tokens, copy and file names from earlier parts feed the later ones. When two guides disagree, follow the one written for that part and say so.
+5. **Check the result** against "Done means" here and in every other craft you used.
+
+**Opening another craft:** with the Skill Garden plugin, load the skill `skillgarden:<craft>` or read its guides beside this folder at `../<craft>/references/`; on the Skill Garden connector, call `get_super_skill` and `get_guide`. If that craft isn't installed, name it to the user and carry on with this one. For a request that spans three or more crafts, start with the planner: the skill `skillgarden:garden`, or `get_super_skill` with craft `garden` on the connector.
+
 ## Pick the right guide
 
 | Task | Read |
@@ -36,12 +48,38 @@ Conflict resolved: Terraform naming. HashiCorp's guide allows `main` for a lone 
 | Terraform/OpenTofu: style, modules, state, `moved`/`import`, tests, safe destroy | [references/terraform.md](references/terraform.md) |
 | CI/CD: GitHub Actions workflows, quality gates, OIDC to clouds, previews, rollbacks, Dependabot | [references/ci-cd.md](references/ci-cd.md) |
 | Cloudflare: product choice, Workers, Wrangler, bindings, secrets, Durable Objects | [references/cloudflare.md](references/cloudflare.md) |
-| Google Cloud: Cloud Run services/jobs/worker pools, Firebase App Hosting, GKE basics | [references/gcp.md](references/gcp.md) |
+| Google Cloud: Cloud Run services/jobs/worker pools; Next.js on Cloud Run behind Firebase Hosting (custom domain, 60 s limit, keyless GitHub deploys, stale-bundle checks); Firebase App Hosting; GKE basics; gcloud "No module named grpc" | [references/gcp.md](references/gcp.md) |
 | AWS: IAM policies and roles, Lambda/serverless, ECS/EKS/ECR, CDK | [references/aws.md](references/aws.md) |
 | Azure: azd deploy flow, Container Apps / App Service / Functions diagnostics, KQL | [references/azure.md](references/azure.md); collectors in `scripts/azure-diagnostics/` |
 | Logs, metrics, traces, OpenTelemetry, Grafana dashboards, alerts, incident triage | [references/observability.md](references/observability.md) |
 
 Call a sub-capability by naming the task, or say "use cloud-devops: terraform", "use cloud-devops: kubernetes", etc.
+
+## Other crafts
+
+| When the request also needs | Use |
+|---|---|
+| Workflow hardening, secret scanning, dependency and supply-chain checks | `security` → `references/github-actions.md`, `references/secrets.md`, `references/supply-chain.md` |
+| The database behind the deploy: migrations, pooled vs direct URLs, slow queries | `backend-databases` → `references/postgres-schema.md`, `references/query-performance.md`, `references/neon.md` |
+| A website on Vercel or Netlify, or its Core Web Vitals after the deploy | `website-building` → `references/deploy-vercel.md`, `references/deploy-netlify-cloudflare.md`, `references/performance-cwv.md` |
+| The tests CI runs: what to test where, Playwright in CI, flaky failures | `testing-qa` → `references/test-strategy.md`, `references/playwright-e2e.md`, `references/flaky-tests.md` |
+| Root cause in the app's own code once an incident is mitigated | `coding-practices` → `references/debugging.md` |
+| Mobile builds and store releases (EAS, TestFlight, Play tracks) | `app-building` → `references/release-app-stores.md` |
+| Hosting an MCP server: transport, auth and deployment model | `ai-agents` → `references/mcp-servers.md` |
+
+## Go deeper (original skills)
+
+The guides above distil these. Open one when a part needs its full detail, read it as reference, and read any script before running it.
+
+| When you need | Original skill |
+|---|---|
+| Bringing a whole app to Azure: service detection, IaC scaffold, cost estimate, approval gates | [azure-app-onboard](https://github.com/microsoft/azure-skills/tree/main/skills/azure-app-onboard) (MIT; needs azd and an Azure subscription) |
+| Choosing among Cloudflare's KV, D1, R2, AI, networking and security products, with routes to their docs | [cloudflare](https://github.com/cloudflare/skills/tree/main/skills/cloudflare) (Apache-2.0) |
+| Native Terraform tests (.tftest.hcl) with provider mocking and module tests | [terraform-test](https://github.com/hashicorp/agent-skills/tree/main/plugins/terraform/skills/terraform-test) (MPL-2.0) |
+| EKS with Karpenter and the AWS Load Balancer Controller, plus ECS, Fargate and ECR | [aws-containers](https://github.com/aws/agent-toolkit-for-aws/tree/main/skills/core-skills/aws-containers) (Apache-2.0) |
+| Lambda event sources with API Gateway, EventBridge and Step Functions | [aws-lambda](https://github.com/awslabs/agent-plugins/tree/main/plugins/aws-serverless/skills/aws-lambda) (Apache-2.0; needs SAM or CDK tooling) |
+| OpenTelemetry per language, shipped to Grafana Cloud or self-hosted Mimir, Loki and Tempo | [opentelemetry](https://github.com/grafana/skills/tree/main/skills/grafana-core/opentelemetry) (Apache-2.0) |
+| Ready-made GitHub Actions workflows: matrix builds, reusable workflows, deploys | [github-actions-templates](https://github.com/wshobson/agents/tree/main/plugins/cicd-automation/skills/github-actions-templates) (MIT) |
 
 ## Default workflow
 

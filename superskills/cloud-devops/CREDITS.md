@@ -29,6 +29,7 @@ This super skill is distilled from the open-source skills below. Text was rewrit
 | aws-containers | https://github.com/aws/agent-toolkit-for-aws/tree/main/skills/core-skills/aws-containers | Apache-2.0 | ECS/EKS/ECR/Beanstalk scope, App Runner sunset, Action Logs recommendation |
 | aws-lambda | https://github.com/awslabs/agent-plugins/tree/main/plugins/aws-serverless/skills/aws-lambda | Apache-2.0 | Limits table, idempotency/security rules, right-sizing and cold starts, async/throttling facts, troubleshooting tables |
 | aws-cdk-development | https://github.com/zxkane/aws-skills/tree/main/plugins/aws-iac/skills/aws-cdk-development | MIT | No explicit resource names, account-per-env, NodejsFunction/PythonFunction, cdk-nag validation layers, workflow |
+| gcloud-app-deploy | https://github.com/Gipsonkj/skillgarden/tree/main/authored/gcloud-app-deploy | MIT | Next.js on Cloud Run behind Firebase Hosting: standalone build, Dockerfile `NEXT_PUBLIC_*` trap, deploy flags and consent rules, Hosting rewrite and custom domain, 60 s Hosting limit, keyless WIF deploys, env var and bucket rules, quota note, stale-CDN check, `CLOUDSDK_PYTHON_SITEPACKAGES=1` fix for "No module named grpc" (gcp) |
 
 ## Also see (not included)
 

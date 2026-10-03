@@ -1,8 +1,10 @@
-# Google Cloud: Cloud Run, Firebase App Hosting, GKE
+# Google Cloud: Cloud Run, Next.js behind Firebase Hosting, Firebase App Hosting, GKE
 
-> Distilled from: cloud-run-basics and gke-basics (google/skills, Apache-2.0), firebase-app-hosting-basics (firebase/agent-skills, Apache-2.0)
+> Distilled from: cloud-run-basics and gke-basics (google/skills, Apache-2.0), firebase-app-hosting-basics (firebase/agent-skills, Apache-2.0), gcloud-app-deploy (Gipsonkj/skillgarden, MIT)
 
 Add `--quiet` to gcloud commands run by an agent (no interactive prompts), and always pass `--region` (or set `gcloud config set run/region REGION`). Confirm the project with `gcloud config get-value project` before deploying.
+
+**gcloud fails with `No module named grpc`, or seems to hang** (seen on macOS on `run` and IAM commands): `export CLOUDSDK_PYTHON_SITEPACKAGES=1` in the same shell first. The install isn't broken; don't reinstall gcloud.
 
 ## Cloud Run: which resource?
 
@@ -83,6 +85,37 @@ gcloud run services describe api --region REGION
 ## Terraform
 
 Use `google_cloud_run_v2_service` / `google_cloud_run_v2_job` with an explicit `service_account`, `google_cloud_run_v2_service_iam_member` for `roles/run.invoker`, and secrets via `value_source.secret_key_ref`. Remote state in a `gcs` backend. See [terraform.md](terraform.md).
+
+## Next.js on Cloud Run behind Firebase Hosting (custom domain, keyless CI)
+
+A proven shape when Firestore, Auth and Storage already live in a Firebase project: Next.js → Docker image → Cloud Run → Firebase Hosting in front for the CDN and the custom domain via a rewrite. (Firebase App Hosting, below, is the managed alternative.)
+
+1. **App config.** `output: 'standalone'` in `next.config.mjs`; start with `node server.js` (the standalone server) on `$PORT`. The `NEXT_PUBLIC_*` Firebase web config goes in a committed `.env.production` (it's public by design). Every secret stays in Cloud Run runtime env or Secret Manager, never in the repo.
+2. **Dockerfile**, two stages on `node:20-alpine`: builder runs `npm ci` and `npm run build`; the runner copies `public/`, `.next/standalone` and `.next/static`, runs as a non-root user, `ENV PORT=8080`, `EXPOSE 8080`. **Trap:** never declare empty `ARG`/`ENV NEXT_PUBLIC_*` in the Dockerfile; an empty env value beats `.env.production` and blanks the client config.
+3. **Deploy:**
+   ```bash
+   export CLOUDSDK_PYTHON_SITEPACKAGES=1
+   gcloud run deploy web --source . --region REGION --no-allow-unauthenticated \
+     --min-instances=0 --max-instances=2 --memory=1Gi --cpu=1 --quiet
+   ```
+   `--allow-unauthenticated` only after the owner confirms the site is public (Hosting's rewrite needs the service to be invocable). `--min-instances=1` costs money around the clock: ask first. A code-only redeploy keeps the runtime env vars and service account.
+4. **Hosting in front.** `firebase.json`:
+   ```json
+   { "hosting": { "public": "public",
+       "rewrites": [{ "source": "**", "run": { "serviceId": "web", "region": "REGION" } }] } }
+   ```
+   `firebase deploy --only hosting` (and `--only firestore:rules,storage:rules` for rules). Custom domain: the user adds it in Firebase console → Hosting and sets the DNS records it shows. Then update `NEXT_PUBLIC_SITE_URL` in `.env.production` and redeploy so canonicals, sitemap and OG tags use the real domain.
+5. **The 60-second trap.** Firebase Hosting returns 502 for any request slower than 60 s. Call slow endpoints (AI generation, big imports) on the service's direct `*.run.app` URL, kept as a client config value such as `longRunUrl`.
+6. **Keyless CI/CD.** GitHub Actions on push to `main` → Workload Identity Federation (a pool and provider, attribute condition pinned to the repo and branch) impersonates a deployer service account → build → Artifact Registry (`cloud-run-source-deploy` repo in the region) → deploy. The deployer needs `roles/run.admin`, Artifact Registry writer and `roles/iam.serviceAccountUser` on the runtime SA. No JSON keys anywhere (see [ci-cd.md](ci-cd.md)).
+7. **Env vars.** Runtime secrets/config: `gcloud run services update web --region REGION --set-env-vars KEY=value` (or `--set-secrets`), no rebuild. `NEXT_PUBLIC_*` values are baked at build time: edit `.env.production`, rebuild, redeploy.
+8. **Buckets.** Two, always: a public one for listing media (`allUsers:objectViewer` also lets anyone *list* the bucket) and a private one for documents. Never put documents in the public bucket.
+9. **Quota.** Regional Cloud Run CPU and memory quota can be small on a new project (one project was capped near 20 vCPU / 40 GiB per region across all services). Keep services small; a heavy render service at most 4 vCPU / 8 Gi with `max-instances=1`.
+
+Debugging:
+- "Fix not visible on the live site": `curl -s https://<domain>/ | grep <marker>` on the served HTML and its JS chunks before touching code again. A stale CDN shell looks exactly like a broken fix.
+- Logs: `gcloud run services logs read web --region REGION --limit 50`.
+- Batch the work: finish the features locally, then one production deploy, not one per change.
+- Local scripts against Firestore: `gcloud auth application-default login` (the user runs it).
 
 ## Firebase App Hosting (SSR Next.js / Angular)
 

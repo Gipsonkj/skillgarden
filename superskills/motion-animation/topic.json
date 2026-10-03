@@ -31,6 +31,11 @@
       "id": "t3",
       "prompt": "Make a 1.5-second SVG logo reveal for our splash screen: the mark draws on, then the wordmark letters cascade in. Give me the HTML and tell me how to check the final frame matches the logo exactly.",
       "good": "One element per semantic part with ids, pathLength=1 draw-on, letters staggered with overlap, a timing split of about 20/50/30, and literal easing inside @keyframes with fill-mode both. Adds a reduced-motion final state and a ?t= seek hook, and checks frames (including the last) against the static logo."
+    },
+    {
+      "id": "t4",
+      "prompt": "Our landing page needs a pinned scroll section where our smart kettle turns 180 degrees as the user scrolls, with three feature captions fading in. We have no product frames yet, so generate them, and keep the page fast on phones.",
+      "good": "States a short plan first: the frames through image-creation (editing-references-consistency.md: one product reference, fixed lighting and lens, even angle steps, no drift between frames), the scene here (motion-principles.md, scroll-animation.md, gsap.md: ScrollTrigger pin with scrub, canvas frame sequence, ease none on scrubbed tweens, end set as scroll distance), and page speed through website-building (performance-cwv.md: first frame as the poster, the rest loaded lazily, LCP and CLS checked on mobile). Transforms and opacity only; reduced motion shows one still with the captions; first, middle and last frames checked; checks the Done means of all three crafts."
     }
   ]
 }

@@ -1,6 +1,6 @@
-# Hosted models: FLUX, Replicate, fal.ai, OpenRouter, Higgsfield and others
+# Hosted models: FLUX, Replicate, fal.ai, OpenRouter, Higgsfield, Seedream on ModelArk and others
 
-> Distilled from: flux-image-best-practices (black-forest-labs/skills, MIT), prompt-images (replicate/skills, Apache-2.0), fal-ai-media (affaan-m/everything-claude-code, MIT), generate-image (K-Dense-AI/claude-scientific-skills, MIT), baoyu-image-gen (jimliu/baoyu-skills, MIT), higgsfield-generate (higgsfield-ai/skills, MIT), image (coreyhaines31/marketingskills, MIT)
+> Distilled from: flux-image-best-practices (black-forest-labs/skills, MIT), prompt-images (replicate/skills, Apache-2.0), fal-ai-media (affaan-m/everything-claude-code, MIT), generate-image (K-Dense-AI/claude-scientific-skills, MIT), baoyu-image-gen (jimliu/baoyu-skills, MIT), higgsfield-generate (higgsfield-ai/skills, MIT), image (coreyhaines31/marketingskills, MIT), bytedance-modelark (Gipsonkj/skillgarden, MIT). `scripts/bytedance-modelark/ark.py` is copied as-is from bytedance-modelark (MIT, licence beside it).
 
 Rule one for every platform here: **list models from the API, don't trust memory**. Catalogues change weekly. Read the model's schema before sending parameters.
 
@@ -9,7 +9,7 @@ Rule one for every platform here: **list models from the API, don't trust memory
 | Need | First choice | Also good |
 |---|---|---|
 | General quality, prompt adherence | Gemini 3.1 Flash / 3 Pro, GPT Image 2.5 | FLUX.2 [pro] |
-| Photorealism, art direction | FLUX.2 [max]/[pro], Seedream 4.5/5 | Midjourney (no API; manual only) |
+| Photorealism, art direction | FLUX.2 [max]/[pro], Seedream 4.5/5 (direct on ModelArk, §7) | Midjourney (no API; manual only) |
 | Typography in the image | Ideogram 3, Recraft V4.1, FLUX.2 [flex] | GPT Image 2.5, Nano Banana Pro |
 | Vector / SVG logos and icons | Recraft V4.1 vector (`svg` output) | redraw by hand as SVG |
 | Brand-consistent sets | FLUX.2 multi-reference, Nano Banana Pro refs | Recraft Styles (1-10 style refs) |
@@ -87,11 +87,32 @@ python "$GI" "A cat astronaut" --resolution 4K --dry-run           # validate, n
 
 Routes to many models behind one CLI (`higgsfield generate create <model> --prompt ... --wait`). Its defaults: GPT Image 2.5 for design/text, Nano Banana 2 (`nano_banana_flash`) for cartoon characters, Recraft V4.1 (`--model_type vector`) for logos/icons, Seedream 5.0 Pro for character sheets and face edits from photos, Soul models for consistent people. Media flags take a local path or an upload id. Prompts: under ~200 tokens, positive phrasing, describe only the change when an image is passed. `nsfw`/`ip_detected` statuses mean rephrase (no real people, trademarks).
 
-## 7. Multi-provider batch tools
+## 7. Seedream direct on ByteDance ModelArk (`ARK_API_KEY`)
+
+ByteDance's own API (BytePlus ModelArk), no reseller markup. A good photoreal engine, and the fallback when Gemini credits run out. Verified on one account (`ap-southeast-1`) in September 2026. The same key and script also drive Seedance video (see the ai-video skill).
+
+```bash
+A=<this-skill>/scripts/bytedance-modelark/ark.py
+python3 $A models                                            # free: ids this key can see
+echo "<prompt>" | python3 $A image out.jpg --size 2560x1920  # default model seedream-5-0-260128
+```
+
+- The script posts to `https://ark.ap-southeast.bytepluses.com/api/v3/images/generations` with `response_format: "url"` and `watermark: false`, downloads the signed URL at once (it expires quickly) and prints the token usage. A still cost cents (~19k tokens).
+- **Canvas floor is 3,686,400 px.** `2560x1920` (4:3), `2560x1440` (16:9) and `1920x2560` (3:4) work; `2048x1536` is rejected.
+- Ids are dated; `seedream-4-5` returned 404 on the tested account. Listed models may still be switched off: `ModelNotOpen` means the user activates the model in Console > Model activation (paying for a plan doesn't).
+- Never put the key in chat or a file; it comes from the environment.
+
+Recipe that read as a real phone photo on 18 of 18 shots (clean hands and faces): open with a concrete candid scene (real props, one named light source, a framing accident such as "framed from the doorway, door frame intruding at the left edge"), then append the same style block to every shot:
+
+> Shot on a phone camera, 26mm, natural light from ONE direction only with real shadow falloff, slightly imperfect white balance, off-centre handheld framing, slight lens softness at the edges. Not a render, not a magazine shot, not symmetrical, not staged, no text, no logos.
+
+The "not a render, not staged" clauses work as register cues, which is different from listing objects to leave out (principle 4 still holds for scene content: write "an empty room", not "no people").
+
+## 8. Multi-provider batch tools
 
 When one job needs many images from saved prompt files, use a batch runner instead of looping by hand: e.g. baoyu-image-gen (Bun; providers OpenAI, Google, OpenRouter, Replicate, Seedream, DashScope and more; `--batchfile batch.json --jobs 4`, 3 retries per image) or OpenAI's `image_gen.py generate-batch`. Keep the worker count modest (4-10) to stay under rate limits.
 
-## 8. Cost habits
+## 9. Cost habits
 
 - Draft on the cheapest model/resolution; render finals once.
 - Prefer references over very long prompts for consistency; fewer retries.

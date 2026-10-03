@@ -1,8 +1,8 @@
 # Music-driven video, beat cuts and the audio mix
 
-> Distilled from: music-to-video (frame-skeleton, planning, montage) and hyperframes production loop (heygen-com/hyperframes, Apache-2.0); brag audio reference (latent-spaces/brag, MIT); video-use sound rules (browser-use/video-use, MIT); ffmpeg-skill (kajisho5/ffmpeg-skill, MIT); vox-director gotchas (Alisa0808/vox-director, MIT). `scripts/music-to-video/analyze-beatgrid.py` is copied as-is from heygen-com/hyperframes (Apache-2.0, license beside it).
+> Distilled from: music-to-video (frame-skeleton, planning, montage) and hyperframes production loop (heygen-com/hyperframes, Apache-2.0); brag audio reference (latent-spaces/brag, MIT); video-use sound rules (browser-use/video-use, MIT); ffmpeg-skill (kajisho5/ffmpeg-skill, MIT); vox-director gotchas (Alisa0808/vox-director, MIT); beat-cut-films and its August 2026 lessons (Gipsonkj/skillgarden, MIT). `scripts/music-to-video/analyze-beatgrid.py` is copied as-is from heygen-com/hyperframes (Apache-2.0, license beside it).
 
-Use this file when a music track sets the pacing (lyric video, slideshow, kinetic promo, montage of user clips), and for any video's music, SFX and mix.
+Use this file when a music track sets the pacing (lyric video, slideshow, kinetic promo, montage of user clips, a beat-cut film built from AI stills), and for any video's music, SFX and mix. Section 11 is the beat-cut film recipe and its failure modes.
 
 ## 1. Analyze the track once and trust it
 
@@ -52,7 +52,7 @@ Clips are muted; the music is the only audio unless the user wants a clip's own 
 
 ## 5. Cutting to the beat with ffmpeg only
 
-Snap cut points to the nearest beat, then extract segments of exactly those lengths and concat. Rules that held up:
+Snap cut points to the nearest real accent (an audiomap `event`, or an onset from section 11) within about 140 ms, not to the even beat grid, then extract segments of exactly those lengths and concat. Rules that held up:
 - Snap to **strong** anchors (downbeats, key moments), not every beat. Cutting on every beat at 120 bpm (0.5 s) is a strobe.
 - Hit the downbeat a frame early rather than late; the eye reads a late cut as drift.
 - Text slides can't flash on beats: anything to be read follows the reading-time rule even in a beat cut (about 0.8 s for a short label, 0.3 s per word for a sentence).
@@ -100,3 +100,87 @@ Get line or word timing by transcribing the vocal, or ask for the lyrics and pla
 - Total duration equals the track duration; frames tile with no gaps.
 - Contact sheet at t=0, each frame start, the strongest DROP/SURGE, every hard stop and the final frame.
 - Never change duration or audio timing to hide a sync problem; fix the scene instead.
+
+## 11. Beat-cut films from AI stills (vertical promo, reel, title sequence)
+
+A short 1080x1920 film cut hard to the accents of a track, built from generated stills (and i2v clips made from them), with type cards. Every rule below cost a wasted render.
+
+```
+reference video -> measured profile (palette, cut rhythm, transitions, in-shot motion)
+theme + profile -> ONE style anchor -> image-to-image every other panel
+track -> spectral onsets -> absolute cut anchors -> cut plan -> render -> beat gate
+```
+
+### Sync: where the cuts land
+
+| Failure | Fix |
+|---|---|
+| Timeline built by summing shot durations; 2 to 4 frame flashes or stingers push every later cut late (measured +0.53 s at the first cut growing to +1.55 s, almost 5 beats behind) | Pin every shot to an **absolute** frame. `duration = next_anchor - own_start - burst_frames_between`. Bursts eat the gap, never add to it |
+| Even grid from the tempo (184.6 bpm = every 0.325 s) | A live or human performance drifts off any grid: median 59 ms out, 42% of cuts audibly off. Detect onsets and snap each anchor to the nearest accent within ~140 ms |
+| Broadband (RMS-flux) onsets | Go blind in dense passages (a 2.6 s stretch with zero accents). Use STFT spectral flux, log-compressed, minus a moving median: 87 accents with a 1.31 s worst gap, against 76 with a 2.6 s hole |
+| Every cut ~167 ms early; the film is that much shorter than the audio | Segments laid from frame 0 while the first started at the first onset. Stretch segment 0 back to frame 0 (same end). One film went from 37 ms median / 18 of 23 on-beat to 10 ms / 24 of 24 |
+| A long hold runs straight through the drop | Any onset above strength 0.5 always ends a segment, whatever the burst/hold cycle says |
+| Flash frames | A flash **eats** frames from its own segment (never inserted) and **leads** the incoming shot. Trailing the outgoing shot puts the visible cut early (77 ms median, build refused). Flash about 3 of 4 cuts; flashing all of them is a strobe |
+
+Checks that catch these:
+- Plan check: walking the segments, the running frame total must equal each segment's start. A constant difference is the leading-gap bug.
+- **Gate the render, don't just report.** Compute the median offset and the share of cuts on an accent every build, and exit non-zero when the median passes 40 ms or fewer than 75% land. A report gets ignored; a failed build doesn't.
+- On a dense onset grid an early cut still lands near the previous onset and scores fine. Test on a track with irregular gaps.
+
+### Lock the look and the character
+
+- Generate **one** style anchor, approve it, record its id or file, and make every other panel image-to-image from it. Panels from scratch come back as a different person each time.
+- Face drifted anyway? Pass two references with roles ("FIRST image for composition, SECOND for face and style"). Words like "keep the same face" don't hold.
+- The background is part of the lock. Enforce the setting as strictly as the figure; dark scenes keep every style element, just unlit.
+- Frame waist-up or closer. Full-length figures come back with heads near a fifth of body height instead of an eighth; use a low angle for scale. Exception: a tiny figure in a vast space.
+- Gaze must be explicit ("eyes locked straight at the viewer") or the subject looks off.
+- Casting is the opposite case: image-to-image keeps identity by design, so make candidates text-to-image with no source. Once chosen, i2i holds them.
+- "Replace X with a smaller X" reads as "remove X": say KEEP. Add negatives for things the setting implies but the anchor lacks.
+
+### Type on cards
+
+- Camera moves crop the type, not the card: a 1.42x slam eats about 160 px per edge. Keep type inside rows 160 to 1760 and columns 60 to 1020 on a 1080x1920 frame.
+- One fixed type position for the whole film; the viewer learns it once. This mattered more than any font or colour change.
+- Run a word continuously (change colour mid-word) instead of stacking it on two lines that crop differently. Upright stacked type advances about 1.55 em per letter: size from the letter count, tighten with negative tracking.
+- Verify fit by measuring the exact type colours in the rendered frames; when the art shares those colours (white cloth, rice, highlights), say "can't measure" instead of "fits".
+- **Type motion goes in HyperFrames, camera on a photo goes in ffmpeg.** Per-letter staggers, mask reveals, live glow and motion blur are native there; ffmpeg zooms on a flat PNG are a weak stand-in.
+- A card that animates on must not loop (its dark opening replays mid-tail): `tpad=stop_mode=clone` plays once and holds. A promo card with a logo and date needs the whole tail as one encode, not a slice of each end segment. A mid-film title card is rendered as a short clip and pinned as a shot.
+- Never letterbox a vertical card into a horizontal film; rebuild it at the target size, or fill the sides with a blurred, darkened copy.
+
+### Clips instead of stills
+
+- Panels that want motion (falling grain, smoke, a rising figure, breathing faces) become i2v clips made **from the approved panel**, the one motion technique that can't drift the face. Self-hosted Wan 2.2 on your own RunPod endpoint (billed per GPU second) for volume, a paid model when a shot must carry.
+- An i2v clip opens on its still and barely moves for about a second (measured mean inter-frame motion 1.30 in the first half-second, 5.31 in the last). Cuts can measure on-beat while the film reads as a slideshow. Give each shot a `clip_offset`, clamped so the window ends inside the clip: `off = max(0, min(requested, clip_dur - seg_len - 0.05))`. In-body motion rose 4.46 to 6.14.
+- Read fps and duration from `ffprobe`; clips assumed to be 16 fps / 10 s were 32 fps / 5.03 s and every offset pointed past the end.
+- A 0.3 s beat needs visible movement within about 18 frames: prompt fast physical events. Video models largely ignore camera words; describe the motion as something happening in the scene.
+
+### Craft at speed
+
+- Symbolism dies at cut speed: be literal. Never show the thing the caption negates.
+- Fragments read as labels. A small lead over a big hit ("SO THEY / BURIED HIM") costs almost no dwell and says who did what.
+- Shots under about 70 ms are invisible and 4-frame flashes read as noise; a burst on half-beats reads as rhythm.
+- Movement can be variants: same framing, only the face changes (about 12/255 delta, all in the face), cut as motion. Keep superseded panels; an eyes-closed version becomes the first half of an eye-open beat.
+
+### Reference analysis
+
+- Measure palette, cut rhythm, transitions and in-shot motion off the pixels, but numbers never give mood. Sample keyframes from the middle of the longest shots and read them with a vision model; a frame at a cut catches the transition.
+- Crop phone UI (status bar, like buttons) out of screen-recorded references first, or it pollutes palette and cut detection.
+- Decide whether the reference lends the colour or only the conceptual move. Copying a winter grade onto a summer film throws its identity away.
+
+### Iteration and process
+
+- Content-hash each segment and re-encode only what changed, in parallel: about 150 s serial per tweak fell to 36 s cold and ~20 s warm. Keep separate caches for preview and final.
+- Build the manifest from clips that exist, not the ones intended, and ask the renderer's own planner how many body segments the grid yields (import it, never reimplement it); more shots than segments is a refusal after the slow part.
+- New version, new filename. Verify the output, not the exit code (a string replace that matched nothing still "succeeded").
+- Approve cards, panels and palette as stills first; ask before a large generation run; two wrong guesses on one shot means stop and offer options.
+- Number every contact-sheet tile (label with PIL); an unlabelled grid gets the wrong option picked.
+
+### Tool traps met on these builds
+
+- ffmpeg `boxblur` radius and `lutrgb` expressions can't see the frame number `n`: use `gblur=sigma=N:enable='lt(n,4)'` and `negate=enable='...'`. `eq` needs `eval=frame` before its expressions see `n`.
+- `hue=h=N` is a relative shift: read the value off a test strip of that image. `rotate` past about 0.16 rad on a 1600x2844 canvas cropped to 1080x1920 swings black corners into frame.
+- Per-segment `-t` rounding loses frames over a long concat: overshoot the last segment and let `-shortest` trim. `tile` silently drops frames of a different size: force `scale=W:H,setsar=1` first. Builds without libfreetype have no `drawtext`: label with PIL.
+- macOS screen-recording filenames contain U+202F (narrow no-break space) before AM/PM; glob for them.
+- Gemini image API: an over-long prompt can return HTTP 200 with a text part and no image (shorten and retry); exhausted credits come back as `429 RESOURCE_EXHAUSTED`; the ratio goes in `generationConfig.imageConfig.aspectRatio`. On wrappers that take a `settings` object, a top-level `aspect_ratio` is silently ignored (default 16:9): read the resolved settings back.
+- HyperFrames: mark a static composition `data-no-timeline` or every render waits ~45 s polling for a timeline; set initial states with `gsap.set(...)` outside the timeline, because a zero-duration `tl.set` at 0 doesn't apply while the playhead sits on 0. Run `npx hyperframes check` before every render.
+- Real neon is concentric (near-white core, gold, orange, wide red haze, plus a bloom on the background), and a tube strikes (catch, fail, catch, hold) rather than fading up.

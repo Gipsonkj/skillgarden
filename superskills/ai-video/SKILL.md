@@ -1,6 +1,6 @@
 ---
 name: ai-video
-description: Make, edit, generate and deliver video with AI help. Covers picking the route (HTML/HyperFrames composition, generative text/image-to-video, footage edit, AI presenter); HyperFrames workflows (init, compositions, lint/check, render); prompting video models and vendor APIs (Gemini Omni/Veo, Runway, fal genmedia, LTX-2, FLUX 3, MiniMax, HeyGen avatars); cutting footage by transcript with ffmpeg (trim, silence/filler removal, reframe 9:16, grade, EDL renders); captions and subtitles, talking-head recuts with overlay cards; beat-synced music videos, product launch/brag videos and faceless explainers; delivery (loudness, safe zones, platform specs, QA contact sheets). Use when asked to make a video, promo, explainer, reel/short, captioned clip, music video, AI b-roll, animate a photo, edit/cut footage, add subtitles, write a video-model prompt, call a video API, or export for TikTok/Reels/YouTube.
+description: Make, edit, generate and deliver video with AI help. Covers picking the route (HyperFrames/HTML composition, text/image-to-video, footage edit, AI presenter); HyperFrames (composition contract, CLI check/render, registry, Studio, design spec, narration, beat plans, audio-reactive visuals); video-model prompts and APIs (Gemini Omni/Veo, Runway, Seedance on ByteDance ModelArk, fal, LTX-2, FLUX 3, HeyGen avatars); transcript cuts with ffmpeg (trim, fillers, 9:16 reframe, grade, EDL); captions, talking-head recuts; beat-cut music videos and films from AI stills; launch, promo, site-tour and explainer videos; real macOS screen recordings of web apps; delivery (loudness, safe zones, specs, QA). Use when asked to make a video, promo, product tour, explainer, reel/short, captioned clip, music video or beat cut, AI b-roll, animate a photo, screen-record a web app, edit/cut footage, add subtitles, write a video-model prompt, call a video API (Seedance, Runway, Veo), or export for TikTok/Reels/YouTube.
 ---
 
 # AI video
@@ -22,25 +22,38 @@ Turn a brief, a script, footage, a still or a music track into a finished, check
 11. **Mix to a target, then measure.** Social -14 LUFS, presenter or podcast -16 LUFS, true peak at or below -1 dBTP; music ducked about 12 to 15 dB under speech. Report numbers; you cannot listen.
 12. **Look at the output before showing it.** Probe duration, size, fps and audio; pull a contact sheet at scene midpoints and every cut boundary; fix and re-check, at most 3 loops, then flag what remains.
 13. **Paid generation and rendering are gated.** State model, seconds, rough cost and retry ceiling before the first paid call; render the final only after the user approves a preview. Stop after 3 rejected paid takes and ask.
-14. **Credentials only from environment variables;** never in prompts, CLI flags, committed `.env` files or logs. Real people's faces or voices need recorded consent; never route around a provider's likeness or content filters.
+14. **Credentials only from environment variables;** never in prompts, CLI flags, committed `.env` files or logs. Real people's faces or voices need recorded consent; never route around a provider's likeness or content filters. Turn tool telemetry off, and send no feedback reports or project uploads the user didn't ask for.
 15. **Keep originals untouched.** Write every output to a new path (`edit/`, `renders/`), cache transcripts per source and never re-transcribe an unchanged file.
 
 Conflicts resolved: sources disagree on on-screen text inside generated video. Gemini Omni can render short text, but other models smear it. The stronger rule wins: exact or brand text goes in code, and at most 1 to 3 incidental words go in the model, then you check them. On loudness, -14 LUFS (platform targets) beats the -16 presenter default for anything posted to social apps.
+
+## Plan the request
+
+Work out what the request needs before opening a guide; most real requests need more than one.
+
+1. **Split it into parts:** each thing the user needs at the end. A one-part request goes straight to the table below.
+2. **Give each part its best source.** This craft's guides first; several is normal, read in the order the work happens. A part listed under "Other crafts" goes to that craft's guide, which goes deeper than any short version here. A part that needs a tool, API or edge case no guide covers goes to the original skill under "Go deeper".
+3. **Say the plan in a line** before starting, then read only the guides it names. For example: "TikTok teaser with b-roll and a screen recording: `references/plan-and-route.md` → `references/generative-prompting.md` → `references/explainers-and-promos.md` → `references/delivery-qa.md`; shot list from `storyboarding` → `references/shot-lists-and-boards.md`; voiceover from `audio-generation` → `references/voiceover-tts.md`."
+4. **Carry decisions forward.** The brief, tokens, copy and file names from earlier parts feed the later ones. When two guides disagree, follow the one written for that part and say so.
+5. **Check the result** against "Done means" here and in every other craft you used.
+
+**Opening another craft:** with the Skill Garden plugin, load the skill `skillgarden:<craft>` or read its guides beside this folder at `../<craft>/references/`; on the Skill Garden connector, call `get_super_skill` and `get_guide`. If that craft isn't installed, name it to the user and carry on with this one. For a request that spans three or more crafts, start with the planner: the skill `skillgarden:garden`, or `get_super_skill` with craft `garden` on the connector.
 
 ## Pick the right guide
 
 | Task | Read |
 |---|---|
 | Decide the route, the brief, length, structure and beat sheet | [references/plan-and-route.md](references/plan-and-route.md) |
-| Build or edit a HyperFrames composition; pick a HyperFrames workflow; lint, check, preview, render | [references/hyperframes-workflows.md](references/hyperframes-workflows.md) |
+| Build or edit a HyperFrames composition; CLI loop (lint, check, snapshot, preview, render, batch); registry blocks; Studio timeline layout and safe zones; telemetry and upload defaults | [references/hyperframes-workflows.md](references/hyperframes-workflows.md) |
+| HyperFrames creative direction: design spec (`frame.md`), palettes and video type sizes, narration script, beat and rhythm plan, storyboard sheet, data scenes, audio-reactive visuals | [references/hyperframes-creative-direction.md](references/hyperframes-creative-direction.md) + `scripts/hyperframes-creative/extract-audio-data.py` |
 | Write a text-to-video, image-to-video, extend or video-edit prompt (any model) | [references/generative-prompting.md](references/generative-prompting.md) |
 | Gemini Omni Flash (Veo family) generation, edits, extensions, loops | [references/vendor-gemini-omni.md](references/vendor-gemini-omni.md) + `scripts/gemini-omni-flash-api/` |
-| Runway, fal genmedia, LTX-2, FLUX 3, MiniMax, Atlas Cloud: models, costs, calls | [references/vendor-apis.md](references/vendor-apis.md) |
+| Runway, ByteDance ModelArk (Seedance i2v, multi-reference, person-replacement edits), fal genmedia, LTX-2, FLUX 3, MiniMax, Atlas Cloud: models, costs, calls | [references/vendor-apis.md](references/vendor-apis.md) + `scripts/bytedance-modelark/ark.py` |
 | AI presenter or avatar video (HeyGen Video Agent, photo-to-talking clip, lip sync) | [references/vendor-heygen-avatars.md](references/vendor-heygen-avatars.md) |
 | Cut, trim, splice, de-um, reframe, grade or assemble real footage from a transcript | [references/footage-editing-ffmpeg.md](references/footage-editing-ffmpeg.md) + `scripts/video-use/` |
 | Captions, subtitles, karaoke words, talking-head recut with cards and lower-thirds | [references/captions-talking-head.md](references/captions-talking-head.md) |
-| Beat-synced music video, montage cut to music, SFX and the audio mix | [references/music-beat-cut.md](references/music-beat-cut.md) + `scripts/music-to-video/` |
-| Faceless explainer, product launch / brag video, collage explainer | [references/explainers-and-promos.md](references/explainers-and-promos.md) |
+| Beat-synced music video, montage cut to music, beat-cut film from AI stills (onset sync, style lock, type cards, render gate), SFX and the audio mix | [references/music-beat-cut.md](references/music-beat-cut.md) + `scripts/music-to-video/` |
+| Faceless explainer; product launch, promo or site-tour video from a URL, script or brief; brag video; collage explainer; real screen recording of a (signed-in) web app on macOS for a tour, demo or ad | [references/explainers-and-promos.md](references/explainers-and-promos.md) + `scripts/screen-record-web/scripts/record.mjs` |
 | Export specs, loudness, safe zones, poster frame, final QA and hand-off | [references/delivery-qa.md](references/delivery-qa.md) + `scripts/lanshu-create-ai-presenter-video/finalize_delivery.sh` |
 
 Call a capability directly with "use ai-video: <task>", for example "use ai-video: captions" or "use ai-video: runway prompt".
@@ -54,10 +67,41 @@ Call a capability directly with "use ai-video: <task>", for example "use ai-vide
 | `scripts/video-use/timeline_view.py` | Filmstrip plus waveform PNG for a time range, for decisions at cut points | numpy, Pillow, ffmpeg |
 | `scripts/video-use/render.py` + `grade.py` | EDL to video: per-segment extract, grade, 30 ms fades, concat, overlays, subtitles last, -14 LUFS | ffmpeg |
 | `scripts/music-to-video/analyze-beatgrid.py` | Track to `audiomap.json`: beats, energy phases, key moments, hard stops | librosa, numpy, soundfile, ffmpeg |
+| `scripts/hyperframes-creative/extract-audio-data.py` | Audio or video to per-frame RMS and frequency bands (JSON) for audio-reactive compositions | numpy, ffmpeg; local only |
 | `scripts/gemini-omni-flash-api/` | Upload media, prep/trim clips, generate, edit or extend video with Gemini Omni Flash | `GEMINI_API_KEY`, `google-genai>=2.19`, ffmpeg |
+| `scripts/bytedance-modelark/ark.py` | `probe` which Seedance models are open (free), then Seedance i2v, 2.5 multi-reference and edit jobs: submit, poll, download | `ARK_API_KEY`, Python stdlib; paid per clip, state cost first |
+| `scripts/screen-record-web/scripts/record.mjs` | `--doctor`, `--open` (a person signs in), `--route x.json --check`, then record a real cursor-driven screen take of a web app; run from `scripts/screen-record-web/` | macOS, node 22+, Chrome, clang (Xcode CLT), ffmpeg optional; Screen Recording permission |
 | `scripts/lanshu-create-ai-presenter-video/finalize_delivery.sh` | Two-pass loudness, master and share encodes, full decode, black/freeze count, 3x3 contact sheet, JSON report | ffmpeg, ffprobe, jq |
 
 Don't install missing dependencies on your own. Tell the user what is missing and the one install command.
+
+## Other crafts
+
+| When the request also needs | Use |
+|---|---|
+| A shot list, character sheets and per-shot prompts before a multi-shot film | `storyboarding` → `references/shot-lists-and-boards.md`, `references/keyframes-and-consistency.md`, `references/ai-video-prompts.md` |
+| Voiceover, a music bed or SFX made from scratch, not just mixed | `audio-generation` → `references/voiceover-tts.md`, `references/music-generation.md`, `references/sound-effects.md` |
+| Start frames or key art for image-to-video, kept consistent | `image-creation` → `references/prompting-fundamentals.md`, `references/editing-references-consistency.md` |
+| Easing, choreography or kinetic type craft inside a scene | `motion-animation` → `references/motion-principles.md`, `references/hyperframes-animation.md` |
+| Hooks, post captions and publishing for TikTok, Reels or Shorts | `social-media` → `references/short-form-video.md`, `references/publishing-apis.md` |
+| A video ad that has to perform: angles, platform specs, testing | `ad-creation` → `references/short-form-video-ugc.md`, `references/platform-specs.md`, `references/testing-iteration.md` |
+| A YouTube thumbnail or cover for the finished video | `poster-design` → `references/thumbnails.md` |
+| The video as a looping or scroll-scrubbed hero on a website | `website-building` → `references/motion-and-scroll.md` |
+
+## Go deeper (original skills)
+
+The guides above distil these. Open one when a part needs its full detail, read it as reference, and read any script before running it.
+
+| When you need | Original skill |
+|---|---|
+| Its site-capture and build scripts for launch, promo and site-tour videos | [product-launch-video](https://github.com/heygen-com/hyperframes/tree/main/skills/product-launch-video) (Apache-2.0; not copied: they depend on sibling skills and HeyGen audio services) |
+| Its 35-style caption catalogue, run locally with transcription and segmentation | [embedded-captions](https://github.com/heygen-com/hyperframes/tree/main/skills/embedded-captions) (Apache-2.0) |
+| ffmpeg recipes the guides skip, such as multicam sync, speed changes and LUTs | [ffmpeg-skill](https://github.com/kajisho5/ffmpeg-skill/tree/main) (MIT) |
+| Runway's runner script that submits, polls and downloads | [rw-generate-video](https://github.com/runwayml/skills/tree/main/skills/rw-generate-video) (MIT; paid Runway credits) |
+| Searching, pricing and running 1,200+ fal endpoints, plus its cinematography and UGC siblings | [genmedia](https://github.com/fal-ai-community/skills/tree/main/skills/genmedia) (MIT, stated in README; paid fal API) |
+| The FLUX 3 specialists for keyframe continuation, audio and dialogue, and job submission | [flux-3-video](https://github.com/black-forest-labs/skills/tree/master/skills/flux-3-video) (MIT; needs a BFL API key) |
+| LTX-2.3 on your own RunPod endpoint from the toolkit's Docker images | [ltx2](https://github.com/digitalsamba/claude-code-video-toolkit/tree/main/.claude/skills/ltx2) (MIT) |
+| Remotion projects: rules for timing, audio, captions, 3D and rendering | [remotion-best-practices](https://github.com/remotion-dev/skills/tree/main/skills/remotion-best-practices) (no licence: read only; Remotion needs a company licence for teams over 3) |
 
 ## Default workflow
 
@@ -65,7 +109,7 @@ Don't install missing dependencies on your own. Tell the user what is missing an
 2. **Route.** Choose code-rendered, generative, footage edit, avatar or hybrid with [plan-and-route.md](references/plan-and-route.md). State the choice in one line with the reason.
 3. **Plan.** Echo the message sentence, then a beat table: time, on screen, motion, audio cue, and why the beat exists. For edits, write a 4 to 8 sentence strategy. Get approval before anything paid or slow.
 4. **Lock audio.** Narration (TTS or recorded) or the music track. Transcribe or analyze it and use the real durations from now on.
-5. **Make the pictures.** Build the scenes in HyperFrames, generate clips (fire independent generations in parallel), or cut footage from the EDL. Install registry blocks or assets before any parallel work.
+5. **Make the pictures.** Build the scenes in HyperFrames, generate clips (fire independent generations in parallel), or cut footage from the EDL. Search the registry (`npx hyperframes catalog --query`) before hand-building any named look, and install blocks or assets before any parallel work.
 6. **Assemble.** Mount scenes, media and transitions, mix (carve or duck the music under the voice), then captions last.
 7. **Verify.** Run `npx hyperframes check` or probe the file, make a contact sheet at scene midpoints and cut boundaries, measure loudness. Fix the cheapest thing first, at most 3 passes.
 8. **Approve and deliver.** Preview, then render on the user's yes. Run the delivery check, then hand over the path, duration, specs, contact sheet and the plan or EDL so later edits are easy.

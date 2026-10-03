@@ -26,6 +26,11 @@
       "id": "t3",
       "prompt": "Make me a transparent PNG game sprite of a fox mascot, and tell me how to get it if my model can't do transparency.",
       "good": "Native route: GPT Image 1/1.5/2.5 with background=transparent and png/webp (not gpt-image-2); fallback: solid #00FF00 background prompt then ffmpeg colorkey+despill or a background-removal model; verify real alpha channel and no halo on dark and light backgrounds; centered, clear silhouette, padding."
+    },
+    {
+      "id": "t4",
+      "prompt": "Make three 4:5 Instagram posts for the launch of our oat-milk cold brew can (two product photos attached), keeping the can and label identical in each. Write a caption with hashtags for every post, and turn the best image into a 5-second vertical clip.",
+      "good": "States a short plan first: images here (editing-references-consistency.md, marketing-brand-images.md), captions through social-media (platform-playbook.md, hooks-and-voice.md: hook in the first line, at most 5 hashtags, no invented claims), the clip through ai-video (generative-prompting.md, vendor-apis.md: image-to-video from the approved still, one camera move). Passes the photos as references with roles, reuses one locked style block, renders 1080x1350 and proofs the label at 100%; checks the Done means of all three crafts and reports prompts, models and seeds."
     }
   ]
 }

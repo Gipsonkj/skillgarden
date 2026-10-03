@@ -45,6 +45,18 @@ Conflict resolved: one source suggests artist references to steer vocal gender (
 most APIs reject names and it's a rights risk, so use explicit vocal tags in both the prompt
 and each lyric section instead.
 
+## Plan the request
+
+Work out what the request needs before opening a guide; most real requests need more than one.
+
+1. **Split it into parts:** each thing the user needs at the end. A one-part request goes straight to the table below.
+2. **Give each part its best source.** This craft's guides first; several is normal, read in the order the work happens. A part listed under "Other crafts" goes to that craft's guide, which goes deeper than any short version here. A part that needs a tool, API or edge case no guide covers goes to the original skill under "Go deeper".
+3. **Say the plan in a line** before starting, then read only the guides it names. For example: "Interview to podcast episode: `references/transcription.md` → `references/podcast-and-dialogue.md` → `references/mixing-and-mastering.md`; show notes from `content-creation` → `references/writing-from-raw-material.md`; the Reels clip from `ai-video` → `references/captions-talking-head.md`."
+4. **Carry decisions forward.** The brief, tokens, copy and file names from earlier parts feed the later ones. When two guides disagree, follow the one written for that part and say so.
+5. **Check the result** against "Done means" here and in every other craft you used.
+
+**Opening another craft:** with the Skill Garden plugin, load the skill `skillgarden:<craft>` or read its guides beside this folder at `../<craft>/references/`; on the Skill Garden connector, call `get_super_skill` and `get_guide`. If that craft isn't installed, name it to the user and carry on with this one. For a request that spans three or more crafts, start with the planner: the skill `skillgarden:garden`, or `get_super_skill` with craft `garden` on the connector.
+
 ## Pick the right guide
 
 Name the task, or say "use audio-generation: <capability>".
@@ -66,6 +78,30 @@ Name the task, or say "use audio-generation: <capability>".
 
 Scripts are copied unchanged from their sources; run them, don't edit them. They need their
 API keys (`OPENAI_API_KEY`) and `ffmpeg`/`ffprobe` where noted; `--dry-run` works without keys.
+
+## Other crafts
+
+| When the request also needs | Use |
+|---|---|
+| Audio put under pictures (beyond the mix in `references/mixing-and-mastering.md`): beat cuts, burned-in captions, video export | `ai-video` → `references/music-beat-cut.md`, `references/captions-talking-head.md`, `references/delivery-qa.md` |
+| Show notes, an article or a newsletter written from a transcript | `content-creation` → `references/writing-from-raw-material.md`, `references/repurposing.md`, `references/newsletters.md` |
+| A real-time voice agent that listens and talks back | `ai-agents` → `references/voice-agents-elevenlabs.md` |
+| The voiceover for a paid video ad: hooks, specs, policy | `ad-creation` → `references/ai-ad-production.md`, `references/platform-specs.md` |
+| Audiograms and podcast clips posted to TikTok, Reels or Shorts | `social-media` → `references/short-form-video.md`, `references/repurposing-crossposting.md` |
+| A PDF or Office file turned into clean text before an audiobook or narration | `docs-office` → `references/convert-extract.md` |
+| Meeting minutes with owners and due dates from a transcript | `product-management` → `references/meetings.md` |
+| A scheduled pipeline that turns new posts into audio (n8n, Make, Zapier) | `automation` → `references/automation-design.md`, `references/n8n.md` |
+
+## Go deeper (original skills)
+
+The guides above distil these. Open one when a part needs its full detail, read it as reference, and read any script before running it.
+
+| When you need | Original skill |
+|---|---|
+| Effect chains, automation envelopes and submix buses for audio inside a HyperFrames composition | [hyperframes-audio](https://github.com/heygen-com/hyperframes/tree/main/skills/hyperframes-audio) (Apache-2.0) |
+| Speaker-labelled transcription from media URLs or a remote ASR endpoint | [asr-transcribe-to-text](https://github.com/daymade/claude-code-skills/tree/main/daymade-audio/asr-transcribe-to-text) (MIT) |
+| Running ACE-Step 1.5 locally or on RunPod with the video toolkit's setup | [acestep](https://github.com/digitalsamba/claude-code-video-toolkit/tree/main/.claude/skills/acestep) (MIT) |
+| The full songwriting craft behind the lyric rules here: prosody, hooks, rhyme | [songwriting-and-ai-music](https://github.com/nousresearch/hermes-agent/tree/main/skills/creative/songwriting-and-ai-music) (MIT) |
 
 ## Default workflow
 

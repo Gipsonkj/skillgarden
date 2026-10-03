@@ -31,6 +31,11 @@
       "id": "t3",
       "prompt": "Check whether our docs site is ready for AI search. robots.txt blocks GPTBot and ClaudeBot, pages are a client-side React app, and we have FAQPage schema on every page. What should change?",
       "good": "Separates training bots from AI search and user-fetch bots (OAI-SearchBot, Claude-SearchBot, PerplexityBot, ChatGPT-User, Claude-User) and checks CDN rules; flags CSR as the main problem and recommends SSR or SSG; says FAQ rich results are retired and FAQ schema is not an AI boost; suggests answer-first sections, optional llms.txt for docs, and a measured prompt set run 3-5 times."
+    },
+    {
+      "id": "t4",
+      "prompt": "Organic clicks to our Next.js marketing site fell 30% after we moved the blog from /blog to /resources in August. Here's the Search Console export for both periods. Find what broke, fix it in the code, and refresh the three posts that lost the most clicks.",
+      "good": "States a short plan first: diagnosis here (audit.md, technical.md: redirects, canonicals, sitemaps and internal links for the moved URLs), code fixes through website-building (nextjs-react.md: single-hop 301s, canonicals and metadata in the server HTML), rewrites through content-creation (long-form-articles.md) after keywords-content.md sets each post's query cluster and SERP intent. Compares equal complete windows; keeps observations apart from causes; every finding has an evidence URL and date; fixes templates rather than single pages; sets 7, 14, 28 and 56-day re-measures; promises no recovery; checks the Done means of all three crafts."
     }
   ]
 }

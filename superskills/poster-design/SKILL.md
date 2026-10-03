@@ -24,6 +24,18 @@ Covers every static graphic job: posters, covers, social and ad graphics, thumbn
 13. **Refine, don't add.** The second pass improves what exists (alignment, spacing, contrast) instead of adding decoration.
 14. **Approvals are explicit.** Brand, logo and big batch steps wait for a clear yes; silence is not approval.
 
+## Plan the request
+
+Work out what the request needs before opening a guide; most real requests need more than one.
+
+1. **Split it into parts:** each thing the user needs at the end. A one-part request goes straight to the table below.
+2. **Give each part its best source.** This craft's guides first; several is normal, read in the order the work happens. A part listed under "Other crafts" goes to that craft's guide, which goes deeper than any short version here. A part that needs a tool, API or edge case no guide covers goes to the original skill under "Go deeper".
+3. **Say the plan in a line** before starting, then read only the guides it names. For example: "Festival poster and social set: `references/ai-image-posters.md` → `references/print-and-academic-posters.md` → `references/banners-social.md`; key art from `image-creation` → `references/prompting-fundamentals.md`; headline and blurb from `content-creation` → `references/conversion-copy.md`."
+4. **Carry decisions forward.** The brief, tokens, copy and file names from earlier parts feed the later ones. When two guides disagree, follow the one written for that part and say so.
+5. **Check the result** against "Done means" here and in every other craft you used.
+
+**Opening another craft:** with the Skill Garden plugin, load the skill `skillgarden:<craft>` or read its guides beside this folder at `../<craft>/references/`; on the Skill Garden connector, call `get_super_skill` and `get_guide`. If that craft isn't installed, name it to the user and carry on with this one. For a request that spans three or more crafts, start with the planner: the skill `skillgarden:garden`, or `get_super_skill` with craft `garden` on the connector.
+
 ## Pick the right guide
 
 Name the task, or say "use poster-design: <capability>".
@@ -44,6 +56,33 @@ Name the task, or say "use poster-design: <capability>".
 | Higgsfield CLI (paid) for thumbnails, brand mockups, logos | references/higgsfield.md | — |
 
 Scripts are Python 3 (logo-design scripts are dependency-free; web-asset-generator, crop_banner and crop_logo need Pillow, crop_logo also numpy). Run them by full path from the skill folder; don't install packages without the user's OK.
+
+## Other crafts
+
+| When the request also needs | Use |
+|---|---|
+| Key art from an image model beyond the poster prompts in `references/ai-image-posters.md`: model choice, consistency | `image-creation` → `references/prompting-fundamentals.md`, `references/editing-references-consistency.md` |
+| Headlines, taglines and event copy when the user has none | `content-creation` → `references/conversion-copy.md`, `references/brand-voice.md` |
+| Paid ad graphics (beyond the sizes in `references/banners-social.md`): angles, copy limits, testing | `ad-creation` → `references/meta-ads-creative.md`, `references/ad-copywriting.md`, `references/testing-iteration.md` |
+| Carousels, or the YouTube title and description a thumbnail ships with | `social-media` → `references/carousels.md`, `references/youtube-seo-thumbnails.md` |
+| Charts in an infographic or data poster that must be right about the numbers | `data-analysis` → `references/visualization.md` |
+| An animated logo or poster: SVG draw-on, Lottie or GIF | `motion-animation` → `references/lottie-svg-gif.md`, `references/motion-principles.md` |
+| Brand colours and type turned into Figma variables or a component library | `figma-design` → `references/design-tokens.md`, `references/building-in-figma.md` |
+| A branded deck, report or one-pager as PPTX, DOCX or PDF | `docs-office` → `references/powerpoint-pptx.md`, `references/document-design.md` |
+
+## Go deeper (original skills)
+
+The guides above distil these. Open one when a part needs its full detail, read it as reference, and read any script before running it.
+
+| When you need | Original skill |
+|---|---|
+| Its 1,400-logo reference library and `--refs-industry` comparisons | [logo-design](https://github.com/kaankiziltug/logo-design-skill/tree/main/skills/logo-design) (MIT; the library wasn't copied here) |
+| The full 21-layout by 22-style infographic matrix and its pairing picks | [baoyu-infographic](https://github.com/jimliu/baoyu-skills/tree/main/skills/baoyu-infographic) (MIT; needs an image API key) |
+| The bundled OFL font files behind its code-rendered posters | [canvas-design](https://github.com/anthropics/skills/tree/main/skills/canvas-design) (Apache-2.0; only the font names are listed here) |
+| Logo generation in 55 styles, corporate identity mockups and SVG icons | [design](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/tree/main/.claude/skills/design) (MIT; AI generation needs a Gemini or similar key) |
+| Full brand systems with packaging mockups and PPTX or PDF brandbooks | [higgsfield-brandkit](https://github.com/higgsfield-ai/skills/tree/main/higgsfield-brandkit) (MIT; Higgsfield CLI, paid credits) |
+| Canva brand checks, design edits and design feedback from the same plugin | [canva-resize-for-social-media](https://github.com/canva-sdks/canva-skills/tree/main/plugins/canva/skills/resize-for-social-media) (Apache-2.0; Canva MCP connector) |
+| Editable PowerPoint research posters | [latex-posters](https://github.com/K-Dense-AI/claude-scientific-skills/tree/main/skills/latex-posters) (MIT; see its sibling pptx-posters in the same repo) |
 
 ## Default workflow
 

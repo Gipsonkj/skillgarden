@@ -1,6 +1,6 @@
 ---
 name: motion-animation
-description: "Design, build, review and fix animation and motion for interfaces, the web, apps and short motion assets. Use when asked to animate anything or make it feel smooth or snappy; choose easing, duration or springs; add hover, press, modal, drawer, toast, accordion or stagger motion; review or audit animation code or find places that need motion; name an effect ('what is this animation called'); write GSAP tweens, timelines, SplitText, Flip or ScrollTrigger; build scroll reveals, pinned or scrubbed scroll scenes, parallax, Lenis or Apple-style frame sequences; add React view transitions, shared-element morphs or Framer Motion (motion/react); animate React Native or Expo with Reanimated, gestures and haptics; author or play Lottie and dotLottie; animate an SVG logo; make a Slack GIF or emoji; animate Three.js scenes, GLTF clips or cameras; make Manim math or algorithm explainers; write seek-safe animation for HyperFrames video compositions."
+description: "Design, build, review and fix animation and motion for interfaces, the web, apps and short motion assets. Use when asked to animate anything or make it feel smooth or snappy; choose easing, duration or springs; add hover, press, modal, drawer, toast, accordion or stagger motion; review or audit animation code or find places that need motion; name an effect ('what is this animation called'); write GSAP tweens, timelines, SplitText, Flip or ScrollTrigger; build scroll reveals, pinned or scrubbed scroll scenes, parallax, Lenis or Apple-style frame sequences; add React view transitions, shared-element morphs or Framer Motion (motion/react); animate React Native or Expo with Reanimated, gestures and haptics; author or play Lottie and dotLottie; animate an SVG logo; make a Slack GIF or emoji; animate Three.js scenes, GLTF clips or cameras; make Manim math or algorithm explainers; write seek-safe HyperFrames video animation and keyframes (punch-in, Ken Burns, camera move, whip pan)."
 ---
 
 # Motion and animation
@@ -23,6 +23,18 @@ Motion that explains, responds and feels physical, across CSS, GSAP, React (View
 12. **Judge feel on real frames.** Before shipping, slow animations down (DevTools animation panel at 10–25%), step through frames, test on a real phone, and re-check the next day. Check numbers against the tables; never declare it smooth from reading the code.
 13. **Restraint beats decoration.** Cut idle pulse loops on UI, bounce on serious data, parallax on everything, glow and shimmer as filler, and identical stagger on every list. These are the AI-slop tells (see the review guide).
 
+## Plan the request
+
+Work out what the request needs before opening a guide; most real requests need more than one.
+
+1. **Split it into parts:** each thing the user needs at the end. A one-part request goes straight to the table below.
+2. **Give each part its best source.** This craft's guides first; several is normal, read in the order the work happens. A part listed under "Other crafts" goes to that craft's guide, which goes deeper than any short version here. A part that needs a tool, API or edge case no guide covers goes to the original skill under "Go deeper".
+3. **Say the plan in a line** before starting, then read only the guides it names. For example: "Pinned product scroll scene: `references/motion-principles.md` → `references/scroll-animation.md` → `references/gsap.md`; product frames from `image-creation` → `references/editing-references-consistency.md`; page speed from `website-building` → `references/performance-cwv.md`."
+4. **Carry decisions forward.** The brief, tokens, copy and file names from earlier parts feed the later ones. When two guides disagree, follow the one written for that part and say so.
+5. **Check the result** against "Done means" here and in every other craft you used.
+
+**Opening another craft:** with the Skill Garden plugin, load the skill `skillgarden:<craft>` or read its guides beside this folder at `../<craft>/references/`; on the Skill Garden connector, call `get_super_skill` and `get_guide`. If that craft isn't installed, name it to the user and carry on with this one. For a request that spans three or more crafts, start with the planner: the skill `skillgarden:garden`, or `get_super_skill` with craft `garden` on the connector.
+
 ## Pick the right guide
 
 | Task | Read |
@@ -40,11 +52,40 @@ Motion that explains, responds and feels physical, across CSS, GSAP, React (View
 | Build a GIF in Python | `scripts/slack-gif-creator/` (usage: [references/lottie-svg-gif.md](references/lottie-svg-gif.md)) |
 | Three.js: clock, clips, mixers, GLTF skeletal animation, morph targets, blending, deterministic 3D renders | [references/threejs-animation.md](references/threejs-animation.md) |
 | Manim CE math, algorithm and data explainers | [references/manim.md](references/manim.md) |
-| HyperFrames: seek-safe contract, runtime adapters, motion rules, blueprints, scene transitions | [references/hyperframes-animation.md](references/hyperframes-animation.md) |
+| HyperFrames: seek-safe contract, runtime adapters, motion rules, blueprints, scene transitions; keyframes for punch-ins, zooms, Ken Burns, camera moves, crop/mask reframes, match and whip hand-offs, `hyperframes keyframes` proof | [references/hyperframes-animation.md](references/hyperframes-animation.md) |
 | Full video production, narration, AI video, editing | ai-video super skill |
 | Storyboards and shot lists | storyboarding super skill |
 
 To jump straight to a capability, name the task, or say "use motion-animation: <capability>" (for example "use motion-animation: review" or "use motion-animation: gsap scroll").
+
+## Other crafts
+
+| When the request also needs | Use |
+|---|---|
+| The motion becomes a finished video: narration, renders, export specs and QA | `ai-video` → `references/plan-and-route.md`, `references/hyperframes-workflows.md`, `references/delivery-qa.md` |
+| A beat sheet or shot list for a longer animated piece before building | `storyboarding` → `references/story-structure.md`, `references/shot-lists-and-boards.md` |
+| The component or page around the motion: states, tokens, accessibility | `frontend-ui-design` → `references/components-and-states.md`, `references/accessibility.md` |
+| A cinematic demo site from AI stills and clips, or any scroll story taken live and kept fast | `website-building` → `references/motion-and-scroll.md`, `references/performance-cwv.md` |
+| Stills, product frames or textures for a frame sequence or 3D scene | `image-creation` → `references/editing-references-consistency.md`, `references/web-frontend-assets.md` |
+| Sound for the motion: UI sounds, hits, whooshes or a music bed | `audio-generation` → `references/sound-effects.md`, `references/music-generation.md` |
+| The native screen around Reanimated motion: navigation, haptics, platform feel | `app-building` → `references/native-feel-design.md` |
+| A logo to animate that doesn't exist yet or isn't clean SVG | `poster-design` → `references/logos.md` |
+| Motion written into a design hand-off spec | `figma-design` → `references/handoff-specs.md` |
+
+## Go deeper (original skills)
+
+The guides above distil these. Open one when a part needs its full detail, read it as reference, and read any script before running it.
+
+| When you need | Original skill |
+|---|---|
+| Its animation-map script that flags dead zones and uneven stagger, and the full time-coded blueprints | [hyperframes-animation](https://github.com/heygen-com/hyperframes/tree/main/skills/hyperframes-animation) (Apache-2.0; needs the HyperFrames CLI) |
+| Kinetic type, logo stings, lower-thirds and animated maps rendered as MP4 or transparent overlays | [motion-graphics](https://github.com/heygen-com/hyperframes/tree/main/skills/motion-graphics) (Apache-2.0; needs the HyperFrames CLI) |
+| A local Skottie player for previewing and fixing Lottie JSON | [text-to-lottie](https://github.com/diffusionstudio/lottie/tree/main/skills/text-to-lottie) (MIT) |
+| Turning a raster logo into clean SVG before animating it, with GIF and video previews | [pixel2motion](https://github.com/nolangz/pixel2motion/tree/main) (MIT; only its QA scripts are bundled here) |
+| Hand-drawn looks from code in 31 styles, with composed scores | [anidoodle](https://github.com/alexgreensh/anidoodle/tree/main/skills/anidoodle) (Apache-2.0; only its laws are summarised here) |
+| ManimGL instead of Community Edition (its sibling skill), or the manim-composer scene planner | [manimce-best-practices](https://github.com/adithya-s-k/manim_skill/tree/main/skills/manimce-best-practices) (MIT) |
+| A working scroll-scrubbed sequence demo for video, image, canvas, SVG or DOM stages | [scroll-scrubbed-visual-sequence](https://github.com/mengto/skills/tree/main/agent-skills/web-design/scroll-scrubbed-visual-sequence) (MIT) |
+| Turning motion from a Figma file into code through the Figma MCP server | [figma-implement-motion](https://github.com/figma/mcp-server-guide/tree/main/skills/figma-implement-motion) (no licence: read only) |
 
 ## Default workflow
 

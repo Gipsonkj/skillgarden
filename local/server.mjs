@@ -30,11 +30,23 @@ const SCHEDULE = !process.argv.includes("--no-schedule");
 const LIB = path.resolve(process.env.SKILLGARDEN_LIBRARY || path.join(ROOT, ".."));
 
 /* ---------- library (read-only) ---------- */
+// Skills the user wrote: authored/ holds the cleaned public copies the library is built from;
+// authored-private/ (git-ignored, this Mac only) holds the full originals, served here instead.
+const PRIVATE = path.join(ROOT, "authored-private");
+function privateCopy(full) {
+  const rel = path.relative(path.join(LIB, "skills"), full).split(path.sep);
+  const name = (rel[1] || "").replace(/^\d+_/, "");
+  const dir = path.join(PRIVATE, name);
+  if (!name || !ID_RE.test(name) || !fs.existsSync(path.join(ROOT, "authored", name)) || !fs.existsSync(dir)) return full;
+  const alt = path.resolve(dir, ...rel.slice(2));
+  return alt === dir || alt.startsWith(dir + path.sep) ? alt : full;
+}
 function libPath(rel) {
   const p = String(rel || "");
   if (!/^(skills|zips)\//.test(p) || p.includes("\0")) throw httpErr(400, "Bad path.");
-  const full = path.resolve(LIB, p);
+  let full = path.resolve(LIB, p);
   if (!full.startsWith(path.join(LIB, p.split("/")[0]) + path.sep)) throw httpErr(400, "Bad path.");
+  if (p.startsWith("skills/")) full = privateCopy(full);
   if (!fs.existsSync(full)) throw httpErr(404, "Not in the library.");
   return full;
 }

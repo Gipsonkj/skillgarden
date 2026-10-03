@@ -31,6 +31,11 @@
       "id": "t3",
       "prompt": "Deploy my Astro site (git repo on GitHub, not yet on any host) so my client can look at it today. I use Netlify.",
       "good": "Checks state first (git remote, linked or not, CLI logged in); builds with astro build and confirms dist/; deploys a draft or Deploy Preview, not production; adds .netlify to .gitignore; asks before pushing or linking; notes env vars are build-time and client-prefixed vars are public; mentions the SPA catch-all only if relevant; returns the preview URL and says it is shareable by link."
+    },
+    {
+      "id": "t4",
+      "prompt": "Build a site for a physiotherapy clinic with two branches in Leeds, on Astro, and put a preview live on Netlify. They want to show up for \"sports physio Leeds\" and in the map results, and they have no photos yet, so we need a hero image.",
+      "good": "States a short plan first: brief, copy, design, stack and deploy here (plan-and-copy.md, design-direction.md, stacks-astro-vue-static.md, deploy-netlify-cloudflare.md), local rankings through seo (local.md: one page per branch with NAP matching its Business Profile and its own LocalBusiness block; keywords-content.md for titles and intent), the hero through image-creation (web-frontend-assets.md: WebP, width and height set, fetchpriority high on the LCP image). Invents no reviews, credentials or ranking promises; deploys a preview, not production; checks the Done means of all three crafts and says what wasn't verified (map pack, recrawl)."
     }
   ]
 }
