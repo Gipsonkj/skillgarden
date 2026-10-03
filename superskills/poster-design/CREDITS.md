@@ -17,7 +17,6 @@ All guides in `references/` are written fresh, distilled from the skills below. 
 | canva-resize-for-social-media | https://github.com/canva-sdks/canva-skills/tree/main/plugins/canva/skills/resize-for-social-media | Apache-2.0 | Canva resize workflow and sizes |
 | canva-bulk-create | https://github.com/canva-sdks/canva-skills/tree/main/plugins/canva/skills/bulk-create | Apache-2.0 | Canva autofill bulk workflow |
 | visual-design-foundations | https://github.com/wshobson/agents/tree/main/plugins/ui-design/skills/visual-design-foundations | MIT | Type scale, spacing scale, contrast table, token tiers |
-| qiaomu-mondo-poster-design | https://github.com/joeseesun/qiaomu-mondo-poster-design | MIT | Screen-print poster recipe, composition patterns, book-cover rules (artist names converted to traits; scripts not copied) |
 | logo-creator | https://github.com/resciencelab/opc-skills/tree/main/skills/logo-creator | Apache-2.0 | AI-raster logo workflow; `scripts/logo-creator/crop_logo.py` (copied) |
 | banner-creator | https://github.com/resciencelab/opc-skills/tree/main/skills/banner-creator | Apache-2.0 | Generate-wide-then-crop workflow, platform formats; `scripts/banner-creator/crop_banner.py` (copied) |
 | magazine-poster | https://github.com/nexu-io/open-design/tree/main/design-templates/magazine-poster | Apache-2.0 | Editorial poster structure; `templates/magazine-poster/example.html` (copied) |

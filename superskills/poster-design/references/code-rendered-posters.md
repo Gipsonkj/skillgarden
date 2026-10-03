@@ -1,6 +1,6 @@
 # Code-rendered posters and art pieces (PNG/PDF without an image model)
 
-> Distilled from: canvas-design (anthropics/skills, Apache-2.0), magazine-poster (nexu-io/open-design, Apache-2.0), qiaomu-mondo-poster-design (joeseesun/qiaomu-mondo-poster-design, MIT), banner-design (nextlevelbuilder/ui-ux-pro-max-skill, MIT).
+> Distilled from: canvas-design (anthropics/skills, Apache-2.0), magazine-poster (nexu-io/open-design, Apache-2.0), banner-design (nextlevelbuilder/ui-ux-pro-max-skill, MIT).
 
 Use this when the user wants a poster, art print, typographic piece or static design and there is no image model, or when exact type and geometry matter more than photorealism. You draw with code: Python (Pillow, matplotlib, reportlab/cairo), SVG, or HTML/CSS screenshotted to PNG/PDF.
 
@@ -63,15 +63,6 @@ For vector output write SVG directly or use reportlab/cairo; for complex layout 
 4. For PDF print, use the browser's print-to-PDF with `@page { size: 420mm 594mm; margin: 0 }`.
 
 Template: `templates/magazine-poster/example.html` — an editorial/newsprint poster (dateline, oversized serif headline with one struck-through word and one italic accent word, 2-column body, six numbered sections with pull-quote callouts, footer band). Use it for "editorial", "manifesto", "newsprint" or long-form posters: swap the copy, keep the hierarchy. Rules from that template: headline owns the page; strikethrough and italic accent appear exactly once each; body reads like real opinion (no lorem ipsum); paper tint `#f3eee2` with subtle dot noise.
-
-## Screen-print / "alternative poster" look in code
-
-Traits to reproduce (describe traits; do not imitate a named living artist):
-- 2–5 flat colours, no gradients; slight mis-registration (offset one colour layer 2–6 px).
-- Halftone dots for tone (dot grid whose radius follows image brightness).
-- Silhouettes and one symbolic object instead of faces or literal scenes.
-- Bold condensed or hand-drawn style lettering, Art Deco geometry, generous negative space.
-- Paper grain: add 2–4% monochrome noise at the end.
 
 ## Step 3: refine, don't add
 

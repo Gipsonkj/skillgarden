@@ -1,6 +1,6 @@
 # Foundations: layout, type, colour, contrast
 
-> Distilled from: visual-design-foundations (wshobson/agents, MIT), banner-design (nextlevelbuilder/ui-ux-pro-max-skill, MIT), canvas-design (anthropics/skills, Apache-2.0), latex-posters (K-Dense-AI/claude-scientific-skills, MIT), qiaomu-mondo-poster-design (joeseesun/qiaomu-mondo-poster-design, MIT), higgsfield-brandkit (higgsfield-ai/skills, MIT), logo-design (kaankiziltug/logo-design-skill, MIT).
+> Distilled from: visual-design-foundations (wshobson/agents, MIT), banner-design (nextlevelbuilder/ui-ux-pro-max-skill, MIT), canvas-design (anthropics/skills, Apache-2.0), latex-posters (K-Dense-AI/claude-scientific-skills, MIT), higgsfield-brandkit (higgsfield-ai/skills, MIT), logo-design (kaankiziltug/logo-design-skill, MIT).
 
 Every other guide in this skill assumes these rules. Read this first when a design "looks off" and you can't say why.
 

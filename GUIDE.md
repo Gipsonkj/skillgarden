@@ -83,9 +83,16 @@ included. The super skill already carries the best of each one.
 - Third-party scripts inside skills are copied as their authors wrote them.
   Read a script before you run it. About 38 library skills contain
   `curl … | sh` installers (mostly vendor CLIs).
-- Flagged in the catalog notes: `qiaomu-mondo-poster-design` sends your API
-  key to third-party gateways; the sickn33 Instagram skill uploads images to
-  public Imgur; the Convex skill sends transcripts to Convex.
+- `qiaomu-mondo-poster-design` was removed: its scripts sent an API key and
+  your prompts to third-party gateways. Skills that need care are marked
+  "Read the note before use" in Explore, for example `last30days` (asks during
+  setup to read your browser's X cookies; say no unless you need X), `notebooklm` (drives your Google
+  account through browser cookies), `media-use` (anonymous usage telemetry,
+  can be turned off), the sickn33 Instagram skill (uploads images to public
+  Imgur) and the Convex skill (sends transcripts to Convex).
+- The scout won't propose a change that adds a `curl … | sh` line, cookie
+  reading, telemetry, a spoofed request origin or a removed skill; Review
+  blocks it.
 - Trading skills default to paper/testnet and never place a real order
   without your confirmation, one order at a time. None of them is investment
   advice.

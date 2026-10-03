@@ -636,7 +636,7 @@
      "stars": 2915,
      "license": "MIT",
      "evidence": "Repo created Aug 22 2026, 2.9k stars in ~6 weeks; skills.sh 590 installs",
-     "notes": "Asset generation uses paid kie.ai",
+     "notes": "NOTE: sends your KIE_AI_API_KEY to api.kie.ai and to kie.ai's upload host kieai.redpandaai.co; image generation is paid. Asset generation uses paid kie.ai",
      "rank": 10,
      "trending": true,
      "nonCommercial": false,
@@ -1088,22 +1088,6 @@
      "local": "skills/03_Poster_Graphic_Design/13_visual-design-foundations"
     },
     {
-     "name": "qiaomu-mondo-poster-design",
-     "purpose": "One-line prompt to master-level posters, book/album covers and movie posters, auto-selecting from 33+ legendary designer styles with multi-ratio presets.",
-     "how_to_use": "Triggers on poster/cover requests (Chinese & English); generates prompts for an image model (Gemini/GPT Image).",
-     "url": "https://github.com/joeseesun/qiaomu-mondo-poster-design",
-     "repo": "joeseesun/qiaomu-mondo-poster-design",
-     "stars": 1238,
-     "license": "MIT",
-     "evidence": "1.2k stars; skills.sh ~1.3k installs",
-     "notes": "Chinese-language skill. SECURITY: its scripts send prompts and your API key to third-party gateways (ai-gateway.trickle-lab.tech, api.pipellm.ai). Read before running.",
-     "rank": 14,
-     "trending": false,
-     "nonCommercial": false,
-     "redistributable": true,
-     "local": "skills/03_Poster_Graphic_Design/14_qiaomu-mondo-poster-design"
-    },
-    {
      "name": "logo-creator",
      "purpose": "Logo design via AI image generation: discuss style/ratio, generate variations, iterate, crop, remove background and export to SVG.",
      "how_to_use": "Triggers on logo/icon/favicon/mascot requests; has scripts and templates; needs an image-gen API key (Gemini).",
@@ -1113,11 +1097,11 @@
      "license": "Apache-2.0",
      "evidence": "opc-skills 1.8k stars; skills.sh ~3.1K installs.",
      "notes": "",
-     "rank": 15,
+     "rank": 14,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/03_Poster_Graphic_Design/15_logo-creator"
+     "local": "skills/03_Poster_Graphic_Design/14_logo-creator"
     },
     {
      "name": "banner-creator",
@@ -1129,11 +1113,11 @@
      "license": "Apache-2.0",
      "evidence": "opc-skills 1.8k stars; skills.sh ~1.8K installs.",
      "notes": "",
-     "rank": 16,
+     "rank": 15,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/03_Poster_Graphic_Design/16_banner-creator"
+     "local": "skills/03_Poster_Graphic_Design/15_banner-creator"
     },
     {
      "name": "magazine-poster",
@@ -1145,11 +1129,11 @@
      "license": "Apache-2.0",
      "evidence": "nexu-io/open-design 99k stars; surfaced on skillsmp.",
      "notes": "Open Design-specific template.",
-     "rank": 17,
+     "rank": 16,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/03_Poster_Graphic_Design/17_magazine-poster"
+     "local": "skills/03_Poster_Graphic_Design/16_magazine-poster"
     },
     {
      "name": "logo-design",
@@ -1161,11 +1145,11 @@
      "license": "MIT",
      "evidence": "Repo created 26 Sep 2026 and already ~1.5k stars (fast-rising)",
      "notes": "",
-     "rank": 18,
+     "rank": 17,
      "trending": true,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/03_Poster_Graphic_Design/18_logo-design"
+     "local": "skills/03_Poster_Graphic_Design/17_logo-design"
     },
     {
      "name": "latex-posters",
@@ -1177,11 +1161,11 @@
      "license": "MIT",
      "evidence": "47k-star repo; skills.sh ~1.8k installs; smithery listing",
      "notes": "Sibling pptx-posters builds editable PowerPoint posters.",
-     "rank": 19,
+     "rank": 18,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/03_Poster_Graphic_Design/19_latex-posters"
+     "local": "skills/03_Poster_Graphic_Design/18_latex-posters"
     },
     {
      "name": "web-asset-generator",
@@ -1193,11 +1177,11 @@
      "license": "MIT",
      "evidence": "Listed in travisvn and hesreallyhim awesome lists; skills.sh ~860 installs",
      "notes": "",
-     "rank": 20,
+     "rank": 19,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/03_Poster_Graphic_Design/20_web-asset-generator"
+     "local": "skills/03_Poster_Graphic_Design/19_web-asset-generator"
     },
     {
      "name": "youtube-thumbnail",
@@ -1209,11 +1193,11 @@
      "license": "MIT",
      "evidence": "3.7k-star repo; skills.sh ~1.3k installs",
      "notes": "",
-     "rank": 21,
+     "rank": 20,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/03_Poster_Graphic_Design/21_youtube-thumbnail"
+     "local": "skills/03_Poster_Graphic_Design/20_youtube-thumbnail"
     },
     {
      "name": "SVG Logo Designer",
@@ -1225,7 +1209,7 @@
      "license": "NONE",
      "evidence": "skills.sh ~7.4k installs",
      "notes": "No license -> link-only.",
-     "rank": 22,
+     "rank": 21,
      "trending": false,
      "nonCommercial": false,
      "redistributable": false,
@@ -1241,11 +1225,11 @@
      "license": "MIT (stated in README)",
      "evidence": "2.2k stars",
      "notes": "No license. The author states the license in the README or SKILL.md, which this library accepts.",
-     "rank": 23,
+     "rank": 22,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": "skills/03_Poster_Graphic_Design/23_logo-generator"
+     "local": "skills/03_Poster_Graphic_Design/22_logo-generator"
     }
    ]
   },
@@ -3135,7 +3119,7 @@
      "stars": 55898,
      "license": "Apache-2.0",
      "evidence": "Official HeyGen; skills.sh ~644K installs; #6 on skills.sh Hot list (+37)",
-     "notes": "",
+     "notes": "PRIVACY: sends anonymous usage events to PostHog by default (scripts/lib/telemetry.mjs); see references/meta.md to turn it off.",
      "rank": 7,
      "trending": true,
      "nonCommercial": false,
@@ -3215,7 +3199,7 @@
      "stars": 19581,
      "license": "MIT",
      "evidence": "19.6k stars; claudemarketplaces ~8.5K installs",
-     "notes": "Unofficial API using browser auth - Google ToS risk.",
+     "notes": "SECURITY: drives your Google account by extracting browser cookies; installs uv via curl | sh. Use only with a separate account. Unofficial API using browser auth - Google ToS risk.",
      "rank": 12,
      "trending": false,
      "nonCommercial": false,
@@ -4143,7 +4127,7 @@
      "stars": 63383,
      "license": "MIT",
      "evidence": "63.4k stars; skills.sh 44k installs",
-     "notes": "",
+     "notes": "SECURITY: its setup asks to read your browser's X cookies (and uses a cookie sidecar on Linux/Mac mini), and it can publish reports to ht-ml.app (public by default). Decline both unless you need them.",
      "rank": 2,
      "trending": false,
      "nonCommercial": false,
@@ -11100,7 +11084,7 @@
      "stars": 7776,
      "license": "MIT",
      "evidence": "7.8k stars; ~7.5k installs; aitmpl listed",
-     "notes": "Browser automation of a Google product; ToS/fragility risk",
+     "notes": "SECURITY: drives your Google account by extracting browser cookies; installs uv via curl | sh. Use only with a separate account. Browser automation of a Google product; ToS/fragility risk",
      "rank": 20,
      "trending": false,
      "nonCommercial": false,
