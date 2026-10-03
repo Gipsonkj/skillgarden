@@ -1,4 +1,5 @@
-// Skill Garden connector: a small read-only MCP server for claude.ai and the Claude apps.
+// Skill Garden on Cloudflare: the public website plus a small read-only MCP server (the
+// connector) for claude.ai and the Claude apps, in one Worker.
 // It reads the super skills and the sub-skill catalog straight from the GitHub repo, so a
 // super skill you approve and push shows up here with no redeploy.
 //
@@ -167,12 +168,23 @@ async function handle(env, msg) {
   }
 }
 
+/* ---------- the public website (static files in ./public, built by build-site.mjs) ---------- */
+// The page asks for sub-skill files the way the local app serves them; answer from the
+// prebuilt files. Everything else is a static file.
+async function site(req, url, env) {
+  if (!env.ASSETS) return new Response("Skill Garden connector. MCP endpoint: /mcp\n", { headers: { "Content-Type": "text/plain" } });
+  const p = url.searchParams.get("path") || "";
+  const asset = (pathname) => env.ASSETS.fetch(new Request(new URL(pathname, url.origin), { method: "GET" }));
+  if (url.pathname === "/library/list") return /^skills\/[^?#]+$/.test(p) && !p.includes("..") ? asset(`/lib/${p}/files.json`) : json({ error: "Bad path." }, 400);
+  if (url.pathname === "/library/raw") return /^skills\/[^?#]+\/SKILL\.md$/.test(p) && !p.includes("..") ? asset(`/lib/${p}`) : json({ error: "Download the whole skill instead." }, 404);
+  return env.ASSETS.fetch(req);
+}
+
 export default {
   async fetch(req, env) {
     env = { REPO: "Gipsonkj/skillgarden", REF: "main", ...env };
     const url = new URL(req.url);
-    if (url.pathname === "/" && req.method === "GET") return new Response("Skill Garden connector. MCP endpoint: /mcp\n", { headers: { "Content-Type": "text/plain" } });
-    if (!/^\/mcp(\/[^/]+)?\/?$/.test(url.pathname)) return json({ error: "Not found" }, 404);
+    if (!/^\/mcp(\/[^/]+)?\/?$/.test(url.pathname)) return site(req, url, env);
     const keys = String(env.ACCESS_KEYS || "").split(",").map((k) => k.trim()).filter(Boolean);
     if (keys.length) {
       const k = keyOf(req, url);

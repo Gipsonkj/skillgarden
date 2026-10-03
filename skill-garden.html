@@ -93,6 +93,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .top-actions { display: flex; gap: 8px; align-items: center; }
 .tabs { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; border-bottom: 1px solid var(--line); margin-top: 14px; }
 .tabs::-webkit-scrollbar { display: none; }
+.sg-public .tab:not([data-view="explore"]), .sg-public #runNow { display: none !important; }
 .tab { appearance: none; background: none; border: 0; padding: 10px 12px 11px; font-weight: 560; color: var(--ink-2); cursor: pointer; white-space: nowrap; border-bottom: 2px solid transparent; margin-bottom: -1px; display: inline-flex; align-items: center; gap: 7px; }
 .tab:hover { color: var(--ink); }
 .tab[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); }
@@ -786,7 +787,8 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
     const ci = $("#c-inbox"); ci.textContent = needs ? String(needs) : ""; ci.className = "count" + (needs ? " hot" : "");
     $("#c-skills").textContent = S.topics.length ? String(S.topics.filter((t) => t.active !== false).length) : "";
     const st = $("#status");
-    if (!S.db) { st.textContent = S.dbMissing ? "Sign in to claude.ai to open your garden." : "Opening the garden…"; }
+    if (window.SG_PUBLIC) { const n = crafts().length, k = crafts().reduce((a, c) => a + c.skills.length, 0); st.textContent = n ? `${n} super skills · ${k} ranked sub-skills · refreshed weekly` : "Opening the garden…"; }
+    else if (!S.db) { st.textContent = S.dbMissing ? "Sign in to claude.ai to open your garden." : "Opening the garden…"; }
     else {
       const run = runningRun();
       const lr = lastRun();
@@ -1697,7 +1699,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
       <div class="subs-head"><div><h3>Ranked sub-skills</h3><p>The skills the super skill was distilled from, best first. Download any of them on their own, or add them to your bundle.</p></div>
         <div class="filters">${[["all", "All"], ["dl", "Downloadable"], ["trending", "Trending"]].map(([k, l]) => `<button class="fchip" data-act="ex-sub" data-id="${k}" aria-pressed="${EX.subFilter === k}">${l}</button>`).join("")}<button class="fchip" data-act="ex-sort" aria-pressed="${EX.sort === "stars"}">Sort by stars</button></div></div>
       <ol class="sublist">${subs.map((s) => subRow(c, s)).join("") || `<li class="sub"><span></span><p>Nothing here with this filter.</p></li>`}</ol>
-      ${c.zip ? `<p class="lib-dl"><span>Want every downloadable sub-skill for ${esc(c.name)} at once?</span><a class="btn small" href="/library/raw?path=${encodeURIComponent(c.zip)}" download>Download the ${esc(c.name)} library (.zip)</a></p>` : ""}
+      ${c.zip && !window.SG_PUBLIC ? `<p class="lib-dl"><span>Want every downloadable sub-skill for ${esc(c.name)} at once?</span><a class="btn small" href="/library/raw?path=${encodeURIComponent(c.zip)}" download>Download the ${esc(c.name)} library (.zip)</a></p>` : ""}
     </section>` : ""}`;
   }
   function subRow(c, s) {
@@ -1749,6 +1751,14 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
 
   /* downloads */
   async function addSubTo(zip, c, s) {
+    if (window.SG_PUBLIC) {
+      const r = await fetch(`/lib/${s.local}.zip`);
+      if (!r.ok) throw new Error("zip");
+      const src = await window.JSZip.loadAsync(await r.arrayBuffer());
+      const folder = zip.folder(s.name.replace(/[^\w.-]+/g, "-"));
+      await Promise.all(Object.values(src.files).filter((f) => !f.dir).map(async (f) => folder.file(f.name, await f.async("uint8array"))));
+      return;
+    }
     const files = await fetch(`/library/list?path=${encodeURIComponent(s.local)}`).then((r) => r.ok ? r.json() : Promise.reject(new Error("list")));
     const total = files.reduce((a, f) => a + N(f.size), 0);
     if (total > 40e6) throw Object.assign(new Error("big"), { big: true });
@@ -1820,7 +1830,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
   function openSheet() { closeOverlays(); renderBundle(); const s = $("#sheet"); s.classList.add("on"); s.setAttribute("aria-hidden", "false"); $("#scrim").classList.add("on"); }
 
   /* navigation: #/ is the catalog, #/c/<id> a craft page, so back and forward work */
-  function goView(v) { S.editing = null; S.noteEditing = null; S.view = v; if (v !== "explore" && location.hash.startsWith("#/")) history.replaceState(null, "", location.pathname + location.search); render(); window.scrollTo({ top: 0 }); }
+  function goView(v) { if (window.SG_PUBLIC) v = "explore"; S.editing = null; S.noteEditing = null; S.view = v; if (v !== "explore" && location.hash.startsWith("#/")) history.replaceState(null, "", location.pathname + location.search); render(); window.scrollTo({ top: 0 }); }
   function openCraft(id) { if (location.hash !== "#/c/" + id) location.hash = "#/c/" + id; else onHash(); }
   function onHash() {
     const m = location.hash.match(/^#\/c\/([\w-]+)/);
@@ -1941,6 +1951,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
   if (location.hash.startsWith("#/")) onHash();
 
   /* ---------- boot ---------- */
+  if (window.SG_PUBLIC) { document.documentElement.classList.add("sg-public"); S.view = "explore"; }
   render();
   (async () => {
     const c = window.claude;

@@ -1,42 +1,47 @@
-# Skill Garden connector
+# Skill Garden on Cloudflare: website + connector
 
-A small read-only MCP server that gives claude.ai, the Claude apps and any MCP client the
-29 super skills and the ranked sub-skill catalog. It reads them from the GitHub repo
-on each request (cached for 5 minutes), so anything pushed to the repo shows up without a
-redeploy.
+One Cloudflare Worker serves two things:
 
-Tools: `list_crafts`, `get_super_skill`, `get_guide`, `search_skills`.
+- **The website** at `/`: a public, read-only copy of Skill Garden. It has Explore, craft pages,
+  previews, ⌘K search, the bundle builder, and downloads of every super skill and every
+  sub-skill whose license allows sharing. Review, the scout and anything that changes data
+  stay on your Mac.
+- **The connector** at `/mcp`: a read-only MCP server for claude.ai and the Claude apps.
+  Its tools are `list_crafts`, `get_super_skill`, `get_guide` and `search_skills`, and it
+  reads live from the GitHub repo (`REF` in `wrangler.toml`).
+
+`npx wrangler deploy` first runs `node build-site.mjs`, which builds `./public` from
+`../superskills`, `../catalog/catalog.json` and the SkillGarden library folder next to the app.
+Run the deploy from this Mac, and run it again after you approve changes to refresh the website.
+
+## Deploy
+
+```bash
+cd ~/Desktop/Claude/SkillGarden/skillgarden-app/connector
+read -s CLOUDFLARE_API_TOKEN && export CLOUDFLARE_API_TOKEN   # paste your API token, press Enter
+npx wrangler whoami
+openssl rand -hex 16                    # your first access key for the connector
+npx wrangler secret put ACCESS_KEYS     # paste it (or several, comma-separated)
+npx wrangler deploy                     # prints https://skillgarden.<you>.workers.dev
+```
+
+The API token needs the "Edit Cloudflare Workers" template (My Profile → API Tokens).
+If you have several Cloudflare accounts, also `export CLOUDFLARE_ACCOUNT_ID=<id>`.
+
+## Connect the connector
+
+- **claude.ai / Claude apps:** Settings → Connectors → Add custom connector, URL
+  `https://skillgarden.<you>.workers.dev/mcp/<your-key>`, OAuth fields blank.
+  claude.ai custom connectors can't send a header, so the key goes at the end of the URL.
+- **Claude Code:** `claude mcp add --transport http skillgarden https://…/mcp --header "Authorization: Bearer <key>"`
+  (the plugin is the better route in Claude Code).
+
+Add or revoke keys by running `npx wrangler secret put ACCESS_KEYS` again with the new list.
+The repo is public, so keys gate the connector, not the skill text.
 
 ## Try it on this computer
 
 ```bash
-cd connector
-REF=superskills-29 ACCESS_KEYS=my-test-key node dev.mjs     # http://localhost:8787/mcp
-claude mcp add --transport http skillgarden http://localhost:8787/mcp --header "Authorization: Bearer my-test-key"
+npx wrangler dev --var ACCESS_KEYS:test-key --var REF:superskills-29   # http://localhost:8787
 ```
-
-## Deploy to Cloudflare Workers (free tier)
-
-```bash
-cd connector
-npx wrangler login                      # opens Cloudflare in your browser
-npx wrangler secret put ACCESS_KEYS     # paste one or more keys, comma-separated
-npx wrangler deploy                     # prints https://skillgarden-connector.<you>.workers.dev
-```
-
-`REF` in `wrangler.toml` picks the branch it reads (`main` once the PR is merged).
-
-## Connect it
-
-- **claude.ai / Claude apps:** Settings → Connectors → Add custom connector, URL
-  `https://skillgarden-connector.<you>.workers.dev/mcp/<your-key>`. claude.ai custom
-  connectors can't send a header, so the key goes at the end of the URL.
-- **Claude Code:** `claude mcp add --transport http skillgarden https://…/mcp --header "Authorization: Bearer <key>"`
-  (the plugin is the better route in Claude Code).
-
-## Access keys
-
-Each key in `ACCESS_KEYS` unlocks the connector. Give each buyer their own key and remove it
-to revoke (`npx wrangler secret put ACCESS_KEYS` with the new list). Leave `ACCESS_KEYS`
-unset only if you want it open. Note the repo itself is public, so the keys protect the
-convenience of the connector, not the skill text.
+`node dev.mjs` runs only the connector, without the website.
