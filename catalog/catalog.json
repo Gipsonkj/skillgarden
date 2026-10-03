@@ -11591,7 +11591,7 @@
    "blurb": "Skills, CLAUDE.md, hooks, subagents, plans and context: set Claude up to do long tasks well.",
    "hue": 22,
    "superskill": {
-    "description": "Expert guide to working with and extending Claude Code and agents. Use when writing, editing, testing or packaging a skill (SKILL.md, description triggering, evals); writing or auditing CLAUDE.md, AGENTS.md or rules files; creating hooks or guardrails (PreToolUse, Stop, block git push, auto-format, \"whenever X do Y\"); defining subagents or delegating tasks to them; brainstorming, grilling a plan, writing specs or implementation plans and executing them; managing context, compaction, long sessions, handoffs, memory and planning files; terse/low-token output; capturing lessons as skills, finding or vetting skills to install, recommending Claude Code automations; or delegating to or cross-reviewing with the Codex CLI. Also use when the user says \"use claude-meta\", \"make a skill\", \"grill me\", \"handoff\", or \"caveman mode\".",
+    "description": "Expert guide to working with and extending Claude Code and agents. Use when writing, editing, testing or packaging a skill (SKILL.md, description triggering, evals); writing or auditing CLAUDE.md, AGENTS.md or rules files; creating hooks or guardrails (PreToolUse, Stop, block git push, auto-format, \"whenever X do Y\"); defining subagents or delegating tasks to them; brainstorming, grilling a plan, writing specs or implementation plans and executing them; managing context, compaction, long sessions, handoffs, memory and planning files; terse/low-token output; capturing lessons as skills, turning saved reels, bookmarks or creator freebies into a skill stack, finding or vetting skills to install, recommending Claude Code automations; or delegating to or cross-reviewing with the Codex CLI. Also use when the user says \"use claude-meta\", \"make a skill\", \"grill me\", \"handoff\", or \"caveman mode\".",
     "references": [
      "references/claude-md-and-rules.md",
      "references/codex-cross-review.md",
@@ -11600,6 +11600,7 @@
      "references/learning-and-skill-discovery.md",
      "references/planning-and-execution.md",
      "references/skill-authoring.md",
+     "references/skill-stack-from-saves.md",
      "references/skill-testing-and-triggering.md",
      "references/subagents-and-delegation.md"
     ],

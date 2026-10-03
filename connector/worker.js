@@ -35,6 +35,11 @@ const TOOLS = [
     },
   },
   {
+    name: "get_chain",
+    description: "Chains run several crafts' guides in order from one ask, e.g. 'campaign' does research, angles, hooks, posts, ads and a test plan. With no chain id, lists the chains. With one, returns its inputs and steps; then read each step's guides with get_guide and do the steps in order.",
+    inputSchema: { type: "object", properties: { chain: { type: "string", description: "Chain id, e.g. campaign. Leave out to list them." } }, additionalProperties: false },
+  },
+  {
     name: "search_skills",
     description: "Search all ranked sub-skills across every craft (name, purpose, how to use). Returns the best matches with their craft, rank, stars, license and source link.",
     inputSchema: {
@@ -72,15 +77,30 @@ async function tree(env) {
     const r = await fetch(`https://api.github.com/repos/${env.REPO}/git/trees/${env.REF}?recursive=1`, { headers: ghHeaders(env) });
     if (!r.ok) throw new Error(`GitHub returned ${r.status} listing the repo`);
     const files = {};
+    const chains = [];
     for (const e of (await r.json()).tree || []) {
       const m = e.type === "blob" && /^superskills\/([^/]+)\/(.+)$/.exec(e.path);
       if (m) (files[m[1]] ||= []).push({ path: m[2], size: e.size });
+      const k = e.type === "blob" && /^chains\/([a-z0-9][a-z0-9-]{0,60})\/chain\.json$/.exec(e.path);
+      if (k) chains.push(k[1]);
     }
+    Object.defineProperty(files, "chains", { value: chains.sort(), enumerable: false });
     return files;
   });
 }
 async function catalog(env) {
   return cached("catalog", async () => JSON.parse((await raw(env, "catalog/catalog.json")) || '{"topics":[]}').topics || []);
+}
+
+// "Where this came from" for a craft, from the website's credits.json (built on the owner's Mac).
+async function credits(env, craft) {
+  try {
+    if (!env.ASSETS) return "";
+    const all = await cached("credits", async () => { const r = await env.ASSETS.fetch(new Request("https://assets.local/credits.json")); return r.ok ? r.json() : { topics: {} }; });
+    const list = ((all.topics || {})[craft] || []).slice(0, 5);
+    if (!list.length) return "";
+    return `\n\nRecent changes and where they came from:\n${list.map((v) => `- v${v.version}: ${v.title}${v.credits && v.credits.length ? ` (from ${v.credits.map((k) => k.label).join(", ")})` : ""}`).join("\n")}`;
+  } catch { return ""; }
 }
 
 /* ---------- tools ---------- */
@@ -92,7 +112,8 @@ async function callTool(env, name, args = {}) {
   if (name === "list_crafts") {
     const [topics, files] = await Promise.all([catalog(env), tree(env)]);
     const rows = topics.filter((t) => files[t.id]).map((t) => `- ${t.id}: ${t.name}. ${t.blurb || ""} (${(files[t.id] || []).filter((f) => f.path.startsWith("references/")).length} guides, ${(t.skills || []).length} ranked sub-skills)`);
-    return text(`${rows.length} crafts. Call get_super_skill with a craft id.\n\n${rows.join("\n")}`);
+    const chains = files.chains || [];
+    return text(`${rows.length} crafts. Call get_super_skill with a craft id.\n\n${rows.join("\n")}${chains.length ? `\n\nChains (several crafts in order from one ask; call get_chain): ${chains.join(", ")}` : ""}`);
   }
   if (name === "get_super_skill") {
     const craft = String(args.craft || "");
@@ -100,7 +121,8 @@ async function callTool(env, name, args = {}) {
     const [skill, files] = await Promise.all([raw(env, `superskills/${craft}/SKILL.md`), tree(env)]);
     if (!skill) return fail(`No super skill called "${craft}". Call list_crafts for the ids.`);
     const list = (files[craft] || []).filter((f) => f.path !== "SKILL.md" && f.path !== "topic.json").map((f) => `- ${f.path}`).join("\n");
-    return text(`${skill}\n\n---\nFiles in this super skill (read one with get_guide):\n${list}\n\nScripts listed here run on the user's own computer; this connector only returns their text.`);
+    const history = await credits(env, craft);
+    return text(`${skill}\n\n---\nFiles in this super skill (read one with get_guide):\n${list}\n\nScripts listed here run on the user's own computer; this connector only returns their text.${history}`);
   }
   if (name === "get_guide") {
     const craft = String(args.craft || ""), p = String(args.path || "").replace(/^\.?\//, "");
@@ -109,6 +131,24 @@ async function callTool(env, name, args = {}) {
     if (!files.some((f) => f.path === p)) return fail(`"${p}" isn't in ${craft}. Call get_super_skill to see its files.`);
     const body = await raw(env, `superskills/${craft}/${p}`);
     return body == null ? fail("That file couldn't be read.") : text(body);
+  }
+  if (name === "get_chain") {
+    const ids = (await tree(env)).chains || [];
+    const load = async (id) => { const t = await raw(env, `chains/${id}/chain.json`); return t ? JSON.parse(t) : null; };
+    if (!args.chain) {
+      const all = (await Promise.all(ids.map(load))).filter(Boolean);
+      if (!all.length) return text("No chains yet.");
+      return text(`${all.length} chains. Call get_chain with an id.\n\n${all.map((c) => `- ${c.id}: ${c.name}. ${c.blurb || ""} (${(c.steps || []).length} steps)`).join("\n")}`);
+    }
+    const id = String(args.chain);
+    if (!SLUG.test(id) || !ids.includes(id)) return fail(`No chain called "${id}". Call get_chain with no id to list them.`);
+    const c = await load(id);
+    if (!c) return fail("That chain couldn't be read.");
+    const steps = (c.steps || []).map((st, k) => {
+      const uses = [...(st.guides || []).map((g) => ({ craft: st.craft, guide: g })), ...(st.also || [])];
+      return `${k + 1}. ${st.title}\n   Read: ${uses.map((u) => `get_guide(craft: "${u.craft}", path: "${u.guide}")`).join(", ")}\n   Deliver: ${st.output}`;
+    }).join("\n");
+    return text(`# ${c.name}\n\n${c.blurb || ""}\n\nAsk the user once for whatever the conversation doesn't already give you:\n${(c.inputs || []).map((i) => `- ${i}`).join("\n")}\nIf something stays unknown, pick a sensible default and say which.\n\nThen run the steps in order. For each one, read its guides with get_guide (and only those), do the step the way the guides say, and build on the earlier steps. Don't stop between steps unless the user has to decide something. Use only facts from the user and the research step; never invent results, testimonials or prices.\n\n${steps}\n\nFinish with a short summary of what each step produced, the choices you made, and the one thing to do first.`);
   }
   if (name === "search_skills") {
     const words = String(args.query || "").toLowerCase().split(/\W+/).filter((w) => w.length > 1);
@@ -157,7 +197,7 @@ async function handle(env, msg) {
       protocolVersion: params?.protocolVersion || PROTOCOL,
       capabilities: { tools: {} },
       serverInfo: { name: "skillgarden", version: "1.0.0" },
-      instructions: "Skill Garden super skills. For a task, call list_crafts, then get_super_skill for the matching craft, then get_guide for the guide its router names. Follow the guide.",
+      instructions: "Skill Garden super skills. For a task, call list_crafts, then get_super_skill for the matching craft, then get_guide for the guide its router names. Follow the guide. For a multi-step job such as a whole marketing campaign, sales outreach or a launch video, call get_chain first.",
     });
     if (method === "ping") return ok({});
     if (method === "tools/list") return ok({ tools: TOOLS });

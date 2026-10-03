@@ -88,7 +88,36 @@ A sub-skill works the same way: unzip its folder into `~/.claude/skills/`. You
 only need a sub-skill when you want that author's full version, scripts
 included. The super skill already carries the best of each one.
 
+## 4b. Chains: one ask, several crafts in order
+
+A chain runs several super skills one after another. Ask in plain words:
+
+- "Run a campaign for my invoicing app, aimed at freelance designers, on
+  Instagram and LinkedIn" → `campaign`: research, angles, hooks, posts, ads,
+  test plan.
+- "Run outreach for my design audit service to SaaS founders" →
+  `sales-outreach`: leads, angle, messages, follow-ups (you send them by hand).
+- "Make a launch video for our new export feature for Reels" → `launch-video`:
+  script, storyboard, production, captions, post.
+
+It asks you once for what it needs, then saves each step to
+`<chain>/<n>-<step>.md`. With the plugin it's `skillgarden:campaign`; on the
+connector Claude calls `get_chain`; Explore has a page per chain with a zip that
+includes the super skills it uses.
+
 ## 5. Weekly updates
+
+**Feed the scout** in Reel inbox:
+
+- **Reel links**: paste them with a line about the trick.
+- **Freebie**: paste what a creator sent you after a keyword comment (text,
+  link or both). It stays on your Mac; the creator is credited by handle.
+- **Video**: drop a reel you downloaded. Skill Garden transcribes it and grabs
+  six stills on your Mac, then deletes the video, so the scout knows what the
+  reel teaches. One-time setup: `brew install ffmpeg openai-whisper`, then
+  restart Skill Garden. Each reel also has an **Add video** link.
+- When sources disagree, the change in Review shows **Sources disagree** with
+  each side and what the scout kept, so it's your call.
 
 - Every Sunday at 06:51 India time (03:21 your time) the scout checks
   skills.sh, skillsmp.com, the GitHub repos in each super skill's CREDITS.md

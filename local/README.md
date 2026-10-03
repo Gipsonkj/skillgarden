@@ -39,6 +39,19 @@ posters; their history stays). Run it again after you change a super skill by
 hand; unchanged topics are skipped. `--inactive` imports them with the scout
 off.
 
+## Reading reel videos (optional)
+
+Drop a reel's video file in Reel inbox → Video, or press **Add video** on a
+reel. Skill Garden transcribes it with Whisper and grabs six stills, all on this
+Mac, then deletes the video and keeps the text and stills in `media/`. One-time
+setup:
+
+    brew install ffmpeg openai-whisper
+
+Restart Skill Garden afterwards. `SKILL_GARDEN_WHISPER_MODEL=small` uses a
+bigger Whisper model. whisper.cpp also works: `brew install whisper-cpp` and
+set `WHISPER_MODEL` to a ggml model file.
+
 ## Good to know
 
 - **Your data** is in the `data` folder, one file per list. It started as a

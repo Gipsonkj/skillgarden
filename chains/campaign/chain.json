@@ -1,0 +1,16 @@
+{
+  "id": "campaign",
+  "name": "Marketing campaign",
+  "blurb": "One ask runs a whole campaign: research, angles, hooks, posts, ads and a test plan, each step using the Skill Garden guide made for it.",
+  "description": "Run a full marketing campaign end to end from one request: audience and competitor research, creative strategy and angles, hooks, organic social posts, paid ad copy and a testing plan, using the Skill Garden social-media, content-creation and ad-creation super skills in order. Use when asked to run, plan or build a campaign, a launch push, or 'posts plus ads' for a product, offer or event.",
+  "ask": "Run a campaign for <product or offer>, aimed at <audience>, on <platforms>.",
+  "inputs": ["What is being promoted and the one action you want", "Who it is for", "Platforms and whether there is ad budget", "Facts you can use: numbers, proof, prices, dates", "Brand voice or a sample of past posts"],
+  "steps": [
+    { "id": "research", "title": "Research the audience and competitors", "craft": "social-media", "guides": ["references/listening-research.md"], "also": [{ "craft": "ad-creation", "guide": "references/competitor-ad-research.md" }], "output": "What the audience says in their own words, the angles competitors already run, and the gaps." },
+    { "id": "strategy", "title": "Pick the angles and write the brief", "craft": "ad-creation", "guides": ["references/creative-strategy.md"], "output": "A one-page brief: the offer, three to five angles ranked, proof for each, and the one you'd lead with." },
+    { "id": "hooks", "title": "Write the hooks", "craft": "social-media", "guides": ["references/hooks-and-voice.md"], "output": "Ten or more hooks across the chosen angles, in the brand voice." },
+    { "id": "posts", "title": "Write the organic posts and calendar", "craft": "social-media", "guides": ["references/strategy-calendar.md", "references/platform-playbook.md"], "also": [{ "craft": "content-creation", "guide": "references/repurposing.md" }], "output": "Posts for each platform and a two-week calendar." },
+    { "id": "ads", "title": "Write the paid ads", "craft": "ad-creation", "guides": ["references/ad-copywriting.md", "references/platform-specs.md"], "output": "Ad copy variants per angle that fit each platform's limits." },
+    { "id": "test", "title": "Plan the tests", "craft": "ad-creation", "guides": ["references/testing-iteration.md"], "output": "What to test first, the budget split, the metric and when to call a winner." }
+  ]
+}

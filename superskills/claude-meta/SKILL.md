@@ -1,6 +1,6 @@
 ---
 name: claude-meta
-description: Expert guide to working with and extending Claude Code and agents. Use when writing, editing, testing or packaging a skill (SKILL.md, description triggering, evals); writing or auditing CLAUDE.md, AGENTS.md or rules files; creating hooks or guardrails (PreToolUse, Stop, block git push, auto-format, "whenever X do Y"); defining subagents or delegating tasks to them; brainstorming, grilling a plan, writing specs or implementation plans and executing them; managing context, compaction, long sessions, handoffs, memory and planning files; terse/low-token output; capturing lessons as skills, finding or vetting skills to install, recommending Claude Code automations; or delegating to or cross-reviewing with the Codex CLI. Also use when the user says "use claude-meta", "make a skill", "grill me", "handoff", or "caveman mode".
+description: Expert guide to working with and extending Claude Code and agents. Use when writing, editing, testing or packaging a skill (SKILL.md, description triggering, evals); writing or auditing CLAUDE.md, AGENTS.md or rules files; creating hooks or guardrails (PreToolUse, Stop, block git push, auto-format, "whenever X do Y"); defining subagents or delegating tasks to them; brainstorming, grilling a plan, writing specs or implementation plans and executing them; managing context, compaction, long sessions, handoffs, memory and planning files; terse/low-token output; capturing lessons as skills, turning saved reels, bookmarks or creator freebies into a skill stack, finding or vetting skills to install, recommending Claude Code automations; or delegating to or cross-reviewing with the Codex CLI. Also use when the user says "use claude-meta", "make a skill", "grill me", "handoff", or "caveman mode".
 ---
 
 # Claude meta-skills
@@ -37,6 +37,7 @@ Where sources disagreed: skill-creator says make descriptions "pushy" with what+
 | Brainstorm, grill a plan, write a spec or implementation plan, define acceptance gates, execute a plan | `references/planning-and-execution.md` |
 | Long sessions: planning files, compaction, context budget, handoff, memory search, terse output | `references/context-and-memory.md` (+ `templates/planning-with-files/`) |
 | Save a lesson as a skill, automatic learning, find/vet/install skills, recommend automations for a repo | `references/learning-and-skill-discovery.md` (+ `templates/self-learning/SKILL.template.md`) |
+| Turn saved reels, bookmarks and creator freebies into task skills plus one chain skill that runs them in order; merge duplicate tips and flag conflicts; weekly refresh | `references/skill-stack-from-saves.md` |
 | Delegate implementation to Codex CLI or cross-review a plan Claude <-> Codex | `references/codex-cross-review.md` |
 
 ### Scripts and templates (run from this skill's folder)

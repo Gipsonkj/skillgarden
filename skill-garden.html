@@ -292,6 +292,17 @@ main { padding-top: 24px; }
 .note-edit { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
 .note-edit .input { flex: 1 1 240px; }
 
+.add-modes { margin-bottom: 2px; }
+.r-frames { display: flex; gap: 6px; overflow-x: auto; padding: 2px 0; }
+.r-frames img { width: 64px; height: 96px; object-fit: cover; border-radius: 6px; border: 1px solid var(--line-2); flex: none; }
+.r-media { font-size: 13px; color: var(--ink-3); }
+.r-media.bad { color: var(--bad); }
+.conflicts { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; display: grid; gap: 8px; background: var(--surface); }
+.conflicts h4 { font-size: 14px; font-weight: 640; }
+.conflicts ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.conflicts li { font-size: 13.5px; color: var(--ink-2); display: grid; gap: 2px; }
+.conflicts li b { color: var(--ink); font-weight: 620; }
+
 /* log */
 .runs { display: grid; gap: 14px; max-width: 860px; }
 .run { background: var(--raised); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; display: grid; gap: 10px; min-width: 0; }
@@ -375,6 +386,27 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
 .steps3 > div + div { padding-left: 18px; border-left: 1px solid var(--line-2); }
 .steps3 b { font: 620 16px var(--display); }
 .steps3 p { color: var(--ink-2); font-size: 14px; }
+.ex-sec { margin: 0 0 34px; display: grid; gap: 14px; }
+.ex-sec > header h2 { font-size: 22px; }
+.ex-sec > header p { color: var(--ink-2); font-size: 14px; max-width: 70ch; }
+.chain-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+.chain-card { text-align: left; font: inherit; color: inherit; cursor: pointer; border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; background: var(--raised); display: grid; gap: 8px; min-width: 0; transition: border-color .15s, transform .15s; }
+.chain-card:hover { border-color: var(--accent); }
+.chain-card h3 { font-size: 18px; }
+.chain-card p { color: var(--ink-2); font-size: 14px; }
+.chain-path { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; font-size: 12.5px; color: var(--ink-3); }
+.chain-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; counter-reset: st; }
+.chain-steps li { display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 4px 12px; padding: 14px 0; border-top: 1px solid var(--line-2); counter-increment: st; }
+.chain-steps li::before { content: counter(st, decimal-leading-zero); font: 600 13px var(--mono); color: var(--ink-3); padding-top: 3px; }
+.chain-steps h4 { font-size: 16px; font-weight: 640; }
+.chain-steps p { color: var(--ink-2); font-size: 14px; }
+.chain-steps .caps { margin-top: 4px; }
+.feed { list-style: none; margin: 0; padding: 0; display: grid; }
+.feed li, .credits li { display: grid; gap: 4px; padding: 12px 0; border-top: 1px solid var(--line-2); min-width: 0; }
+.feed .r-line b, .credits .r-line b { font-weight: 620; }
+.credit-links { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 13.5px; }
+.credit-links a, .credit-links span { overflow-wrap: anywhere; }
+.credits { list-style: none; margin: 0; padding: 0; }
 @media (max-width: 720px) { .steps3 { grid-template-columns: minmax(0, 1fr); } .steps3 > div + div { padding-left: 0; border-left: 0; border-top: 1px solid var(--line-2); } }
 
 .ex-bar { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; justify-content: space-between; margin-bottom: 16px; padding: 10px 0; }
@@ -547,6 +579,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <input type="file" id="importFile" accept=".zip,.json,.html,application/zip,application/json,text/html" hidden>
+<input type="file" id="rowVideoFile" accept="video/mp4,video/quicktime,video/webm,video/x-m4v" hidden>
 <div class="scrim" id="scrim" data-act="close-overlays"></div>
 <aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawerTitle" aria-hidden="true"></aside>
 <button class="bundle-fab" id="bundleFab" data-act="bundle-open" hidden><svg viewBox="0 0 20 20" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M3 6.5 10 3l7 3.5v7L10 17l-7-3.5z"/><path d="M3 6.5 10 10l7-3.5M10 10v7"/></svg>Your bundle <b id="bundleCount">0</b></button>
@@ -572,6 +605,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
     inboxTopic: "all", inboxStatus: "all", inboxLimit: 150, noteEditing: null,
     importState: null, // {stage:'map'|'writing'|'done', items, colls, recentDays, done, total, error}
     manualStartedAt: 0,
+    addMode: "links", media: null, mediaTools: null,
   };
   let unsubVersions = null;
 
@@ -619,6 +653,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
       case "quota_exceeded": return "The garden's storage is full. Remove old reels to make room.";
       case "resource_exhausted": return "Too many saves at once. Wait a moment and try again.";
       case "revoked": return "Access to this page changed. Reload to continue.";
+      case "tool_error": return e.message || "That didn't work. Try again.";
       default: return "Couldn't save just now. Try again in a moment.";
     }
   }
@@ -893,10 +928,17 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
       ${c.why ? `<p class="why"><strong>Why:</strong> ${esc(c.why)}</p>` : ""}
       ${notes.length ? `<ul class="notes">${notes.slice(0, 4).map((n) => `<li>${esc(n.task ? n.task + ": " : "")}${esc(n.reason)}</li>`).join("")}</ul>` : ""}
       ${src ? `<ul class="sources">${src}</ul>` : ""}
+      ${conflictsHtml(c)}
       ${c.foldNote ? `<p class="why">${esc(c.foldNote)}</p>` : ""}
       <div class="cand-actions">${actions}<button class="link" data-act="toggle-diff" data-id="${esc(c.id)}" aria-expanded="${open}">${open ? "Hide the change" : c.kind === "first-draft" ? "Read the draft" : "See the change"}</button></div>
       ${diffBody}${open ? filesDiff(t, c) : ""}
     </article>`;
+  }
+  // Where the sources disagreed, and what the scout chose. Shown so it's your call, not a silent merge.
+  function conflictsHtml(c) {
+    const list = (Array.isArray(c.conflicts) ? c.conflicts : []).filter((x) => x && x.point).slice(0, 6);
+    if (!list.length) return "";
+    return `<div class="conflicts"><h4>Sources disagree on ${plural(list.length, "point")}</h4><ul>${list.map((x) => `<li><b>${esc(x.point)}</b>${(Array.isArray(x.sides) ? x.sides : []).slice(0, 4).map((sd) => `<span>${esc(sd && sd.source ? sd.source + ": " : "")}${esc(sd && sd.says)}</span>`).join("")}${x.kept ? `<span><strong>This change:</strong> ${esc(x.kept)}${x.why ? ` (${esc(x.why)})` : ""}</span>` : ""}</li>`).join("")}</ul></div>`;
   }
   function updateReview() {
     if (!S.db) { $("#rv-list").innerHTML = S.dbMissing ? noDb() : `<p class="skeleton">Loading…</p>`; return; }
@@ -1048,11 +1090,10 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
       <div class="section-head"><div><h2>Reel inbox</h2><p>Reels you've saved, sorted by topic. The scout reads the new ones every week and follows each back to the tool, repo or technique behind it.</p></div></div>
       <div class="inbox-top">
         <form class="panel" id="addForm" autocomplete="off">
-          <h3>Add reels</h3>
-          <p class="sub">Paste one link or many. A line about the trick helps most, because the scout can't watch Instagram videos.</p>
-          <div class="field"><label for="reelLinks">Reel links</label><textarea class="area" id="reelLinks" placeholder="https://www.instagram.com/reel/…" style="min-height:70px"></textarea></div>
+          <h3>Add to the inbox</h3>
+          <div class="seg add-modes" role="group" aria-label="What are you adding">${[["links", "Reel links"], ["freebie", "Freebie"], ["video", "Video"]].map(([k, l]) => `<button type="button" data-act="add-mode" data-id="${k}" aria-pressed="${S.addMode === k}">${l}</button>`).join("")}</div>
+          <div id="addBody" style="display:grid;gap:12px">${addBody()}</div>
           <div class="field"><label for="reelTopic">Topic</label><select class="select" id="reelTopic"></select></div>
-          <div class="field"><label for="reelNote">What's the trick? <span class="muted" style="font-weight:400">(optional)</span></label><input class="input" id="reelNote" maxlength="400" placeholder="e.g. uses Remotion + a spring to make the text bounce in"></div>
           <div class="row-actions"><button class="btn primary" type="submit" id="addBtn">Add to inbox</button></div>
         </form>
         <div class="panel" id="importPanel"></div>
@@ -1065,6 +1106,26 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
     renderImport();
     S._topicKey = null;
   }
+  // The add panel's three modes. Video needs the app on your Mac, which reads it locally.
+  function addBody() {
+    if (S.addMode === "freebie") return `<p class="sub">A guide, prompt or template a creator sent you, usually after you commented a keyword. Paste its text, its link, or both. It stays on this computer; the scout learns from it and credits the creator by handle.</p>
+      <div class="field"><label for="fbOwner">Creator's handle</label><input class="input" id="fbOwner" maxlength="40" placeholder="@creator"></div>
+      <div class="field"><label for="fbUrl">Link <span class="muted" style="font-weight:400">(optional)</span></label><input class="input" id="fbUrl" maxlength="300" placeholder="https://…"></div>
+      <div class="field"><label for="fbBody">What they sent <span class="muted" style="font-weight:400">(optional if there's a link)</span></label><textarea class="area" id="fbBody" maxlength="20000" style="min-height:90px" placeholder="Paste the message or the guide's text"></textarea></div>`;
+    if (S.addMode === "video") {
+      if (!S.media) return `<p class="sub">Drop a reel's video file and Skill Garden writes down what's said and grabs a few stills, so the scout knows what the reel teaches. This works in the app on your Mac, which reads the video there; nothing is uploaded.</p>`;
+      const tl = S.mediaTools;
+      return `<p class="sub">Drop a reel you downloaded (.mp4 or .mov). It is read on this computer: a transcript of what's said and six stills of what's shown. The video is deleted afterwards.</p>
+        ${tl && !tl.ready ? `<p class="blocked">${tl.ffmpeg ? "No transcriber found." : "ffmpeg isn't installed."} In Terminal run <span class="mono">brew install ffmpeg openai-whisper</span>, then restart Skill Garden.</p>` : ""}
+        <label class="drop" for="videoFile" tabindex="0"><strong id="videoName">Choose the video</strong><span class="muted" style="font-size:13px">.mp4, .mov, .m4v or .webm · up to 300 MB</span></label>
+        <input type="file" id="videoFile" accept="video/mp4,video/quicktime,video/webm,video/x-m4v" hidden>
+        <div class="field"><label for="videoLink">Reel link <span class="muted" style="font-weight:400">(optional; adds the video to that reel)</span></label><input class="input" id="videoLink" maxlength="300" placeholder="https://www.instagram.com/reel/…"></div>
+        <div class="field"><label for="reelNote">What's the trick? <span class="muted" style="font-weight:400">(optional)</span></label><input class="input" id="reelNote" maxlength="400"></div>`;
+    }
+    return `<p class="sub">Paste one link or many. A line about the trick helps most. If you have the video, use Video instead: the scout can't watch Instagram.</p>
+      <div class="field"><label for="reelLinks">Reel links</label><textarea class="area" id="reelLinks" placeholder="https://www.instagram.com/reel/…" style="min-height:70px"></textarea></div>
+      <div class="field"><label for="reelNote">What's the trick? <span class="muted" style="font-weight:400">(optional)</span></label><input class="input" id="reelNote" maxlength="400" placeholder="e.g. uses Remotion + a spring to make the text bounce in"></div>`;
+  }
   function fillTopicSelect(sel, current, withNone) {
     sel.innerHTML = (withNone ? `<option value="">Choose a topic…</option>` : "") + S.topics.map((t) => `<option value="${esc(t.id)}"${t.id === current ? " selected" : ""}>${esc(t.name)}</option>`).join("");
   }
@@ -1073,17 +1134,23 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
     const t = topicById(r.topicId);
     const [label, cls] = STATUS[r.status] || [r.status || "", ""];
     const u = safeUrl(r.url);
-    const who = r.owner ? "@" + String(r.owner).replace(/^@/, "") : (r.kind === "link" ? hostOf(r.url) : "Instagram reel");
+    const who = r.owner ? "@" + String(r.owner).replace(/^@/, "") : (r.kind === "link" ? hostOf(r.url) : r.kind === "freebie" ? "Freebie" : r.kind === "video" ? "Video" : "Instagram reel");
     const lead = safeUrl(r.leadUrl);
     const editing = S.noteEditing === r.id;
-    const text = r.note || r.caption;
+    const text = r.note || r.caption || (r.kind === "freebie" ? r.body : "");
+    const m = r.media || {};
+    const mediaHtml = m.status === "processing" ? `<p class="r-media">Reading the video on this computer…</p>`
+      : m.status === "failed" ? `<p class="r-media bad">Couldn't read the video: ${esc(m.error || "unknown error")} ${S.media ? `<button class="link" data-act="video-retry" data-id="${esc(r.id)}">Try again</button>` : ""}</p>`
+      : m.status === "done" ? `<details><summary class="r-media">Video read${m.seconds ? ` · ${Math.floor(m.seconds / 60)}:${String(m.seconds % 60).padStart(2, "0")}` : ""}${r.transcript ? " · transcript" : " · no speech"}${(r.frames || []).length ? ` · ${r.frames.length} stills` : ""}</summary>${r.transcript ? `<p class="r-text" style="-webkit-line-clamp:unset">${esc(r.transcript)}</p>` : ""}${(r.frames || []).length && !window.SG_PUBLIC ? `<div class="r-frames">${r.frames.filter((f) => /^media\/[\w.~:@+-]+\/frame-\d+\.jpg$/.test(f)).map((f) => `<img src="/${esc(f)}" alt="Still from the video" loading="lazy">`).join("")}</div>` : ""}</details>` : "";
     return `<li class="reel" id="reel-${esc(r.id)}"><div class="r-main">
-      <div class="r-line">${u ? `<a class="r-owner" href="${esc(u)}" target="_blank" rel="noopener">${esc(who)}</a>` : `<span class="r-owner">${esc(who)}</span>`}${t ? chip(t) : ""}${r.collection ? `<span class="r-coll">in ${esc(r.collection)}</span>` : ""}</div>
-      ${text ? `<p class="r-text">${r.note ? "" : `<span class="muted">Caption: </span>`}${esc(text)}</p>` : ""}
+      <div class="r-line">${u ? `<a class="r-owner" href="${esc(u)}" target="_blank" rel="noopener">${esc(who)}</a>` : `<span class="r-owner">${esc(who)}</span>`}${r.kind === "freebie" ? `<span class="pill">Freebie</span>` : ""}${t ? chip(t) : ""}${r.collection ? `<span class="r-coll">in ${esc(r.collection)}</span>` : ""}</div>
+      ${text ? `<p class="r-text">${r.note ? "" : `<span class="muted">${r.caption ? "Caption" : "They sent"}: </span>`}${esc(text)}</p>` : ""}
+      ${mediaHtml}
       ${r.finding ? `<p class="r-find"><b>Scout:</b> ${esc(r.finding)}${lead ? ` <a href="${esc(lead)}" target="_blank" rel="noopener">${esc(hostOf(lead))}</a>` : ""}</p>` : ""}
       ${editing ? `<div class="note-edit"><input class="input" id="noteInput" maxlength="400" value="${esc(r.note || "")}" placeholder="What does this reel show?"><button class="btn primary small" data-act="save-note" data-id="${esc(r.id)}">Save</button><button class="btn ghost small" data-act="cancel-note">Cancel</button></div>` : ""}
     </div><div class="r-side"><span class="pill ${cls}">${esc(label)}</span><span class="mono muted">${esc(fmtShort(r.savedAt || r.addedAt))}</span>
       <div class="row-actions">${!t && S.topics.length ? `<select class="select" style="padding:4px 8px;font-size:13px;width:auto" data-act="set-topic" data-id="${esc(r.id)}" aria-label="Topic">${`<option value="">Choose topic…</option>` + S.topics.map((x) => `<option value="${esc(x.id)}">${esc(x.name)}</option>`).join("")}</select>` : ""}
+      ${S.media && S.canWrite && r.kind !== "freebie" && r.kind !== "link" && m.status !== "done" && m.status !== "processing" && r.status !== "skipped" ? `<button class="link" data-act="add-video" data-id="${esc(r.id)}">Add video</button>` : ""}
       ${!editing && r.status !== "skipped" ? `<button class="link" data-act="note" data-id="${esc(r.id)}"${S.canWrite ? "" : " disabled"}>${r.note ? "Edit note" : "Add note"}</button>` : ""}
       ${t && (r.status === "library" || r.status === "read") ? `<button class="link" data-act="queue" data-id="${esc(r.id)}"${S.canWrite ? "" : " disabled"}>Send to scout</button>` : ""}
       ${r.status === "skipped" ? `<button class="link" data-act="unskip-reel" data-id="${esc(r.id)}">Undo skip</button>` : r.status === "new" || r.status === "needs-note" || r.status === "library" ? `<button class="link" style="color:var(--ink-3)" data-act="skip-reel" data-id="${esc(r.id)}"${S.canWrite ? "" : " disabled"}>Skip</button>` : ""}</div>
@@ -1325,8 +1392,50 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
   }
 
   function slugId(u) { let h = 0; for (const c of u) h = (h * 31 + c.charCodeAt(0)) >>> 0; return "link-" + h.toString(36); }
+  async function addFreebie() {
+    const owner = $("#fbOwner").value.trim().replace(/^@/, ""), url = safeUrl($("#fbUrl").value.trim()), body = $("#fbBody").value.trim(), topicId = $("#reelTopic").value;
+    if (!body && !url) { toast("Paste what they sent, or its link.", "bad"); return; }
+    if (owner && !/^[A-Za-z0-9_.]{1,30}$/.test(owner)) { toast("That handle doesn't look right. Use letters, digits, dots and underscores.", "bad"); return; }
+    if (!topicId) { toast("Choose a topic first.", "bad"); return; }
+    await guarded("add", async () => {
+      const now = iso();
+      const id = "fb-" + slugId(owner + "|" + (url || "") + "|" + body.slice(0, 400)).slice(5);
+      await S.db.doc("inbox/" + id).set({ kind: "freebie", url: url || "", shortcode: "", owner, collection: "", topicId, note: "", caption: "", body: body.slice(0, 20000), savedAt: now, addedAt: now, via: "paste", status: "new" });
+      for (const f of ["#fbOwner", "#fbUrl", "#fbBody"]) $(f).value = "";
+      toast(`Freebie added. The scout reads it on the next run (${nextScout()}).`);
+    });
+  }
+  async function uploadVideo(id, file) {
+    if (!S.media) return;
+    if (file.size > 300 * 1024 * 1024) { toast("That video is over 300 MB.", "bad"); return; }
+    await guarded("video:" + id, async () => {
+      toast("Sending the video to Skill Garden on this computer…");
+      await S.media.upload(id, file);
+      toast("Reading the video. The transcript and stills show up on the reel when they're ready.");
+    });
+  }
+  async function addVideo() {
+    const file = S.pendingVideo, topicId = $("#reelTopic").value, note = ($("#reelNote").value || "").trim(), link = $("#videoLink").value.trim();
+    if (!file) { toast("Choose the video first.", "bad"); return; }
+    if (!topicId) { toast("Choose a topic first.", "bad"); return; }
+    const m = [...link.matchAll(POST_RE)][0];
+    const own = link.match(/instagram\.com\/([A-Za-z0-9_.]+)\/(?:p|reels?|tv)\//);
+    const id = m ? "ig-" + m[2] : "vid-" + Date.now().toString(36);
+    let ok = false;
+    await guarded("add", async () => {
+      const now = iso(), prev = S.inbox.find((r) => r.id === id);
+      if (prev) await S.db.doc("inbox/" + id).update({ topicId, note: note || prev.note || "", status: "new" });
+      else await S.db.doc("inbox/" + id).set({ url: m ? itemFrom(m[2], m[1].startsWith("reel") ? "reel" : m[1], {}, "").url : "", shortcode: m ? m[2] : "", kind: m ? "reel" : "video", owner: own ? own[1] : "", collection: "", topicId, note, caption: "", savedAt: now, addedAt: now, via: "video", status: "new" });
+      ok = true;
+    });
+    if (!ok) return;
+    S.pendingVideo = null; $("#videoLink").value = ""; $("#reelNote").value = ""; $("#videoName").textContent = "Choose the video";
+    await uploadVideo(id, file);
+  }
   async function addReels(ev) {
     ev.preventDefault();
+    if (S.addMode === "freebie") return addFreebie();
+    if (S.addMode === "video") return addVideo();
     const raw = $("#reelLinks").value, topicId = $("#reelTopic").value, note = $("#reelNote").value.trim();
     const urls = [...new Set((raw.match(/https?:\/\/[^\s<>"']+/g) || []).map((u) => u.replace(/[),.]+$/, "")))];
     if (!urls.length) { toast("Paste at least one link that starts with https://", "bad"); return; }
@@ -1520,6 +1629,9 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
       case "note": S.noteEditing = null; render(); S.noteEditing = id; { const row = document.getElementById("reel-" + id); const r = S.inbox.find((x) => x.id === id); if (row && r) { row.outerHTML = reelRow(r); const i = $("#noteInput"); if (i) i.focus(); } } break;
       case "cancel-note": S.noteEditing = null; render(); break;
       case "save-note": { const note = ($("#noteInput") || { value: "" }).value.trim(); const r = S.inbox.find((x) => x.id === id); await guarded("note", async () => { await S.db.doc("inbox/" + id).update({ note, ...(r && r.topicId && (r.status === "needs-note" || r.status === "library" || r.status === "read") && note ? { status: "new" } : {}) }); S.noteEditing = null; toast(note ? "Note saved. The scout looks again next run." : "Note removed."); }); break; }
+      case "add-mode": S.addMode = id; S.pendingVideo = null; $("#addBody").innerHTML = addBody(); document.querySelectorAll('[data-act="add-mode"]').forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.id === id))); if (id === "video" && S.media && !S.mediaTools) S.media.tools().then((t) => { S.mediaTools = t; if (S.addMode === "video" && !S.pendingVideo) $("#addBody").innerHTML = addBody(); }).catch(() => {}); break;
+      case "add-video": S.videoFor = id; $("#rowVideoFile").click(); break;
+      case "video-retry": await guarded("video:" + id, async () => { await S.media.retry(id); toast("Trying again."); }); break;
       case "queue": await guarded("reel", async () => { await S.db.doc("inbox/" + id).update({ status: "new" }); toast("Sent to the scout."); }); break;
       case "skip-reel": await guarded("reel", async () => { await S.db.doc("inbox/" + id).update({ status: "skipped" }); }); break;
       case "unskip-reel": await guarded("reel", async () => { const r = S.inbox.find((x) => x.id === id); await S.db.doc("inbox/" + id).update({ status: r && r.topicId ? "new" : "library" }); }); break;
@@ -1530,6 +1642,8 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
   document.addEventListener("change", async (ev) => {
     const el = ev.target;
     if (el.id === "importFile" && el.files && el.files[0]) { const f = el.files[0]; el.value = ""; await readImportFile(f); return; }
+    if (el.id === "videoFile" && el.files && el.files[0]) { S.pendingVideo = el.files[0]; el.value = ""; $("#videoName").textContent = S.pendingVideo.name; return; }
+    if (el.id === "rowVideoFile" && el.files && el.files[0]) { const f = el.files[0]; el.value = ""; if (S.videoFor) await uploadVideo(S.videoFor, f); S.videoFor = null; return; }
     if (el.dataset.imap !== undefined && S.importState && S.importState.stage === "map") { S.importState.map[S.importState.colls[+el.dataset.imap].name] = el.value; renderImport(); return; }
     if (el.id === "recentDays" && S.importState) { S.importState.recentDays = +el.value; renderImport(); return; }
     const act = el.dataset.act;
@@ -1563,7 +1677,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
     get(k, d) { try { const v = localStorage.getItem("sg-" + k); return v == null ? d : JSON.parse(v); } catch { return d; } },
     set(k, v) { try { localStorage.setItem("sg-" + k, JSON.stringify(v)); } catch {} },
   };
-  const EX = { topic: null, cat: "all", q: "", subFilter: "all", sort: "rank", install: "code", catalog: null, catalogTried: false, drawer: null, bundle: store.get("bundle", []), palSel: 0, palItems: [] };
+  const EX = { chain: null, chains: null, credits: null, topic: null, cat: "all", q: "", subFilter: "all", sort: "rank", install: "code", catalog: null, catalogTried: false, drawer: null, bundle: store.get("bundle", []), palSel: 0, palItems: [] };
   const fmtStars = (n) => { n = N(n); return n >= 1000 ? (n / 1000).toFixed(n >= 10000 ? 0 : 1).replace(/\.0$/, "") + "k" : String(n); };
   const humanRef = (p) => p.replace(/^references\//, "").replace(/\.md$/, "").replace(/[-_]+/g, " ").replace(/^./, (c) => c.toUpperCase());
   const refTitle = (c, p) => { const m = String((c.live && c.live.files && c.live.files[p]) || "").split(/^```/m)[0].match(/^#\s+(.+)$/m); return m ? m[1].replace(/[*_`]/g, "").trim() : humanRef(p); };
@@ -1572,6 +1686,10 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
   async function loadCatalog() {
     if (EX.catalogTried) return; EX.catalogTried = true;
     try { const r = await fetch("/catalog.json", { cache: "no-store" }); if (r.ok) EX.catalog = await r.json(); } catch {}
+    // Chains and credits come with the local app and the public site; the claude.ai copy has neither.
+    const [ch, cr] = await Promise.all(["/chains.json", "/credits.json"].map((u) => fetch(u, { cache: "no-store" }).then((r) => (r.ok ? r.json() : null)).catch(() => null)));
+    EX.chains = Array.isArray(ch) ? ch : [];
+    EX.credits = cr && cr.topics ? cr : { topics: {}, feed: [] };
     render();
   }
   // Crafts shown in Explore: the catalog joined with live topic docs; without a catalog
@@ -1589,12 +1707,74 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
     if (!EX.catalogTried) loadCatalog();
     const list = crafts();
     if (!list.length) { setHTML(el, (!EX.catalogTried || !S.loaded.topics) && !S.dbMissing ? `<p class="skeleton">Loading the catalog…</p>` : `<div class="empty"><h3>No crafts yet</h3><p>Run the local app from the SkillGarden folder so the catalog of 29 crafts can load, or import super skills with <code>node local/import-superskills.mjs</code>.</p></div>`); return; }
+    const ch = EX.chain && (EX.chains || []).find((x) => x.id === EX.chain);
+    if (ch) { if (el.dataset.mode !== "chain:" + ch.id) { el.dataset.mode = "chain:" + ch.id; el._h = null; window.scrollTo({ top: 0 }); } setHTML(el, chainPage(ch)); return; }
     const c = EX.topic && craftById(EX.topic);
     if (c) { if (el.dataset.mode !== "topic:" + c.id) { el.dataset.mode = "topic:" + c.id; el._h = null; window.scrollTo({ top: 0 }); } setHTML(el, topicPage(c)); return; }
     if (el.dataset.mode !== "home") { el.dataset.mode = "home"; el._h = null; setHTML(el, homeShell(list)); startGarden(); }
     setHTML($("#exStats"), readout(list));
     setHTML($("#exCats"), [{ id: "all", name: "All crafts" }, ...CATS].map((k) => `<button class="fchip" data-act="ex-cat" data-id="${k.id}" aria-pressed="${EX.cat === k.id}">${esc(k.name)}</button>`).join(""));
     setHTML($("#exGrid"), gridHtml(list));
+    setHTML($("#exChains"), chainsHtml());
+    setHTML($("#exFeed"), feedHtml());
+  }
+
+  /* chains: one ask that runs several super skill guides in order */
+  const craftName = (id) => { const c = craftById(id); return c ? c.name : id; };
+  function chainsHtml() {
+    const list = EX.chains || [];
+    if (!list.length) return "";
+    return `<section class="ex-sec"><header><h2>Chains</h2><p>One ask runs several crafts in order. "Run a campaign" does the research, angles, hooks, posts, ads and test plan, each step with the guide made for it.</p></header>
+      <div class="chain-grid">${list.map((x) => `<button class="chain-card" data-act="ex-chain" data-id="${esc(x.id)}"><span class="eyebrow">Chain · ${plural(x.steps.length, "step")}</span><h3>${esc(x.name)}</h3><p>${esc(x.blurb || "")}</p>
+        <div class="chain-path">${[...new Set(x.steps.map((st) => st.craft))].map((id) => esc(craftName(id))).join(" <span aria-hidden=\"true\">→</span> ")}</div></button>`).join("")}</div></section>`;
+  }
+  function chainPage(x) {
+    const crafts = [...new Set(x.steps.flatMap((st) => st.uses.map((u) => u.craft)))];
+    const missing = crafts.filter((id) => { const c = craftById(id); return !c || !c.live; });
+    return `<nav class="crumbs" aria-label="Breadcrumb"><button data-act="ex-home">Explore</button><span aria-hidden="true">/</span><span>Chains</span><span aria-hidden="true">/</span><span>${esc(x.name)}</span></nav>
+    <header class="t-hero reveal" style="--h:150">
+      <div><span class="eyebrow">Chain · ${plural(x.steps.length, "step")} · ${plural(crafts.length, "craft")}</span><h2>${esc(x.name)}</h2><p class="lede">${esc(x.blurb || "")}</p></div>
+      <div class="t-stats"><div><b>${x.steps.length}</b><span>Steps</span></div><div><b>${crafts.length}</b><span>Crafts</span></div></div>
+    </header>
+    <section class="super reveal">
+      <div class="super-main">
+        <div class="super-head"><span class="badge">Chain skill</span><span class="mono muted">${esc(x.id)}</span></div>
+        <p class="desc">${esc(x.description || "")}</p>
+        <div class="row-actions"><button class="btn primary" data-act="dl-chain" data-id="${esc(x.id)}"${missing.length ? " disabled" : ""}>Download chain + its ${crafts.length} super skills (.zip)</button></div>
+        <ol class="chain-steps">${x.steps.map((st) => `<li><div><h4>${esc(st.title)}</h4><p>${esc(st.output || "")}</p>
+          <div class="caps">${st.uses.map((u) => `<button class="cap" data-act="pv-ref" data-id="${esc(u.craft)}" data-path="${esc(u.guide)}"><i></i><span>${esc(craftName(u.craft))} · ${esc(humanRef(u.guide))}</span></button>`).join("")}</div></div></li>`).join("")}</ol>
+      </div>
+      <aside class="install">
+        <h4>Use it</h4>
+        <div class="code">${esc(x.ask || "")}<button class="cp" data-act="copy-text" data-text="${esc(x.ask || "")}">Copy</button></div>
+        <ol><li><b>Plugin:</b> it's installed with Skill Garden as <code class="mono">skillgarden:${esc(x.id)}</code>. Ask in plain words.</li><li><b>Connector</b> (claude.ai, phone): ask “use the Skill Garden ${esc(x.id)} chain”. Claude calls <code class="mono">get_chain</code>, then reads each guide.</li><li><b>Zip:</b> unzip into <code class="mono">~/.claude/skills/</code>; it brings the super skills it needs.</li></ol>
+        ${x.inputs && x.inputs.length ? `<div class="try"><p class="eyebrow">It asks you once for</p><ul style="margin:0;padding-left:18px;font-size:14px;color:var(--ink-2)">${x.inputs.map((i) => `<li>${esc(i)}</li>`).join("")}</ul></div>` : ""}
+      </aside>
+    </section>`;
+  }
+  async function downloadChain(x) {
+    if (!window.JSZip) { toast("The zip maker didn't load. Check your connection and reload.", "bad"); return; }
+    const zip = new window.JSZip();
+    zip.folder(x.id).file("SKILL.md", x.skill || "");
+    for (const id of new Set(x.steps.flatMap((st) => st.uses.map((u) => u.craft)))) { const c = craftById(id); if (c && c.live) addSkill(zip.folder(id), c.live); }
+    await download(`${x.id}-chain.zip`, await zip.generateAsync({ type: "blob" }));
+  }
+
+  /* where each change came from: creators, repos and pages behind approved versions */
+  function creditLinks(list) {
+    return `<div class="credit-links">${(list || []).map((k) => { const u = safeUrl(k.url); return u ? `<a href="${esc(u)}" target="_blank" rel="noopener noreferrer">${esc(k.label)}</a>` : `<span>${esc(k.label)}</span>`; }).join("")}</div>`;
+  }
+  function feedHtml() {
+    const feed = ((EX.credits && EX.credits.feed) || []).filter((f) => craftById(f.topicId));
+    if (!feed.length) return "";
+    return `<section class="ex-sec"><header><h2>Learned from the community</h2><p>The latest changes the weekly scout found and that made it in after winning blind trials, with the creators and pages they came from.</p></header>
+      <ul class="feed">${feed.map((f) => `<li><div class="r-line"><button class="link" data-act="ex-topic" data-id="${esc(f.topicId)}">${esc(craftName(f.topicId))}</button><span class="mono muted">v${N(f.version)} · ${esc(ago(f.date) || "")}</span></div><b>${esc(f.title)}</b>${f.credits.length ? creditLinks(f.credits) : ""}</li>`).join("")}</ul></section>`;
+  }
+  function creditsSection(c) {
+    const list = (EX.credits && EX.credits.topics && EX.credits.topics[c.id]) || [];
+    if (!list.length) return "";
+    return `<section class="ex-sec"><header><h3>Where this came from</h3><p>Each version the scout added since the super skill was built, and the creators, repos and pages behind it.</p></header>
+      <ul class="credits">${list.slice(0, 20).map((v) => `<li><div class="r-line"><span class="mono muted">v${N(v.version)} · ${esc(ago(v.date) || "")}</span></div><b>${esc(v.title)}</b>${v.credits.length ? creditLinks(v.credits) : ""}</li>`).join("")}</ul></section>`;
   }
 
   function readout(list) {
@@ -1622,8 +1802,10 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
       <div><span class="eyebrow">02</span><b>Install one super skill</b><p>Unzip it into <code class="mono">~/.claude/skills</code>, or upload it in claude.ai. It works in any session.</p></div>
       <div><span class="eyebrow">03</span><b>Ask in plain words</b><p>The router reads only the guide your task needs, so Claude gets the best technique without the clutter.</p></div>
     </section>
+    <div id="exChains"></div>
     <div class="ex-bar" id="crafts"><h2>Crafts</h2><div class="cat-row" id="exCats"></div><label class="ex-search"><span class="sr">Filter crafts</span><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="9" cy="9" r="6"/><path d="m14 14 4 4" stroke-linecap="round"/></svg><input id="exq" type="search" placeholder="Filter crafts and skills" value="${esc(EX.q)}"></label></div>
     <div class="tgrid" id="exGrid"></div>
+    <div id="exFeed" style="margin-top:34px"></div>
     <p class="foot-note">Every skill keeps its author's license. Sub-skills are credited to their repositories; skills with a non-commercial license or no reuse license are linked to their source, never redistributed. Scripts from third parties are copied as they are: read them before you run them.</p>`;
   }
   function sparkSvg(c) {
@@ -1700,7 +1882,8 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
         <div class="filters">${[["all", "All"], ["dl", "Downloadable"], ["trending", "Trending"]].map(([k, l]) => `<button class="fchip" data-act="ex-sub" data-id="${k}" aria-pressed="${EX.subFilter === k}">${l}</button>`).join("")}<button class="fchip" data-act="ex-sort" aria-pressed="${EX.sort === "stars"}">Sort by stars</button></div></div>
       <ol class="sublist">${subs.map((s) => subRow(c, s)).join("") || `<li class="sub"><span></span><p>Nothing here with this filter.</p></li>`}</ol>
       ${c.zip && !window.SG_PUBLIC ? `<p class="lib-dl"><span>Want every downloadable sub-skill for ${esc(c.name)} at once?</span><a class="btn small" href="/library/raw?path=${encodeURIComponent(c.zip)}" download>Download the ${esc(c.name)} library (.zip)</a></p>` : ""}
-    </section>` : ""}`;
+    </section>` : ""}
+    ${creditsSection(c)}`;
   }
   function subRow(c, s) {
     const key = esc(s.name);
@@ -1834,7 +2017,8 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
   function openCraft(id) { if (location.hash !== "#/c/" + id) location.hash = "#/c/" + id; else onHash(); }
   function onHash() {
     const m = location.hash.match(/^#\/c\/([\w-]+)/);
-    if (location.hash.startsWith("#/")) { S.view = "explore"; EX.topic = m ? m[1] : null; EX.subFilter = "all"; closeOverlays(); render(); if (!m) window.scrollTo({ top: 0 }); }
+    const k = location.hash.match(/^#\/chain\/([\w-]+)/);
+    if (location.hash.startsWith("#/")) { S.view = "explore"; EX.topic = m ? m[1] : null; EX.chain = k ? k[1] : null; EX.subFilter = "all"; closeOverlays(); render(); if (!m && !k) window.scrollTo({ top: 0 }); }
   }
   window.addEventListener("hashchange", onHash);
 
@@ -1909,6 +2093,8 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
     switch (act) {
       case "ex-home": if (location.hash !== "#/") location.hash = "#/"; else onHash(); return true;
       case "ex-topic": openCraft(id); return true;
+      case "ex-chain": location.hash = "#/chain/" + id; return true;
+      case "dl-chain": { const x = (EX.chains || []).find((c) => c.id === id); if (x) await downloadChain(x); return true; }
       case "ex-cat": EX.cat = id; render(); return true;
       case "ex-cat-home": EX.cat = id; location.hash = "#/"; setTimeout(() => { const c = $("#crafts"); if (c) c.scrollIntoView({ behavior: "smooth" }); }, 80); return true;
       case "ex-scroll": { const c = $("#crafts"); if (c) c.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" }); return true; }
@@ -1969,6 +2155,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
     c.use("user").then(async (u) => { S.user = u; if (u) { const w = await u.can("data.write"); if (w === false) { S.canWrite = false; const b = $("#banner"); b.hidden = false; b.textContent = "You can read this garden but not change it. Ask its owner for edit access."; } } render(); });
     c.use("downloads").then((d) => { S.downloads = d; });
     c.use("mcp").then((m) => { S.mcp = m; render(); });
+    c.use("media").then((m) => { S.media = m || null; render(); }).catch(() => {});
   })();
 })();
 </script>

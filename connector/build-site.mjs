@@ -5,11 +5,16 @@
 //   catalog.json       every craft and ranked sub-skill
 //   data/topics.json   the 29 super skills, read from ../superskills
 //   lib/<skill>/…      SKILL.md, files.json and a .zip for each sub-skill whose license allows sharing
+//   chains.json        the chains in ../chains (one ask that runs several super skills in order)
+//   credits.json       "Where this came from" for each approved version: creator handles, public
+//                      reel links and source pages only, never notes, transcripts or freebie text
 // Sub-skills come from the SkillGarden library folder next to the app (SKILLGARDEN_LIBRARY to override).
 import fs from "node:fs";
 import path from "node:path";
 import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
+import { loadChains, problems } from "../local/chains.mjs";
+import { buildCredits } from "../local/credits.mjs";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const APP = path.resolve(HERE, "..");
@@ -81,4 +86,14 @@ for (const t of catalog.topics) {
   }
 }
 fs.writeFileSync(path.join(OUT, "catalog.json"), JSON.stringify(catalog));
-console.log(`Built ${path.relative(process.cwd(), OUT) || "public"}: ${Object.keys(topics).length} super skills, ${shared} downloadable sub-skills${tooBig ? `, ${tooBig} too large (link only)` : ""}${missing ? `, ${missing} missing from the library` : ""}.`);
+
+// Chains, checked against the super skills so a broken step never ships.
+const chains = loadChains(APP);
+for (const c of chains) { const errs = problems(c, APP); if (errs.length) throw new Error(`Chain ${c.id}: ${errs.join("; ")}`); }
+fs.writeFileSync(path.join(OUT, "chains.json"), JSON.stringify(chains));
+
+// Credits from the local app's data (empty until the scout's first approved change).
+const local = (c) => { try { return JSON.parse(fs.readFileSync(path.join(APP, "local", "data", c + ".json"), "utf8")); } catch { return {}; } };
+const credits = buildCredits({ versions: local("versions"), candidates: local("candidates"), inbox: local("inbox") });
+fs.writeFileSync(path.join(OUT, "credits.json"), JSON.stringify(credits));
+console.log(`Built ${path.relative(process.cwd(), OUT) || "public"}: ${Object.keys(topics).length} super skills, ${chains.length} chains, ${credits.feed.length} credited changes, ${shared} downloadable sub-skills${tooBig ? `, ${tooBig} too large (link only)` : ""}${missing ? `, ${missing} missing from the library` : ""}.`);

@@ -6,10 +6,10 @@
     {
       "name": "skillgarden",
       "displayName": "Skill Garden",
-      "description": "All 29 Skill Garden super skills. Each one picks the right guide for your task.",
+      "description": "All 29 Skill Garden super skills, plus chains that run several of them in order (campaign, sales-outreach, launch-video).",
       "source": "./",
       "strict": false,
-      "skills": ["./superskills/"],
+      "skills": ["./superskills/", "./chains/"],
       "author": { "name": "Gipsonkj" },
       "homepage": "https://github.com/Gipsonkj/skillgarden",
       "keywords": ["skills", "super-skills", "skill-garden"]

@@ -12,12 +12,16 @@ import fs from "node:fs";
 import path from "node:path";
 import { spawn } from "node:child_process";
 import { fileURLToPath } from "node:url";
+import { MAX_VIDEO, VIDEO_TYPES, tools as mediaTools, processVideo } from "./media.mjs";
+import { buildCredits } from "./credits.mjs";
+import { loadChains } from "./chains.mjs";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(HERE, "..");
 const PORT = Number(process.env.PORT || 4747);
 const DATA = path.join(HERE, "data");
 const LOGS = path.join(HERE, "logs");
+const MEDIA = path.join(HERE, "media");
 const COLLECTIONS = ["settings", "topics", "versions", "inbox", "candidates", "runs"];
 const ID_RE = /^(?!\.\.?$)[A-Za-z0-9_\-.~:@+]{1,200}$/;
 const SCHEDULE = !process.argv.includes("--no-schedule");
@@ -48,6 +52,7 @@ function listFiles(dir) {
 /* ---------- store ---------- */
 fs.mkdirSync(DATA, { recursive: true });
 fs.mkdirSync(LOGS, { recursive: true });
+fs.mkdirSync(MEDIA, { recursive: true });
 const store = {};
 for (const c of COLLECTIONS) {
   const file = path.join(DATA, c + ".json");
@@ -105,6 +110,47 @@ function indiaNow() {
   return { date: `${p.year}-${p.month}-${p.day}`, minutes: +p.hour * 60 + +p.minute, weekday };
 }
 
+/* ---------- reel videos (read on this computer) ---------- */
+let mediaQueue = Promise.resolve();
+function mediaDir(id) { return path.join(MEDIA, id); }
+function videoIn(dir) { return fs.existsSync(dir) ? fs.readdirSync(dir).find((f) => /^video\.\w+$/.test(f)) : null; }
+function readVideo(id) {
+  write("update", "inbox", id, { media: { status: "processing", at: new Date().toISOString() } });
+  mediaQueue = mediaQueue.then(async () => {
+    const dir = mediaDir(id), v = videoIn(dir);
+    if (!store.inbox[id]) return;
+    if (!v) return write("update", "inbox", id, { media: { status: "failed", error: "The video file is gone. Drop it again." } });
+    try {
+      const { transcript, frames, seconds } = await processVideo(path.join(dir, v), dir, `media/${id}`);
+      fs.rmSync(path.join(dir, v), { force: true }); // keep only the text and the stills
+      const r = store.inbox[id];
+      if (!r) return;
+      write("update", "inbox", id, { transcript, frames, media: { status: "done", seconds, at: new Date().toISOString() }, ...(r.status === "needs-note" || r.status === "read" ? { status: "new" } : {}) });
+    } catch (e) {
+      console.error(`[media] ${id}: ${e.message}`);
+      if (store.inbox[id]) write("update", "inbox", id, { media: { status: "failed", error: String(e.message || e).split("\n")[0].slice(0, 300) } });
+    }
+  });
+}
+function saveUpload(req, id) {
+  const ext = VIDEO_TYPES[String(req.headers["content-type"] || "").split(";")[0].trim()];
+  if (!ext) throw httpErr(415, "Drop an .mp4, .mov, .m4v or .webm video.");
+  if (Number(req.headers["content-length"]) > MAX_VIDEO) throw httpErr(413, "That video is over 300 MB.");
+  const dir = mediaDir(id);
+  fs.rmSync(dir, { recursive: true, force: true });
+  fs.mkdirSync(dir, { recursive: true });
+  const file = path.join(dir, `video.${ext}`);
+  return new Promise((resolve, reject) => {
+    let size = 0;
+    const out = fs.createWriteStream(file);
+    req.on("data", (c) => { size += c.length; if (size > MAX_VIDEO) { req.destroy(); out.destroy(); fs.rmSync(dir, { recursive: true, force: true }); reject(httpErr(413, "That video is over 300 MB.")); } });
+    req.pipe(out);
+    out.on("finish", () => resolve(size));
+    out.on("error", reject);
+    req.on("error", reject);
+  });
+}
+
 /* ---------- the scout ---------- */
 const scout = { running: false, startedAt: null, log: null, lastExit: null };
 function latestRun() {
@@ -152,7 +198,7 @@ function startSession(kind, topicId) {
   const out = fs.openSync(scout.log, "a");
   let closed = false;
   const closeLog = () => { if (!closed) { closed = true; fs.closeSync(out); } };
-  const args = ["-p", prompt, "--permission-mode", "dontAsk", "--allowedTools", "Bash(node sg.mjs *)", "Edit(./outbox/**)", "WebSearch", "WebFetch", "Agent"];
+  const args = ["-p", prompt, "--permission-mode", "dontAsk", "--allowedTools", "Bash(node sg.mjs *)", "Edit(./outbox/**)", "Read(./media/**)", "WebSearch", "WebFetch", "Agent"];
   let child;
   try { child = spawn(process.env.CLAUDE_BIN || "claude", args, { cwd: HERE, env, stdio: ["ignore", out, out] }); }
   catch (e) { closeLog(); failRun(`Couldn't start the scout: ${e.message}`); return Promise.resolve(false); }
@@ -219,6 +265,14 @@ const server = http.createServer(async (req, res) => {
     if (url.pathname === "/") return send(res, 200, PAGE_HEAD + fs.readFileSync(path.join(ROOT, "skill-garden.html"), "utf8") + "</body></html>", "text/html; charset=utf-8");
     if (url.pathname === "/runtime.js") return send(res, 200, fs.readFileSync(path.join(HERE, "runtime.js"), "utf8"), "text/javascript; charset=utf-8");
     if (url.pathname === "/favicon.ico") { res.writeHead(204); return res.end(); }
+    if (url.pathname === "/credits.json") return send(res, 200, buildCredits(store));
+    if (url.pathname === "/chains.json") return send(res, 200, loadChains());
+    if (parts[0] === "media" && parts.length === 3 && ID_RE.test(parts[1]) && /^frame-\d{1,2}\.jpg$/.test(parts[2])) {
+      const f = path.join(mediaDir(parts[1]), parts[2]);
+      if (!fs.existsSync(f)) return send(res, 404, { error: "No such frame." });
+      res.writeHead(200, { "Content-Type": "image/jpeg", "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff" });
+      return fs.createReadStream(f).pipe(res);
+    }
     if (url.pathname === "/catalog.json") {
       const f = path.join(ROOT, "catalog", "catalog.json");
       return fs.existsSync(f) ? send(res, 200, JSON.parse(fs.readFileSync(f, "utf8"))) : send(res, 404, { error: "No catalog yet." });
@@ -237,6 +291,13 @@ const server = http.createServer(async (req, res) => {
     if (parts[0] !== "api") return send(res, 404, { error: "Not found." });
 
     const [, kind, c, id] = parts;
+    if (kind === "media") {
+      if (!ID_RE.test(String(c || "")) || !store.inbox[c]) throw httpErr(404, "Add the item to the inbox first.");
+      if (req.method === "POST" && id === "retry") { if (!videoIn(mediaDir(c))) throw httpErr(404, "The video is gone. Drop it again."); readVideo(c); return send(res, 202, { ok: true }); }
+      if (req.method === "POST" && !id) { await saveUpload(req, c); readVideo(c); return send(res, 202, { ok: true }); }
+      return send(res, 404, { error: "Not found." });
+    }
+    if (kind === "media-tools") return send(res, 200, await mediaTools());
     if (kind === "events") {
       res.writeHead(200, { "Content-Type": "text/event-stream", "Cache-Control": "no-store", Connection: "keep-alive" });
       res.write(": connected\n\n");

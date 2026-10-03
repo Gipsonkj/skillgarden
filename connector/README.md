@@ -7,7 +7,7 @@ One Cloudflare Worker serves two things:
   sub-skill whose license allows sharing. Review, the scout and anything that changes data
   stay on your Mac.
 - **The connector** at `/mcp`: a read-only MCP server for claude.ai and the Claude apps.
-  Its tools are `list_crafts`, `get_super_skill`, `get_guide` and `search_skills`, and it
+  Its tools are `list_crafts`, `get_super_skill`, `get_guide`, `get_chain` and `search_skills`, and it
   reads live from the GitHub repo (`REF` in `wrangler.toml`).
 
 `npx wrangler deploy` first runs `node build-site.mjs`, which builds `./public` from

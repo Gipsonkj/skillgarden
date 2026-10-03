@@ -39,3 +39,11 @@ All sources are MIT or Apache-2.0. Reference files are distilled in our own word
 - planning-with-files hook automation (`skill-hook.sh`, `session-catchup.py`), not copied because it installs lifecycle hooks and can read local session records: https://github.com/OthmanAdi/planning-with-files
 - agentmemory (checked, not ranked): https://github.com/rohitg00/agentmemory
 - awesome lists used for discovery: https://github.com/hesreallyhim/awesome-claude-code, https://github.com/VoltAgent/awesome-agent-skills
+
+## Link-only sources
+
+These have no license that allows reuse. Their ideas are described in our own words and nothing is copied.
+
+| Source | Link | License | What was used |
+|---|---|---|---|
+| Build one AI setup from everything you've saved (Stiles Dichter, 2 Oct 2026) | https://stilesdichter.com/guides/campaign | None stated | The method behind `references/skill-stack-from-saves.md`: sort saves by topic, write down what each teaches, keep the most specific version of repeated tips, split into task skills plus a master skill, refresh weekly |
