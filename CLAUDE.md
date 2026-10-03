@@ -40,8 +40,9 @@ Check UI changes in the browser on the local app; check downloads by unzipping t
 
 ## State
 
-- Work happens on `main`: commit and push directly to it, no feature branches or PRs (the
-  user's call, 3 Oct 2026). The old `superskills-29` branch is fully merged.
+- Work happens on `main`, no feature branches or PRs (the user's call, 3 Oct 2026). Test
+  every change locally first, show the user the result, and commit and push to `main` only
+  after they confirm. The old `superskills-29` branch is fully merged.
 - Live at https://skillgarden.gipsonkj.workers.dev (Worker `skillgarden`, account subdomain
   `gipsonkj`). The connector reads GitHub `main` (`REF` in `connector/wrangler.toml`), so merged
   skills show up there with no redeploy. The website is built from this Mac at deploy time, so
