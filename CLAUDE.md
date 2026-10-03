@@ -32,7 +32,7 @@ plus an MCP connector. Read `GUIDE.md` for the user-facing how-to.
 cd local && node server.mjs                 # app at http://localhost:4747
 node local/import-superskills.mjs           # after editing superskills/ by hand (server running)
 claude plugin validate .                    # after touching the marketplace or super skills
-cd connector && npx wrangler dev --var ACCESS_KEYS:test-key --var REF:superskills-29   # site + connector locally
+cd connector && npx wrangler dev --var ACCESS_KEYS:test-key   # site + connector locally
 cd connector && npx wrangler deploy         # the user runs this (wrangler login or CLOUDFLARE_API_TOKEN); rebuilds the site first
 ```
 
@@ -40,8 +40,8 @@ Check UI changes in the browser on the local app; check downloads by unzipping t
 
 ## State
 
-- Work happens on branch `superskills-29`. Never push to `main`; the user merges. PR #1 and
-  PR #2 are merged (3 Oct 2026); new work reaches `main` through a new PR from this branch.
+- Work happens on `main`: commit and push directly to it, no feature branches or PRs (the
+  user's call, 3 Oct 2026). The old `superskills-29` branch is fully merged.
 - Live at https://skillgarden.gipsonkj.workers.dev (Worker `skillgarden`, account subdomain
   `gipsonkj`). The connector reads GitHub `main` (`REF` in `connector/wrangler.toml`), so merged
   skills show up there with no redeploy. The website is built from this Mac at deploy time, so

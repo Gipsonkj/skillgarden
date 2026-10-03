@@ -46,6 +46,6 @@ The repo is public, so keys gate the connector, not the skill text.
 ## Try it on this computer
 
 ```bash
-npx wrangler dev --var ACCESS_KEYS:test-key --var REF:superskills-29   # http://localhost:8787
+npx wrangler dev --var ACCESS_KEYS:test-key   # http://localhost:8787
 ```
 `node dev.mjs` runs only the connector, without the website.
