@@ -952,7 +952,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
       if (S.newTopicOpen && sk.dataset.mode === "grid") { updateNewTopicOnly(); return; }
       sk.dataset.mode = "grid";
       const cards = S.topics.map(topicCard).join("");
-      sk.innerHTML = `<div class="section-head"><div><h2>Your skills</h2><p>One skill per topic. Each is a SKILL.md you can drop into Claude Code or Claude's skills folder.</p></div><div class="row-actions">${S.topics.length ? `<button class="btn" data-act="download-all">Download all</button>` : ""}</div></div>
+      sk.innerHTML = `<div class="section-head"><div><h2>Your super skills</h2><p>The same 29 crafts as Explore, seen from the workshop side: edit each super skill, set its tests and sources, and see every version. Explore is where you browse and download them.</p></div><div class="row-actions">${S.topics.length ? `<button class="btn" data-act="download-all">Download all</button>` : ""}</div></div>
         ${loadingOr("topics", `<div class="grid-topics">${cards}${S.newTopicOpen ? newTopicForm() : `<button class="topic-card add-card" data-act="new-topic"${S.canWrite ? "" : " disabled"}><strong>Add a topic</strong><span>Name it, link your Instagram collection, and the scout drafts v1 tomorrow.</span></button>`}</div>`)}`;
       return;
     }
@@ -998,7 +998,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
   function historyPane(t) {
     if (S.versionsFor !== t.id) return `<p class="skeleton">Loading history…</p>`;
     if (!S.versions.length) return `<div class="empty"><h3>No versions yet</h3><p>Every change you add becomes a version here, with where it came from. You can bring back any earlier version.</p></div>`;
-    const SRC = { seed: "Starting skill", candidate: "Added from Review", folded: "Folded in by the scout", manual: "Edited by hand", restore: "Brought back", superskill: "Super skill from SkillGarden" };
+    const SRC = { seed: "Starting skill", candidate: "Added from Review", folded: "Folded in by the scout", manual: "Edited by hand", restore: "Brought back", superskill: "Super skill from SkillGarden", starter: "Earlier starter skill" };
     return `<div class="hist">${S.versions.map((v, k) => {
       const prev = S.versions[k + 1];
       const open = S.histOpen.has(v.id);
