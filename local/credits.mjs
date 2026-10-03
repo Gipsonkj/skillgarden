@@ -30,7 +30,7 @@ function creditsFor(cand, inbox, gated) {
   // Creators whose reels or freebies led here, by handle only.
   for (const id of cand.inboxIds || []) {
     const r = inbox[id];
-    if (!r) continue;
+    if (!r || r.fromDm) continue; // anything read from DMs stays private
     const h = String(r.owner || "").replace(/^@/, "");
     if (!HANDLE.test(h)) continue;
     const reel = r.kind !== "freebie" && IG_POST.test(String(r.url || "")) ? String(r.url) : null;

@@ -1098,6 +1098,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
         </form>
         <div class="panel" id="importPanel"></div>
       </div>
+      <div class="panel" id="igReader" style="margin-top:16px"></div>
       <div id="collStats"></div>
       <div class="section-head" style="margin-bottom:10px"><h2 style="font-size:20px">All reels</h2><div class="filters" id="ib-filters"></div></div>
       <ul class="reels" id="reelList"></ul>
@@ -1186,7 +1187,33 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
         ${top.length ? `<p class="creators">Most saved from ${top.map(([o, n]) => `<b>@${esc(o)}</b> ${n}`).join(", ")}</p>` : ""}</div>`;
     }).join("")}</div>`;
   }
+  // Optional Instagram reader: Claude in Chrome reads the dedicated account and adds new items here.
+  function renderReader() {
+    const p = $("#igReader"); if (!p || !S.settings) return;
+    const cfg = { enabled: false, account: "", saves: true, comments: true, dms: false, ...(S.settings.igReader || {}) };
+    const run = S.settings.igReaderRun || {};
+    const busy = run.status === "running";
+    const box = (k, l) => `<label class="switch" style="font-size:13.5px"><input type="checkbox" data-act="ig-set" data-k="${k}"${cfg[k] ? " checked" : ""}${S.canWrite ? "" : " disabled"}> ${l}</label>`;
+    const last = run.status ? `<p class="muted" style="font-size:13px">Last run: ${busy ? `reading since ${esc(ago(run.startedAt))}` : `${esc(run.status)} ${esc(ago(run.finishedAt || run.startedAt))}`}, ${N(run.added)} added${run.account ? `, signed in as @${esc(run.account)}` : ""}.${run.error ? ` ${esc(run.error)}` : ""}</p>` : "";
+    const html = `<div style="display:flex;justify-content:space-between;align-items:center;gap:12px"><h3 style="margin:0">Instagram reader</h3>${box("enabled", cfg.enabled ? "On" : "Off")}</div>
+      <p class="muted" style="margin:6px 0 12px;font-size:13.5px">Claude in Chrome reads your dedicated account before each weekly scout and adds new finds here. It only reads, checks the signed-in account first, and keeps anything from DMs off the public site. Instagram may restrict accounts that are read by automation.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center">
+        <div class="field" style="min-width:220px"><label for="igAccount">Dedicated account</label><input class="input" id="igAccount" data-act="ig-set" data-k="account" placeholder="@handle" value="${esc(cfg.account)}"${S.canWrite ? "" : " disabled"}></div>
+        ${box("saves", "Saved posts")}${box("comments", "Comments on its posts")}${box("dms", "DMs (shared posts and freebies only)")}
+        <div class="row-actions">${busy ? `<button class="btn small" data-act="ig-stop">Stop</button>` : `<button class="btn small" data-act="ig-run"${cfg.enabled && cfg.account ? "" : " disabled"}>Read now</button>`}</div>
+      </div>${last}`;
+    if (p._h !== html && !(document.activeElement && document.activeElement.id === "igAccount")) { p.innerHTML = html; p._h = html; }
+  }
+  async function readerCall(what) {
+    try {
+      const r = await fetch(`/api/ig-reader/${what}`, { method: "POST", headers: { "Content-Type": "application/json", "X-Skill-Garden": "1" }, body: "{}" });
+      const d = await r.json().catch(() => ({}));
+      toast(r.ok ? (what === "run" ? "Reading Instagram in Chrome. Keep Chrome open." : "Stopping the reader.") : d.error || "Couldn't reach the local app.", r.ok ? "" : "bad");
+    } catch { toast("This only works in the local app on your Mac.", "bad"); }
+  }
+  document.addEventListener("click", (ev) => { const b = ev.target.closest && ev.target.closest('[data-act="ig-run"],[data-act="ig-stop"]'); if (b) readerCall(b.dataset.act === "ig-run" ? "run" : "stop"); });
   function updateInbox() {
+    renderReader();
     if (!S.db) { $("#reelList").innerHTML = S.dbMissing ? `<li>${noDb()}</li>` : ""; return; }
     const key = S.topics.map((t) => t.id + t.name).join("|");
     if (S._topicKey !== key) {
@@ -1650,6 +1677,11 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
     if (act === "ib-topic") { S.inboxTopic = el.value; render(); }
     else if (act === "set-topic" && el.value) { const id = el.dataset.id; await guarded("reel", async () => { await S.db.doc("inbox/" + id).update({ topicId: el.value, status: "new" }); toast("Linked and sent to the scout."); }); }
     else if (act === "toggle-active") { const t = topicById(S.skillOpen); if (t) await guarded("active", async () => { await S.db.doc("topics/" + t.id).update({ active: el.checked }); toast(el.checked ? `The scout will work on ${t.name}.` : `The scout will leave ${t.name} alone.`); }); }
+    else if (act === "ig-set") {
+      const k = el.dataset.k, v = el.type === "checkbox" ? el.checked : el.value.trim().replace(/^@/, "");
+      if (k === "account" && v && !/^[A-Za-z0-9_.]{1,30}$/.test(v)) { toast("That isn't an Instagram handle.", "bad"); return; }
+      await guarded("ig", async () => { await S.db.doc("settings/main").update({ igReader: { ...(S.settings && S.settings.igReader || {}), [k]: v } }); if (k === "enabled") toast(v ? "Instagram reader is on. It runs before each weekly scout." : "Instagram reader is off."); });
+    }
     else if (act === "toggle-pause") { await guarded("pause", async () => { await S.db.doc("settings/main").update({ paused: !el.checked }); toast(el.checked ? "Weekly scout is on." : "Weekly scout paused."); }); }
   });
   document.addEventListener("submit", (ev) => { if (ev.target.id === "addForm") addReels(ev); });

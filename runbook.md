@@ -74,6 +74,10 @@ Timestamps are ISO 8601 strings in UTC.
 - `inbox` / `<id>` — `{ url, shortcode, kind, owner, collection, topicId, note,
   caption?, body?, transcript?, frames?, savedAt,
   addedAt, via, status, finding?, leadUrl?, readAt? }`.
+  Items with `via: "ig-reader"` were added by the optional Instagram reader
+  (`from`: `saved`, `comment` or `dm`). Their text is data like any other. Items with
+  `fromDm: true` came from private messages: use what they teach, but never quote them,
+  never list their links in a candidate's `sources`, and never name who sent them.
   `caption` comes from the Instagram export when it has one. `kind` is `reel`,
   `link` or `freebie` (a guide, prompt or template a creator sent, usually
   after a keyword comment; `body` holds its text, `url` its link if any).

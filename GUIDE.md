@@ -133,6 +133,19 @@ includes the super skills it uses.
   a full run over 29 crafts takes a while.
 - Pause it from the Scout log tab.
 
+## 5b. Instagram reader (optional, off)
+
+In Reel inbox → **Instagram reader**: enter your dedicated account's handle, pick what to read
+(saved posts, comments on its posts, DMs) and switch it **On**. Before each weekly scout,
+Claude in Chrome reads that account and adds new finds to the inbox; **Read now** runs it
+straight away. Chrome must be open with the Claude extension and signed in to that account.
+
+- It only reads. It never likes, follows, comments or sends anything.
+- It checks the signed-in account first and stops if it's not the dedicated one.
+- It can only add new inbox items, at most 40 per run. It can't change skills or settings.
+- Anything from DMs stays on your Mac: it's never shown on the website or in credits.
+- Instagram may restrict accounts that are read by automation. Use only the dedicated account.
+
 ## 6. Safety notes
 
 - Third-party scripts inside skills are copied as their authors wrote them.

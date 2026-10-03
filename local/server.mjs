@@ -219,6 +219,109 @@ function startSession(kind, topicId) {
   });
   return started;
 }
+/* ---------- Instagram reader (optional, off by default) ---------- */
+// Reads the dedicated Instagram account's saves, comments on its own posts and, if switched on,
+// DMs through Claude in Chrome, and adds what it finds to the Reel inbox as new items. Nothing
+// else. Safeguards, enforced here rather than trusted to the prompt:
+//   - runs only when switched on in the Reel inbox and an account handle is set;
+//   - the session's only write is `node ig-inbox.mjs`, which reaches only /api/ig-reader/*;
+//   - nothing is added until the session reports the signed-in handle and it matches the
+//     dedicated account; a mismatch ends the run;
+//   - it can only create new inbox items (never edit, delete, or touch skills or settings),
+//     at most READER_MAX per run, with fields cut to size and marked as read by the reader;
+//   - DM items are flagged fromDm and never appear in public credits or on the website.
+const READER_MAX = 40;
+const READER_TIMEOUT = 30 * 60e3;
+const HANDLE_RE = /^[A-Za-z0-9_.]{1,30}$/;
+const reader = { running: false, accountOk: false, added: 0, startedAt: null, log: null, child: null };
+const readerCfg = () => ({ enabled: false, account: "", saves: true, comments: true, dms: false, ...(store.settings.main?.igReader || {}) });
+const normHandle = (h) => String(h || "").trim().replace(/^@/, "").toLowerCase();
+function readerNote(patch) { write("update", "settings", "main", { igReaderRun: { ...(store.settings.main?.igReaderRun || {}), ...patch } }); }
+function startReader(kind) {
+  const cfg = readerCfg();
+  if (!cfg.enabled) return Promise.resolve({ ok: false, error: "The Instagram reader is switched off." });
+  if (!HANDLE_RE.test(normHandle(cfg.account))) return Promise.resolve({ ok: false, error: "Set the dedicated account's handle first." });
+  if (reader.running) return Promise.resolve({ ok: false, error: "The reader is already running." });
+  if (scout.running) return Promise.resolve({ ok: false, error: "Wait for the scout to finish." });
+  const read = [cfg.saves && "saved posts", cfg.comments && "comments on the account's own posts", cfg.dms && "direct messages"].filter(Boolean);
+  if (!read.length) return Promise.resolve({ ok: false, error: "Pick at least one thing to read." });
+  const brief = fs.readFileSync(path.join(HERE, "ig-reader.md"), "utf8");
+  const topics = Object.entries(store.topics).filter(([, t]) => t.active !== false).map(([id, t]) => `- ${id}: ${t.name}${(t.collections || []).length ? ` (collections: ${t.collections.join(", ")})` : ""}`).join("\n");
+  const prompt = `${brief}\n\n---\n\nDedicated account: @${normHandle(cfg.account)}\nRead this run: ${read.join(", ")}.\nAt most ${READER_MAX} new items.\nTopics:\n${topics}\n\nStart now (${kind === "manual" ? "started by hand" : "before the weekly scout"}).`;
+  const env = { ...process.env, SKILL_GARDEN_PORT: String(PORT) };
+  if (!process.env.SKILL_GARDEN_USE_API_KEY) delete env.ANTHROPIC_API_KEY;
+  const outbox = path.join(HERE, "outbox");
+  fs.rmSync(outbox, { recursive: true, force: true });
+  fs.mkdirSync(outbox);
+  const C = "mcp__claude-in-chrome__";
+  const allowed = ["Bash(node ig-inbox.mjs *)", "Edit(./outbox/**)", ...["tabs_context_mcp", "tabs_create_mcp", "navigate", "read_page", "get_page_text", "find", "computer"].map((t) => C + t)];
+  const denied = ["form_input", "javascript_tool", "file_upload", "upload_image", "shortcuts_execute", "gif_creator"].map((t) => C + t);
+  Object.assign(reader, { running: true, accountOk: false, added: 0, startedAt: new Date().toISOString() });
+  reader.log = path.join(LOGS, `ig-reader-${reader.startedAt.replace(/[:.]/g, "-")}.log`);
+  const out = fs.openSync(reader.log, "a");
+  readerNote({ status: "running", startedAt: reader.startedAt, finishedAt: null, added: 0, error: null, account: null });
+  let child;
+  try { child = spawn(process.env.CLAUDE_BIN || "claude", ["-p", prompt, "--chrome", "--permission-mode", "dontAsk", "--allowedTools", ...allowed, "--disallowedTools", ...denied], { cwd: HERE, env, stdio: ["ignore", out, out] }); }
+  catch (e) { fs.closeSync(out); reader.running = false; readerNote({ status: "failed", error: e.message }); return Promise.resolve({ ok: false, error: e.message }); }
+  reader.child = child;
+  const timer = setTimeout(() => child.kill("SIGTERM"), READER_TIMEOUT);
+  return new Promise((resolve) => {
+    let done = false;
+    const finish = (status, error) => {
+      if (done) return; done = true;
+      clearTimeout(timer); try { fs.closeSync(out); } catch {}
+      reader.running = false; reader.child = null;
+      readerNote({ status, finishedAt: new Date().toISOString(), added: reader.added, ...(error ? { error } : {}) });
+      console.log(`[ig-reader] ${status}, ${reader.added} added${error ? `: ${error}` : ""}`);
+    };
+    child.once("spawn", () => { console.log(`[ig-reader] started — log: ${path.relative(HERE, reader.log)}`); resolve({ ok: true }); });
+    child.once("error", (e) => { finish("failed", e.code === "ENOENT" ? "Claude Code isn't installed." : e.message); resolve({ ok: false, error: e.message }); });
+    child.on("exit", (code) => finish(code === 0 && reader.accountOk ? "done" : "failed", code === 0 ? (reader.accountOk ? null : "Never confirmed the signed-in account, so nothing was added.") : `Stopped with exit code ${code}. See local/logs/${path.basename(reader.log)}.`));
+  });
+}
+const clip = (v, n) => String(v ?? "").slice(0, n);
+function readerAdd(items) {
+  if (!reader.running) throw httpErr(409, "The reader isn't running.");
+  if (!reader.accountOk) throw httpErr(403, "Confirm the signed-in account first: node ig-inbox.mjs account <handle>.");
+  if (!Array.isArray(items)) throw httpErr(400, "Send {\"items\": [...]}.");
+  const res = [];
+  for (const it of items) {
+    if (reader.added >= READER_MAX) { res.push({ skipped: "limit reached" }); continue; }
+    const m = /^https:\/\/(?:www\.)?instagram\.com\/(?:[A-Za-z0-9_.]+\/)?(p|reels?|tv)\/([A-Za-z0-9_-]{5,})/.exec(String(it.url || ""));
+    const from = ["saved", "comment", "dm"].includes(it.from) ? it.from : null;
+    if (!from) { res.push({ skipped: "from must be saved, comment or dm" }); continue; }
+    const kind = it.kind === "freebie" ? "freebie" : m ? "reel" : "link";
+    let url = "";
+    if (m) url = `https://www.instagram.com/${m[1].startsWith("reel") ? "reel" : m[1]}/${m[2]}/`;
+    else if (it.url) { try { const u = new URL(String(it.url)); if (u.protocol === "https:" && !/(^|\.)instagram\.com$/.test(u.hostname)) { u.hash = ""; url = u.href; } } catch {} }
+    if (!url && kind !== "freebie") { res.push({ skipped: "needs a post link or an https link" }); continue; }
+    const key = m ? m[2] : Buffer.from(url || clip(it.body, 200)).toString("base64url").slice(0, 40);
+    const id = `igr-${key}`;
+    const dup = store.inbox[id] || (m && store.inbox["ig-" + m[2]]);
+    if (dup) { res.push({ id, skipped: "already in the inbox" }); continue; }
+    const topicId = store.topics[it.topicId] ? it.topicId : "";
+    const owner = HANDLE_RE.test(normHandle(it.owner)) ? normHandle(it.owner) : "";
+    const now = new Date().toISOString();
+    write("set", "inbox", id, {
+      url, shortcode: m ? m[2] : "", kind, owner: from === "dm" ? "" : owner, collection: clip(it.collection, 80), topicId,
+      note: "", caption: clip(it.caption, 2000), body: clip(it.body, 8000), savedAt: clip(it.savedAt, 40) || now, addedAt: now,
+      via: "ig-reader", from, ...(from === "dm" ? { fromDm: true } : {}), status: topicId ? "new" : "library",
+    });
+    reader.added++;
+    res.push({ id, added: true });
+  }
+  readerNote({ added: reader.added });
+  return res;
+}
+// Before the weekly scout, if switched on, so new finds are read the same day.
+function readerThenScout() {
+  if (!readerCfg().enabled || !HANDLE_RE.test(normHandle(readerCfg().account))) return startScout("schedule");
+  startReader("schedule").then((r) => {
+    if (!r.ok) return startScout("schedule");
+    const wait = setInterval(() => { if (!reader.running) { clearInterval(wait); startScout("schedule"); } }, 5000);
+  });
+}
+
 if (SCHEDULE) {
   setInterval(() => {
     const s = store.settings.main || {};
@@ -228,13 +331,13 @@ if (SCHEDULE) {
     // Run once a week on scoutDay. If the computer was asleep or the app closed at that time,
     // catch up any time later that week.
     const day = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].indexOf(s.scoutDay || "Sun");
-    if (s.paused || scout.running || s.lastScheduledDate === now.date) return;
+    if (s.paused || scout.running || reader.running || s.lastScheduledDate === now.date) return;
     const onTime = now.weekday === day && now.minutes >= due;
     const sinceLast = s.lastScheduledDate ? (Date.parse(now.date) - Date.parse(s.lastScheduledDate)) / 864e5 : null;
     // Never run before: wait for the first scout day. Otherwise run on the day, or catch up once a full week has passed.
     if (sinceLast === null ? !onTime : !(onTime && sinceLast >= 6) && sinceLast < 7) return;
     write("update", "settings", "main", { lastScheduledDate: now.date });
-    startScout("schedule");
+    readerThenScout();
   }, 30000).unref();
 }
 
@@ -306,9 +409,26 @@ const server = http.createServer(async (req, res) => {
       return;
     }
     if (kind === "now") return send(res, 200, { utc: new Date().toISOString().replace(/\.\d+Z$/, "Z"), indiaDate: indiaNow().date });
+    if (kind === "ig-reader") {
+      if (req.method === "GET" && c === "known") return send(res, 200, Object.values(store.inbox).map((r) => r.shortcode || r.url).filter(Boolean));
+      if (req.method !== "POST") throw httpErr(405, "POST only.");
+      if (c === "run") { const r = await startReader("manual"); return send(res, r.ok ? 202 : 409, r.ok ? { started: true } : { error: r.error }); }
+      if (c === "stop") { if (reader.child) reader.child.kill("SIGTERM"); return send(res, 200, { ok: true }); }
+      if (c === "account") {
+        if (!reader.running) throw httpErr(409, "The reader isn't running.");
+        const seen = normHandle((await readBody(req)).handle), want = normHandle(readerCfg().account);
+        reader.accountOk = !!seen && seen === want;
+        readerNote({ account: seen || "(none)" });
+        if (!reader.accountOk) { if (reader.child) setTimeout(() => reader.child && reader.child.kill("SIGTERM"), 500); throw httpErr(403, `Chrome is signed in as @${seen || "?"}, not @${want}. Stop now.`); }
+        return send(res, 200, { ok: true });
+      }
+      if (c === "add") return send(res, 200, { results: readerAdd((await readBody(req)).items) });
+      throw httpErr(404, "Not found.");
+    }
     if (kind === "scout") {
       if (req.method === "POST") {
         if (scout.running) return send(res, 409, { error: "The scout is already running." });
+        if (reader.running) return send(res, 409, { error: "The Instagram reader is running. Try again when it finishes." });
         return (await startScout("manual")) ? send(res, 202, { started: true }) : send(res, 500, { error: "Couldn't start the scout. The Scout log says why." });
       }
       return send(res, 200, { running: scout.running, topic: scout.topic, left: (scout.queue || []).length, startedAt: scout.startedAt, lastExit: scout.lastExit, log: scout.log && path.relative(HERE, scout.log) });
