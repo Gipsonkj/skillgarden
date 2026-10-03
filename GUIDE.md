@@ -44,6 +44,32 @@ on.
 To install all 29 at once, download "all super skills" and unzip that file
 into `~/.claude/skills/` the same way.
 
+## 3b. Or install all 29 as a plugin (recommended for Claude Code)
+
+In a terminal:
+
+```bash
+claude plugin marketplace add Gipsonkj/skillgarden
+claude plugin install skillgarden@skillgarden
+```
+
+All 29 super skills then load in every session as `skillgarden:<craft>`. To pick up new
+versions, run `claude plugin marketplace update skillgarden` (or turn on auto-update under
+Marketplaces in `/plugin`). If you also unzipped super skills into `~/.claude/skills/`,
+remove those copies so each craft loads once.
+
+For cloud sessions, add this to the settings file the environment uses (for example a
+repo's `.claude/settings.json`):
+
+```json
+{
+  "extraKnownMarketplaces": { "skillgarden": { "source": { "source": "github", "repo": "Gipsonkj/skillgarden" } } },
+  "enabledPlugins": { "skillgarden@skillgarden": true }
+}
+```
+
+For claude.ai chat and the phone apps, use the connector instead (see `connector/README.md`).
+
 ## 4. Use it in a session
 
 You don't have to name it. Ask normally ("animate this modal so it feels

@@ -1,0 +1,10 @@
+name = "skillgarden-connector"
+main = "worker.js"
+compatibility_date = "2026-09-01"
+
+[vars]
+REPO = "Gipsonkj/skillgarden"
+REF = "main"
+
+# Secrets (not in this file): npx wrangler secret put ACCESS_KEYS
+# Optional:                   npx wrangler secret put GITHUB_TOKEN
