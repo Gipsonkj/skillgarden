@@ -418,7 +418,6 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
 .t-hero { --h: 165; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 18px 30px; align-items: end; padding: 22px 0 22px; border-bottom: 1px solid var(--line); margin-bottom: 24px; }
 @media (max-width: 760px) { .t-hero { grid-template-columns: minmax(0, 1fr); } }
 .t-hero h2 { font-size: clamp(32px, 4.4vw, 46px); letter-spacing: -.02em; font-weight: 650; font-variation-settings: "opsz" 96; margin: 6px 0 8px; }
-.t-hero .eyebrow { color: hsl(var(--h) 45% var(--tl)); }
 .t-hero .lede { color: var(--ink-2); font-size: 16px; max-width: 60ch; }
 .t-stats { display: flex; gap: 22px; }
 .t-stats div { display: grid; }
@@ -430,8 +429,18 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
 .super-main { padding: 22px 24px; display: grid; gap: 14px; align-content: start; min-width: 0; }
 .super-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
 .badge { display: inline-flex; align-items: center; gap: 6px; font: 620 12.5px/1 var(--body); padding: 5px 9px; border-radius: 6px; background: var(--accent); color: var(--accent-ink); }
-.super-main h3 { font: 600 22px var(--mono); letter-spacing: -.02em; }
-.super-main .desc { color: var(--ink-2); font-size: 14.5px; max-width: 70ch; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+.super-lead { font-size: 15.5px; line-height: 1.5; color: var(--ink); max-width: 58ch; text-wrap: pretty; }
+.guides h4 { display: flex; align-items: center; gap: 8px; font: 620 15px var(--display); margin-bottom: 8px; }
+.glist { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 6px; }
+.gitem { appearance: none; width: 100%; height: 100%; min-height: 44px; text-align: left; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 9px 10px 9px 12px; border-radius: 8px; border: 1px solid var(--line-2); background: var(--surface); color: var(--ink); font-size: 13.5px; font-weight: 540; line-height: 1.35; cursor: pointer; transition: border-color .15s var(--ease), background .15s var(--ease); }
+.gitem svg { flex: none; color: var(--ink-3); transition: transform .15s var(--ease), color .15s var(--ease); }
+@media (hover: hover) { .gitem:hover { border-color: var(--accent); background: var(--accent-soft); } .gitem:hover svg { color: var(--accent); transform: translateX(2px); } }
+.when summary { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; list-style: none; font-size: 13.5px; font-weight: 560; color: var(--ink-2); border-radius: 6px; }
+.when summary::-webkit-details-marker { display: none; }
+.when summary::before { content: ""; width: 6px; height: 6px; border-right: 1.6px solid currentColor; border-bottom: 1.6px solid currentColor; transform: rotate(-45deg); transition: transform .15s var(--ease); }
+.when[open] summary::before { transform: rotate(45deg); }
+@media (hover: hover) { .when summary:hover { color: var(--ink); } }
+.when p { margin-top: 8px; font-size: 13.5px; color: var(--ink-2); max-width: 70ch; }
 .caps { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 6px; }
 .cap { appearance: none; text-align: left; display: flex; gap: 9px; align-items: center; padding: 8px 10px; border-radius: 8px; border: 1px solid var(--line-2); background: var(--surface); color: var(--ink); font-size: 13.5px; font-weight: 540; cursor: pointer; min-width: 0; transition: border-color .15s var(--ease), background .15s var(--ease); }
 .cap:hover { border-color: var(--accent); background: var(--accent-soft); }
@@ -443,7 +452,9 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
 .seg { display: inline-flex; padding: 3px; border-radius: 9px; background: var(--line-2); gap: 2px; }
 .seg button { appearance: none; border: 0; background: transparent; padding: 5px 10px; border-radius: 7px; font-size: 13px; font-weight: 560; color: var(--ink-2); cursor: pointer; }
 .seg button[aria-pressed="true"] { background: var(--raised); color: var(--ink); box-shadow: 0 1px 2px oklch(0 0 0 / .12); }
-.code { position: relative; font: 12.5px/1.6 var(--mono); background: var(--ink); color: var(--ground); border-radius: 9px; padding: 11px 44px 11px 13px; overflow-x: auto; white-space: pre; }
+.code { position: relative; font: 12.5px/1.6 var(--mono); background: var(--ink); color: var(--ground); border-radius: 9px; padding: 11px 58px 11px 13px; white-space: pre-wrap; overflow-wrap: anywhere; }
+.i-step { font-size: 13.5px; color: var(--ink-2); margin-bottom: -4px; }
+.i-note { font-size: 13px; color: var(--ink-3); }
 .code .cp { position: absolute; right: 6px; top: 6px; appearance: none; border: 1px solid oklch(0.6 0 0 / .4); border-radius: 6px; padding: 3px 7px; font: 500 11px var(--mono); background: var(--ink); color: inherit; cursor: pointer; }
 .install ol { margin: 0; padding-left: 18px; font-size: 13.5px; color: var(--ink-2); display: grid; gap: 6px; }
 .try { display: grid; gap: 6px; }
@@ -464,9 +475,13 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
 .sublist { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
 .sub { display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; gap: 6px 16px; padding: 15px 4px; border-bottom: 1px solid var(--line-2); align-items: start; transition: background .15s var(--ease); }
 .sub:hover { background: var(--surface); }
-.sub .rank { font: 600 20px/1.2 var(--display); color: var(--ink-3); font-variant-numeric: tabular-nums; }
+.sub .rank { font: 600 15px/1.6 var(--display); color: var(--ink-3); font-variant-numeric: tabular-nums; }
 .sub-title { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
-.sub-title strong { font: 620 16px var(--display); overflow-wrap: anywhere; }
+.sub-name { appearance: none; border: 0; background: none; padding: 0; text-align: left; cursor: pointer; font: 620 16px var(--display); color: var(--ink); overflow-wrap: anywhere; text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 3px; transition: text-decoration-color .15s var(--ease), color .15s var(--ease); }
+@media (hover: hover) { .sub-name:hover { color: var(--accent); text-decoration-color: currentColor; } }
+.btn.ico { width: 30px; height: 30px; padding: 0; justify-content: center; }
+.link-only { font-size: 12.5px; color: var(--ink-3); }
+@media (pointer: coarse) { .sub-act .btn.small { min-height: 40px; } .btn.ico { width: 40px; height: 40px; } }
 .sub p { color: var(--ink-2); font-size: 14px; margin-top: 3px; max-width: 78ch; }
 .tagrow { display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: center; margin-top: 8px; font-size: 12.5px; color: var(--ink-3); }
 .tagrow .stars { font: 500 12px var(--mono); }
@@ -524,6 +539,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
 .brand { flex: 1 1 320px; min-width: 0; }
 .brand > span:last-child { min-width: 0; }
 .brand .status { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sg-public .brand .status { white-space: normal; }
 </style>
 
 <div class="app">
@@ -1847,27 +1863,28 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
     if (EX.sort === "stars") subs.sort((a, b) => N(b.stars) - N(a.stars));
     const tr = c.skills.filter((s) => s.trending).length;
     const inst = EX.install;
+    const plug = "claude plugin marketplace add Gipsonkj/skillgarden\nclaude plugin install skillgarden@skillgarden";
     const installBody = inst === "code"
-      ? `<div class="code">unzip ~/Downloads/${esc(c.id)}.zip -d ~/.claude/skills/<button class="cp" data-act="copy-text" data-text="unzip ~/Downloads/${esc(c.id)}.zip -d ~/.claude/skills/">Copy</button></div><ol><li>Download the super skill, then run the line above. For one project only, unzip into <code class="mono">.claude/skills/</code> in that project.</li><li>Start a new Claude Code session. Claude loads it when a task matches.</li></ol>`
+      ? `<p class="i-step">Every craft as one plugin, kept up to date:</p><div class="code">${esc(plug)}<button class="cp" data-act="copy-text" data-text="${esc(plug)}">Copy</button></div><p class="i-step">Or only this craft: download the super skill, then</p><div class="code">unzip ~/Downloads/${esc(c.id)}.zip -d ~/.claude/skills/<button class="cp" data-act="copy-text" data-text="unzip ~/Downloads/${esc(c.id)}.zip -d ~/.claude/skills/">Copy</button></div><p class="i-note">Start a new Claude Code session. Claude loads it when a task matches. For one project only, unzip into <code class="mono">.claude/skills/</code> in that project.</p>`
       : inst === "web"
       ? `<ol><li>Download the super skill (.zip).</li><li>In claude.ai open <b>Settings → Capabilities → Skills</b> and upload the zip.</li><li>Turn it on, then ask in any chat.</li></ol>`
       : `<div class="code">Use the ${esc(c.id)} skill: &lt;your task&gt;<button class="cp" data-act="copy-text" data-text="Use the ${esc(c.id)} skill: ">Copy</button></div><ol><li>Claude also picks it up without the name when the task matches its description.</li><li>To steer it, name a guide: “use ${esc(c.id)}, ${esc(refs[0] ? humanRef(refs[0]).toLowerCase() : "the main guide")}”.</li></ol>`;
     return `<nav class="crumbs" aria-label="Breadcrumb"><button data-act="ex-home">Explore</button><span aria-hidden="true">/</span><button data-act="ex-cat-home" data-id="${cat.id}">${esc(cat.name)}</button><span aria-hidden="true">/</span><span>${esc(c.name)}</span></nav>
     <header class="t-hero reveal" style="--h:${N(c.hue)}">
-      <div><span class="eyebrow">${esc(cat.name)}</span><h2>${esc(c.name)}</h2><p class="lede">${esc(c.blurb || "")}</p></div>
+      <div><h2>${esc(c.name)}</h2><p class="lede">${esc(c.blurb || "")}</p></div>
       <div class="t-stats"><div><b>${refs.length}</b><span>Guides</span></div><div><b>${c.skills.length}</b><span>Sub-skills</span></div>${tr ? `<div><b>${tr}</b><span>Trending</span></div>` : ""}</div>
     </header>
     ${t || c.superskill ? `<section class="super reveal">
       <div class="super-main">
         <div class="super-head"><span class="badge">Super skill</span>${t ? `<span class="muted" style="font-size:13px">Version ${N(t.version)}${t.updatedAt ? `, updated ${esc(ago(t.updatedAt))}` : ""}</span>` : ""}</div>
-        <h3>${esc(c.id)}</h3>
-        <p class="desc">${esc(desc)}</p>
+        <p class="super-lead">Claude matches your request to the right guides below, combines them when a task needs several, and hands parts to other crafts that do them better.</p>
         <div class="row-actions">
           <button class="btn primary" data-act="dl-super" data-id="${esc(c.id)}"${t ? "" : " disabled"}>Download super skill (.zip)</button>
           <button class="btn${inBundle("super", c.id) ? " added" : ""}" data-act="bundle-toggle" data-kind="super" data-topic="${esc(c.id)}"${t ? "" : " disabled"}>${inBundle("super", c.id) ? "In your bundle" : "Add to bundle"}</button>
           <button class="btn ghost" data-act="pv-router" data-id="${esc(c.id)}"${t ? "" : " disabled"}>Read the router</button>
         </div>
-        ${refs.length ? `<div><p class="eyebrow" style="margin-bottom:8px">What it can do. Open any guide to read it.</p><div class="caps">${refs.map((r) => `<button class="cap" data-act="pv-ref" data-id="${esc(c.id)}" data-path="${esc(r)}" title="${esc(refTitle(c, r))}"><i></i><span>${esc(refTitle(c, r).split(/[:(]| — | - /)[0].trim())}</span></button>`).join("")}</div></div>` : ""}
+        ${refs.length ? `<div class="guides"><h4>Guides inside <span class="count">${refs.length}</span></h4><ul class="glist">${refs.map((r) => `<li><button class="gitem" data-act="pv-ref" data-id="${esc(c.id)}" data-path="${esc(r)}"><span>${esc(refTitle(c, r))}</span><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button></li>`).join("")}</ul></div>` : ""}
+        ${desc ? `<details class="when"><summary>When Claude loads it</summary><p>${esc(desc)}</p></details>` : ""}
         ${t ? "" : `<p class="muted">Import the super skills into this app to download them: <code class="mono">node local/import-superskills.mjs</code></p>`}
       </div>
       <aside class="install">
@@ -1889,13 +1906,13 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
     const key = esc(s.name);
     return `<li class="sub">
       <span class="rank">${String(s.rank).padStart(2, "0")}</span>
-      <div><div class="sub-title"><strong>${esc(s.name)}</strong>${s.trending ? `<span class="pol-tag">Trending</span>` : ""}</div>
+      <div><div class="sub-title"><button class="sub-name" data-act="pv-sub" data-id="${esc(c.id)}" data-name="${key}">${esc(s.name)}</button>${s.trending ? `<span class="pol-tag">Trending</span>` : ""}</div>
         <p>${esc(s.purpose)}</p>
         <div class="tagrow">${specimen(s)}<span class="stars">★ ${fmtStars(s.stars)}</span>${/flag|privacy|security|sends|uploads/i.test(s.notes || "") ? `<span class="flag">Read the note before use</span>` : ""}</div></div>
       <div class="sub-act">
-        <button class="btn small ghost" data-act="pv-sub" data-id="${esc(c.id)}" data-name="${key}">Preview</button>
-        ${s.local ? `<button class="btn small${inBundle("sub", c.id, s.name) ? " added" : ""}" data-act="bundle-toggle" data-kind="sub" data-topic="${esc(c.id)}" data-name="${key}">${inBundle("sub", c.id, s.name) ? "In bundle" : "+ Bundle"}</button><button class="btn small" data-act="dl-sub" data-id="${esc(c.id)}" data-name="${key}" title="Download only this sub-skill" aria-label="Download only the ${key} sub-skill">↓ Sub-skill</button>` : `<span class="muted" style="font-size:12.5px" title="${esc(lockReason(s))}">Link only</span>`}
-        ${safeUrl(s.url) ? `<a class="btn small ghost" href="${esc(safeUrl(s.url))}" target="_blank" rel="noopener noreferrer" aria-label="Open ${key} source">Source ↗</a>` : ""}
+        <button class="btn small ghost" data-act="pv-sub" data-id="${esc(c.id)}" data-name="${key}" aria-label="Preview ${key}">Preview</button>
+        ${s.local ? `<button class="btn small${inBundle("sub", c.id, s.name) ? " added" : ""}" data-act="bundle-toggle" data-kind="sub" data-topic="${esc(c.id)}" data-name="${key}" aria-label="${inBundle("sub", c.id, s.name) ? "Remove" : "Add"} ${key} ${inBundle("sub", c.id, s.name) ? "from" : "to"} your bundle">${inBundle("sub", c.id, s.name) ? "In bundle" : "+ Bundle"}</button><button class="btn small ico ghost" data-act="dl-sub" data-id="${esc(c.id)}" data-name="${key}" title="Download only this sub-skill" aria-label="Download only the ${key} sub-skill"><svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true"><path d="M8 2.5v8M4.5 7.5 8 11l3.5-3.5M3 13.5h10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>` : `<span class="link-only" title="${esc(lockReason(s))}">Link only</span>`}
+        ${safeUrl(s.url) ? `<a class="btn small ico ghost" href="${esc(safeUrl(s.url))}" target="_blank" rel="noopener noreferrer" title="Open the source" aria-label="Open ${key} source"><svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true"><path d="M5.5 10.5l5-5M6.5 5.5h4v4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>` : ""}
       </div>
     </li>`;
   }

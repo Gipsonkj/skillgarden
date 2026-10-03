@@ -63,6 +63,8 @@ for (const id of fs.readdirSync(SUPER).sort()) {
   const meta = JSON.parse(fs.readFileSync(path.join(dir, "topic.json"), "utf8"));
   topics[id] = { name: meta.name, blurb: meta.blurb, hue: meta.hue, order: Number(meta.order) || 0, active: true,
     version: Number(localTopics[id]?.version) || 1, updatedAt: localTopics[id]?.updatedAt || null,
+    // Example requests for the craft page's "Try asking" (the prompts only, not the grading notes).
+    tests: (meta.tests || []).slice(0, 2).map(({ id, prompt }) => ({ id, prompt })),
     content: fs.readFileSync(path.join(dir, "SKILL.md"), "utf8"), files: textFiles(dir) };
 }
 fs.writeFileSync(path.join(OUT, "data", "topics.json"), JSON.stringify(topics));
