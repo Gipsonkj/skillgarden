@@ -38,7 +38,7 @@
     {
       "id": "t4",
       "prompt": "Do a scoping review of studies from the last five years on how accurately consumer sleep trackers measure total sleep time against polysomnography, chart the reported mean bias per device, and turn it into a 12-slide editable deck for our department seminar.",
-      "good": "States a short plan first: the review here (literature-search.md, database-apis.md, literature-review.md, citations.md), the chart through data-analysis (visualization.md: chart picked from the question, title states the finding, uncertainty shown where studies report it), the deck through docs-office (deck-writing.md, powerpoint-pptx.md: assertion titles that pass the ghost-deck test, every slide rendered and checked). Searches at least two databases and logs queries, dates and counts; follows PRISMA-ScR; no pooled estimate without a proper meta-analysis plan; every study resolved and checked, preprints labelled, nothing invented; checks the Done means of all three crafts."
+      "good": "States a short plan first: the review here (literature-search.md, database-apis.md, literature-review.md, citations.md), the chart through data-analysis (visualization.md: chart picked from the question, title states the finding, uncertainty shown where studies report it), the deck through presentations (deck-story.md, data-slides.md, powerpoint-pptx.md). Searches at least two databases and logs queries, dates and counts; follows PRISMA-ScR; no pooled estimate without a proper meta-analysis plan; every study resolved and checked, preprints labelled, nothing invented; checks the Done means of all three crafts."
     }
   ]
 }

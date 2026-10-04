@@ -1,0 +1,49 @@
+{
+  "name": "Teaching & course design",
+  "blurb": "Objectives, backward design, lesson plans, explanations, checks, quizzes, rubrics, retrieval, UDL, tutoring and LMS export.",
+  "hue": 75,
+  "collections": [],
+  "repos": [
+    "anthropics/k12-teacher-skills",
+    "YujxZJCN/teaching-skills",
+    "GarethManning/education-agent-skills",
+    "SenmuuuuW/universal-diagnostic-tutor-skill"
+  ],
+  "searches": [
+    "teaching agent skill lesson plan Claude new",
+    "AI tutor skill Socratic diagnostic mastery learning",
+    "assessment item writing rubric generator agent skill",
+    "retrieval practice spaced repetition flashcards Claude skill",
+    "course design LMS export Common Cartridge SCORM agent skill"
+  ],
+  "keywords": [
+    "teaching",
+    "instructional design",
+    "online course"
+  ],
+  "feeds": [
+    "https://www.learningscientists.org/blog?format=rss"
+  ],
+  "tests": [
+    {
+      "id": "t1",
+      "prompt": "I'm teaching adding fractions with unlike denominators to my 5th graders tomorrow, 50-minute period. Can you build the lesson?",
+      "good": "Asks at most 2 questions (or states defaults: CCSS, mixed-ability class) and offers a quick draft; quotes the standard once and adds the best-practice footer if no standards source; uses a problem-based arc with minutes summing to 50 and Discuss of at least 10 minutes; names a visual model (area model or number line); lists misconceptions as what students do / why / teacher move, such as adding numerators and denominators; gives 3+ look-fors per work phase and a talk move; covers every structural case in required problems; the exit ticket is the hardest case and fails the main misconception, with Got it / Almost there / Needs re-teaching criteria; works every answer."
+    },
+    {
+      "id": "t2",
+      "prompt": "Write a 20-question multiple-choice midterm for my intro statistics course covering sampling, distributions and hypothesis tests, plus an answer key.",
+      "good": "Builds a content x Bloom blueprint with points and a time budget (about 1-1.5 min per MC item, at or under 90% of the slot) and asks for confirmation before writing items; tags every item with an ILO and level; follows the item rules: complete stems, parallel options, distractors from real misconceptions such as 'the p-value is the probability the null is true', computed wrong numeric paths, no all/none of the above; includes scenario or data-interpretation items for higher levels; works the key independently with [VERIFY] flags; keeps the key separate; states the extra-time version and the AI-use rule."
+    },
+    {
+      "id": "t3",
+      "prompt": "Help me get through my linear algebra homework, problem 4 asks me to show that the eigenvectors for distinct eigenvalues are linearly independent. Just give me the proof please.",
+      "good": "States kindly that it won't write the proof to be handed in, then teaches: diagnoses what the learner knows (definitions of eigenvector and linear independence), explains the idea on a parallel case (two eigenvectors) or asks guiding questions, climbs the hint ladder one rung at a time, asks one check and waits, reads the learner's attempt as evidence, locates the earliest gap and names its type, and does not declare mastery from one correct step. Uses LaTeX for maths and ends with a next step or a near-match practice item."
+    },
+    {
+      "id": "t4",
+      "prompt": "Turn our internal API onboarding docs (40 pages of Markdown) into a self-paced course for new backend engineers with short lesson videos, a quiz per module, and a SCORM package for our corporate LMS.",
+      "good": "States a short plan first: course design here (materials-to-course.md: read everything, ledger, facts vs additions; objectives-and-backward-design.md; course-structure.md; checks-for-understanding.md and assessments-and-feedback.md for module quizzes with feedback; course-production-and-platforms.md for SCORM 1.2 with the manifest at the root and the no-tracking limit stated), video scripts produced through ai-video (plan-and-route.md, explainers-and-promos.md) with captions via audio-generation (transcription.md). Writes ILOs before modules, follows real request flows, cites doc sections, strips secrets, verifies the package with unzip -l, and checks the Done means of all three crafts."
+    }
+  ]
+}

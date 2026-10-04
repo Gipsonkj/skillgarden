@@ -69,7 +69,7 @@ Always inspect `gws schema` before calling a method you haven't used; build `--p
 - Requests: `createSlide` (with `slideLayoutReference.predefinedLayout` such as `TITLE_AND_BODY`), `insertText` into a shape's `objectId`, `replaceAllText` for template tokens, `createImage` (public URL), `createShape`, `updateTextStyle`, `duplicateObject`, `deleteObject`.
 - Sizes and positions are in EMU (1 inch = 914400; default slide 9144000 x 5143500 for 16:9).
 - Template workflow as with Docs: copy the deck, then `replaceAllText` and `replaceAllShapesWithImage`.
-- Or build a .pptx locally (powerpoint-pptx.md) and upload it with conversion to Slides.
+- Or build a .pptx locally (presentations craft, powerpoint-pptx.md) and upload it with conversion to Slides.
 
 ## Drive essentials
 

@@ -12,12 +12,12 @@ Open http://localhost:4747 and keep that window open. To have it start by
 itself when you log in, run `bash install-login-item.sh` once from the same
 folder (`--remove` undoes it).
 
-The 30 super skills are already loaded. If you change a super skill folder by
+The 38 super skills are already loaded. If you change a super skill folder by
 hand, load it again with `node import-superskills.mjs` while the app runs.
 
 ## 2. Find what you need
 
-- **Explore** is the catalog: 30 crafts, each with one super skill and its
+- **Explore** is the catalog: 38 crafts, each with one super skill and its
   ranked sub-skills (best first, with stars, license and author).
 - **⌘K** (or `/`) searches every craft and all 757 skills, and runs actions
   like "Download all super skills".
@@ -41,10 +41,10 @@ session afterwards.
 **claude.ai**: Settings → Capabilities → Skills → upload the zip, then turn it
 on.
 
-To install all 30 at once, download "all super skills" and unzip that file
+To install all 38 at once, download "all super skills" and unzip that file
 into `~/.claude/skills/` the same way.
 
-## 3b. Or install all 30 as a plugin (recommended for Claude Code)
+## 3b. Or install all 38 as a plugin (recommended for Claude Code)
 
 In a terminal:
 
@@ -53,7 +53,7 @@ claude plugin marketplace add Gipsonkj/skillgarden
 claude plugin install skillgarden@skillgarden
 ```
 
-All 30 super skills then load in every session as `skillgarden:<craft>`, plus the
+All 38 super skills then load in every session as `skillgarden:<craft>`, plus the
 planner `skillgarden:garden` for requests that need several crafts at once. To pick up new
 versions, run `claude plugin marketplace update skillgarden` (or turn on auto-update under
 Marketplaces in `/plugin`). If you also unzipped super skills into `~/.claude/skills/`,
@@ -142,7 +142,7 @@ includes the super skills it uses.
 - The Mac must be awake with Skill Garden running on scout day. If it wasn't,
   the scout catches up the next time the app runs and a week has passed.
 - **Run scout now** starts a run straight away. It uses your Claude plan, so
-  a full run over 30 crafts takes a while.
+  a full run over 38 crafts takes a while.
 - Pause it from the Scout log tab.
 
 ## 5b. Instagram reader (optional, off)

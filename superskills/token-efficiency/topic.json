@@ -1,0 +1,49 @@
+{
+  "name": "Token efficiency",
+  "blurb": "Fewer tokens, same quality: session hygiene, lean context, caching that hits, model and effort choice, batch, plan limits and cost.",
+  "hue": 55,
+  "collections": [],
+  "repos": [
+    "sernote/audit-prompt-caching",
+    "kelviq/tare",
+    "JuliusBrussee/caveman",
+    "affaan-m/ECC"
+  ],
+  "searches": [
+    "Claude Code token usage reduce context skill new",
+    "prompt caching cache hit rate cost reduction LLM API technique",
+    "LLM cost optimization model routing cascade effort 2026",
+    "Claude Code usage limit 5-hour weekly ccusage analysis",
+    "MCP tool definitions context overhead deferred tools tool search"
+  ],
+  "keywords": [
+    "prompt caching",
+    "token usage",
+    "LLM cost"
+  ],
+  "feeds": [
+    "https://github.com/anthropics/claude-code/releases.atom"
+  ],
+  "tests": [
+    {
+      "id": "t1",
+      "prompt": "I keep hitting my Claude Code 5-hour limit by early afternoon, even on days I feel I barely used it. Find out what's eating my usage and tell me what to change.",
+      "good": "Asks or confirms which limit (5-hour, not 'daily') and roughly when; runs ccaudit.py --dump-sample and checks the duplicate-collapse count before trusting totals; runs --doctor --csv, then forensics.py for a step change in the daily table and the window load at the hit time (rolling window, earlier work still counts); reads session shape (many short parallel sessions means a script, claude -p loop or CI job paying cache writes); ranks tools by amplified tokens; says MODEL_RATES weights are a proxy; leads with the finding, gives concrete fixes (/clear between tasks, lean MCP set, cheaper subagents), stays read-only and uploads nothing, and doesn't call it a bug without evidence."
+    },
+    {
+      "id": "t2",
+      "prompt": "Our Node.js support chatbot on the Claude API sends a 6,000-token system prompt plus a product FAQ on every request, and the bill doubled last month. Cut it without making answers worse.",
+      "good": "Adds per-request usage logging if missing; works the regression playbook (calls vs cost per call, model mix, prompt size, cache hit rate); finds volatile content such as a date in the system prompt and moves it after the prefix; puts a cache_control breakpoint at the end of the static prefix and proves hits with cache_read_input_tokens on a second identical request; picks TTL from request gaps; runs estimate_cache_roi.py with current prices passed in; sets max_tokens per endpoint from p95; suggests routing simple FAQ intents to a smaller tier with a check, and a strict (~0.95) per-task, tenant-scoped semantic cache; measures cost per resolved conversation and dates every price."
+    },
+    {
+      "id": "t3",
+      "prompt": "Turn on caveman mode for the rest of this session. Also my CLAUDE.md is 400 lines and loads every session; shrink it without losing anything important.",
+      "good": "Switches to terse output without announcing it: answer first, no preamble or recap, negations, numbers, code and paths verbatim, full sentences for security warnings, irreversible steps and persisted text, and notes the output saving is modest. For CLAUDE.md: measures with /context first; removes duplicates with user-level rules and moves long procedures behind read-when pointers; backs up the original outside auto-loaded folders; compresses prose only, keeping code, URLs, paths, commands and headings exact and every not/never/unless; runs scripts/caveman-compress/validate.py and reads the diff for lost meaning; reports before and after tokens."
+    },
+    {
+      "id": "t4",
+      "prompt": "We run a nightly Python job on the Claude API that triages about 2,000 GitHub issues with a tool loop, and it has become our biggest AI cost. Make it cheaper, show us a dashboard of cost per triaged issue, and prove the triage quality didn't drop.",
+      "good": "States a short plan: measure and cut cost here (measuring-usage.md for per-request logging and cost per completed task, claude-api-levers.md for caching the static prefix, Batches for the unattended run, effort sweep before any model change, model-and-effort.md for a cheap-first cascade), quality proof through ai-agents (evaluation.md: a frozen set of real issues with a rubric, run per config), and the dashboard through data-analysis (dashboards-kpis.md, sql.md: cost per issue, model mix, cache hit rate, trend). Applies one lever per change, keeps or reverts on the eval, dates every price, and checks the Done means of all three crafts."
+    }
+  ]
+}

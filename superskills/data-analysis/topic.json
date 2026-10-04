@@ -37,7 +37,7 @@
     {
       "id": "t4",
       "prompt": "Here's 18 months of our subscription data (customer_id, plan, start_date, cancel_date, mrr). Work out monthly logo and revenue churn by signup cohort, show what current churn means for our 14-month runway, and put it in a six-slide PowerPoint for Thursday's board meeting.",
-      "good": "States a short plan first: the analysis here (data-profiling.md, sql.md, statistics.md, visualization.md), the runway through trading-finance (startup-corporate-finance.md: burn and runway rebuilt from the churn figures, assumptions labelled), the deck through docs-office (deck-writing.md, powerpoint-pptx.md: one finding per slide title). Defines logo and revenue churn with numerator, denominator and window; checks the customer_id grain and duplicate subscriptions; labels the partial current month; cohort chart with insight titles, colourblind-safe and not colour-only; keeps the queries reproducible; checks the Done means of all three crafts."
+      "good": "States a short plan first: the analysis here (data-profiling.md, sql.md, statistics.md, visualization.md), the runway through trading-finance (startup-corporate-finance.md: burn and runway rebuilt from the churn figures, assumptions labelled), the deck through presentations (deck-story.md, data-slides.md, powerpoint-pptx.md). Defines logo and revenue churn with numerator, denominator and window; checks the customer_id grain and duplicate subscriptions; labels the partial current month; cohort chart with insight titles, colourblind-safe and not colour-only; keeps the queries reproducible; checks the Done means of all three crafts."
     }
   ]
 }

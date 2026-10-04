@@ -62,6 +62,8 @@ Work out what the request needs before opening a guide; most real requests need 
 | Reporting queries, KPIs or a warehouse fed from the app database | `data-analysis` → `references/sql.md`, `references/dashboards-kpis.md`, `references/warehouses.md` |
 | Next.js Server Actions, route handlers and caching that call this backend | `website-building` → `references/nextjs-react.md` |
 | An MCP server or agent tools on top of the API | `ai-agents` → `references/mcp-servers.md`, `references/tool-design.md` |
+| A store's catalog, cart and checkout on Shopify, WooCommerce or Medusa | `ecommerce` → `references/platform-choice.md`, `references/checkout-and-payments.md`, `references/shopify-apps-and-apis.md` |
+| Transactional email (receipts, password resets) that reaches the inbox | `email-marketing` → `references/transactional-email.md`, `references/deliverability.md`, `references/sending-apis.md` |
 
 ## Go deeper (original skills)
 

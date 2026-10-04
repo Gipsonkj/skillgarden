@@ -68,7 +68,8 @@ Scripts are Python 3 (logo-design scripts are dependency-free; web-asset-generat
 | Charts in an infographic or data poster that must be right about the numbers | `data-analysis` → `references/visualization.md` |
 | An animated logo or poster: SVG draw-on, Lottie or GIF | `motion-animation` → `references/lottie-svg-gif.md`, `references/motion-principles.md` |
 | Brand colours and type turned into Figma variables or a component library | `figma-design` → `references/design-tokens.md`, `references/building-in-figma.md` |
-| A branded deck, report or one-pager as PPTX, DOCX or PDF | `docs-office` → `references/powerpoint-pptx.md`, `references/document-design.md` |
+| A branded report or one-pager as DOCX or PDF | `docs-office` → `references/document-design.md`, `references/pdf.md` |
+| A branded slide deck or pitch deck | `presentations` → `references/slide-design.md`, `references/powerpoint-pptx.md` |
 
 ## Go deeper (original skills)
 

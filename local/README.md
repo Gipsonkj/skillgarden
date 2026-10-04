@@ -27,7 +27,7 @@ time. If the Mac was asleep or the app was closed then, it catches up the next
 time the app is running once a week has passed. Close the window to stop Skill
 Garden.
 
-## Load the 30 super skills
+## Load the 38 super skills
 
 With Skill Garden running, in a second Terminal window from this folder:
 

@@ -1,0 +1,50 @@
+{
+  "name": "E-commerce",
+  "blurb": "Shopify and WooCommerce builds, store checkout and tax, catalogs and feeds, pricing, inventory, sales analytics and agent checkout.",
+  "hue": 120,
+  "collections": [],
+  "repos": [
+    "stripe/ai",
+    "Shopify/liquid-skills",
+    "jeffallan/claude-skills",
+    "anthropics/knowledge-work-plugins"
+  ],
+  "searches": [
+    "Shopify agent skill Liquid Admin GraphQL Functions new",
+    "WooCommerce Claude skill Store API store analytics",
+    "agentic commerce UCP ACP checkout agent skill",
+    "Google Merchant API product feed agent skill migration",
+    "ecommerce inventory reorder pricing analytics Claude skill"
+  ],
+  "keywords": [
+    "Shopify",
+    "WooCommerce",
+    "ecommerce"
+  ],
+  "feeds": [
+    "https://shopify.dev/changelog/feed.xml",
+    "https://blog.google/products/shopping/rss/"
+  ],
+  "tests": [
+    {
+      "id": "t1",
+      "prompt": "Our Shopify store has about 4,000 products. Before Black Friday, find the products with broken pages: missing photos, no description, $0 prices, fake sale prices. Don't change anything yet.",
+      "good": "Uses a read-only token with read_products only. Builds a cheap index by paginating products with lean fields (mediaCount, descriptionHtml, variant price and compareAtPrice, productType, vendor, status, publishedAt), pacing on throttleStatus and noting that variants(first: 100) truncates. Computes flags in code (0 or 1 image, description under about 20 characters, $0 variant, compare-at at or below price, missing type or vendor). Ranks clusters with a stated reason each, weighting active published products over drafts; deep-reads only that slice; verifies each finding on the Admin API, not the sitemap; states what was not checked. Proposes fixes through export, diff and confirmation, and writes nothing."
+    },
+    {
+      "id": "t2",
+      "prompt": "We sell coffee filters and espresso machine parts. Here's a CSV of the last 120 days of sales by SKU and our stock count from last Monday. What should I reorder this week from each vendor?",
+      "good": "Maps the CSV columns back to the user; nets out sales since last Monday's count; asks once for lead times, pack sizes, minimums and units already on order. Computes 7- and 28-day velocity per variant excluding out-of-stock days and inspects any gap over 50%. Times stockouts on the higher rate, sizes on the 28-day rate with (60 + lead time) x v28 minus on hand and inbound, buffer min(30, max(7, lead/2)), pack rounding with a 90-day ceiling, MOQ checked per vendor order. Lists slow movers with cash tied up, skips seasonality (under 400 days) and asks instead, costs every line with vendor totals, and drafts no PO or email without approval."
+    },
+    {
+      "id": "t3",
+      "prompt": "Add Stripe checkout to our custom Next.js store (products live in our own Postgres database). We ship physical goods to the US and EU and want a subscribe-and-save option on coffee beans.",
+      "good": "Uses Checkout Sessions with line items priced from the server-side catalog, no payment_method_types, shipping address collection and shipping options, promotion codes, and a stock re-check. Fulfils from checkout.session.completed and async_payment_succeeded gated on payment_status, and handles async failure, refunds and disputes. Subscriptions use mode subscription, one Product per plan, the Customer Portal and subscription and invoice event handlers. Stripe Tax: head office set, registrations the user confirms, automatic_tax enabled, a test calculation checked for not_collecting, tax codes from Stripe's list confirmed by the user, EU B2B tax id collection. Restricted keys; sandbox tests with a decline, 3-D Secure and a delayed payment."
+    },
+    {
+      "id": "t4",
+      "prompt": "We're launching a skincare brand on Shopify next month. Import our 60 products from this spreadsheet, get them into Google Shopping with a campaign, and write product descriptions that don't sound generic. We also need clean white-background product photos from our phone shots.",
+      "good": "States a plan first: ecommerce catalog-and-feeds.md for the import (CSV template, one row per variant, Published FALSE, GTINs, export-diff-confirm) and the Google & YouTube channel feed (item_group_id, matching prices, disapprovals); content-creation conversion-copy.md for descriptions without health claims that trip Merchant Center policy; image-creation editing-references-consistency.md for white backgrounds that keep the real product unchanged; google-ads campaign-build.md for the Shopping campaign once the feed is approved. Publishes products only after the user confirms and checks the Done means of all four crafts."
+    }
+  ]
+}

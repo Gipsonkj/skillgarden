@@ -78,7 +78,8 @@ Missing Python packages: tell the user which to install; do not install them sil
 | When the request also needs | Use |
 |---|---|
 | Editing an existing .xlsx without breaking it, or fixing #REF! and #NAME? errors (beyond `references/excel-modeling-standards.md`) | `docs-office` → `references/excel-xlsx.md` |
-| The research note or valuation as a designed PDF, Word report or slide deck | `docs-office` → `references/document-design.md`, `references/pdf.md`, `references/deck-writing.md` |
+| The research note or valuation as a designed PDF or Word report | `docs-office` → `references/document-design.md`, `references/pdf.md` |
+| A pitch deck, investor update or valuation presented as slides | `presentations` → `references/deck-types.md`, `references/data-slides.md` |
 | Wrangling and charting price or fundamentals data; regression and time-series tests | `data-analysis` → `references/dataframes.md`, `references/statistics.md`, `references/visualization.md` |
 | Academic evidence for a factor or anomaly: finding papers and checking citations | `research-science` → `references/literature-search.md`, `references/citations.md` |
 | Unit and property tests for pricing, risk-metric or backtest code | `testing-qa` → `references/tdd-and-unit-tests.md`, `references/property-and-mutation.md` |

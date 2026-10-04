@@ -1,0 +1,49 @@
+{
+  "name": "Email marketing",
+  "blurb": "Lists and consent, lifecycle flows, campaigns and A/B tests, deliverability, React Email and MJML, sending APIs, ESPs and email law.",
+  "hue": 350,
+  "collections": [],
+  "repos": [
+    "coreyhaines31/marketingskills",
+    "resend/resend-skills",
+    "ActiveCampaign/postmark-skills",
+    "framix-team/skill-email-html-mjml"
+  ],
+  "searches": [
+    "Gmail Yahoo Microsoft bulk sender requirements update email",
+    "email deliverability DMARC agent skill new",
+    "React Email MJML template agent skill",
+    "lifecycle email automation Klaviyo MCP skill",
+    "CAN-SPAM GDPR CASL email compliance change"
+  ],
+  "keywords": [
+    "email marketing",
+    "email deliverability",
+    "DMARC"
+  ],
+  "feeds": [
+    "https://resend.com/changelog/rss.xml"
+  ],
+  "tests": [
+    {
+      "id": "t1",
+      "prompt": "Our marketing emails started landing in spam at Gmail last week. We send about 20,000 a week from news@ourbrand.com through Mailchimp. What do we do?",
+      "good": "Treats it as an acute problem and works the diagnosis order: new or changed sending, then SPF (one record, under 10 lookups), DKIM aligned, DMARC present, checked on a received message's headers; one-click unsubscribe headers; Google Postmaster spam rate and reputation; blocklists; recent imports or old segments added; content last. Pauses broad sends if complaints are at or above 0.1% and mails only 30-day clickers, suppresses bounces and complainers, plans a DMARC ramp and separate marketing subdomain, and sets a 2-4 week monitoring plan. Does not judge on opens."
+    },
+    {
+      "id": "t2",
+      "prompt": "Write an abandoned cart flow for our Shopify store in Klaviyo. We sell skincare, average order is $45.",
+      "good": "Designs the flow before copy: trigger Started Checkout, exit on Placed Order checked before every email, exclusion of orders in the last 4 hours, re-entry once per 7 days, Smart Sending off. Email 1 at 1-4 hours plain reminder with cart items and no discount; email 2 at 24 hours objections (reviews, shipping, returns); email 3 at 48-72 hours small incentive for first-time buyers only, split on that condition. Gives a text diagram, subject options with preview text, one CTA each, merge-tag fallbacks, no invented reviews, and RPR as the KPI."
+    },
+    {
+      "id": "t3",
+      "prompt": "Set up password reset and order confirmation emails for our Node app using Resend and React Email.",
+      "good": "Builds both as React Email templates (Tailwind with pixelBasedPreset, Preview first in Body, box-border on Button, alt text, plain text via render). Reset email: expiry, single-use link, ignore-if-not-you line. Order email: ID, line items, totals, addresses, status link. Sends from a verified transactional subdomain with a monitored reply-to, checks the SDK's returned error instead of try/catch, uses idempotency keys like order-confirm/<id>, retries only 5xx and 429, verifies Svix webhook signatures on the raw body, suppresses bounces, tests with delivered@resend.dev and bounced@resend.dev, and keeps promotions out."
+    },
+    {
+      "id": "t4",
+      "prompt": "We sell handmade candles on Shopify. I want a scent quiz as a lead magnet, the landing page for it, and a welcome email flow that follows up based on the quiz result, all in our brand voice.",
+      "good": "States a plan first: quiz magnet, consent and segments from strategy-and-list-growth.md (unchecked opt-in, double opt-in, quiz result tagged), the branching welcome flow from sequences-and-lifecycle.md, templates from templates-and-html.md, warm-up and unsubscribe checks from deliverability.md; the landing page through website-building (plan-and-copy.md: one promise, proof, short form); the voice through content-creation (brand-voice.md) applied to every email. Branches on quiz result, exits on first order, invents no reviews, and checks the Done means of all three crafts, saying what wasn't verified."
+    }
+  ]
+}

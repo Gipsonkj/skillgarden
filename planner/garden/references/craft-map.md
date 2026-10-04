@@ -208,6 +208,37 @@ Skills, CLAUDE.md, hooks, subagents, plans and context: set Claude up to do long
 - Writing a harvested skill → `templates/self-learning/SKILL.template.md`
 - Dispatching an implementer subagent → `templates/subagent-driven-development/implementer-prompt.md`
 
+## token-efficiency: Token efficiency
+
+Fewer tokens, same quality: session hygiene, lean context, caching that hits, model and effort choice, batch, plan limits and cost.
+
+- Claude Code or agent session burns tokens: /clear vs /compact, phase boundaries, reading less, subagents with compact returns, stale tool output → `references/session-hygiene.md`
+- Which model and effort for which task; orchestrator plus cheap workers; cascades and routers; effort sweeps → `references/model-and-effort.md`
+- Context full before you start: MCP tool schemas, deferred tools, skill and agent descriptions, CLAUDE.md and memory size; compress a memory file safely → `references/fixed-overhead.md`, `scripts/caveman-compress/validate.py`
+- Terse or caveman mode: rules, when not to use it, subagent return formats, output length in API apps → `references/terse-output.md`
+- Prompt caching for any provider: is it worth it, prefix order, silent cache killers, verifying hits, write premium, CI guard → `references/prompt-caching.md`, `scripts/audit-prompt-caching/`
+- Claude API specifics: `cache_control`, TTLs, keep-alive, cache breakers, `count_tokens`, tool search, compaction, Batches, effort → `references/claude-api-levers.md`
+- API app patterns: batch, routing code, budgets and degradation, narrow retries, exact and semantic response caching → `references/api-cost-patterns.md`
+- Measure usage and cost: Claude Code logs, where tokens went, API request logging, cost per completed task, bill regressions → `references/measuring-usage.md`, `scripts/tare/`
+- 5-hour and weekly plan limits: check before big runs, bounded waves, pause and resume, diagnose a hit limit → `references/usage-limits.md`
+- Retrieval vs long context (CAG vs RAG), narrow retrieval, window budgets, masking and compaction, prompt compression → `references/retrieval-and-compression.md`
+
+## open-models: Open models
+
+Open-weight LLMs: model and licence choice, VRAM maths, Ollama and llama.cpp, vLLM, RunPod and Modal, GGUF, LoRA fine-tunes and evals.
+
+- Open vs paid API, break-even, which model for a job, finding candidates, licence classes and commercial checklist → `references/choosing-models-and-licences.md`, `scripts/huggingface-llm-trainer/hf_benchmarks.py`
+- Will it fit: weights, KV cache, context, MoE, which GPU or Mac, partial offload, training memory → `references/vram-and-sizing.md`
+- GGUF quant levels, converting and quantizing with llama.cpp, imatrix, AWQ and GPTQ, quality checks → `references/quantization.md`
+- Run on a laptop or desktop: Ollama, llama.cpp, LM Studio, MLX, llama-cpp-python → `references/local-inference.md`
+- Serve to many users: vLLM, SGLang, llama-server, HF Inference Endpoints, safe exposure → `references/serving-endpoints.md`, `scripts/vllm-deploy-simple/quickstart.sh`
+- Rent GPUs: RunPod pods and serverless, Modal, HF Jobs, cost maths, teardown; ComfyUI or diffusers server setup → `references/gpu-hosting-runpod-modal.md`
+- Hugging Face Hub: hf CLI, auth, download, cache, upload, datasets, transformers, Spaces → `references/hugging-face-hub.md`, `scripts/huggingface-llm-trainer/dataset_inspector.py`
+- Should we fine-tune, SFT vs DPO vs GRPO, data prep, LoRA and QLoRA settings, TRL code → `references/fine-tuning.md`, `scripts/huggingface-llm-trainer/dataset_inspector.py`
+- Where to train (Unsloth, Mac, LlamaFactory, HF Jobs, RunPod, Modal) and exporting adapters, merged weights or GGUF → `references/fine-tuning-runners.md`
+- Benchmarks, your own task eval, fair comparisons, quant and fine-tune checks, tokens per second → `references/evaluation.md`, `scripts/huggingface-community-evals/`
+- Point an agent, app or coding tool at a local model: base URL, tool calling, JSON output, embeddings, hybrid routing → `references/agents-and-tools.md`
+
 # Create
 
 ## poster-design: Poster & graphic design
@@ -328,6 +359,22 @@ Copy that converts, articles and newsletters that get read, brand voice, repurpo
 - Newsletter issues, Substack posts and Notes, subject lines, welcome sequences, newsletter growth and monetization → `references/newsletters.md`
 - Repurpose one piece into threads, LinkedIn posts, carousels, clips scripts, emails → `references/repurposing.md`
 
+## 3d-modeling: 3D modeling
+
+Blender scripts, Three.js and R3F scenes, GLB optimisation, image-to-3D, CAD and 3D printing, OpenUSD, splats and game-ready assets.
+
+- Blender: bpy scripts, headless runs, Blender MCP (telemetry off), 4.x/5.x API traps, modelling stages, materials, lighting, Cycles/EEVEE renders, turntables, mesh audit and review sheets → `references/blender.md`, `scripts/scenario-blender-expert/`
+- Three.js scene: renderer, colour space, tone mapping, cameras and controls, GLTF/Draco/KTX2/Meshopt loaders, PBR and physical materials, HDR environment, lights and shadows, raycasting, disposal → `references/threejs-scenes.md`
+- React Three Fiber: Canvas, hooks, render loop, `frameloop="demand"`, useGLTF and gltfjsx, drei helpers, disposal, WebGPU → `references/react-three-fiber.md`
+- Slow, janky or memory-hungry web 3D; draw calls, instancing, LOD, DPR, mobile, lazy loading and CWV; "looks basic" polish pass and scorecard → `references/web-3d-performance.md`
+- Export from Blender to GLB, inspect and optimise with glTF Transform, Draco vs Meshopt, KTX2 vs WebP, size targets, round-trip validation → `references/gltf-pipeline.md`, `scripts/blender-image-to-3d/roundtrip.py`
+- Image or text to 3D: choosing hosted, Blender or procedural route, spend rules, preparing inputs, checking and finishing a generated mesh, gated reference builds, image to Three.js code → `references/generative-3d.md`
+- Meshy CLI and Tripo API: login, estimates, routes, remesh, retexture, auto-rig and retarget rules, importing results → `references/meshy-tripo.md`
+- CAD part or assembly from a description, drawing or photo: build123d/cadgen, OpenSCAD with previews and Customizer parameters, STEP/STL/3MF/GLB export, measuring and repair → `references/cad-parametric.md`, `scripts/openscad/`, `templates/openscad/parametric_box.scad`
+- Printability (overhangs, walls, holes, clearances, orientation), file choice, slicing with the OrcaSlicer CLI, checking G-code, hand-off → `references/3d-printing.md`, `scripts/gcode/orca_presets.py`
+- OpenUSD layers, references, payloads, variants, USDZ for AR, slow USD scenes, Gaussian splats and splat-to-USD conversion → `references/openusd-and-splats.md`
+- Game-ready asset: brief, polycount and texture budgets, topology, UVs, LODs, bakes, naming, colliders, sockets, rigs and clip lists, validation, Unity/Unreal/Godot import → `references/game-assets.md`, `scripts/blender-image-to-3d/validate.py`
+
 # Grow
 
 ## social-media: Social media
@@ -421,6 +468,36 @@ Get pages crawled, indexed and chosen — by Google, Bing and AI answer engines.
 - Specific tools: Search Console, PSI and CrUX APIs, Screaming Frog, squirrelscan, Firecrawl, DataForSEO, OpenSEO, claude-seo, the `seo` CLI, Apify → `references/tools-vendors.md`
 - Tracking a directory submission campaign → `templates/directory-submissions/submission-tracker-template.csv`
 
+## email-marketing: Email marketing
+
+Lists and consent, lifecycle flows, campaigns and A/B tests, deliverability, React Email and MJML, sending APIs, ESPs and email law.
+
+- Email strategy, what to build first, lists, tags and segments, engagement tiers, signup forms, double opt-in, consent records, lead magnets, imports and ESP migrations, preference centre, frequency → `references/strategy-and-list-growth.md`
+- Welcome, onboarding, nurture, abandoned cart, browse, post-purchase, VIP, win-back, sunset, dunning, trial and launch flows; timing, exits, exclusions, flow diagrams → `references/sequences-and-lifecycle.md`
+- Broadcasts and newsletters as campaigns, campaign brief, subject lines, preview text, spam patterns, A/B tests and sample sizes, calendar, BFCM, the pre-send check → `references/campaigns-subject-lines-testing.md`
+- SPF, DKIM, DMARC, BIMI, Gmail and Yahoo bulk-sender rules, one-click unsubscribe headers, subdomains, warm-up, bounce and complaint thresholds, list hygiene, "going to spam" diagnosis → `references/deliverability.md`
+- Email templates in React Email or MJML, HTML email rules, Gmail clipping, images, accessibility, dark mode, merge tags, rendering tests → `references/templates-and-html.md`, `templates/email-html-mjml/`
+- Transactional vs marketing, which emails an app needs, content rules per email, idempotency, retries, queues, webhooks, suppression, safe testing → `references/transactional-email.md`
+- Resend, Postmark, Amazon SES, SendGrid or Cloudflare Email Service: setup, calls, limits, broadcasts, templates, webhooks, sandbox and production access → `references/sending-apis.md`
+- Choosing or migrating an ESP, working safely in Klaviyo, Loops and others, Klaviyo audits, metrics and benchmarks, attribution, holdouts, reporting → `references/esp-platforms-and-analytics.md`
+- CAN-SPAM, GDPR, UK PECR, CASL and other laws, consent rules, required footer, transactional exemption, cold email writing, follow-ups and limits → `references/compliance-and-cold-email.md`
+
+## ecommerce: E-commerce
+
+Shopify and WooCommerce builds, store checkout and tax, catalogs and feeds, pricing, inventory, sales analytics and agent checkout.
+
+- Which platform (Shopify, WooCommerce, BigCommerce, Medusa, Saleor, VTEX, headless), theme vs app vs headless, migrations → `references/platform-choice.md`
+- Shopify theme work: sections, blocks, snippets, schema, LiquidDoc, translations, variant pickers, filters, theme performance, Shopify CLI, theme check → `references/shopify-themes.md`
+- Shopify Admin GraphQL (products, variants, inventory, metafields, bulk operations), query cost, webhooks, Storefront API carts, Hydrogen, Functions, checkout extensions, Shopify's AI Toolkit (and its telemetry opt-out) → `references/shopify-apps-and-apis.md`
+- WooCommerce Store API (cart, nonce, Cart-Token, variations), extending it, running Woo safely, headless BFF rules, Medusa and Saleor → `references/woocommerce-and-headless.md`
+- Store checkout: Stripe Checkout Sessions from a cart, shipping, promo codes, subscribe and save, Stripe Tax registrations, marketplaces with Connect, checkout UX, PCI → `references/checkout-and-payments.md`
+- Product data model, CSV imports, bulk edits, catalog audits, Google Merchant Center feeds and disapprovals, Merchant API → `references/catalog-and-feeds.md`, `templates/shopify-products/product-csv-template.csv`, `scripts/mapi-developer-assistant/`
+- Product pages, collections, search, cart, free-shipping threshold, store funnel and CRO, trust and dark-pattern rules → `references/product-pages-and-cro.md`
+- Unit economics, price floors, discount health, promo calendar, stacking, dynamic repricing with guardrails → `references/pricing-and-promotions.md`
+- What to reorder and when, velocity, stockout dates, reorder sizing, slow movers, seasonality, POs, orders, fulfilment and returns → `references/inventory-and-fulfilment.md`
+- Why revenue dropped, AOV, repeat rate, LTV, cohorts, RFM, store health checks, business review write-ups → `references/store-analytics.md`
+- AI agents shopping (UCP CLI: search, cart, checkout, escalation), ACP merchant checkout endpoints, making a store agent-ready → `references/agentic-commerce.md`
+
 # Analyse & decide
 
 ## data-analysis: Data Analysis
@@ -456,14 +533,11 @@ Find papers, run literature reviews, verify citations, form hypotheses, write an
 
 ## docs-office: Docs & Office files
 
-Word, PDF, Excel and PowerPoint: create, edit, fill, convert and check files, plus HTML decks and Google/Lark docs.
+Word, PDF and Excel: create, edit, fill, convert and check files, plus Google and Lark docs.
 
 - Word .docx: create from spec, fill a template, find/replace, tables, styles, TOC, page numbers, tracked changes, comments, OpenXML repair → `references/word-docx.md`, `scripts/hermes-docx/`
 - PDF: designed report/proposal/resume with cover, ReportLab, fill form fields, merge/split/rotate/encrypt, extract, visual check → `references/pdf.md`, `scripts/minimax-pdf/`
 - Excel .xlsx/.csv: financial model, formulas, formatting, add rows/columns to an existing file, fix formula errors, analyse data → `references/excel-xlsx.md`, `scripts/minimax-xlsx/`, `templates/minimax-xlsx/minimal_xlsx/`
-- PowerPoint .pptx: new deck with PptxGenJS or python-pptx, edit a template deck, QA → `references/powerpoint-pptx.md`
-- HTML slide deck, Slidev, Marp, convert .pptx to HTML, export slides to PDF → `references/html-slides.md`, `templates/frontend-slides/`, `scripts/frontend-slides/`
-- Deck story, slide titles, structure for pitch/update/talk, slide content rules → `references/deck-writing.md`
 - Writing and typesetting reports, one-pagers, proposals, letters, resumes; typography, colour, tables → `references/document-design.md`
 - Convert PDF/Office/HTML to Markdown, OCR scans, batch folders, RAG chunks; Markdown to docx/pptx/xlsx/pdf → `references/convert-extract.md`, `scripts/convert-pdf-to-md/`, `scripts/markitdown/`
 - Google Docs, Sheets, Slides, Drive (gws, gog, APIs) → `references/google-workspace.md`
@@ -501,3 +575,53 @@ DCF, comps, 3-statement and LBO models, equity research, backtests, risk and opt
 - Technical indicators, "what is the market pricing" questions, OKX market data, ccxt public data, GMGN token risk fields → `references/market-signals.md`
 - Place, test or cancel orders; check balances; ccxt, Binance CLI, OKX, Alpaca paper; order-safety protocol → `references/brokers-exchanges.md`
 - Startup model, SaaS/marketplace revenue builds, unit economics, burn and runway, dilution; monthly variance analysis → `references/startup-corporate-finance.md`
+
+# Work & learn
+
+## presentations: Presentations
+
+Deck story, slide design, PowerPoint, HTML, Slidev, Marp, Google Slides and Keynote decks, speaker notes, rehearsal and delivery.
+
+- Intake, the one sentence, story spine, arcs, assertion titles, ghost-deck test, outline, slide content rules → `references/deck-story.md`
+- Skeleton for a pitch/investor, sales, board/update, decision deck, tech talk, lecture, research talk or defense; sent vs presented; slide counts and time budgets → `references/deck-types.md`
+- Slide design system: canvas, grid, type scale, colour systems, contrast, layouts, density modes, motion, avoiding the generated-deck look, style previews → `references/slide-design.md`
+- Charts, KPI tiles and tables on slides; simplifying paper figures; rounding and number consistency → `references/data-slides.md`
+- PowerPoint .pptx: PptxGenJS, python-pptx, template decks (XML route), filling a template from data, pptx QA loop, officecli → `references/powerpoint-pptx.md`, `scripts/frontend-slides/extract-pptx.py`
+- HTML deck (single file, fixed stage), Slidev, Marp, reveal.js, Beamer, print-first PDF, web app deck, HyperFrames slideshow, pptx to HTML, export to PDF, sharing → `references/html-and-markdown-decks.md`, `templates/frontend-slides/`, `scripts/frontend-slides/`, `templates/scientific-slides/`
+- Google Slides (API, template copy and replace, upload pptx, export, notes) and Keynote (open pptx, JXA, export, presenter notes) → `references/google-slides-keynote.md`
+- Slides rendered as AI images: modes, style lock, prompt files, fixing text, accessibility → `references/image-generated-slides.md`
+- Speaker notes: cue grain, verbatim set, timing marks, Q&A crib, narration scripts, where notes live per format → `references/speaker-notes.md`
+- Rehearsal (accordion, practice schedule), delivery, nerves, demos on stage, Q&A, after the talk → `references/rehearsal-and-delivery.md`
+- Render every slide and check it: per-format render commands, visual and text checks, review table, accessibility, fix cycles → `references/deck-qa.md`, `scripts/scientific-slides/`
+
+## course-design: Teaching & course design
+
+Objectives, backward design, lesson plans, explanations, checks, quizzes, rubrics, retrieval, UDL, tutoring and LMS export.
+
+- Is training the answer; learning objectives (ILOs); Bloom's two dimensions; ambiguous verbs; backward design (UbD stages, WHERETO); alignment matrix with gaps and mismatches → `references/objectives-and-backward-design.md`
+- Course, module and lesson hierarchy; online, K-12, university, workshop or one-learner containers; sequencing; curriculum map; syllabus; assessment plan with weights and AI-use rules → `references/course-structure.md`
+- Lesson or session plan: clarify, standards, lesson arcs by subject and setting, look-fors, practice-set coverage, exit ticket, timing, learner-page reading level → `references/lesson-plans.md`
+- Explaining a concept at the right level; analogies; worked examples and fading; cognitive load; scaffolds; diagnosing the kind of confusion → `references/explanations.md`
+- Check for understanding, exit ticket, hinge question; misconception-based distractors; the two verification gates; response-to-next-step guide → `references/checks-for-understanding.md`
+- Quiz, exam, question bank, project brief; blueprint; item-writing rules; answer keys; rubrics and grader calibration; AI-era integrity; feedback on work; item analysis; accommodations → `references/assessments-and-feedback.md`
+- Retrieval practice sets; spacing schedules; interleaving; flashcards, Leitner drills, Anki export; mastery before scheduling → `references/retrieval-and-flashcards.md`
+- Differentiate a lesson into tiers; UDL audit; multilingual learners; accommodations; accessible print and digital materials → `references/differentiation-and-udl.md`
+- Tutor one learner: diagnostic loop, graded-work policy, Socratic questions, hint ladder, mastery decisions, mistakes and misconceptions, continuity across sessions → `references/tutoring.md`
+- Turn notes, slides, a book, documents or a codebase into a course; source ledger; facts vs additions; coverage check; interactive HTML lessons → `references/materials-to-course.md`
+- Export or publish: Common Cartridge, QTI, SCORM 1.2, Moodle GIFT, Canvas API, Google Classroom (`gws`), OpenMAIC; pre-launch checks → `references/course-production-and-platforms.md`
+
+## career: Career & job search
+
+Resumes tailored to a posting, ATS checks, cover letters, job search, interview prep, salary negotiation, promotions and hiring.
+
+- Write or review a resume or CV: truth rule, master resume, regional conventions (US, UK, AU/NZ, EU), section order, summary, bullets (XYZ, CAR), gaps, in-progress degrees → `references/resume-writing.md`
+- Tailor to a job description: decode the posting, map evidence, keyword match, ATS formatting, text-layer check, length, application form fields → `references/tailoring-and-ats.md`
+- Cover letter, application email, note to a hiring manager, follow-up after applying → `references/cover-letters.md`
+- Search strategy and targeting, scoring a posting (eligibility, language, fit), scam and red flags, tracker, weekly funnel numbers, networking, referrals, informational interviews, recruiters, thank-you notes → `references/job-search-and-outreach.md`
+- Behavioural interviews: prep pack, story bank, STAR answers, scoring rubric, no-story answers, "tell me about yourself", concerns, questions to ask, mock and panel interviews, debrief → `references/interview-prep.md`
+- Coding rounds and LeetCode patterns, system design, case and product-sense rounds, take-home assignments, presentation rounds → `references/technical-interviews.md`
+- Salary research, recruiter scripts, reading and comparing offers, equity, negotiating, accepting or declining, offer-letter clause walk-through → `references/negotiation-and-offers.md`
+- Brag document and backfill from git or PRs, self-review, promotion case and packet, writing reviews as a manager → `references/career-growth.md`
+- Career change: landing spot, transferable skills, translating experience, hybrid resume, positioning statement and pitch, "why the change" → `references/career-change.md`
+- Hiring: role intake, job post, competencies, interview guide, scorecards and rubric, bias and legal hygiene, debrief, offer-letter drafts → `references/hiring.md`, `scripts/interview-system-designer/interview_planner.py`
+- Reactive Resume JSON and its application tracker, LaTeX CVs and letters, career-ops, RenderCV → `references/resume-tools.md`, `templates/resume-builder/schema.md`

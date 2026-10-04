@@ -66,7 +66,7 @@ Load only the file(s) the task needs.
 | Motion-graphics scenes (kinetic type, animated diagrams) instead of filmed or generated shots | `motion-animation` → `references/motion-principles.md`, `references/hyperframes-animation.md` |
 | Ad angles, hooks and platform specs behind an ad storyboard | `ad-creation` → `references/creative-strategy.md`, `references/short-form-video-ugc.md`, `references/platform-specs.md` |
 | Captions, hashtags and platform norms for a Reel, TikTok or Short | `social-media` → `references/short-form-video.md`, `references/platform-playbook.md` |
-| The board as a deck or PDF for client sign-off | `docs-office` → `references/html-slides.md`, `references/powerpoint-pptx.md`, `references/pdf.md` |
+| The board as a deck or PDF for client sign-off | `presentations` → `references/html-and-markdown-decks.md`, `references/powerpoint-pptx.md`, `references/deck-qa.md` |
 
 ## Go deeper (original skills)
 

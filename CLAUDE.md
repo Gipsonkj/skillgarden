@@ -1,6 +1,6 @@
 # Skill Garden
 
-30 super skills for Claude (one per craft), a planner that combines them, a local app to browse, edit and update them, a
+38 super skills for Claude (one per craft), a planner that combines them, a local app to browse, edit and update them, a
 weekly scout, a Claude Code plugin, and a Cloudflare Worker that serves a public website
 plus an MCP connector. Read `GUIDE.md` for the user-facing how-to.
 

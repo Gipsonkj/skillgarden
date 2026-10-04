@@ -1,22 +1,26 @@
 {
   "name": "Docs & Office files",
-  "blurb": "Word, PDF, Excel and PowerPoint: create, edit, fill, convert and check files, plus HTML decks and Google/Lark docs.",
+  "blurb": "Word, PDF and Excel: create, edit, fill, convert and check files, plus Google and Lark docs.",
   "hue": 210,
   "collections": [],
   "repos": [
     "MiniMax-AI/skills",
     "NousResearch/hermes-agent",
-    "zarazhangrui/frontend-slides",
-    "docling-project/docling"
+    "docling-project/docling",
+    "openai/skills"
   ],
   "searches": [
-    "python-docx openpyxl python-pptx new release feature",
+    "python-docx openpyxl pypdf new release feature",
     "PDF form filling extraction OCR open source tool 2026",
-    "agent skill Word Excel PowerPoint document generation Claude",
-    "HTML slide deck framework Slidev Marp new release",
+    "agent skill Word Excel PDF document generation Claude",
+    "Word docx report generation template agent skill new",
     "MarkItDown Docling document conversion update"
   ],
-  "keywords": ["PDF", "Excel", "PowerPoint"],
+  "keywords": [
+    "PDF",
+    "Excel",
+    "docx"
+  ],
   "feeds": [],
   "tests": [
     {
@@ -26,8 +30,8 @@
     },
     {
       "id": "t2",
-      "prompt": "Turn these meeting notes into a 10-slide editable PowerPoint for our board update on the Q3 product launch.",
-      "good": "Writes assertion titles first and passes a ghost-deck test; one idea and one evidence shape per slide; marks missing numbers as [DATA NEEDED] instead of inventing them; builds with PptxGenJS or python-pptx using a consistent theme (hex without #, 16:9, slide numbers); varied layouts with native charts; renders slides to images and checks for overflow before delivery; ends with decisions or asks."
+      "prompt": "Turn these meeting notes into a 3-page board report as an editable Word file and a PDF, with a summary box, a decisions table and page numbers.",
+      "good": "Locks audience, length and format first; leads with the conclusion in a summary box; marks missing numbers as [DATA NEEDED] with a gap table instead of inventing them; builds the .docx with heading and table styles (not direct formatting), a decisions table and page numbers; runs docx_validate.py; converts to PDF and renders every page to check overflow, clipping and empty placeholders before delivery; keeps presenter-style slide work out of scope (that is the presentations craft)."
     },
     {
       "id": "t3",
@@ -37,7 +41,7 @@
     {
       "id": "t4",
       "prompt": "Using our 2026 actuals in finance.xlsx and the notes below, add a 24-month cash runway forecast with low, base and high cases to the workbook, then build an 8-slide editable board update deck that shows it next to our product status and top risks.",
-      "good": "States a short plan first: the forecast through trading-finance (startup-corporate-finance.md, excel-modeling-standards.md: driver-based scenarios, runway from the forward plan, every input sourced), status and risks through product-management (stakeholder-comms.md: honest Green/Yellow/Red, ROAM risks, asks with dates), the file work here (excel-xlsx.md, deck-writing.md, powerpoint-pptx.md). Edits the workbook in place on a copy, keeps formulas live and runs formula_check.py; writes assertion titles that pass the ghost-deck test; marks missing numbers [DATA NEEDED]; renders every slide and checks it; checks the Done means of all three crafts."
+      "good": "States a short plan first: the forecast through trading-finance (startup-corporate-finance.md, excel-modeling-standards.md: driver-based scenarios, runway from the forward plan, every input sourced), status and risks through product-management (stakeholder-comms.md: honest Green/Yellow/Red, ROAM risks, asks with dates), the workbook here (excel-xlsx.md), the deck through presentations (deck-story.md, slide-design.md, powerpoint-pptx.md). Edits the workbook in place on a copy, keeps formulas live and runs formula_check.py; writes assertion titles that pass the ghost-deck test; marks missing numbers [DATA NEEDED]; renders every slide and checks it; checks the Done means of all three crafts."
     }
   ]
 }

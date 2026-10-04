@@ -76,6 +76,8 @@ Run scripts from the user's working directory so the output lands there. Each sc
 | Headline or overlay copy that has to sell | `content-creation` → `references/conversion-copy.md` |
 | The page around a hero or section image: layout, type and tokens | `frontend-ui-design` → `references/design-direction.md`, `references/visual-system.md` |
 | Captions, hashtags and a posting plan for the social images | `social-media` → `references/platform-playbook.md`, `references/hooks-and-voice.md` |
+| Hosting open image models on your own or rented GPUs: VRAM, quantization, RunPod or Modal | `open-models` → `references/gpu-hosting-runpod-modal.md`, `references/vram-and-sizing.md` |
+| Turning an image into a 3D model or a printable part | `3d-modeling` → `references/generative-3d.md`, `references/meshy-tripo.md` |
 
 ## Go deeper (original skills)
 

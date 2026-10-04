@@ -19,7 +19,7 @@ the same artifact URL (the runbook is published as the artifact's
 
 ## Super skills and the catalog
 
-- **`superskills/<id>/`** holds 30 super skills, one per craft (website
+- **`superskills/<id>/`** holds 38 super skills, one per craft (website
   building, motion, ads, data…). Each is a short router `SKILL.md`, a
   `references/` folder with one distilled guide per capability, any scripts or
   templates kept as their authors wrote them, `CREDITS.md` (every source and its

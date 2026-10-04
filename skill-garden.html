@@ -1771,10 +1771,11 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
   // approved in Review is what people download.
   const CATS = [
     { id: "build", name: "Build", ids: ["website-building", "app-building", "frontend-ui-design", "figma-design", "backend-databases", "cloud-devops", "coding-practices", "testing-qa", "security"] },
-    { id: "agents", name: "Agents & automation", ids: ["ai-agents", "automation", "claude-meta"] },
-    { id: "create", name: "Create", ids: ["poster-design", "motion-animation", "ai-video", "audio-generation", "image-creation", "storyboarding", "content-creation"] },
-    { id: "grow", name: "Grow", ids: ["social-media", "instagram-automation", "linkedin-automation", "ad-creation", "google-ads", "seo"] },
+    { id: "agents", name: "Agents & automation", ids: ["ai-agents", "automation", "claude-meta", "token-efficiency", "open-models"] },
+    { id: "create", name: "Create", ids: ["poster-design", "motion-animation", "ai-video", "audio-generation", "image-creation", "storyboarding", "content-creation", "3d-modeling"] },
+    { id: "grow", name: "Grow", ids: ["social-media", "instagram-automation", "linkedin-automation", "ad-creation", "google-ads", "seo", "email-marketing", "ecommerce"] },
     { id: "think", name: "Analyse & decide", ids: ["data-analysis", "research-science", "docs-office", "product-management", "trading-finance"] },
+    { id: "work", name: "Work & learn", ids: ["presentations", "course-design", "career"] },
   ];
   const catOf = (id) => CATS.find((c) => c.ids.includes(id)) || { id: "other", name: "More" };
   const store = {

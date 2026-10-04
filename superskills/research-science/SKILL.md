@@ -29,7 +29,7 @@ Work out what the request needs before opening a guide; most real requests need 
 
 1. **Split it into parts:** each thing the user needs at the end. A one-part request goes straight to the table below.
 2. **Give each part its best source.** This craft's guides first; several is normal, read in the order the work happens. A part listed under "Other crafts" goes to that craft's guide, which goes deeper than any short version here. A part that needs a tool, API or edge case no guide covers goes to the original skill under "Go deeper".
-3. **Say the plan in a line** before starting, then read only the guides it names. For example: "Scoping review for a seminar talk: `references/literature-search.md` → `references/database-apis.md` → `references/literature-review.md` → `references/citations.md`; the evidence chart from `data-analysis` → `references/visualization.md`; slides from `docs-office` → `references/deck-writing.md`."
+3. **Say the plan in a line** before starting, then read only the guides it names. For example: "Scoping review for a seminar talk: `references/literature-search.md` → `references/database-apis.md` → `references/literature-review.md` → `references/citations.md`; the evidence chart from `data-analysis` → `references/visualization.md`; slides from `presentations` → `references/deck-types.md`."
 4. **Carry decisions forward.** The brief, tokens, copy and file names from earlier parts feed the later ones. When two guides disagree, follow the one written for that part and say so.
 5. **Check the result** against "Done means" here and in every other craft you used.
 
@@ -73,10 +73,11 @@ Template CSVs contain synthetic example rows: replace them, don't cite them.
 | The analysis itself: tests, effect sizes, power, regression (`references/scientific-writing.md` covers only reporting them) | `data-analysis` → `references/statistics.md`, `references/experiments-causal.md` |
 | Figures and plots for the paper, or a reproducible analysis notebook | `data-analysis` → `references/visualization.md`, `references/notebooks.md` |
 | A conference or research poster in LaTeX, PPTX or HTML | `poster-design` → `references/print-and-academic-posters.md` |
-| Slides for a conference talk, thesis defence or lab meeting | `docs-office` → `references/deck-writing.md`, `references/html-slides.md`, `references/powerpoint-pptx.md` |
+| Slides for a conference talk, thesis defence or lab meeting, and rehearsing the talk | `presentations` → `references/deck-types.md`, `references/html-and-markdown-decks.md`, `references/rehearsal-and-delivery.md` |
 | A stack of paper PDFs turned into Markdown for screening, or a manuscript in Word with tracked changes | `docs-office` → `references/convert-extract.md`, `references/word-docx.md` |
 | A plain-language article, press release or social thread about the findings | `content-creation` → `references/long-form-articles.md`, `references/repurposing.md` |
 | An animated explainer of an equation, algorithm or result | `motion-animation` → `references/manim.md` |
+| Teaching the material as a course, lecture series or workshop | `course-design` → `references/course-structure.md`, `references/explanations.md` |
 
 ## Go deeper (original skills)
 

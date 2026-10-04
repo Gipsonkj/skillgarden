@@ -1,0 +1,50 @@
+{
+  "name": "Presentations",
+  "blurb": "Deck story, slide design, PowerPoint, HTML, Slidev, Marp, Google Slides and Keynote decks, speaker notes, rehearsal and delivery.",
+  "hue": 245,
+  "collections": [],
+  "repos": [
+    "mblode/agent-skills",
+    "zarazhangrui/frontend-slides",
+    "slidevjs/slidev",
+    "samber/developer-relations-skills"
+  ],
+  "searches": [
+    "presentation deck agent skill pptx python-pptx PptxGenJS new",
+    "HTML slides skill Slidev Marp reveal.js Claude",
+    "pitch deck investor deck agent skill",
+    "speaker notes rehearsal public speaking conference talk skill",
+    "Google Slides Keynote automation agent skill"
+  ],
+  "keywords": [
+    "pitch deck",
+    "speaker notes",
+    "Slidev"
+  ],
+  "feeds": [
+    "https://github.com/slidevjs/slidev/releases.atom",
+    "https://github.com/marp-team/marp-cli/releases.atom"
+  ],
+  "tests": [
+    {
+      "id": "t1",
+      "prompt": "Turn this 6-page product strategy memo into a 12-slide PowerPoint for our exec offsite next week. Use our template (attached Corp-Template.pptx). I present it live, 20 minutes.",
+      "good": "Writes the one sentence the deck proves, a spine and assertion titles first and runs the ghost-deck test; treats it as a presented deck (few words, full notes); fills a copy of the template through its layouts, deleting instruction boxes and empty placeholders; real charts, numbers sourced, gaps as [DATA NEEDED]; cue-grain notes with transitions and timing marks in the notes pane; renders every slide via LibreOffice, inspects, fixes at least once, says LibreOffice isn't PowerPoint; delivers pptx plus PDF and the gaps list."
+    },
+    {
+      "id": "t2",
+      "prompt": "I'm giving a 25-minute talk at a developer conference about how we cut our CI time from 40 to 8 minutes. Build the deck as a single HTML file I can present from my laptop, and help me not run over.",
+      "good": "Finds the arrow and 2-3 pillars, budgets the 25 minutes with 10-15% buffer and a demo that ends 2 minutes early; uses the frontend-slides template and pasted viewport CSS for a fixed 16:9 stage, keyboard nav, deep links and notes; one idea per slide, code at readable size, before/after chart with direct labels; exports a PDF fallback with export-pdf.sh after asking about the Playwright install; gives an accordion rehearsal and a pre-decided cut list with timing marks."
+    },
+    {
+      "id": "t3",
+      "prompt": "Write speaker notes for my 15-slide board update deck and give me a list of the questions the board is likely to ask. I tend to read my notes word for word.",
+      "good": "Designs notes for a reader-aloud: cue-grain point, beats and exit per slide, with only transitions, numbers with exact caveats, the open and the close verbatim; marks T/4, T/2, 3T/4 and pre-decided skips; writes a Q&A crib of 5-8 real objections with answer beats and numbered backup slides; puts notes in the pptx notes pane, not on slides; suggests one timed run from the notes and updating them afterwards."
+    },
+    {
+      "id": "t4",
+      "prompt": "We're raising a $3M seed. Build our investor pitch deck from the attached metrics spreadsheet and product one-pager, with a slide on runway and use of funds, and make the headlines punchier.",
+      "good": "States a short plan first: story and the 10-slide investor frame here (deck-story.md, deck-types.md), the numbers from data-analysis (analysis-workflow.md and visualization.md for honest traction charts), runway and use of funds from trading-finance (startup-corporate-finance.md), headline punch-up from content-creation (conversion-copy.md). Uses assertion titles, never invents metrics or logos, marks gaps [DATA NEEDED], keeps every number consistent across slides, ends with an explicit ask (amount, use, milestone), builds native editable slides, renders and checks every slide, and checks the Done means of each craft used."
+    }
+  ]
+}

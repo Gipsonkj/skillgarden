@@ -72,7 +72,9 @@ Work out what the request needs before opening a guide; most real requests need 
 | Paid search on the same queries, or testing titles and offers with ads first | `google-ads` → `references/campaign-build.md`, `references/keywords-negatives.md` |
 | Open Graph images, favicons and share previews | `poster-design` → `references/web-assets.md` |
 | YouTube titles, descriptions and chapters for video search | `social-media` → `references/youtube-seo-thumbnails.md` |
-| The audit delivered as a client-ready PDF or slide deck | `docs-office` → `references/pdf.md`, `references/deck-writing.md` |
+| The audit delivered as a client-ready PDF | `docs-office` → `references/pdf.md` |
+| The audit presented as a client slide deck | `presentations` → `references/data-slides.md`, `references/deck-story.md` |
+| Store product pages, product data and feeds | `ecommerce` → `references/catalog-and-feeds.md`, `references/product-pages-and-cro.md` |
 
 ## Go deeper (original skills)
 

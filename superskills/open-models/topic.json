@@ -1,0 +1,55 @@
+{
+  "name": "Open models",
+  "blurb": "Open-weight LLMs: model and licence choice, VRAM maths, Ollama and llama.cpp, vLLM, RunPod and Modal, GGUF, LoRA fine-tunes and evals.",
+  "hue": 100,
+  "collections": [],
+  "repos": [
+    "huggingface/skills",
+    "runpod/runpod-plugins-official",
+    "ericrisco/rsc-harness",
+    "Orchestra-Research/AI-Research-SKILLs"
+  ],
+  "searches": [
+    "open-weight LLM agent skill Ollama llama.cpp vLLM new",
+    "fine-tuning skill LoRA QLoRA TRL Unsloth agent",
+    "GGUF quantization imatrix new quant types llama.cpp",
+    "self-host LLM RunPod Modal serverless vLLM skill",
+    "open model licence commercial use Llama Qwen Gemma change"
+  ],
+  "keywords": [
+    "open weights",
+    "llama.cpp",
+    "Ollama",
+    "vLLM"
+  ],
+  "feeds": [
+    "https://huggingface.co/blog/feed.xml",
+    "https://github.com/ollama/ollama/releases.atom",
+    "https://github.com/ggml-org/llama.cpp/releases.atom"
+  ],
+  "hf": [
+    "text-generation"
+  ],
+  "tests": [
+    {
+      "id": "t1",
+      "prompt": "I have a MacBook Pro with 32 GB of RAM. What's the best open coding model I can run locally with Ollama, and how do I hook it up to my editor?",
+      "good": "Does the memory maths (weights about parameters x bytes x 1.2 plus KV cache at the real context, with headroom, and macOS needing its share of unified memory) and suggests a size class that fits at Q4_K_M or Q5_K_M rather than a bigger model at Q2; checks the licence on the card; pins an explicit tag, not :latest; sets num_ctx in a Modelfile instead of relying on the default; notes Ollama's MLX backend applies only above 32 GB; smoke-tests and reports tokens per second from eval_count and eval_duration; gives the OpenAI-compatible base URL http://localhost:11434/v1 for the editor and keeps the server on localhost."
+    },
+    {
+      "id": "t2",
+      "prompt": "We want to stop paying per token and host Llama 3.3 70B ourselves for an internal support tool. Can we use it commercially, and how do we run it on a rented GPU?",
+      "good": "Reads the Llama Community Licence terms (acceptable-use policy, Built with Llama, naming, the 700M monthly-user threshold, gated access) and says gated is not restricted; does break-even maths from GPU price per hour and measured tokens per second; sizes 70B for weights plus KV cache and picks a GPU shape or quant (AWQ or tensor parallel) accordingly; chooses vLLM with --max-model-len set; on RunPod uses a network volume, HF_TOKEN from env, --terminate-after or workers-min 0, and async calls on cold start; keeps the endpoint authenticated; verifies health, a real completion and load from outside; ends with a list command showing nothing left running."
+    },
+    {
+      "id": "t3",
+      "prompt": "Fine-tune Qwen2.5-7B-Instruct on our 3,000 support tickets so it answers in our house style, then give me a GGUF I can run in Ollama.",
+      "good": "Asks whether prompting or retrieval would do first and scores the base model on a held-out 10% split; converts tickets to messages format without editing the original and validates columns; uses LoRA or QLoRA with all linear targets, alpha = 2r, a LoRA learning rate, effective batch under 32 and bf16; uses current TRL names (processing_class, max_length) and assistant_only_loss with plain TRL since Unsloth lacks it; picks a runner and sets a teardown on paid GPUs; merges into the full-precision base, converts and quantizes to Q4_K_M with llama.cpp, imports via a Modelfile with the right template; re-evaluates the GGUF for gain and regression; notes the fine-tune inherits Qwen's licence."
+    },
+    {
+      "id": "t4",
+      "prompt": "Build a customer-support agent that runs on our own open model instead of a paid API: it should look up orders through our REST API, and we want to deploy the whole thing with Docker on our server.",
+      "good": "States the plan first: open-models for the model end (choosing-models-and-licences.md for a tool-capable model and its licence, vram-and-sizing.md, serving-endpoints.md for vLLM or llama-server on localhost, agents-and-tools.md for base URL from env, tool calling and validated arguments), ai-agents for the agent itself (tool-design.md for the order-lookup tool's name, schema and errors; frameworks.md; evaluation.md for an eval set run against the local model and the current API), cloud-devops for docker.md (model server and agent containers, GPU access, model weights on a volume, no keys in the image). Keeps the model server private; checks the Done means of all three crafts and says what wasn't verified."
+    }
+  ]
+}

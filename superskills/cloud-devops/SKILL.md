@@ -66,6 +66,7 @@ Call a sub-capability by naming the task, or say "use cloud-devops: terraform", 
 | Root cause in the app's own code once an incident is mitigated | `coding-practices` → `references/debugging.md` |
 | Mobile builds and store releases (EAS, TestFlight, Play tracks) | `app-building` → `references/release-app-stores.md` |
 | Hosting an MCP server: transport, auth and deployment model | `ai-agents` → `references/mcp-servers.md` |
+| Serving an open-weight model on GPUs: vLLM, SGLang, RunPod or Modal | `open-models` → `references/serving-endpoints.md`, `references/gpu-hosting-runpod-modal.md` |
 
 ## Go deeper (original skills)
 

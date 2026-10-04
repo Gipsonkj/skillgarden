@@ -67,6 +67,7 @@ Work out what the request needs before opening a guide; most real requests need 
 | A maintained Playwright suite or an exploratory QA report (beyond `references/quality-audit-and-testing.md`) | `testing-qa` → `references/playwright-e2e.md`, `references/exploratory-qa.md` |
 | Hosting beyond the deploy guides here: containers, Cloud Run, a CI pipeline with gates | `cloud-devops` → `references/platform-choice.md`, `references/docker.md`, `references/ci-cd.md` |
 | Sign-in, a database, payments or a real backend behind the forms | `backend-databases` → `references/backend-architecture.md`, `references/auth.md`, `references/stripe.md` |
+| An online store: platform choice, Shopify theme, product pages and checkout | `ecommerce` → `references/platform-choice.md`, `references/shopify-themes.md`, `references/product-pages-and-cro.md` |
 
 ## Go deeper (original skills)
 

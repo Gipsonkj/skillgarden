@@ -73,7 +73,8 @@ All scripts are stdlib Python 3 and make no network calls.
 | Success metrics measured: KPI definitions, dashboards, A/B test design and readout | `data-analysis` → `references/dashboards-kpis.md`, `references/experiments-causal.md` |
 | A business case: revenue build, unit economics, burn and runway | `trading-finance` → `references/startup-corporate-finance.md` |
 | Launch copy, release notes or a feature announcement | `content-creation` → `references/conversion-copy.md`, `references/long-form-articles.md` |
-| The update, roadmap or PRD as a slide deck, Word file or Google Doc | `docs-office` → `references/deck-writing.md`, `references/powerpoint-pptx.md`, `references/google-workspace.md` |
+| The update or roadmap as a slide deck | `presentations` → `references/deck-story.md`, `references/powerpoint-pptx.md` |
+| The PRD or update as a Word file or Google Doc | `docs-office` → `references/word-docx.md`, `references/google-workspace.md` |
 | A clickable prototype or mockup to test the idea with users | `frontend-ui-design` → `references/design-md-and-prototypes.md` |
 | A screen or feature hand-off spec for design and engineering | `figma-design` → `references/handoff-specs.md`, `references/component-specs.md` |
 | Acceptance criteria turned into a test plan or automated tests | `testing-qa` → `references/test-strategy.md`, `references/playwright-e2e.md` |

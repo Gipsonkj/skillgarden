@@ -52,4 +52,4 @@ Install as needed (ask first if installs aren't clearly allowed):
 | Office → PDF | `soffice --headless --convert-to pdf --outdir out/ file.docx` |
 | Legacy .doc/.xls/.ppt → modern | `soffice --headless --convert-to docx|xlsx|pptx file` |
 
-Pandoc conversions are fine for drafts and simple documents. For designed output use the dedicated guides (word-docx.md, pdf.md, powerpoint-pptx.md) and always render the result to check it.
+Pandoc conversions are fine for drafts and simple documents. For designed output use the dedicated guides (word-docx.md, pdf.md; slides in the presentations craft) and always render the result to check it.

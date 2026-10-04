@@ -1,6 +1,6 @@
 ---
 name: motion-animation
-description: "Design, build, review and fix animation and motion for interfaces, the web, apps and short motion assets. Use when asked to animate anything or make it feel smooth or snappy; choose easing, duration or springs; add hover, press, modal, drawer, toast, accordion or stagger motion; review or audit animation code or find places that need motion; name an effect ('what is this animation called'); write GSAP tweens, timelines, SplitText, Flip or ScrollTrigger; build scroll reveals, pinned or scrubbed scroll scenes, parallax, Lenis or Apple-style frame sequences; add React view transitions, shared-element morphs or Framer Motion (motion/react); animate React Native or Expo with Reanimated, gestures and haptics; author or play Lottie and dotLottie; animate an SVG logo; make a Slack GIF or emoji; animate Three.js scenes, GLTF clips or cameras; make Manim math or algorithm explainers; write seek-safe HyperFrames video animation and keyframes (punch-in, Ken Burns, camera move, whip pan)."
+description: "Design, build, review and fix animation and motion for interfaces, the web, apps and short motion assets. Use when asked to animate anything or make it feel smooth or snappy; choose easing, duration or springs; add hover, press, modal, drawer, toast, accordion or stagger motion; review or audit animation code or find places that need motion; name an effect ('what is this animation called'); write GSAP tweens, timelines, SplitText, Flip or ScrollTrigger; build scroll reveals, pinned or scrubbed scroll scenes, parallax, Lenis or Apple-style frame sequences; add React view transitions, shared-element morphs or Framer Motion (motion/react); animate React Native or Expo with Reanimated, gestures and haptics; author or play Lottie and dotLottie; animate an SVG logo; make a Slack GIF or emoji; animate Three.js scenes, GLTF clips or cameras; make Manim math or algorithm explainers; write seek-safe HyperFrames video animation and keyframes (punch-in, Ken Burns, camera move, whip pan). Modelling: 3d-modeling."
 ---
 
 # Motion and animation
@@ -71,6 +71,7 @@ To jump straight to a capability, name the task, or say "use motion-animation: <
 | The native screen around Reanimated motion: navigation, haptics, platform feel | `app-building` → `references/native-feel-design.md` |
 | A logo to animate that doesn't exist yet or isn't clean SVG | `poster-design` → `references/logos.md` |
 | Motion written into a design hand-off spec | `figma-design` → `references/handoff-specs.md` |
+| Building the model or scene before animating it: Blender, Three.js setup, glTF export | `3d-modeling` → `references/blender.md`, `references/threejs-scenes.md`, `references/gltf-pipeline.md` |
 
 ## Go deeper (original skills)
 

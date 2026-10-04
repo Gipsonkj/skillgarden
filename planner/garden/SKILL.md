@@ -48,6 +48,8 @@ Chains are saved plans for jobs that come up often. When the request matches one
 | `ai-agents` | Agents, tools and MCP servers that actually work: scoping, tool design, multi-agent, memory, evals, Claude and other stacks. |
 | `automation` | Workflows and browsers that run themselves safely: n8n, Make, Zapier, Playwright, DevTools, app CLIs and web extraction. |
 | `claude-meta` | Skills, CLAUDE.md, hooks, subagents, plans and context: set Claude up to do long tasks well. |
+| `token-efficiency` | Fewer tokens, same quality: session hygiene, lean context, caching that hits, model and effort choice, batch, plan limits and cost. |
+| `open-models` | Open-weight LLMs: model and licence choice, VRAM maths, Ollama and llama.cpp, vLLM, RunPod and Modal, GGUF, LoRA fine-tunes and evals. |
 
 **Create**
 
@@ -60,6 +62,7 @@ Chains are saved plans for jobs that come up often. When the request matches one
 | `image-creation` | Generate, edit and keep images consistent with GPT Image, Nano Banana, FLUX and local models, plus code-made art. |
 | `storyboarding` | From idea to shot list: beats, scripts, camera language, consistent characters and per-shot AI video prompts. |
 | `content-creation` | Copy that converts, articles and newsletters that get read, brand voice, repurposing, and edits that strip AI tells. |
+| `3d-modeling` | Blender scripts, Three.js and R3F scenes, GLB optimisation, image-to-3D, CAD and 3D printing, OpenUSD, splats and game-ready assets. |
 
 **Grow**
 
@@ -71,6 +74,8 @@ Chains are saved plans for jobs that come up often. When the request matches one
 | `ad-creation` | Briefs, hooks, ad copy, statics, UGC and AI video ads for Meta, TikTok and Google, plus teardowns and testing. |
 | `google-ads` | Search, PMax and Shopping builds, RSAs, keywords and negatives, bidding, conversion tracking, audits and the Ads API. |
 | `seo` | Get pages crawled, indexed and chosen — by Google, Bing and AI answer engines. Audits, content, schema, local, links. |
+| `email-marketing` | Lists and consent, lifecycle flows, campaigns and A/B tests, deliverability, React Email and MJML, sending APIs, ESPs and email law. |
+| `ecommerce` | Shopify and WooCommerce builds, store checkout and tax, catalogs and feeds, pricing, inventory, sales analytics and agent checkout. |
 
 **Analyse & decide**
 
@@ -78,9 +83,17 @@ Chains are saved plans for jobs that come up often. When the request matches one
 |---|---|
 | `data-analysis` | Profile, query, test and chart data honestly: SQL, statistics, A/B tests, pandas/Polars, sklearn, dashboards, notebooks, dbt. |
 | `research-science` | Find papers, run literature reviews, verify citations, form hypotheses, write and review papers, plus Biopython and RDKit. |
-| `docs-office` | Word, PDF, Excel and PowerPoint: create, edit, fill, convert and check files, plus HTML decks and Google/Lark docs. |
+| `docs-office` | Word, PDF and Excel: create, edit, fill, convert and check files, plus Google and Lark docs. |
 | `product-management` | PRDs and specs, stories and tickets, prioritization, outcome roadmaps, sprints, stakeholder updates, Jira and Linear. |
 | `trading-finance` | DCF, comps, 3-statement and LBO models, equity research, backtests, risk and options maths, paper-first exchange tooling. |
+
+**Work & learn**
+
+| Craft | Covers |
+|---|---|
+| `presentations` | Deck story, slide design, PowerPoint, HTML, Slidev, Marp, Google Slides and Keynote decks, speaker notes, rehearsal and delivery. |
+| `course-design` | Objectives, backward design, lesson plans, explanations, checks, quizzes, rubrics, retrieval, UDL, tutoring and LMS export. |
+| `career` | Resumes tailored to a posting, ATS checks, cover letters, job search, interview prep, salary negotiation, promotions and hiring. |
 
 **Saved plans (chains):** `campaign` (One ask runs a whole campaign: research, angles, hooks, posts, ads and a test plan, each step using the Skill Garden guide made for it); `launch-video` (Script, storyboard, produce and post a short launch video, from the first line to the caption); `sales-outreach` (From a target list to sent-by-hand messages and follow-ups, using the LinkedIn guides' research, message and safety rules).
 <!-- craft-map:end -->

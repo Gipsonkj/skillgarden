@@ -31,7 +31,7 @@ Work out what the request needs before opening a guide; most real requests need 
 
 1. **Split it into parts:** each thing the user needs at the end. A one-part request goes straight to the table below.
 2. **Give each part its best source.** This craft's guides first; several is normal, read in the order the work happens. A part listed under "Other crafts" goes to that craft's guide, which goes deeper than any short version here. A part that needs a tool, API or edge case no guide covers goes to the original skill under "Go deeper".
-3. **Say the plan in a line** before starting, then read only the guides it names. For example: "Churn readout for the board: `references/data-profiling.md` → `references/sql.md` → `references/statistics.md` → `references/visualization.md`; runway from `trading-finance` → `references/startup-corporate-finance.md`; deck from `docs-office` → `references/deck-writing.md`."
+3. **Say the plan in a line** before starting, then read only the guides it names. For example: "Churn readout for the board: `references/data-profiling.md` → `references/sql.md` → `references/statistics.md` → `references/visualization.md`; runway from `trading-finance` → `references/startup-corporate-finance.md`; deck from `presentations` → `references/data-slides.md`."
 4. **Carry decisions forward.** The brief, tokens, copy and file names from earlier parts feed the later ones. When two guides disagree, follow the one written for that part and say so.
 5. **Check the result** against "Done means" here and in every other craft you used.
 
@@ -62,7 +62,8 @@ Scripts (run `--help` first):
 
 | When the request also needs | Use |
 |---|---|
-| Results delivered as an Excel workbook, slide deck or designed PDF report | `docs-office` → `references/excel-xlsx.md`, `references/deck-writing.md`, `references/pdf.md` |
+| Results delivered as an Excel workbook or designed PDF report | `docs-office` → `references/excel-xlsx.md`, `references/pdf.md` |
+| Results presented as a slide deck: assertion titles, one chart per slide | `presentations` → `references/data-slides.md`, `references/deck-story.md` |
 | A dashboard inside a web app with real states and tokens (beyond the single-file HTML in `references/dashboards-kpis.md`) | `frontend-ui-design` → `references/components-and-states.md`, `references/visual-system.md` |
 | Production database work: schema, indexes, slow app queries, ClickHouse tables | `backend-databases` → `references/query-performance.md`, `references/postgres-schema.md`, `references/nosql-analytics.md` |
 | Pulling data on a schedule, or extracting it from websites | `automation` → `references/automation-design.md`, `references/web-extraction.md` |

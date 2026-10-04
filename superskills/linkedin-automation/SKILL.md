@@ -74,6 +74,7 @@ Name the task, or say "use linkedin-automation: <capability>".
 | A native video post: cutting, captions and export checks | `ai-video` → `references/captions-talking-head.md`, `references/delivery-qa.md` |
 | An approval-gated workflow (n8n, Make, Zapier) that publishes through the official API | `automation` → `references/automation-design.md`, `references/n8n.md` |
 | A lead and follow-up tracker in a spreadsheet or Google Sheet | `docs-office` → `references/excel-xlsx.md`, `references/google-workspace.md` |
+| A CV, cover letter, interview prep or salary negotiation | `career` → `references/resume-writing.md`, `references/interview-prep.md`, `references/negotiation-and-offers.md` |
 
 ## Go deeper (original skills)
 

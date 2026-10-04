@@ -1,6 +1,6 @@
 ---
 name: claude-meta
-description: Expert guide to working with and extending Claude Code and agents. Use when writing, editing, testing or packaging a skill (SKILL.md, description triggering, evals); writing or auditing CLAUDE.md, AGENTS.md or rules files; creating hooks or guardrails (PreToolUse, Stop, block git push, auto-format, "whenever X do Y"); defining subagents or delegating tasks to them; brainstorming, grilling a plan, writing specs or implementation plans and executing them; managing context, compaction, long sessions, handoffs, memory and planning files; terse/low-token output; capturing lessons as skills, turning saved reels, bookmarks or creator freebies into a skill stack, finding or vetting skills to install, recommending Claude Code automations; or delegating to or cross-reviewing with the Codex CLI. Also use when the user says "use claude-meta", "make a skill", "grill me", "handoff", or "caveman mode".
+description: Expert guide to working with and extending Claude Code and agents. Use when writing, editing, testing or packaging a skill (SKILL.md, description triggering, evals); writing or auditing CLAUDE.md, AGENTS.md or rules files; creating hooks or guardrails (PreToolUse, Stop, block git push, auto-format, "whenever X do Y"); defining subagents or delegating tasks to them; brainstorming, grilling a plan, writing specs or implementation plans and executing them; managing context, compaction, long sessions, handoffs, memory and planning files; capturing lessons as skills, turning saved reels, bookmarks or creator freebies into a skill stack, finding or vetting skills to install, recommending Claude Code automations; or delegating to or cross-reviewing with the Codex CLI. Also use when the user says "use claude-meta", "make a skill", "grill me" or "handoff". Cutting tokens, cost or usage: token-efficiency.
 ---
 
 # Claude meta-skills
@@ -80,6 +80,7 @@ Work out what the request needs before opening a guide; most real requests need 
 | Vetting third-party skills and packages, keys a skill needs, or Claude running in GitHub Actions | `security` → `references/supply-chain.md`, `references/secrets.md`, `references/github-actions.md` |
 | A spec turned into a PRD, user stories or tracer-bullet tickets | `product-management` → `references/prd-specs.md`, `references/stories-and-tickets.md` |
 | A recurring workflow that runs outside Claude Code (n8n, Make, Zapier) | `automation` → `references/automation-design.md`, `references/n8n.md` |
+| Cutting token use or cost, or staying inside usage limits (beyond the brevity notes in `references/context-and-memory.md`) | `token-efficiency` → `references/session-hygiene.md`, `references/fixed-overhead.md`, `references/usage-limits.md` |
 
 ## Go deeper (original skills)
 

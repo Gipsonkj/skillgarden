@@ -1,12 +1,12 @@
 {
   "name": "skillgarden",
-  "description": "Skill Garden: 30 super skills, one per craft, each routing to distilled guides from the best community skills, plus a planner that combines them.",
+  "description": "Skill Garden: 38 super skills, one per craft, each routing to distilled guides from the best community skills, plus a planner that combines them.",
   "owner": { "name": "Gipsonkj" },
   "plugins": [
     {
       "name": "skillgarden",
       "displayName": "Skill Garden",
-      "description": "All 30 Skill Garden super skills, the garden planner that combines crafts for one request, and chains that run several of them in order (campaign, sales-outreach, launch-video).",
+      "description": "All 38 Skill Garden super skills, the garden planner that combines crafts for one request, and chains that run several of them in order (campaign, sales-outreach, launch-video).",
       "source": "./",
       "strict": false,
       "skills": ["./superskills/", "./chains/", "./planner/"],

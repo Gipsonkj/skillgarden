@@ -69,8 +69,10 @@ Both are stdlib Python and make no network calls.
 | PMax and Demand Gen images in every required ratio, made with an image model | `image-creation` → `references/marketing-brand-images.md`, `references/editing-references-consistency.md` |
 | Organic rankings for the same queries: keyword-to-URL map, content, technical fixes | `seo` → `references/keywords-content.md`, `references/technical.md` |
 | A KPI dashboard, or a lift test or experiment readout that must hold up statistically | `data-analysis` → `references/dashboards-kpis.md`, `references/experiments-causal.md` |
-| A client report delivered as a spreadsheet, slide deck or PDF | `docs-office` → `references/excel-xlsx.md`, `references/powerpoint-pptx.md`, `references/pdf.md` |
+| A client report delivered as a spreadsheet or PDF | `docs-office` → `references/excel-xlsx.md`, `references/pdf.md` |
+| The results presented as a client slide deck | `presentations` → `references/data-slides.md`, `references/powerpoint-pptx.md` |
 | Scheduled report or alert flows in n8n, Make or Zapier | `automation` → `references/automation-design.md`, `references/n8n.md` |
+| The product feed and Merchant Center data behind Shopping and PMax | `ecommerce` → `references/catalog-and-feeds.md` |
 
 ## Go deeper (original skills)
 

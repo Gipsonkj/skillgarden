@@ -1,0 +1,54 @@
+{
+  "name": "3D modeling",
+  "blurb": "Blender scripts, Three.js and R3F scenes, GLB optimisation, image-to-3D, CAD and 3D printing, OpenUSD, splats and game-ready assets.",
+  "hue": 305,
+  "collections": [],
+  "repos": [
+    "majidmanzarpour/blender-game-skills",
+    "earthtojake/text-to-cad",
+    "CloudAI-X/threejs-skills",
+    "scenario-labs/skills"
+  ],
+  "searches": [
+    "Blender MCP bpy agent skill new release",
+    "three.js React Three Fiber WebGPU agent skill",
+    "image to 3D model API Meshy Tripo Hunyuan3D TRELLIS new",
+    "text to CAD build123d OpenSCAD 3D printing agent skill",
+    "Gaussian splat OpenUSD glTF pipeline agent skill"
+  ],
+  "keywords": [
+    "Blender",
+    "Three.js",
+    "3D printing"
+  ],
+  "feeds": [
+    "https://www.blender.org/feed/",
+    "https://github.com/mrdoob/three.js/releases.atom"
+  ],
+  "hf": [
+    "image-to-3d",
+    "text-to-3d"
+  ],
+  "tests": [
+    {
+      "id": "t1",
+      "prompt": "Write a Blender script that builds a low-poly wooden crate (1 m cube, bevelled edges, wood material) and exports it as a GLB for my three.js game. I'm on Blender 4.4.",
+      "good": "States the brief in numbers (1 m, metres, Y up in glTF, triangle budget for a small prop, texture size). Checks the Blender version and avoids API traps for 4.x; script is idempotent (get-or-create by name, only touches its own objects) and runs headless with --factory-startup and --python-exit-code 1. Applies transforms, sets the pivot on the floor, names the object PR_Crate, uses a Principled BSDF material. Renders a check image and looks at it, runs validate.py with --budget-tris, exports GLB, round-trips it with roundtrip.py and --expect-height 1.0, then suggests glTF Transform optimisation."
+    },
+    {
+      "id": "t2",
+      "prompt": "Our product page loads a 48 MB GLB of a sneaker and the three.js scene drops to 20 fps on phones. Fix it.",
+      "good": "Measures first: glTF Transform inspect (meshes, textures and their sizes, draw calls) and renderer.info on a real phone. Prunes, dedups and welds, simplifies only as far as the close-up allows, resizes textures to screen size and compresses with KTX2 (UASTC for normals, ETC1S for colour) and Meshopt or Draco, then wires the matching decoders, self-hosted. Caps DPR at 2, merges or shares materials, uses frameloop on demand or renders only on change, disposes on unmount, lazy-loads below the fold. Reports file size, draw calls, triangles and fps before and after, and what wasn't checked."
+    },
+    {
+      "id": "t3",
+      "prompt": "Design a wall-mount bracket for a 25 mm diameter pipe with two M4 screw holes, and give me something I can print on my Prusa MK4S in PETG.",
+      "good": "Writes down units (mm), axes and the controlling dimensions; assumes and lists clearance for the pipe and M4 clearance holes. Models it parametrically (build123d via cadgen or OpenSCAD with named parameters), measures the saved geometry and looks at multi-view snapshots. Checks printability: orientation chosen and explained, overhangs, wall thickness, hole sizes. Exports STEP and 3MF, finds the user's real MK4S PETG presets with orca_presets.py instead of inventing them, slices with the OrcaSlicer CLI, greps the G-code footer to confirm printer, nozzle and filament, reports time and filament use, and hands the file over without sending it to the printer."
+    },
+    {
+      "id": "t4",
+      "prompt": "Make a 3D viewer for our new headphones on the product landing page: the model slowly turns, rotates on drag, and the page must still score well on Core Web Vitals on mobile. I have a Blender file of the headphones.",
+      "good": "States a short plan first: here, blender.md to clean the model and export, gltf-pipeline.md to optimise the GLB with KTX2 and Meshopt and round-trip it, react-three-fiber.md or threejs-scenes.md for the scene, web-3d-performance.md for draw calls and DPR; the slow turntable and drag easing through motion-animation (threejs-animation.md, respecting reduced motion); the page budget through website-building (performance-cwv.md: lazy-load the canvas, poster image as LCP, no layout shift). Checks the Done means of all three crafts on a real phone and says what wasn't verified."
+    }
+  ]
+}

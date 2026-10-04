@@ -1,0 +1,47 @@
+{
+  "name": "Career & job search",
+  "blurb": "Resumes tailored to a posting, ATS checks, cover letters, job search, interview prep, salary negotiation, promotions and hiring.",
+  "hue": 235,
+  "collections": [],
+  "repos": [
+    "noamseg/interview-coach-skill",
+    "MadsLorentzen/ai-job-search",
+    "Paramchoudhary/ResumeSkills",
+    "career-ops-hq/career-ops"
+  ],
+  "searches": [
+    "resume tailoring agent skill job description ATS new",
+    "interview prep coach Claude skill STAR mock interview",
+    "salary negotiation offer comparison agent skill",
+    "system design coding interview practice skill Claude Code",
+    "brag document promotion case self-review agent skill"
+  ],
+  "keywords": [
+    "resume",
+    "job interview",
+    "salary negotiation"
+  ],
+  "feeds": [],
+  "tests": [
+    {
+      "id": "t1",
+      "prompt": "Here's my resume and a job posting for a Senior Data Analyst at a logistics company. Tailor my resume to it. I don't have numbers for most of my bullets, just make them sound impressive.",
+      "good": "Decodes the posting into its top 5-7 competencies and maps each to real evidence, listing gaps as gaps; refuses to invent numbers and asks for estimates the user will stand behind, marking the rest (number needed); reorders and rewords true bullets in the posting's terms (action, result, evidence); keeps single-column ATS-safe formatting, month-year dates and standard headings; flags any stretch line with keep, soften or drop; extracts the text layer or says it was skipped; reports the keyword match and what was not changed."
+    },
+    {
+      "id": "t2",
+      "prompt": "I have a final-round behavioural interview for a product manager role at a fintech next Tuesday. Run a mock interview with me.",
+      "good": "Builds or checks a story bank first (8-12 stories mapped to the role's competencies) and asks for company and role context; marks unverified company claims as unknown; asks one question at a time with no feedback mid-mock, including a follow-up probe; at the end asks for self-assessment first, then scores each answer 1-5 on substance, structure, relevance, credibility and differentiation with strengths before gaps; names ranked concerns the interviewer may have and gives a short drill plan plus questions to ask."
+    },
+    {
+      "id": "t3",
+      "prompt": "I got an offer: $145k base, 10% bonus, 20k RSUs over 4 years. The recruiter wants an answer by Friday. Should I negotiate and how?",
+      "good": "Asks for the user's own market data, level, location and other processes instead of inventing pay figures; reads the offer as total compensation with vesting, cliff, refreshers and clawbacks; sets floor, target and stretch; sequences the ask (total first, then components, signing bonus last) with a reasoned counter and a script to ask live and confirm in writing; never suggests inventing a competing offer; asks for more time if needed; says it is not legal, tax or financial advice."
+    },
+    {
+      "id": "t4",
+      "prompt": "I'm a high-school teacher moving into instructional design. Rewrite my resume for corporate L&D roles, give me a clean two-page PDF I can send, and update my LinkedIn headline and About section to match.",
+      "good": "States a plan first: career-change.md (landing spot, translation tables, hybrid resume with dated chronology, positioning statement) and resume-writing.md for the content, with no upgraded scope or invented results; the PDF through docs-office (document-design.md, pdf.md: single column, selectable text, two pages); the headline and About through linkedin-automation (profile-optimization.md) using the same positioning statement. Extracts the PDF text layer, keeps the three pieces consistent, and checks the Done means of all three crafts."
+    }
+  ]
+}

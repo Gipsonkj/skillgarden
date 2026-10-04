@@ -91,6 +91,7 @@ API keys (`OPENAI_API_KEY`) and `ffmpeg`/`ffprobe` where noted; `--dry-run` work
 | A PDF or Office file turned into clean text before an audiobook or narration | `docs-office` → `references/convert-extract.md` |
 | Meeting minutes with owners and due dates from a transcript | `product-management` → `references/meetings.md` |
 | A scheduled pipeline that turns new posts into audio (n8n, Make, Zapier) | `automation` → `references/automation-design.md`, `references/n8n.md` |
+| Serving open speech or music models on your own GPU or a serverless endpoint | `open-models` → `references/serving-endpoints.md`, `references/gpu-hosting-runpod-modal.md` |
 
 ## Go deeper (original skills)
 

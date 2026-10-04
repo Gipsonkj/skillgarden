@@ -68,6 +68,8 @@ Call a sub-capability by naming the task, or say "use ai-agents: mcp-servers", "
 | A chat screen for the agent: loading, empty, error and feedback states | `frontend-ui-design` → `references/components-and-states.md`, `references/react-shadcn-tailwind.md` |
 | PDFs and Office files turned into clean Markdown chunks for retrieval | `docs-office` → `references/convert-extract.md` |
 | Choosing or designing the voice, ElevenLabs TTS or STT (beyond `references/voice-agents-elevenlabs.md`) | `audio-generation` → `references/voiceover-tts.md`, `references/elevenlabs.md` |
+| Cutting an agent's token bill: caching audit, model routing, batch, cost per task | `token-efficiency` → `references/api-cost-patterns.md`, `references/prompt-caching.md`, `references/measuring-usage.md` |
+| Running the agent on an open-weight model, local or self-hosted, with tool calling | `open-models` → `references/agents-and-tools.md`, `references/serving-endpoints.md`, `references/choosing-models-and-licences.md` |
 
 ## Go deeper (original skills)
 

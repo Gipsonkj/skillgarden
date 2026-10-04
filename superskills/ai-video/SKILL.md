@@ -87,6 +87,7 @@ Don't install missing dependencies on your own. Tell the user what is missing an
 | A video ad that has to perform: angles, platform specs, testing | `ad-creation` → `references/short-form-video-ugc.md`, `references/platform-specs.md`, `references/testing-iteration.md` |
 | A YouTube thumbnail or cover for the finished video | `poster-design` → `references/thumbnails.md` |
 | The video as a looping or scroll-scrubbed hero on a website | `website-building` → `references/motion-and-scroll.md` |
+| Running open video models (Wan, LTX) on your own or rented GPUs | `open-models` → `references/gpu-hosting-runpod-modal.md`, `references/vram-and-sizing.md` |
 
 ## Go deeper (original skills)
 
