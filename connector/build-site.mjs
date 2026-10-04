@@ -125,7 +125,7 @@ const craftsHtml = CATS.map((c) => `        <div class="bed"><h3>${esc(c.name)}<
 }).join("")}</ul></div>`).join("\n");
 const chainsHtml = chains.map((x) => {
   const path = [...new Set((x.steps || []).map((s) => byId[s.craft]?.name || s.craft))];
-  return `        <li><a href="/explore/#/chain/${esc(x.id)}"><div><h3>${esc(x.name)}</h3><div class="path">${path.map(esc).join(" → ")}</div></div><p>${esc(x.blurb)}</p></a></li>`;
+  return `        <li><a href="/explore/#/chain/${esc(x.id)}"><div><h3>${esc(x.name)}</h3><div class="path">${path.map((p, i) => `<span style="--i:${i}">${esc(p)}</span>`).join(" → ")}</div></div><p>${esc(x.blurb)}</p></a></li>`;
 }).join("\n");
 const counts = { CRAFTS: Object.keys(topics).length, SKILLS: catalog.topics.reduce((n, t) => n + (t.skills || []).length, 0), SHARED: shared, CHAINS: chains.length };
 const landing = fs.readFileSync(path.join(HERE, "landing", "index.html"), "utf8")
