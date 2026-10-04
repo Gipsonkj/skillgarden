@@ -16,6 +16,8 @@
     "Reanimated Expo animation new release",
     "agent skill UI animation easing Claude"
   ],
+  "keywords": ["GSAP", "animation", "View Transitions"],
+  "feeds": ["https://gsap.com/blog/rss.xml", "https://developer.chrome.com/static/blog/feed.xml", "https://www.remotion.dev/blog/rss.xml"],
   "tests": [
     {
       "id": "t1",

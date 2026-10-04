@@ -11,6 +11,8 @@
     "brand voice guide tone of voice AI content workflow",
     "newsletter growth Substack Beehiiv strategy new feature"
   ],
+  "keywords": ["copywriting", "AI writing", "newsletter"],
+  "feeds": ["https://www.lennysnewsletter.com/feed", "https://www.socialmediatoday.com/feeds/news/"],
   "tests": [
     {
       "id": "t1",

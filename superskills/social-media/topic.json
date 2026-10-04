@@ -16,6 +16,8 @@
     "short-form video hook retention study new data",
     "social media scheduling API MCP server new"
   ],
+  "keywords": ["TikTok", "social media", "Bluesky"],
+  "feeds": ["https://www.socialmediatoday.com/feeds/news/", "https://buffer.com/resources/rss/", "https://blog.hootsuite.com/feed/"],
   "tests": [
     {
       "id": "t1",

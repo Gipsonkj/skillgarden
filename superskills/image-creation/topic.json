@@ -11,6 +11,9 @@
     "ComfyUI new workflow inpainting ControlNet technique",
     "agent skill image generation Claude Codex SKILL.md"
   ],
+  "keywords": ["image model", "image generation", "Stable Diffusion"],
+  "feeds": ["https://deepmind.google/blog/rss.xml", "https://openai.com/news/rss.xml", "https://huggingface.co/blog/feed.xml"],
+  "hf": ["text-to-image", "image-to-image"],
   "tests": [
     {
       "id": "t1",

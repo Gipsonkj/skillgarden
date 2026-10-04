@@ -16,6 +16,8 @@
     "Core Web Vitals INP new guidance or tooling",
     "agent skill SEO audit Claude new release"
   ],
+  "keywords": ["SEO", "Google Search", "AI Overviews"],
+  "feeds": ["https://developers.google.com/search/blog/feed.xml", "https://www.searchenginejournal.com/feed/"],
   "tests": [
     {
       "id": "t1",

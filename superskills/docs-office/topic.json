@@ -16,6 +16,8 @@
     "HTML slide deck framework Slidev Marp new release",
     "MarkItDown Docling document conversion update"
   ],
+  "keywords": ["PDF", "Excel", "PowerPoint"],
+  "feeds": [],
   "tests": [
     {
       "id": "t1",

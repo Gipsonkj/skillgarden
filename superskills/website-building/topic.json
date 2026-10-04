@@ -16,6 +16,8 @@
     "scroll-driven animations CSS view timeline new technique",
     "Vercel Netlify Cloudflare deploy new feature changelog"
   ],
+  "keywords": ["Next.js", "Astro", "Core Web Vitals"],
+  "feeds": ["https://nextjs.org/feed.xml", "https://vercel.com/atom", "https://web.dev/static/blog/feed.xml", "https://developer.chrome.com/static/blog/feed.xml"],
   "tests": [
     {
       "id": "t1",

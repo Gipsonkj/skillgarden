@@ -22,7 +22,9 @@ plus an MCP connector. Read `GUIDE.md` for the user-facing how-to.
   artifact. Light theme is the default; dark only when the user picks it. Its `CATS` list
   groups the crafts and must include every craft (the site build fails otherwise).
 - `local/`: the app on this Mac. `server.mjs` (port 4747, JSON data in `local/data/`, not in
-  git), `runtime.js` (stands in for `window.claude`), `import-superskills.mjs` (loads
+  git), `radar.mjs` (snapshot of GitHub, CREDITS.md repos, feeds, Hugging Face, MCP Registry,
+  HN and Reddit, taken before each scout run; uses `gh`),
+  `runtime.js` (stands in for `window.claude`), `import-superskills.mjs` (loads
   `superskills/` into the app and folds old starter topics), `sg.mjs` (the scout's only
   data access), `scout-local.md`.
 - `runbook.md`: what the weekly scout does (Sunday 06:51 IST, one craft at a time, via the

@@ -16,6 +16,8 @@
     "Enhanced Conversions Consent Mode Data Manager API update",
     "agent skill Google Ads Claude MCP"
   ],
+  "keywords": ["Google Ads", "Performance Max"],
+  "feeds": ["https://ads-developers.googleblog.com/feeds/posts/default", "https://blog.google/products/ads-commerce/rss/", "https://ppc.land/rss/"],
   "tests": [
     {
       "id": "t1",

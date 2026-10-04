@@ -3,7 +3,7 @@
   "blurb": "Skills, CLAUDE.md, hooks, subagents, plans and context: set Claude up to do long tasks well.",
   "hue": 22,
   "collections": [],
-  "repos": ["anthropics/skills", "obra/superpowers", "mattpocock/skills", "anthropics/claude-plugins-official"],
+  "repos": ["anthropics/skills", "obra/superpowers", "mattpocock/skills", "anthropics/claude-plugins-official", "anthropics/claude-code"],
   "searches": [
     "Claude Code new hook event or skill feature release",
     "agent skill authoring best practices SKILL.md description triggering",
@@ -11,6 +11,8 @@
     "Claude Code subagent orchestration workflow new skill",
     "long-running agent context compaction memory planning files technique"
   ],
+  "keywords": ["Claude Code", "Agent Skills", "CLAUDE.md"],
+  "feeds": ["https://www.latent.space/feed"],
   "tests": [
     {
       "id": "t1",

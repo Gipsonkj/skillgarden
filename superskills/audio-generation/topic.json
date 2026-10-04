@@ -11,6 +11,9 @@
     "speech-to-text diarization benchmark new model",
     "agent skill audio generation voiceover Claude"
   ],
+  "keywords": ["text-to-speech", "ElevenLabs", "voice model"],
+  "feeds": ["https://huggingface.co/blog/feed.xml", "https://openai.com/news/rss.xml"],
+  "hf": ["text-to-speech", "text-to-audio", "automatic-speech-recognition"],
   "tests": [
     {
       "id": "t1",

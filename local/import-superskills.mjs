@@ -5,7 +5,7 @@
 //   node import-superskills.mjs seo ai-video   import only these
 //   node import-superskills.mjs --inactive     import with "Scout this topic" off
 //
-// Each folder holds SKILL.md, topic.json (name, blurb, hue, searches, tests) and any
+// Each folder holds SKILL.md, topic.json (name, blurb, hue, searches, keywords, feeds, hf, tests) and any
 // references/, scripts/ or templates/ files. Text files ride along as topic.files and
 // come with the skill's download. A topic that already has the same content is left alone;
 // a changed one gets a new version. New topics join the weekly scout (one topic at a time).
@@ -65,6 +65,7 @@ for (const [i, slug] of slugs.entries()) {
     ...(cur || { active: ACTIVE, collections: meta.collections || [], order: order0 + i + 1, repos: meta.repos || [] }),
     name: meta.name, blurb: meta.blurb, hue: meta.hue ?? (i * 37) % 360,
     searches: cur?.searches?.length ? cur.searches : meta.searches || [],
+    ...Object.fromEntries(["keywords", "feeds", "hf"].map((k) => [k, cur?.[k] || meta[k] || []])),
     // Tests edited in the app stay; seed tests it doesn't have yet (by id, e.g. a new t4) are added.
     tests: cur?.tests?.length ? [...cur.tests, ...(meta.tests || []).filter((x) => !cur.tests.some((c) => c.id === x.id))] : meta.tests || [],
     version, content, files, updatedAt: now,

@@ -4,7 +4,9 @@
   "hue": 160,
   "collections": [],
   "repos": ["supabase/agent-skills", "wshobson/agents", "stripe/ai", "prisma/skills"],
-  "searches": ["postgres best practices", "supabase", "prisma", "stripe", "api design"],
+  "searches": ["Supabase changelog new feature this month", "PostgreSQL new release feature or performance change", "Prisma ORM release notes new version", "Stripe API changelog new version", "agent skill Postgres API design database Claude new"],
+  "keywords": ["Postgres", "Supabase", "SQLite"],
+  "feeds": ["https://supabase.com/rss.xml", "https://www.postgresql.org/news.rss", "https://www.prisma.io/blog/rss.xml", "https://stripe.com/blog/feed.rss"],
   "tests": [
     {"id": "t1", "prompt": "Design tables for a multi-tenant invoicing app on Supabase.", "good": "bigint identity PKs plus UUID public ids, tenant_id with composite indexes, FKs indexed, numeric or cents for money, timestamptz, RLS on every table with (select auth.uid()) and WITH CHECK on updates."},
     {"id": "t2", "prompt": "Our orders list endpoint got slow at page 500.", "good": "Asks for explain (analyze, buffers), replaces OFFSET with cursor pagination on (created_at, id), adds a matching composite index, caps limit at 100."},

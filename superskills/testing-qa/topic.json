@@ -16,6 +16,8 @@
     "TDD skill coding agent test quality mutation",
     "mobile app UI testing agent simulator skill"
   ],
+  "keywords": ["Playwright", "flaky tests", "end-to-end testing"],
+  "feeds": [],
   "tests": [
     {
       "id": "t1",

@@ -11,6 +11,8 @@
     "agent skill LinkedIn post writing Claude",
     "LinkedIn document carousel engagement benchmark"
   ],
+  "keywords": ["LinkedIn"],
+  "feeds": ["https://www.socialmediatoday.com/feeds/news/"],
   "tests": [
     {
       "id": "t1",

@@ -16,6 +16,9 @@
     "scientific paper writing Claude skill new",
     "deep research agent open source skill"
   ],
+  "keywords": ["literature review", "arXiv", "research agent"],
+  "feeds": ["https://blog.openalex.org/rss/"],
+  "hf": ["papers"],
   "tests": [
     {
       "id": "t1",

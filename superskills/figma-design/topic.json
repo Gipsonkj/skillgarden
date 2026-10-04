@@ -16,6 +16,8 @@
     "design system audit skill Figma drift parity",
     "Figma design to code skill Claude Code Connect"
   ],
+  "keywords": ["Figma", "design tokens"],
+  "feeds": ["https://www.figma.com/blog/feed/atom.xml"],
   "tests": [
     {
       "id": "t1",

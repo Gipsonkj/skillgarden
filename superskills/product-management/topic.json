@@ -16,6 +16,8 @@
     "Jira Linear MCP server new release features",
     "continuous discovery customer interview Jobs to Be Done method"
   ],
+  "keywords": ["product manager", "roadmap", "PRD"],
+  "feeds": ["https://www.lennysnewsletter.com/feed", "https://www.svpg.com/feed/", "https://linear.app/rss/changelog.xml"],
   "tests": [
     {
       "id": "t1",

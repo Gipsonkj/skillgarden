@@ -16,6 +16,8 @@
     "agent skill ad copy generation Claude marketing",
     "creative testing framework paid social fatigue"
   ],
+  "keywords": ["Meta ads", "ad creative", "TikTok ads"],
+  "feeds": ["https://about.fb.com/news/feed/", "https://blog.google/products/ads-commerce/rss/", "https://ppc.land/rss/"],
   "tests": [
     {
       "id": "t1",

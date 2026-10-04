@@ -307,6 +307,14 @@ main { padding-top: 24px; }
 .switch input::after { content: ""; position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; border-radius: 50%; background: var(--raised); transition: transform .15s; box-shadow: 0 1px 2px rgba(0,0,0,.2); }
 .switch input:checked { background: var(--accent); }
 .switch input:checked::after { transform: translateX(16px); }
+.skip-why { display: grid; gap: 4px; flex: 1 1 260px; font-size: 13px; color: var(--ink-2); }
+.radar { max-width: 860px; background: var(--raised); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; display: grid; gap: 12px; margin-bottom: 14px; min-width: 0; }
+.rd-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px 22px; }
+.rd-col { min-width: 0; }
+.rd-col h4 { font-size: 13px; color: var(--ink-3); font-weight: 600; margin: 0 0 6px; }
+.rd-col ol { margin: 0; padding-left: 18px; display: grid; gap: 6px; font-size: 13.5px; }
+.rd-col li { overflow-wrap: anywhere; }
+.rd-col li .muted { display: block; font-size: 12px; }
 .howto { max-width: 860px; margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--line-2); color: var(--ink-2); font-size: 14px; display: grid; gap: 8px; }
 .howto h3 { font-size: 17px; color: var(--ink); }
 .howto ol { margin: 0; padding-left: 20px; display: grid; gap: 4px; }
@@ -592,8 +600,8 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
   /* ---------- state ---------- */
   const S = {
     db: null, user: null, mcp: null, downloads: null, canWrite: true,
-    loaded: { topics: false, candidates: false, inbox: false, runs: false, settings: false },
-    topics: [], candidates: [], inbox: [], runs: [], settings: null, versions: [], versionsFor: null,
+    loaded: { topics: false, candidates: false, inbox: false, runs: false, settings: false, radar: false },
+    topics: [], candidates: [], inbox: [], runs: [], settings: null, radar: null, versions: [], versionsFor: null,
     view: "explore", reviewTopic: "all", showLost: false, openDiff: new Set(), busy: new Set(),
     skillOpen: null, skillTab: "skill", skillRaw: false, editing: null, newTopicOpen: false, histOpen: new Set(),
     inboxTopic: "all", inboxStatus: "all", inboxLimit: 150, noteEditing: null,
@@ -839,10 +847,10 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
   function mountView(v) {
     const el = $("#view");
     if (v === "explore") el.innerHTML = `<section id="ex"></section>`;
-    else if (v === "review") el.innerHTML = `<section><div class="section-head"><div><h2>Changes waiting for you</h2><p>Each one beat the current skill in blind trials. Add it and the skill grows a version; skip it and the scout won't propose it again.</p></div><div class="filters" id="rv-filter"></div></div><div id="rv-summary"></div><div class="cands" id="rv-list"></div><div id="rv-lost"></div></section>`;
+    else if (v === "review") el.innerHTML = `<section><div class="section-head"><div><h2>Changes waiting for you</h2><p>Each one beat the current skill in blind trials. Add it and the skill grows a version; skip it and the scout won't propose it again. Source changes only adjust where the scout looks.</p></div><div class="filters" id="rv-filter"></div></div><div id="rv-summary"></div><div class="cands" id="rv-list"></div><div id="rv-lost"></div></section>`;
     else if (v === "skills") el.innerHTML = `<section id="sk"></section>`;
     else if (v === "inbox") mountInbox(el);
-    else if (v === "log") el.innerHTML = `<section><div class="section-head"><div><h2>Scout log</h2><p>What the scout looked at each week and what it found.</p></div><div id="lg-controls"></div></div><div class="runs" id="lg-list"></div><div id="lg-howto"></div></section>`;
+    else if (v === "log") el.innerHTML = `<section><div class="section-head"><div><h2>Scout log</h2><p>What the scout looked at each week and what it found.</p></div><div id="lg-controls"></div></div><div id="lg-radar"></div><div class="runs" id="lg-list"></div><div id="lg-howto"></div></section>`;
   }
 
   function loadingOr(key, html) { return S.loaded[key] ? html : `<p class="skeleton">Loading…</p>`; }
@@ -856,6 +864,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
   }
   function trialLine(c) {
     const t = c.trials || {};
+    if (c.kind === "sources") return `<div class="trial"><span class="pill accent">Sources</span><span class="trial-text">Changes where the scout looks for this topic, not the skill, so there was nothing to try in trials.</span></div>`;
     if (c.kind === "first-draft") return `<div class="trial"><span class="pill accent">First draft</span><span class="trial-text">This topic had no skill yet, so there was nothing to test against. Read it and add it to start the topic at v1.</span></div>`;
     const count = N(t.count);
     const topic = topicById(c.topicId);
@@ -876,7 +885,8 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
     if (!names.length) return "";
     return `<div style="margin-top:12px"><p class="muted">Also changes ${names.length === 1 ? "1 file" : names.length + " files"} in the skill:</p>${names.map((n) => { const old = (t && t.files && t.files[n]) || ""; const nu = c.filesPatch[n]; return `<details><summary class="mono">${esc(n)} · ${nu == null ? "removed" : old ? "changed" : "new"}</summary>${nu == null ? "" : old ? diffHtml(old, nu) : `<pre style="white-space:pre-wrap;overflow-wrap:anywhere">${esc(nu)}</pre>`}</details>`; }).join("")}</div>`;
   }
-  const KIND = { generation: "New generation", add: "Adds to the skill", improve: "Improves the skill", remove: "Trims the skill", "first-draft": "New skill" };
+  const KIND = { generation: "New generation", add: "Adds to the skill", improve: "Improves the skill", remove: "Trims the skill", "first-draft": "New skill", sources: "Changes the sources" };
+  const REPO_OK = /^[\w.-]+\/[\w.-]+$/;
   // Safety gate for scout proposals: a change that could leak keys, cookies or prompts, phone home,
   // run remote code, or bring back a skill removed for that reason is blocked from being added.
   const BLOCKED_SKILLS = ["qiaomu-mondo-poster-design"];
@@ -892,6 +902,10 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
     const out = new Set();
     const pairs = [[t.content || "", c.proposed || ""], ...Object.entries(c.filesPatch || {}).filter(([, v]) => typeof v === "string").map(([p, v]) => [(t.files || {})[p] || "", v])];
     for (const p of Object.keys(c.filesPatch || {})) if (!/^(references\/[^/]+\.md|CREDITS\.md)$/.test(p) || p.includes("..")) out.add(`changes a file it may not touch (${p})`);
+    const sp = c.kind === "sources" && c.sourcesPatch || {};
+    for (const r of [...(sp.addRepos || []), ...(sp.dropRepos || [])]) if (!REPO_OK.test(String(r))) out.add(`names a repo that isn't owner/repo (${r})`);
+    for (const r of sp.addRepos || []) for (const b of BLOCKED_SKILLS) if (String(r).toLowerCase().includes(b)) out.add(`brings back ${b}, removed for leaking keys`);
+    for (const u of sp.addFeeds || []) if (!isHttps(String(u))) out.add(`adds a feed that isn't an https link (${u})`);
     for (const [old, x] of pairs) {
       for (const [re, why] of RISKS) { const had = new Set(old.match(re) || []); if ((x.match(re) || []).some((m) => !had.has(m))) out.add(why); }
       for (const b of BLOCKED_SKILLS) if (x.toLowerCase().includes(b) && !old.toLowerCase().includes(b)) out.add(`brings back ${b}, removed for leaking keys`);
@@ -908,7 +922,8 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
       return `<li><span class="k">${esc(s.kind || "web")}</span>${u ? `<a href="${esc(u)}" target="_blank" rel="noopener">${label}</a>` : label}</li>`;
     }).join("");
     let actions = "";
-    if (mode === "ready") actions = `<button class="btn primary" data-act="approve" data-id="${esc(c.id)}"${dis("c:" + c.id)}>Add to skill</button><button class="btn" data-act="skip" data-id="${esc(c.id)}"${dis("c:" + c.id)}>Skip</button>`;
+    if (mode === "ready" && S.skipping === c.id) actions = `<label class="skip-why"><span>Why skip it? Optional; the scout reads this.</span><input class="input" id="skip-note" maxlength="300" placeholder="e.g. we already cover this, or the source isn't trustworthy"></label><button class="btn" data-act="skip-confirm" data-id="${esc(c.id)}"${dis("c:" + c.id)}>Skip it</button><button class="btn ghost" data-act="skip-cancel">Cancel</button>`;
+    else if (mode === "ready") actions = `<button class="btn primary" data-act="approve" data-id="${esc(c.id)}"${dis("c:" + c.id)}>${c.kind === "sources" ? "Update sources" : "Add to skill"}</button><button class="btn" data-act="skip" data-id="${esc(c.id)}"${dis("c:" + c.id)}>Skip</button>`;
     else if (mode === "lost") actions = `<button class="btn small" data-act="approve" data-id="${esc(c.id)}"${dis("c:" + c.id)}>Add anyway</button>`;
     else if (mode === "skipped") actions = `<button class="btn small" data-act="unskip" data-id="${esc(c.id)}"${dis("c:" + c.id)}>Move back to review</button>`;
     const base = t && Number(c.baseVersion) === Number(t.version) ? (t.content || "") : null;
@@ -924,9 +939,16 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
       ${src ? `<ul class="sources">${src}</ul>` : ""}
       ${conflictsHtml(c)}
       ${c.foldNote ? `<p class="why">${esc(c.foldNote)}</p>` : ""}
-      <div class="cand-actions">${actions}<button class="link" data-act="toggle-diff" data-id="${esc(c.id)}" aria-expanded="${open}">${open ? "Hide the change" : c.kind === "first-draft" ? "Read the draft" : "See the change"}</button></div>
-      ${diffBody}${open ? filesDiff(t, c) : ""}
+      ${c.kind === "sources" ? sourcesPatchHtml(c) : ""}
+      <div class="cand-actions">${actions}${c.kind === "sources" ? "" : `<button class="link" data-act="toggle-diff" data-id="${esc(c.id)}" aria-expanded="${open}">${open ? "Hide the change" : c.kind === "first-draft" ? "Read the draft" : "See the change"}</button>`}</div>
+      ${c.kind === "sources" ? "" : diffBody + (open ? filesDiff(t, c) : "")}
     </article>`;
+  }
+  const PATCH_ROWS = [["addRepos", "Watch"], ["dropRepos", "Stop watching"], ["addSearches", "Search for"], ["dropSearches", "Stop searching"], ["addFeeds", "Read feed"], ["dropFeeds", "Stop reading"]];
+  function sourcesPatchHtml(c) {
+    const p = c.sourcesPatch || {};
+    const rows = PATCH_ROWS.flatMap(([k, label]) => (Array.isArray(p[k]) ? p[k] : []).slice(0, 6).map((x) => `<li><span class="k">${label}</span>${k.endsWith("Repos") && REPO_OK.test(String(x)) ? `<a href="https://github.com/${esc(x)}" target="_blank" rel="noopener">${esc(x)}</a>` : esc(x)}</li>`));
+    return rows.length ? `<ul class="sources">${rows.join("")}</ul>` : "";
   }
   // Where the sources disagreed, and what the scout chose. Shown so it's your call, not a silent merge.
   function conflictsHtml(c) {
@@ -943,7 +965,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
     const shown = ready.filter((c) => S.reviewTopic === "all" || c.topicId === S.reviewTopic);
     const approved = S.candidates.filter((c) => c.status === "approved");
     const lr = lastRun();
-    $("#rv-summary").innerHTML = ready.length ? `<div class="summary-strip"><span class="big">${ready.length}</span><span>${ready.length === 1 ? "change passed its trials and is" : "changes passed their trials and are"} waiting for you${topicsWith.length ? ` across ${plural(topicsWith.length, "skill")}` : ""}.</span></div>` : "";
+    $("#rv-summary").innerHTML = ready.length ? `<div class="summary-strip"><span class="big">${ready.length}</span><span>${ready.length === 1 ? "change is" : "changes are"} waiting for you${topicsWith.length ? ` across ${plural(topicsWith.length, "skill")}` : ""}.</span></div>` : "";
     let list;
     if (!S.loaded.candidates) list = `<p class="skeleton">Loading…</p>`;
     else if (!ready.length) {
@@ -1051,20 +1073,28 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
       ${tests.length ? `<div class="tests">${tests.map((x, k) => `<div class="test"><span class="lbl">Task ${k + 1}</span><p>${esc(x.prompt)}</p>${x.good ? `<span class="lbl" style="margin-top:6px">What good looks like</span><p style="color:var(--ink-2)">${esc(x.good)}</p>` : ""}</div>`).join("")}</div>` : `<div class="empty"><h3>No tests yet</h3><p>Without tests the scout can't compare versions. Add two or three real tasks you'd ask for in this topic, or let the scout suggest them with the first draft.</p></div>`}`;
   }
   function sourcesPane(t) {
-    const libs = (S.settings && S.settings.libraries) || [];
+    const libs = (S.settings && S.settings.libraries) || [], lists = (S.settings && S.settings.lists) || [], shared = (S.settings && S.settings.feeds) || [];
     const tags = (arr, empty) => arr && arr.length ? `<div class="taglist">${arr.map((x) => `<span class="tag">${esc(x)}</span>`).join("")}</div>` : `<p class="muted">${empty}</p>`;
     return `<div class="section-head" style="margin-bottom:12px"><div><p>Where the scout looks for this topic every week, besides the reels in your inbox.</p></div><button class="btn small" data-act="edit-sources"${S.canWrite ? "" : " disabled"}>Edit sources</button></div>
       <div class="fields"><div class="kv"><span class="lbl" style="font-weight:600">Instagram collections</span>${tags(t.collections, "None linked. Imported reels from these collections go to this topic.")}</div>
-      <div class="kv"><span class="lbl" style="font-weight:600">GitHub repos to watch</span>${tags(t.repos, "None. The scout checks their releases each week.")}</div>
+      <div class="kv"><span class="lbl" style="font-weight:600">GitHub repos to watch</span>${tags(t.repos, "None. The scout reads their new commits and releases each week.")}</div>
       <div class="kv"><span class="lbl" style="font-weight:600">Web searches</span>${tags(t.searches, "None yet.")}</div>
-      <div class="kv"><span class="lbl" style="font-weight:600">Official skill libraries (all topics)</span>${tags(libs, "None.")}</div></div>`;
+      <div class="kv"><span class="lbl" style="font-weight:600">Feeds (official blogs and changelogs)</span>${tags(t.feeds, "None. Add a blog or changelog's RSS or Atom link.")}</div>
+      <div class="kv"><span class="lbl" style="font-weight:600">Hacker News keywords</span>${tags(t.keywords, "None.")}</div>
+      <div class="kv"><span class="lbl" style="font-weight:600">Hugging Face</span>${tags((t.hf || []).map((x) => x === "papers" ? "papers of the week" : "trending " + x + " models"), "Not used for this topic.")}</div>
+      <div class="kv"><span class="lbl" style="font-weight:600">Official skill libraries (all topics)</span>${tags(libs, "None.")}</div>
+      <div class="kv"><span class="lbl" style="font-weight:600">Curated skill lists (all topics)</span>${tags(lists, "None.")}</div>
+      <div class="kv"><span class="lbl" style="font-weight:600">Feeds (all topics)</span>${tags(shared, "None.")}</div>
+      <p class="muted">The scout also reads every repo named in this skill's CREDITS.md when it changes, new skill repos and MCP servers, and the week's Hacker News and Reddit talk.</p>
+      <div class="row-actions"><button class="btn ghost small" data-act="edit-shared"${S.canWrite && S.settings ? "" : " disabled"}>Edit shared sources</button></div></div>`;
   }
   function openEditor(kind, t) {
     S.editing = { kind, topicId: t.id };
     const body = $("#d-body");
     if (kind === "skill") body.innerHTML = `<div class="fields"><div class="field"><label for="ed-skill">SKILL.md</label><span class="hint">Saving makes a new version. The scout uses whatever is saved here.</span><textarea class="raw" id="ed-skill" spellcheck="false">${esc(t.content || "")}</textarea></div><div class="field"><label for="ed-note">What did you change?</label><input class="input" id="ed-note" placeholder="One line for the history" maxlength="140"></div><div class="row-actions"><button class="btn primary" data-act="save-skill">Save as v${N(t.version) + 1}</button><button class="btn ghost" data-act="cancel-edit">Cancel</button></div></div>`;
     else if (kind === "tests") body.innerHTML = `<div class="fields" id="ed-tests">${(t.tests && t.tests.length ? t.tests : [{ prompt: "", good: "" }]).map(testFields).join("")}</div><div class="row-actions" style="margin-top:14px"><button class="btn" data-act="add-test">Add a task</button><button class="btn primary" data-act="save-tests">Save tests</button><button class="btn ghost" data-act="cancel-edit">Cancel</button></div>`;
-    else body.innerHTML = `<div class="fields"><div class="field"><label for="ed-colls">Instagram collections</label><span class="hint">Comma-separated, spelled as on Instagram.</span><input class="input" id="ed-colls" value="${esc((t.collections || []).join(", "))}"></div><div class="field"><label for="ed-repos">GitHub repos to watch</label><span class="hint">One per line, as owner/repo.</span><textarea class="area" id="ed-repos">${esc((t.repos || []).join("\n"))}</textarea></div><div class="field"><label for="ed-search">Web searches</label><span class="hint">One per line.</span><textarea class="area" id="ed-search">${esc((t.searches || []).join("\n"))}</textarea></div><div class="field"><label for="ed-blurb">What this topic covers</label><input class="input" id="ed-blurb" value="${esc(t.blurb || "")}" maxlength="140"></div><div class="row-actions"><button class="btn primary" data-act="save-sources">Save sources</button><button class="btn ghost" data-act="cancel-edit">Cancel</button></div></div>`;
+    else if (kind === "shared") body.innerHTML = `<div class="fields"><p class="muted">The scout reads these for every topic.</p><div class="field"><label for="ed-libs">Official skill libraries</label><span class="hint">One per line, as owner/repo. Their new skills and changes are read for every topic.</span><textarea class="area" id="ed-libs">${esc(((S.settings && S.settings.libraries) || []).join("\n"))}</textarea></div><div class="field"><label for="ed-lists">Curated skill lists</label><span class="hint">One per line, as owner/repo. New entries are followed to the skill's own repo.</span><textarea class="area" id="ed-lists">${esc(((S.settings && S.settings.lists) || []).join("\n"))}</textarea></div><div class="field"><label for="ed-sfeeds">Feeds</label><span class="hint">One RSS or Atom link per line (https). New posts are read for every topic.</span><textarea class="area" id="ed-sfeeds">${esc(((S.settings && S.settings.feeds) || []).join("\n"))}</textarea></div><div class="row-actions"><button class="btn primary" data-act="save-shared">Save shared sources</button><button class="btn ghost" data-act="cancel-edit">Cancel</button></div></div>`;
+    else body.innerHTML = `<div class="fields"><div class="field"><label for="ed-colls">Instagram collections</label><span class="hint">Comma-separated, spelled as on Instagram.</span><input class="input" id="ed-colls" value="${esc((t.collections || []).join(", "))}"></div><div class="field"><label for="ed-repos">GitHub repos to watch</label><span class="hint">One per line, as owner/repo.</span><textarea class="area" id="ed-repos">${esc((t.repos || []).join("\n"))}</textarea></div><div class="field"><label for="ed-search">Web searches</label><span class="hint">One per line.</span><textarea class="area" id="ed-search">${esc((t.searches || []).join("\n"))}</textarea></div><div class="field"><label for="ed-feeds">Feeds</label><span class="hint">One RSS or Atom link per line (https): official blogs and changelogs for this topic.</span><textarea class="area" id="ed-feeds">${esc((t.feeds || []).join("\n"))}</textarea></div><div class="field"><label for="ed-keys">Hacker News keywords</label><span class="hint">Comma-separated tool or technique names, matched against story titles.</span><input class="input" id="ed-keys" value="${esc((t.keywords || []).join(", "))}"></div><div class="field"><label for="ed-hf">Hugging Face</label><span class="hint">Comma-separated model tasks as on Hugging Face (text-to-image, text-to-speech…), or papers.</span><input class="input" id="ed-hf" value="${esc((t.hf || []).join(", "))}"></div><div class="field"><label for="ed-blurb">What this topic covers</label><input class="input" id="ed-blurb" value="${esc(t.blurb || "")}" maxlength="140"></div><div class="row-actions"><button class="btn primary" data-act="save-sources">Save sources</button><button class="btn ghost" data-act="cancel-edit">Cancel</button></div></div>`;
     const first = body.querySelector("textarea, input"); if (first) first.focus();
   }
   function testFields(x, k) {
@@ -1477,10 +1507,25 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
   }
 
   /* ---- log ---- */
+  // The radar the server takes before each run (local/radar.mjs): measured, not guessed.
+  function radarHtml(r) {
+    if (!r) return "";
+    const num = (n) => Number(n || 0).toLocaleString("en");
+    const li = (href, label, meta) => { const u = safeUrl(href); return `<li>${u ? `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(label)}</a>` : esc(label)}<span class="muted">${esc(meta)}</span></li>`; };
+    const col = (h, items, empty) => `<div class="rd-col"><h4>${h}</h4>${items.length ? `<ol>${items.join("")}</ol>` : `<p class="muted">${empty}</p>`}</div>`;
+    const repos = Object.values(r.repos || {});
+    const rising = (r.rising || []).slice(0, 8).map((x) => li(`https://github.com/${x.repo}`, x.repo, `+${num(x.starsGained)} stars this week`));
+    const fresh = (r.newRepos || []).slice(0, 8).map((x) => li(x.url, x.repo, `${num(x.stars)} stars${x.about ? " · " + (x.about.length > 90 ? x.about.slice(0, 88) + "…" : x.about) : ""}`));
+    const talk = (r.community || []).slice(0, 8).map((x) => li(x.url, x.title, x.points ? `${x.site} · ${num(x.points)} points` : x.site));
+    const mcp = (r.mcp || []).slice(0, 8).map((x) => li(`https://github.com/${x.repo}`, x.title, `${num(x.stars)} stars${x.about ? " · " + (x.about.length > 90 ? x.about.slice(0, 88) + "…" : x.about) : ""}`));
+    return `<article class="radar"><div class="run-head"><strong>Trending this week</strong><span class="mono muted">${esc(fmtDay(r.takenAt))} · ${plural(repos.length, "watched repo")}, ${repos.filter((d) => d.commits > 0).length} with new commits</span></div>
+      <div class="rd-cols">${col("Watched repos gaining stars", rising, "Shows from the second radar on, once there is a week to compare.")}${col("New skill repos", fresh, "None with 10 or more stars this week.")}${col("New MCP servers", mcp, "None with 25 or more stars this week.")}${col("What people are talking about", talk, "Nothing found this week.")}</div></article>`;
+  }
   function updateLog() {
     if (!S.db) { $("#lg-list").innerHTML = S.dbMissing ? noDb() : ""; return; }
     const paused = !!(S.settings && S.settings.paused);
     $("#lg-controls").innerHTML = S.settings ? `<label class="switch"><input type="checkbox" data-act="toggle-pause"${paused ? "" : " checked"}${S.canWrite ? "" : " disabled"}> Weekly scout ${paused ? "paused" : "on"}</label>` : "";
+    $("#lg-radar").innerHTML = radarHtml(S.radar);
     const PILL = { done: ["Done", "good"], running: ["Working", "accent"], failed: ["Failed", "bad"], skipped: ["Skipped", ""] };
     $("#lg-list").innerHTML = !S.loaded.runs ? `<p class="skeleton">Loading…</p>` : S.runs.length ? S.runs.map((r) => {
       const [pl, pc] = PILL[r.status] || [r.status || "", ""];
@@ -1494,7 +1539,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
         ${blocked.length ? `<p class="blocked">Couldn't reach ${blocked.map(esc).join(", ")}. The cloud environment's network settings block ${blocked.length === 1 ? "it" : "them"}.</p>` : ""}
       </article>`;
     }).join("") : `<div class="empty"><h3>No runs yet</h3><p>The scout runs once a week, next ${esc(nextScout())}. Each run shows up here with what it read and what it found.</p></div>`;
-    $("#lg-howto").innerHTML = `<div class="howto"><h3>How a weekly run works</h3><ol><li>Reads the new reels in your inbox and finds the tool, repo or write-up behind each one.</li><li>Checks the GitHub repos and web searches listed under each skill's Sources, plus six official skill libraries.</li><li>Turns the best ideas into a proposed new version of the skill.</li><li>Tries each proposal against the current skill on the topic's test tasks. A separate judge picks the better answer without knowing which is which.</li><li>Leaves only the winners in Review. Nothing changes until you add it.</li></ol></div>`;
+    $("#lg-howto").innerHTML = `<div class="howto"><h3>How a weekly run works</h3><ol><li>Reads the new reels in your inbox and finds the tool, repo or write-up behind each one.</li><li>Takes one look at GitHub, Hacker News, Reddit, Hugging Face, the MCP Registry and each skill's feeds: which watched and credited repos gained stars and commits, which new skill repos, models and MCP servers appeared, what the official blogs posted and what people are talking about.</li><li>Checks the GitHub repos and web searches listed under each skill's Sources, plus the official skill libraries and curated lists.</li><li>Turns the best ideas into a proposed new version of the skill.</li><li>Tries each proposal against the current skill on the topic's test tasks. A separate judge picks the better answer without knowing which is which.</li><li>Leaves only the winners in Review, plus any change to where it looks (a repo worth watching, or one that stopped paying off). Nothing changes until you add it.</li></ol></div>`;
   }
 
   /* ---------- actions ---------- */
@@ -1503,6 +1548,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
     if (!t) { toast("That topic no longer exists.", "bad"); return; }
     const risks = risksOf(c);
     if (risks.length) { toast("Blocked for safety: " + risks.join("; ") + ".", "bad"); return; }
+    if (c.kind === "sources") return applySources(c, t);
     await guarded("c:" + c.id, async () => {
       const now = iso();
       const cur = Number(t.version) || 0;
@@ -1521,6 +1567,25 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
         await S.db.doc("candidates/" + c.id).update({ status: "approved", approvedAt: now });
         toast(`Approved. ${t.name} changed since this was written, so the next scout run folds it in.`);
       }
+    });
+  }
+  // A sources change edits where the scout looks for a topic (its repos and searches), not the skill.
+  async function applySources(c, t) {
+    const p = c.sourcesPatch || {};
+    const arr = (k) => (Array.isArray(p[k]) ? p[k] : []).map((x) => String(x).trim()).filter(Boolean);
+    const edit = (list, gone, more) => {
+      const g = new Set(gone.map((x) => x.toLowerCase()));
+      const out = (list || []).filter((x) => !g.has(String(x).toLowerCase()));
+      for (const x of more) if (!out.some((y) => String(y).toLowerCase() === x.toLowerCase())) out.push(x);
+      return out;
+    };
+    const repos = edit(t.repos, arr("dropRepos"), arr("addRepos").filter((r) => REPO_OK.test(r)));
+    const searches = edit(t.searches, arr("dropSearches"), arr("addSearches").map((x) => x.slice(0, 200)));
+    const feeds = edit(t.feeds, arr("dropFeeds"), arr("addFeeds").filter(isHttps));
+    await guarded("c:" + c.id, async () => {
+      await S.db.doc("topics/" + t.id).update({ repos, searches, feeds });
+      await S.db.doc("candidates/" + c.id).update({ status: "merged", mergedAt: iso() });
+      toast(`Sources updated for ${t.name}.`);
     });
   }
   async function restoreVersion(v) {
@@ -1548,11 +1613,20 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
     const tests = [...document.querySelectorAll(".ed-test")].map((el, k) => ({ id: "t" + (k + 1), prompt: el.querySelector('[data-f="prompt"]').value.trim(), good: el.querySelector('[data-f="good"]').value.trim() })).filter((x) => x.prompt);
     await guarded("save", async () => { await S.db.doc("topics/" + t.id).update({ tests }); S.editing = null; toast("Tests saved."); });
   }
+  const lines = (id) => $(id).value.split("\n").map((s) => s.trim()).filter(Boolean);
+  const HF_OK = /^[a-z0-9-]{2,40}$/;
+  const isHttps = (u) => { try { return new URL(u).protocol === "https:"; } catch { return false; } };
+  const feedLines = (id) => lines(id).filter(isHttps);
+  const commaList = (id) => $(id).value.split(",").map((s) => s.trim()).filter(Boolean);
+  const repoLines = (id) => lines(id).map((r) => r.replace(/^https?:\/\/github\.com\//, "").replace(/\/+$/, "")).filter((r) => REPO_OK.test(r));
   async function saveSources(t) {
-    const lines = (id) => $(id).value.split("\n").map((s) => s.trim()).filter(Boolean);
-    const repos = lines("#ed-repos").map((r) => r.replace(/^https?:\/\/github\.com\//, "").replace(/\/+$/, "")).filter((r) => /^[\w.-]+\/[\w.-]+$/.test(r));
-    const patch = { collections: $("#ed-colls").value.split(",").map((s) => s.trim()).filter(Boolean), repos, searches: lines("#ed-search"), blurb: $("#ed-blurb").value.trim() };
+    const repos = repoLines("#ed-repos");
+    const patch = { collections: $("#ed-colls").value.split(",").map((s) => s.trim()).filter(Boolean), repos, searches: lines("#ed-search"), feeds: feedLines("#ed-feeds"), keywords: commaList("#ed-keys").map((k) => k.slice(0, 60)).slice(0, 4), hf: commaList("#ed-hf").map((x) => x.toLowerCase()).filter((x) => HF_OK.test(x)), blurb: $("#ed-blurb").value.trim() };
     await guarded("save", async () => { await S.db.doc("topics/" + t.id).update(patch); S.editing = null; toast("Sources saved."); });
+  }
+  async function saveShared() {
+    const patch = { libraries: repoLines("#ed-libs"), lists: repoLines("#ed-lists"), feeds: feedLines("#ed-sfeeds") };
+    await guarded("save", async () => { await S.db.doc("settings/main").update(patch); S.editing = null; toast("Shared sources saved."); });
   }
   async function createTopic() {
     const name = $("#nt-name").value.trim();
@@ -1609,7 +1683,9 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
       case "toggle-diff": S.openDiff.has(id) ? S.openDiff.delete(id) : S.openDiff.add(id); render(); break;
       case "toggle-lost": S.showLost = !S.showLost; render(); break;
       case "approve": { const c = cand(); if (c) await approve(c); break; }
-      case "skip": { const c = cand(); if (c) await guarded("c:" + id, async () => { await S.db.doc("candidates/" + id).update({ status: "skipped", skippedAt: iso() }); toast("Skipped. The scout won't propose it again."); }); break; }
+      case "skip": S.skipping = id; render(); { const i = document.getElementById("skip-note"); if (i) i.focus(); } break;
+      case "skip-cancel": S.skipping = null; render(); break;
+      case "skip-confirm": { const c = cand(); const note = ($("#skip-note") || { value: "" }).value.trim().slice(0, 300); if (c) await guarded("c:" + id, async () => { await S.db.doc("candidates/" + id).update({ status: "skipped", skippedAt: iso(), ...(note ? { skipNote: note } : {}) }); S.skipping = null; toast(note ? "Skipped. The scout will take your reason into account." : "Skipped. The scout won't propose it again."); }); break; }
       case "unskip": await guarded("c:" + id, async () => { await S.db.doc("candidates/" + id).update({ status: "ready" }); toast("Moved back to review."); }); break;
       case "open-skill": S.skillOpen = id; S.skillTab = "skill"; S.editing = null; S.histOpen.clear(); render(); window.scrollTo({ top: 0 }); break;
       case "back-skills": S.skillOpen = null; S.editing = null; if (unsubVersions) { unsubVersions(); unsubVersions = null; } render(); break;
@@ -1637,6 +1713,8 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
       case "save-skill": { const t = openT(); if (t) await saveManual(t); break; }
       case "save-tests": { const t = openT(); if (t) await saveTests(t); break; }
       case "save-sources": { const t = openT(); if (t) await saveSources(t); break; }
+      case "edit-shared": { const t = openT(); if (t) openEditor("shared", t); break; }
+      case "save-shared": await saveShared(); break;
       case "add-test": { const holder = $("#ed-tests"); holder.insertAdjacentHTML("beforeend", testFields({}, holder.children.length)); holder.lastElementChild.querySelector("textarea").focus(); break; }
       case "remove-test": el.closest(".ed-test").remove(); break;
       case "hist-diff": S.histOpen.has(id) ? S.histOpen.delete(id) : S.histOpen.add(id); render(); break;
@@ -2168,6 +2246,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
     db.collection("inbox").orderBy("addedAt", "desc").limit(1000).onSnapshot((snap) => { S.inbox = snap.docs.map((d) => ({ id: d.id, ...d.data() })); S.loaded.inbox = true; render(); }, fail("inbox"));
     db.collection("runs").orderBy("startedAt", "desc").limit(30).onSnapshot((snap) => { S.runs = snap.docs.map((d) => ({ id: d.id, ...d.data() })); S.loaded.runs = true; render(); }, fail("runs"));
     db.doc("settings/main").onSnapshot((snap) => { S.settings = snap.exists ? snap.data() : null; S.loaded.settings = true; render(); }, fail("settings"));
+    db.collection("radar").orderBy("takenAt", "desc").limit(1).onSnapshot((snap) => { const d = snap.docs[0]; S.radar = d ? { id: d.id, ...d.data() } : null; S.loaded.radar = true; render(); }, fail("radar"));
     render();
     c.use("user").then(async (u) => { S.user = u; if (u) { const w = await u.can("data.write"); if (w === false) { S.canWrite = false; const b = $("#banner"); b.hidden = false; b.textContent = "You can read this garden but not change it. Ask its owner for edit access."; } } render(); });
     c.use("downloads").then((d) => { S.downloads = d; });

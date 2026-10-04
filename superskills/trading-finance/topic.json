@@ -16,6 +16,8 @@
     "equity research agent earnings analysis skill",
     "exchange trading CLI agent skill paper trading testnet"
   ],
+  "keywords": ["backtest", "algorithmic trading", "quant"],
+  "feeds": ["https://quantocracy.com/feed/"],
   "tests": [
     {
       "id": "t1",

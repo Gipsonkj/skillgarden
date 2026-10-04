@@ -120,9 +120,20 @@ includes the super skills it uses.
 - When sources disagree, the change in Review shows **Sources disagree** with
   each side and what the scout kept, so it's your call.
 
-- Every Sunday at 06:51 India time (03:21 your time) the scout checks
-  skills.sh, skillsmp.com, the GitHub repos in each super skill's CREDITS.md
-  and the web for new and trending skills, one craft at a time.
+- Every Sunday at 06:51 India time (03:21 your time) the scout first takes a
+  radar: star growth and new commits for every watched repo and every repo in
+  a CREDITS.md, new skill repos and MCP servers, new posts in each craft's
+  official feeds, trending Hugging Face models and papers, and the week's
+  Hacker News and Reddit posts (Scout log → **Trending this week**). Then, one
+  craft at a time, it reads what changed for that craft, its web searches,
+  the official libraries and curated lists, skills.sh and skillsmp.com. Edit
+  a craft's repos, searches, feeds, Hacker News keywords and Hugging Face
+  model types (and the shared ones) from its Sources tab.
+- It may also propose a **sources** change: a repo or feed worth reading, one
+  that never paid off, or a sharper search. **Update sources** in Review
+  applies it.
+- When you **Skip** a change you can say why. The scout reads your reasons
+  and what you added, and stops proposing what you don't want.
 - For each craft it may write one **new generation** of the super skill,
   test it against the current one in blind trials, and leave the winner in
   **Review**. Nothing changes until you press Add there.

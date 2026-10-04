@@ -16,6 +16,8 @@
     "dbt BigQuery agent skills update",
     "data visualization dashboard skill accessibility charts"
   ],
+  "keywords": ["DuckDB", "Polars", "pandas"],
+  "feeds": ["https://duckdb.org/feed.xml"],
   "tests": [
     {
       "id": "t1",

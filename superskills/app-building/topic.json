@@ -16,6 +16,8 @@
     "Jetpack Compose adaptive layout new release Android",
     "App Store Review guideline change TestFlight Google Play policy update"
   ],
+  "keywords": ["Expo", "React Native", "SwiftUI"],
+  "feeds": ["https://expo.dev/changelog/rss.xml", "https://developer.apple.com/news/rss/news.rss", "https://android-developers.googleblog.com/feeds/posts/default", "https://reactnative.dev/blog/rss.xml"],
   "tests": [
     {
       "id": "t1",

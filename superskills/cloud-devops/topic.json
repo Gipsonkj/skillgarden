@@ -16,6 +16,8 @@
     "Kubernetes release deprecation pod security change",
     "agent skill DevOps deploy Claude Terraform Kubernetes"
   ],
+  "keywords": ["Kubernetes", "Terraform", "Cloudflare Workers"],
+  "feeds": ["https://developers.cloudflare.com/changelog/rss/index.xml", "https://github.blog/changelog/feed/", "https://kubernetes.io/feed.xml", "https://www.hashicorp.com/blog/feed.xml"],
   "tests": [
     {
       "id": "t1",

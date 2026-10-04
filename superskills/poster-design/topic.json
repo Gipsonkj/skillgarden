@@ -11,6 +11,9 @@
     "SVG logo design AI agent workflow",
     "social media image sizes 2026 update safe zone"
   ],
+  "keywords": ["typography", "poster", "graphic design"],
+  "feeds": ["https://www.creativebloq.com/feeds/all"],
+  "hf": ["text-to-image"],
   "tests": [
     {
       "id": "t1",

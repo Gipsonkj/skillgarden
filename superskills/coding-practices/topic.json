@@ -11,6 +11,8 @@
     "refactoring simplification YAGNI coding agent guidelines skill",
     "git worktree workflow Claude Code skill branch finishing"
   ],
+  "keywords": ["code review", "TDD", "coding agent"],
+  "feeds": ["https://martinfowler.com/feed.atom", "https://github.blog/changelog/feed/"],
   "tests": [
     {
       "id": "t1",

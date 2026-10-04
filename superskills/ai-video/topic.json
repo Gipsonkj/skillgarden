@@ -16,6 +16,9 @@
     "AI video editing agent transcript cut ffmpeg skill",
     "auto captions talking head short-form editing technique"
   ],
+  "keywords": ["video model", "Veo", "text-to-video"],
+  "feeds": ["https://deepmind.google/blog/rss.xml", "https://openai.com/news/rss.xml"],
+  "hf": ["text-to-video", "image-to-video"],
   "tests": [
     {
       "id": "t1",

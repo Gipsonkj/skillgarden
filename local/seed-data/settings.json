@@ -11,6 +11,13 @@
   "paused": false,
   "scoutTime": "06:51",
   "timezone": "Asia/Kolkata",
-  "triggerId": "trig_01XxaSLCoyYkB5DPnsLFUNN8"
+  "triggerId": "trig_01XxaSLCoyYkB5DPnsLFUNN8",
+  "lists": [
+   "VoltAgent/awesome-agent-skills",
+   "hesreallyhim/awesome-claude-code"
+  ],
+  "feeds": [
+   "https://simonwillison.net/atom/entries/"
+  ]
  }
 }

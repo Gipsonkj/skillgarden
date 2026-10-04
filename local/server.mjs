@@ -15,6 +15,7 @@ import { fileURLToPath } from "node:url";
 import { MAX_VIDEO, VIDEO_TYPES, tools as mediaTools, processVideo } from "./media.mjs";
 import { buildCredits } from "./credits.mjs";
 import { loadChains } from "./chains.mjs";
+import { takeRadar, radarFor, RADAR_KEEP } from "./radar.mjs";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(HERE, "..");
@@ -22,7 +23,7 @@ const PORT = Number(process.env.PORT || 4747);
 const DATA = path.join(HERE, "data");
 const LOGS = path.join(HERE, "logs");
 const MEDIA = path.join(HERE, "media");
-const COLLECTIONS = ["settings", "topics", "versions", "inbox", "candidates", "runs"];
+const COLLECTIONS = ["settings", "topics", "versions", "inbox", "candidates", "runs", "radar"];
 const ID_RE = /^(?!\.\.?$)[A-Za-z0-9_\-.~:@+]{1,200}$/;
 const SCHEDULE = !process.argv.includes("--no-schedule");
 // The SkillGarden library (skills/ and zips/ folders made by _tools/build.py). Sub-skills are
@@ -80,7 +81,7 @@ function save(c) {
   fs.renameSync(file + ".tmp", file);
 }
 // The imported settings name the cloud routine; locally the server is the scheduler.
-store.settings.main = { scoutTime: "06:51", scoutDay: "Sun", paused: false, libraries: [], ...(store.settings.main || {}), triggerId: "local", host: "local" };
+store.settings.main = { scoutTime: "06:51", scoutDay: "Sun", paused: false, libraries: [], lists: [], ...(store.settings.main || {}), triggerId: "local", host: "local" };
 save("settings");
 
 const isObj = (v) => v && typeof v === "object" && !Array.isArray(v);
@@ -182,9 +183,25 @@ async function startScout(kind) {
   if (!topics.length) { failRun("No topic has \"Scout this topic\" switched on."); return false; }
   scout.running = true; scout.queue = topics.slice(1);
   scout.kind = kind;
+  scout.radarId = await radarStep();
   const ok = await startSession(kind, topics[0]);
   if (!ok) { scout.running = false; scout.queue = []; }
   return ok;
+}
+// One look at GitHub, Hacker News and Reddit for the whole run (see radar.mjs). Never blocks the scout.
+async function radarStep() {
+  const id = indiaNow().date;
+  try {
+    const prevId = Object.keys(store.radar).filter((k) => k !== id).sort().pop();
+    const doc = await takeRadar(store, prevId ? store.radar[prevId] : null);
+    write("set", "radar", id, doc);
+    for (const old of Object.keys(store.radar).sort().reverse().slice(RADAR_KEEP)) write("delete", "radar", old);
+    console.log(`[radar] ${Object.keys(doc.repos).length} repos, ${doc.rising.length} rising, ${doc.newRepos.length} new, ${doc.community.length} posts${doc.errors.length ? `; ${doc.errors.join("; ")}` : ""}`);
+    return id;
+  } catch (e) {
+    console.error(`[radar] skipped: ${e.message}`);
+    return store.radar[id] ? id : null;
+  }
 }
 function nextSession() {
   const id = scout.queue && scout.queue.shift();
@@ -194,7 +211,7 @@ function nextSession() {
 function startSession(kind, topicId) {
   const preamble = fs.readFileSync(path.join(HERE, "scout-local.md"), "utf8");
   const runbook = fs.readFileSync(path.join(ROOT, "runbook.md"), "utf8");
-  const scope = `**Scope of this session:** work only on the topic \`${topicId}\`, even if other topics are active. Use runId \`<India date>-${topicId}\` (add -2, -3 if taken). Skip step 7 for other topics.`;
+  const scope = `**Scope of this session:** work only on the topic \`${topicId}\`, even if other topics are active. Use runId \`<India date>-${topicId}\` (add -2, -3 if taken). Skip step 7 for other topics.${scout.radarId ? ` Radar command: \`node sg.mjs radar ${topicId}\`.` : ""}`;
   const prompt = `${preamble}\n\n${scope}\n\n---\n\n${runbook}\n\n---\n\nStart now. This run was started ${kind === "manual" ? "by hand" : "by the weekly schedule"}. ${scope}`;
   scout.topic = topicId;
   const env = { ...process.env, SKILL_GARDEN_PORT: String(PORT) };
@@ -441,9 +458,17 @@ const server = http.createServer(async (req, res) => {
       if (req.method === "POST") {
         if (scout.running) return send(res, 409, { error: "The scout is already running." });
         if (reader.running) return send(res, 409, { error: "The Instagram reader is running. Try again when it finishes." });
-        return (await startScout("manual")) ? send(res, 202, { started: true }) : send(res, 500, { error: "Couldn't start the scout. The Scout log says why." });
+        // Not awaited: the radar takes about a minute first. A failure to start lands in the Scout log.
+        startScout("manual");
+        return send(res, 202, { started: true });
       }
       return send(res, 200, { running: scout.running, topic: scout.topic, left: (scout.queue || []).length, startedAt: scout.startedAt, lastExit: scout.lastExit, log: scout.log && path.relative(HERE, scout.log) });
+    }
+    if (kind === "radar" && req.method === "GET") {
+      const latest = Object.keys(store.radar).sort().pop();
+      if (!latest) throw httpErr(404, "No radar yet. It is taken when a scout run starts.");
+      if (!store.topics[c]) throw httpErr(404, `No topic "${c}".`);
+      return send(res, 200, { id: latest, ...radarFor(store.radar[latest], c, store.topics[c], store.settings.main || {}) });
     }
     if (kind === "batch" && req.method === "POST") {
       const { writes } = await readBody(req);

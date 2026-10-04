@@ -11,6 +11,8 @@
     "browser automation CLI for AI agents new",
     "Playwright agent test generation healing"
   ],
+  "keywords": ["n8n", "Playwright", "browser automation"],
+  "feeds": ["https://blog.n8n.io/rss/", "https://zapier.com/blog/feeds/latest/"],
   "tests": [
     {
       "id": "t1",

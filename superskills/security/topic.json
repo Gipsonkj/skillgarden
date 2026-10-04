@@ -4,7 +4,9 @@
   "hue": 4,
   "collections": [],
   "repos": ["trailofbits/skills", "addyosmani/agent-skills", "openai/skills", "intercom/2x-skills"],
-  "searches": ["security review", "threat model", "semgrep", "secret scanning", "github actions security"],
+  "searches": ["Semgrep new rules or release this month", "GitHub Actions supply chain attack security advisory new", "secret scanning leaked keys new tool or technique", "threat modeling LLM agent security new guidance OWASP", "agent skill security review Claude Code new release"],
+  "keywords": ["vulnerability", "supply chain attack", "Semgrep"],
+  "feeds": ["https://blog.trailofbits.com/feed/", "https://github.blog/security/feed/"],
   "tests": [
     {"id": "t1", "prompt": "Add an endpoint that fetches a user-supplied image URL and stores a thumbnail.", "good": "Allowlists scheme and host, resolves all DNS records and rejects private/link-local addresses, disables redirects, caps size and type, and adds an abuse-case test."},
     {"id": "t2", "prompt": "Scan this repo with Semgrep and tell me what matters.", "good": "Confirms the repo is the user's, agrees rulesets first, runs with metrics off via run-scans.sh, merges SARIF, confirms each finding in code and separates needs-verification items."},

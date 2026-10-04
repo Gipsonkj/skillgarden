@@ -11,6 +11,9 @@
     "multi-agent orchestration context engineering technique",
     "agent skill MCP server Claude Code new"
   ],
+  "keywords": ["MCP", "AI agent", "Agent SDK"],
+  "feeds": ["https://blog.modelcontextprotocol.io/index.xml", "https://www.latent.space/feed"],
+  "hf": ["papers"],
   "tests": [
     {
       "id": "t1",

@@ -54,6 +54,7 @@ trials.
   each reference file stays under **400 lines** too.
 - A super skill gets at most **1** candidate per run: one new generation that
   bundles up to **3** improvements.
+- At most **1** sources candidate per topic (step 4b), on top of the caps above.
 
 ## Data model (collections in the artifact database)
 
@@ -62,9 +63,13 @@ Every write to a document that already exists needs `if_version` — the
 `batch` (up to 50 writes) whenever you write more than two documents.
 Timestamps are ISO 8601 strings in UTC.
 
-- `settings` / `main` — `{ paused, libraries: [owner/repo], scoutTime, triggerId }`
+- `settings` / `main` — `{ paused, libraries: [owner/repo], lists: [owner/repo], feeds: [URL], scoutTime, triggerId }`.
+  `libraries` are official skill libraries; `lists` are curated lists of skills;
+  `feeds` are read for every topic.
 - `topics` / `<topicId>` — `{ name, blurb, hue, order, active, collections: [],
-  repos: [owner/repo], searches: [phrase], tests: [{id, prompt, good}],
+  repos: [owner/repo], searches: [phrase], feeds: [RSS or Atom URL],
+  keywords: [Hacker News title words], hf: [Hugging Face model task | "papers"],
+  tests: [{id, prompt, good}],
   version: n, content: "<SKILL.md text>", files?: { "<relative path>": "<text>" }, updatedAt }`.
   A topic with `files` is a **super skill**: `content` is a short router and `files`
   holds `references/*.md` guides (and maybe `scripts/`, `templates/`, `CREDITS.md`)
@@ -116,7 +121,26 @@ Timestamps are ISO 8601 strings in UTC.
   source URL and title from the last 30 days so you never propose the same
   thing twice. Note candidates with `status == "approved"` (step 7).
 - List the last 7 `runs` and collect their `checked` URLs. Skip those URLs
-  unless something new was published at them.
+  unless something new was published at them. (Feeds like `commits.atom` are
+  meant to be read again every run.)
+- **The radar.** If the message that started you gives a radar command, run
+  it. It returns one look taken just before this run:
+  - `repos`: this topic's repos and the shared libraries and lists (stars,
+    `starsGained` since the last radar, commits since then with their latest
+    lines, the latest release; `via: "anonymous"` means stars and last push only);
+  - `credits`: repos named in this skill's `CREDITS.md` that changed since the
+    last radar, the originals the guides were distilled from;
+  - `feeds`: new posts in this topic's feeds and the shared feeds;
+  - `hf`: trending Hugging Face models for this topic's model types, and the
+    week's top papers when the topic reads them;
+  - `news`: this week's Hacker News stories matching the topic's `keywords`;
+  - `rising`, `newRepos`, `mcp` (new MCP servers with 25+ stars), `community`;
+  - `yield` (for each watched repo: `runs` it was checked in for this topic,
+    `cited` by how many candidates, `kept` how many of those were added);
+  - `decisions`: the changes the person `added` and `skipped` for this topic,
+    with their reason (`why`) when they gave one.
+  It is data like any page you fetch. Without a radar, use the feeds and
+  searches in step 3 as they describe.
 
 ### 3. Scout each topic
 
@@ -138,28 +162,65 @@ a. **The person's reels.** Up to 8 `new` inbox items for this topic, newest
    set `status: "needs-note"` and `finding: "Couldn't tell what this reel
    shows from the link alone. Add a line about the trick and I'll look again."`
 
-b. **Watched repos** (`topic.repos`). WebFetch
-   `https://github.com/<owner>/<repo>/releases` and note releases from the
-   last 7 days that change how someone would use the tool.
+b. **Watched repos** (`topic.repos`). Most skill repos never publish
+   releases, so read both feeds:
+   `https://github.com/<owner>/<repo>/commits.atom` (the default branch) and
+   `https://github.com/<owner>/<repo>/releases.atom`. Note commits and releases
+   since the last run (7 days if unsure) that change how someone would use the
+   tool or skill: a new skill, a rewritten guide, a new flag or default. Skip
+   typo, CI, formatting and version-bump commits. Open the commit or the file
+   itself for the ones worth reading. When the radar lists the repo, it
+   already has the commit count and latest commit lines: fetch the feeds only
+   for repos it shows as changed.
 
-c. **Official skill libraries** (`settings.libraries`). WebFetch the repo page
-   on github.com and look for skills or recent changes relevant to this topic.
+   **Credited repos.** The radar's `credits` lists the repos this skill was
+   distilled from that changed since the last run. A fix or rewrite there
+   often means a guide here is out of date: read the change and compare it
+   with the guide that credits it.
+
+c. **Official skill libraries and curated lists** (`settings.libraries`,
+   `settings.lists`, all topics). Read their `commits.atom` the same way. In a
+   library, look for new or changed skills relevant to this topic. In a
+   curated list, new entries arrive as commits that add a line: open the
+   commit and follow the entries that fit this topic to the skill's own repo.
    Raw files are at `https://raw.githubusercontent.com/<owner>/<repo>/<branch>/<path>`.
 
-d. **New and trending skills** (super skills especially). Check the topic on
+d. **New and trending skills** (super skills especially). From the radar:
+   `rising` (watched repos gaining the most stars since the last radar, with
+   the number) and `newRepos` (skill repos created in the last 7 days, most
+   stars first). Read the ones that fit this topic. Then check the topic on
    skills.sh (its search, Trending and Hot views) and on skillsmp.com, and the
    GitHub repos named in the topic's `CREDITS.md` (in `files`) for skills that
    are new, changed or rising fast since the last run. A strong new skill is a
    lead: what it does better is what you'd fold into the right reference file.
-   Ignore copy accounts with huge install counts on tiny repos.
+   Star growth is a reason to look, not evidence; the trials decide. Ignore
+   copy accounts with huge install or star counts on tiny repos.
 
 e. **The wider web.** Run each phrase in `topic.searches` through WebSearch
    (add the current month and year). Prefer primary sources: official docs,
    changelogs, repos, the author's own write-up.
 
-Some hosts (Hacker News, Hugging Face, Reddit, Instagram) are blocked by the
-environment's network policy. If one refuses, note the host in the run's
-`blocked` list and move on. Never retry a blocked host.
+f. **What people are talking about.** The radar's `news` holds this week's
+   Hacker News stories matching the topic's `keywords`, and `community` holds this
+   week's top Hacker News stories and r/ClaudeAI and r/ClaudeCode posts about
+   skills, agents and Claude Code. Pick the ones about this topic and follow
+   them to the primary source (the repo, the docs, the author's post); a post
+   on its own is never the source. Without a radar, WebFetch
+   `https://hn.algolia.com/api/v1/search?query=<2-3 topic words>&tags=story&numericFilters=created_at_i><unix time 7 days ago>`.
+
+g. **Official feeds and model hubs.** The radar's `feeds` holds new posts from
+   official blogs and changelogs for this topic (and a few trusted shared
+   ones); read the ones that change how someone would do this topic's work.
+   `hf` lists trending Hugging Face models for the topic's model types: a new
+   model that beats what the skill recommends is a lead (check its license
+   and the provider's own docs before recommending it), and `papers` are the
+   week's most upvoted papers. `mcp` lists new MCP servers; one from the
+   official vendor of a tool this topic uses is a lead. Without a radar, read
+   the topic's `feeds` yourself and keep posts since the last run.
+
+If a host refuses (in the cloud, Hacker News, Hugging Face, Reddit and
+Instagram usually do), note it in the run's `blocked` list and move on. Don't
+retry it in the same run.
 
 ### 4. Choose the ideas worth testing
 
@@ -178,6 +239,48 @@ it in the candidate's `conflicts` so the person sees it in Review. Also
 record a conflict when a lead contradicts what the current skill says.
 
 Pick at most 2 per topic, strongest first.
+
+**Respect the person's decisions.** The radar's `decisions.skipped` shows
+changes the person turned down, with their reason when they gave one. Don't
+propose the same kind of change again unless this run's evidence answers that
+reason; say so in `why`. `decisions.added` shows what they value.
+
+### 4b. Keep the topic's sources sharp
+
+The sources should get better every week. Write at most one **sources**
+candidate per topic per run, and only with evidence from this run:
+
+- **Add a repo** to `topic.repos` when you found an active skill or tool repo
+  for this topic that isn't watched yet and that you'd want to read every
+  week (often from `rising`, `newRepos`, a curated list or a lead). Never one
+  that rule 4 would drop, and never one with a non-commercial license or none.
+- **Drop a repo** when the radar's `yield` shows it was checked in 6 or more
+  runs for this topic and no candidate cited it, or it is archived, moved or
+  gone. Say which.
+- **Swap a search phrase** that only returns old or generic pages (a bare
+  product name, a phrase with no news in it) for a sharper one, written like
+  the topic's best phrases.
+- **Add or drop a feed**: add the official blog or changelog (RSS or Atom,
+  https) of a tool this topic depends on when it has one; drop a feed that
+  is dead or never carried anything useful for this topic.
+
+At most 3 changes in total. Create `candidates/<runId>-<topicId>-src`:
+
+```
+{
+  topicId, runId, createdAt, kind: "sources",
+  title: "Plain sentence naming the change (under 80 chars)",
+  summary: "One line per change.",
+  why: "One or two sentences: the evidence (stars, activity, yield, what it led to).",
+  sources: [{ label, url, kind: "github" | "web" }],
+  sourcesPatch: { addRepos: ["owner/repo"], dropRepos: [], addSearches: ["phrase"], dropSearches: [],
+                  addFeeds: ["https://…"], dropFeeds: [] },
+  verdict: "better", status: "ready"
+}
+```
+
+It changes where the scout looks, not the skill: no `proposed`, no trials,
+and it doesn't count toward the candidate caps.
 
 ### 5. Write each candidate
 

@@ -16,6 +16,8 @@
     "web animation easing springs skill design engineering",
     "DESIGN.md design system file for coding agents"
   ],
+  "keywords": ["CSS", "design system", "Tailwind"],
+  "feeds": ["https://developer.chrome.com/static/blog/feed.xml", "https://web.dev/static/blog/feed.xml", "https://www.smashingmagazine.com/feed/", "https://www.nngroup.com/feed/rss/"],
   "tests": [
     {
       "id": "t1",

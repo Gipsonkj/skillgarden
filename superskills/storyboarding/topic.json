@@ -16,6 +16,8 @@
     "vertical short drama micro-drama storyboard AI production",
     "agent skill storyboard screenwriting Claude"
   ],
+  "keywords": ["storyboard", "screenplay", "AI film"],
+  "feeds": ["https://nofilmschool.com/rss.xml"],
   "tests": [
     {
       "id": "t1",

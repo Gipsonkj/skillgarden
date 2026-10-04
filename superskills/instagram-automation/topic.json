@@ -16,6 +16,8 @@
     "Instagram carousel design best practices new format",
     "Instagram Messaging API comment to DM policy update"
   ],
+  "keywords": ["Instagram"],
+  "feeds": ["https://developers.facebook.com/blog/feed/", "https://about.fb.com/news/feed/", "https://www.socialmediatoday.com/feeds/news/"],
   "tests": [
     {
       "id": "t1",
