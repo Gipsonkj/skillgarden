@@ -240,9 +240,11 @@ main { padding-top: 24px; }
 /* inbox */
 .inbox-top { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 16px; margin-bottom: 28px; }
 @media (max-width: 820px) { .inbox-top { grid-template-columns: minmax(0, 1fr); } }
+.scout-add { max-width: 640px; margin-bottom: 24px; }
 .panel { background: var(--raised); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; display: grid; gap: 12px; align-content: start; min-width: 0; }
 .panel h3 { font-size: 18px; }
 .panel .sub { color: var(--ink-2); font-size: 14px; }
+.panel p.sub { display: block; padding: 0; border-bottom: 0; background: none; }   /* not the sub-skill row of the same name */
 .drop { border: 1.5px dashed var(--line); border-radius: 12px; padding: 18px; display: grid; gap: 6px; justify-items: start; cursor: pointer; background: var(--surface); transition: border-color .15s, background .15s; }
 .drop:hover, .drop.over { border-color: var(--accent); background: var(--accent-soft); }
 .drop strong { font-weight: 620; }
@@ -850,7 +852,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
     else if (v === "review") el.innerHTML = `<section><div class="section-head"><div><h2>Changes waiting for you</h2><p>Each one beat the current skill in blind trials. Add it and the skill grows a version; skip it and the scout won't propose it again. Source changes only adjust where the scout looks.</p></div><div class="filters" id="rv-filter"></div></div><div id="rv-summary"></div><div class="cands" id="rv-list"></div><div id="rv-lost"></div></section>`;
     else if (v === "skills") el.innerHTML = `<section id="sk"></section>`;
     else if (v === "inbox") mountInbox(el);
-    else if (v === "log") el.innerHTML = `<section><div class="section-head"><div><h2>Scout log</h2><p>What the scout looked at each week and what it found.</p></div><div id="lg-controls"></div></div><div id="lg-radar"></div><div class="runs" id="lg-list"></div><div id="lg-howto"></div></section>`;
+    else if (v === "log") { el.innerHTML = `<section><div class="section-head"><div><h2>Scout log</h2><p>What the scout looked at each week and what it found.</p></div><div id="lg-controls"></div></div><div class="scout-add">${addForm()}</div><div id="lg-radar"></div><div class="runs" id="lg-list"></div><div id="lg-howto"></div></section>`; S._topicKey = null; }
   }
 
   function loadingOr(key, html) { return S.loaded[key] ? html : `<p class="skeleton">Loading…</p>`; }
@@ -1113,13 +1115,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
     el.innerHTML = `<section>
       <div class="section-head"><div><h2>Reel inbox</h2><p>Reels you've saved, sorted by topic. The scout reads the new ones every week and follows each back to the tool, repo or technique behind it.</p></div></div>
       <div class="inbox-top">
-        <form class="panel" id="addForm" autocomplete="off">
-          <h3>Add to the inbox</h3>
-          <div class="seg add-modes" role="group" aria-label="What are you adding">${[["links", "Reel links"], ["freebie", "Freebie"], ["video", "Video"]].map(([k, l]) => `<button type="button" data-act="add-mode" data-id="${k}" aria-pressed="${S.addMode === k}">${l}</button>`).join("")}</div>
-          <div id="addBody" style="display:grid;gap:12px">${addBody()}</div>
-          <div class="field"><label for="reelTopic">Topic</label><select class="select" id="reelTopic"></select></div>
-          <div class="row-actions"><button class="btn primary" type="submit" id="addBtn">Add to inbox</button></div>
-        </form>
+        ${addForm()}
         <div class="panel" id="importPanel"></div>
       </div>
       <div class="panel" id="igReader" style="margin-top:16px"></div>
@@ -1130,6 +1126,26 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
     </section>`;
     renderImport();
     S._topicKey = null;
+  }
+  // The add panel shows in the Reel inbox and in Scout; only one of them is on screen at a time.
+  function addForm() {
+    return `<form class="panel" id="addForm" autocomplete="off">
+          <h3>Add to the inbox</h3>
+          <div class="seg add-modes" role="group" aria-label="What are you adding">${[["links", "Reel links"], ["freebie", "Freebie"], ["video", "Video"]].map(([k, l]) => `<button type="button" data-act="add-mode" data-id="${k}" aria-pressed="${S.addMode === k}">${l}</button>`).join("")}</div>
+          <div id="addBody" style="display:grid;gap:12px">${addBody()}</div>
+          <div class="field"><label for="reelTopic">Topic</label><select class="select" id="reelTopic"></select></div>
+          <div class="row-actions"><button class="btn primary" type="submit" id="addBtn">Add to inbox</button></div>
+        </form>`;
+  }
+  // Keeps the add panel's topic list and button current; true when the topics changed.
+  function syncAddForm() {
+    const sel = $("#reelTopic"); if (!sel) return false;
+    $("#addBtn").disabled = !S.canWrite;
+    const key = S.topics.map((t) => t.id + t.name).join("|");
+    if (S._topicKey === key) return false;
+    S._topicKey = key;
+    fillTopicSelect(sel, sel.value || (S.topics[0] && S.topics[0].id));
+    return true;
   }
   // The add panel's three modes. Video needs the app on your Mac, which reads it locally.
   function addBody() {
@@ -1239,13 +1255,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
   function updateInbox() {
     renderReader();
     if (!S.db) { $("#reelList").innerHTML = S.dbMissing ? `<li>${noDb()}</li>` : ""; return; }
-    const key = S.topics.map((t) => t.id + t.name).join("|");
-    if (S._topicKey !== key) {
-      S._topicKey = key;
-      const sel = $("#reelTopic"); const cur = sel.value; fillTopicSelect(sel, cur || (S.topics[0] && S.topics[0].id));
-      if (S.importState && S.importState.stage === "map") renderImport();
-    }
-    $("#addBtn").disabled = !S.canWrite;
+    if (syncAddForm() && S.importState && S.importState.stage === "map") renderImport();
     $("#collStats").innerHTML = collStats();
     const counts = { all: S.inbox.length };
     S.inbox.forEach((r) => { counts[r.status] = (counts[r.status] || 0) + 1; });
@@ -1525,6 +1535,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
     if (!S.db) { $("#lg-list").innerHTML = S.dbMissing ? noDb() : ""; return; }
     const paused = !!(S.settings && S.settings.paused);
     $("#lg-controls").innerHTML = S.settings ? `<label class="switch"><input type="checkbox" data-act="toggle-pause"${paused ? "" : " checked"}${S.canWrite ? "" : " disabled"}> Weekly scout ${paused ? "paused" : "on"}</label>` : "";
+    syncAddForm();
     $("#lg-radar").innerHTML = radarHtml(S.radar);
     const PILL = { done: ["Done", "good"], running: ["Working", "accent"], failed: ["Failed", "bad"], skipped: ["Skipped", ""] };
     $("#lg-list").innerHTML = !S.loaded.runs ? `<p class="skeleton">Loading…</p>` : S.runs.length ? S.runs.map((r) => {

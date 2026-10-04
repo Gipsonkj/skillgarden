@@ -744,11 +744,33 @@ document.addEventListener("click", async (e) => {
     x.fillRect(0, 0, 32, 32);
     return c;
   })();
-  let motes = [], gw = 0, gh = 0, gdpr = 1, gLast = 0, gLive = false;
+  // The film's own sparkles only move while the page scrolls (the scroll drives the film), so from
+  // the sprout on, a live layer of the same mint and gold pinpoints drifts up through the sky over
+  // the film and keeps the air moving while the page rests.
+  const airDot = [[196, 246, 222], [255, 214, 130]].map(([r, g, b]) => {
+    const c = document.createElement("canvas");
+    c.width = c.height = 32;
+    const x = c.getContext("2d"), grad = x.createRadialGradient(16, 16, 0, 16, 16, 16);
+    grad.addColorStop(0, `rgb(${r} ${g} ${b} / 1)`);
+    grad.addColorStop(0.25, `rgb(${r} ${g} ${b} / .8)`);
+    grad.addColorStop(0.55, `rgb(${r} ${g} ${b} / .18)`);
+    grad.addColorStop(1, `rgb(${r} ${g} ${b} / 0)`);
+    x.fillStyle = grad;
+    x.fillRect(0, 0, 32, 32);
+    return c;
+  });
+  let motes = [], air = [], gw = 0, gh = 0, gdpr = 1, gLast = 0, gLive = false;
+  const SKY = 0.72;   // the motes keep above the stems: they rise from here and fade in as they go
+  const airMote = (y) => ({ x: Math.random() * gw, y: y ?? Math.random() * gh * SKY, s: 3 + Math.random() * 6,
+    v: 6 + Math.random() * 12, sw: 4 + Math.random() * 12, sp: 0.3 + Math.random() * 0.6, ph: Math.random() * 6.283,
+    tw: 1 + Math.random() * 2.5, a: 0.3 + Math.random() * 0.45, k: Math.random() < 0.6 ? 0 : 1 });
   const sizeGlitter = () => {
     gdpr = Math.min(2, devicePixelRatio || 1);
     gw = stage.clientWidth; gh = stage.clientHeight;
     gl.width = Math.round(gw * gdpr); gl.height = Math.round(gh * gdpr);
+    const n = Math.min(48, Math.round((gw * gh) / 26000));
+    while (air.length < n) air.push(airMote());
+    air.length = n;
   };
   sizeGlitter();
   new ResizeObserver(sizeGlitter).observe(stage);
@@ -760,9 +782,10 @@ document.addEventListener("click", async (e) => {
   };
   const glitter = (p, now) => {
     const t = Math.min(1, Math.max(0, (p - 0.94) / 0.045)), g = t * t * (3 - 2 * t);
+    const ta = Math.min(1, Math.max(0, (p - 0.2) / 0.1)), ga = ta * ta * (3 - 2 * ta);
     const dt = Math.min(0.05, (now - (gLast || now)) / 1000);
     gLast = now;
-    if (g <= 0 && !motes.length) {
+    if (g <= 0 && ga <= 0 && !motes.length) {
       if (gLive) { gx.clearRect(0, 0, gl.width, gl.height); gLive = false; }
       return;
     }
@@ -778,6 +801,18 @@ document.addEventListener("click", async (e) => {
     gx.setTransform(gdpr, 0, 0, gdpr, 0, 0);
     gx.clearRect(0, 0, gw, gh);
     gx.globalCompositeOperation = "lighter";
+    if (ga > 0) {
+      const sec = now / 1000, top = gh * SKY;
+      for (const m of air) {
+        m.y -= m.v * dt;
+        if (m.y < -12) Object.assign(m, airMote(top + 12));
+        const fade = Math.min(1, (top - m.y) / (gh * 0.18));
+        if (fade <= 0) continue;
+        gx.globalAlpha = ga * fade * m.a * (0.65 + 0.35 * Math.sin(sec * m.tw + m.ph));
+        const x = m.x + Math.sin(sec * m.sp + m.ph) * m.sw;
+        gx.drawImage(airDot[m.k], x - m.s, m.y - m.s, m.s * 2, m.s * 2);
+      }
+    }
     motes = motes.filter((q) => (q.age += dt) < q.life);
     for (const q of motes) {
       const u = q.age / q.life, y = q.y - q.v * q.age, x = q.x + Math.sin(q.age * 1.4 + q.ph) * q.sw;
