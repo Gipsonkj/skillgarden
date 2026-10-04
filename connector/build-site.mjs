@@ -3,6 +3,7 @@
 // Wrangler runs this before every deploy. It includes:
 //   index.html         the landing page (./landing) with its hero film (film/) and stills (img/)
 //   explore/index.html the app in read-only mode (Explore, previews, search, bundles, downloads)
+//   admin/index.html   the whole app for the admins (Google sign-in, data in Firestore; see runtime-cloud.js)
 //   catalog.json       every craft and ranked sub-skill
 //   data/topics.json   the super skills, read from ../superskills
 //   lib/<skill>/…      SKILL.md, files.json and a .zip for each sub-skill whose license allows sharing
@@ -35,6 +36,12 @@ const head = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta n
 fs.mkdirSync(path.join(OUT, "explore"), { recursive: true });
 fs.writeFileSync(path.join(OUT, "explore", "index.html"), head + APP_HTML + "</body></html>");
 fs.copyFileSync(path.join(HERE, "runtime-public.js"), path.join(OUT, "runtime-public.js"));
+// The whole app at /admin/ for the garden's admins: Google sign-in, data in Firestore (runtime-cloud.js).
+// The page holds no data; firebase/firestore.rules lets only the admins read any.
+const adminHead = head.replace("<title>Skill Garden</title>", `<title>Skill Garden admin</title><meta name="robots" content="noindex">`).replace("/runtime-public.js", "/runtime-cloud.js");
+fs.mkdirSync(path.join(OUT, "admin"), { recursive: true });
+fs.writeFileSync(path.join(OUT, "admin", "index.html"), adminHead + APP_HTML + "</body></html>");
+fs.copyFileSync(path.join(HERE, "runtime-cloud.js"), path.join(OUT, "runtime-cloud.js"));
 for (const dir of ["film", "img"]) {
   const src = path.join(HERE, "landing", dir);
   if (fs.existsSync(src)) fs.cpSync(src, path.join(OUT, dir), { recursive: true });

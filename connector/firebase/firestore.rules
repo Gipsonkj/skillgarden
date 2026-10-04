@@ -1,0 +1,18 @@
+rules_version = '2';
+
+// The garden's data behind the live site's admin page (/admin/). Only these Google accounts can read
+// or write any of it; everyone else, signed in or not, gets nothing. This Mac's app syncs with a
+// service account, which these rules don't apply to. Publish with: node local/cloud.mjs rules
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function admin() {
+      return request.auth != null
+        && request.auth.token.firebase.sign_in_provider == 'google.com'
+        && request.auth.token.email_verified == true
+        && request.auth.token.email in ['gipsonkj@gmail.com', 'soorajpv2286@gmail.com'];
+    }
+    match /{document=**} {
+      allow read, write: if admin();
+    }
+  }
+}

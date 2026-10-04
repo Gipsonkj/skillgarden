@@ -16,6 +16,7 @@ import { MAX_VIDEO, VIDEO_TYPES, tools as mediaTools, processVideo } from "./med
 import { buildCredits } from "./credits.mjs";
 import { loadChains } from "./chains.mjs";
 import { takeRadar, radarFor, RADAR_KEEP } from "./radar.mjs";
+import * as cloud from "./cloud.mjs";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(HERE, "..");
@@ -108,6 +109,7 @@ function write(op, c, id, data) {
   }
   save(c);
   broadcast(c);
+  cloud.changed(c, id);
 }
 const httpErr = (status, message) => Object.assign(new Error(message), { status });
 
@@ -493,6 +495,19 @@ const server = http.createServer(async (req, res) => {
     send(res, e.status || 500, { error: e.message || "Server error." });
   }
 });
+// The admin page on the live site works on a Firestore copy of this data and asks for runs there
+// (local/cloud.mjs). Off without the key file or with --no-cloud.
+if (!process.argv.includes("--no-cloud")) cloud.start({ dataDir: DATA, store, collections: COLLECTIONS, write, request: async (kind) => {
+  if (kind === "scout") {
+    if (scout.running) return { ok: false, error: "The scout is already running." };
+    if (reader.running) return { ok: false, error: "The Instagram reader is running. Try again when it finishes." };
+    startScout("manual");
+    return { ok: true };
+  }
+  if (kind === "ig-run") return startReader("manual");
+  if (kind === "ig-stop") { if (reader.child) reader.child.kill("SIGTERM"); return { ok: true }; }
+  return { ok: false, error: `Unknown request "${kind}".` };
+} });
 server.listen(PORT, "127.0.0.1", () => {
   const s = store.settings.main;
   console.log(`\nSkill Garden is running at http://localhost:${PORT}`);

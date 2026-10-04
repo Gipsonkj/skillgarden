@@ -82,8 +82,12 @@
   .brand { display: inline-flex; align-items: center; gap: 10px; font: 650 19px/1 var(--display); letter-spacing: -.02em; }
   .brand svg { width: 30px; height: 30px; flex: none; }
   .links { display: flex; align-items: center; gap: var(--s5); font-size: 15px; font-weight: 500; }
-  .links a:not(.go) { opacity: .86; transition: opacity .15s var(--ease); }
-  .links a:not(.go):hover { opacity: 1; text-decoration: underline; }
+  .links a:not(.go, .login) { opacity: .86; transition: opacity .15s var(--ease); }
+  .links a:not(.go, .login):hover { opacity: 1; text-decoration: underline; }
+  /* For the garden's admins: Review, Scout, Reel inbox and My skills, behind Google sign-in. */
+  .login { padding: 8px 17px; border: 1px solid color-mix(in oklch, currentColor 45%, transparent); border-radius: 999px; font-weight: 600; white-space: nowrap; transition: border-color .15s var(--ease), transform .12s var(--ease); }
+  .login:hover { border-color: currentColor; }
+  .login:active { transform: scale(.97); }
   .go { background: var(--ink-light); color: var(--ink-dark) !important; padding: 9px 18px; border-radius: 999px; font-weight: 600; white-space: nowrap; transition: transform .12s var(--ease); }
   .go:active { transform: scale(.97); }
 
@@ -127,7 +131,8 @@
   .hero[data-ink="dark"] .primary { background: var(--ink-dark); color: var(--ink-light); }
 
   @media (max-width: 760px) {
-    .links a:not(.go) { display: none; }
+    .links a:not(.go, .login) { display: none; }
+    .links { gap: var(--s3); }
     .brand { font-size: 17px; }
     .line { font-size: clamp(36px, 10.5vw, 50px); }
     .cue { display: none !important; }
@@ -298,6 +303,7 @@
       <a href="#crafts">Crafts</a>
       <a href="#install">Install</a>
       <a href="https://github.com/Gipsonkj/skillgarden">GitHub</a>
+      <a class="login" href="/admin/">Log in</a>
       <a class="go" href="/explore/">Explore</a>
     </div>
   </nav>

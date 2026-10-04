@@ -1245,6 +1245,9 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
     if (p._h !== html && !(document.activeElement && document.activeElement.id === "igAccount")) { p.innerHTML = html; p._h = html; }
   }
   async function readerCall(what) {
+    // On the live site's admin page the Mac does the reading: the request waits there until it picks it up.
+    const rd = window.claude && await window.claude.use("reader").catch(() => null);
+    if (rd) { try { await rd[what](); toast(what === "run" ? "Asked the Mac to read Instagram. It starts within a minute while the Mac is on." : "Asked the Mac to stop the reader."); } catch (e) { toast(e.message || "Couldn't reach the garden's data.", "bad"); } return; }
     try {
       const r = await fetch(`/api/ig-reader/${what}`, { method: "POST", headers: { "Content-Type": "application/json", "X-Skill-Garden": "1" }, body: "{}" });
       const d = await r.json().catch(() => ({}));
