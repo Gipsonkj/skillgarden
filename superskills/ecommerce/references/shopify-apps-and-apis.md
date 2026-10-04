@@ -2,7 +2,7 @@
 
 > Distilled from: shopify-expert app-development, storefront-api and checkout-customization (jeffallan/claude-skills, MIT); shopify-products (jezweb/claude-skills, MIT); shopify-catalog-audit queries and store-access notes (kgelster/awesome-ecom-skills, MIT). Shopify AI Toolkit facts come from the source notes only; that skill is link-only (telemetry).
 
-Shopify ships a new API version every quarter (`2025-07`, `2025-10`, ...). Field names, mutations and limits in this guide are as of the sources (Admin API 2025-01 to 2025-07). **Pin a version in code and check shopify.dev for the version you pin** before trusting any field name here.
+Shopify ships a new API version every quarter (`2025-07`, `2025-10`, ...). Field names, mutations and limits in this guide are as of the sources (Admin API 2025-01 to 2025-07), except the items marked `2026-10`, which come from Shopify's changelog of 1 Oct 2026. **Pin a version in code and check shopify.dev for the version you pin** before trusting any field name here.
 
 ## 1. Pick the surface
 
@@ -52,6 +52,7 @@ Rules from the sources:
 5. **Images:** pass public URLs as media on create, or use `stagedUploadsCreate` then `productCreateMedia` for local files.
 6. **Inventory is per location:** query `locations` first, set quantities per `inventoryItemId` and `locationId`, and give a `reason`.
 7. **Verify by reading back** the products you touched and give the user the admin URL to review.
+8. **Some mutations finish asynchronously.** `orderCancel` queues a job, so an empty `userErrors` does not mean the order is cancelled. From API `2026-10` read its structured `jobResult` (`OrderCancelJobResult`: status, errors, the order) to confirm; the older generic `job` field still works on earlier versions.
 
 ## 4. Query cost and pagination
 
@@ -69,6 +70,7 @@ The Admin API is cost-throttled, not request-throttled. Every response has `exte
 - **Verify the HMAC** (`X-Shopify-Hmac-Sha256`) on the raw body before parsing; the app libraries do this for you.
 - Respond with 200 fast and process in a queue; make handlers idempotent (deliveries repeat and arrive out of order); re-fetch the object when order matters.
 - Public apps must handle the privacy topics `customers/data_request`, `customers/redact` and `shop/redact`.
+- **Next Gen Events (API `2026-10`, generally available):** a declarative replacement for classic webhooks. In `shopify.app.toml` you set the `triggers` that matter, a GraphQL `query` for the data you want, and a `query_filter` for which results are worth a delivery. Each delivery carries the change plus the query result, so there is no follow-up API call, and filtering means fewer deliveries. 18 topics at launch (merchandising, customers, orders, fulfilment, inventory, content, custom data); check the topic exists before migrating. The query has a complexity limit: check it before deploying. Classic webhooks keep working and can run beside events, so move one workflow at a time. Keep the same discipline: verify the delivery as the docs specify, return 200 fast, stay idempotent. Check exact key and topic names in the current docs.
 
 ## 6. Storefront API and Hydrogen
 
@@ -111,6 +113,7 @@ Tell the user before they install it: its hook and scripts send usage data to sh
 - [ ] API version pinned and checked against current docs
 - [ ] Least-privilege scopes; tokens in environment variables only
 - [ ] `userErrors` read on every mutation; results read back
+- [ ] Async mutations (`orderCancel`) confirmed from their job result, not just `userErrors`
 - [ ] Cost budget respected; sub-connections paginated where truncation matters
-- [ ] Webhooks HMAC-verified, idempotent, privacy topics handled (public apps)
+- [ ] Webhooks HMAC-verified, idempotent, privacy topics handled (public apps); on `2026-10`+ consider Next Gen Events with a filtered query
 - [ ] Live writes previewed, confirmed and reversible

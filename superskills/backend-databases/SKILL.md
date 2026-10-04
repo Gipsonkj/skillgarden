@@ -40,7 +40,7 @@ Work out what the request needs before opening a guide; most real requests need 
 
 | Task | Read |
 |---|---|
-| Tables, types, keys, constraints, multi-tenancy, migrations | [references/postgres-schema.md](references/postgres-schema.md) |
+| Tables, types, keys, constraints, multi-tenancy, time zones, migrations | [references/postgres-schema.md](references/postgres-schema.md) |
 | Slow query, index design, N+1, pagination, pooling, timeouts | [references/query-performance.md](references/query-performance.md) |
 | REST endpoints, status codes, errors, versioning, GraphQL/Apollo | [references/api-design.md](references/api-design.md) + `templates/api-design-principles/api-design-checklist.md` |
 | Service layering, Fastify/Express/FastAPI/Go, caching, jobs, deploy, platform choice (incl. Convex) | [references/backend-architecture.md](references/backend-architecture.md) |

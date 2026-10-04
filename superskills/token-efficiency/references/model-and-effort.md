@@ -46,16 +46,24 @@ In Claude Code you can also switch the session model (`/model`) for a stretch of
 
 Many current models take an effort (or reasoning) setting that scales thinking and tool-call depth without changing the model. Sweep it before changing models.
 
-1. Hold everything else byte-identical; change only effort. Run each level in its own session (changing effort mid-conversation can invalidate the cache and skew the comparison).
+1. Hold everything else byte-identical; change only effort. Run each level in its own conversation or request set (a top-level effort change between requests restarts the cache and skews the comparison).
 2. Include the hard cases you know about. Curves are flat on easy tasks; the hard tail is where higher effort earns its cost.
 3. Read the curve:
    - **Flat:** take the lower level. Research and knowledge work often look like this (in Anthropic's published runs, as of Oct 2026, `medium` matched `high` for noticeably less).
    - **Steep:** the higher level is earning its cost. Long agentic coding often looks like this.
    - **Mixed:** note which tasks flipped; those are candidates for a cascade (section 5).
-4. Re-sweep after a model upgrade, a big prompt change or a workload shift. Defaults differ per model; set effort explicitly.
+4. Re-sweep after a model upgrade, a big prompt change or a workload shift. Defaults differ per model (as of Oct 2026: `medium` on Claude Opus 5.5, `high` on the other current Claude models); set effort explicitly.
 5. Consider the newer, stronger model at lower effort before stepping down a tier: it is often the cheaper cell. Measure; it is not guaranteed.
 
 Low effort also means fewer, more consolidated tool calls and shorter preambles, which is often what people actually want when they ask for "fewer tokens".
+
+## 4b. Changing effort or thinking inside one conversation (Claude API, as of Oct 2026, check current docs)
+
+- Top-level `output_config.effort` shapes the rendered prompt. Changing it between requests drops the cached prefix from earlier turns. Hold it constant across a cached conversation; vary it across workloads.
+- Per-message effort (beta, header `mid-conversation-output-config-2026-07-01`; Fable 5.1, Mythos 5.1, Opus 5.5, Opus 5 and Sonnet 5.5) changes effort mid-conversation and keeps the cache. Insert an effort-only system message between turns: `{"role": "system", "content": [], "output_config": {"effort": "low"}}`. It applies from the next user turn and holds until changed. Use it to drop to low for routine follow-ups after a hard step. Models without it (for example Sonnet 5 and Fable 5) return 400.
+- Sonnet 5.5 thinking: adaptive by default. `thinking: {"type": "disabled"}` returns 400. The lowest setting is `thinking: {"type": "between_tools"}`: accepted only at low, medium or high effort (400 at xhigh or max), it takes no other thinking fields, and it locks effort for the conversation: a per-message effort that differs from the level in effect returns 400. To vary effort per turn, or to use xhigh or max, use adaptive thinking (omit `thinking`).
+- Sonnet 5.5 effort levels are recalibrated against Sonnet 5, so re-sweep rather than carry a setting over. Starting points: `medium` for well-specified agentic coding, `high` for harder or longer work, `medium` or `low` for chat and latency-sensitive work; `xhigh` or `max` only where your evals show a gain. Thinking counts toward `max_tokens`, even when the thinking text is not returned.
+- Opus 5.5 always thinks (adaptive, cannot be turned off; `disabled` returns 400), so effort is its main cost control.
 
 ## 5. Cascades and routing
 
@@ -97,6 +105,7 @@ On typical tasks every model looks similar and the cheapest looks best. The bill
 - Comparing per-token prices instead of cost per solved task.
 - Carrying an effort level across a model migration instead of re-sweeping from the new default.
 - Switching models inside a long conversation "to save money" and paying a full cache re-write.
+- Changing top-level effort between requests of a cached conversation; or combining `between_tools` with per-message effort changes (400).
 - Hard-coding model names and prices from a blog post.
 
 ## Checklist
@@ -104,5 +113,5 @@ On typical tasks every model looks similar and the cheapest looks best. The bill
 - [ ] Each task type mapped to a tier, with the reason
 - [ ] Effort swept on real samples before any model change; hard cases included
 - [ ] Cascade or router has a real check signal and logs its decisions
-- [ ] Model switches happen between conversations, not inside one
+- [ ] Model switches happen between conversations, not inside one; effort changes inside one only per message
 - [ ] Compared on cost per completed task, including the hard tail

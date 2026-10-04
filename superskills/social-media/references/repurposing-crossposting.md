@@ -38,6 +38,16 @@ From any long piece, pull 5-10 self-contained atoms:
 
 Podcast/video workflow: transcript (Whisper, Descript or the host's) -> mark 5-10 timestamps -> cut clips -> write a standalone caption for each -> burn in subtitles -> spread across 1-2 weeks.
 
+## Reusing other creators' clips
+
+On 1 Oct 2026 YouTube said Shorts channels that mainly aggregate or re-upload other creators' videos without significant changes will likely see less distribution; Instagram made a similar change in April. A clip account built on other people's footage is a weak plan, so say so before building one.
+
+- **Your own material is original:** clips cut from the user's own episodes, talks and footage are the safe core of a calendar.
+- **Someone else's clip needs real added value:** the user's own commentary, a distinct edit, or a story built around it. A voiceover that only describes what is on screen, small technical edits (crop, speed, filter) and template-based bulk changes do not count.
+- **Rights come first:** get the owner's permission or licence and credit them in the caption; quoting or reacting (stitch, duet, quote post) stays a valid format when the reaction is the point.
+- **Recovery is possible:** reach is re-evaluated when a channel shifts to original work.
+- When asked to plan a reposting channel, offer the original-material version of the same calendar instead of only the repost version.
+
 ## 4. Adapt per platform
 
 | Platform | Adaptation |

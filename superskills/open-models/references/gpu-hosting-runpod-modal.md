@@ -1,6 +1,6 @@
 # GPU hosting: RunPod, Modal, HF Jobs, and what it costs
 
-> Distilled from: runpod and its golden paths 01, 04, 05, 13, 20 (runpod/runpod-plugins-official, Apache-2.0); modal and its gpu, web-endpoints and volumes references (K-Dense-AI/scientific-agent-skills, Apache-2.0); huggingface-llm-trainer and estimate_cost.py (huggingface/skills, Apache-2.0); comfyui (NousResearch/hermes-agent, MIT); diffusers-cli (huggingface/diffusers, Apache-2.0). Prices and CLI versions are as of the sources (mid-2026): check the vendor's pricing page and `--help` before quoting them.
+> Distilled from: runpod and its golden paths 01, 04, 05, 13, 20 (runpod/runpod-plugins-official, Apache-2.0); modal and its gpu, web-endpoints and volumes references (K-Dense-AI/scientific-agent-skills, Apache-2.0); huggingface-llm-trainer and estimate_cost.py (huggingface/skills, Apache-2.0); hf-cli and the huggingface_hub 2.1 release notes (huggingface/skills, huggingface/huggingface_hub, Apache-2.0); comfyui (NousResearch/hermes-agent, MIT); diffusers-cli (huggingface/diffusers, Apache-2.0). Prices and CLI versions are as of the sources (mid-2026): check the vendor's pricing page and `--help` before quoting them.
 
 Rent a GPU when the model doesn't fit your machine, when traffic needs a public endpoint, or for a training run. Every paid resource gets a teardown step **before** you create it.
 
@@ -30,7 +30,7 @@ Cost guards, always:
 - RunPod pods: `--terminate-after <ISO time>` (deletes the pod). `--stop-after` only stops compute and keeps billing the disk.
 - Serverless: `--workers-min 0`; `--workers-max` as the spending ceiling.
 - Modal: no `min_containers` unless latency demands it; `scaledown_window` short; `modal app stop` when done.
-- HF: scale endpoints to zero or pause; Jobs end on their own but bill until the timeout.
+- HF: scale endpoints to zero or pause; Jobs end on their own but bill until the timeout, and every `--attempts` retry bills again.
 - Finish with a list command (`runpodctl pod list`, `serverless list`, `network-volume list`; `modal app list`) to prove nothing is left running.
 
 ## 3. RunPod
@@ -116,6 +116,13 @@ Training on Modal: request `gpu="A100-80GB"` or `H100:N`, launch `accelerate lau
 ## 5. Hugging Face Jobs (short)
 
 Paid HF plan required. `hf jobs uv run --flavor a10g-large --timeout 2h --secrets HF_TOKEN <script-url-or-file>`: flags go **before** the script. Default timeout is 30 minutes, too short for training. The machine is wiped at the end: push results to the Hub. Details in [fine-tuning-runners.md](fine-tuning-runners.md).
+
+From huggingface_hub 2.1 (confirm with `hf jobs run --help`; upgrade first if a flag is missing):
+- `--attempts N` retries a failed job automatically. Use it for runs that die partway, and write checkpoints to the Hub (a retry starts on a wiped machine) so each attempt resumes instead of restarting. `--timeout` applies per attempt and every attempt bills, so the worst case is attempts × timeout × hourly price.
+- `hf jobs rerun <job_id>` starts a fresh job from a finished job's saved spec.
+- A bare `--secrets NAME` now errors if NAME isn't set in your local environment: export it (or `hf auth login`) first. Never put the token value on the command line.
+- Scheduled jobs: `hf jobs scheduled uv run "<CRON>" <flags> <script>` creates one; `hf jobs scheduled ps` lists them; `hf jobs scheduled reschedule <scheduled_id> "<CRON>"` changes the day or time without recreating it. A schedule keeps billing every time it fires until deleted. Run the job once by hand before scheduling it.
+- `hf jobs expose <job_id> PORT` opens a job port with token protection; the `--public PORT` form is unauthenticated, so avoid it for model servers.
 
 ## 6. Media model servers (ComfyUI, diffusers): infra only
 

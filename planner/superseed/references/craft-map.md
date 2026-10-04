@@ -38,7 +38,7 @@ Native-feeling mobile and desktop apps: Expo, SwiftUI, Compose, Flutter, Tauri, 
 - Native Android: Compose, adaptive layouts for tablets and foldables, XML-to-Compose, `android` CLI → `references/android-compose.md`
 - Flutter architecture (MVVM + repositories) and responsive layouts → `references/flutter.md`
 - Tauri v2 desktop/mobile apps; SwiftPM Mac apps built, signed and notarized without Xcode → `references/desktop-tauri-macos.md`, `templates/macos-spm-app-packaging/`
-- Run on simulators and emulators, screenshots, screen recordings, E2E tests, failing builds → `references/testing-simulators.md`
+- Run on simulators and emulators, screenshots, screen recordings, crash logs, E2E tests, failing builds → `references/testing-simulators.md`
 - EAS builds, TestFlight, App Store review, `asc` CLI, Google Play tracks, versioning → `references/release-app-stores.md`
 - A web app or PWA that must feel native on phones (sticky hover, 100vh, input zoom, safe areas) → `references/mobile-web-pwa.md`
 
@@ -77,7 +77,7 @@ Figma MCP, tokens and variables, code-Figma sync and drift, component and screen
 
 Postgres schema and query tuning, API design, auth, and the Supabase, Neon, Prisma, Stripe, Firebase and NoSQL details that bite.
 
-- Tables, types, keys, constraints, multi-tenancy, migrations → `references/postgres-schema.md`
+- Tables, types, keys, constraints, multi-tenancy, time zones, migrations → `references/postgres-schema.md`
 - Slow query, index design, N+1, pagination, pooling, timeouts → `references/query-performance.md`
 - REST endpoints, status codes, errors, versioning, GraphQL/Apollo → `references/api-design.md`, `templates/api-design-principles/api-design-checklist.md`
 - Service layering, Fastify/Express/FastAPI/Go, caching, jobs, deploy, platform choice (incl. Convex) → `references/backend-architecture.md`
@@ -403,7 +403,7 @@ Reels scripts, carousels and captions that earn sends, published and measured on
 - Carousel copy (slide by slide) and visual design/export → `references/carousels.md`
 - Caption, CTA, hashtag set, alt text, AI-tell scrub → `references/captions-hashtags-ctas.md`
 - Weekly plan, content pillars, cadence, profile/bio audit, repurposing → `references/content-strategy.md`
-- Publish or schedule by API: Graph API, Composio, Publora, SocialClaw, limits → `references/graph-api-publishing.md`
+- Publish or schedule by API: Graph API, Composio, Publora, SocialClaw, limits, Trial Reels and paid-partnership fields → `references/graph-api-publishing.md`
 - Comment moderation, replies, comment-to-DM, DM inbox within policy → `references/dms-and-comments.md`
 - Influencer or brand-collab research, creator vetting → `references/influencer-research.md`
 - Insights, Reels metrics, why a post flopped, reporting → `references/analytics.md`

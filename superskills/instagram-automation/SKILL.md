@@ -58,7 +58,7 @@ Work out what the request needs before opening a guide; most real requests need 
 | Carousel copy (slide by slide) and visual design/export | [references/carousels.md](references/carousels.md) |
 | Caption, CTA, hashtag set, alt text, AI-tell scrub | [references/captions-hashtags-ctas.md](references/captions-hashtags-ctas.md) |
 | Weekly plan, content pillars, cadence, profile/bio audit, repurposing | [references/content-strategy.md](references/content-strategy.md) |
-| Publish or schedule by API: Graph API, Composio, Publora, SocialClaw, limits | [references/graph-api-publishing.md](references/graph-api-publishing.md) |
+| Publish or schedule by API: Graph API, Composio, Publora, SocialClaw, limits, Trial Reels and paid-partnership fields | [references/graph-api-publishing.md](references/graph-api-publishing.md) |
 | Comment moderation, replies, comment-to-DM, DM inbox within policy | [references/dms-and-comments.md](references/dms-and-comments.md) |
 | Influencer or brand-collab research, creator vetting | [references/influencer-research.md](references/influencer-research.md) |
 | Insights, Reels metrics, why a post flopped, reporting | [references/analytics.md](references/analytics.md) |
@@ -118,3 +118,4 @@ The guides above distil these. Open one when a part needs its full detail, read 
 - [ ] Media specs and safe zone are respected, with no third-party watermark.
 - [ ] No invented numbers. Any `{{placeholders}}` are flagged to the user.
 - [ ] Any publish, reply or DM was approved explicitly, ran through the official API, and its permalink or ID is reported.
+- [ ] A sponsored post carries the paid-partnership label (API field or in-app), not only a caption hashtag.

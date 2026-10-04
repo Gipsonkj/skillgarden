@@ -20,6 +20,17 @@ All references are rewritten in our own words from the sources below. The script
 | ads-copywriter | https://github.com/claude-office-skills/skills/tree/main/ads-copywriter | MIT | Cross-check of platform limits and RSA headline mix (its "#1"/"As seen in" templates were deliberately not adopted) |
 | tiktok-ads | https://github.com/kostja94/marketing-skills/tree/main/skills/paid-ads/platforms/tiktok-ads | MIT | TikTok ad formats, audience, tracking and creative refresh notes |
 
+## Official documentation (facts only, in our own words)
+
+No text copied; these are platform facts restated in `references/platform-specs.md`.
+
+| Source | URL | What was used |
+|---|---|---|
+| Google Ads Help: YouTube video ad formats | https://support.google.com/google-ads/answer/2375464 | Format lengths, skip rules, billing |
+| Google Ads Help: video ad specs | https://support.google.com/google-ads/answer/13547298 | Aspect ratios, sizes, thumbnail spec |
+| Google Ads Help: the ABCDs of effective video ads | https://support.google.com/google-ads/answer/14783551 | ABCD checklist, Connection first for Shorts |
+| Google blog: social assets into YouTube ads (1 Oct 2026) | https://blog.google/products/ads-commerce/creating-assets-youtube-ads/ | Asset Studio repurposing; give assets time before rotating |
+
 ## Also see (not included)
 
 Link-only (no license file in the repo), so nothing was copied or paraphrased:

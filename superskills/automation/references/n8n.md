@@ -1,6 +1,6 @@
 # n8n workflows
 
-> Distilled from: n8n-workflow-patterns, n8n-mcp-tools-expert, n8n-code-javascript, n8n-expression-syntax (czlonkowski/n8n-skills, MIT), n8n-workflow-lifecycle-official (n8n-io/skills, Apache-2.0)
+> Distilled from: n8n-workflow-patterns, n8n-mcp-tools-expert, n8n-code-javascript, n8n-code-python, n8n-expression-syntax (czlonkowski/n8n-skills, MIT), n8n-workflow-lifecycle-official (n8n-io/skills, Apache-2.0)
 
 Vendor-specific guide for building n8n workflows through an MCP server or JSON. General planning and reliability rules are in automation-design.md.
 
@@ -22,7 +22,7 @@ Check which tools exist before following a recipe. The lifecycle below is the sa
 5. **Test** with pinned/mock data. Official MCP: `test_workflow` auto-pins triggers, credentialed nodes and HTTP Request nodes; Code, Set, If, Wait, Execute Command, file ops, Data Tables and sub-workflows run for real. Ask before testing if any of those cause visible side effects.
 6. **Publish/activate** only after 3–5 pass (`publish_workflow`, or `n8n_update_partial_workflow` with `{type: "activateWorkflow"}`), then hand off.
 
-What validation does **not** catch: dropped wires, a fan-out collapsed into one connection, Merge input index off by one, error outputs wired without `onError: "continueErrorOutput"`, a valid but wrong sheet ID or column name.
+What validation does **not** catch: dropped wires, a fan-out collapsed into one connection, Merge input index off by one, error outputs wired without `onError: "continueErrorOutput"`, a valid but wrong sheet ID or column name, and expressions that fail silent (section 5).
 
 ## 3. Node JSON hygiene (n8n-mcp)
 
@@ -53,7 +53,8 @@ Webhooks: respond quickly (Respond to Webhook node) and do slow work after; vali
 - Another node: `{{$('Fetch orders').item.json.id}}` or `$node["Fetch orders"].json`; in Code use `$('Name').first().json` / `.all()`, never `.json` on the node directly.
 - No `{{ }}` inside Code nodes (plain JS) and no expressions in webhook paths.
 - Dates: Luxon `$now.toFormat('yyyy-MM-dd')`, `$now.plus({days: 7})`; state the timezone.
-- `$jmespath($json, "items[?active].id")` replaces a Split Out → Filter → Aggregate chain for one projected field.
+- `$jmespath(object, "query")` replaces a Split Out → Filter → Aggregate chain. Object first, query second. In the query, strings take single quotes (`country=='PL'`), numbers and booleans take backticks (``revenue > `100000` ``), operators are `&&` / `||` (not `and` / `or`), and a double-quoted word is read as a field name, so a slip returns `[]`. Over items keep the wrapper and the `json.` prefix: `$jmespath($('API').all(), "[?json.country=='PL'].json.name")`.
+- **Expressions fail silent.** On n8n 2.x (seen on 2.38) a runtime error inside `{{ }}` (TypeError, bad `JSON.parse`, `throw`, a JMESPath syntax error) resolves to `null` and the node still succeeds. In a Filter or If, null fails the condition, so a broken condition drops every item with no error. Test expressions on real or pinned data and read the output counts and values, not the green tick; an unexpectedly empty output is the symptom.
 
 ## 6. Code nodes
 
@@ -69,6 +70,13 @@ return items
 - Access fields via `.json`; check lengths before indexing; don't mutate input items (spread into new objects).
 - Available: `this.helpers.httpRequest()` (unauthenticated), Luxon `DateTime`, `$jmespath`. Not available: authenticated helper requests, `$env` when blocked, `require()` unless the instance allowlists modules. For auth, pagination and retries use the **HTTP Request node** and keep Code for pure logic.
 - Persist small state between runs with `$getWorkflowStaticData('global')` (only saved for active, non-manual runs).
+
+**Python Code node** (n8n 2.x, native; Pyodide is gone):
+- Items arrive as `_items` (All Items) or `_item` (Each Item), dicts read as `item["json"]["field"]`. The old helpers `_input`, `_json`, `_node`, `_now`, `_today` and `_jmespath` raise `NameError`.
+- Imports are checked against an allowlist before the code runs: empty by default and always empty on n8n Cloud. Write import-free (plain Python for filter, group, sum, dedupe, sort).
+- Class definitions, `type()`, `getattr`, dunder access and `global` are refused; use `nonlocal`.
+- Return `[{"json": {...}}]`; in Each Item mode a dict, or `None` to drop the item.
+- Self-hosted: the stock `n8nio/n8n` image has no Python 3. Python Code nodes need the task-runner image (`n8nio/runners`) as a sidecar on the same n8n version. If a Python node can't run, check that before rewriting the code.
 
 ## 7. Loops and batches
 
@@ -103,6 +111,7 @@ return items
 
 - [ ] Right MCP identified; existing workflows searched
 - [ ] Webhook data read from `body`; expressions braced; Code returns `[{json}]` in All Items mode
+- [ ] Filter, If and JMESPath expressions tested on real or pinned data (a broken one gives null, not an error); Python nodes import-free, runner image present when self-hosted
 - [ ] No placeholder credentials; user confirmed credentials per node
 - [ ] Validated, connections read back, tested with pinned data (side effects confirmed with user)
 - [ ] Error workflow linked; retries on flaky nodes

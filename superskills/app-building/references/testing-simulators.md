@@ -64,6 +64,18 @@ Google's `android` CLI wraps much of this (`android layout`, `android screen cap
 - [ ] Reduce Motion on: spatial motion becomes fades
 - [ ] 60 fps through transitions, **measured** on a release build (Perf Monitor, Instruments, Android profiler)
 
+## 3b. When the app crashes or misbehaves
+
+Read the log and the crash report; a screenshot of a dead app shows nothing.
+
+1. **Start the log before you reproduce.** A log opened after the crash has lost it. iOS: `xcrun simctl spawn booted log stream --predicate 'process == "MyApp"' --level debug > /tmp/run.log &`. Android: `adb logcat -c` first, then reproduce.
+2. Reproduce once, with the exact steps, then stop the stream.
+3. Find the crash report. iOS: the newest `.ips` in `~/Library/Logs/DiagnosticReports/` (simulator crashes are written on the Mac). Android: `adb logcat -b crash -d`, plus the last ~200 lines of `adb logcat -d`. React Native: also the Metro / JS console, since a red-box error never reaches the native crash report.
+4. Read the stack top-down for the **first frame in the app's own module**: that is the likeliest culprit; frames above it are where the system gave up. Quote the exception line, that frame and the log lines just before it as the evidence for your fix.
+5. Fix, relaunch, repeat the same steps, and confirm the report no longer appears. If the log shows nothing, say so and add logging rather than guessing.
+
+When a tool exposes a preview or log endpoint behind a session token, pass the token through stdin or an environment variable, never on the command line (it shows up in process lists and shell history).
+
 ## 4. Automated tests
 
 | Layer | iOS | Android | React Native / Expo | Flutter |

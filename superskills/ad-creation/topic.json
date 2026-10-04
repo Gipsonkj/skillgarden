@@ -13,11 +13,19 @@
     "Meta ads creative best practices new Andromeda update",
     "TikTok ad hook formats performing this month",
     "AI generated product video ad workflow new model",
-    "agent skill ad copy generation Claude marketing",
-    "creative testing framework paid social fatigue"
+    "creative testing framework paid social fatigue",
+    "YouTube Shorts ads Google Ads creative update"
   ],
-  "keywords": ["Meta ads", "ad creative", "TikTok ads"],
-  "feeds": ["https://about.fb.com/news/feed/", "https://blog.google/products/ads-commerce/rss/", "https://ppc.land/rss/"],
+  "keywords": [
+    "Meta ads",
+    "ad creative",
+    "TikTok ads"
+  ],
+  "feeds": [
+    "https://about.fb.com/news/feed/",
+    "https://blog.google/products/ads-commerce/rss/",
+    "https://ppc.land/rss/"
+  ],
   "tests": [
     {
       "id": "t1",

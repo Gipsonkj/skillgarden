@@ -1,6 +1,6 @@
 # Publishing and insights by API: Graph API, Composio, schedulers
 
-> Distilled from: instagram-automation (sickn33/agentic-awesome-skills, MIT; Composio/Rube MCP workflows), instagram (sickn33/agentic-awesome-skills, MIT; Portuguese docs on endpoints, permissions, rate limits and the approval/audit pattern), instagram-post (publora/skills, MIT), instagram-marketing (sergebulaev/instagram-skills, MIT; Publora media flow), social-publisher (affaan-m/ECC, MIT; SocialClaw).
+> Distilled from: instagram-automation (sickn33/agentic-awesome-skills, MIT; Composio/Rube MCP workflows), instagram (sickn33/agentic-awesome-skills, MIT; Portuguese docs on endpoints, permissions, rate limits and the approval/audit pattern), instagram-post (publora/skills, MIT), instagram-marketing (sergebulaev/instagram-skills, MIT; Publora media flow), social-publisher (affaan-m/ECC, MIT; SocialClaw). Trial Reels and paid-partnership fields: Meta's Instagram Platform Content Publishing docs (read, restated in our words).
 
 > ToS: official Graph API / Instagram API only (Business or Creator), user-approved actions, no bots or cold DMs, scraping is HIGH risk and never the default.
 
@@ -47,9 +47,11 @@ Whichever route you use, the agent drafts, the user approves, and then one call 
 1. POST /{ig-user-id}/media   (create container)
      image:    image_url=<public https>  caption=...  [alt_text=...]
      reel:     media_type=REELS  video_url=...  caption=...  [share_to_feed, cover_url, thumb_offset]
+               [trial_params={"graduation_strategy":"MANUAL"|"SS_PERFORMANCE"}]
      story:    media_type=STORIES  image_url | video_url
      carousel item: is_carousel_item=true  image_url | video_url     (repeat 2-10x)
      carousel:  media_type=CAROUSEL  children=<id1,id2,...>  caption=...
+     sponsored post (any type, on the parent for a carousel): [branded_content_sponsor_ids=[<brand-ig-id>, ...]]  [is_paid_partnership=true]
    -> {"id": "<container_id>"}
 2. GET  /{container_id}?fields=status_code       poll every 5-10 s until FINISHED (timeout ~5 min)
      IN_PROGRESS | FINISHED | ERROR | EXPIRED
@@ -69,6 +71,8 @@ Rules:
 - **Caption:** 2,200 characters, at most 30 hashtags, mentions allowed. You can't add clickable links.
 - **After publishing:** treat each publish as final. Deleting a post is done in the app, and caption edits through the API may not be available on your version. Proof-read on the approval card.
 - **Crash safety:** keep a status per job (draft → approved → container_created → published | failed). On restart, check whether the container is still valid, then publish it or recreate it.
+- **Trial Reels by API:** `trial_params` on a Reel container shares it only with non-followers. `MANUAL` means you graduate it to followers yourself in the app; `SS_PERFORMANCE` graduates it automatically if it performs well. Default to `MANUAL`, so nothing reaches followers without the user's say-so, and read the result at 24 h (`analytics.md`).
+- **Paid partnerships:** ask whether the post is sponsored. If so, set `branded_content_sponsor_ids` (the brand's Instagram IDs, professional accounts, at most 2); that turns on `is_paid_partnership` and the "Paid partnership" label. Needs the API with Facebook Login and the `instagram_branded_content_creator` or `instagram_basic` permission. Not available for close-friends-only or remixed media. The label shows as pending until the brand approves the creator. Never publish sponsored content without the label; disclosure wording is in `social-media` → `influencer-marketing.md`. If the field is rejected, report the exact error and stop; don't rewrite the user's caption to compensate.
 
 ## Media specs (API)
 
@@ -134,6 +138,7 @@ PUBLISH TO INSTAGRAM?  account: @handle (Business)   route: Graph API
 type: carousel (7 slides, 1080x1350)   media: slide1.jpg ... slide7.jpg
 caption (first 125): "..."
 hashtags: #a #b #c #d    alt text: yes
+trial: no | yes (MANUAL graduation)   partnership: none | @brand (pending until the brand approves)
 when: now | 2026-10-05 11:30 Europe/Berlin
 quota: 3/50 used in last 24h
 Reply "publish" to go, or tell me what to change.

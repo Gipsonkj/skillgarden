@@ -1,8 +1,8 @@
 # Secrets: storage, scanning and leak response
 
-> Distilled from: secrets-management (wshobson/agents, MIT), secret-scanning (github/awesome-copilot, MIT), security-and-hardening (addyosmani/agent-skills, MIT).
+> Distilled from: secrets-management (wshobson/agents, MIT), secret-scanning (github/awesome-copilot, MIT), security-and-hardening (addyosmani/agent-skills, MIT), secret-serialization (getsentry/skills, Apache-2.0).
 
-Use this for "where should this API key live?", setting up secret scanning, `.env` handling, and responding to a leaked credential.
+Use this for "where should this API key live?", setting up secret scanning, `.env` handling, responding to a leaked credential, and reviewing code where a credential could end up in logs, traces or error output.
 
 ## 1. Where secrets live
 
@@ -54,3 +54,40 @@ Add a pre-commit scanner (gitleaks, trufflehog, or detect-secrets) and run it in
 
 - Redact secrets and tokens in logs by key name (`authorization`, `cookie`, `password`, `token`, `secret`, `api_key`) at the logger level.
 - Never echo secrets in CI logs; mask any value derived from a secret.
+- Key-name redaction does not help once an object has been turned into a string (`str(obj)`, `util.inspect(obj)`): the logger sees no keys. See section 6.
+
+## 6. Secrets that leak through serialization
+
+A credential stored as a field on an object can reach logs, tracing spans, error reports, caches or HTTP responses through serialization the language generates for you. It takes two changes, often months apart, so a diff-only review never sees both.
+
+- **Holder:** a credential field on a type with auto-generated serialization (Python dataclass `repr`/`asdict`, Pydantic `model_dump`, JS `JSON.stringify`/`util.inspect`).
+- **Sink:** code that serializes a whole object or all of its arguments: `str(obj)`, `asdict(`, `model_dump(`, `JSON.stringify(`, `util.inspect(`, `span.set_data(`, logger calls that take an object. Raw access counts too: `vars(`, `__dict__`, `pickle.dumps(`.
+
+When the diff adds a holder, grep the whole repo for sinks. When it adds a sink, look for credential holders. Report either side on its own.
+
+**What blocks which path**
+
+| Mechanism | Blocks |
+|---|---|
+| Python `dataclass` / `attrs` `field(repr=False)` | `repr` and `str` only; `asdict` still copies it |
+| Pydantic `Field(repr=False)` | `repr` and `str` |
+| Pydantic `Field(exclude=True)` | `model_dump` |
+| Pydantic `repr=False` plus `exclude=True` | every generated path, but not `pickle` or `vars()` |
+| A redacting wrapper type (`SecretStr` style) | every generated path |
+| JS `#private` field | every generated path outside the class |
+| JS non-enumerable property (`Object.defineProperty`) | JSON and inspect |
+| Hand-written `toJSON` or `[util.inspect.custom]` that omits the field | that one path only |
+
+Underscore names, TypeScript's `private` keyword and Python's `__slots__` block nothing at runtime.
+
+**Severity**
+
+- **High:** the credential reaches any sink (log, span, error report, cache, response) anywhere in the repo.
+- **Medium:** an unexcluded credential field that leaves its module, or a new wholesale sink with no allowlist.
+- **Low:** an unexcluded field confined to one scope.
+
+Do not lower the severity because the holder or the sink was there before the diff. If the sink's reach can't be seen (which type `req.session` is, where spans are exported), say so under "needs verification" and still report the part you traced.
+
+**Do not flag:** fully excluded fields (unless a raw-attribute sink applies), partial exclusions where no sink uses the unblocked path, credentials read inside a method and never stored, test placeholders, types with no serialization or `__dict__` sink, and old fields and sinks the diff does not connect.
+
+**Fix:** wrap the credential in a redacting type or exclude the field, then replace whole-object serialization at the sink with an allowlist of named fields so the next secret field cannot leak the same way. Add a test that builds the object with a sentinel value and asserts the sentinel is absent from `repr`, `str` and the serialized form. If the code already ran anywhere that ships logs or spans, follow section 4.

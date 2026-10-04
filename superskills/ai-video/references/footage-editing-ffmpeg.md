@@ -18,6 +18,7 @@ The value of AI here is compression: turn hours of footage into a tight cut. Aud
 10. **Confirm the strategy in plain English before cutting.**
 11. **All outputs in `<videos_dir>/edit/`;** sources stay untouched. Never overwrite an output you didn't create in this job.
 12. **Several animation overlays are built in parallel** (one sub-agent per overlay, one output file each).
+13. **Match each clip's audio and video length before concat or xfade.** Probe both streams (`ffprobe -show_entries stream=codec_type,duration`). Give the clip one length: the video's, or the audio's when the sound runs more than one frame past the picture (AI clips that carry sound often do). Reach the longer length by holding the last frame (`tpad=stop_mode=clone:stop_duration=<gap>`); when the overshoot is under one frame (an AAC tail of about 20 ms), trim the audio instead. Both streams then end together at every join. Otherwise the next clip starts after the longer stream and leaves a hole in the picture or drifts sync. If holding frames pushes the total past the target length, say so and let the user choose between keeping the sound and trimming the tails.
 
 ## Process
 
@@ -89,6 +90,9 @@ ffmpeg -ss 12.30 -to 15.45 -i in.mp4 -c:v libx264 -crf 18 -preset medium -c:a aa
 # Concat segments losslessly
 for f in seg*.mp4; do echo "file '$PWD/$f'"; done > list.txt
 ffmpeg -f concat -safe 0 -i list.txt -c copy assembled.mp4
+
+# Equalize one clip whose audio runs 0.40 s past the picture (before concat); both streams then end together
+ffmpeg -i clip.mp4 -vf "tpad=stop_mode=clone:stop_duration=0.40" -af apad -t <audio length> -c:v libx264 -crf 18 -c:a aac clip_eq.mp4
 
 # Find silences (cut candidates) / scene changes
 ffmpeg -i in.mp4 -af silencedetect=noise=-30dB:d=0.4 -f null - 2>&1 | grep silence_

@@ -47,6 +47,7 @@ Treat the confirmed plan as a contract; if you need to change the shape mid-buil
 9. **Money and floats**: compare at the cent level (`Math.round(a*100)`), write numbers as numbers.
 10. **Threshold checks both ways**: `Math.abs(diff) > threshold` catches spikes and crashes.
 11. **No hard-coded dates** in scheduled prompts or filters: compute "today" at run time.
+12. **Cap what an unattended run can spend.** An alert tells you after the bill; a limit stops it. For anything on a schedule or webhook that calls a paid API, an LLM, a scraping credit pool or cloud compute: set a hard per-run ceiling (max items, pages, tokens, credits, loop iterations; stop and notify when it is hit), set the provider-side monthly cap where one exists (cloud budgets that pause the service, API workspace spend limits) rather than only a warning email, and tell the user the numbers and how to raise them. A webhook that fans out per item, or an agent loop with no iteration limit, is the usual runaway.
 
 ## 4. Credentials and safety
 
@@ -78,6 +79,7 @@ Validation passing is necessary, not sufficient.
 - [ ] Plan confirmed with every app named and every side effect listed
 - [ ] Credentials chosen by the user; no secrets in the workflow
 - [ ] Idempotency/dedupe, retries and an error path in place
+- [ ] Per-run spend ceiling and a provider-side cap for paid steps, stated in the handoff
 - [ ] Validated, wiring verified, tested on edge cases with mocks
 - [ ] Activated only after tests; first run checked
 - [ ] Handoff note delivered with the live URL or schedule

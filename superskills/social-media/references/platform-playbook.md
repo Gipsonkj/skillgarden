@@ -38,6 +38,7 @@ Counting gotchas:
 - **Works:** personal stories with a business lesson, contrarian takes backed by numbers, behind-the-scenes, original data, document carousels.
 - **Fails:** corporate tone, generic motivation, overt promotion, links in the post body.
 - **Format:** hook in the first ~210 characters (before "see more"); 1,200-1,500 characters tends to perform; short paragraphs; link in the first comment; tag people only when they are genuinely involved.
+- **Collaborative posts:** up to 5 accounts (people and pages) publish one post together, with every name at the top. The author invites, each collaborator accepts, and a page's super admin must approve for the brand. The post then appears to each collaborator's network, so use it when someone truly co-authored (a creator partnership, a co-hosted event, a launch with a partner or customer) and a tag when they only helped. Paid partners still need disclosure.
 - **Algorithm:** the first hour of engagement matters most; comments outweigh reactions; dwell time counts; polls get engagement but do not build authority.
 - **Times to test:** Tue-Thu, 7-8am, noon, 5-6pm local.
 
@@ -62,6 +63,7 @@ Counting gotchas:
 
 - **Best for:** search-driven tutorials and reviews, long-form trust; also surfaces in Google results and AI answers.
 - **Shorts:** 9:16, titles written as searchable phrases, 1-5 hashtags.
+- **Originality (from 1 Oct 2026):** YouTube now favours original Shorts and gives less distribution to channels that mostly re-upload or aggregate other creators' clips without significant changes. Instagram moved the same way in April. See "Reusing other creators' clips" in repurposing-crossposting.md.
 - Full SEO and thumbnail guidance: youtube-seo-thumbnails.md.
 
 ## Facebook

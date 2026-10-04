@@ -65,6 +65,8 @@ Chain animations with `withAnimation { … } completion: { … }`, not delays. R
 
 - `TabView` with the `Tab` API; each tab owns a `NavigationStack` with its own path; route with an enum and `navigationDestination(for:)`.
 - Large displays and iPad: `NavigationSplitView`; tab bar that becomes a sidebar via `.tabViewStyle(.sidebarAdaptable)`.
+- iOS 27+: `.sidebarAdaptable` morphs between tab bar and sidebar on iPad, but on iPhone it stays a tab bar unless you opt in with `defaultTabBarPlacement(_:)`. Read `@Environment(\.isTabViewSidebarAvailable)` before showing UI that assumes a sidebar, and keep nested-tab content reachable in both forms. Gate with `#available`.
+- Resizable windows and iPhone/iPad multitasking: no fixed device-sized frames, no hard-coded safe-area insets. Branch on size class (or `onGeometryChange` for a threshold), and never swap the container type during a resize (it throws away navigation state). Test the narrowest and widest sizes.
 - Deep links: parse URL → route enum → push onto the right tab's path.
 - Alerts and confirmation dialogs bound to an item when they concern a specific item.
 - macOS: scenes (`WindowGroup`, `Settings`, `MenuBarExtra`), window styling and toolbars follow the platform; see `desktop-tauri-macos.md` for packaging.

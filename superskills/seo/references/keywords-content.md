@@ -95,11 +95,12 @@ For each page, decide:
 ### E-E-A-T on the page
 
 Trust is the core; experience, expertise and authority support it.
-- **Who** wrote it: a named author with a bio, credentials, a profile page and `Person` schema.
+- **Who** wrote it: a real, named author with a bio, credentials, a profile page and `Person` schema. Never invent one. AI-generated headshots, made-up names or false credentials that make content look expert-written are deception under Google's helpful-content guidance (updated 1 Oct 2026). If no expert wrote or reviewed it, use the real byline or the brand and say who reviewed it.
 - **How** it was made: say whether you tested, measured or interviewed, and how.
 - **Why** it exists: to help the reader, not to fill a keyword slot.
 - YMYL topics (health, money, legal, safety, and now civic topics such as elections) need credentialed authors or reviewers and visible sources.
 - Show the published and updated dates, and only change the updated date when the content really changed.
+- **AI-drafted content**: a person manually fact-checks and reviews all of it before publishing (Google, 1 Oct 2026). That covers the metadata too: title tags, meta descriptions, structured data and image alt text. Check every claim and number against a primary source; mark any unsourced statistic `[needs source]`.
 
 Spam policies to stay clear of:
 - **Scaled content abuse**: many low-value pages made to rank, by AI or by people.

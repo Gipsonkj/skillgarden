@@ -1,6 +1,6 @@
 # Assessments, rubrics and feedback
 
-> Distilled from: assessment-architect, its item-writing, rubric and agent references and templates (YujxZJCN/teaching-skills, MIT); universal-diagnostic-tutor and its feedback reference (SenmuuuuW/universal-diagnostic-tutor-skill, MIT); course-export and learning-objectives (savvides/idstack, MIT).
+> Distilled from: assessment-architect, its item-writing, rubric and agent references and templates (YujxZJCN/teaching-skills, MIT); universal-diagnostic-tutor and its feedback reference (SenmuuuuW/universal-diagnostic-tutor-skill, MIT); course-export and learning-objectives (savvides/idstack, MIT); the two-lane approach to AI and assessment as published by the universities of Bath, Sydney and Auckland (web guidance, written here in our own words).
 
 Quizzes, exams, question banks, projects, rubrics, feedback on work, and reading the results afterwards. For short formative checks use [checks-for-understanding.md](checks-for-understanding.md).
 
@@ -87,11 +87,21 @@ Defects to fix: double-barrelled rows ("clarity and accuracy"), hidden criteria 
 
 Write them in the Transparency in Learning and Teaching shape: **Purpose** (what learners will show they can do, and why it matters in the field), **Task** (deliverable, form, size limits, inputs, milestones with dates and the feedback each milestone gets), **Criteria** (3-6 bullets, the same promises the rubric scores, no hidden criteria), then logistics and an AI-use box. Group work adds roles, an individual-accountability mechanism (an individually graded part or contribution statement) and a peer-assessment form.
 
-## 6. AI-era integrity
+## 6. AI-era integrity: two lanes
 
-- For each graded task, ask honestly: could a current chatbot complete this to a pass with a few prompts and no course context? Most unsupervised text or code products: yes.
-- Declare the rule per task: not allowed, allowed with disclosure (which tool, what was asked, what was changed), or expected and graded on judgment (verification of output, what the learner added). A "not allowed" rule on an unsupervised, high-vulnerability task is unenforceable and only penalises honest learners.
-- Redesign options, each with its cost: supervised or in-class components; staged process evidence (proposal, drafts, revision notes); personal or class-specific inputs (own data, a class discussion, a local case); sampled short oral defences.
+Sort every graded task into a lane and print the lane in the brief, with the reason.
+
+| Lane | Conditions | What it certifies |
+|---|---|---|
+| Secure | Supervised and in person (invigilated exam, live oral, practical, in-class task); AI off | That the learner can do it alone: the outcomes someone must be able to vouch for |
+| Open | AI allowed or expected; the rule is written per task | Judgment with the tools: what was asked, what was checked, what was changed, what the learner added |
+
+- **Ask first:** could a current chatbot complete this to a pass with a few prompts and no course context? Most unsupervised text or code products: yes. Such a task is open lane, or it moves to secure.
+- **Cover every outcome that must be certified with at least one secure task.** Secure assessment is scarce, so place it at the key progression points of a course or programme, not in every unit; most coursework is open lane. Remote proctored exams are hard to secure reliably: count them as open.
+- **A "not allowed" rule on an unsupervised task is unenforceable** and only penalises honest learners. Declare instead: allowed with disclosure (which tool, what was asked, what was changed), or expected and graded on judgment (verification of output, what the learner added).
+- **Design the open lane as windows onto learning:** drafts, plans, code commits, lab records, seminar contributions, a short oral check; grade the errors found and revisions made, not only the final product. Give learners guidance on effective and responsible use, formative feedback, and where sensible a resubmission.
+- **Redesign options for a vulnerable task, each with its cost:** a supervised component; staged process evidence; personal or class-specific inputs (own data, a class discussion, a local case); sampled short oral defences.
+- **Equity:** don't make a paid tool a requirement, don't list permitted uses in over-prescriptive detail, and give an alternative route to a learner with an ethical objection or an accessibility need.
 - Never recommend AI-detection tools; they are unreliable and biased against non-native writers. Never call an assessment "AI-proof".
 
 ## 7. Feedback on work
@@ -125,6 +135,6 @@ Turn an already-granted accommodation (extra time, alternative format, reduced d
 - [ ] Items pass the 12 rules; distractors from misconceptions; variants keep the construct
 - [ ] Key worked independently; discrepancies and `[VERIFY]` items listed
 - [ ] Rubric type fits; descriptors observable; graders calibrated on anchors
-- [ ] AI-use rule declared per task; high-weight tasks have a resilient part; no detectors
+- [ ] Each graded task labelled secure or open lane with its AI rule; every outcome that must be certified has a secure task; no detectors
 - [ ] Feedback specific, kind, and ends with one next step
 - [ ] Item analysis reads items first, states N and method, aggregates only

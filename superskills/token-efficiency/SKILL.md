@@ -17,7 +17,7 @@ Spending fewer tokens and less money with Claude and other LLMs while keeping th
 6. **Every always-loaded token is paid every turn.** MCP tool schemas (heuristic ~500 tokens per tool), skill and agent descriptions, CLAUDE.md. Remove, defer or shorten them.
 7. **Compact at phase boundaries, after writing state to a file; `/clear` between unrelated tasks.** Never compact mid-implementation; compact at 70-80% of the window, not at the limit.
 8. **Strong model for judgment, cheaper workers for bulk.** Subagents return `path:line` evidence, not prose; their reports are leads to verify.
-9. **Effort before model, and switch between conversations, not inside one.** Caches are per model; a mid-conversation switch re-writes the whole context.
+9. **Effort before model; switch models between conversations, not inside one.** Caches are per model; a mid-conversation model switch re-writes the whole context, and so does changing top-level effort. Where the API has per-message effort, use that instead.
 10. **Terse output keeps every fact.** Its measured saving is modest (about 3% versus "Answer concisely." in the caveman repo's own single run); write in full for security, irreversible steps and anything persisted.
 11. **Figures carry a date.** Model ids, prices, cache minimums and plan limits change: describe the method, quote numbers "as of <source, date>, check current pricing", and never invent a price.
 12. **Measurement stays local.** Use local logs and official APIs; no telemetry CLIs, no `curl | bash` installers, no uploading transcripts. Only redacted summaries are shareable, and sharing is the user's call.

@@ -67,12 +67,13 @@ A short page that fully answers a narrow query is fine. A long page that repeats
 4. **Line it up with dates:**
    - deploys and migrations
    - robots.txt or canonical changes
-   - Google core and spam updates
+   - Google core and spam updates: read the start and end dates on the Search Status Dashboard. The September 2026 spam update began 24 Sep with up to a two-week rollout and added no new policy; it enforces existing ones (scaled content, site reputation, expired-domain and doorway abuse, back-button hijacking, fake incentivised reviews)
    - the start of AI Overviews on your queries
    - competitor launches
-5. **Separate clicks from impressions.** Impressions holding steady while clicks fall usually means CTR loss to SERP features or AI Overviews, not a ranking loss. When impressions fall, it's a ranking or indexing loss.
-6. **Check the affected URLs** with URL Inspection, a live fetch, the rendered HTML and the response codes.
-7. **Write observations and causes separately.** "Clicks on /blog/ fell 38% from 12 Aug" is an observation. "Caused by the 14 Aug canonical change" is a hypothesis until URL Inspection or a revert confirms it.
+5. **During a rollout, don't name a cause.** If the drop starts inside an update's rollout window, record it as "coincides with the update" only. Wait until the dashboard says it has finished, then compare complete windows before and after. Meanwhile fix only what is independently broken, and check the site against the policies the update enforces.
+6. **Separate clicks from impressions.** Impressions holding steady while clicks fall usually means CTR loss to SERP features or AI Overviews, not a ranking loss. When impressions fall, it's a ranking or indexing loss.
+7. **Check the affected URLs** with URL Inspection, a live fetch, the rendered HTML and the response codes.
+8. **Write observations and causes separately.** "Clicks on /blog/ fell 38% from 12 Aug" is an observation. "Caused by the 14 Aug canonical change" is a hypothesis until URL Inspection or a revert confirms it.
 
 Common causes:
 - a migration that left redirects missing or chained

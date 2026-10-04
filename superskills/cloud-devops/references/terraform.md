@@ -60,7 +60,18 @@ Commit `.terraform.lock.hcl`. Do provider/runtime upgrades in their own PR.
 
 ## Feature floors (check before using)
 
-`moved` 1.1 · `optional()` 1.3 · `import` blocks and `check` 1.5 · `terraform test` 1.6 (OpenTofu starts at 1.6) · mock providers and `removed` 1.7 · provider functions 1.8 · cross-variable validation and `parallel` runs 1.9 · S3 `use_lockfile` 1.10 · `write_only` arguments 1.11.
+`moved` 1.1 · `optional()` 1.3 · `import` blocks and `check` 1.5 · `terraform test` 1.6 (OpenTofu starts at 1.6) · mock providers and `removed` 1.7 · provider functions 1.8 · cross-variable validation and `parallel` runs 1.9 · S3 `use_lockfile` 1.10 · `write_only` arguments 1.11 · `action` blocks, list resources and `terraform query` 1.14 · `const` variables (dynamic module sources), `deprecated` on variables and outputs, `convert()` 1.15 · `before_destroy`/`after_destroy` action events and `import` blocks inside child modules 1.16.
+
+Many of these are Terraform-only; check the OpenTofu release notes before using one under `tofu`. Raise `required_version` in the same PR that uses a new feature.
+
+## Newer features (1.14 to 1.16)
+
+- **Actions** (1.14): a top-level `action` block runs a provider operation that is not create/read/update/delete (invoke a function, flush a cache, run a backup). Attach it to a resource with `lifecycle { action_trigger { events = [before_destroy] actions = [action.example_cleanup.archive] } }`. In 1.16 the destroy events exist: use them for a final backup or releasing an address before deletion. The action's configuration and trigger must be known at plan time, cannot use ephemeral values, and the trigger must still be in the configuration when you plan the destroy. Actions are side effects, so show them in the plan summary and keep them out of any "plan only" PR job that has write credentials.
+- **Imports in child modules** (1.16): a module can carry `import { to = aws_s3_bucket.this  id = var.existing_bucket_name }`, so adoption lives with the resource instead of in every root. Still review the plan for bindings to the wrong address.
+- **Query** (1.14): `terraform query` with `*.tfquery.hcl` lists existing infrastructure and can generate config for import. Use it to find unmanaged resources before writing `import` blocks.
+- **Dynamic module sources** (1.15): a variable marked `const = true` may appear in a module `source` or `version`. It cannot also be `sensitive` or `ephemeral`.
+- **Deprecation** (1.15): `deprecated = "use X instead"` on a variable or output warns callers at validate time; use it for a release or two before removing an input.
+- **`convert()`** (1.15): fixes inference for empty containers, e.g. `convert(map(string), {})` for an empty map instead of an empty object.
 
 ## State
 
@@ -138,3 +149,4 @@ validate (`fmt -check`, `init`, `validate`, `tflint`) → test → security scan
 - Wildcard OIDC `sub` claims
 - Secrets in defaults/tfvars, or believing `sensitive` keeps them out of state
 - Provider upgrade mixed into a feature PR
+- Using a `null_resource` provisioner for a one-off backup or cleanup when the runtime has `action` blocks (1.14+; destroy events 1.16+)

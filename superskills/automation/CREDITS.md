@@ -17,7 +17,8 @@ All content in `references/` is distilled and rewritten. Files in `scripts/` and
 | n8n-workflow-patterns | https://github.com/czlonkowski/n8n-skills/tree/main/skills/n8n-workflow-patterns | MIT | Six patterns, batch loops, validate/verify/test/activate gates (n8n.md, automation-design.md) |
 | n8n-mcp-tools-expert | https://github.com/czlonkowski/n8n-skills/tree/main/skills/n8n-mcp-tools-expert | MIT | Tool selection, nodeType formats, credential hygiene (n8n.md) |
 | n8n-code-javascript | https://github.com/czlonkowski/n8n-skills/tree/main/skills/n8n-code-javascript | MIT | Code node modes, performance numbers, return shape, helpers (n8n.md) |
-| n8n-expression-syntax | https://github.com/czlonkowski/n8n-skills/tree/main/skills/n8n-expression-syntax | MIT | Expression syntax and webhook `body` rule (n8n.md) |
+| n8n-code-python | https://github.com/czlonkowski/n8n-skills/tree/main/skills/n8n-code-python | MIT | Native Python Code node variables, blocked features, empty import allowlist, task-runner image (n8n.md) |
+| n8n-expression-syntax | https://github.com/czlonkowski/n8n-skills/tree/main/skills/n8n-expression-syntax | MIT | Expression syntax, webhook `body` rule, JMESPath quoting, silent nulls (n8n.md) |
 | n8n-workflow-lifecycle-official | https://github.com/n8n-io/skills/tree/main/skills/n8n-workflow-lifecycle-official | Apache-2.0 | Six-stage lifecycle, what validation misses, sequential fan-out, naming, groups, handoff (n8n.md, automation-design.md) |
 | make-scenario-building | https://github.com/integromat/make-skills/tree/main/skills/make-scenario-building | MIT | Two-phase build, provider disambiguation, connection gate, scheduling, verification, app gotchas (make.md, automation-design.md) |
 | zapier-sdk | https://github.com/zapier/sdk/tree/main/skills/zapier-sdk | MIT | Discovery commands, connections, runAction, gotchas (zapier.md) |
@@ -27,6 +28,8 @@ All content in `references/` is distilled and rewritten. Files in `scripts/` and
 | gws-gmail | https://github.com/googleworkspace/cli/tree/main/skills/gws-gmail | Apache-2.0 | Gmail helpers, confirm-before-send (app-integrations.md) |
 | gh-axi | https://github.com/kunchenguid/gh-axi/tree/main/skills/gh-axi | MIT | CLI-served GitHub guidance (app-integrations.md) |
 | firecrawl-agent | https://github.com/firecrawl/skills/tree/main/skills/core/firecrawl-agent | ISC | Agent extraction commands, schema, credit caps, scrape-first rule (web-extraction.md) |
+
+Idea only, no text copied: the case for hard spend caps over warning emails, from Simon Willison's post of 3 Oct 2026 (https://simonwillison.net/2026/Oct/3/default-hard-budget-caps/), used in automation-design.md rule 12.
 
 Left out on purpose: browser-use's helper that auto-approves Chrome's remote-debugging security prompt and its promotional cloud links; browser-act's CAPTCHA "verification assistance"; Firecrawl's feedback command that sends task objectives to the vendor.
 

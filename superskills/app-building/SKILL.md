@@ -48,7 +48,7 @@ Work out what the request needs before opening a guide; most real requests need 
 | Native Android: Compose, adaptive layouts for tablets and foldables, XML-to-Compose, `android` CLI | `references/android-compose.md` |
 | Flutter architecture (MVVM + repositories) and responsive layouts | `references/flutter.md` |
 | Tauri v2 desktop/mobile apps; SwiftPM Mac apps built, signed and notarized without Xcode | `references/desktop-tauri-macos.md` + `templates/macos-spm-app-packaging/` |
-| Run on simulators and emulators, screenshots, screen recordings, E2E tests, failing builds | `references/testing-simulators.md` |
+| Run on simulators and emulators, screenshots, screen recordings, crash logs, E2E tests, failing builds | `references/testing-simulators.md` |
 | EAS builds, TestFlight, App Store review, `asc` CLI, Google Play tracks, versioning | `references/release-app-stores.md` |
 | A web app or PWA that must feel native on phones (sticky hover, 100vh, input zoom, safe areas) | `references/mobile-web-pwa.md` |
 

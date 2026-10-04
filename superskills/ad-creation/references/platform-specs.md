@@ -1,4 +1,4 @@
-> Distilled from: ad-creative (coreyhaines31/marketingskills, MIT), ad-creative (alirezarezvani/claude-skills, MIT), ad-creative-builder (aaron-he-zhu/aaron-marketing-skills, Apache-2.0), meta-ads (boringmarketer/meta-ads-skill, MIT), facebook-ads (openclaudia/openclaudia-skills, MIT), ads-copywriter (claude-office-skills/skills, MIT)
+> Distilled from: ad-creative (coreyhaines31/marketingskills, MIT), ad-creative (alirezarezvani/claude-skills, MIT), ad-creative-builder (aaron-he-zhu/aaron-marketing-skills, Apache-2.0), meta-ads (boringmarketer/meta-ads-skill, MIT), facebook-ads (openclaudia/openclaudia-skills, MIT), ads-copywriter (claude-office-skills/skills, MIT); YouTube facts from Google Ads Help, in our own words
 
 # Platform specs: character limits, sizes, safe zones
 
@@ -77,6 +77,32 @@ Branded hashtags in ad text are restricted. Keep on-screen hook text to ~40 char
 ## X (Twitter)
 
 Post text 280 (about 257 usable with a link), card headline 70, card description 200. Use 0-2 hashtags; for ads 0 is often better.
+
+## YouTube (Google Ads video)
+
+| Format | Length | Viewer control | Billing |
+|---|---|---|---|
+| Skippable in-stream | No max; under 3 min recommended | Skip after 5 s | CPV: a 30 s view, or the whole ad if shorter |
+| Non-skippable in-stream | 15-60 s, by campaign subtype | No skip | Target CPM |
+| Bumper | 6 s max | No skip | Target CPM |
+| In-feed video | No max | Thumbnail + text; plays when clicked | Per click to watch |
+| Shorts | Under 60 s recommended | Swiped away at any moment | CPV, CPM or engagement |
+
+- Sizes: 1920×1080 (16:9), 1080×1920 (9:16), 1080×1080 (1:1) recommended; 1280×720, 720×1280 and 480×480 are the minimums. Upload all three ratios so no placement letterboxes. Thumbnail 1280×720, JPG/PNG/GIF, under 2 MB.
+- **Write for the skip.** Skippable in-stream must land the brand and the one promise before the skip button appears at 5 s. A bumper carries one idea and one line, nothing else. Shorts can be swiped from frame 1, so open like an organic Short, not a TV spot.
+
+**Google's ABCDs** (its checklist for YouTube creative):
+
+| Letter | Do |
+|---|---|
+| Attention | Start inside the story, tight framing, brisk pacing; bright, high-contrast picture; supers (on-screen text) and audio carry the message together |
+| Branding | Brand or product in the opening seconds and again through the spot; say the brand in the voice-over as well as showing it; use more than the logo (colour, sound, pack) |
+| Connection | People using the product; one focused message in plain words; humour, surprise or intrigue |
+| Direction | One specific CTA on screen and spoken in the VO ("Start your free trial", not "Learn more") |
+
+For Shorts, Google puts Connection first: talent using the product the way a creator would, tight framing, native feel over polish (same rules as [short-form-video-ugc.md](short-form-video-ugc.md)). Unlike Meta feed, voice-over carries real weight here: brand and CTA both go in the audio, and captions still go on for muted plays.
+
+**Repurposing.** Google Ads Asset Studio (Gemini-based) can turn existing social assets, photos or a landing-page URL into YouTube videos. Treat its output like any generated ad: preview every video, check each on-screen claim ([ai-ad-production.md](ai-ad-production.md)), and give new assets time to gather data before rotating them out.
 
 ## Cascade for multi-platform sets
 

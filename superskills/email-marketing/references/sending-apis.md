@@ -48,7 +48,9 @@ if (error) { /* handle: the SDK returns errors, it does not throw */ }
 - **Broadcasts** (marketing): `broadcasts.create({ name, from, subject, segmentId, html, topicId?, previewText? })` makes a **draft**; `broadcasts.send(id, { scheduledAt? })` sends it. Include `{{{RESEND_UNSUBSCRIBE_URL}}}`. As an agent, never pass `send: true` on create: create the draft, show it, and send only after approval. Cancel reverts a scheduled broadcast to draft.
 - **Topics** are subscription categories shown on the unsubscribe page; `defaultSubscription` (`opt_in` or `opt_out`) cannot be changed after creation, so decide it with the consent model in mind (opt-in for anything that needs consent).
 - **Automations:** a graph of steps: `trigger` (event name), `send_email` (published template), `delay` ("3 days"), `wait_for_event` (with timeout), `condition` (branch on contact or event data). Events you send trigger them.
-- **Webhooks:** verify with `resend.webhooks.verify({ payload, headers: { 'svix-id', 'svix-timestamp', 'svix-signature' }, secret })` using the raw text body, not parsed JSON. Events include `email.sent`, `email.delivered`, `email.bounced`, `email.complained`, `email.delivery_delayed`, `email.suppressed`, opens and clicks.
+- **Webhooks:** verify with `resend.webhooks.verify({ payload, headers: { 'svix-id', 'svix-timestamp', 'svix-signature' }, secret })` using the raw text body, not parsed JSON. Events include `email.sent`, `email.delivered`, `email.bounced`, `email.complained`, `email.delivery_delayed`, `email.suppressed`, opens and clicks, plus `contact.topics.updated` (a contact's topic subscriptions changed) and `topic.created`, `topic.updated`, `topic.deleted`. Mirror `contact.topics.updated` into your own database so unsubscribes reach the app's own mailers.
+- **Verify, then parse.** With the `svix` package directly, version 2.6.1 (30 Sep 2026) changed `Webhook.verify()` to only validate: it throws on a bad signature or timestamp and returns nothing. Never write `const event = wh.verify(...)`. Call `verify(rawBody, headers)`, then `JSON.parse(rawBody)`; this works on 1.x and 2.x. A handler that kept the old pattern gets an undefined event, so test it with a real signed payload after any svix upgrade.
+- **Quota:** `GET /usage` (any valid API key) returns daily and monthly sent counts, contacts, segments, broadcasts, domains, automation runs and rate limits. Use it for quota alerts, or to hold back non-critical sends before a cap is hit.
 - **Errors:** 400/422 fix the request; 401 `restricted_api_key` means a sending-only key hit another endpoint; 403 usually means unverified or mismatched From domain, or the `onboarding@resend.dev` sandbox sender (it delivers only to your own account address); 409 idempotency conflict; 429 and 500 retry with backoff.
 - Suppression is automatic for hard bounces and complaints.
 - Test with `delivered@resend.dev`, `bounced@resend.dev`, `complained@resend.dev`.
@@ -126,6 +128,6 @@ Transactional only: do not use it for newsletters or bulk marketing. It launched
 - [ ] From domain verified with SPF, DKIM and DMARC; SES identity shows all three statuses complete
 - [ ] Streams or subdomains separate transactional and marketing (Postmark `MessageStream` always set)
 - [ ] Idempotency keys on sends; errors checked (Resend returns, does not throw); retries only where safe
-- [ ] Webhooks verified (Resend signature) or protected (Postmark Basic Auth) and monitored
+- [ ] Webhooks verified (Resend signature, then parse the raw body) or protected (Postmark Basic Auth) and monitored
 - [ ] Broadcasts created as drafts and sent only after approval
 - [ ] Tests use provider sandboxes and simulators

@@ -8,7 +8,7 @@ Prompt (prefix) caching lets a provider reuse the work it already did on the sta
 
 Cache only when all of these hold:
 1. **Repeated:** the same prefix is sent many times (chatbot system prompt, agent loop, many questions over one document).
-2. **Long enough:** above the provider's minimum cacheable size. Minimums are per model and change (from 512 to 6,144 tokens across providers as of the audit-prompt-caching references, Sep 2026). Below the minimum the request runs uncached with no error.
+2. **Long enough:** above the provider's minimum cacheable size. Minimums are per model and change (from 512 to 6,144 tokens across providers as of the audit-prompt-caching references, Sep 2026; on Claude, 512 on Sonnet 5.5 and 1,024 on Sonnet 5, Oct 2026). Below the minimum the request runs uncached with no error.
 3. **Frequent enough:** the next request arrives before the entry expires (minutes by default on most providers).
 4. **Input-heavy:** if output tokens dominate cost, a perfect hit rate saves little. Compute output share first.
 5. **Safe to share:** the cache scope matches your trust boundary (see section 6).
@@ -31,14 +31,16 @@ One changed byte invalidates everything after it. The silent cache killers:
 |---|---|
 | `Current date: {today}` or a timestamp in the system prompt | Move it into the latest user message |
 | Request ID, trace ID, user name, tenant facts, cwd or git status early in the prompt | Move after the cached prefix |
-| Tools or MCP schemas listed in a different order, or a tool list that changes per turn | Sort; freeze the tool set per session; use the provider's allowed-tools or deferred-loading form instead of rewriting the list |
+| Tools or MCP schemas listed in a different order, or a tool list that changes per turn | Sort; freeze the tool set per session; use the provider's allowed-tools or deferred-loading form instead of rewriting the list. On Claude, mid-conversation tool changes (beta: `mid-conversation-tool-changes-2026-07-01`, or `inline-tools-2026-09-15` to define a tool inline) add or remove tools without losing the cache |
 | JSON serialised with unsorted keys, or a schema regenerated per request | `sort_keys=True`; serialise once and reuse the string |
 | Random or A/B few-shot examples before the stable part | Fix the examples; put variants after the prefix |
 | Whitespace or template changes between deploys | Diff rendered prompts byte-for-byte in CI (section 5) |
-| Editing the system prompt mid-conversation to add an instruction | Append the instruction as a new message instead |
+| Editing the system prompt mid-conversation to add an instruction | Append the instruction as a new message instead. On Claude, append a mid-conversation system message (`{"role": "system", "content": "..."}`, placed right after a user turn) rather than editing the top-level `system` field, which invalidates the whole cached prefix |
 | Compaction or masking that rewrites early messages every turn | Edit in rare large batches, near the end |
-| Switching model, effort/reasoning setting or speed mode mid-conversation | Decide once per conversation; caches are per model, and some providers render reasoning settings into the prefix |
+| Switching model, effort/reasoning setting or speed mode mid-conversation | Decide once per conversation; caches are per model, and some providers render reasoning settings into the prefix. Where per-message effort exists, use it instead of changing top-level effort (`model-and-effort.md` section 4b) |
 | Prompts above 1-2K tokens split across "versions" by feature flags | One canonical render function per prompt family |
+
+On Claude Sonnet 5.5 keep history append-only for another reason: replaying one of its thinking blocks after an edit to earlier history (system prompt, tools or an earlier message) can return a 400 error, and accounts created on or after 31 Aug 2026 are checked by default (Oct 2026 docs).
 
 ## 3. Explicit vs automatic caching
 
@@ -93,7 +95,7 @@ Add a smoke test that renders the prompt for two different users, dates and ques
 
 ## 6. Economics and trust
 
-**Write premium.** Some providers charge more for the first (cache-writing) request than for normal input (Claude: 1.25x for the 5-minute TTL and 2x for 1 hour; OpenAI's newer models 1.25x; reads around 0.1x or less; all as of Sep-Oct 2026, check current pricing). With write multiplier `w` and read multiplier `r` (relative to normal input), caching saves input cost when the share of cached tokens that are reads exceeds `(w - 1) / (w - r)`. Example: `w = 1.25, r = 0.1` gives about 22%; `w = 2, r = 0.1` gives about 53%. Sparse traffic that writes often and reads rarely can cost more than no caching.
+**Write premium.** Some providers charge more for the first (cache-writing) request than for normal input (Claude: 1.25x for the 5-minute TTL and 2x for 1 hour; OpenAI's newer models 1.25x; reads around 0.1x or less, and on Claude 0.1x on Sonnet 5.5, 0.05x on Opus 5.5, 0.025x on Fable 5.1; all as of Sep-Oct 2026, check current pricing). With write multiplier `w` and read multiplier `r` (relative to normal input), caching saves input cost when the share of cached tokens that are reads exceeds `(w - 1) / (w - r)`. Example: `w = 1.25, r = 0.1` gives about 22%; `w = 2, r = 0.1` gives about 53%. Sparse traffic that writes often and reads rarely can cost more than no caching.
 
 Estimate before changing anything, with current prices passed in explicitly:
 

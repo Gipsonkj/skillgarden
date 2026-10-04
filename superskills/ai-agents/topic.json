@@ -3,7 +3,14 @@
   "blurb": "Agents, tools and MCP servers that actually work: scoping, tool design, multi-agent, memory, evals, Claude and other stacks.",
   "hue": 200,
   "collections": [],
-  "repos": ["anthropics/skills", "anthropics/claude-plugins-official", "muratcankoylan/Agent-Skills-for-Context-Engineering", "google/agents-cli"],
+  "repos": [
+    "anthropics/skills",
+    "anthropics/claude-plugins-official",
+    "muratcankoylan/Agent-Skills-for-Context-Engineering",
+    "google/agents-cli",
+    "modelcontextprotocol/modelcontextprotocol",
+    "modelcontextprotocol/typescript-sdk"
+  ],
   "searches": [
     "MCP specification new release server features",
     "Claude Agent SDK managed agents new feature",
@@ -11,9 +18,18 @@
     "multi-agent orchestration context engineering technique",
     "agent skill MCP server Claude Code new"
   ],
-  "keywords": ["MCP", "AI agent", "Agent SDK"],
-  "feeds": ["https://blog.modelcontextprotocol.io/index.xml", "https://www.latent.space/feed"],
-  "hf": ["papers"],
+  "keywords": [
+    "MCP",
+    "AI agent",
+    "Agent SDK"
+  ],
+  "feeds": [
+    "https://blog.modelcontextprotocol.io/index.xml",
+    "https://www.latent.space/feed"
+  ],
+  "hf": [
+    "papers"
+  ],
   "tests": [
     {
       "id": "t1",

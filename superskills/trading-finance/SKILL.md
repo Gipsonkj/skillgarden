@@ -30,6 +30,7 @@ Covers corporate-finance modeling (DCF, comps, three-statement, LBO, merger), eq
 12. **Paper first, live only by the user's hand.** Research → backtest → paper → user decides; per-order confirmation for anything live.
 13. **Secrets stay out of the conversation.** Keys in the user's environment or vendor profile only; never printed, logged or written to files.
 14. **Disclose limits.** Every report carries a research-only, not-investment-advice line; backtests carry the hypothetical-performance disclosure.
+15. **Audit the figures before you send.** Tag every number in the answer by role: *observed* (it appears in a filing, tool result or file you opened this session), *derived* (a formula over observed numbers, shown), *proposed* (your assumption or target, labelled as yours) or *cited* (source named on the same line). Re-check each against its evidence, and quote backtest and risk metrics from the run output rather than retyping them. Cut a figure that fails or mark it "not verified"; do one correction pass, with no fresh research.
 
 ## Plan the request
 
@@ -104,7 +105,7 @@ The guides above distil these. Open one when a part needs its full detail, read 
 2. **Gather inputs with sources and dates:** connected data tools, user files, filings, then reputable web data. List gaps instead of guessing.
 3. **Confirm the input block or formalised strategy rules** with the user before building.
 4. **Build in stages** using the matching reference; show each block and pause at major stages.
-5. **Check:** integrity checks, validators and scripts, sensitivity centres, sign and unit spot-checks, bias checklist for backtests.
+5. **Check:** integrity checks, validators and scripts, sensitivity centres, sign and unit spot-checks, bias checklist for backtests. Then run the figures audit (principle 15) over the draft.
 6. **Present:** key outputs as ranges, the assumptions that matter most, the strongest counterargument or failure condition, and the disclaimer.
 7. **Hand off:** file names, artifact paths, what is still assumed or missing, and the next check the user could run.
 
@@ -119,3 +120,4 @@ The guides above distil these. Open one when a part needs its full detail, read 
 - [ ] No personalised buy/sell/sizing advice given; research-only disclaimer included
 - [ ] Any order ran on paper/testnet, or on live only after an explicit per-order confirmation; result read back by order ID
 - [ ] No API keys requested, shown or written anywhere
+- [ ] Figures audit run: every stated number is observed, derived, proposed or cited; failures cut or marked not verified

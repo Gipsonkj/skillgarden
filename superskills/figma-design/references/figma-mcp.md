@@ -24,6 +24,8 @@ Then run `/mcp` and authenticate. Never paste a personal access token into chat 
 
 **Plan limits.** Starter-plan users and View/Collab seats get only a handful of read calls per month (6 at the time of writing). Dev and Full seats on paid plans are rate-limited per minute like the REST API. Write tools are currently exempt (beta). On a small quota: one `get_metadata`, then targeted `get_design_context` calls; never loop reads.
 
+**Client allowlist.** The remote server, the only one that can write, accepts sign-in only from clients on Figma's allowlist (the MCP catalog at figma.com/mcp-catalog; Claude Code, Claude Desktop, Cursor, VS Code with Copilot and Codex are on it, and Figma approves new ones slowly through a request form). From an unlisted client, sign-in or client registration fails. Don't set the OAuth client name to a listed client's: it sidesteps Figma's access control and can stop working without notice. Instead, pick one and say which: read through the desktop server (selection only, no writes); write through a bridge that doesn't use the remote server (figma-console or figwright); or run the write step from a listed client. Tell the user canvas writes aren't available on the desktop server, and that they can request allowlisting for their client.
+
 **REST vs Plugin API.** Figma's Variables REST endpoint is Enterprise-only (403 elsewhere). Reading variables through `use_figma` (the Plugin API inside the file) works on every plan, so the scripts in this skill use that route.
 
 ## 2. When to load Figma's official skills
@@ -98,3 +100,4 @@ Some source skills say never ask the user anything; the stricter rule wins here:
 - Writing text without loading the font: the script fails and nothing is applied.
 - Forgetting `setCurrentPageAsync` when a node from an earlier call lives on another page (`findAll` and `characters` then fail).
 - Burning a Starter quota on exploratory reads.
+- Spoofing a listed client's name to get past the remote server's allowlist.

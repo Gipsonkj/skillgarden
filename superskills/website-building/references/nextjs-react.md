@@ -1,4 +1,4 @@
-> Distilled from: vercel-react-best-practices (vercel-labs/agent-skills, MIT), nextjs-app-router-patterns (wshobson/agents, MIT), next-cache-components-adoption (vercel/next.js, MIT), next-dev-loop (vercel/next.js, MIT)
+> Distilled from: vercel-react-best-practices (vercel-labs/agent-skills, MIT), nextjs-app-router-patterns (wshobson/agents, MIT), next-cache-components-adoption (vercel/next.js, MIT), next-dev-loop (vercel/next.js, MIT), Next.js September 2026 security release (nextjs.org)
 
 # Next.js (App Router) and React: build it fast, verify it at runtime
 
@@ -118,10 +118,22 @@ Requires Next.js 16.3+ on Turbopack, and `agent-browser` ≥ 0.31.1 (installing 
 
 Without these tools, use Playwright (see `quality-audit-and-testing.md`) and say that framework-side checks were not run.
 
+## 6. Stay on a patched Next.js
+
+- Before changing a Next.js project, read the installed version (`npm ls next`) and compare it with the latest security release on nextjs.org/blog. The 30 Sep 2026 release is fixed in 16.3.8 and 15.5.27; other lines get no fix, so tell the user to move to the current patch of their line and make the bump its own change.
+- Check which fixed bugs this code can hit, and fix the config as well as the version:
+  - **Image Optimization SSRF (high):** only apps with `images.remotePatterns`. Pin each pattern to an exact `hostname`, `protocol` and `pathname`; no wildcards on hosts you don't control. No patterns means not affected.
+  - **`'use cache'` leaks (Cache Components):** a pending cache fill is shared between a Draft Mode request and a normal one, so unpublished content can reach visitors or a prerendered page; a `'use cache'` function that calls another that reads a root param can serve one param's content for another. Keep draft-dependent data out of cached functions until patched.
+  - **SSG/ISR cache poisoning:** a root-level catch-all page next to static or ISR routes (any host), and self-hosted Pages Router SSG/ISR (not Vercel). One crafted request can swap a page's cached content for every visitor.
+  - **Webpack builds:** `opengraph-image` / `twitter-image` routes ignore `dynamicParams = false`; Turbopack builds are not affected.
+  - **`next dev` MCP endpoint (§5):** it doesn't check where a request comes from, so a website open in the developer's browser can read source snippets, routes and logs. Update before using it and don't browse untrusted sites while the dev server runs.
+- Report the version and which of these apply. Don't call a site "secure".
+
 ## Pitfalls
 
 - `'use client'` on a layout or page "to make it work".
 - Fetching in a client component what a server component could have fetched.
 - Server Actions with no auth check.
 - A request-scoped value cached with `"use cache"`, serving one user's data to another.
+- Wildcard `remotePatterns` hosts, or shipping on a Next.js version older than the latest security release.
 - Calling the build green and the route verified without looking at it in a browser.
