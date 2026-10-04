@@ -7,7 +7,11 @@
     "heygen-com/hyperframes",
     "browser-use/video-use",
     "google-gemini/gemini-skills",
-    "kajisho5/ffmpeg-skill"
+    "kajisho5/ffmpeg-skill",
+    "OSideMedia/higgsfield-ai-prompt-skill",
+    "songguoxs/seedance-prompt-skill",
+    "higgsfield-ai/skills",
+    "Wan-Video/Wan2.2"
   ],
   "searches": [
     "new text-to-video model release API pricing",

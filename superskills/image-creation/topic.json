@@ -3,7 +3,13 @@
   "blurb": "Generate, edit and keep images consistent with GPT Image, Nano Banana, FLUX and local models, plus code-made art.",
   "hue": 330,
   "collections": [],
-  "repos": ["openai/skills", "black-forest-labs/skills", "google-gemini/gemini-skills", "replicate/skills"],
+  "repos": [
+    "openai/skills",
+    "black-forest-labs/skills",
+    "google-gemini/gemini-skills",
+    "replicate/skills",
+    "OSideMedia/higgsfield-ai-prompt-skill"
+  ],
   "searches": [
     "new image generation model release prompting guide",
     "GPT Image OR Nano Banana prompting technique text rendering",

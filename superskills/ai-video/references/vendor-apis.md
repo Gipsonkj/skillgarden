@@ -25,7 +25,7 @@ Model names, prices and limits change monthly. Treat the tables as a starting po
 | Kling (Kuaishou) | Long takes, cheap per second; allows real people and brands where others block | 5 s to 2 min | Use for consented real-person content |
 | Hailuo / MiniMax | Character consistency across shots | short | |
 | Pika | Fast, simple effects, i2v | 5 to 15 s | Less camera control |
-| LTX-2.3, Wan 2.x, Hunyuan (open weights) | Self-hosted, no API fee, LoRAs | ~5 to 8 s | Community licences; check revenue limits |
+| LTX-2.3, Wan 2.x, Hunyuan (open weights) | Self-hosted, no API fee, LoRAs | ~5 to 8 s | Wan 2.1/2.2 are Apache-2.0; LTX and Hunyuan have community licences (check revenue limits). Wan prompting: [wan.md](wan.md) |
 | FLUX 3 video (BFL) | t2v, keyframes/continuation, audio and dialogue, product ads | short | Draft first, then enhance |
 
 Quick picks: highest quality plus audio → Veo; volume or cost → Kling or Seedance; consistent character → Hailuo or reference-capable models; self-hosted brand control → LTX/Wan; edit an existing clip → Runway Aleph, Seedance 2 or Gemini Omni.

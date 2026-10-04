@@ -285,7 +285,10 @@ Make, generate, edit and deliver video: HyperFrames, video-model prompts, ffmpeg
 - Build or edit a HyperFrames composition; CLI loop (lint, check, snapshot, preview, render, batch); registry blocks; Studio timeline layout and safe zones; telemetry and upload defaults → `references/hyperframes-workflows.md`
 - HyperFrames creative direction: design spec (`frame.md`), palettes and video type sizes, narration script, beat and rhythm plan, storyboard sheet, data scenes, audio-reactive visuals → `references/hyperframes-creative-direction.md`, `scripts/hyperframes-creative/extract-audio-data.py`
 - Write a text-to-video, image-to-video, extend or video-edit prompt (any model) → `references/generative-prompting.md`
-- Gemini Omni Flash (Veo family) generation, edits, extensions, loops → `references/vendor-gemini-omni.md`, `scripts/gemini-omni-flash-api/`
+- Prompting Seedance (1.5 Pro, 2.0, 2.0 mini, 2.5): version choice, limits, t2v / i2v / multi-reference prompts, 2.5 per-second timelines, extension and edits, dialogue, failure fixes, picking the usable window → `references/seedance.md`
+- Prompt or run Wan (2.2 open weights self-hosted, 2.5 to 3.0 hosted): photoreal still to clip, warp-free motion, negative prompts, lip-sync → `references/wan.md`
+- Prompt Kling (2.6, 3.0, Omni, O1): long takes, camera moves, multi-shot, dialogue, start/end frames, Motion Control, video edits → `references/kling.md`
+- Gemini Omni Flash and Veo 3.1: generation, edits, extensions, loops, dialogue and lip-sync prompts → `references/vendor-gemini-omni.md`, `scripts/gemini-omni-flash-api/`
 - Runway, ByteDance ModelArk (Seedance i2v, multi-reference, person-replacement edits), fal genmedia, LTX-2, FLUX 3, MiniMax, Atlas Cloud: models, costs, calls → `references/vendor-apis.md`, `scripts/bytedance-modelark/ark.py`
 - AI presenter or avatar video (HeyGen Video Agent, photo-to-talking clip, lip sync) → `references/vendor-heygen-avatars.md`
 - Cut, trim, splice, de-um, reframe, grade or assemble real footage from a transcript → `references/footage-editing-ffmpeg.md`, `scripts/video-use/`

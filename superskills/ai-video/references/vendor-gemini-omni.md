@@ -1,6 +1,6 @@
-# Vendor: Gemini Omni Flash (Google)
+# Vendor: Gemini Omni Flash and Veo (Google)
 
-> Distilled from: gemini-omni-flash-api (google-gemini/gemini-skills, Apache-2.0); video-generation (bytedance/deer-flow, MIT) for the Veo/MiniMax provider note. Scripts in `scripts/gemini-omni-flash-api/` are copied as-is from gemini-skills (Apache-2.0, license beside them).
+> Distilled from: gemini-omni-flash-api (google-gemini/gemini-skills, Apache-2.0); video-generation (bytedance/deer-flow, MIT) for the Veo/MiniMax provider note; higgsfield-ai-prompt-skill (OSideMedia/higgsfield-ai-prompt-skill, MIT) for the Veo 3.1 section. Scripts in `scripts/gemini-omni-flash-api/` are copied as-is from gemini-skills (Apache-2.0, license beside them).
 
 Model `gemini-omni-1.1-flash`, called through the Interactions API with the `google-genai` Python SDK. It does text-to-video, first-frame and first+last-frame video, reference-guided generation (images and videos), video editing, and extensions. It makes its own audio.
 
@@ -74,6 +74,45 @@ Multi-reference sequence example:
 [3-6s] Then the man <IMAGE_REF_2> holding <IMAGE_REF_3>
 [6-10s] Finally <IMAGE_REF_4> walking with <IMAGE_REF_5>
 ```
+
+## Veo 3.1 (checked Sep 2026)
+
+Google's other video line: 4 to 8 s clips with native audio, strongest on photoreal environments (water, fire, weather, animals). Called through the Gemini API with `client.models.generate_videos(...)`, which returns a long-running operation: poll `client.operations.get(op)` until `done`, then download. Ids in sources: `veo-3.1-generate-preview` and `veo-3.1-fast-generate-preview` (same features, cheaper, for drafts). Preview ids get renamed, so read Google's models page first. Veo 3 / 3 Fast are older, stable, and lack the 3.1 extras below; aggregators also list a cheaper Veo 3.1 Lite.
+
+| Setting | Values (per sources) |
+|---|---|
+| Duration | 4, 6 or 8 s |
+| Aspect | 16:9 (default), 9:16 |
+| Resolution | 720p (default, any duration); 1080p and 4K at 8 s only |
+| Reference images | up to 3 "asset" images (face, outfit, product), 3.1 only |
+| First + last frame | 3.1 only; it fills the motion between |
+| Must be 8 s when | using reference images, first/last frame, 1080p or 4K |
+| Extension | +7 s per call, up to 20 calls (148 s total); input must be a Veo clip at 720p |
+| Storage | clips kept 2 days on Google's side; referencing one for extension resets the timer. Download at once |
+
+Prompting:
+
+- Order: subject, action, style, camera move, composition, lens and focus, ambiance (light, colour), then audio.
+- **Dialogue in quotes with the speaker named**: `The old sailor looks up and says, "This must be it."` Write each line once.
+- **Sound effects explicitly** (`tires screeching loudly`, `a door slams off-screen`), **ambience as a soundscape** (`distant traffic, light rain on a tin roof`). Sound you leave open gets invented.
+- **Negative prompt field:** list what to avoid as plain nouns, not instructions: `wall, frame, text overlay`, not "no walls".
+- English dialogue is its strongest language; check other languages by ear.
+- Reference images hold appearance (face, garment, prop), not the camera. Describe the move in text.
+
+Lip-sync, the part that fails most:
+
+- 3 to 8 s per spoken clip, medium close-up or tighter, one speaking face per shot.
+- Locked-off camera or a slow push-in only; no head-motion words ("nods", "turns to look") in the same prompt.
+- When sync matters most, leave music and busy ambience out of that clip and add the bed in the edit.
+- Two people talking: one clip per speaker, cut between them. Multi-speaker sync is weaker than on Seedance.
+
+| Symptom | Fix |
+|---|---|
+| Request rejected with refs, frames, 1080p or 4K | Set duration to 8 s |
+| Extension rejected | Source is not 720p, is older than 2 days, or is not a Veo output |
+| Extension loses the voice | The source's last second is silent; voice only carries over if that second has audio |
+| Lip-sync drifts | Shorter clip, tighter framing, one face, locked camera, no music |
+| Stiff acting | Known weakness next to Kling; keep acting beats simple or route performance shots elsewhere |
 
 ## Veo and MiniMax through a generic script
 

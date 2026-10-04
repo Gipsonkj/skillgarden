@@ -1,6 +1,6 @@
 # Google Gemini image models (Nano Banana family)
 
-> Distilled from: gemini-api-dev (google-gemini/gemini-skills, Apache-2.0), nano-banana-pro (intellectronica/agent-skills, CC0-1.0), nano-banana-pro (steipete/agent-scripts, MIT), nano-banana (kingbootoshi/nano-banana-2-skill, MIT), nano-banana-pro-openrouter (github/awesome-copilot, MIT), imagen (sanjay3290/ai-skills, Apache-2.0), fal-ai-media (affaan-m/everything-claude-code, MIT), image (coreyhaines31/marketingskills, MIT)
+> Distilled from: gemini-api-dev (google-gemini/gemini-skills, Apache-2.0), nano-banana-pro (intellectronica/agent-skills, CC0-1.0), nano-banana-pro (steipete/agent-scripts, MIT), nano-banana (kingbootoshi/nano-banana-2-skill, MIT), nano-banana-pro-openrouter (github/awesome-copilot, MIT), imagen (sanjay3290/ai-skills, Apache-2.0), fal-ai-media (affaan-m/everything-claude-code, MIT), image (coreyhaines31/marketingskills, MIT), higgsfield-ai-prompt-skill (OSideMedia/higgsfield-ai-prompt-skill, MIT), higgsfield-generate model catalog (higgsfield-ai/skills, MIT)
 
 ## 1. Models (per Google's own skill, Oct 2026)
 
@@ -113,3 +113,57 @@ uv run <this-skill>/scripts/nano-banana-pro/generate_image.py \
 | Text returned, no image | Add `response_modalities=["TEXT","IMAGE"]`; rephrase if refused for policy |
 | `Error loading input image` | Wrong path; check the file exists |
 | 429 / timeout | Retry once after ~30 s; stop after two failures and report |
+
+## 9. When Nano Banana is the right pick (checked Sep 2026)
+
+Production notes from teams that use it daily, not Google claims:
+
+| Job | Verdict |
+|---|---|
+| Matching a face across a set; character sheets of people | Strongest of the common models |
+| One fix on an otherwise good image (warped logo, colour cast) | Best: it holds its input images closely. Make a one-line edit ("change the logo to the one in image 2"); re-prompting re-rolls everything that was already right |
+| Cartoon, illustrated or animated-style characters; heavily textured photos | Good default (Flash) |
+| Environments and locations | Weak spot: too clean and too symmetrical. Describe wear, clutter and asymmetry, or use another model |
+| UI, banners, layout-dense design | GPT Image 2.x usually wins (see `openai-gpt-image.md`) |
+
+Pro vs Flash: Pro reasons before it renders (it may draft interim "thought" images; this can't be switched off), so it wins on prompts with many interacting instructions, dense text and large reference composites. Flash follows one precise instruction well and is the iteration model. Both can use Google Search grounding for live facts (weather, scores); check every number, it still invents data.
+
+Short plain prompts ("Create a realistic photo of this character") and structured JSON for busy scenes (subject, then accessories, then photography, then background) both work. Every output carries an invisible SynthID watermark.
+
+## 10. References and reference sheets
+
+- Budget per sources: Pro takes up to 14 images, of which up to 6 objects keep high fidelity and up to 5 people keep identity. Flash: up to 5 characters and 14 objects.
+- **Put locations in the text, not in a reference image.** An environment photo as reference tends to misplace subjects (indoor people outdoors, interiors that don't line up). Describe the place in words.
+- Give every location a named anchor (an oak, a red door) so placement can be relative: "she stands left of the oak".
+- Avoid dead-front views of a location; a 3/4 view or a high corner angle reads depth better.
+- One reference image per camera angle. Separate views as separate images hold better than one combined sheet of the place.
+- A composite that embeds many referenced elements at once (a wall of 12 photos, each of a different character) drifts badly. Generate each element alone and composite in an editor.
+
+Product reference sheet: one clean photo in, a multi-view identity asset out. Works on Pro, Flash and GPT Image 2.x; feed the sheet (not the single photo) into later image and video calls.
+
+```text
+Use image 1 as a strict photographic reference of a real product. Create a studio reference sheet of the
+EXACT same product photographed from several angles. This is not a redesign.
+Identity lock: identical shape, proportions, materials, finish, seams, hardware, colours, wear and small imperfections.
+Branding lock: any logo, label or print exactly as photographed (typography, weight, spacing, placement).
+If there is no branding, add none. Do not invent details that are not visible.
+Views: front, back, left, right, top, underside if relevant; macro of the logo, a key material, a construction detail.
+Background: flat light grey #DCDCDC, even shadowless studio light, no gradients, no reflections.
+Real product photography, not CGI; 100mm macro look at f/8, sharp edge to edge.
+```
+
+- Plan views from the shot list: if a later video flips or tumbles the object, the sheet needs the underside. A model invents any face it hasn't seen.
+- Light to mid neutral grey beats white or black as a sheet background.
+- To make an actor in a later video touch the right button, draw a red arrow on a copy of the sheet and say in the prompt what the arrow points at. Keep the clean sheet for every other shot.
+
+## 11. Prompt-side failures
+
+| Symptom | Fix |
+|---|---|
+| Plastic, over-smooth surfaces; waxy faces in wide shots | End the prompt with one line: "light atmospheric haze, film grain, crushed blacks, deep shadows" |
+| Asked for a character, got a 4-view sheet | Say "one view, single composition" |
+| Subject misplaced against a location reference | Drop the location image; describe the place in text |
+| Many-element composite loses faces | Generate elements separately, composite after |
+| Identity drifts over a long multi-turn edit session | Start fresh from the original references, not the latest output |
+| Small text breaks; grammar errors in non-English text | Pro at 2K/4K, proof every word, or overlay (Google lists both as known limits) |
+| Infographic numbers look plausible but are wrong | Known limit. Supply the numbers, or build the chart in code |
