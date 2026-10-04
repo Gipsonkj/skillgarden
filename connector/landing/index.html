@@ -5,9 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <!-- The public landing page. build-site.mjs fills the {{…}} counts and the CRAFTS and CHAINS lists from
      the catalog, writes this to public/index.html and the app to public/explore/. The hero film
-     (film/) is ../hero-film/master/master-v2: one continuous camera move seed -> basket, made of
-     first-last-frame clips that meet on shared keyframes (no cuts), 1080p, encoded for scrubbing:
-     16 fps, short GOPs, in HEVC (hero*-hevc.mp4) and H.264 (poster.jpg is the seed keyframe, also
+     (film/) is ../hero-film/master/master-v5: seed -> plant -> grown group -> pull back to the harvest
+     basket, three Seedance 2.5 first-last-frame clips (native 1080p) that meet on shared keyframes (no
+     cuts; the last one is a forward glide played in reverse; the phone cut, master-v5-phone, pulls back
+     further at the end), encoded for scrubbing: 13 fps, short GOPs, in HEVC (hero*-hevc.mp4) and H.264 (poster.jpg is the seed keyframe, also
      the film's first frame). The stills under "How the garden grows" are keyframes too (img/), each with a
      seamless loop of itself (img/*.mp4). -->
 <title>Skill Garden: one super skill for every craft Claude works in</title>
@@ -645,7 +646,7 @@ document.addEventListener("click", async (e) => {
 // The hero film as a scroll story (Skillkraft's original homepage pattern): the stage stays
 // pinned for two more screens while the scroll moves the film from seed to harvest. Each line
 // owns a quarter of the way and its words light up one at a time. The film files are encoded
-// for scrubbing (16 fps, a keyframe every 12 or 24 frames), and the picture eases toward the scroll
+// for scrubbing (13 fps, a keyframe every 12 or 24 frames), and the picture eases toward the scroll
 // position and asks for one seek at a time, so a fast scroll never queues up stale frames.
 // The ink is read from the pixels behind the words.
 (() => {
@@ -730,11 +731,11 @@ document.addEventListener("click", async (e) => {
     return run > 0 ? Math.min(1, Math.max(0, -hero.getBoundingClientRect().top / run)) : 0;
   };
 
-  // Once the film settles on the basket, pale mint pinpoints lift off the harvested seeds and
+  // Once the film settles on the basket, pale mint pinpoints lift off the harvested fruit and
   // drift up, twinkling, like the ones around the sprout earlier in the film. Drawn live so they
-  // keep going while the page rests at the end. The seed area was measured on each file's last
-  // frame (desktop files end closer in than the phone file), in 0..1 video coordinates.
-  const SEEDS = src === v.dataset.tall ? [0.317, 0.515, 0.683, 0.578] : [0.415, 0.737, 0.588, 0.834];
+  // keep going while the page rests at the end. The fruit heap was measured on each file's last
+  // frame (the phone file pulls back further, so the basket clears the words), in 0..1 video coordinates.
+  const SEEDS = src === v.dataset.tall ? [0.31, 0.343, 0.71, 0.418] : [0.385, 0.625, 0.625, 0.76];
   const gl = document.createElement("canvas");
   gl.className = "glitter";
   gl.setAttribute("aria-hidden", "true");
