@@ -1,0 +1,16 @@
+{
+  "id": "landing-page",
+  "name": "Landing page that converts",
+  "blurb": "From offer to a live page: copy, design direction, the build, search basics, speed checks and deploy.",
+  "description": "Plan, write, design, build and ship a landing page that converts from one request: the offer and copy, a design direction, the build, on-page SEO and schema, speed and accessibility checks, then deploy, using the Skill Garden content-creation, website-building, frontend-ui-design and seo super skills in order. Use when asked to make a landing page, sales page, waitlist page or product page for a launch.",
+  "ask": "Build a landing page for <product or offer>, aimed at <audience>, that gets them to <action>.",
+  "inputs": ["The offer and the one action the page asks for", "Who it is for and their biggest objection", "Proof you can use: numbers, customers, quotes you have permission to show", "Brand assets: logo, colours, fonts, screenshots", "Where it will be hosted and any stack you already use"],
+  "steps": [
+    { "id": "copy", "title": "Plan the page and write the copy", "craft": "website-building", "guides": ["references/plan-and-copy.md"], "also": [{"craft": "content-creation", "guide": "references/conversion-copy.md"}], "output": "Section-by-section copy: headline, proof, objections answered and one call to action." },
+    { "id": "design", "title": "Pick the design direction", "craft": "frontend-ui-design", "guides": ["references/design-direction.md", "references/visual-system.md"], "output": "A one-line Design Read, the tokens (colour, type, spacing) and a wireframe per section." },
+    { "id": "build", "title": "Build the page", "craft": "website-building", "guides": ["references/stacks-astro-vue-static.md", "references/nextjs-react.md"], "also": [{"craft": "frontend-ui-design", "guide": "references/components-and-states.md"}], "output": "The working page in the stack that fits, with every state, responsive from 320 px." },
+    { "id": "seo", "title": "Search basics and schema", "craft": "website-building", "guides": ["references/seo.md"], "also": [{"craft": "seo", "guide": "references/schema.md"}], "output": "Title, description, headings, a social share image, JSON-LD and a sitemap." },
+    { "id": "check", "title": "Speed, accessibility and anti-slop check", "craft": "website-building", "guides": ["references/performance-cwv.md", "references/quality-audit-and-testing.md"], "also": [{"craft": "frontend-ui-design", "guide": "references/anti-slop.md"}], "output": "Core Web Vitals in the green, an accessibility pass and the fixes made." },
+    { "id": "ship", "title": "Deploy", "craft": "website-building", "guides": ["references/deploy-netlify-cloudflare.md", "references/deploy-vercel.md"], "output": "The live URL with the domain and analytics set up, and how to roll back." }
+  ]
+}

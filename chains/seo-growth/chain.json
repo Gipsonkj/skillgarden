@@ -1,0 +1,16 @@
+{
+  "id": "seo-growth",
+  "name": "Rank in Google and AI search",
+  "blurb": "Audit the site, fix what blocks ranking, then plan and write the content that Google and AI answers cite.",
+  "description": "Grow organic and AI search traffic from one request: a technical audit with fixes, keyword and intent research, topic clusters and internal links, writing or refreshing articles, schema and AI search signals, and a link plan, using the Skill Garden seo and content-creation super skills in order. Use when asked to improve SEO, rank higher, get cited in ChatGPT or AI Overviews, or plan a content engine for a site.",
+  "ask": "Grow search traffic for <site> on <topic or product>.",
+  "inputs": ["The site and its most important pages", "Who searches and what they buy", "Competitors that rank above you", "Access you have: Search Console, analytics, the CMS", "How many articles a month you can publish"],
+  "steps": [
+    { "id": "audit", "title": "Audit the site", "craft": "seo", "guides": ["references/audit.md", "references/technical.md"], "output": "Issues ranked by impact (crawling, indexing, speed, duplicates) with the fix for each." },
+    { "id": "keywords", "title": "Research keywords and intent", "craft": "seo", "guides": ["references/keywords-content.md"], "output": "Topic clusters with the intent, difficulty and the page that should rank for each." },
+    { "id": "structure", "title": "Plan the structure and links", "craft": "seo", "guides": ["references/architecture-linking.md"], "output": "Hub and supporting pages, their URLs and the internal links between them." },
+    { "id": "write", "title": "Write or refresh the articles", "craft": "content-creation", "guides": ["references/long-form-articles.md", "references/humanize-ai-writing.md"], "output": "The first articles, written for the reader, with titles and meta descriptions." },
+    { "id": "schema", "title": "Schema and AI search signals", "craft": "seo", "guides": ["references/schema.md", "references/ai-search.md"], "output": "JSON-LD per page type, AI crawler settings and passages written to be quoted." },
+    { "id": "links", "title": "Plan links and tracking", "craft": "seo", "guides": ["references/offpage-competitors.md", "references/tools-vendors.md"], "output": "A 90-day link plan and the reports to check each month." }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "id": "course-launch",
+  "name": "Create and sell an online course",
+  "blurb": "Turn what you know into a course: outcomes, structure, lessons, slides or video, the platform, a sales page and launch emails.",
+  "description": "Build and launch an online course from one request: learning outcomes and backward design, course structure, lessons and checks, slides or video, production and platform, a sales page and a launch email sequence, using the Skill Garden course-design, presentations, ai-video, content-creation and email-marketing super skills in order. Use when asked to create a course, cohort, workshop or training programme, or to turn notes or expertise into a course and sell it.",
+  "ask": "Create a course on <topic> for <learners>, and plan its launch.",
+  "inputs": ["The topic and what learners can do at the end", "Who the learners are and what they already know", "Material you have: notes, talks, videos, documents", "Format: self-paced or cohort, video or text", "Price, where you'll sell it and your email list size"],
+  "steps": [
+    { "id": "outcomes", "title": "Set the outcomes", "craft": "course-design", "guides": ["references/objectives-and-backward-design.md"], "output": "Measurable outcomes and how each one will be checked." },
+    { "id": "structure", "title": "Structure the course", "craft": "course-design", "guides": ["references/course-structure.md", "references/materials-to-course.md"], "output": "Modules and lessons in order, and what each builds on." },
+    { "id": "lessons", "title": "Write the lessons and checks", "craft": "course-design", "guides": ["references/lesson-plans.md", "references/explanations.md", "references/assessments-and-feedback.md"], "output": "Lesson plans with explanations, examples, practice and a quiz or task per module." },
+    { "id": "media", "title": "Make the slides or videos", "craft": "presentations", "guides": ["references/slide-design.md"], "also": [{"craft": "ai-video", "guide": "references/explainers-and-promos.md"}], "output": "Slides per lesson and a plan for each video." },
+    { "id": "platform", "title": "Produce and publish", "craft": "course-design", "guides": ["references/course-production-and-platforms.md"], "output": "The platform, the recording setup and the course built there." },
+    { "id": "sales", "title": "Write the sales page", "craft": "content-creation", "guides": ["references/conversion-copy.md"], "output": "Sales page copy: promise, outcomes, curriculum, proof, price and FAQ." },
+    { "id": "launch", "title": "Launch emails", "craft": "email-marketing", "guides": ["references/sequences-and-lifecycle.md", "references/campaigns-subject-lines-testing.md"], "output": "A launch sequence (warm-up, open cart, reminders, close) with subject lines." }
+  ]
+}

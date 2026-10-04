@@ -103,6 +103,14 @@ A chain runs several super skills one after another. Ask in plain words:
 - "Make a launch video for our new export feature for Reels" → `launch-video`:
   script, storyboard, production, captions, post.
 
+The others: `landing-page` (copy, design, build, SEO, speed, deploy), `mvp`
+(spec to deployed app with sign-in, payments, tests and security),
+`seo-growth` (audit, keywords, articles, schema, AI search, links),
+`store-launch` (platform, product pages and shots, checkout, emails, ads),
+`course-launch` (outcomes, lessons, slides or video, sales page, launch emails),
+`ai-agent` (design, tools, prompt, evals, security, deploy) and `job-search`
+(CV, profile, tailored applications, outreach, interviews, offer).
+
 It asks you once for what it needs, then saves each step to
 `<chain>/<n>-<step>.md`. With the plugin it's `skillgarden:campaign`; on the
 connector Claude calls `get_chain`; Explore has a page per chain with a zip that

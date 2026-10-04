@@ -1,0 +1,17 @@
+{
+  "id": "store-launch",
+  "name": "Launch an online store",
+  "blurb": "Pick the platform, write product pages that sell, make the product shots, then set up checkout, emails and the first ads.",
+  "description": "Launch or relaunch an online store from one request: platform choice, catalog and product pages, product images, checkout, payments and the launch offer, welcome and abandoned-cart emails, first paid ads and the numbers to watch, using the Skill Garden ecommerce, image-creation, email-marketing and ad-creation super skills in order. Use when asked to start a Shopify or WooCommerce store, put products online, or lift a store's conversion.",
+  "ask": "Launch an online store for <products>, selling to <customers> in <countries>.",
+  "inputs": ["The products, prices and margins", "Who buys and why", "Countries, currency and shipping", "The platform you have or prefer", "Product photos and brand assets you have", "Ad budget for the launch"],
+  "steps": [
+    { "id": "platform", "title": "Choose the platform and set it up", "craft": "ecommerce", "guides": ["references/platform-choice.md"], "output": "The platform, theme and apps, with the reasons and the monthly cost." },
+    { "id": "pages", "title": "Write the product pages", "craft": "ecommerce", "guides": ["references/catalog-and-feeds.md", "references/product-pages-and-cro.md"], "output": "Product titles, descriptions, variants and a page layout that sells." },
+    { "id": "images", "title": "Make the product images", "craft": "image-creation", "guides": ["references/marketing-brand-images.md", "references/editing-references-consistency.md"], "output": "Product and lifestyle shots, consistent across the catalog, at the store's sizes." },
+    { "id": "checkout", "title": "Checkout, payments and the launch offer", "craft": "ecommerce", "guides": ["references/checkout-and-payments.md", "references/pricing-and-promotions.md"], "output": "Payment methods, shipping and tax settings, and the launch offer." },
+    { "id": "emails", "title": "Welcome and abandoned-cart emails", "craft": "email-marketing", "guides": ["references/sequences-and-lifecycle.md", "references/deliverability.md"], "output": "Welcome, abandoned-cart and post-purchase emails with timing, set up to reach the inbox." },
+    { "id": "ads", "title": "The first ads", "craft": "ad-creation", "guides": ["references/meta-ads-creative.md", "references/ad-copywriting.md"], "output": "Ads for the best sellers in three angles." },
+    { "id": "measure", "title": "Measure and improve", "craft": "ecommerce", "guides": ["references/store-analytics.md"], "also": [{"craft": "ad-creation", "guide": "references/testing-iteration.md"}], "output": "The five numbers to watch each week and the first tests to run." }
+  ]
+}

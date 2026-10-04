@@ -1,0 +1,18 @@
+{
+  "id": "mvp",
+  "name": "Build and ship an MVP",
+  "blurb": "From idea to a live first version: spec, data model, sign-in and payments, screens, tests, security and deploy.",
+  "description": "Take a product idea to a deployed first version from one request: the job to be done and a short PRD, scope cut to the MVP, database schema and API, sign-in and payments, the screens, tests, a security pass and deploy with CI and monitoring, using the Skill Garden product-management, backend-databases, frontend-ui-design, testing-qa, security and cloud-devops super skills in order. Use when asked to build an MVP, a SaaS, a first version or a prototype real users can sign up to.",
+  "ask": "Build an MVP of <product> for <users>, so they can <main job>.",
+  "inputs": ["The problem and who has it", "The one job the first version must do", "Must-haves (sign-in, payments, teams) and what can wait", "Stack or hosting you already use or prefer", "Deadline and budget for paid services"],
+  "steps": [
+    { "id": "spec", "title": "Find the job and write the spec", "craft": "product-management", "guides": ["references/discovery-jtbd.md", "references/prd-specs.md"], "output": "A one-page PRD: the job, the users, the success metric and what is out of scope." },
+    { "id": "scope", "title": "Cut to the MVP", "craft": "product-management", "guides": ["references/prioritization.md", "references/stories-and-tickets.md"], "output": "Ranked stories, the cut line and the order to build them." },
+    { "id": "data", "title": "Design the data and API", "craft": "backend-databases", "guides": ["references/postgres-schema.md", "references/api-design.md", "references/backend-architecture.md"], "output": "Tables with keys and constraints, migrations and the API endpoints." },
+    { "id": "auth-pay", "title": "Add sign-in and payments", "craft": "backend-databases", "guides": ["references/auth.md", "references/stripe.md"], "output": "Working sign-up, sessions and roles, and Stripe Checkout with webhooks if it charges." },
+    { "id": "ui", "title": "Build the screens", "craft": "frontend-ui-design", "guides": ["references/components-and-states.md", "references/react-shadcn-tailwind.md"], "output": "Each screen with its loading, empty, error and success states." },
+    { "id": "test", "title": "Test the key flows", "craft": "testing-qa", "guides": ["references/test-strategy.md", "references/playwright-e2e.md"], "output": "A test plan and end-to-end tests for sign-up, the main job and payment." },
+    { "id": "secure", "title": "Security pass", "craft": "security", "guides": ["references/threat-modeling.md", "references/secrets.md", "references/secure-coding.md"], "output": "Threats found and fixed, secrets out of the code, and the risks that remain." },
+    { "id": "ship", "title": "Deploy with CI and monitoring", "craft": "cloud-devops", "guides": ["references/platform-choice.md", "references/ci-cd.md", "references/observability.md"], "output": "The live app, a pipeline that tests before it deploys, and alerts on errors." }
+  ]
+}

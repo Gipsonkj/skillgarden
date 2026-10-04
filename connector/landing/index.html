@@ -199,13 +199,15 @@
   .btn.solid:hover { background: oklch(0.45 0.1 165); }
 
   /* Chains */
-  .chains { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
-  .chains a { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: var(--s2) var(--s6); padding: var(--s5) 0; border-bottom: 1px solid var(--line); color: inherit; text-decoration: none; }
+  /* Two columns of compact rows, so ten chains read at a glance; the blurb stops at two lines. */
+  .chains { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--s6); border-top: 1px solid var(--line); }
+  .chains li { min-width: 0; }
+  .chains a { display: grid; gap: var(--s1); height: 100%; padding: var(--s4) 0; border-bottom: 1px solid var(--line); color: inherit; text-decoration: none; }
   .chains a:hover h3 { color: var(--accent); }
-  .chains h3 { font-size: 22px; transition: color .15s var(--ease); }
-  .chains .path { color: var(--ink-3); font-size: 14px; margin-top: var(--s1); }
-  .chains p { color: var(--ink-2); }
-  @media (max-width: 760px) { .chains a { grid-template-columns: minmax(0, 1fr); } }
+  .chains h3 { font-size: 19px; transition: color .15s var(--ease); }
+  .chains .path { color: var(--ink-3); font-size: 13.5px; }
+  .chains p { color: var(--ink-2); font-size: 15px; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden; }
+  @media (max-width: 760px) { .chains { grid-template-columns: minmax(0, 1fr); } }
 
   /* Install */
   .ways { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--s5); }

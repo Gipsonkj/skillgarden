@@ -1,0 +1,16 @@
+{
+  "id": "ai-agent",
+  "name": "Ship an AI agent",
+  "blurb": "Decide agent or workflow, design the tools and prompt, prove it with evals, lock down security and deploy.",
+  "description": "Design, build, test and ship an AI agent for a real task from one request: agent or workflow, framework, tool design and MCP servers, the system prompt, context and memory, evals, a security review and deploy with monitoring, using the Skill Garden ai-agents, security and cloud-devops super skills in order. Use when asked to build an AI agent, assistant, support bot, internal copilot or an automation that uses a model with tools.",
+  "ask": "Build an AI agent that <does the task> for <users>, using <systems>.",
+  "inputs": ["The task and what done looks like", "Who uses it and where: chat, Slack, voice or API", "Systems and data it reads or changes", "Actions that need a person to approve", "Model or platform preference and the budget per run"],
+  "steps": [
+    { "id": "shape", "title": "Agent or workflow", "craft": "ai-agents", "guides": ["references/agent-or-workflow.md", "references/frameworks.md"], "output": "The design (agent, workflow or a mix), the framework and why." },
+    { "id": "tools", "title": "Design the tools", "craft": "ai-agents", "guides": ["references/tool-design.md", "references/mcp-servers.md"], "output": "Each tool's name, inputs, outputs and errors, and an MCP server where it helps." },
+    { "id": "prompt", "title": "Write the prompt and memory", "craft": "ai-agents", "guides": ["references/agent-prompts.md", "references/context-and-memory.md"], "output": "The system prompt, what goes into context and what it remembers." },
+    { "id": "evals", "title": "Prove it with evals", "craft": "ai-agents", "guides": ["references/evaluation.md"], "output": "A test set of real tasks, the graders and the pass rate to ship at." },
+    { "id": "secure", "title": "Security review", "craft": "security", "guides": ["references/threat-modeling.md", "references/secrets.md"], "output": "Prompt-injection and data-leak risks with fixes, approval on risky actions, secrets handled." },
+    { "id": "ship", "title": "Deploy and watch it", "craft": "cloud-devops", "guides": ["references/platform-choice.md", "references/observability.md"], "output": "The deployed agent with cost and error dashboards and alerts." }
+  ]
+}

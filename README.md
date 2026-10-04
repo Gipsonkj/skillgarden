@@ -41,9 +41,10 @@ the same artifact URL (the runbook is published as the artifact's
   reference files) as one candidate in Review. Approving it is what people
   download next.
 - **`chains/<id>/`** holds chains: one ask that runs several super skills'
-  guides in order (`campaign`, `sales-outreach`, `launch-video`). Edit
-  `chain.json`, then run `node local/chains.mjs --write` to regenerate its
-  `SKILL.md`; `node local/chains.mjs` checks every step's guide exists. The
+  guides in order (`campaign`, `landing-page`, `mvp`, `seo-growth`,
+  `store-launch`, `course-launch`, `ai-agent`, `job-search`, `sales-outreach`,
+  `launch-video`). Edit `chain.json`, then run `node local/chains.mjs --write`
+  to regenerate its `SKILL.md`; `node local/chains.mjs` checks every step's guide exists. The
   plugin ships each chain as a skill, the site has a page per chain, and the
   connector serves them with `get_chain`.
 - **"Where this came from"**: each approved change is credited on the site and

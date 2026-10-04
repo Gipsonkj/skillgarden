@@ -1,0 +1,17 @@
+{
+  "id": "job-search",
+  "name": "Land a job",
+  "blurb": "Target roles, a CV and profile that pass ATS, tailored applications, outreach to hiring managers, interview prep and the offer.",
+  "description": "Run a job search end to end from one request: target roles, a rewritten CV and LinkedIn profile, tailoring per posting for ATS with cover letters, outreach to hiring managers, interview preparation and offer negotiation, using the Skill Garden career and linkedin-automation super skills in order. Use when asked to help find a job, rewrite a CV or resume, apply to roles, prepare for interviews or negotiate an offer.",
+  "ask": "Help me land a <role> job in <place or remote>.",
+  "inputs": ["Your current CV or work history", "Roles and companies you want", "Location, remote and visa needs", "Your salary floor and target", "Deadlines or interviews already booked"],
+  "steps": [
+    { "id": "target", "title": "Pick the target roles", "craft": "career", "guides": ["references/job-search-and-outreach.md"], "output": "Three target role types, the companies to aim at and a weekly search plan." },
+    { "id": "cv", "title": "Rewrite the CV", "craft": "career", "guides": ["references/resume-writing.md"], "output": "A CV with results-led bullets, using only facts from your history." },
+    { "id": "profile", "title": "Update the LinkedIn profile", "craft": "linkedin-automation", "guides": ["references/profile-optimization.md"], "output": "Headline, about section and experience rewritten for the target roles." },
+    { "id": "tailor", "title": "Tailor each application", "craft": "career", "guides": ["references/tailoring-and-ats.md", "references/cover-letters.md"], "output": "A tailored CV and cover letter per posting that pass ATS keyword checks." },
+    { "id": "outreach", "title": "Reach the hiring managers", "craft": "career", "guides": ["references/job-search-and-outreach.md"], "also": [{"craft": "linkedin-automation", "guide": "references/outreach-messages.md"}], "output": "Messages to hiring managers and for referrals, drafted for you to send." },
+    { "id": "interview", "title": "Prepare for the interviews", "craft": "career", "guides": ["references/interview-prep.md", "references/technical-interviews.md"], "output": "Stories for the likely questions, answers to the hard ones and questions to ask." },
+    { "id": "offer", "title": "Negotiate the offer", "craft": "career", "guides": ["references/negotiation-and-offers.md"], "output": "Your number, the counter script and what else to ask for." }
+  ]
+}
