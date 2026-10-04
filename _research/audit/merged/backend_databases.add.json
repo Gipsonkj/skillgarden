@@ -1,0 +1,54 @@
+{
+  "slug": "backend_databases",
+  "add": [
+    {
+      "rank": 9,
+      "name": "convex",
+      "purpose": "Official Convex overview skill: the all-TypeScript reactive backend (database, server functions, scheduling, file storage, auth, realtime) with guidance on writing correct queries, mutations and actions.",
+      "how_to_use": "Triggers when building on Convex or choosing a backend; works with the Convex CLI/npx convex.",
+      "repo": "get-convex/agent-skills",
+      "branch": "main",
+      "skill_path": "skills/convex",
+      "url": "https://github.com/get-convex/agent-skills/tree/main/skills/convex",
+      "stars": 63,
+      "license": "Apache-2.0",
+      "license_ok": true,
+      "evidence": "Official Convex; skills.sh ~99.6k installs (convex-quickstart 123k is already in app_building)",
+      "notes": "Low repo stars but vendor-official with very high installs."
+    },
+    {
+      "rank": 12,
+      "name": "clerk-setup",
+      "purpose": "Official Clerk skill for adding Clerk authentication to any project via the Clerk CLI and framework quickstarts, including migrating from another auth system.",
+      "how_to_use": "Use when adding/initialising Clerk auth; needs a Clerk account and keys.",
+      "repo": "clerk/skills",
+      "branch": "main",
+      "skill_path": "skills/core/clerk-setup",
+      "url": "https://github.com/clerk/skills/tree/main/skills/core/clerk-setup",
+      "stars": 83,
+      "license": "MIT (SKILL.md frontmatter only; repo has no LICENSE file)",
+      "license_ok": false,
+      "evidence": "Official Clerk; skills.sh ~51k installs (clerk/* skills 30-51k each)",
+      "notes": "license_ok=false because the repo has no LICENSE file; frontmatter declares MIT."
+    },
+    {
+      "rank": 20,
+      "name": "redis-core",
+      "purpose": "Official Redis data-modelling guidance: picking the right structure (String, Hash, List, Set, Sorted Set, JSON, Stream, Vector Set) and consistent key naming, with reference docs.",
+      "how_to_use": "Triggers when designing Redis data models, caches, counters, leaderboards; part of redis/agent-skills (also clustering, search, semantic-cache, security skills).",
+      "repo": "redis/agent-skills",
+      "branch": "main",
+      "skill_path": "skills/redis-core",
+      "url": "https://github.com/redis/agent-skills/tree/main/skills/redis-core",
+      "stars": 163,
+      "license": "MIT",
+      "license_ok": true,
+      "evidence": "Official Redis repo; no Redis skill was listed",
+      "notes": ""
+    }
+  ],
+  "checked": [
+    "skills.sh search API (queries per topic, by installs); skillsmp.com API (sortBy=stars); gh api tree/contents verification; queries: database, postgres, sql, backend, api, orm, redis, mongodb, auth, drizzle, convex, clerk, dbt, snowflake; skillsmp: database, postgres",
+    "Skipped: drizzle (no canonical/official skill; top results are small repos), rigorpilot 'database' hits (inflated installs, unrelated), more prisma skills (3 already listed)."
+  ]
+}

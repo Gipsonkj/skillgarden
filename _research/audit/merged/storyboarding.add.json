@@ -1,0 +1,29 @@
+{
+  "slug": "storyboarding",
+  "add": [
+    {
+      "rank": 18,
+      "name": "video-interaction-mapper",
+      "purpose": "Turns a UI screen recording into an annotated Figma storyboard: extracts key before/after states, infers triggers and places screenshots with interaction markers.",
+      "how_to_use": "Use with the Figma MCP server when asked to map a recording's interaction states into Figma.",
+      "repo": "figma/mcp-server-guide",
+      "branch": "main",
+      "skill_path": "workflow-skills/video-interaction-mapper",
+      "url": "https://github.com/figma/mcp-server-guide/tree/main/workflow-skills/video-interaction-mapper",
+      "stars": 2041,
+      "license": "none",
+      "license_ok": false,
+      "evidence": "Vendor-official (Figma); listed on mcpservers.org; ~13KB.",
+      "notes": "UI/product storyboards rather than film; no repo license -> link-only."
+    }
+  ],
+  "checked": [
+    "skills.sh search API (keywords per topic)",
+    "skillsmp.com search (storyboard; others rate-limited CATALOG_RATE_LIMITED)",
+    "WebSearch site:mcpservers.org skills video animation storyboard",
+    "gh api trees of heygen-com/hyperframes, greensock/gsap-skills, remotion-dev/skills, emilkowalski/skills, mengto/skills, figma/mcp-server-guide, black-forest-labs/skills, digitalsamba/claude-code-video-toolkit, resciencelab/opc-skills, nexu-io/open-design, calesthio/openmontage, volcengine/mediakit-cli",
+    "skillsmp storyboard results reviewed: nexu-io/open-design create-video-storyboard (795-byte stub), HBAI-Ltd/Toonflow-app storyboard (0.9KB app-internal), Narcooo/inkos inkos-storyboard (1.6KB, AGPL app-bound), chatfire-AI/huobao-drama storyboard-breaker (NOASSERTION, app-internal) - all skipped as thin/app-bound",
+    "mattpocock writing-beats is article writing (in-progress, model-invocation disabled) - not storyboarding",
+    "mcpservers halt-catch-fire/storyboard-creation = copy of inference-sh storyboard-creation (already listed)"
+  ]
+}

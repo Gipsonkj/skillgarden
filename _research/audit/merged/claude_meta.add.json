@@ -1,0 +1,57 @@
+{
+  "slug": "claude_meta",
+  "add": [
+    {
+      "rank": 3,
+      "name": "using-superpowers",
+      "purpose": "Bootstrap skill for the Superpowers plugin: establishes that the agent must look for and invoke relevant skills before any response, and how to find them.",
+      "how_to_use": "Loaded at session start by the Superpowers plugin; the entry point that makes the other superpowers skills (brainstorming, writing-plans, etc.) fire reliably.",
+      "repo": "obra/superpowers",
+      "branch": "main",
+      "skill_path": "skills/using-superpowers",
+      "url": "https://github.com/obra/superpowers/tree/main/skills/using-superpowers",
+      "stars": 294477,
+      "license": "MIT",
+      "license_ok": true,
+      "evidence": "obra/superpowers 294k stars; skills.sh 258k installs; mcpservers.org listed; known gap",
+      "notes": "Most useful alongside the rest of Superpowers; subagents are told to ignore it."
+    },
+    {
+      "rank": 8,
+      "name": "grilling",
+      "purpose": "The actual interview engine behind grill-me: maps a plan as a design tree and asks the user frontier questions in numbered rounds with recommended answers until shared understanding.",
+      "how_to_use": "Triggers on 'grill me' and similar; grill-me and grill-with-docs are thin wrappers that call this skill, so install it alongside them.",
+      "repo": "mattpocock/skills",
+      "branch": "main",
+      "skill_path": "skills/productivity/grilling",
+      "url": "https://github.com/mattpocock/skills/tree/main/skills/productivity/grilling",
+      "stars": 274728,
+      "license": "MIT",
+      "license_ok": true,
+      "evidence": "mattpocock/skills 275k stars; skills.sh 821k installs",
+      "notes": "Existing entry grill-me (7 lines) just calls 'grilling'; without this skill grill-me does nothing."
+    },
+    {
+      "rank": 9,
+      "name": "handoff",
+      "purpose": "Compacts the current conversation into a handoff document so a fresh agent session can pick up the work without losing context.",
+      "how_to_use": "Invoke manually (/handoff, model-invocation disabled) with what the next session is for; writes to the OS temp dir. Sibling claude-handoff launches a background agent instead.",
+      "repo": "mattpocock/skills",
+      "branch": "main",
+      "skill_path": "skills/productivity/handoff",
+      "url": "https://github.com/mattpocock/skills/tree/main/skills/productivity/handoff",
+      "stars": 274728,
+      "license": "MIT",
+      "license_ok": true,
+      "evidence": "mattpocock/skills 275k stars; skills.sh 907k installs (top-10 overall)",
+      "notes": "Short SKILL.md (16 lines) but complete; manual-only."
+    }
+  ],
+  "checked": [
+    "skills.sh search API (~60 keyword queries, all-time installs)",
+    "skillsmp.com API (sortBy=stars and recent)",
+    "mcpservers.org sitemaps/skills.xml (12.5k skill URLs; listing pages 403 to curl)",
+    "gh search repos created>2026-06-01 / >2026-07-01 sorted by stars",
+    "gh api repo trees + SKILL.md reads for every candidate"
+  ]
+}

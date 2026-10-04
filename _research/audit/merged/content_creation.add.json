@@ -1,0 +1,60 @@
+{
+  "slug": "content_creation",
+  "add": [
+    {
+      "rank": 6,
+      "name": "writing-shape",
+      "purpose": "Turns a raw-material markdown file (notes, fragments, transcript) into an article paragraph by paragraph: settles reader prerequisites, offers 2-3 openings, then grows and appends each block with deliberate format choices.",
+      "how_to_use": "Manual invoke only (disable-model-invocation); pass a markdown file of raw material and an output path.",
+      "repo": "mattpocock/skills",
+      "branch": "main",
+      "skill_path": "skills/in-progress/writing-shape",
+      "url": "https://github.com/mattpocock/skills/tree/main/skills/in-progress/writing-shape",
+      "stars": 274725,
+      "license": "MIT",
+      "license_ok": true,
+      "evidence": "skills.sh ~406k installs and on the trending list (Sept/Oct 2026); 274k-star repo",
+      "notes": "Lives in the repo's 'in-progress' folder, so paths may move. Sibling 'writing-beats' (same folder) is a choose-your-own-adventure variant of the same exploit step.",
+      "trending": true
+    },
+    {
+      "rank": 7,
+      "name": "writing-fragments",
+      "purpose": "Explore phase of Matt Pocock's writing pipeline: interviews the author relentlessly and appends usable fragments to one markdown file, without imposing structure.",
+      "how_to_use": "Manual invoke; run before writing-shape / writing-beats. Asks once where to save the fragments file.",
+      "repo": "mattpocock/skills",
+      "branch": "main",
+      "skill_path": "skills/in-progress/writing-fragments",
+      "url": "https://github.com/mattpocock/skills/tree/main/skills/in-progress/writing-fragments",
+      "stars": 274725,
+      "license": "MIT",
+      "license_ok": true,
+      "evidence": "skills.sh ~405k installs, trending; 274k-star repo",
+      "notes": "In-progress folder; pair with writing-shape.",
+      "trending": true
+    },
+    {
+      "rank": 12,
+      "name": "writing-dna-skill",
+      "purpose": "Distils a reusable 'Writing DNA' (language, structure, topic selection, evidence strategy, framing, visual style) from 20+ complete articles by an author or brand, then writes new pieces in that DNA.",
+      "how_to_use": "Triggers on style-analysis / write-like-X requests; needs at least 20 full source articles. Bilingual (Chinese/English).",
+      "repo": "larashero3-dotcom/writing-dna-skill",
+      "branch": "main",
+      "skill_path": "",
+      "url": "https://github.com/larashero3-dotcom/writing-dna-skill/tree/main",
+      "stars": 2250,
+      "license": "MIT",
+      "license_ok": true,
+      "evidence": "2.25k stars since late June 2026; on skills.sh /hot list",
+      "notes": "Frontmatter description is mostly Chinese; English README provided.",
+      "trending": true
+    }
+  ],
+  "checked": [
+    "skills.sh /api/search (36 keyword queries, paced) + www.skills.sh/trending + /hot",
+    "skillsmp.com /api/skills (18 queries x sortBy=stars,recent)",
+    "mcpservers.org sitemaps/skills.xml + WebSearch site:mcpservers.org; sources resolved via gh search code",
+    "gh search repos (topic keywords, incl. --created >2026-06-01)",
+    "gh api (SKILL.md, stars, license, folder LICENSE checks)"
+  ]
+}

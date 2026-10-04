@@ -1,0 +1,58 @@
+{
+  "slug": "frontend_ui_design",
+  "add": [
+    {
+      "rank": 6,
+      "name": "hallmark",
+      "purpose": "Anti-AI-slop design skill for greenfield pages, audits, redesigns, and extracting a design from a URL or screenshot.",
+      "how_to_use": "Triggers on building a new app/landing page, redesigns, or 'audit/redesign/study'; invoke by name.",
+      "repo": "nutlope/hallmark",
+      "branch": "main",
+      "skill_path": "skills/hallmark",
+      "url": "https://github.com/nutlope/hallmark/tree/main/skills/hallmark",
+      "stars": 29432,
+      "license": "MIT",
+      "license_ok": true,
+      "evidence": "nutlope/hallmark 29k stars (created Apr 2026, fast-rising); skills.sh 59k installs; 558-line SKILL.md + references",
+      "notes": "Also fits website_building.",
+      "trending": true
+    },
+    {
+      "rank": 13,
+      "name": "high-end-visual-design",
+      "purpose": "Agency-grade visual rules: specific fonts, spacing, shadows, card structures and motion that make a site feel premium, and bans common cheap AI defaults.",
+      "how_to_use": "Invoke for marketing/landing pages that need a premium look; complements design-taste-frontend from the same repo.",
+      "repo": "leonxlnx/taste-skill",
+      "branch": "main",
+      "skill_path": "skills/soft-skill",
+      "url": "https://github.com/leonxlnx/taste-skill/tree/main/skills/soft-skill",
+      "stars": 92070,
+      "license": "MIT",
+      "license_ok": true,
+      "evidence": "leonxlnx/taste-skill 92k stars; skills.sh 403k installs",
+      "notes": "Folder is 'soft-skill' but frontmatter name is high-end-visual-design."
+    },
+    {
+      "rank": 22,
+      "name": "pick-ui-library",
+      "purpose": "Opinionated, curated picks for frontend libraries per task: number inputs, OTP, charts, command menus, virtualization, drag and drop, toasts, state, styling.",
+      "how_to_use": "Manual-only (/pick-ui-library) when choosing a dependency.",
+      "repo": "emilkowalski/skills",
+      "branch": "main",
+      "skill_path": "skills/pick-ui-library",
+      "url": "https://github.com/emilkowalski/skills/tree/main/skills/pick-ui-library",
+      "stars": 42866,
+      "license": "MIT",
+      "license_ok": true,
+      "evidence": "emilkowalski/skills 43k stars; skills.sh 132k installs",
+      "notes": ""
+    }
+  ],
+  "checked": [
+    "skills.sh search API (~60 keyword queries, all-time installs)",
+    "skillsmp.com API (sortBy=stars and recent)",
+    "mcpservers.org sitemaps/skills.xml (12.5k skill URLs; listing pages 403 to curl)",
+    "gh search repos created>2026-06-01 / >2026-07-01 sorted by stars",
+    "gh api repo trees + SKILL.md reads for every candidate"
+  ]
+}

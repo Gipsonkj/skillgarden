@@ -1,0 +1,27 @@
+{
+  "slug": "image_creation",
+  "add": [
+    {
+      "rank": 20,
+      "name": "comfyui-workflow-builder",
+      "purpose": "Generates valid ComfyUI workflow JSON from natural language: txt2img, img2img, inpainting, ControlNet, LoRA stacks, upscaling, face detailing.",
+      "how_to_use": "Use with a local/remote ComfyUI server (COMFYUI_URL); sibling skills cover the API, prompt engineering and troubleshooting.",
+      "repo": "mckruz/comfyui-expert",
+      "branch": "master",
+      "skill_path": "skills/comfyui-workflow-builder",
+      "url": "https://github.com/mckruz/comfyui-expert/tree/master/skills/comfyui-workflow-builder",
+      "stars": 91,
+      "license": "MIT",
+      "license_ok": true,
+      "evidence": "Top ComfyUI skill on skills.sh (~1.9K installs; pack of 15 ComfyUI skills).",
+      "notes": "Low stars; the only substantive ComfyUI (local open-model) entry - list has none."
+    }
+  ],
+  "checked": [
+    "skills.sh search API (keywords per topic)",
+    "skillsmp.com search (storyboard; others rate-limited CATALOG_RATE_LIMITED)",
+    "WebSearch site:mcpservers.org skills video animation storyboard",
+    "gh api trees of heygen-com/hyperframes, greensock/gsap-skills, remotion-dev/skills, emilkowalski/skills, mengto/skills, figma/mcp-server-guide, black-forest-labs/skills, digitalsamba/claude-code-video-toolkit, resciencelab/opc-skills, nexu-io/open-design, calesthio/openmontage, volcengine/mediakit-cli",
+    "Skipped: resciencelab/opc-skills nanobanana (5th Nano Banana near-duplicate), pilioai nano-banana-2 (43 stars), gargantuax nanobanana (7 stars), runcomfy/superpowers clones, claude-office-skills image-generation (generic)"
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "slug": "instagram_automation",
+  "add": [
+    {
+      "rank": 3,
+      "name": "viral-instagram-reels",
+      "purpose": "Plans, writes and diagnoses Instagram Reels for cold-audience reach: hooks, scripts, Trial Reels testing and captions tuned to Instagram's publicly stated ranking signals.",
+      "how_to_use": "Triggers on 'reels script', 'why did my Reel flop', 'reels caption'. No API keys.",
+      "repo": "vyralcontent/content-skills",
+      "branch": "main",
+      "skill_path": "skills/viral-instagram-reels",
+      "url": "https://github.com/vyralcontent/content-skills/tree/main/skills/viral-instagram-reels",
+      "stars": 124,
+      "license": "MIT",
+      "license_ok": true,
+      "evidence": "Listed on mcpservers.org (vyralcontent author page); 11.6 KB SKILL.md with references/assets",
+      "notes": "Sibling skills: viral-hooks, viral-captions-and-ctas."
+    },
+    {
+      "rank": 5,
+      "name": "reels-scripting",
+      "purpose": "Turns a reference Instagram Reel into a script for your own Reel: scrapes the video via Apify, analyses transcript/hook/structure with Gemini, rewrites for your topic and voice.",
+      "how_to_use": "Triggers on 'script a reel' or a pasted Reel URL. Needs APIFY_API_TOKEN and GOOGLE_AI_API_KEY for URL analysis.",
+      "repo": "charlie947/social-media-skills",
+      "branch": "main",
+      "skill_path": "skills/reels-scripting",
+      "url": "https://github.com/charlie947/social-media-skills/tree/main/skills/reels-scripting",
+      "stars": 3710,
+      "license": "MIT",
+      "license_ok": true,
+      "evidence": "3.7k-star repo; listed on skillsmp",
+      "notes": ""
+    },
+    {
+      "rank": 10,
+      "name": "apify-influencer-brand-collabs",
+      "purpose": "Discovers Instagram brand-creator partnerships by chaining Apify Actors: who a brand collabs with, a creator's paid-post history, sponsorship rosters.",
+      "how_to_use": "Triggers on influencer/brand-collab research questions. Needs APIFY_TOKEN.",
+      "repo": "apify/awesome-skills",
+      "branch": "main",
+      "skill_path": "skills/apify-influencer-brand-collabs",
+      "url": "https://github.com/apify/awesome-skills/tree/main/skills/apify-influencer-brand-collabs",
+      "stars": 260,
+      "license": "Apache-2.0",
+      "license_ok": true,
+      "evidence": "Official Apify vendor skill",
+      "notes": "Scraping is subject to Instagram ToS; paid Actor runs."
+    }
+  ],
+  "checked": [
+    "skills.sh /api/search (36 keyword queries, paced) + www.skills.sh/trending + /hot",
+    "skillsmp.com /api/skills (18 queries x sortBy=stars,recent)",
+    "mcpservers.org sitemaps/skills.xml + WebSearch site:mcpservers.org; sources resolved via gh search code",
+    "gh search repos (topic keywords, incl. --created >2026-06-01)",
+    "gh api (SKILL.md, stars, license, folder LICENSE checks)"
+  ]
+}

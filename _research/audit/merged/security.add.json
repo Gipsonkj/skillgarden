@@ -1,0 +1,54 @@
+{
+  "slug": "security",
+  "add": [
+    {
+      "rank": 18,
+      "name": "owasp-top-10-testing",
+      "purpose": "Runs Strix's autonomous agents against an app category by category for the OWASP Top 10:2025, attempting real exploits and reporting confirmed findings.",
+      "how_to_use": "Use when asked to test a web app against OWASP Top 10; requires the Strix CLI/agent and an LLM key; only test targets you own or are authorised to test.",
+      "repo": "usestrix/strix",
+      "branch": "main",
+      "skill_path": "skills/owasp-top-10-testing",
+      "url": "https://github.com/usestrix/strix/tree/main/skills/owasp-top-10-testing",
+      "stars": 66190,
+      "license": "Apache-2.0",
+      "license_ok": true,
+      "evidence": "usestrix/strix 66k stars; skills.sh ~8k installs; skillsmp top pentest results",
+      "notes": "Companion to penetration-testing-with-strix (already listed); Strix-specific."
+    },
+    {
+      "rank": 19,
+      "name": "api-security-testing",
+      "purpose": "Security-tests REST, GraphQL or gRPC APIs with Strix: enumerates endpoints from OpenAPI/GraphQL schemas or by crawling, then exploits OWASP API Top 10 vulnerability classes.",
+      "how_to_use": "Use for API pentests (BOLA, auth flaws, mass assignment, etc.); requires Strix and authorisation for the target.",
+      "repo": "usestrix/strix",
+      "branch": "main",
+      "skill_path": "skills/api-security-testing",
+      "url": "https://github.com/usestrix/strix/tree/main/skills/api-security-testing",
+      "stars": 66190,
+      "license": "Apache-2.0",
+      "license_ok": true,
+      "evidence": "usestrix/strix 66k stars; skills.sh ~8k installs",
+      "notes": "Strix-specific."
+    },
+    {
+      "rank": 22,
+      "name": "solidity-security",
+      "purpose": "Smart-contract security patterns and vulnerability checklist (reentrancy, access control, oracle manipulation, etc.) for writing and auditing Solidity.",
+      "how_to_use": "Triggers when writing or auditing Solidity/EVM contracts.",
+      "repo": "wshobson/agents",
+      "branch": "main",
+      "skill_path": "plugins/blockchain-web3/skills/solidity-security",
+      "url": "https://github.com/wshobson/agents/tree/main/plugins/blockchain-web3/skills/solidity-security",
+      "stars": 40164,
+      "license": "MIT",
+      "license_ok": true,
+      "evidence": "wshobson/agents 40k stars; skills.sh ~14.8k installs (top 'security' result not yet listed)",
+      "notes": "Only smart-contract entry in the security list."
+    }
+  ],
+  "checked": [
+    "skills.sh search API (queries per topic, by installs); skillsmp.com API (sortBy=stars); gh api tree/contents verification; queries: security, pentest, vulnerability, threat-model, owasp, secrets, fuzzing, malware, smart-contract, trailofbits, iam; skillsmp: 'security audit', 'penetration testing'",
+    "Considered but skipped: better-auth-security-best-practices (auth-library specific, repo has no license); mukul975/Anthropic-Cybersecurity-Skills (33.7k stars, 817 auto-structured skills, unofficial despite name); trailofbits fuzzing/testing-handbook skills (niche)."
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "slug": "google_ads",
+  "add": [
+    {
+      "rank": 9,
+      "name": "data-manager-api-event-ingestion",
+      "purpose": "Guides implementing conversion/event ingestion to Google products (incl. Google Ads offline/enhanced conversions) via the Data Manager API /v1/events/ingest.",
+      "how_to_use": "Triggers when sending conversions server-side to Google Ads. Needs Google Cloud project + Data Manager API access; pair with data-manager-api-setup.",
+      "repo": "google/skills",
+      "branch": "main",
+      "skill_path": "skills/ads/data-manager-api-event-ingestion",
+      "url": "https://github.com/google/skills/tree/main/skills/ads/data-manager-api-event-ingestion",
+      "stars": 20757,
+      "license": "Apache-2.0",
+      "license_ok": true,
+      "evidence": "Official Google repo (same as listed google-ads-api-* skills)",
+      "notes": "Developer-oriented."
+    },
+    {
+      "rank": 13,
+      "name": "search-term-miner",
+      "purpose": "Mines a Google Ads search-terms export: harvests converting queries into new keywords/ad groups, builds a standing negative-keyword list and an n-gram waste report.",
+      "how_to_use": "Triggers on 'mine my search terms', 'negative keyword list', 'cut wasted spend'. Needs a search-terms export (CSV).",
+      "repo": "aaron-he-zhu/aaron-marketing-skills",
+      "branch": "main",
+      "skill_path": "ad/research/search-term-miner",
+      "url": "https://github.com/aaron-he-zhu/aaron-marketing-skills/tree/main/ad/research/search-term-miner",
+      "stars": 2858,
+      "license": "Apache-2.0",
+      "license_ok": true,
+      "evidence": "2.9k-star repo",
+      "notes": ""
+    }
+  ],
+  "checked": [
+    "skills.sh /api/search (36 keyword queries, paced) + www.skills.sh/trending + /hot",
+    "skillsmp.com /api/skills (18 queries x sortBy=stars,recent)",
+    "mcpservers.org sitemaps/skills.xml + WebSearch site:mcpservers.org; sources resolved via gh search code",
+    "gh search repos (topic keywords, incl. --created >2026-06-01)",
+    "gh api (SKILL.md, stars, license, folder LICENSE checks)"
+  ]
+}

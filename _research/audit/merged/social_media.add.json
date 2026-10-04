@@ -1,0 +1,42 @@
+{
+  "slug": "social_media",
+  "add": [
+    {
+      "rank": 12,
+      "name": "influencer-marketing",
+      "purpose": "Plans influencer/creator/ambassador programs: finding and vetting creators, deal structures, briefs, FTC disclosure and ROI measurement.",
+      "how_to_use": "Triggers on 'influencer marketing', 'creator partnerships', 'sponsorships', 'UGC creators', 'ambassador program'. No API keys needed.",
+      "repo": "coreyhaines31/marketingskills",
+      "branch": "main",
+      "skill_path": "skills/influencer-marketing",
+      "url": "https://github.com/coreyhaines31/marketingskills/tree/main/skills/influencer-marketing",
+      "stars": 52421,
+      "license": "MIT",
+      "license_ok": true,
+      "evidence": "Same 52k-star repo as the #1 'social' skill; skills.sh ~28k installs; has evals/ and references/",
+      "notes": "Complements 'social' (organic) with creator-led distribution."
+    },
+    {
+      "rank": 14,
+      "name": "contagious",
+      "purpose": "Applies Jonah Berger's STEPPS framework (social currency, triggers, emotion, public, practical value, stories) to make content, campaigns and features more shareable.",
+      "how_to_use": "Triggers on 'go viral', 'word of mouth', 'shareable content', 'why aren't people sharing this'. Pure knowledge skill.",
+      "repo": "wondelai/skills",
+      "branch": "main",
+      "skill_path": "contagious",
+      "url": "https://github.com/wondelai/skills/tree/main/contagious",
+      "stars": 2317,
+      "license": "MIT",
+      "license_ok": true,
+      "evidence": "wondelai/skills 2.3k stars; skills.sh ~4.6k installs",
+      "notes": "Strategy framework, not a posting tool."
+    }
+  ],
+  "checked": [
+    "skills.sh /api/search (36 keyword queries, paced) + www.skills.sh/trending + /hot",
+    "skillsmp.com /api/skills (18 queries x sortBy=stars,recent)",
+    "mcpservers.org sitemaps/skills.xml + WebSearch site:mcpservers.org; sources resolved via gh search code",
+    "gh search repos (topic keywords, incl. --created >2026-06-01)",
+    "gh api (SKILL.md, stars, license, folder LICENSE checks)"
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "slug": "trading_finance",
+  "add": [
+    {
+      "rank": 11,
+      "name": "merger-model",
+      "purpose": "Builds M&A accretion/dilution analysis: pro forma EPS impact, synergy sensitivities and purchase-price allocation in Excel.",
+      "how_to_use": "Use when evaluating an acquisition or preparing merger consequences for a pitch; works with the xlsx tooling in the plugin.",
+      "repo": "anthropics/financial-services",
+      "branch": "main",
+      "skill_path": "plugins/vertical-plugins/investment-banking/skills/merger-model",
+      "url": "https://github.com/anthropics/financial-services/tree/main/plugins/vertical-plugins/investment-banking/skills/merger-model",
+      "stars": 38550,
+      "license": "Apache-2.0",
+      "license_ok": true,
+      "evidence": "Official Anthropic financial-services plugins, 38.5k stars",
+      "notes": "Fills the M&A gap next to dcf/lbo/comps already listed."
+    },
+    {
+      "rank": 20,
+      "name": "gmgn-market",
+      "purpose": "Crypto and meme-token market data via GMGN: K-line/OHLCV charts, trending tokens by volume, new launchpad tokens (pump.fun, Raydium, etc.), hot-search rankings and token/wallet search.",
+      "how_to_use": "Needs the GMGN CLI/API per the repo README; read-only market data (trading skills live in sibling gmgn-* skills).",
+      "repo": "gmgnai/gmgn-skills",
+      "branch": "main",
+      "skill_path": "skills/gmgn-market",
+      "url": "https://github.com/gmgnai/gmgn-skills/tree/main/skills/gmgn-market",
+      "stars": 593,
+      "license": "MIT",
+      "license_ok": true,
+      "evidence": "skills.sh gmgn-* skills ~15k installs each; created Mar 2026",
+      "notes": "Very large (77KB) skill; meme-coin focus; high-risk area.",
+      "trending": true
+    }
+  ],
+  "checked": [
+    "skills.sh search API (queries per topic, by installs); skillsmp.com API (sortBy=stars); gh api tree/contents verification; queries: trading, finance, stock, crypto, financial-model, backtest, options, quant, equity, investment, portfolio, valuation; skillsmp: trading, 'stock analysis', 'financial model'; full tree of anthropics/financial-services",
+    "Skipped: okx/onchainos-skills (no license), longbridge, more tradermonty skills (3 already listed)."
+  ]
+}

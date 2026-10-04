@@ -1,0 +1,56 @@
+{
+  "slug": "cloud_devops",
+  "add": [
+    {
+      "rank": 21,
+      "name": "aws-iam",
+      "purpose": "Official AWS skill with verified corrections for IAM behaviours agents often get wrong (policy evaluation, trust policies, permission boundaries, SCPs) plus references.",
+      "how_to_use": "Triggers when writing or debugging IAM policies/roles; part of aws/agent-toolkit-for-aws (installable as the aws-core plugin).",
+      "repo": "aws/agent-toolkit-for-aws",
+      "branch": "main",
+      "skill_path": "skills/core-skills/aws-iam",
+      "url": "https://github.com/aws/agent-toolkit-for-aws/tree/main/skills/core-skills/aws-iam",
+      "stars": 2785,
+      "license": "Apache-2.0",
+      "license_ok": true,
+      "evidence": "Official AWS (new Apr 2026 toolkit); skills.sh ~9k installs",
+      "notes": "Same skill also shipped at plugins/aws-core/skills/aws-iam.",
+      "trending": true
+    },
+    {
+      "rank": 22,
+      "name": "aws-containers",
+      "purpose": "Official AWS skill for building and deploying containers on EKS, ECS, Fargate and ECR, including Karpenter and the AWS Load Balancer Controller.",
+      "how_to_use": "Triggers on EKS/ECS/Fargate deployment work; requires AWS CLI credentials for live actions.",
+      "repo": "aws/agent-toolkit-for-aws",
+      "branch": "main",
+      "skill_path": "skills/core-skills/aws-containers",
+      "url": "https://github.com/aws/agent-toolkit-for-aws/tree/main/skills/core-skills/aws-containers",
+      "stars": 2785,
+      "license": "Apache-2.0",
+      "license_ok": true,
+      "evidence": "Official AWS; skills.sh ~8.2k installs",
+      "notes": "Toolkit also has aws-serverless, aws-observability, aws-cdk; the existing awslabs/agent-plugins aws-lambda entry may be superseded by this repo.",
+      "trending": true
+    },
+    {
+      "rank": 15,
+      "name": "ci-cd-and-automation",
+      "purpose": "Sets up CI/CD pipelines with quality gates, test runners in CI, and deployment strategies (preview envs, rollbacks, feature flags).",
+      "how_to_use": "Triggers when creating or changing build/deploy pipelines.",
+      "repo": "addyosmani/agent-skills",
+      "branch": "main",
+      "skill_path": "skills/ci-cd-and-automation",
+      "url": "https://github.com/addyosmani/agent-skills/tree/main/skills/ci-cd-and-automation",
+      "stars": 100544,
+      "license": "MIT",
+      "license_ok": true,
+      "evidence": "addyosmani/agent-skills 100k stars; skills.sh ~41.8k installs",
+      "notes": ""
+    }
+  ],
+  "checked": [
+    "skills.sh search API (queries per topic, by installs); skillsmp.com API (sortBy=stars); gh api tree/contents verification; queries: docker, kubernetes, terraform, aws, gcp, deploy, ci-cd, devops, observability, helm, ansible, sentry, monitoring, iam; skillsmp: devops, kubernetes, aws",
+    "Skipped: wshobson helm-chart-scaffolding/gitops-workflow (thin ~2KB), google/agents-cli deploy (agent-specific, installs look inflated), serverless/serverless skills (framework-specific)."
+  ]
+}

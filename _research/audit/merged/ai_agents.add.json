@@ -1,0 +1,58 @@
+{
+  "slug": "ai_agents",
+  "add": [
+    {
+      "rank": 8,
+      "name": "herdr",
+      "purpose": "Controls Herdr, a terminal multiplexer built for coding agents: inspect and drive panes, tabs, workspaces, commands and other agents running inside them.",
+      "how_to_use": "Use when explicitly working with Herdr (requires the herdr CLI and HERDR_ENV=1); lets one agent supervise or hand work to other agents in panes.",
+      "repo": "herdrdev/herdr",
+      "branch": "main",
+      "skill_path": "skills/herdr",
+      "url": "https://github.com/herdrdev/herdr/tree/main/skills/herdr",
+      "stars": 41982,
+      "license": "Apache-2.0",
+      "license_ok": true,
+      "evidence": "skills.sh 60k installs; repo 42k stars since Mar 2026 (fast-rising); listed on mcpservers.org",
+      "notes": "Only useful if you run Herdr.",
+      "trending": true
+    },
+    {
+      "rank": 13,
+      "name": "google-agents-cli-adk-code",
+      "purpose": "Guides writing agent code with Google's Agent Development Kit (ADK): defining agents, tools, callbacks and state management, with API references.",
+      "how_to_use": "Triggers on 'build an agent with ADK', 'add a tool', 'create a callback'; pairs with the existing agents-cli workflow/deploy skills. Needs Python ADK / agents-cli.",
+      "repo": "google/agents-cli",
+      "branch": "main",
+      "skill_path": "skills/google-agents-cli-adk-code",
+      "url": "https://github.com/google/agents-cli/tree/main/skills/google-agents-cli-adk-code",
+      "stars": 6043,
+      "license": "Apache-2.0",
+      "license_ok": true,
+      "evidence": "Official Google; skills.sh 470k installs (highest of the agents-cli set); mcpservers.org listed",
+      "notes": ""
+    },
+    {
+      "rank": 14,
+      "name": "google-agents-cli-eval",
+      "purpose": "Detailed evaluation workflow for ADK agents: writing eval datasets, running evals, analyzing failures, comparing runs and optimizing the agent.",
+      "how_to_use": "Triggers on 'evaluate my agent', 'write an eval dataset', 'analyze eval failures'. Needs agents-cli / ADK project.",
+      "repo": "google/agents-cli",
+      "branch": "main",
+      "skill_path": "skills/google-agents-cli-eval",
+      "url": "https://github.com/google/agents-cli/tree/main/skills/google-agents-cli-eval",
+      "stars": 6043,
+      "license": "Apache-2.0",
+      "license_ok": true,
+      "evidence": "Official Google; skills.sh 469k installs; 391-line SKILL.md plus references",
+      "notes": "Complements muratcankoylan 'evaluation' (generic) with a concrete toolchain."
+    }
+  ],
+  "checked": [
+    "skills.sh search API (~60 keyword queries, all-time installs)",
+    "skillsmp.com API (sortBy=stars and recent)",
+    "mcpservers.org sitemaps/skills.xml (12.5k skill URLs; listing pages 403 to curl)",
+    "gh search repos created>2026-06-01 / >2026-07-01 sorted by stars",
+    "gh api repo trees + SKILL.md reads for every candidate"
+  ]
+}

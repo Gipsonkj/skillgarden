@@ -1,0 +1,27 @@
+{
+  "slug": "website_building",
+  "add": [
+    {
+      "rank": 18,
+      "name": "vue-best-practices",
+      "purpose": "Vue 3 best practices: Composition API with <script setup> and TypeScript, SSR, Vue Router, Pinia, Vite, with reference docs.",
+      "how_to_use": "Auto-triggers on Vue/.vue work.",
+      "repo": "vuejs-ai/skills",
+      "branch": "main",
+      "skill_path": "skills/vue-best-practices",
+      "url": "https://github.com/vuejs-ai/skills/tree/main/skills/vue-best-practices",
+      "stars": 2877,
+      "license": "MIT",
+      "license_ok": true,
+      "evidence": "vuejs-ai/skills 2.9k stars; skills.sh 40k installs; fills the Vue/Nuxt gap (list is Next/Astro only)",
+      "notes": ""
+    }
+  ],
+  "checked": [
+    "skills.sh search API (~60 keyword queries, all-time installs)",
+    "skillsmp.com API (sortBy=stars and recent)",
+    "mcpservers.org sitemaps/skills.xml (12.5k skill URLs; listing pages 403 to curl)",
+    "gh search repos created>2026-06-01 / >2026-07-01 sorted by stars",
+    "gh api repo trees + SKILL.md reads for every candidate"
+  ]
+}

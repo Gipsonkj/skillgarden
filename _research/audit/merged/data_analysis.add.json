@@ -1,0 +1,8 @@
+{
+  "slug": "data_analysis",
+  "add": [],
+  "checked": [
+    "skills.sh search API (queries per topic, by installs); skillsmp.com API (sortBy=stars); gh api tree/contents verification; queries: data-analysis, pandas, visualization, dashboard, excel, spreadsheet, analytics, statistics, notebook, jupyter, matplotlib, dbt, snowflake; skillsmp: 'data analysis', spreadsheet",
+    "Nothing substantive missing. Considered: wshobson data-storytelling (~2KB, thin), data-quality-frameworks (more data-engineering), K-Dense dask (niche)."
+  ]
+}

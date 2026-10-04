@@ -1,0 +1,57 @@
+{
+  "slug": "poster_design",
+  "add": [
+    {
+      "rank": 15,
+      "name": "logo-creator",
+      "purpose": "Logo design via AI image generation: discuss style/ratio, generate variations, iterate, crop, remove background and export to SVG.",
+      "how_to_use": "Triggers on logo/icon/favicon/mascot requests; has scripts and templates; needs an image-gen API key (Gemini).",
+      "repo": "resciencelab/opc-skills",
+      "branch": "main",
+      "skill_path": "skills/logo-creator",
+      "url": "https://github.com/resciencelab/opc-skills/tree/main/skills/logo-creator",
+      "stars": 1840,
+      "license": "Apache-2.0",
+      "license_ok": true,
+      "evidence": "opc-skills 1.8k stars; skills.sh ~3.1K installs.",
+      "notes": ""
+    },
+    {
+      "rank": 16,
+      "name": "banner-creator",
+      "purpose": "Banner/header/cover creation via AI image generation with format/style discussion, variations, feedback loop and crop to target ratio.",
+      "how_to_use": "Triggers on banner, hero image, GitHub/Twitter header requests; needs Gemini API key.",
+      "repo": "resciencelab/opc-skills",
+      "branch": "main",
+      "skill_path": "skills/banner-creator",
+      "url": "https://github.com/resciencelab/opc-skills/tree/main/skills/banner-creator",
+      "stars": 1840,
+      "license": "Apache-2.0",
+      "license_ok": true,
+      "evidence": "opc-skills 1.8k stars; skills.sh ~1.8K installs.",
+      "notes": ""
+    },
+    {
+      "rank": 17,
+      "name": "magazine-poster",
+      "purpose": "Editorial newsprint-style poster template: dateline, oversized serif headline with struck word, two-column body, numbered sections and pull-quotes.",
+      "how_to_use": "Use for 'magazine/editorial poster' briefs; built for the Open Design app, sibling image-poster template does single-image key art.",
+      "repo": "nexu-io/open-design",
+      "branch": "main",
+      "skill_path": "design-templates/magazine-poster",
+      "url": "https://github.com/nexu-io/open-design/tree/main/design-templates/magazine-poster",
+      "stars": 99190,
+      "license": "Apache-2.0",
+      "license_ok": true,
+      "evidence": "nexu-io/open-design 99k stars; surfaced on skillsmp.",
+      "notes": "Open Design-specific template."
+    }
+  ],
+  "checked": [
+    "skills.sh search API (keywords per topic)",
+    "skillsmp.com search (storyboard; others rate-limited CATALOG_RATE_LIMITED)",
+    "WebSearch site:mcpservers.org skills video animation storyboard",
+    "gh api trees of heygen-com/hyperframes, greensock/gsap-skills, remotion-dev/skills, emilkowalski/skills, mengto/skills, figma/mcp-server-guide, black-forest-labs/skills, digitalsamba/claude-code-video-toolkit, resciencelab/opc-skills, nexu-io/open-design, calesthio/openmontage, volcengine/mediakit-cli",
+    "Skipped: nextlevelbuilder ckmbanner-design (duplicate of banner-design), baoyu-xhs-images (Xiaohongshu card sets, social not poster)"
+  ]
+}

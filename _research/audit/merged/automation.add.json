@@ -1,0 +1,42 @@
+{
+  "slug": "automation",
+  "add": [
+    {
+      "rank": 7,
+      "name": "gws-workflow",
+      "purpose": "Cross-service Google Workspace workflows via the official gws CLI: standup reports, meeting prep, email-to-task, weekly digests across Gmail, Calendar, Drive, Tasks.",
+      "how_to_use": "Install the gws CLI and authenticate with Google; invoke for multi-app Workspace automation. Repo ships ~95 per-service/recipe skills (gws-shared covers auth).",
+      "repo": "googleworkspace/cli",
+      "branch": "main",
+      "skill_path": "skills/gws-workflow",
+      "url": "https://github.com/googleworkspace/cli/tree/main/skills/gws-workflow",
+      "stars": 31236,
+      "license": "Apache-2.0",
+      "license_ok": true,
+      "evidence": "Official Google Workspace repo, 31k stars; skills.sh 32k installs (gws-gmail 79k); not present anywhere in the library",
+      "notes": "Pick per-service skills (gws-calendar, gws-drive, gws-sheets) from the same repo as needed."
+    },
+    {
+      "rank": 8,
+      "name": "gws-gmail",
+      "purpose": "Send, read, search and manage Gmail from the agent through the gws CLI, with sub-skills for triage, reply, forward and watch.",
+      "how_to_use": "Requires gws CLI with Google OAuth; triggers on Gmail tasks.",
+      "repo": "googleworkspace/cli",
+      "branch": "main",
+      "skill_path": "skills/gws-gmail",
+      "url": "https://github.com/googleworkspace/cli/tree/main/skills/gws-gmail",
+      "stars": 31236,
+      "license": "Apache-2.0",
+      "license_ok": true,
+      "evidence": "Official Google Workspace repo, 31k stars; skills.sh 79k installs (most-installed gws skill)",
+      "notes": "Sends real email: confirm before sending."
+    }
+  ],
+  "checked": [
+    "skills.sh search API (~60 keyword queries, all-time installs)",
+    "skillsmp.com API (sortBy=stars and recent)",
+    "mcpservers.org sitemaps/skills.xml (12.5k skill URLs; listing pages 403 to curl)",
+    "gh search repos created>2026-06-01 / >2026-07-01 sorted by stars",
+    "gh api repo trees + SKILL.md reads for every candidate"
+  ]
+}

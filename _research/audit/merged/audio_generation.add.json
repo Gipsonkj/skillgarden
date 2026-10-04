@@ -1,0 +1,11 @@
+{
+  "slug": "audio_generation",
+  "add": [],
+  "checked": [
+    "skills.sh search API (keywords per topic)",
+    "skillsmp.com search (storyboard; others rate-limited CATALOG_RATE_LIMITED)",
+    "WebSearch site:mcpservers.org skills video animation storyboard",
+    "gh api trees of heygen-com/hyperframes, greensock/gsap-skills, remotion-dev/skills, emilkowalski/skills, mengto/skills, figma/mcp-server-guide, black-forest-labs/skills, digitalsamba/claude-code-video-toolkit, resciencelab/opc-skills, nexu-io/open-design, calesthio/openmontage, volcengine/mediakit-cli",
+    "Reviewed and skipped: volcengine/mediakit-cli byted-mediakit-audio (processing not generation, Chinese-only), elevenlabs speech-engine (realtime voice-agent infra; fits ai_agents better), minimax-ai/cli (already in sources), prime-skills/runcomfy elevenlabs-music-generation (inflated installs, 53-star repo), BFL flux-3-audio-dialogue (video audio direction, covered via flux-3-video)"
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "slug": "ad_creation",
+  "add": [
+    {
+      "rank": 11,
+      "name": "apify-ads-intelligence",
+      "purpose": "Researches competitor ads across Meta Ad Library, Google Ads Transparency Center, TikTok Ads Library/Creative Center, LinkedIn Ad Library and X: winning creatives, copy patterns, landing pages.",
+      "how_to_use": "Triggers on competitor-ad / ad-library research. Needs APIFY_TOKEN.",
+      "repo": "apify/awesome-skills",
+      "branch": "main",
+      "skill_path": "skills/apify-ads-intelligence",
+      "url": "https://github.com/apify/awesome-skills/tree/main/skills/apify-ads-intelligence",
+      "stars": 260,
+      "license": "Apache-2.0",
+      "license_ok": true,
+      "evidence": "Official Apify vendor skill; listed on mcpservers.org; 17 KB SKILL.md",
+      "notes": "Broader cross-platform coverage than ad-library-teardown; paid Actor runs."
+    },
+    {
+      "rank": 12,
+      "name": "ad-creative-builder",
+      "purpose": "Produces ad units at volume (RSA headlines/descriptions, hooks, angle matrix), message-matched to the landing page.",
+      "how_to_use": "Triggers on 'write ad copy', 'generate RSA headlines', 'ad creative at volume'.",
+      "repo": "aaron-he-zhu/aaron-marketing-skills",
+      "branch": "main",
+      "skill_path": "ad/orchestrate/ad-creative-builder",
+      "url": "https://github.com/aaron-he-zhu/aaron-marketing-skills/tree/main/ad/orchestrate/ad-creative-builder",
+      "stars": 2858,
+      "license": "Apache-2.0",
+      "license_ok": true,
+      "evidence": "2.9k-star repo (aaron-he-zhu, also in the SEO list)",
+      "notes": ""
+    }
+  ],
+  "checked": [
+    "skills.sh /api/search (36 keyword queries, paced) + www.skills.sh/trending + /hot",
+    "skillsmp.com /api/skills (18 queries x sortBy=stars,recent)",
+    "mcpservers.org sitemaps/skills.xml + WebSearch site:mcpservers.org; sources resolved via gh search code",
+    "gh search repos (topic keywords, incl. --created >2026-06-01)",
+    "gh api (SKILL.md, stars, license, folder LICENSE checks)"
+  ]
+}

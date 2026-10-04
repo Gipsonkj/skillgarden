@@ -1,0 +1,24 @@
+{
+  "slug": "product_management",
+  "add": [
+    {
+      "rank": 10,
+      "name": "pre-mortem",
+      "purpose": "Runs a pre-mortem on a PRD or launch plan, sorting risks into Tigers, Paper Tigers and Elephants, then into launch-blocking, fast-follow or track.",
+      "how_to_use": "Use before launches or PRD sign-off; give it the PRD or plan.",
+      "repo": "phuryn/pm-skills",
+      "branch": "main",
+      "skill_path": "pm-execution/skills/pre-mortem",
+      "url": "https://github.com/phuryn/pm-skills/tree/main/pm-execution/skills/pre-mortem",
+      "stars": 26727,
+      "license": "MIT",
+      "license_ok": true,
+      "evidence": "phuryn/pm-skills 26.7k stars; skills.sh ~9.8k installs (one of the top 'prd' results)",
+      "notes": ""
+    }
+  ],
+  "checked": [
+    "skills.sh search API (queries per topic, by installs); skillsmp.com API (sortBy=stars); gh api tree/contents verification; queries: product-manager, prd, roadmap, user-story, jira, spec, product-spec, okr, experiment; skillsmp: 'product manager', prd",
+    "Skipped: warpdotdev write-product-spec (27k installs but written specifically for Warp's own repo), deanpeters skills (NOASSERTION license, roadmap/user-story already covered), mattpocock to-prd (already listed as to-spec)."
+  ]
+}

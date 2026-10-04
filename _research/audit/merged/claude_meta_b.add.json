@@ -1,0 +1,8 @@
+{
+  "slug": "claude_meta",
+  "add": [],
+  "checked": [
+    "skills.sh queries: import-memory, memory; skillsmp: 'memory import', 'import memory chatgpt'; gh search code 'ChatGPT memory'/'import memories' in SKILL.md; tree of anthropics/skills, claude-plugins-official, knowledge-work-plugins, mem0ai/mem0",
+    "No public, open-licensed equivalent of Anthropic's import-memory skill found. Closest is letta-ai/skills letta/importing-chatgpt-memory (145 stars, repo NOASSERTION, frontmatter MIT) but it targets Letta's MemFS, not Claude - not added. The Anthropic import-memory and google-workspace skills are not in any anthropics GitHub repo."
+  ]
+}

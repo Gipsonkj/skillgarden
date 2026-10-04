@@ -1,0 +1,28 @@
+{
+  "slug": "app_building",
+  "add": [
+    {
+      "rank": 9,
+      "name": "appllama-app-design-skill",
+      "purpose": "Builds native-feeling Expo/React Native screens to Apple HIG standards: semantic colors, native controls, navigation semantics, Reanimated motion, simulator-verified iteration.",
+      "how_to_use": "Triggers on 'build a screen', 'polish the UI', 'make it feel native'; optional Appllama MCP for studying real apps.",
+      "repo": "Appllama/appllama-skills",
+      "branch": "main",
+      "skill_path": "skills/appllama-app-design-skill",
+      "url": "https://github.com/Appllama/appllama-skills/tree/main/skills/appllama-app-design-skill",
+      "stars": 2284,
+      "license": "MIT",
+      "license_ok": true,
+      "evidence": "Repo created Aug 2026, 2.3k stars (fast-rising); skills.sh 3.7k installs; 343-line SKILL.md + references",
+      "notes": "Optional MCP is a commercial service; skill works without it.",
+      "trending": true
+    }
+  ],
+  "checked": [
+    "skills.sh search API (~60 keyword queries, all-time installs)",
+    "skillsmp.com API (sortBy=stars and recent)",
+    "mcpservers.org sitemaps/skills.xml (12.5k skill URLs; listing pages 403 to curl)",
+    "gh search repos created>2026-06-01 / >2026-07-01 sorted by stars",
+    "gh api repo trees + SKILL.md reads for every candidate"
+  ]
+}

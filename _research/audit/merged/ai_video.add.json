@@ -1,0 +1,61 @@
+{
+  "slug": "ai_video",
+  "add": [
+    {
+      "rank": 4,
+      "name": "music-to-video",
+      "purpose": "Turns a music track (file, video audio, or mood-brief-generated track) into a beat-synced HyperFrames video: lyric video, slideshow or kinetic promo; any supplied images/clips are cut onto the detected beat grid.",
+      "how_to_use": "Triggers on beat-synced/music-driven video requests; part of the HyperFrames pack (`npx skills add heygen-com/hyperframes`); needs Node + HyperFrames CLI.",
+      "repo": "heygen-com/hyperframes",
+      "branch": "main",
+      "skill_path": "skills/music-to-video",
+      "url": "https://github.com/heygen-com/hyperframes/tree/main/skills/music-to-video",
+      "stars": 55913,
+      "license": "Apache-2.0",
+      "license_ok": true,
+      "evidence": "Official HeyGen/HyperFrames; skills.sh ~275K installs; also on mcpservers.org. Closest public equivalent to a beat-cut-films workflow.",
+      "notes": "Missing from list despite the other HyperFrames workflow skills being present."
+    },
+    {
+      "rank": 15,
+      "name": "ltx2",
+      "purpose": "AI video generation with open-weights LTX-2.3 (22B): text-to-video and image-to-video clips for b-roll, animated stills and backgrounds, run on your own RunPod serverless endpoint.",
+      "how_to_use": "Triggers on 'animate image', 'image-to-video', b-roll requests; needs a RunPod account/endpoint from the toolkit's docker images (pair with its runpod skill).",
+      "repo": "digitalsamba/claude-code-video-toolkit",
+      "branch": "main",
+      "skill_path": ".claude/skills/ltx2",
+      "url": "https://github.com/digitalsamba/claude-code-video-toolkit/tree/main/.claude/skills/ltx2",
+      "stars": 2160,
+      "license": "MIT",
+      "license_ok": true,
+      "evidence": "claude-code-video-toolkit (2.2k stars); toolkit already cited for acestep in audio_generation. Self-hosted open-weights i2v, the same shape as a stills->i2v cinematic pipeline.",
+      "notes": "Repo was in sources_checked but this skill was not listed."
+    },
+    {
+      "rank": 19,
+      "name": "flux-3-video",
+      "purpose": "Official Black Forest Labs router for FLUX 3 video: diagnoses the request and loads the right specialist (cinematic inserts, keyframes/i2v continuation, audio/dialogue, generate/poll).",
+      "how_to_use": "Use for FLUX 3 text/image-to-video work; needs a BFL API key. Sibling skills flux-3-keyframes-continuation and flux-3-generate do i2v and job submission.",
+      "repo": "black-forest-labs/skills",
+      "branch": "master",
+      "skill_path": "skills/flux-3-video",
+      "url": "https://github.com/black-forest-labs/skills/tree/master/skills/flux-3-video",
+      "stars": 124,
+      "license": "MIT",
+      "license_ok": true,
+      "evidence": "Vendor-official (Black Forest Labs); new FLUX 3 video skill family; sibling flux-3-product-ads already used elsewhere in the library.",
+      "notes": "Router SKILL.md is short (~2KB); value is in the family of flux-3-* specialist skills.",
+      "trending": true
+    }
+  ],
+  "checked": [
+    "skills.sh search API (keywords per topic)",
+    "skillsmp.com search (storyboard; others rate-limited CATALOG_RATE_LIMITED)",
+    "WebSearch site:mcpservers.org skills video animation storyboard",
+    "gh api trees of heygen-com/hyperframes, greensock/gsap-skills, remotion-dev/skills, emilkowalski/skills, mengto/skills, figma/mcp-server-guide, black-forest-labs/skills, digitalsamba/claude-code-video-toolkit, resciencelab/opc-skills, nexu-io/open-design, calesthio/openmontage, volcengine/mediakit-cli",
+    "gh search code/repos 'cinematic-demo-sites', 'beat-cut-films', 'filename:SKILL.md scroll-scrubbed', 'filename:SKILL.md beat-cut'",
+    "WebSearch '\"cinematic-demo-sites\" OR \"beat-cut-films\" claude skill'",
+    "RESULT: cinematic-demo-sites and beat-cut-films exist only in soorajplankuveedu/claude-knowledge-backup (skills/ours/...), which is a PRIVATE repo with no license; not on skills.sh/skillsmp/mcpservers. Not added.",
+    "Skipped: remotion-create/render/captions (official but 0.7-2.7KB stubs, covered by remotion-best-practices), prime-skills/runcomfy & */superpowers clones (inflated installs, tiny repos), hexiaochun/seedance2-api (3 stars, no license), video-shotcraft (2 stars), calesthio/openmontage (aggregator of copies, excluded previously)"
+  ]
+}

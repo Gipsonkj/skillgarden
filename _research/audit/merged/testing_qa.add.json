@@ -1,0 +1,72 @@
+{
+  "slug": "testing_qa",
+  "add": [
+    {
+      "rank": 3,
+      "name": "test-driven-development",
+      "purpose": "Strict red-green-refactor TDD discipline: write the failing test first, watch it fail, minimal code to pass, with guidance on writing good tests.",
+      "how_to_use": "Triggers when implementing any feature or bugfix; already listed in coding_practices but the testing list has no TDD skill.",
+      "repo": "obra/superpowers",
+      "branch": "main",
+      "skill_path": "skills/test-driven-development",
+      "url": "https://github.com/obra/superpowers/tree/main/skills/test-driven-development",
+      "stars": 294477,
+      "license": "MIT",
+      "license_ok": true,
+      "evidence": "obra/superpowers 294k stars; skills.sh 243k installs",
+      "notes": "Cross-listed from coding_practices; mattpocock tdd (1M installs) is the alternative."
+    },
+    {
+      "rank": 12,
+      "name": "cypress-author",
+      "purpose": "Official Cypress skill to create, update and fix Cypress E2E and component tests, via a structured identify-then-author flow with subskills.",
+      "how_to_use": "Triggers on 'write tests' in Cypress projects; sibling skills cypress-explain, cypress-docs, cypress-cloud-cli.",
+      "repo": "cypress-io/ai-toolkit",
+      "branch": "main",
+      "skill_path": "skills/cypress-author",
+      "url": "https://github.com/cypress-io/ai-toolkit/tree/main/skills/cypress-author",
+      "stars": 45,
+      "license": "MIT",
+      "license_ok": true,
+      "evidence": "Official Cypress vendor; skills.sh 7.7k installs",
+      "notes": "Repo has only 45 stars but is the canonical vendor source; fills the Cypress gap."
+    },
+    {
+      "rank": 17,
+      "name": "flutter-add-widget-test",
+      "purpose": "Writes Flutter widget tests with WidgetTester to verify rendering and interactions (tap, scroll, text entry).",
+      "how_to_use": "Triggers in Flutter projects when adding component tests; sibling flutter-add-integration-test covers E2E.",
+      "repo": "flutter/agent-plugins",
+      "branch": "main",
+      "skill_path": "skills/flutter-add-widget-test",
+      "url": "https://github.com/flutter/agent-plugins/tree/main/skills/flutter-add-widget-test",
+      "stars": 3019,
+      "license": "BSD-3-Clause",
+      "license_ok": true,
+      "evidence": "Official Flutter team repo, 3k stars; skills.sh 35k installs",
+      "notes": ""
+    },
+    {
+      "rank": 18,
+      "name": "argent-test-ui-flow",
+      "purpose": "Autonomously tests iOS/Android app UI with interact-screenshot-verify loops via argent MCP tools (login, navigation, end-to-end scenarios).",
+      "how_to_use": "Requires the argent MCP server and a simulator/emulator.",
+      "repo": "software-mansion/argent",
+      "branch": "main",
+      "skill_path": "packages/skills/skills/argent-test-ui-flow",
+      "url": "https://github.com/software-mansion/argent/tree/main/packages/skills/skills/argent-test-ui-flow",
+      "stars": 2957,
+      "license": "Apache-2.0",
+      "license_ok": true,
+      "evidence": "Software Mansion, 3k stars; skills.sh 21k installs",
+      "notes": "Mobile manual-QA style testing; list otherwise lacks mobile UI testing."
+    }
+  ],
+  "checked": [
+    "skills.sh search API (~60 keyword queries, all-time installs)",
+    "skillsmp.com API (sortBy=stars and recent)",
+    "mcpservers.org sitemaps/skills.xml (12.5k skill URLs; listing pages 403 to curl)",
+    "gh search repos created>2026-06-01 / >2026-07-01 sorted by stars",
+    "gh api repo trees + SKILL.md reads for every candidate"
+  ]
+}

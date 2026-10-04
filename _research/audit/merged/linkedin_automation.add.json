@@ -1,0 +1,87 @@
+{
+  "slug": "linkedin_automation",
+  "add": [
+    {
+      "rank": 3,
+      "name": "post-writer",
+      "purpose": "Writes LinkedIn posts in the user's own voice using about-me.md and voice.md profile files; turns context dumps (notes, transcripts) into posts.",
+      "how_to_use": "Triggers on 'write a post', 'LinkedIn post'. Run voice-builder first to create the voice files.",
+      "repo": "charlie947/social-media-skills",
+      "branch": "main",
+      "skill_path": "skills/post-writer",
+      "url": "https://github.com/charlie947/social-media-skills/tree/main/skills/post-writer",
+      "stars": 3710,
+      "license": "MIT",
+      "license_ok": true,
+      "evidence": "3.7k-star repo (Charlie Hills, MarTech AI newsletter); listed on skillsmp",
+      "notes": "Core of a 17-skill LinkedIn pack."
+    },
+    {
+      "rank": 4,
+      "name": "voice-builder",
+      "purpose": "Interviews the user and their samples to build about-me.md and voice.md, the voice profile every other skill in the pack reads.",
+      "how_to_use": "Run once per user/project before post-writer or hook-generator.",
+      "repo": "charlie947/social-media-skills",
+      "branch": "main",
+      "skill_path": "skills/voice-builder",
+      "url": "https://github.com/charlie947/social-media-skills/tree/main/skills/voice-builder",
+      "stars": 3710,
+      "license": "MIT",
+      "license_ok": true,
+      "evidence": "3.7k-star repo; 13 KB SKILL.md with references",
+      "notes": ""
+    },
+    {
+      "rank": 6,
+      "name": "gemini-carousel",
+      "purpose": "Builds branded slide-by-slide LinkedIn carousels (1080x1350): design brief, approval gate, then per-slide Gemini image prompts.",
+      "how_to_use": "Triggers on 'carousel', 'turn this into a carousel'. Image generation needs a Gemini key.",
+      "repo": "charlie947/social-media-skills",
+      "branch": "main",
+      "skill_path": "skills/gemini-carousel",
+      "url": "https://github.com/charlie947/social-media-skills/tree/main/skills/gemini-carousel",
+      "stars": 3710,
+      "license": "MIT",
+      "license_ok": true,
+      "evidence": "3.7k-star repo; skills.sh ~1.2k installs",
+      "notes": "No carousel skill in the current LinkedIn list."
+    },
+    {
+      "rank": 8,
+      "name": "hook-generator",
+      "purpose": "Generates 6 two-line LinkedIn hook variations (40-char opener + contrast line) for a topic, using real numbers and first-person experience.",
+      "how_to_use": "Triggers on 'write me hooks', 'hook ideas'.",
+      "repo": "charlie947/social-media-skills",
+      "branch": "main",
+      "skill_path": "skills/hook-generator",
+      "url": "https://github.com/charlie947/social-media-skills/tree/main/skills/hook-generator",
+      "stars": 3710,
+      "license": "MIT",
+      "license_ok": true,
+      "evidence": "3.7k-star repo",
+      "notes": ""
+    },
+    {
+      "rank": 10,
+      "name": "linkedin-content-writer",
+      "purpose": "Evidence-led LinkedIn writing: create, rewrite, review, repurpose posts, comments and hooks from facts/notes, with a conversation-scoped writing profile.",
+      "how_to_use": "Triggers on any LinkedIn writing request and its follow-ups. No API keys.",
+      "repo": "microsoft/cat-agent-skills",
+      "branch": "main",
+      "skill_path": "submissions/linkedin-content-writer",
+      "url": "https://github.com/microsoft/cat-agent-skills/tree/main/submissions/linkedin-content-writer",
+      "stars": 78,
+      "license": "MIT",
+      "license_ok": true,
+      "evidence": "Microsoft (Power CAT) org repo; listed on mcpservers.org; 15 KB SKILL.md",
+      "notes": "Low stars but vendor-org origin and substantive."
+    }
+  ],
+  "checked": [
+    "skills.sh /api/search (36 keyword queries, paced) + www.skills.sh/trending + /hot",
+    "skillsmp.com /api/skills (18 queries x sortBy=stars,recent)",
+    "mcpservers.org sitemaps/skills.xml + WebSearch site:mcpservers.org; sources resolved via gh search code",
+    "gh search repos (topic keywords, incl. --created >2026-06-01)",
+    "gh api (SKILL.md, stars, license, folder LICENSE checks)"
+  ]
+}

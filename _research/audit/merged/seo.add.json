@@ -1,0 +1,87 @@
+{
+  "slug": "seo",
+  "add": [
+    {
+      "rank": 9,
+      "name": "seo-local",
+      "purpose": "Local SEO audit: Google Business Profile, NAP consistency, citations, reviews, LocalBusiness schema, location pages and multi-location structure.",
+      "how_to_use": "Triggers on local SEO / GBP / 'map pack' questions; part of the claude-seo plugin. Works from a URL.",
+      "repo": "AgriciDaniel/claude-seo",
+      "branch": "main",
+      "skill_path": "skills/seo-local",
+      "url": "https://github.com/AgriciDaniel/claude-seo/tree/main/skills/seo-local",
+      "stars": 18184,
+      "license": "MIT",
+      "license_ok": true,
+      "evidence": "18k-star repo already ranked in this list; skills.sh ~6k installs",
+      "notes": "Fills the local-SEO gap; nothing in the current list covers GBP/citations."
+    },
+    {
+      "rank": 10,
+      "name": "competitors",
+      "purpose": "Builds competitor comparison and alternative pages ('X vs Y', 'X alternatives') for SEO and buyers, in four formats, plus an audit mode for stale comparison pages.",
+      "how_to_use": "Triggers on 'alternative page', 'vs page', 'competitor comparison'. Optional product-marketing context file.",
+      "repo": "coreyhaines31/marketingskills",
+      "branch": "main",
+      "skill_path": "skills/competitors",
+      "url": "https://github.com/coreyhaines31/marketingskills/tree/main/skills/competitors",
+      "stars": 52421,
+      "license": "MIT",
+      "license_ok": true,
+      "evidence": "skills.sh ~68k installs; 52k-star repo (also mirrored in seomachine and aitmpl as 'competitor-alternatives')",
+      "notes": ""
+    },
+    {
+      "rank": 11,
+      "name": "directory-submissions",
+      "purpose": "Plans and tracks submissions to startup/SaaS/AI/MCP and review directories for backlinks, domain rating and discovery, with a prioritised directory tracker.",
+      "how_to_use": "Triggers on 'directory submissions', 'backlinks from directories', 'submit to Product Hunt/G2/AlternativeTo'.",
+      "repo": "coreyhaines31/marketingskills",
+      "branch": "main",
+      "skill_path": "skills/directory-submissions",
+      "url": "https://github.com/coreyhaines31/marketingskills/tree/main/skills/directory-submissions",
+      "stars": 52421,
+      "license": "MIT",
+      "license_ok": true,
+      "evidence": "skills.sh ~75k installs; 52k-star repo; 25 KB SKILL.md",
+      "notes": "Off-page/link-building, which the list lacks."
+    },
+    {
+      "rank": 17,
+      "name": "content-writer",
+      "purpose": "SEO content writing in two modes: new drafts (keywords, headers, featured-snippet targets, evidence boundaries) and refresh of decaying pages with prioritised update work.",
+      "how_to_use": "Triggers on 'write SEO content', 'draft a blog post/landing page', 'fix ranking decay'.",
+      "repo": "aaron-he-zhu/aaron-marketing-skills",
+      "branch": "main",
+      "skill_path": "seo-geo/implement/content-writer",
+      "url": "https://github.com/aaron-he-zhu/aaron-marketing-skills/tree/main/seo-geo/implement/content-writer",
+      "stars": 2858,
+      "license": "Apache-2.0",
+      "license_ok": true,
+      "evidence": "Same author/repo as listed keyword-research; the mirror aaron-he-zhu/seo-geo-claude-skills 'seo-content-writer' has ~7.6k skills.sh installs",
+      "notes": ""
+    },
+    {
+      "rank": 19,
+      "name": "apify-ai-search-visibility-tracker",
+      "purpose": "Tracks whether a brand and its competitors are cited across Google AI Overviews/AI Mode, ChatGPT Search, Perplexity, Copilot and Gemini for a prompt set, on a recurring schedule.",
+      "how_to_use": "Triggers on 'track AI visibility', 'GEO tracking', 'ChatGPT citations'. Needs APIFY_TOKEN (paid Actor runs).",
+      "repo": "apify/awesome-skills",
+      "branch": "main",
+      "skill_path": "skills/apify-ai-search-visibility-tracker",
+      "url": "https://github.com/apify/awesome-skills/tree/main/skills/apify-ai-search-visibility-tracker",
+      "stars": 260,
+      "license": "Apache-2.0",
+      "license_ok": true,
+      "evidence": "Official Apify vendor skill; listed on mcpservers.org",
+      "notes": "Measurement side of GEO; the list's GEO skills are optimisation-only. Paid usage."
+    }
+  ],
+  "checked": [
+    "skills.sh /api/search (36 keyword queries, paced) + www.skills.sh/trending + /hot",
+    "skillsmp.com /api/skills (18 queries x sortBy=stars,recent)",
+    "mcpservers.org sitemaps/skills.xml + WebSearch site:mcpservers.org; sources resolved via gh search code",
+    "gh search repos (topic keywords, incl. --created >2026-06-01)",
+    "gh api (SKILL.md, stars, license, folder LICENSE checks)"
+  ]
+}

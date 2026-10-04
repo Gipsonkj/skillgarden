@@ -1,0 +1,72 @@
+{
+  "slug": "coding_practices",
+  "add": [
+    {
+      "rank": 7,
+      "name": "finishing-a-development-branch",
+      "purpose": "Structured end-of-branch routine: verify tests, then offer merge locally / open PR / keep / discard, and clean up worktrees safely.",
+      "how_to_use": "Triggers when implementation is complete and tests pass; pairs with using-git-worktrees and verification-before-completion already listed.",
+      "repo": "obra/superpowers",
+      "branch": "main",
+      "skill_path": "skills/finishing-a-development-branch",
+      "url": "https://github.com/obra/superpowers/tree/main/skills/finishing-a-development-branch",
+      "stars": 294477,
+      "license": "MIT",
+      "license_ok": true,
+      "evidence": "obra/superpowers 294k stars; skills.sh 201k installs; known gap (existing entry's notes already reference it)",
+      "notes": ""
+    },
+    {
+      "rank": 12,
+      "name": "codebase-design",
+      "purpose": "Shared vocabulary and principles for designing deep modules: small interfaces, clean seams, testability, 'design it twice', and finding deepening opportunities.",
+      "how_to_use": "Triggers when designing or improving a module interface or deciding where a seam goes; used by improve-codebase-architecture.",
+      "repo": "mattpocock/skills",
+      "branch": "main",
+      "skill_path": "skills/engineering/codebase-design",
+      "url": "https://github.com/mattpocock/skills/tree/main/skills/engineering/codebase-design",
+      "stars": 274728,
+      "license": "MIT",
+      "license_ok": true,
+      "evidence": "mattpocock/skills 275k stars; skills.sh 719k installs; includes DEEPENING.md and DESIGN-IT-TWICE.md",
+      "notes": ""
+    },
+    {
+      "rank": 13,
+      "name": "domain-modeling",
+      "purpose": "Actively builds the project's domain model while designing: challenges terminology, invents edge cases, maintains GLOSSARY.md and writes ADRs as decisions crystallize.",
+      "how_to_use": "Triggers when discussing codebase terminology, editing a glossary or recording an ADR; also called by grill-with-docs.",
+      "repo": "mattpocock/skills",
+      "branch": "main",
+      "skill_path": "skills/engineering/domain-modeling",
+      "url": "https://github.com/mattpocock/skills/tree/main/skills/engineering/domain-modeling",
+      "stars": 274728,
+      "license": "MIT",
+      "license_ok": true,
+      "evidence": "mattpocock/skills 275k stars; skills.sh 742k installs; ships ADR and glossary formats",
+      "notes": ""
+    },
+    {
+      "rank": 20,
+      "name": "setup-pre-commit",
+      "purpose": "Sets up Husky pre-commit hooks with lint-staged/Prettier, type checking and tests in a JS/TS repo.",
+      "how_to_use": "Triggers on 'add pre-commit hooks', 'set up Husky'. Node projects only.",
+      "repo": "mattpocock/skills",
+      "branch": "main",
+      "skill_path": "skills/misc/setup-pre-commit",
+      "url": "https://github.com/mattpocock/skills/tree/main/skills/misc/setup-pre-commit",
+      "stars": 274728,
+      "license": "MIT",
+      "license_ok": true,
+      "evidence": "mattpocock/skills 275k stars; skills.sh 413k installs",
+      "notes": ""
+    }
+  ],
+  "checked": [
+    "skills.sh search API (~60 keyword queries, all-time installs)",
+    "skillsmp.com API (sortBy=stars and recent)",
+    "mcpservers.org sitemaps/skills.xml (12.5k skill URLs; listing pages 403 to curl)",
+    "gh search repos created>2026-06-01 / >2026-07-01 sorted by stars",
+    "gh api repo trees + SKILL.md reads for every candidate"
+  ]
+}

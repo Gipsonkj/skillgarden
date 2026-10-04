@@ -1,0 +1,39 @@
+{
+  "slug": "research_science",
+  "add": [
+    {
+      "rank": 14,
+      "name": "biopython",
+      "purpose": "Biopython workflows for sequences and file parsing (FASTA/GenBank/PDB), phylogenetics, BLAST automation and programmatic NCBI/PubMed access via Bio.Entrez.",
+      "how_to_use": "Triggers on molecular-biology/bioinformatics scripting; needs Python with biopython.",
+      "repo": "K-Dense-AI/scientific-agent-skills",
+      "branch": "main",
+      "skill_path": "skills/biopython",
+      "url": "https://github.com/K-Dense-AI/scientific-agent-skills/tree/main/skills/biopython",
+      "stars": 47377,
+      "license": "MIT",
+      "license_ok": true,
+      "evidence": "K-Dense 47k stars; skills.sh ~1.7k installs; part of the most-starred science collection",
+      "notes": "The list had no hands-on lab-science (bio/chem) tool skills."
+    },
+    {
+      "rank": 15,
+      "name": "rdkit",
+      "purpose": "Cheminformatics with RDKit: SMILES/SDF parsing, descriptors, fingerprints, substructure and similarity search, 2D/3D conformers, reactions, with scripts.",
+      "how_to_use": "Triggers on chemistry/molecule tasks; needs Python with rdkit.",
+      "repo": "K-Dense-AI/scientific-agent-skills",
+      "branch": "main",
+      "skill_path": "skills/rdkit",
+      "url": "https://github.com/K-Dense-AI/scientific-agent-skills/tree/main/skills/rdkit",
+      "stars": 47377,
+      "license": "MIT",
+      "license_ok": true,
+      "evidence": "K-Dense 47k stars; skills.sh ~1.7k installs",
+      "notes": "Library itself is BSD-3-Clause."
+    }
+  ],
+  "checked": [
+    "skills.sh search API (queries per topic, by installs); skillsmp.com API (sortBy=stars); gh api tree/contents verification; queries: research, paper, literature, arxiv, scientific, citation, pubmed, bioinformatics, chemistry; skillsmp: 'research paper', 'literature review'",
+    "Skipped: lllllllama/rigorpilot-skills (496 stars but ~450k installs - inflated), firecrawl-research-papers (small repo, Firecrawl-dependent)."
+  ]
+}
