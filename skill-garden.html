@@ -142,7 +142,16 @@ main { padding-top: 24px; }
 .mark.l { background: var(--bad-soft); color: var(--bad); box-shadow: inset 0 0 0 1.5px var(--bad); }
 .mark.t { background: var(--line-2); color: var(--ink-2); }
 .trial-text { font-size: 14px; }
+.advice { display: grid; gap: 4px; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); max-width: 72ch; }
+.advice-head { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; font-size: 13px; color: var(--ink-3); }
+.advice p { font-size: 14px; color: var(--ink-2); margin: 0; }
 .why { font-size: 14px; color: var(--ink-2); max-width: 72ch; }
+.pub { border: 1px solid var(--line); border-radius: 12px; background: var(--raised); padding: 14px 16px; margin-bottom: 18px; display: grid; gap: 8px; }
+.pub-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; }
+.pub-row p { margin: 0; flex: 1 1 320px; font-size: 14px; color: var(--ink-2); }
+.pub-row p strong { color: var(--ink); }
+.pub .notes { margin: 0; }
+.pub pre { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; font: 12px/1.45 var(--mono); color: var(--bad); }
 .why strong { color: var(--ink); font-weight: 600; }
 .notes { margin: 0; padding-left: 18px; font-size: 13.5px; color: var(--ink-2); display: grid; gap: 3px; }
 .sources { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 13.5px; margin: 0; padding: 0; list-style: none; }
@@ -317,6 +326,16 @@ main { padding-top: 24px; }
 .rd-col ol { margin: 0; padding-left: 18px; display: grid; gap: 6px; font-size: 13.5px; }
 .rd-col li { overflow-wrap: anywhere; }
 .rd-col li .muted { display: block; font-size: 12px; }
+.scout-setup { border: 1px solid var(--line); border-radius: 12px; background: var(--raised); padding: 16px; margin-bottom: 24px; display: grid; gap: 14px; }
+.scout-setup .ss-row { display: flex; flex-wrap: wrap; gap: 12px 16px; align-items: end; }
+.scout-setup .field { min-width: 180px; flex: 0 1 240px; }
+.scout-setup .ss-note { color: var(--ink-2); font-size: 13px; flex: 1 1 260px; }
+.scout-setup .ss-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
+.scout-setup .ss-head strong { margin-right: auto; }
+.ss-topics { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 6px 14px; }
+.ss-topics label { display: flex; align-items: center; gap: 8px; font-size: 14px; cursor: pointer; min-width: 0; }
+.ss-topics label span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ss-topics input { accent-color: var(--accent); width: 16px; height: 16px; flex: none; margin: 0; }
 .howto { max-width: 860px; margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--line-2); color: var(--ink-2); font-size: 14px; display: grid; gap: 8px; }
 .howto h3 { font-size: 17px; color: var(--ink); }
 .howto ol { margin: 0; padding-left: 20px; display: grid; gap: 4px; }
@@ -575,7 +594,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
     <button class="tab" role="tab" data-act="tab" data-view="skills" aria-selected="false">My skills <span class="count" id="c-skills"></span></button>
     <button class="tab" role="tab" data-act="tab" data-view="review" aria-selected="false">Review <span class="count" id="c-review"></span></button>
     <button class="tab" role="tab" data-act="tab" data-view="inbox" aria-selected="false">Reel inbox <span class="count" id="c-inbox"></span></button>
-    <button class="tab" role="tab" data-act="tab" data-view="log" aria-selected="false">Scout log</button>
+    <button class="tab" role="tab" data-act="tab" data-view="log" aria-selected="false">Scout</button>
   </nav>
   </div>
   <div class="banner" id="banner" hidden></div>
@@ -604,7 +623,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
     db: null, user: null, mcp: null, downloads: null, canWrite: true,
     loaded: { topics: false, candidates: false, inbox: false, runs: false, settings: false, radar: false },
     topics: [], candidates: [], inbox: [], runs: [], settings: null, radar: null, versions: [], versionsFor: null,
-    view: "explore", reviewTopic: "all", showLost: false, openDiff: new Set(), busy: new Set(),
+    view: "explore", reviewTopic: "all", reviewTab: "waiting", revoking: null, openDiff: new Set(), busy: new Set(),
     skillOpen: null, skillTab: "skill", skillRaw: false, editing: null, newTopicOpen: false, histOpen: new Set(),
     inboxTopic: "all", inboxStatus: "all", inboxLimit: 150, noteEditing: null,
     importState: null, // {stage:'map'|'writing'|'done', items, colls, recentDays, done, total, error}
@@ -849,10 +868,10 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
   function mountView(v) {
     const el = $("#view");
     if (v === "explore") el.innerHTML = `<section id="ex"></section>`;
-    else if (v === "review") el.innerHTML = `<section><div class="section-head"><div><h2>Changes waiting for you</h2><p>Each one beat the current skill in blind trials. Add it and the skill grows a version; skip it and the scout won't propose it again. Source changes only adjust where the scout looks.</p></div><div class="filters" id="rv-filter"></div></div><div id="rv-summary"></div><div class="cands" id="rv-list"></div><div id="rv-lost"></div></section>`;
+    else if (v === "review") el.innerHTML = `<section><div class="section-head"><div><h2>Changes waiting for you</h2><p>Each one beat the current skill in blind trials. Add it and the skill grows a version; skip it and the scout won't propose it again. Source changes only adjust where the scout looks.</p></div><div class="filters" id="rv-filter"></div></div><div id="rv-summary"></div><div class="subtabs" id="rv-tabs" role="tablist"></div><div class="cands" id="rv-list"></div></section>`;
     else if (v === "skills") el.innerHTML = `<section id="sk"></section>`;
     else if (v === "inbox") mountInbox(el);
-    else if (v === "log") { el.innerHTML = `<section><div class="section-head"><div><h2>Scout log</h2><p>What the scout looked at each week and what it found.</p></div><div id="lg-controls"></div></div><div class="scout-add">${addForm()}</div><div id="lg-radar"></div><div class="runs" id="lg-list"></div><div id="lg-howto"></div></section>`; S._topicKey = null; }
+    else if (v === "log") { el.innerHTML = `<section><div class="section-head"><div><h2>Scout</h2><p>Choose what the weekly scout works on and how, then see what it looked at each week and what it found.</p></div><div id="lg-controls"></div></div><div id="lg-setup"></div><div class="scout-add">${addForm()}</div><div id="lg-radar"></div><div class="runs" id="lg-list"></div><div id="lg-howto"></div></section>`; S._topicKey = null; }
   }
 
   function loadingOr(key, html) { return S.loaded[key] ? html : `<p class="skeleton">Loading…</p>`; }
@@ -927,24 +946,65 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
     if (mode === "ready" && S.skipping === c.id) actions = `<label class="skip-why"><span>Why skip it? Optional; the scout reads this.</span><input class="input" id="skip-note" maxlength="300" placeholder="e.g. we already cover this, or the source isn't trustworthy"></label><button class="btn" data-act="skip-confirm" data-id="${esc(c.id)}"${dis("c:" + c.id)}>Skip it</button><button class="btn ghost" data-act="skip-cancel">Cancel</button>`;
     else if (mode === "ready") actions = `<button class="btn primary" data-act="approve" data-id="${esc(c.id)}"${dis("c:" + c.id)}>${c.kind === "sources" ? "Update sources" : "Add to skill"}</button><button class="btn" data-act="skip" data-id="${esc(c.id)}"${dis("c:" + c.id)}>Skip</button>`;
     else if (mode === "lost") actions = `<button class="btn small" data-act="approve" data-id="${esc(c.id)}"${dis("c:" + c.id)}>Add anyway</button>`;
+    else if (mode === "merged" && S.revoking === c.id) actions = `<label class="skip-why"><span>Why revoke it? Optional; the scout reads this.</span><input class="input" id="revoke-note" maxlength="300" placeholder="e.g. the skill started giving longer, vaguer answers"></label><button class="btn" data-act="revoke-confirm" data-id="${esc(c.id)}"${dis("c:" + c.id)}>Revoke it</button><button class="btn ghost" data-act="revoke-cancel">Cancel</button>`;
+    else if (mode === "merged") actions = `<button class="btn small" data-act="revoke" data-id="${esc(c.id)}"${dis("c:" + c.id)}>Revoke</button>`;
+    else if (mode === "revoked") actions = `<button class="btn small" data-act="approve" data-id="${esc(c.id)}"${dis("c:" + c.id)}>Add it back</button>`;
     else if (mode === "skipped") actions = `<button class="btn small" data-act="unskip" data-id="${esc(c.id)}"${dis("c:" + c.id)}>Move back to review</button>`;
     const base = t && Number(c.baseVersion) === Number(t.version) ? (t.content || "") : null;
     const diffBody = open ? (c.kind === "first-draft" || !t || !t.content ? `<div class="reader">${md(splitFront(c.proposed || "").body)}</div>` : base !== null ? diffHtml(base, c.proposed || "") : `<p class="muted">${esc(t.name)} has moved on to v${esc(t.version)} since this was written. Showing the change against v${esc(c.baseVersion)}.</p><div id="basediff-${esc(c.id)}"></div>`) : "";
     return `<article class="cand${mode === "ready" ? "" : " done"}" id="cand-${esc(c.id)}">
-      <div class="cand-head">${chip(t)}<span class="pill">${esc(KIND[c.kind] || "Change")}</span>${mode === "approved" ? `<span class="pill bloom">Approved · folds in next run</span>` : ""}<span class="when mono">${esc(ago(c.createdAt))}</span></div>
+      <div class="cand-head">${chip(t)}<span class="pill">${esc(KIND[c.kind] || "Change")}</span>${mode === "approved" ? `<span class="pill bloom">Approved · folds in next run</span>` : ""}${mode === "merged" ? `<span class="pill good">Added${c.mergedVersion ? ` · v${esc(c.mergedVersion)}` : ""}</span>` : ""}${mode === "revoked" ? `<span class="pill bad">Revoked${c.revokedVersion ? ` · v${esc(c.revokedVersion)}` : ""}</span>` : ""}${mode === "revoking" ? `<span class="pill bloom">Revoke requested · next scout run takes it out</span>` : ""}<span class="when mono">${esc(ago(c.createdAt))}</span></div>
       <h3>${esc(c.title || "Untitled change")}</h3>
       ${c.summary ? `<p class="summary">${esc(c.summary)}</p>` : ""}
       ${risksOf(c).length ? `<p class="blocked"><b>Blocked for safety:</b> this change ${esc(risksOf(c).join("; "))}. It can't be added.</p>` : ""}
       ${trialLine(c)}
       ${c.why ? `<p class="why"><strong>Why:</strong> ${esc(c.why)}</p>` : ""}
+      ${adviceHtml(c)}
       ${notes.length ? `<ul class="notes">${notes.slice(0, 4).map((n) => `<li>${esc(n.task ? n.task + ": " : "")}${esc(n.reason)}</li>`).join("")}</ul>` : ""}
       ${src ? `<ul class="sources">${src}</ul>` : ""}
       ${conflictsHtml(c)}
       ${c.foldNote ? `<p class="why">${esc(c.foldNote)}</p>` : ""}
+      ${c.revokeNote && (mode === "revoked" || mode === "revoking") ? `<p class="why"><strong>Why revoked:</strong> ${esc(c.revokeNote)}</p>` : ""}
       ${c.kind === "sources" ? sourcesPatchHtml(c) : ""}
       <div class="cand-actions">${actions}${c.kind === "sources" ? "" : `<button class="link" data-act="toggle-diff" data-id="${esc(c.id)}" aria-expanded="${open}">${open ? "Hide the change" : c.kind === "first-draft" ? "Read the draft" : "See the change"}</button>`}</div>
       ${c.kind === "sources" ? "" : diffBody + (open ? filesDiff(t, c) : "")}
     </article>`;
+  }
+  // What's waiting to go to GitHub (the Mac works it out and keeps it in settings/main.publish).
+  function publishBar() {
+    const p = S.settings && S.settings.publish;
+    if (!p) return "";
+    const skills = p.skills || [], conflicts = p.conflicts || [], last = p.last;
+    const busy = p.running || S.busy.has("publish");
+    const btn = (label) => `<button class="btn primary small" data-act="publish"${busy || !S.canWrite ? " disabled" : ""}>${busy ? "Publishing…" : label}</button>`;
+    let head;
+    if (skills.length) head = `<div class="pub-row"><p><strong>${plural(skills.length, "skill")} ${skills.length === 1 ? "has" : "have"} changes that aren't on GitHub yet.</strong> The plugin and the claude.ai connector read GitHub, so they get these once you publish. Edits made in the repo's folders are kept.</p>${btn("Publish to GitHub")}</div>
+      <details><summary class="muted" style="font-size:13px;cursor:pointer">What goes out</summary><ul class="notes" style="margin-top:6px">${skills.map((x) => `<li><b>${esc(x.name)} v${esc(x.version)}</b>: ${esc((x.files || []).join(", "))}</li>`).join("")}</ul></details>`;
+    else if (p.unpushed) head = `<div class="pub-row"><p><strong>${plural(p.unpushed, "commit")} on this Mac ${p.unpushed === 1 ? "isn't" : "aren't"} on GitHub yet.</strong></p>${btn("Push to GitHub")}</div>`;
+    else if (!conflicts.length && !(last && !last.ok)) return last && last.commit ? `<p class="muted" style="font-size:13px;margin:0 0 14px">Everything you added is on GitHub (last published ${esc(ago(last.at))}, ${esc(last.commit)}).</p>` : "";
+    else head = "";
+    const clash = conflicts.length ? `<p class="flag" style="margin:0">Changed in the app and in the repo on the same lines, so these wait for a hand merge: ${esc(conflicts.map((c) => `${c.name} (${c.files.join(", ")})`).join("; "))}.</p>` : "";
+    const lastLine = last && !last.ok && last.error ? `<pre>${esc(last.error)}</pre>` : last && last.ok && last.commit ? `<p class="muted" style="font-size:13px;margin:0">Last published ${esc(ago(last.at))} (${esc(last.commit)}). Redeploy the website to update Explore; on this Mac, update the plugin to use them in Claude Code.</p>` : "";
+    return `<div class="pub">${head}${clash}${lastLine}</div>`;
+  }
+  async function publishNow() {
+    await guarded("publish", async () => {
+      // On the live site's admin page the Mac publishes: the request waits there until it picks it up.
+      const pb = window.claude && await window.claude.use("publisher").catch(() => null);
+      if (pb) { await pb.run(); toast("Asked the Mac to publish. It starts within a minute while the Mac is on."); return; }
+      const r = await fetch("/api/publish", { method: "POST", headers: { "Content-Type": "application/json", "X-Skill-Garden": "1" }, body: "{}" });
+      const d = await r.json().catch(() => ({}));
+      if (!r.ok) { toast((d.error || `Publishing failed (HTTP ${r.status}).`).split("\n")[0], "bad"); return; }
+      toast(d.nothing ? "Nothing new to publish." : `Published to GitHub (${d.commit}).`);
+    });
+  }
+  // The scout's own opinion on whether to add it, written after the trials.
+  const ADVICE = { strong: ["Strongly recommended", "good"], yes: ["Recommended", "good"], maybe: ["Your call", ""], no: ["Not recommended", "bad"] };
+  function adviceHtml(c) {
+    const a = c.advice;
+    if (!a || !ADVICE[a.level]) return "";
+    const [label, cls] = ADVICE[a.level];
+    return `<div class="advice"><div class="advice-head">Scout's take<span class="pill ${cls}">${label}</span></div>${a.reason ? `<p>${esc(a.reason)}</p>` : ""}</div>`;
   }
   const PATCH_ROWS = [["addRepos", "Watch"], ["dropRepos", "Stop watching"], ["addSearches", "Search for"], ["dropSearches", "Stop searching"], ["addFeeds", "Read feed"], ["dropFeeds", "Stop reading"]];
   function sourcesPatchHtml(c) {
@@ -965,17 +1025,27 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
     if (S.reviewTopic !== "all" && !topicsWith.some((t) => t.id === S.reviewTopic)) S.reviewTopic = "all";
     $("#rv-filter").innerHTML = topicsWith.length > 1 ? [`<button class="fchip" data-act="rv-topic" data-id="all" aria-pressed="${S.reviewTopic === "all"}">All</button>`, ...topicsWith.map((t) => `<button class="fchip" data-act="rv-topic" data-id="${esc(t.id)}" aria-pressed="${S.reviewTopic === t.id}">${esc(t.name)} · ${ready.filter((c) => c.topicId === t.id).length}</button>`)].join("") : "";
     const shown = ready.filter((c) => S.reviewTopic === "all" || c.topicId === S.reviewTopic);
-    const approved = S.candidates.filter((c) => c.status === "approved");
+    const approved = S.candidates.filter((c) => c.status === "approved" || c.status === "revoking");
+    const at = (c) => String(c.revokedAt || c.skippedAt || c.mergedAt || c.createdAt || "");
+    const newest = (list) => list.sort((a, b) => at(b).localeCompare(at(a)));
+    const added = newest(S.candidates.filter((c) => c.status === "merged"));
+    const skipped = newest(S.candidates.filter((c) => c.status === "skipped" || c.status === "revoked"));
+    const lost = newest(S.candidates.filter((c) => c.status === "lost"));
     const lr = lastRun();
-    $("#rv-summary").innerHTML = ready.length ? `<div class="summary-strip"><span class="big">${ready.length}</span><span>${ready.length === 1 ? "change is" : "changes are"} waiting for you${topicsWith.length ? ` across ${plural(topicsWith.length, "skill")}` : ""}.</span></div>` : "";
+    $("#rv-summary").innerHTML = publishBar() + (ready.length ? `<div class="summary-strip"><span class="big">${ready.length}</span><span>${ready.length === 1 ? "change is" : "changes are"} waiting for you${topicsWith.length ? ` across ${plural(topicsWith.length, "skill")}` : ""}.</span></div>` : "");
+    const tabs = [["waiting", "Waiting", ready.length + approved.length], ["added", "Added", added.length], ["skipped", "Skipped", skipped.length], ["lost", "Didn't win", lost.length]];
+    $("#rv-tabs").innerHTML = tabs.map(([k, l, n]) => `<button class="subtab" role="tab" data-act="rv-tab" data-tab="${k}" aria-selected="${S.reviewTab === k}">${l} · ${n}</button>`).join("");
+    $("#rv-filter").hidden = S.reviewTab !== "waiting";
+    const note = (txt) => `<p class="muted" style="margin:0 0 4px;max-width:72ch">${txt}</p>`;
     let list;
     if (!S.loaded.candidates) list = `<p class="skeleton">Loading…</p>`;
-    else if (!ready.length) {
+    else if (S.reviewTab === "added") list = added.length ? note("If a skill behaves strangely after a change, revoke it. That takes the change out as a new version and keeps everything added later.") + added.map((c) => candCard(c, "merged")).join("") : `<div class="empty"><h3>Nothing added yet</h3><p>Changes you add from Waiting show up here, newest first.</p></div>`;
+    else if (S.reviewTab === "skipped") list = skipped.length ? note("Changes you skipped or revoked. The scout won't propose them again unless new evidence answers your reason. Changed your mind? Move one back to review, or add a revoked one back.") + skipped.map((c) => candCard(c, c.status)).join("") : `<div class="empty"><h3>Nothing skipped</h3><p>Changes you skip or revoke wait here in case you change your mind.</p></div>`;
+    else if (S.reviewTab === "lost") list = lost.length ? note("Ideas that didn't beat the current skill in blind trials. You can still add one.") + lost.slice(0, 50).map((c) => candCard(c, "lost")).join("") : `<div class="empty"><h3>Nothing here</h3><p>Ideas that lose their blind trials land here.</p></div>`;
+    else if (!ready.length && !approved.length) {
       list = `<div class="empty"><h3>${lr ? "Nothing waiting right now" : "The first scout run hasn't happened yet"}</h3><p>${lr ? `The last run was ${esc(ago(lr.finishedAt || lr.startedAt))}. ` : ""}The scout runs once a week, next ${esc(nextScout())}. Changes that beat the current skill in blind trials show up here for you to add or skip.</p><ol class="steps"><li>Keep saving reels on Instagram, and add the best ones in <button class="link" data-act="tab" data-view="inbox">Reel inbox</button> with a line about the trick.</li><li>The scout finds the real source behind each reel, checks GitHub and the web, and tests each idea.</li><li>Winners wait here. Nothing changes in a skill until you add it.</li></ol></div>`;
-    } else list = shown.map((c) => candCard(c, "ready")).join("");
-    $("#rv-list").innerHTML = list + (approved.length ? `<div class="cands" style="margin-top:16px">${approved.map((c) => candCard(c, "approved")).join("")}</div>` : "");
-    const lost = S.candidates.filter((c) => c.status === "lost" || c.status === "skipped").slice(0, 30);
-    $("#rv-lost").innerHTML = lost.length ? `<div class="lost-toggle"><button class="link" data-act="toggle-lost" aria-expanded="${S.showLost}">${S.showLost ? "Hide" : "Show"} ${plural(lost.length, "idea")} that didn't make it</button></div>${S.showLost ? `<div class="cands" style="margin-top:14px">${lost.map((c) => candCard(c, c.status)).join("")}</div>` : ""}` : "";
+    } else list = shown.map((c) => candCard(c, "ready")).join("") + approved.map((c) => candCard(c, c.status)).join("");
+    $("#rv-list").innerHTML = list;
     // stale-base diffs need the old version; fetch lazily
     for (const id of S.openDiff) {
       const c = S.candidates.find((x) => x.id === id); const holder = document.getElementById("basediff-" + id);
@@ -1013,7 +1083,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
       sk.dataset.mode = "grid";
       const cards = S.topics.map(topicCard).join("");
       sk.innerHTML = `<div class="section-head"><div><h2>Your super skills</h2><p>The same crafts as Explore, seen from the workshop side: edit each super skill, set its tests and sources, and see every version. Explore is where you browse and download them.</p></div><div class="row-actions">${S.topics.length ? `<button class="btn" data-act="download-all">Download all</button>` : ""}</div></div>
-        ${loadingOr("topics", `<div class="grid-topics">${cards}${S.newTopicOpen ? newTopicForm() : `<button class="topic-card add-card" data-act="new-topic"${S.canWrite ? "" : " disabled"}><strong>Add a topic</strong><span>Name it, link your Instagram collection, and the scout drafts v1 tomorrow.</span></button>`}</div>`)}`;
+        ${publishBar()}${loadingOr("topics", `<div class="grid-topics">${cards}${S.newTopicOpen ? newTopicForm() : `<button class="topic-card add-card" data-act="new-topic"${S.canWrite ? "" : " disabled"}><strong>Add a topic</strong><span>Name it, link your Instagram collection, and the scout drafts v1 tomorrow.</span></button>`}</div>`)}`;
       return;
     }
     const mode = "detail:" + t.id;
@@ -1058,14 +1128,14 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
   function historyPane(t) {
     if (S.versionsFor !== t.id) return `<p class="skeleton">Loading history…</p>`;
     if (!S.versions.length) return `<div class="empty"><h3>No versions yet</h3><p>Every change you add becomes a version here, with where it came from. You can bring back any earlier version.</p></div>`;
-    const SRC = { seed: "Starting skill", candidate: "Added from Review", folded: "Folded in by the scout", manual: "Edited by hand", restore: "Brought back", superskill: "Super skill from SkillGarden", starter: "Earlier starter skill" };
+    const SRC = { seed: "Starting skill", candidate: "Added from Review", folded: "Folded in by the scout", manual: "Edited by hand", restore: "Brought back", revoke: "Change revoked", superskill: "Super skill from SkillGarden", starter: "Earlier starter skill" };
     return `<div class="hist">${S.versions.map((v, k) => {
       const prev = S.versions[k + 1];
       const open = S.histOpen.has(v.id);
       const isNow = Number(v.version) === Number(t.version);
       return `<div class="hist-item${isNow ? " now" : ""}"><div class="hist-top"><strong>v${esc(v.version)}</strong><span class="pill${isNow ? " accent" : ""}">${isNow ? "Current · " : ""}${esc(SRC[v.source] || v.source || "")}</span><span class="mono muted">${esc(fmtShort(v.createdAt))}</span></div>
         ${v.summary ? `<p>${esc(v.summary)}</p>` : ""}
-        <div class="row-actions">${prev ? `<button class="link" data-act="hist-diff" data-id="${esc(v.id)}">${open ? "Hide changes" : `Changes from v${esc(prev.version)}`}</button>` : ""}${!isNow ? `<button class="btn small" data-act="restore" data-id="${esc(v.id)}"${dis("restore")}>Bring back v${esc(v.version)}</button>` : ""}</div>
+        <div class="row-actions">${prev ? `<button class="link" data-act="hist-diff" data-id="${esc(v.id)}">${open ? "Hide changes" : `Changes from v${esc(prev.version)}`}</button>` : ""}${!isNow ? `<button class="btn small" data-act="restore" data-id="${esc(v.id)}"${dis("restore")}>Bring back v${esc(v.version)}</button>` : ""}${v.candidateId && (v.source === "candidate" || v.source === "folded") && (S.candidates.find((c) => c.id === v.candidateId) || {}).status === "merged" ? `<button class="btn small" data-act="revoke-from-history" data-id="${esc(v.candidateId)}"${S.canWrite ? "" : " disabled"}>Revoke this change</button>` : ""}</div>
         ${open && prev ? diffHtml(prev.content || "", v.content || "") : ""}</div>`;
     }).join("")}</div>`;
   }
@@ -1534,10 +1604,33 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
     return `<article class="radar"><div class="run-head"><strong>Trending this week</strong><span class="mono muted">${esc(fmtDay(r.takenAt))} · ${plural(repos.length, "watched repo")}, ${repos.filter((d) => d.commits > 0).length} with new commits</span></div>
       <div class="rd-cols">${col("Watched repos gaining stars", rising, "Shows from the second radar on, once there is a week to compare.")}${col("New skill repos", fresh, "None with 10 or more stars this week.")}${col("New MCP servers", mcp, "None with 25 or more stars this week.")}${col("What people are talking about", talk, "Nothing found this week.")}</div></article>`;
   }
+  // Which topics the scout runs, and (on this computer) which model and effort it uses.
+  const SCOUT_MODELS = [["claude-sonnet-5-5", "Sonnet 5.5"], ["claude-opus-5-5", "Opus 5.5"], ["claude-fable-5-1", "Fable 5.1"], ["claude-haiku-4-5-20251001", "Haiku 4.5"]];
+  const SCOUT_EFFORTS = [["low", "Low"], ["medium", "Medium"], ["high", "High"], ["xhigh", "Extra high"], ["max", "Max"]];
+  function renderScoutSetup() {
+    const box = $("#lg-setup");
+    if (!S.settings) { box.innerHTML = ""; return; }
+    const ro = S.canWrite ? "" : " disabled";
+    const model = (S.settings.scoutModel && SCOUT_MODELS.some(([k]) => k === S.settings.scoutModel)) ? S.settings.scoutModel : "claude-sonnet-5-5";
+    const effort = S.settings.scoutEffort || "medium";
+    const haiku = model.startsWith("claude-haiku");
+    const opts = (list, cur) => list.map(([k, l]) => `<option value="${k}"${k === cur ? " selected" : ""}>${l}</option>`).join("");
+    const on = S.topics.filter((t) => t.active !== false).length;
+    const local = S.settings.host === "local";
+    const html = `<div class="scout-setup">
+      ${local ? `<div class="ss-row"><div class="field"><label for="ssModel">Model</label><select class="select" id="ssModel" data-act="scout-model"${ro}>${opts(SCOUT_MODELS, model)}</select></div>
+        <div class="field"><label for="ssEffort">Effort</label><select class="select" id="ssEffort" data-act="scout-effort"${ro || (haiku ? " disabled" : "")}>${opts(SCOUT_EFFORTS, effort)}</select></div>
+        <p class="ss-note">${haiku ? "Haiku 4.5 has no effort setting. " : ""}Each topic runs as its own Claude Code session on your subscription. Bigger models and higher effort find more but use more of your plan's limits. Applies from the next topic the scout starts.</p></div>` : ""}
+      <div class="ss-head"><strong>Topics to scout · ${on} of ${S.topics.length}</strong><button class="btn small" data-act="scout-all"${ro}>All</button><button class="btn small" data-act="scout-none"${ro}>None</button></div>
+      ${loadingOr("topics", `<div class="ss-topics">${S.topics.map((t) => `<label><input type="checkbox" data-act="scout-topic" data-id="${esc(t.id)}"${t.active === false ? "" : " checked"}${ro}><span>${esc(t.name)}</span></label>`).join("")}</div>`)}
+    </div>`;
+    if (box._h !== html) { box.innerHTML = html; box._h = html; }
+  }
   function updateLog() {
     if (!S.db) { $("#lg-list").innerHTML = S.dbMissing ? noDb() : ""; return; }
     const paused = !!(S.settings && S.settings.paused);
     $("#lg-controls").innerHTML = S.settings ? `<label class="switch"><input type="checkbox" data-act="toggle-pause"${paused ? "" : " checked"}${S.canWrite ? "" : " disabled"}> Weekly scout ${paused ? "paused" : "on"}</label>` : "";
+    renderScoutSetup();
     syncAddForm();
     $("#lg-radar").innerHTML = radarHtml(S.radar);
     const PILL = { done: ["Done", "good"], running: ["Working", "accent"], failed: ["Failed", "bad"], skipped: ["Skipped", ""] };
@@ -1584,7 +1677,8 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
     });
   }
   // A sources change edits where the scout looks for a topic (its repos and searches), not the skill.
-  async function applySources(c, t) {
+  // undo = true swaps adds and drops, which is how a sources change is revoked.
+  function sourcesEdit(c, t, undo) {
     const p = c.sourcesPatch || {};
     const arr = (k) => (Array.isArray(p[k]) ? p[k] : []).map((x) => String(x).trim()).filter(Boolean);
     const edit = (list, gone, more) => {
@@ -1593,13 +1687,66 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
       for (const x of more) if (!out.some((y) => String(y).toLowerCase() === x.toLowerCase())) out.push(x);
       return out;
     };
-    const repos = edit(t.repos, arr("dropRepos"), arr("addRepos").filter((r) => REPO_OK.test(r)));
-    const searches = edit(t.searches, arr("dropSearches"), arr("addSearches").map((x) => x.slice(0, 200)));
-    const feeds = edit(t.feeds, arr("dropFeeds"), arr("addFeeds").filter(isHttps));
+    const [add, drop] = undo ? ["drop", "add"] : ["add", "drop"];
+    return {
+      repos: edit(t.repos, arr(drop + "Repos"), arr(add + "Repos").filter((r) => REPO_OK.test(r))),
+      searches: edit(t.searches, arr(drop + "Searches"), arr(add + "Searches").map((x) => x.slice(0, 200))),
+      feeds: edit(t.feeds, arr(drop + "Feeds"), arr(add + "Feeds").filter(isHttps)),
+    };
+  }
+  async function applySources(c, t) {
+    const { repos, searches, feeds } = sourcesEdit(c, t, false);
     await guarded("c:" + c.id, async () => {
       await S.db.doc("topics/" + t.id).update({ repos, searches, feeds });
       await S.db.doc("candidates/" + c.id).update({ status: "merged", mergedAt: iso() });
       toast(`Sources updated for ${t.name}.`);
+    });
+  }
+  // Take an added change back out. Works file by file against the versions just before and after it,
+  // so changes added later stay. If a later change touched the same file, the next scout run takes it out instead.
+  async function revoke(c, note) {
+    const t = topicById(c.topicId);
+    if (!t) { toast("That topic no longer exists.", "bad"); return; }
+    const extra = note ? { revokeNote: note } : {};
+    await guarded("c:" + c.id, async () => {
+      const now = iso();
+      if (c.kind === "sources") {
+        await S.db.doc("topics/" + t.id).update(sourcesEdit(c, t, true));
+        await S.db.doc("candidates/" + c.id).update({ status: "revoked", revokedAt: now, ...extra });
+        S.revoking = null; toast(`Revoked. ${t.name}'s sources are back to how they were.`); return;
+      }
+      const n = Number(c.mergedVersion);
+      const [a, b] = n > 1 ? await Promise.all([S.db.doc(`versions/${t.id}--v${n - 1}`).get(), S.db.doc(`versions/${t.id}--v${n}`).get()]) : [];
+      if (!a || !a.exists || !b.exists) { toast("Can't find the versions around this change. Bring back an earlier version from the skill's History instead.", "bad"); return; }
+      const before = a.data(), after = b.data();
+      let content = t.content || "";
+      const files = { ...(t.files || {}) }, clash = [];
+      if ((before.content || "") !== (after.content || "")) {
+        if (content === (after.content || "")) content = before.content || "";
+        else if (content !== (before.content || "")) clash.push("SKILL.md");
+      }
+      // Only the files this change touched. A version without files kept the ones before it.
+      const paths = Object.keys(c.filesPatch || {});
+      let bf = before.files;
+      for (let k = n - 2; paths.length && !bf && k >= 1; k--) { const sn = await S.db.doc(`versions/${t.id}--v${k}`).get(); if (sn.exists) bf = sn.data().files; }
+      bf = bf || {};
+      const af = after.files || {};
+      for (const p of paths) {
+        const was = bf[p] || "", added = af[p] || "", cur = files[p] || "";
+        if (was === added) continue;
+        if (cur === added) files[p] = was; // removed files stay as "" (see patchedFiles)
+        else if (cur !== was) clash.push(p);
+      }
+      if (clash.length) {
+        await S.db.doc("candidates/" + c.id).update({ status: "revoking", revokeRequestedAt: now, revokeClash: clash, ...extra });
+        S.revoking = null; toast(`A later change also edited ${clash.join(", ")}, so the next scout run takes this one out carefully.`); return;
+      }
+      const v = (Number(t.version) || 0) + 1;
+      const hasFiles = paths.length > 0;
+      await S.db.doc(`versions/${t.id}--v${v}`).set({ topicId: t.id, version: v, content, ...(hasFiles ? { files } : {}), summary: `Revoked: ${c.title || "a change"}`, source: "revoke", candidateId: c.id, createdAt: now });
+      await S.db.doc("topics/" + t.id).update({ version: v, content, ...(hasFiles ? { files } : {}), updatedAt: now });
+      await S.db.doc("candidates/" + c.id).update({ status: "revoked", revokedAt: now, revokedVersion: v, ...extra });
+      S.revoking = null; toast(`Revoked. ${t.name} is now v${v}, without this change.`);
     });
   }
   async function restoreVersion(v) {
@@ -1695,7 +1842,12 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
       case "tab": { const v = el.dataset.view; if (v === "skills" && el.classList.contains("tab")) { S.skillOpen = null; S.newTopicOpen = false; } if (v === "explore") { EX.topic = null; if (location.hash !== "#/") { location.hash = "#/"; break; } } goView(v); break; }
       case "rv-topic": S.reviewTopic = id; render(); break;
       case "toggle-diff": S.openDiff.has(id) ? S.openDiff.delete(id) : S.openDiff.add(id); render(); break;
-      case "toggle-lost": S.showLost = !S.showLost; render(); break;
+      case "rv-tab": S.reviewTab = el.dataset.tab; S.revoking = null; render(); break;
+      case "publish": await publishNow(); break;
+      case "revoke": S.revoking = id; render(); { const i = document.getElementById("revoke-note"); if (i) i.focus(); } break;
+      case "revoke-cancel": S.revoking = null; render(); break;
+      case "revoke-confirm": { const c = cand(); const note = ($("#revoke-note") || { value: "" }).value.trim().slice(0, 300); if (c) await revoke(c, note); break; }
+      case "revoke-from-history": { S.reviewTab = "added"; S.revoking = id; goView("review"); const card = document.getElementById("cand-" + id); if (card) card.scrollIntoView({ block: "center" }); const i = document.getElementById("revoke-note"); if (i) i.focus({ preventScroll: true }); break; }
       case "approve": { const c = cand(); if (c) await approve(c); break; }
       case "skip": S.skipping = id; render(); { const i = document.getElementById("skip-note"); if (i) i.focus(); } break;
       case "skip-cancel": S.skipping = null; render(); break;
@@ -1737,6 +1889,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
       case "cancel-topic": S.newTopicOpen = false; $("#sk").dataset.mode = ""; render(); break;
       case "create-topic": await createTopic(); if (!S.newTopicOpen) { $("#sk").dataset.mode = ""; render(); } break;
       case "run-now": await runNow(); break;
+      case "scout-all": case "scout-none": { const v = act === "scout-all"; const ch = S.topics.filter((t) => (t.active !== false) !== v); if (ch.length) await guarded("scoutall", async () => { await Promise.all(ch.map((t) => S.db.doc("topics/" + t.id).update({ active: v }))); toast(v ? "The scout will work on every topic." : "The scout will skip every topic until you pick some."); }); break; }
       case "ib-status": S.inboxStatus = id; S.inboxLimit = 150; render(); break;
       case "more-reels": S.inboxLimit += 150; render(); break;
       case "note": S.noteEditing = null; render(); S.noteEditing = id; { const row = document.getElementById("reel-" + id); const r = S.inbox.find((x) => x.id === id); if (row && r) { row.outerHTML = reelRow(r); const i = $("#noteInput"); if (i) i.focus(); } } break;
@@ -1768,6 +1921,8 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
       if (k === "account" && v && !/^[A-Za-z0-9_.]{1,30}$/.test(v)) { toast("That isn't an Instagram handle.", "bad"); return; }
       await guarded("ig", async () => { await S.db.doc("settings/main").update({ igReader: { ...(S.settings && S.settings.igReader || {}), [k]: v } }); if (k === "enabled") toast(v ? "Instagram reader is on. It runs before each weekly scout." : "Instagram reader is off."); });
     }
+    else if (act === "scout-topic") { const t = topicById(el.dataset.id); if (t) await guarded("active:" + t.id, async () => { await S.db.doc("topics/" + t.id).update({ active: el.checked }); }); }
+    else if (act === "scout-model" || act === "scout-effort") { const k = act === "scout-model" ? "scoutModel" : "scoutEffort"; await guarded("scoutcfg", async () => { await S.db.doc("settings/main").update({ [k]: el.value }); toast(`The scout will use ${el.options[el.selectedIndex].text}${k === "scoutEffort" ? " effort" : ""} from the next topic it starts.`); }); }
     else if (act === "toggle-pause") { await guarded("pause", async () => { await S.db.doc("settings/main").update({ paused: !el.checked }); toast(el.checked ? "Weekly scout is on." : "Weekly scout paused."); }); }
   });
   document.addEventListener("submit", (ev) => { if (ev.target.id === "addForm") addReels(ev); });

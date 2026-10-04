@@ -17,6 +17,7 @@ import { buildCredits } from "./credits.mjs";
 import { loadChains } from "./chains.mjs";
 import { takeRadar, radarFor, RADAR_KEEP } from "./radar.mjs";
 import * as cloud from "./cloud.mjs";
+import * as publisher from "./publish.mjs";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(HERE, "..");
@@ -82,7 +83,7 @@ function save(c) {
   fs.renameSync(file + ".tmp", file);
 }
 // The imported settings name the cloud routine; locally the server is the scheduler.
-store.settings.main = { scoutTime: "06:51", scoutDay: "Sun", paused: false, libraries: [], lists: [], ...(store.settings.main || {}), triggerId: "local", host: "local" };
+store.settings.main = { scoutTime: "06:51", scoutDay: "Sun", paused: false, scoutModel: "claude-sonnet-5-5", scoutEffort: "medium", libraries: [], lists: [], ...(store.settings.main || {}), triggerId: "local", host: "local" };
 save("settings");
 
 const isObj = (v) => v && typeof v === "object" && !Array.isArray(v);
@@ -110,6 +111,34 @@ function write(op, c, id, data) {
   save(c);
   broadcast(c);
   cloud.changed(c, id);
+  if (c === "topics" || c === "candidates") refreshPublish();
+}
+
+/* ---------- publishing approved changes to GitHub (local/publish.mjs) ---------- */
+// settings/main.publish tells the app (here and on the admin page) what's waiting to go to GitHub.
+let publishTimer = null, publishing = false;
+function refreshPublish(last) {
+  clearTimeout(publishTimer);
+  publishTimer = setTimeout(() => {
+    try {
+      const prev = (store.settings.main || {}).publish || {};
+      const next = { ...publisher.summary(publisher.plan(store)), running: publishing, last: last || prev.last || null };
+      if (JSON.stringify(next) !== JSON.stringify(prev)) write("update", "settings", "main", { publish: next });
+    } catch (e) { console.error(`[publish] couldn't check: ${e.message}`); }
+  }, last ? 0 : 2000);
+  publishTimer.unref?.();
+}
+function startPublish() {
+  if (publishing) return { ok: false, error: "Already publishing." };
+  if (scout.running) return { ok: false, error: "The scout is running. Publish when it finishes, so its changes don't land half-way." };
+  publishing = true;
+  let r;
+  try { r = publisher.publish(store, write); } catch (e) { r = { ok: false, error: e.message }; }
+  publishing = false;
+  const last = { at: new Date().toISOString(), ok: r.ok, commit: r.commit || null, skills: r.skills || [], error: r.error || "", conflicts: r.conflicts || [], nothing: !!r.nothing };
+  console.log(`[publish] ${r.ok ? (r.nothing ? "nothing to publish" : `pushed ${r.commit}`) : `failed: ${r.error}`}`);
+  refreshPublish(last);
+  return r;
 }
 const httpErr = (status, message) => Object.assign(new Error(message), { status });
 
@@ -168,6 +197,16 @@ function saveUpload(req, id) {
 
 /* ---------- the scout ---------- */
 const scout = { running: false, startedAt: null, log: null, lastExit: null };
+// What the Scout tab can pick. Anything else in settings falls back to the default.
+const SCOUT_MODELS = ["claude-sonnet-5-5", "claude-opus-5-5", "claude-fable-5-1", "claude-haiku-4-5-20251001"];
+const SCOUT_EFFORTS = ["low", "medium", "high", "xhigh", "max"];
+function scoutModelArgs() {
+  const s = store.settings.main || {};
+  const model = SCOUT_MODELS.includes(s.scoutModel) ? s.scoutModel : SCOUT_MODELS[0];
+  const effort = SCOUT_EFFORTS.includes(s.scoutEffort) ? s.scoutEffort : "medium";
+  // Haiku 4.5 has no effort setting.
+  return model.startsWith("claude-haiku") ? ["--model", model] : ["--model", model, "--effort", effort];
+}
 function latestRun() {
   return Object.entries(store.runs).map(([id, r]) => ({ id, ...r })).sort((a, b) => String(b.startedAt).localeCompare(String(a.startedAt)))[0];
 }
@@ -229,12 +268,12 @@ function startSession(kind, topicId) {
   const out = fs.openSync(scout.log, "a");
   let closed = false;
   const closeLog = () => { if (!closed) { closed = true; fs.closeSync(out); } };
-  const args = ["-p", prompt, "--permission-mode", "dontAsk", "--allowedTools", "Bash(node sg.mjs *)", "Edit(./outbox/**)", "Read(./media/**)", "WebSearch", "WebFetch", "Agent"];
+  const args = ["-p", prompt, ...scoutModelArgs(), "--permission-mode", "dontAsk", "--allowedTools", "Bash(node sg.mjs *)", "Edit(./outbox/**)", "Read(./media/**)", "WebSearch", "WebFetch", "Agent"];
   let child;
   try { child = spawn(process.env.CLAUDE_BIN || "claude", args, { cwd: HERE, env, stdio: ["ignore", out, out] }); }
   catch (e) { closeLog(); failRun(`Couldn't start the scout: ${e.message}`); return Promise.resolve(false); }
   const started = new Promise((resolve) => { child.once("spawn", () => resolve(true)); child.once("error", () => resolve(false)); });
-  console.log(`[scout] starting ${topicId} (${kind}) — log: ${path.relative(HERE, scout.log)}`);
+  console.log(`[scout] starting ${topicId} (${kind}, ${scoutModelArgs().filter((a) => !a.startsWith("--")).join(" ")}) — log: ${path.relative(HERE, scout.log)}`);
   child.on("error", (e) => {
     closeLog();
     scout.running = false; scout.queue = [];
@@ -505,9 +544,11 @@ if (!process.argv.includes("--no-cloud")) cloud.start({ dataDir: DATA, store, co
     return { ok: true };
   }
   if (kind === "ig-run") return startReader("manual");
+  if (kind === "publish") return startPublish();
   if (kind === "ig-stop") { if (reader.child) reader.child.kill("SIGTERM"); return { ok: true }; }
   return { ok: false, error: `Unknown request "${kind}".` };
 } });
+refreshPublish();
 server.listen(PORT, "127.0.0.1", () => {
   const s = store.settings.main;
   console.log(`\nSkill Garden is running at http://localhost:${PORT}`);

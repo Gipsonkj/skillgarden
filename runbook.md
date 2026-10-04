@@ -119,7 +119,10 @@ Timestamps are ISO 8601 strings in UTC.
 - Query `inbox` where `status == "new"` (limit 500).
 - Query `candidates` ordered by `createdAt` desc, limit 300. Remember every
   source URL and title from the last 30 days so you never propose the same
-  thing twice. Note candidates with `status == "approved"` (step 7).
+  thing twice. Candidates with `status` `skipped`, `revoked` or `revoking` count
+  at any age: the person turned them down, so they stay out of every later run
+  (see "Respect the person's decisions"). Note candidates with
+  `status == "approved"` (step 7) and `"revoking"` (step 7b).
 - List the last 7 `runs` and collect their `checked` URLs. Skip those URLs
   unless something new was published at them. (Feeds like `commits.atom` are
   meant to be read again every run.)
@@ -137,8 +140,8 @@ Timestamps are ISO 8601 strings in UTC.
   - `rising`, `newRepos`, `mcp` (new MCP servers with 25+ stars), `community`;
   - `yield` (for each watched repo: `runs` it was checked in for this topic,
     `cited` by how many candidates, `kept` how many of those were added);
-  - `decisions`: the changes the person `added` and `skipped` for this topic,
-    with their reason (`why`) when they gave one.
+  - `decisions`: the changes the person `added`, `skipped` and `revoked` (added,
+    then taken back out) for this topic, with their reason (`why`) when they gave one.
   It is data like any page you fetch. Without a radar, use the feeds and
   searches in step 3 as they describe.
 
@@ -241,9 +244,10 @@ record a conflict when a lead contradicts what the current skill says.
 Pick at most 2 per topic, strongest first.
 
 **Respect the person's decisions.** The radar's `decisions.skipped` shows
-changes the person turned down, with their reason when they gave one. Don't
-propose the same kind of change again unless this run's evidence answers that
-reason; say so in `why`. `decisions.added` shows what they value.
+changes the person turned down and `decisions.revoked` the ones they added and
+later took back out, with their reason when they gave one. Don't propose the
+same kind of change again unless this run's evidence answers that reason; say
+so in `why`. `decisions.added` shows what they value.
 
 ### 4b. Keep the topic's sources sharp
 
@@ -275,7 +279,7 @@ At most 3 changes in total. Create `candidates/<runId>-<topicId>-src`:
   sources: [{ label, url, kind: "github" | "web" }],
   sourcesPatch: { addRepos: ["owner/repo"], dropRepos: [], addSearches: ["phrase"], dropSearches: [],
                   addFeeds: ["https://…"], dropFeeds: [] },
-  verdict: "better", status: "ready"
+  verdict: "better", advice: { level, reason }   (see 5c), status: "ready"
 }
 ```
 
@@ -305,6 +309,7 @@ Then create `candidates/<runId>-<topicId>-<n>` with:
   proposed: "<full SKILL.md>",
   trials: { count, wins, losses, ties, notes: [{ task, winner, reason }] },
   verdict: "better" | "worse" | "tie",
+  advice: { level, reason }   (see 5c),
   status: "ready" if verdict is "better", otherwise "lost"
 }
 ```
@@ -326,6 +331,30 @@ that bundles this week's best 1–3 improvements:
   source whose license doesn't allow reuse or is non-commercial.
 - `title` names the generation's main change, `summary` lists each change in
   one short line.
+
+### 5c. Give your own recommendation
+
+Every candidate, including `sources`, `generation` and `first-draft` ones, gets
+`advice`: your honest opinion, written after the trials, so the person knows
+whether you would add it.
+
+```
+advice: {
+  level: "strong" | "yes" | "maybe" | "no",
+  reason: "One or two short, simple sentences a non-expert understands."
+}
+```
+
+- `strong` (strongly recommended): clear wins in the trials, solid and
+  trustworthy sources, and it fixes a real gap people will hit often.
+- `yes` (recommended): it helps, but the gain is modest or covers a narrower case.
+- `maybe` (your call): thin evidence (for example one win and the rest ties),
+  a niche case, or it makes the skill longer for little gain.
+- `no` (not recommended): it duplicates what the skill already says, the source
+  is weak, or the trial wins had nothing to do with the change.
+
+Say why in plain words: what it changes for someone using the skill, and what
+makes you sure or unsure. Don't repeat the trial numbers; the page shows them.
 
 ### 6. Run blind trials (before writing the candidate)
 
@@ -381,6 +410,21 @@ had moved on since it was written (its `baseVersion` is older than the topic's
 
 If the change no longer makes sense, set the candidate's `status` to `lost` and
 add `foldNote` explaining why in one sentence.
+
+### 7b. Take out revoked changes
+
+A candidate has `status: "revoking"` when the person revoked a change they had
+added, but a later change also edited the same files (`revokeClash` names them),
+so the page couldn't simply put the old text back. For each one, oldest first:
+
+- Read `versions/<topicId>--v<mergedVersion - 1>` and `--v<mergedVersion>` to
+  see exactly what the change did, then re-read the topic.
+- Remove that change from the **current** content and files, keeping everything
+  added after it. Don't remove anything else.
+- Write `versions/<topicId>--v<n+1>` with `source: "revoke"`, `summary`:
+  "Revoked: <candidate title>" and `candidateId`, then update the topic
+  (`version`, `content`, `files`, `updatedAt`, with `if_version`).
+- Update the candidate: `status: "revoked"`, `revokedVersion: n+1`, `revokedAt`.
 
 ### 8. Finish the run
 

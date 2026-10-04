@@ -206,15 +206,17 @@ async function newMcp(since, errors) {
   } catch (e) { errors.push(`MCP Registry: ${clip(e.message, 160)}`); return []; }
 }
 
-// What the person added and skipped for each topic (newest 10 each), so the scout learns their taste.
+// What the person added (newest 10), skipped and revoked (newest 50) for each topic, so the scout learns their taste.
 function decisionsOf(store) {
   const out = {};
   for (const c of Object.values(store.candidates)) {
-    const kind = c.status === "merged" || c.status === "approved" ? "added" : c.status === "skipped" ? "skipped" : null;
+    const kind = c.status === "merged" || c.status === "approved" ? "added" : c.status === "skipped" ? "skipped" : c.status === "revoked" || c.status === "revoking" ? "revoked" : null;
     if (!kind || !c.topicId) continue;
-    (out[c.topicId] ||= { added: [], skipped: [] })[kind].push({ title: clip(c.title, 100), kind: c.kind, ...(c.skipNote ? { why: clip(c.skipNote, 200) } : {}), at: String(c.mergedAt || c.approvedAt || c.skippedAt || c.createdAt || "") });
+    const why = c.skipNote || c.revokeNote;
+    (out[c.topicId] ||= { added: [], skipped: [], revoked: [] })[kind].push({ title: clip(c.title, 100), kind: c.kind, ...(why ? { why: clip(why, 200) } : {}), at: String(c.revokedAt || c.revokeRequestedAt || c.mergedAt || c.approvedAt || c.skippedAt || c.createdAt || "") });
   }
-  for (const d of Object.values(out)) for (const k of ["added", "skipped"]) d[k] = d[k].sort((a, b) => b.at.localeCompare(a.at)).slice(0, 10);
+  // Every turned-down change counts, not just recent ones, so the scout never brings one back.
+  for (const d of Object.values(out)) for (const k of ["added", "skipped", "revoked"]) d[k] = d[k].sort((a, b) => b.at.localeCompare(a.at)).slice(0, k === "added" ? 10 : 50);
   return out;
 }
 

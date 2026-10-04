@@ -316,6 +316,7 @@
         },
         mcp: { async callTool(server, tool) { if (tool !== "fire_trigger") throw { code: "bad_request", message: "Not available here." }; await ask("scout"); return { content: [], payload: { started: true } }; } },
         reader: { run: () => ask("ig-run"), stop: () => ask("ig-stop") },
+        publisher: { run: () => ask("publish") },
       };
     }
 
