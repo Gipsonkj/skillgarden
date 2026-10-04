@@ -495,6 +495,10 @@ const server = http.createServer(async (req, res) => {
       if (c === "add") return send(res, 200, { results: readerAdd((await readBody(req)).items) });
       throw httpErr(404, "Not found.");
     }
+    if (kind === "publish") {
+      if (req.method === "POST") { const r = startPublish(); return send(res, r.ok ? 200 : 409, r.ok ? r : { error: r.error, ...r }); }
+      return send(res, 200, publisher.summary(publisher.plan(store)));
+    }
     if (kind === "scout") {
       if (req.method === "POST") {
         if (scout.running) return send(res, 409, { error: "The scout is already running." });
