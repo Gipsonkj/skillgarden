@@ -9,8 +9,9 @@ plus an MCP connector. Read `GUIDE.md` for the user-facing how-to.
 - `superskills/<id>/`: one super skill per craft. Router `SKILL.md`, `references/*.md`
   (distilled guides), `scripts/` and `templates/` copied with their licenses, `CREDITS.md`,
   `topic.json`. This is what the plugin ships.
-- `planner/garden/`: the planner skill (`skillgarden:garden`) for requests that need several
-  crafts. Its craft table and `references/craft-map.md` are generated from the routers by
+- `planner/superseed/`: the planner skill (`skillgarden:superseed`), one entry point that picks
+  the crafts for any request and plans requests that need several (connector alias: `garden`). Its craft table and
+  `references/craft-map.md` are generated from the routers by
   `local/craft-map.mjs`; the site build fails when they are out of date.
 - Every router has `## Plan the request`, `## Other crafts` (hand-offs as `` `craft` → `references/x.md` ``)
   and `## Go deeper (original skills)` (catalog URLs only), and `topic.json` has a 4th test that
@@ -67,7 +68,8 @@ Check UI changes in the browser on the local app; check downloads by unzipping t
   redeploy after approving changes. Wrangler on this Mac is signed in with `wrangler login`.
 - claude.ai has the connector as "SKillGarden-MCP" (key at the end of the URL).
 - Plugin is installed on this Mac from `Gipsonkj/skillgarden` (`main`);
-  `claude plugin marketplace update skillgarden` picks up merged changes.
+  `claude plugin marketplace update skillgarden`, then `claude plugin update skillgarden@skillgarden`
+  and a restart, picks up merged changes (the marketplace update alone leaves the install pinned).
 - Publishing approved changes to GitHub automatically is not built: it needs the user's
   explicit approval first.
 

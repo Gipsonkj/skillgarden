@@ -1,16 +1,25 @@
 ---
-name: garden
-description: Plan and run a request that needs several Skill Garden crafts at once, such as a product launch with a website, a film, ads and SEO, or an app with its design, backend, tests and deploy. Splits the request into parts, picks the best guide for each part from every Skill Garden super skill (or the original skill when a guide is too shallow), orders the work so each part feeds the next, and checks the whole result. Use when a request spans two or more crafts, when it is unclear which craft fits, or when asked to use "the best skills" for a job.
+name: superseed
+description: One entry point for every Skill Garden craft. Reads a request, picks the craft or crafts it needs and loads each one's super skill, which then picks its own guides; for several crafts it plans the order, carries the brief between parts and checks the whole result. Use when a request spans two or more crafts, such as a product launch with a website, a film, ads and SEO, or an app with its design, backend, tests and deploy; when it is unclear which craft fits; when asked to use "the best skills" for a job; and for any task when the user calls superseed by name.
 ---
 
-# Garden: plan a request across crafts
+# Superseed: one entry point for every craft
 
-Skill Garden has one super skill per craft, and each one routes to guides distilled from the best community skills for that craft. This planner decides which crafts and which of their guides a request needs, in what order, and how the pieces fit. It plans and checks; the crafts do the work.
+Skill Garden has one super skill per craft, and each one routes to guides distilled from the best community skills for that craft. Superseed decides which crafts a request needs and hands each part to its craft; the crafts pick their guides and do the work. When several crafts are involved it also plans the order and checks the seams.
 
-## How to plan
+## First: one craft or several?
 
-1. **Read the request for outcomes.** List what must exist at the end (a page, a film, ad copy, a schema, a deploy, a report) and the constraints (stack, brand, deadline, budget, where it ships). Ask once for anything that blocks the work; default the rest and say so.
-2. **Pick a craft for each outcome** from the tables below. When two crafts fit, the one whose summary names the outcome leads and the other supports. A craft's own short version of a neighbour's topic (for example the SEO page inside website-building) is enough only for the basics; anything more goes to the dedicated craft.
+Read the request for outcomes: what must exist at the end (a page, a film, ad copy, a schema, a deploy, a report). Match each outcome to a craft in the tables below. When two crafts fit, the one whose summary names the outcome leads.
+
+- **One craft:** load it now (plugin skill `skillgarden:<craft>`; connector `get_super_skill`) and follow its router. Don't write a plan; say in one line which craft you picked. If the work turns out to need another craft, switch to the steps below.
+- **A saved plan fits:** run the chain (see "When a saved plan fits").
+- **Several crafts:** plan with the steps below.
+- **No craft fits:** say so and do the task without Skill Garden. Don't force a craft onto it.
+
+## Several crafts: how to plan
+
+1. **Note the constraints** (stack, brand, deadline, budget, where it ships). Ask once for anything that blocks the work; default the rest and say so.
+2. **Give each outcome a craft.** A craft's own short version of a neighbour's topic (for example the SEO page inside website-building) is enough only for the basics; anything more goes to the dedicated craft.
 3. **Pick the guides.** Open `references/craft-map.md` and, for each chosen craft, take the guides whose task matches the part. Several guides from one craft is normal. If no guide covers a part well, the craft's router lists the original skills under "Go deeper".
 4. **Order the work so decisions flow forward:** research and brief → copy and direction → assets (images, film, audio) → build → checks (tests, accessibility, performance, security) → deploy and launch. Parts that don't depend on each other can run side by side.
 5. **Write the plan** as a short numbered list: the part, `craft` → guides, what it produces, and what it takes from earlier parts. Show it before starting when the work is large, costs money (paid generation, ads) or publishes anything; otherwise state it and go.

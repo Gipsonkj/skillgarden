@@ -6,7 +6,7 @@
     {
       "name": "skillgarden",
       "displayName": "Skill Garden",
-      "description": "All 38 Skill Garden super skills, the garden planner that combines crafts for one request, and chains that run several of them in order (campaign, sales-outreach, launch-video).",
+      "description": "All 38 Skill Garden super skills, superseed (one entry point that picks and combines crafts for any request), and chains that run several of them in order (campaign, sales-outreach, launch-video).",
       "source": "./",
       "strict": false,
       "skills": ["./superskills/", "./chains/", "./planner/"],

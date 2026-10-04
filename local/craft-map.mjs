@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // The craft map: every craft, what it covers and which guide serves which task, read from
-// each super skill's router. The garden planner (../planner/garden) uses it to pick crafts
+// each super skill's router. The superseed planner (../planner/superseed) uses it to pick crafts
 // and guides for a request that spans several crafts. Generated, so it never drifts.
 //
 //   node craft-map.mjs           check the planner's craft map is up to date
@@ -75,13 +75,13 @@ export function render(root = ROOT) {
     ])]),
   ].join("\n");
 
-  const skillFile = path.join(root, "planner", "garden", "SKILL.md");
+  const skillFile = path.join(root, "planner", "superseed", "SKILL.md");
   const skill = fs.readFileSync(skillFile, "utf8");
   const i = skill.indexOf(START), j = skill.indexOf(END);
   if (i < 0 || j < i) throw new Error(`${path.relative(root, skillFile)} needs ${START} and ${END}`);
   return {
     [skillFile]: skill.slice(0, i) + table + skill.slice(j + END.length),
-    [path.join(root, "planner", "garden", "references", "craft-map.md")]: map,
+    [path.join(root, "planner", "superseed", "references", "craft-map.md")]: map,
   };
 }
 

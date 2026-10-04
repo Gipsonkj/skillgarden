@@ -54,9 +54,11 @@ claude plugin install skillgarden@skillgarden
 ```
 
 All 38 super skills then load in every session as `skillgarden:<craft>`, plus the
-planner `skillgarden:garden` for requests that need several crafts at once. To pick up new
-versions, run `claude plugin marketplace update skillgarden` (or turn on auto-update under
-Marketplaces in `/plugin`). If you also unzipped super skills into `~/.claude/skills/`,
+planner `skillgarden:superseed`, one entry point for any task: run `/skillgarden:superseed <task>`
+and it picks the crafts, and plans the order when several are needed. To pick up new versions,
+run `claude plugin marketplace update skillgarden`, then `claude plugin update
+skillgarden@skillgarden` and restart Claude Code (or turn on auto-update under Marketplaces in
+`/plugin`). If you also unzipped super skills into `~/.claude/skills/`,
 remove those copies so each craft loads once.
 
 For cloud sessions, add this to the settings file the environment uses (for example a
