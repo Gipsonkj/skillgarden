@@ -133,8 +133,9 @@ function listGuides(dir) {
 export function publish(store, write) {
   const branch = git("rev-parse", "--abbrev-ref", "HEAD");
   if (branch !== "main") return { ok: false, error: `The repo is on "${branch}", not main. Switch to main first.` };
-  const dirty = git("status", "--porcelain", "--", ...PATHS);
-  if (dirty) return { ok: false, error: `superskills/ or planner/ has edits that aren't committed yet:\n${dirty.split("\n").slice(0, 6).join("\n")}\nCommit or discard them first, so publishing only carries the app's changes.` };
+  // chains/ feeds the planner's craft map, so unfinished chains would leak into planner/ on commit.
+  const dirty = git("status", "--porcelain", "--", ...PATHS, "chains");
+  if (dirty) return { ok: false, error: `superskills/, planner/ or chains/ has edits that aren't committed yet:\n${dirty.split("\n").slice(0, 6).join("\n")}\nCommit or discard them first, so publishing only carries the app's changes.` };
   const all = plan(store), ready = all.filter((c) => !c.conflicts.length);
   const list = ready.filter((c) => c.writes.length || c.removes.length);
   const now = new Date().toISOString();
