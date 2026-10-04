@@ -1,0 +1,53 @@
+# Builds the website from what is committed and deploys the Worker (site + connector) to Cloudflare.
+# Versions and credits come from the app's Firestore copy (read-only, through Workload Identity
+# Federation: no Google key is stored anywhere), the sub-skill downloads from the "library" release
+# (published from the Mac with: node connector/library.mjs --publish).
+# Run it by hand with "preview" ticked to upload a version with its own preview URL and leave the live site alone.
+name: Deploy site
+
+on:
+  workflow_dispatch:
+    inputs:
+      preview:
+        description: Upload a preview version instead of deploying
+        type: boolean
+        default: true
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      - id: google
+        uses: google-github-actions/auth@v3
+        with:
+          workload_identity_provider: projects/253864661442/locations/global/workloadIdentityPools/github/providers/skillgarden
+          service_account: site-build@skillgarden-e6812.iam.gserviceaccount.com
+          token_format: access_token
+      - name: Get the sub-skill library
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release download library --pattern library.tar.gz --dir "$RUNNER_TEMP"
+          mkdir -p connector/.library
+          tar -xzf "$RUNNER_TEMP/library.tar.gz" -C connector/.library
+      - name: ${{ github.event_name == 'workflow_dispatch' && inputs.preview && 'Upload a preview version' || 'Deploy' }}
+        working-directory: connector
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: 276f0533d68d72467687d59c82f01889
+          SKILLGARDEN_GOOGLE_TOKEN: ${{ steps.google.outputs.access_token }}
+          SKILLGARDEN_FIREBASE_PROJECT: skillgarden-e6812
+        run: npx --yes wrangler@4.147.0 ${{ github.event_name == 'workflow_dispatch' && inputs.preview && 'versions upload' || 'deploy' }}

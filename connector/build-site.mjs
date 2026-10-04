@@ -10,21 +10,31 @@
 //   chains.json        the chains in ../chains (one ask that runs several super skills in order)
 //   credits.json       "Where this came from" for each approved version: creator handles, public
 //                      reel links and source pages only, never notes, transcripts or freebie text
-// Sub-skills come from the SkillGarden library folder next to the app (SKILLGARDEN_LIBRARY to override).
+// Sub-skills come from the SkillGarden library folder next to the app (SKILLGARDEN_LIBRARY to override),
+// or, in GitHub Actions, from the "library" release unpacked into ./.library (see library.mjs).
+// Versions and credits come from the app's data on this Mac (local/data), or from its Firestore copy
+// when GitHub Actions passes a Google token (SKILLGARDEN_GOOGLE_TOKEN).
 import fs from "node:fs";
 import path from "node:path";
-import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { loadChains, problems } from "../local/chains.mjs";
 import { stale as staleCraftMap } from "../local/craft-map.mjs";
 import { buildCredits } from "../local/credits.mjs";
+import { readCollections } from "../local/cloud.mjs";
+import { BUILT, SOURCE, buildLibrary, readLibrary } from "./library.mjs";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const APP = path.resolve(HERE, "..");
-const LIB = path.resolve(process.env.SKILLGARDEN_LIBRARY || path.join(APP, ".."));
 const OUT = path.join(HERE, "public");
-const MAX_ASSET = 25 * 1024 * 1024; // Cloudflare's per-file limit
 const MAX_TEXT = 512 * 1024;
+const CI = !!process.env.CI;
+
+// The app's data: this Mac's local/data when it is here, otherwise the Firestore copy.
+const DATA = path.join(APP, "local", "data");
+const fromCloud = !fs.existsSync(path.join(DATA, "topics.json")) && process.env.SKILLGARDEN_GOOGLE_TOKEN
+  ? await readCollections(["topics", "versions", "candidates", "inbox"]) : null;
+if (CI && !fromCloud) throw new Error("No app data: GitHub Actions needs SKILLGARDEN_GOOGLE_TOKEN to read versions and credits from Firestore.");
+const local = (c) => { if (fromCloud) return fromCloud[c]; try { return JSON.parse(fs.readFileSync(path.join(DATA, c + ".json"), "utf8")); } catch { return {}; } };
 
 fs.rmSync(OUT, { recursive: true, force: true });
 fs.mkdirSync(path.join(OUT, "data"), { recursive: true });
@@ -61,7 +71,7 @@ const textFiles = (root) => {
   walk(root);
   return out;
 };
-const localTopics = (() => { try { return JSON.parse(fs.readFileSync(path.join(APP, "local", "data", "topics.json"), "utf8")); } catch { return {}; } })();
+const localTopics = local("topics");
 const SUPER = path.join(APP, "superskills");
 const topics = {};
 for (const id of fs.readdirSync(SUPER).sort()) {
@@ -76,33 +86,23 @@ for (const id of fs.readdirSync(SUPER).sort()) {
 }
 fs.writeFileSync(path.join(OUT, "data", "topics.json"), JSON.stringify(topics));
 
-// Catalog and the shareable sub-skills.
+// Catalog and the shareable sub-skills: built here from the library folder, or as published.
 const catalog = JSON.parse(fs.readFileSync(path.join(APP, "catalog", "catalog.json"), "utf8"));
+const lib = buildLibrary(catalog) || readLibrary();
+if (CI && !lib) throw new Error("No sub-skill library: GitHub Actions unpacks the \"library\" release into connector/.library.");
+if (lib) fs.cpSync(path.join(BUILT, "lib"), path.join(OUT, "lib"), { recursive: true });
+const isShared = new Set(lib ? lib.shared : []), isTooBig = new Set(lib ? lib.tooBig : []);
 let shared = 0, tooBig = 0, missing = 0;
 for (const t of catalog.topics) {
   delete t.zip; // the whole-craft library zips stay on your computer
   for (const s of t.skills || []) {
     if (!s.local) continue;
-    const src = path.join(LIB, s.local);
-    if (!s.local.startsWith("skills/") || !fs.existsSync(path.join(src, "SKILL.md"))) { s.local = null; missing++; continue; }
-    const dest = path.join(OUT, "lib", s.local);
-    const zipPath = dest + ".zip";
-    fs.mkdirSync(path.dirname(zipPath), { recursive: true });
-    execFileSync("zip", ["-qr", "-X", zipPath, ".", "-x", ".*", "*/.*"], { cwd: src });
-    if (fs.statSync(zipPath).size > MAX_ASSET) { fs.rmSync(zipPath); s.local = null; s.notes = [s.notes, "Too large to host on the website; get it from the source."].filter(Boolean).join(" "); tooBig++; continue; }
-    const files = [];
-    const walk = (d) => { for (const e of fs.readdirSync(d, { withFileTypes: true })) {
-      if (e.name.startsWith(".") || e.isSymbolicLink()) continue;
-      const f = path.join(d, e.name);
-      if (e.isDirectory()) walk(f); else files.push({ path: path.relative(src, f).split(path.sep).join("/"), size: fs.statSync(f).size });
-    } };
-    walk(src);
-    fs.mkdirSync(dest, { recursive: true });
-    fs.writeFileSync(path.join(dest, "files.json"), JSON.stringify(files));
-    fs.copyFileSync(path.join(src, "SKILL.md"), path.join(dest, "SKILL.md"));
-    shared++;
+    if (isShared.has(s.local)) { shared++; continue; }
+    if (isTooBig.has(s.local)) { s.local = null; s.notes = [s.notes, "Too large to host on the website; get it from the source."].filter(Boolean).join(" "); tooBig++; continue; }
+    s.local = null; missing++;
   }
 }
+if (lib && missing && !fs.existsSync(path.join(SOURCE, "skills"))) console.warn(`${missing} sub-skills in catalog.json aren't in the published library; run: node connector/library.mjs --publish`);
 fs.writeFileSync(path.join(OUT, "catalog.json"), JSON.stringify(catalog));
 
 // Chains, checked against the super skills so a broken step never ships.
@@ -113,7 +113,6 @@ for (const c of chains) { const errs = problems(c, APP); if (errs.length) throw 
 fs.writeFileSync(path.join(OUT, "chains.json"), JSON.stringify(chains));
 
 // Credits from the local app's data (empty until the scout's first approved change).
-const local = (c) => { try { return JSON.parse(fs.readFileSync(path.join(APP, "local", "data", c + ".json"), "utf8")); } catch { return {}; } };
 const credits = buildCredits({ versions: local("versions"), candidates: local("candidates"), inbox: local("inbox") });
 fs.writeFileSync(path.join(OUT, "credits.json"), JSON.stringify(credits));
 

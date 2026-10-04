@@ -1,2 +1,4 @@
 public/
 .wrangler/
+.library/
+library.tar.gz

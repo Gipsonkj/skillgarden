@@ -4,7 +4,8 @@
 // connector/firebase/firestore.rules lets in no one else. This Mac pushes every change it makes,
 // pulls what the admins change online, and runs what they ask for (a scout run, an Instagram read).
 // Google's REST APIs with the service-account key in ~/.claude/secrets/skillgarden-firebase.json;
-// no npm packages. Without the key file, nothing here runs.
+// no npm packages. Without the key file, nothing here runs. The site build also reads the data
+// here (readCollections), with an access token from GitHub Actions in place of the key.
 //
 //   node cloud.mjs rules     publish connector/firebase/firestore.rules
 //   node cloud.mjs indexes   create the index the version history needs
@@ -23,6 +24,8 @@ export const enabled = () => fs.existsSync(KEY_FILE);
 let key = null, tok = null;
 const loadKey = () => (key ||= JSON.parse(fs.readFileSync(KEY_FILE, "utf8")));
 async function token() {
+  // GitHub Actions signs in through Workload Identity Federation and hands over a short-lived token.
+  if (process.env.SKILLGARDEN_GOOGLE_TOKEN) return process.env.SKILLGARDEN_GOOGLE_TOKEN;
   if (tok && tok.exp > Date.now() + 60_000) return tok.value;
   const k = loadKey(), now = Math.floor(Date.now() / 1000);
   const b64 = (o) => Buffer.from(JSON.stringify(o)).toString("base64url");
@@ -41,7 +44,7 @@ async function api(method, url, body) {
   if (!r.ok) throw Object.assign(new Error(d.error?.message || `${method} ${url} → ${r.status}`), { status: r.status });
   return d;
 }
-const project = () => loadKey().project_id;
+const project = () => process.env.SKILLGARDEN_FIREBASE_PROJECT || loadKey().project_id;
 const DOCS = () => `projects/${project()}/databases/(default)/documents`;
 const FS = () => `https://firestore.googleapis.com/v1/${DOCS()}`;
 const name = (c, id) => `${DOCS()}/${c}/${id}`;
@@ -68,6 +71,21 @@ function fromValue(v) {
 const fromFields = (f) => Object.fromEntries(Object.entries(f).map(([k, v]) => [k, fromValue(v)]));
 // Every document in Firestore carries who wrote it last and when (server time); the app never sees these.
 const strip = ({ _ts, _by, ...rest }) => rest;
+
+/** Every document of each collection, as { collection: { id: data } }, for the site build. */
+export async function readCollections(cols) {
+  const out = {};
+  for (const c of cols) {
+    out[c] = {};
+    let page = "";
+    do {
+      const r = await api("GET", `${FS()}/${c}?pageSize=300${page ? `&pageToken=${encodeURIComponent(page)}` : ""}`);
+      for (const d of r.documents || []) out[c][d.name.split("/").pop()] = strip(fromFields(d.fields || {}));
+      page = r.nextPageToken || "";
+    } while (page);
+  }
+  return out;
+}
 
 /* ---------- sync ---------- */
 const MAX_DOC = 1_000_000;       // Firestore's limit is 1 MiB a document
