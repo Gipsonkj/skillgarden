@@ -30,7 +30,7 @@ for i, slug in enumerate(slugs, 1):
     if (sd / "SKILL.md").exists():
         m = re.search(r"^description:\s*(.+?)\n(?=\w+:|---)", (sd / "SKILL.md").read_text(), re.S | re.M)
         desc = m.group(1).strip().strip('"') if m else ""
-    refs = sorted(str(p.relative_to(sd)) for p in sd.glob("references/*.md")) if sd.exists() else []
+    refs = sorted(str(p.relative_to(sd)) for p in sd.glob("references/*.md") if p.name != "go-deeper.md") if sd.exists() else []
     skills = []
     for j, s in enumerate(ranked(t["skills"], meta.get("tools", [])), 1):
         # build.py names library folders by research rank, not by this display order.

@@ -35,12 +35,16 @@ for d in sorted(p for p in SS.iterdir() if p.is_dir()):
     plan, other, deep = section(txt, "Plan the request"), section(txt, "Other crafts"), section(txt, "Go deeper")
     if plan is None or "skillgarden:superseed" not in plan: probs.append("no standard Plan the request section")
     if other is None or other.count("\n| ") < 4: probs.append("Other crafts needs 3+ rows")
-    if deep is None or deep.count("\n| ") < 4: probs.append("Go deeper needs 3+ rows")
+    # Go deeper is a pointer in the router; the table of originals lives in references/go-deeper.md
+    deep_file = d / "references" / "go-deeper.md"
+    deep_txt = deep_file.read_text() if deep_file.is_file() else ""
+    if deep is None or "references/go-deeper.md" not in deep: probs.append("Go deeper must point to references/go-deeper.md")
+    if deep_txt.count("\n| ") < 4: probs.append("references/go-deeper.md needs 3+ rows")
     for craft, xrefs in CROSS.findall(txt):
         if craft not in CRAFTS: probs.append(f"unknown craft {craft}"); continue
         for ref in re.findall(r"`([^`]+)`", xrefs):
             if not (SS / craft / ref.rstrip("/")).exists(): probs.append(f"missing {craft}/{ref}")
-    for url in re.findall(r"\]\((https?://[^)\s]+)\)", deep or ""):
+    for url in re.findall(r"\]\((https?://[^)\s]+)\)", deep_txt):
         if url not in URLS: probs.append(f"Go deeper link not in catalog: {url}")
     own = CROSS.sub("", txt.replace(deep or "\0", ""))
     for link in set(re.findall(r"((?:references|scripts|templates)/[\w./-]+)", own)):

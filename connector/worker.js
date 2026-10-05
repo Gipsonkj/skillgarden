@@ -140,7 +140,7 @@ const home = (files, craft) => ((files.planners || []).includes(craft) ? `planne
 async function callTool(env, name, args = {}) {
   if (name === "list_crafts") {
     const [topics, files] = await Promise.all([catalog(env), tree(env)]);
-    const rows = topics.filter((t) => files[t.id]).map((t) => `- ${t.id}: ${t.name}. ${t.blurb || ""} (${(files[t.id] || []).filter((f) => f.path.startsWith("references/")).length} guides, ${(t.skills || []).length} ranked sub-skills)`);
+    const rows = topics.filter((t) => files[t.id]).map((t) => `- ${t.id}: ${t.name}. ${t.blurb || ""} (${(files[t.id] || []).filter((f) => f.path.startsWith("references/") && f.path !== "references/go-deeper.md").length} guides, ${(t.skills || []).length} ranked sub-skills)`);
     const chains = files.chains || [];
     const plan = (files.planners || []).includes("superseed") ? `\n\nA request that needs several crafts, or when unsure which craft fits: call get_super_skill with craft "superseed" (the planner) first.` : "";
     return text(`${rows.length} crafts. Call get_super_skill with a craft id.\n\n${rows.join("\n")}${chains.length ? `\n\nChains (several crafts in order from one ask; call get_chain): ${chains.join(", ")}` : ""}${plan}`);
