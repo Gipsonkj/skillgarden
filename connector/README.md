@@ -11,8 +11,20 @@ One Cloudflare Worker serves two things:
   reads live from the GitHub repo (`REF` in `wrangler.toml`).
 
 `npx wrangler deploy` first runs `node build-site.mjs`, which builds `./public` from
-`../superskills`, `../catalog/catalog.json` and the SkillGarden library folder next to the app.
-Run the deploy from this Mac, and run it again after you approve changes to refresh the website.
+`../superskills`, `../catalog/catalog.json`, the sub-skill library and the app's versions and credits.
+
+## Deploys from GitHub
+
+Every push to `main` deploys what is committed (`.github/workflows/deploy.yml`). GitHub Actions
+reads versions and credits from the app's Firestore copy, read-only, as `site-build@` through
+Workload Identity Federation (only this repo's `main` can use it; no Google key exists), and the
+sub-skill downloads from the `library` release. The pre-push hook in `.githooks` (on with
+`git config core.hooksPath .githooks`) republishes that release from this Mac before a push to `main`
+whenever the library or the pushed catalog differs from it, so a library rebuild needs no extra
+step; by hand it is `node connector/library.mjs --publish`. The Cloudflare API token is the
+`CLOUDFLARE_API_TOKEN` repository secret. Run the workflow by hand with "preview" ticked to get a
+preview URL without touching the live site. A deploy from this Mac still works and ships the
+working folder as it is.
 
 ## Deploy
 

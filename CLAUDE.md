@@ -57,7 +57,7 @@ node local/import-superskills.mjs           # after editing superskills/ by hand
 node local/craft-map.mjs --write            # after changing a router's guide table or topic.json blurb
 claude plugin validate .                    # after touching the marketplace or super skills
 cd connector && npx wrangler dev --var ACCESS_KEYS:test-key   # site + connector locally
-cd connector && npx wrangler deploy         # the user runs this (wrangler login or CLOUDFLARE_API_TOKEN); rebuilds the site first
+git config core.hooksPath .githooks        # once per clone: pushes to main republish the sub-skill library when it changed
 ```
 
 Check UI changes in the browser on the local app; check downloads by unzipping them.
@@ -69,8 +69,9 @@ Check UI changes in the browser on the local app; check downloads by unzipping t
   after they confirm. The old `superskills-29` branch is fully merged.
 - Live at https://skillgarden.gipsonkj.workers.dev (Worker `skillgarden`, account subdomain
   `gipsonkj`). The connector reads GitHub `main` (`REF` in `connector/wrangler.toml`), so merged
-  skills show up there with no redeploy. The website is built from this Mac at deploy time, so
-  redeploy after approving changes. Wrangler on this Mac is signed in with `wrangler login`.
+  skills show up there with no redeploy. Every push to `main` deploys the site and Worker from
+  GitHub Actions (`.github/workflows/deploy.yml`; see `connector/README.md`), so approved changes
+  reach the website once committed. Wrangler on this Mac is signed in with `wrangler login`.
 - claude.ai has the connector as "SKillGarden-MCP" (key at the end of the URL).
 - Plugin is installed on this Mac from `Gipsonkj/skillgarden` (`main`);
   `claude plugin marketplace update skillgarden`, then `claude plugin update skillgarden@skillgarden`

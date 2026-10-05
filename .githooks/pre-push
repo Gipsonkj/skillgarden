@@ -1,0 +1,13 @@
+#!/bin/sh
+# Every push to main deploys the website from GitHub Actions, which takes the sub-skill downloads from
+# the "library" release. Republish it first when the library or the pushed catalog has changed.
+# Skip once with: git push --no-verify
+while read -r local_ref local_sha remote_ref remote_sha; do
+  [ "$remote_ref" = "refs/heads/main" ] || continue
+  case "$local_sha" in *[!0]*) ;; *) continue ;; esac   # deleting the branch
+  node connector/library.mjs --publish --if-changed --ref "$local_sha" || {
+    echo "Couldn't publish the sub-skill library, so the push stopped (the deploy would lose downloads)." >&2
+    echo "Fix it, or push anyway with: git push --no-verify" >&2
+    exit 1
+  }
+done

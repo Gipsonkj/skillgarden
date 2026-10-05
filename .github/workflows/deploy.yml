@@ -1,11 +1,13 @@
 # Builds the website from what is committed and deploys the Worker (site + connector) to Cloudflare.
 # Versions and credits come from the app's Firestore copy (read-only, through Workload Identity
 # Federation: no Google key is stored anywhere), the sub-skill downloads from the "library" release
-# (published from the Mac with: node connector/library.mjs --publish).
-# Run it by hand with "preview" ticked to upload a version with its own preview URL and leave the live site alone.
+# (republished from the Mac by the pre-push hook in .githooks when it changed).
+# Every push to main deploys. Run it by hand with "preview" ticked to upload a version with its own preview URL and leave the live site alone.
 name: Deploy site
 
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
     inputs:
       preview:
