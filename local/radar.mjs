@@ -9,6 +9,7 @@
 //   - new posts in each topic's feeds (official blogs and changelogs) and the shared feeds;
 //   - trending Hugging Face models for each topic's model types, and the week's top papers;
 //   - new MCP servers in the official registry with a starred GitHub repo;
+//   - skill repos found by the name of each topic's major tools;
 //   - per topic, how often each watched repo was checked and cited (for source proposals),
 //     and the changes the person added or skipped (with their reason, when given).
 // Public data only, read-only, and nothing about the user is sent. GitHub goes through the
@@ -100,6 +101,36 @@ async function newRepos(watched, errors) {
     } catch (e) { errors.push(`new repos (${q}): ${e.message}`); }
   }
   return [...found.values()].sort((a, b) => b.stars - a.stars).slice(0, 25);
+}
+
+// Skill repos for each topic's major tools (topic.json `tools`), found by the tool's name rather
+// than the craft's, so a popular integration (a scheduler, an editor's API) isn't missed because no
+// skill list files it under the craft. The name must be in the repo's name or description next to
+// skill/agent/MCP words (a bare "Buffer" also finds protocol buffers). Pushed in the last 90 days,
+// not watched yet. GitHub's search allows 30 calls a minute, so the calls are spaced.
+const SKILLISH = /skill|claude|agent|mcp|codex|openclaw|cursor/i;
+async function toolRepos(topics, watched, errors) {
+  const day = new Date(Date.now() - 90 * DAY).toISOString().slice(0, 10);
+  const out = {}, seen = new Map();
+  for (const [tid, t] of topics) {
+    for (const tool of (t.tools || []).filter((x) => x.tier === "major" && x.name).slice(0, 8)) {
+      // `search` is a sharper phrase for tools with a common-word name ("Buffer API", not "Buffer").
+      const name = clip(tool.search || tool.name, 40).replace(/"/g, "");
+      const names = (tool.search ? [name] : [name, ...(tool.aliases || [])]).map((n) => lc(n).replace(/[\s_]+/g, "[-_ ]?")).filter((n) => n.length > 1);
+      const hasName = new RegExp(`(^|[^a-z0-9])(${names.join("|")})([^a-z0-9]|$)`, "i");
+      if (!seen.has(lc(name))) {
+        try {
+          const res = await ghGet(`search/repositories?q=${encodeURIComponent(`${name} skill in:name,description pushed:>=${day}`)}&sort=stars&order=desc&per_page=30`);
+          seen.set(lc(name), (res.items || []).filter((it) => { const txt = `${it.full_name} ${it.description || ""}`; return hasName.test(txt) && SKILLISH.test(txt); })
+            .map((it) => ({ repo: it.full_name, stars: it.stargazers_count, about: clip(it.description, 160), url: it.html_url, pushed: it.pushed_at })));
+        } catch (e) { errors.push(`tool repos (${name}): ${clip(e.message, 120)}`); seen.set(lc(name), []); }
+        await new Promise((r) => setTimeout(r, 2200));
+      }
+      const repos = seen.get(lc(name)).filter((x) => !watched.has(lc(x.repo))).slice(0, 5);
+      if (repos.length) (out[tid] ||= []).push({ tool: tool.name, repos });
+    }
+  }
+  return out;
 }
 
 const unent = (s) => String(s).replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&#0?39;/g, "'").replace(/&amp;/g, "&");
@@ -271,6 +302,7 @@ export async function takeRadar(store, prev) {
     feeds: await feeds(feedUrls, since, errors),
     hf: await huggingFace([...new Set(hf.filter((x) => x !== "papers" && HF_TASK_RE.test(x)))], hf.includes("papers"), since, errors),
     mcp: via === "gh" ? await newMcp(since, errors) : [],
+    toolRepos: via === "gh" ? await toolRepos(topics, new Set(watched.keys()), errors) : {},
     yield: yieldOf(store),
     decisions: decisionsOf(store),
     errors,
@@ -292,6 +324,7 @@ export function radarFor(doc, topicId, topic, settings) {
     hf: { models: pick(doc.hf?.models, hf), ...(hf.includes("papers") ? { papers: doc.hf?.papers || [] } : {}) },
     news: (doc.topicNews || {})[topicId] || [],
     rising: doc.rising || [], newRepos: doc.newRepos || [], community: doc.community || [], mcp: doc.mcp || [],
+    toolRepos: (doc.toolRepos || {})[topicId] || [],
     yield: (doc.yield || {})[topicId] || {},
     decisions: (doc.decisions || {})[topicId] || { added: [], skipped: [] },
     ...(doc.errors?.length ? { errors: doc.errors } : {}),

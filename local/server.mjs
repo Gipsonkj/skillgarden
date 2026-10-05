@@ -18,6 +18,7 @@ import { loadChains } from "./chains.mjs";
 import { takeRadar, radarFor, RADAR_KEEP } from "./radar.mjs";
 import * as cloud from "./cloud.mjs";
 import * as publisher from "./publish.mjs";
+import { toolGaps } from "./tool-gaps.mjs";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(HERE, "..");
@@ -494,6 +495,11 @@ const server = http.createServer(async (req, res) => {
       }
       if (c === "add") return send(res, 200, { results: readerAdd((await readBody(req)).items) });
       throw httpErr(404, "Not found.");
+    }
+    if (kind === "gaps" && req.method === "GET") {
+      const t = store.topics[c];
+      if (!t) throw httpErr(404, `No topic "${c}".`);
+      return send(res, 200, { tools: toolGaps(t.tools || [], { "SKILL.md": t.content || "", ...(t.files || {}) }) });
     }
     if (kind === "publish") {
       if (req.method === "POST") { const r = startPublish(); return send(res, r.ok ? 200 : 409, r.ok ? r : { error: r.error, ...r }); }

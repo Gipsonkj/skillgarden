@@ -52,8 +52,17 @@ for d in sorted(p for p in SS.iterdir() if p.is_dir()):
     try:
         t = json.loads((d / "topic.json").read_text())
         tests = t.get("tests", [])
-        if len(tests) != 4 or len(t.get("searches", [])) < 4: probs.append("topic.json needs 4 tests and 4+ searches")
+        if len(tests) not in (4, 5) or len(t.get("searches", [])) < 4: probs.append("topic.json needs 4 tests (5 with a tool test) and 4+ searches")
         elif not any(c != d.name and re.search(rf"\b{c}\b", tests[3].get("good", "")) for c in CRAFTS): probs.append("test t4 must use another craft")
+        # tools: what practitioners use for this craft (local/tool-gaps.mjs checks the guides against it;
+        # `search` is an optional sharper phrase the radar searches GitHub with, for common-word names).
+        tools = t.get("tools", [])
+        for x in tools:
+            if not (x.get("name") and x.get("tier") in ("major", "minor") and str(x.get("docs", "")).startswith("https://")): probs.append(f"tool needs name, tier major|minor and an https docs link: {x.get('name')}")
+        if len(tests) == 5:
+            t5 = tests[4]
+            names = [n.lower() for x in tools if x.get("tier") == "major" for n in [x.get("name", ""), *x.get("aliases", [])] if n]
+            if t5.get("id") != "t5" or not any(n in (t5.get("prompt", "") + t5.get("good", "")).lower() for n in names): probs.append("test t5 must name a major tool from tools")
     except Exception as e: probs.append(f"topic.json {e}")
     if (d / "CREDITS.md").is_file():
         used = "\n".join(l for l in (d / "CREDITS.md").read_text().split("Also see")[0].splitlines() if not re.search(r"nothing (was )?used|not used|excluded", l, re.I))

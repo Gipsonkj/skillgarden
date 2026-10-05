@@ -55,6 +55,7 @@ trials.
 - A super skill gets at most **1** candidate per run: one new generation that
   bundles up to **3** improvements.
 - At most **1** sources candidate per topic (step 4b), on top of the caps above.
+- At most **1** tools bundle per topic (step 5d), on top of the caps above.
 
 ## Data model (collections in the artifact database)
 
@@ -69,7 +70,7 @@ Timestamps are ISO 8601 strings in UTC.
 - `topics` / `<topicId>` — `{ name, blurb, hue, order, active, collections: [],
   repos: [owner/repo], searches: [phrase], feeds: [RSS or Atom URL],
   keywords: [Hacker News title words], hf: [Hugging Face model task | "papers"],
-  tests: [{id, prompt, good}],
+  tests: [{id, prompt, good}], tools: [{name, aliases, tier, kind, docs, why}],
   version: n, content: "<SKILL.md text>", files?: { "<relative path>": "<text>" }, updatedAt }`.
   A topic with `files` is a **super skill**: `content` is a short router and `files`
   holds `references/*.md` guides (and maybe `scripts/`, `templates/`, `CREDITS.md`)
@@ -123,6 +124,10 @@ Timestamps are ISO 8601 strings in UTC.
   at any age: the person turned them down, so they stay out of every later run
   (see "Respect the person's decisions"). Note candidates with
   `status == "approved"` (step 7) and `"revoking"` (step 7b).
+- **Tool gaps.** Run `node sg.mjs gaps <topicId>`. It checks the topic's
+  `tools` (what practitioners use for this craft, with a tier: `major` or
+  `minor`) against the guides: `covered`, `mentioned` (named, no how-to) or
+  `missing`.
 - List the last 7 `runs` and collect their `checked` URLs. Skip those URLs
   unless something new was published at them. (Feeds like `commits.atom` are
   meant to be read again every run.)
@@ -220,6 +225,19 @@ g. **Official feeds and model hubs.** The radar's `feeds` holds new posts from
    week's most upvoted papers. `mcp` lists new MCP servers; one from the
    official vendor of a tool this topic uses is a lead. Without a radar, read
    the topic's `feeds` yourself and keep posts since the last run.
+
+h. **Tools.** A `major` tool that `gaps` shows as `missing` or `mentioned` is a
+   lead: people use it and the skill doesn't teach it. The radar's `toolRepos`
+   lists skill repos found by each major tool's name; read them (rule 4 first)
+   for what they do well. The tool's own official docs are the source for every
+   fact; a skill repo only shows what's worth covering.
+   Also look for tools the list lacks: market leaders for each core job of the
+   craft (desktop, web, mobile, even with no API), official Claude connectors and
+   vendor MCP servers (Adobe, Canva, Figma, Google, Microsoft, Atlassian, Notion
+   and others big in the craft), and AI tools many practitioners adopted lately.
+   Rank by how many people use a tool, not by how many agent skills exist for it
+   (Premiere Pro and Buffer were missed that way). Put a missing one in the
+   run's `notes` with its evidence and official docs URL.
 
 If a host refuses (in the cloud, Hacker News, Hugging Face, Reddit and
 Instagram usually do), note it in the run's `blocked` list and move on. Don't
@@ -331,6 +349,34 @@ that bundles this week's best 1–3 improvements:
   source whose license doesn't allow reuse or is non-commercial.
 - `title` names the generation's main change, `summary` lists each change in
   one short line.
+
+### 5d. Tools bundle: fill the tool gaps
+
+For a super skill with `major` tools that are `missing` or `mentioned`, write
+at most one candidate with `kind: "tools"`, shaped like a generation
+(`proposed` router + `filesPatch`), that teaches up to 4 of them, most used
+first:
+
+- **Bundle, don't multiply files.** Group tools by the job they do and put
+  them in the guide that already covers that job. Add at most one new
+  reference file, only when no guide fits, named after the job
+  (`scheduling-tools.md`), never after one tool.
+- Per tool: when to pick it, access (API, CLI, MCP, export format), auth
+  (official OAuth or an environment variable, never pasted keys), the exact
+  endpoints, commands or settings, limits, a minimal example, gotchas, and
+  "show it and wait for a yes" before anything publishes, sends or spends.
+- Every fact comes from the tool's official docs. List them as you write.
+- **Fact check.** One separate `Agent` call checks each fact against the
+  official page, fixes wrong ones and removes the ones it can't find. Its
+  counts go into `checks.claims`.
+- **Tool test.** The topic's test `t5` needs a major tool. Run it twice with
+  the current files and twice with the bundle (workers as in step 6, told not
+  to use the web), and have a judge score each answer blind against `good`,
+  one point per check met. Averages go into `checks.test`.
+- Add `checks: { claims: {total, verified, fixed, dropped}, test: {before,
+  after, max}, licences: "ok" | "<problem>" }`. `status` is `ready` only when
+  every remaining fact is verified, `after` is above `before` and licences are
+  ok; otherwise `lost`. No `trials` field; `advice` as in 5c.
 
 ### 5c. Give your own recommendation
 

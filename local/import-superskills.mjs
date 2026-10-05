@@ -5,7 +5,7 @@
 //   node import-superskills.mjs seo ai-video   import only these
 //   node import-superskills.mjs --inactive     import with "Scout this topic" off
 //
-// Each folder holds SKILL.md, topic.json (name, blurb, hue, searches, keywords, feeds, hf, tests) and any
+// Each folder holds SKILL.md, topic.json (name, blurb, hue, searches, keywords, feeds, hf, tests, tools) and any
 // references/, scripts/ or templates/ files. Text files ride along as topic.files and
 // come with the skill's download. A topic that already has the same content is left alone;
 // a changed one gets a new version. New topics join the weekly scout (one topic at a time).
@@ -57,7 +57,17 @@ for (const [i, slug] of slugs.entries()) {
   const content = fs.readFileSync(path.join(dir, "SKILL.md"), "utf8");
   const files = textFiles(dir);
   const cur = (await call("GET", `/doc/topics/${slug}`))?.data;
-  if (cur && cur.content === content && JSON.stringify(cur.files || {}) === JSON.stringify(files)) { same++; continue; }
+  // Tests edited in the app stay; seed tests it doesn't have yet (by id, e.g. a new t4) are added.
+  const tests = cur?.tests?.length ? [...cur.tests, ...(meta.tests || []).filter((x) => !cur.tests.some((c) => c.id === x.id))] : meta.tests || [];
+  // The tool list lives in the repo (topic.json), so the repo's copy always wins.
+  const tools = meta.tools || [];
+  if (cur && cur.content === content && JSON.stringify(cur.files || {}) === JSON.stringify(files)) {
+    if (JSON.stringify(cur.tools || []) !== JSON.stringify(tools) || tests.length !== (cur.tests || []).length) {
+      await call("PATCH", `/doc/topics/${slug}`, { tools, tests });
+      console.log(`tools  ${slug} (${tools.length} tools, ${tests.length} tests)`);
+    }
+    same++; continue;
+  }
   const version = (Number(cur?.version) || 0) + 1;
   const summary = cur ? "Updated super skill from SkillGarden" : "Super skill built from the SkillGarden library";
   await call("PUT", `/doc/versions/${slug}--v${version}`, { topicId: slug, version, content, files, summary, source: "superskill", createdAt: now });
@@ -66,8 +76,7 @@ for (const [i, slug] of slugs.entries()) {
     name: meta.name, blurb: meta.blurb, hue: meta.hue ?? (i * 37) % 360,
     searches: cur?.searches?.length ? cur.searches : meta.searches || [],
     ...Object.fromEntries(["keywords", "feeds", "hf"].map((k) => [k, cur?.[k] || meta[k] || []])),
-    // Tests edited in the app stay; seed tests it doesn't have yet (by id, e.g. a new t4) are added.
-    tests: cur?.tests?.length ? [...cur.tests, ...(meta.tests || []).filter((x) => !cur.tests.some((c) => c.id === x.id))] : meta.tests || [],
+    tests, tools,
     version, content, files, updatedAt: now,
   });
   cur ? updated++ : made++;

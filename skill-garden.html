@@ -887,11 +887,26 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
     const t = c.trials || {};
     if (c.kind === "sources") return `<div class="trial"><span class="pill accent">Sources</span><span class="trial-text">Changes where the scout looks for this topic, not the skill, so there was nothing to try in trials.</span></div>`;
     if (c.kind === "first-draft") return `<div class="trial"><span class="pill accent">First draft</span><span class="trial-text">This topic had no skill yet, so there was nothing to test against. Read it and add it to start the topic at v1.</span></div>`;
+    if (c.kind === "tools") return checksLine(c);
     const count = N(t.count);
     const topic = topicById(c.topicId);
     const vs = `v${esc(c.baseVersion ?? (topic && topic.version) ?? "?")}`;
     const verdict = c.verdict === "better" ? `<strong>Won ${N(t.wins)} of ${count}</strong> blind ${count === 1 ? "trial" : "trials"} against ${vs}` : c.verdict === "tie" ? `<strong>Tied</strong> with ${vs} (${N(t.wins)} won, ${N(t.losses)} lost)` : `<strong>Lost</strong> to ${vs} (${N(t.wins)} won, ${N(t.losses)} lost)`;
     return `<div class="trial">${trialMarks(c)}<span class="trial-text">${verdict}${N(t.ties) ? `, ${plural(N(t.ties), "tie")}` : ""}</span></div>`;
+  }
+  // A tools bundle (missing tools for one craft) is checked before it gets here: every fact against
+  // the vendor's own docs by a second agent, the craft's tool test before and after, licences and
+  // the safety gate. One line says how it did, so a passing bundle can be added without a full read.
+  function checksLine(c) {
+    const k = c.checks || {}, cl = k.claims || {}, ts = k.test || {};
+    const pass = c.status !== "lost" && N(cl.total) > 0 && N(cl.verified) === N(cl.total) && N(ts.after) > N(ts.before) && k.licences === "ok" && !risksOf(c).length;
+    const parts = [
+      `<strong>${N(cl.verified)}/${N(cl.total)}</strong> facts checked against official docs${N(cl.dropped) ? ` (${plural(N(cl.dropped), "unsupported fact")} taken out)` : ""}`,
+      `tool test <strong>${N(ts.before)}/${N(ts.max)} → ${N(ts.after)}/${N(ts.max)}</strong>`,
+      `licences ${k.licences === "ok" ? "OK" : esc(k.licences || "not checked")}`,
+      risksOf(c).length ? "safety: blocked" : "safety OK",
+    ];
+    return `<div class="trial"><span class="pill ${pass ? "good" : "bad"}">${pass ? "Passed every check" : "Didn't pass every check"}</span><span class="trial-text">${parts.join(" · ")}</span></div>`;
   }
   // A super-skill generation carries filesPatch: { "references/x.md": "new full text" | null (remove) }.
   // Removed files are kept as "" so a merge-style update can't resurrect them; downloads skip empty files.
@@ -906,7 +921,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
     if (!names.length) return "";
     return `<div style="margin-top:12px"><p class="muted">Also changes ${names.length === 1 ? "1 file" : names.length + " files"} in the skill:</p>${names.map((n) => { const old = (t && t.files && t.files[n]) || ""; const nu = c.filesPatch[n]; return `<details><summary class="mono">${esc(n)} · ${nu == null ? "removed" : old ? "changed" : "new"}</summary>${nu == null ? "" : old ? diffHtml(old, nu) : `<pre style="white-space:pre-wrap;overflow-wrap:anywhere">${esc(nu)}</pre>`}</details>`; }).join("")}</div>`;
   }
-  const KIND = { generation: "New generation", add: "Adds to the skill", improve: "Improves the skill", remove: "Trims the skill", "first-draft": "New skill", sources: "Changes the sources" };
+  const KIND = { tools: "Adds missing tools", generation: "New generation", add: "Adds to the skill", improve: "Improves the skill", remove: "Trims the skill", "first-draft": "New skill", sources: "Changes the sources" };
   const REPO_OK = /^[\w.-]+\/[\w.-]+$/;
   // Safety gate for scout proposals: a change that could leak keys, cookies or prompts, phone home,
   // run remote code, or bring back a skill removed for that reason is blocked from being added.
