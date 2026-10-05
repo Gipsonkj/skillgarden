@@ -329,40 +329,6 @@
     },
     {
       "rank": 22,
-      "name": "openai-docs",
-      "purpose": "Official skill that points the agent at current OpenAI docs; no cost-specific content found.",
-      "how_to_use": "",
-      "repo": "openai/skills",
-      "branch": "main",
-      "skill_path": "skills/.curated/openai-docs",
-      "url": "https://github.com/openai/skills/tree/main/skills/.curated/openai-docs",
-      "stars": 27889,
-      "license": "not stated at repo root (check the skill folder)",
-      "license_ok": false,
-      "evidence": "Found by tool name (OpenAI API (prompt caching, Batch, Flex)) in the tool-coverage pass",
-      "notes": "Official skill that points the agent at current OpenAI docs; no cost-specific content found. -> link-only.",
-      "tool": "OpenAI API (prompt caching, Batch, Flex)",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 23,
-      "name": "ccusage-skill",
-      "purpose": "Small skill that runs ccusage for usage stats; unlicensed and tiny, link only.",
-      "how_to_use": "",
-      "repo": "jeasonstudio/ccusage-skill",
-      "branch": "main",
-      "skill_path": "",
-      "url": "https://github.com/jeasonstudio/ccusage-skill",
-      "stars": 3,
-      "license": "no license file",
-      "license_ok": false,
-      "evidence": "Found by tool name (ccusage) in the tool-coverage pass",
-      "notes": "Small skill that runs ccusage for usage stats; unlicensed and tiny, link only. -> link-only.",
-      "tool": "ccusage",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 24,
       "name": "litellm-skills (proxy admin: keys, teams, budgets, models)",
       "purpose": "Official; curl-based skills against a live proxy (add-key with budget, add-team, add-model); admin, not cost analysis.",
       "how_to_use": "",
@@ -379,41 +345,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 25,
-      "name": "litellm-skills (tutorials)",
-      "purpose": "Chinese-language tutorials covering routing, cost governance and observability; unlicensed.",
-      "how_to_use": "",
-      "repo": "doggy8088/litellm-skills",
-      "branch": "main",
-      "skill_path": ".",
-      "url": "https://github.com/doggy8088/litellm-skills",
-      "stars": 24,
-      "license": "no license file",
-      "license_ok": false,
-      "evidence": "Found by tool name (LiteLLM) in the tool-coverage pass",
-      "notes": "Chinese-language tutorials covering routing, cost governance and observability; unlicensed. -> link-only.",
-      "tool": "LiteLLM",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 26,
-      "name": "openrouter-analytics",
-      "purpose": "Official; answers spend, model-mix and token questions through the Analytics API with a management key. Scripts only call openrouter.ai.",
-      "how_to_use": "",
-      "repo": "OpenRouterTeam/skills",
-      "branch": "main",
-      "skill_path": "skills/openrouter-analytics",
-      "url": "https://github.com/OpenRouterTeam/skills/tree/main/skills/openrouter-analytics",
-      "stars": 282,
-      "license": "not stated (no LICENSE file found)",
-      "license_ok": false,
-      "evidence": "Found by tool name (OpenRouter) in the tool-coverage pass",
-      "notes": "Official; answers spend, model-mix and token questions through the Analytics API with a management key. Scripts only call openrouter.ai. -> link-only.",
-      "tool": "OpenRouter",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 27,
+      "rank": 23,
       "name": "openrouter-skill (cost cutting)",
       "purpose": "Unofficial; auto-router, caching, provider routing. Not reviewed beyond its description.",
       "how_to_use": "",
@@ -430,7 +362,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 28,
+      "rank": 24,
       "name": "langfuse",
       "purpose": "Official; queries traces and docs via langfuse-cli. Cost tracking is not a headline use, but traces carry usage and cost.",
       "how_to_use": "",
@@ -447,25 +379,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 29,
-      "name": "langsmith-trace",
-      "purpose": "Official; queries traces (which carry token usage and cost). Not cost-specific; siblings cover datasets and evaluators.",
-      "how_to_use": "",
-      "repo": "langchain-ai/langsmith-skills",
-      "branch": "main",
-      "skill_path": "config/skills/langsmith-trace",
-      "url": "https://github.com/langchain-ai/langsmith-skills/tree/main/config/skills/langsmith-trace",
-      "stars": 159,
-      "license": "MIT",
-      "license_ok": false,
-      "evidence": "Found by tool name (LangSmith) in the tool-coverage pass",
-      "notes": "Official; queries traces (which carry token usage and cost). Not cost-specific; siblings cover datasets and evaluators. RISK: Repo ships an install.sh; read it rather than piping it to a shell. Traces go to LangSmith cloud unless self-hosted. -> excluded",
-      "tool": "LangSmith",
-      "tool_tier": "major",
-      "risk": "Repo ships an install.sh; read it rather than piping it to a shell. Traces go to LangSmith cloud unless self-hosted."
-    },
-    {
-      "rank": 30,
+      "rank": 25,
       "name": "helicone",
       "purpose": "Community skill, not the vendor's; not read in detail.",
       "how_to_use": "",
@@ -482,7 +396,7 @@
       "tool_tier": "minor"
     },
     {
-      "rank": 31,
+      "rank": 26,
       "name": "portkey-typescript-sdk",
       "purpose": "Official; SDK integration with caching, fallbacks and routing. Sibling python-sdk and migrate-litellm-to-portkey skills exist.",
       "how_to_use": "",
@@ -499,7 +413,7 @@
       "tool_tier": "minor"
     },
     {
-      "rank": 32,
+      "rank": 27,
       "name": "cloudflare (ai-gateway references)",
       "purpose": "Official; references/ai-gateway covers configuration, dynamic routing, features, SDK integration and troubleshooting.",
       "how_to_use": "",
@@ -516,7 +430,7 @@
       "tool_tier": "minor"
     },
     {
-      "rank": 33,
+      "rank": 28,
       "name": "ai-gateway",
       "purpose": "Official; has references/spend-observability.md and coding-agents.md (budgets, spend reporting, routing coding agents through the gateway).",
       "how_to_use": "",
@@ -533,7 +447,7 @@
       "tool_tier": "minor"
     },
     {
-      "rank": 34,
+      "rank": 29,
       "name": "gemini-api-dev",
       "purpose": "Official Gemini API development skill; not checked for caching content.",
       "how_to_use": "",
@@ -548,41 +462,6 @@
       "notes": "Official Gemini API development skill; not checked for caching content.",
       "tool": "Google Gemini API context caching",
       "tool_tier": "minor"
-    },
-    {
-      "rank": 35,
-      "name": "llm-cost-optimization",
-      "purpose": "Aggregator copy of a generic cost skill that mentions LLMLingua; broad rather than tool-specific.",
-      "how_to_use": "",
-      "repo": "sickn33/agentic-awesome-skills",
-      "branch": "main",
-      "skill_path": "skills/llm-cost-optimization",
-      "url": "https://github.com/sickn33/agentic-awesome-skills/tree/main/skills/llm-cost-optimization",
-      "stars": 47266,
-      "license": "MIT (repo); marked risk: critical by its own front matter",
-      "license_ok": true,
-      "evidence": "Found by tool name (LLMLingua) in the tool-coverage pass",
-      "notes": "Aggregator copy of a generic cost skill that mentions LLMLingua; broad rather than tool-specific.",
-      "tool": "LLMLingua",
-      "tool_tier": "minor"
-    },
-    {
-      "rank": 36,
-      "name": "caveman",
-      "purpose": "Also caveman-compress, cavecrew and caveman-stats skills.",
-      "how_to_use": "",
-      "repo": "JuliusBrussee/caveman",
-      "branch": "main",
-      "skill_path": "plugins/caveman/skills/caveman",
-      "url": "https://github.com/JuliusBrussee/caveman/tree/main/plugins/caveman/skills/caveman",
-      "stars": 109960,
-      "license": "Apache-2.0",
-      "license_ok": false,
-      "evidence": "Found by tool name (Caveman) in the tool-coverage pass",
-      "notes": "Also caveman-compress, cavecrew and caveman-stats skills. RISK: The skill runs locally; the separate caveman CLI sends usage stats (commands, token counts, install id, OS, IP) by default per its README, opt out with DO_NOT_TRACK=1. Skip the CLI. -> excluded",
-      "tool": "Caveman",
-      "tool_tier": "minor",
-      "risk": "The skill runs locally; the separate caveman CLI sends usage stats (commands, token counts, install id, OS, IP) by default per its README, opt out with DO_NOT_TRACK=1. Skip the CLI."
     }
   ],
   "sources_checked": [

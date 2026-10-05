@@ -372,42 +372,6 @@
   },
   {
    "rank": 25,
-   "name": "legnext-midjourney",
-   "purpose": "Generation through a third-party Midjourney wrapper.",
-   "how_to_use": "",
-   "repo": "leggiemint/legnext-skills",
-   "branch": "main",
-   "skill_path": "legnext-midjourney",
-   "url": "https://github.com/leggiemint/legnext-skills/tree/main/legnext-midjourney",
-   "stars": 4,
-   "license": "MIT",
-   "license_ok": false,
-   "evidence": "Found by tool name (Midjourney) in the tool-coverage pass",
-   "notes": "Generation through a third-party Midjourney wrapper. RISK: Sends prompts and a LEGNEXT_API_KEY to the unofficial third-party Legnext API, which drives a Midjourney account against its terms. -> excluded",
-   "tool": "Midjourney",
-   "tool_tier": "major",
-   "risk": "Sends prompts and a LEGNEXT_API_KEY to the unofficial third-party Legnext API, which drives a Midjourney account against its terms."
-  },
-  {
-   "rank": 26,
-   "name": "midjourney (RunAPI)",
-   "purpose": "CLI and SDK route to Midjourney via the RunAPI reseller.",
-   "how_to_use": "",
-   "repo": "runapi-ai/midjourney",
-   "branch": "main",
-   "skill_path": "skills/midjourney",
-   "url": "https://github.com/runapi-ai/midjourney/tree/main/skills/midjourney",
-   "stars": 1,
-   "license": "Apache-2.0",
-   "license_ok": false,
-   "evidence": "Found by tool name (Midjourney) in the tool-coverage pass",
-   "notes": "CLI and SDK route to Midjourney via the RunAPI reseller. RISK: Sends prompts and an API key to the third-party RunAPI service (runapi.ai), not to Midjourney. -> excluded",
-   "tool": "Midjourney",
-   "tool_tier": "major",
-   "risk": "Sends prompts and an API key to the third-party RunAPI service (runapi.ai), not to Midjourney."
-  },
-  {
-   "rank": 27,
    "name": "adobe-for-creativity (adobe, adobe-create-social-variations, adobe-retouch-portraits, adobe-batch-edit-photos, adobe-resize-photos-and-videos, adobe-design-from-template)",
    "purpose": "Official Adobe skills for the Adobe for creativity connector; the plugin registers the MCP server above.",
    "how_to_use": "",
@@ -424,7 +388,7 @@
    "tool_tier": "major"
   },
   {
-   "rank": 28,
+   "rank": 26,
    "name": "adobe-for-creativity",
    "purpose": "Official skills plus .mcp.json for the hosted connector; includes retouch, batch edit, resize, social variations.",
    "how_to_use": "",
@@ -441,24 +405,7 @@
    "tool_tier": "major"
   },
   {
-   "rank": 29,
-   "name": "claude-photoshop-skill",
-   "purpose": "Drives a local Photoshop through the adb-mcp UXP plugin and proxy (90 tools: layers, masks, Generative Fill); requires cloning adb-mcp.",
-   "how_to_use": "",
-   "repo": "MastroMimmo/claude-photoshop-skill",
-   "branch": "main",
-   "skill_path": "skills",
-   "url": "https://github.com/MastroMimmo/claude-photoshop-skill",
-   "stars": 9,
-   "license": "MIT",
-   "license_ok": true,
-   "evidence": "Found by tool name (Adobe Photoshop) in the tool-coverage pass",
-   "notes": "Drives a local Photoshop through the adb-mcp UXP plugin and proxy (90 tools: layers, masks, Generative Fill); requires cloning adb-mcp.",
-   "tool": "Adobe Photoshop",
-   "tool_tier": "major"
-  },
-  {
-   "rank": 30,
+   "rank": 27,
    "name": "flux-image-best-practices",
    "purpose": "Official BFL guide: prompting, T2I/I2I, structured JSON, hex colours, typography, multi-reference editing.",
    "how_to_use": "",
@@ -470,29 +417,19 @@
    "license": "MIT",
    "license_ok": true,
    "evidence": "Found by tool name (FLUX (Black Forest Labs)) in the tool-coverage pass",
-   "notes": "Official BFL guide: prompting, T2I/I2I, structured JSON, hex colours, typography, multi-reference editing.",
+   "notes": "Official BFL guide: prompting, T2I/I2I, structured JSON, hex colours, typography, multi-reference editing. The same collection (black-forest-labs/skills) also has: bfl-api (FLUX (Black Forest Labs)).",
    "tool": "FLUX (Black Forest Labs)",
-   "tool_tier": "major"
+   "tool_tier": "major",
+   "also": [
+    {
+     "name": "bfl-api",
+     "tool": "FLUX (Black Forest Labs)",
+     "url": "https://github.com/black-forest-labs/skills/tree/main/skills/bfl-api"
+    }
+   ]
   },
   {
-   "rank": 31,
-   "name": "bfl-api",
-   "purpose": "Official skill for calling the BFL API.",
-   "how_to_use": "",
-   "repo": "black-forest-labs/skills",
-   "branch": "main",
-   "skill_path": "skills/bfl-api",
-   "url": "https://github.com/black-forest-labs/skills/tree/main/skills/bfl-api",
-   "stars": 124,
-   "license": "MIT",
-   "license_ok": true,
-   "evidence": "Found by tool name (FLUX (Black Forest Labs)) in the tool-coverage pass",
-   "notes": "Official skill for calling the BFL API.",
-   "tool": "FLUX (Black Forest Labs)",
-   "tool_tier": "major"
-  },
-  {
-   "rank": 32,
+   "rank": 28,
    "name": "comfy-skills (comfy-cloud plugin)",
    "purpose": "Official: slash commands to generate, upscale, remove background, search models, nodes and templates through Comfy Cloud MCP (OAuth).",
    "how_to_use": "",
@@ -509,24 +446,7 @@
    "tool_tier": "major"
   },
   {
-   "rank": 33,
-   "name": "ComfyUI-Agent-Kit",
-   "purpose": "Local-first skill: drives a local ComfyUI, picks model variants by hardware.",
-   "how_to_use": "",
-   "repo": "SlavaSexton/ComfyUI-Agent-Kit",
-   "branch": "main",
-   "skill_path": "claude-code",
-   "url": "https://github.com/SlavaSexton/ComfyUI-Agent-Kit",
-   "stars": 104,
-   "license": "Apache-2.0",
-   "license_ok": true,
-   "evidence": "Found by tool name (ComfyUI) in the tool-coverage pass",
-   "notes": "Local-first skill: drives a local ComfyUI, picks model variants by hardware.",
-   "tool": "ComfyUI",
-   "tool_tier": "major"
-  },
-  {
-   "rank": 34,
+   "rank": 29,
    "name": "canva-skills (resize-for-social-media, bulk-create, edit-design, brand-check)",
    "purpose": "Official Canva skills; plugin registers the Canva MCP server.",
    "how_to_use": "",
@@ -543,25 +463,7 @@
    "tool_tier": "major"
   },
   {
-   "rank": 35,
-   "name": "recraft (RunAPI)",
-   "purpose": "Recraft via the RunAPI CLI/SDK.",
-   "how_to_use": "",
-   "repo": "runapi-ai/recraft",
-   "branch": "main",
-   "skill_path": "skills",
-   "url": "https://github.com/runapi-ai/recraft",
-   "stars": 0,
-   "license": "Apache-2.0",
-   "license_ok": false,
-   "evidence": "Found by tool name (Recraft) in the tool-coverage pass",
-   "notes": "Recraft via the RunAPI CLI/SDK. RISK: Routes prompts and an API key through the third-party RunAPI service, not Recraft's own host. -> excluded",
-   "tool": "Recraft",
-   "tool_tier": "minor",
-   "risk": "Routes prompts and an API key through the third-party RunAPI service, not Recraft's own host."
-  },
-  {
-   "rank": 36,
+   "rank": 30,
    "name": "run-models / prompt-images",
    "purpose": "Official skills: find, compare, run models and prompt images.",
    "how_to_use": "",
@@ -575,23 +477,6 @@
    "evidence": "Found by tool name (Replicate) in the tool-coverage pass",
    "notes": "Official skills: find, compare, run models and prompt images.",
    "tool": "Replicate",
-   "tool_tier": "minor"
-  },
-  {
-   "rank": 37,
-   "name": "magnific-skill",
-   "purpose": "Unlicensed community skill; link only.",
-   "how_to_use": "",
-   "repo": "lyloomiloo/magnific-skill",
-   "branch": "main",
-   "skill_path": "SKILL.md",
-   "url": "https://github.com/lyloomiloo/magnific-skill",
-   "stars": 0,
-   "license": "none stated",
-   "license_ok": false,
-   "evidence": "Found by tool name (Magnific) in the tool-coverage pass",
-   "notes": "Unlicensed community skill; link only. -> link-only.",
-   "tool": "Magnific",
    "tool_tier": "minor"
   }
  ],

@@ -333,47 +333,19 @@
       "license": "MIT",
       "license_ok": true,
       "evidence": "Found by tool name (llama.cpp) in the tool-coverage pass",
-      "notes": "Build, configure, benchmark and troubleshoot across CUDA, Metal, ROCm, Vulkan and multi-GPU; cites upstream sources.",
+      "notes": "Build, configure, benchmark and troubleshoot across CUDA, Metal, ROCm, Vulkan and multi-GPU; cites upstream sources. The same collection (magnus919/agent-skills) also has: vllm (vLLM).",
       "tool": "llama.cpp",
-      "tool_tier": "major"
+      "tool_tier": "major",
+      "also": [
+        {
+          "name": "vllm",
+          "tool": "vLLM",
+          "url": "https://github.com/magnus919/agent-skills/tree/main/vllm"
+        }
+      ]
     },
     {
       "rank": 23,
-      "name": "local-models",
-      "purpose": "Runs quick offline tasks through llama.cpp reusing Ollama's downloaded GGUFs.",
-      "how_to_use": "",
-      "repo": "glebis/claude-skills",
-      "branch": "main",
-      "skill_path": "local-models",
-      "url": "https://github.com/glebis/claude-skills/tree/main/local-models",
-      "stars": 387,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (llama.cpp) in the tool-coverage pass",
-      "notes": "Runs quick offline tasks through llama.cpp reusing Ollama's downloaded GGUFs.",
-      "tool": "llama.cpp",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 24,
-      "name": "engine-lm-studio",
-      "purpose": "Drives LM Studio through the lms CLI: adopt its running server, serve MLX models or GGUFs; cites official docs.",
-      "how_to_use": "",
-      "repo": "autonomous-ai/openharness",
-      "branch": "main",
-      "skill_path": "store/agents/autonomous-grid/skills/engine-lm-studio",
-      "url": "https://github.com/autonomous-ai/openharness/tree/main/store/agents/autonomous-grid/skills/engine-lm-studio",
-      "stars": 1114,
-      "license": "MIT",
-      "license_ok": false,
-      "evidence": "Found by tool name (LM Studio) in the tool-coverage pass",
-      "notes": "Drives LM Studio through the lms CLI: adopt its running server, serve MLX models or GGUFs; cites official docs. RISK: Its headless-server step suggests `curl -fsSL https://lmstudio.ai/install.sh | bash` (pipe to shell from the official host); use the desktop app or review the script first. -> excluded",
-      "tool": "LM Studio",
-      "tool_tier": "major",
-      "risk": "Its headless-server step suggests `curl -fsSL https://lmstudio.ai/install.sh | bash` (pipe to shell from the official host); use the desktop app or review the script first."
-    },
-    {
-      "rank": 25,
       "name": "minicpm5-deploy-lmstudio",
       "purpose": "LM Studio GGUF vs MLX runtime choice and local server for one model family; narrow.",
       "how_to_use": "",
@@ -390,7 +362,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 26,
+      "rank": 24,
       "name": "vllm-deploy-simple (and docker, k8s, bench-serve)",
       "purpose": "Official vLLM project skills: simple deploy, Docker, Kubernetes, serving and prefix-cache benchmarks. quickstart.sh is already bundled.",
       "how_to_use": "",
@@ -407,24 +379,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 27,
-      "name": "vllm",
-      "purpose": "Deployment, quantization-aware config, tensor parallel, KV cache sizing, benchmarking, upgrade and rollback.",
-      "how_to_use": "",
-      "repo": "magnus919/agent-skills",
-      "branch": "main",
-      "skill_path": "vllm",
-      "url": "https://github.com/magnus919/agent-skills/tree/main/vllm",
-      "stars": 109,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (vLLM) in the tool-coverage pass",
-      "notes": "Deployment, quantization-aware config, tensor parallel, KV cache sizing, benchmarking, upgrade and rollback.",
-      "tool": "vLLM",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 28,
+      "rank": 25,
       "name": "vllm",
       "purpose": "Throughput under concurrency, multi-GPU splits, OpenAI-compatible endpoint.",
       "how_to_use": "",
@@ -436,12 +391,24 @@
       "license": "MIT",
       "license_ok": true,
       "evidence": "Found by tool name (vLLM) in the tool-coverage pass",
-      "notes": "Throughput under concurrency, multi-GPU splits, OpenAI-compatible endpoint.",
+      "notes": "Throughput under concurrency, multi-GPU splits, OpenAI-compatible endpoint. The same collection (ericrisco/rsc-harness) also has: unsloth (Unsloth), runpod (RunPod).",
       "tool": "vLLM",
-      "tool_tier": "major"
+      "tool_tier": "major",
+      "also": [
+        {
+          "name": "unsloth",
+          "tool": "Unsloth",
+          "url": "https://github.com/ericrisco/rsc-harness/tree/main/skills/unsloth"
+        },
+        {
+          "name": "runpod",
+          "tool": "RunPod",
+          "url": "https://github.com/ericrisco/rsc-harness/tree/main/skills/runpod"
+        }
+      ]
     },
     {
-      "rank": 29,
+      "rank": 26,
       "name": "hf-mcp",
       "purpose": "Search the Hub, models, datasets, Spaces and papers through the official MCP server.",
       "how_to_use": "",
@@ -453,63 +420,19 @@
       "license": "Apache-2.0",
       "license_ok": true,
       "evidence": "Found by tool name (Hugging Face Hub (hf CLI, transformers)) in the tool-coverage pass",
-      "notes": "Search the Hub, models, datasets, Spaces and papers through the official MCP server.",
+      "notes": "Search the Hub, models, datasets, Spaces and papers through the official MCP server. The same collection (huggingface/skills) also has: hf-mem (Hugging Face Hub (hf CLI, transformers)).",
       "tool": "Hugging Face Hub (hf CLI, transformers)",
-      "tool_tier": "major"
+      "tool_tier": "major",
+      "also": [
+        {
+          "name": "hf-mem",
+          "tool": "Hugging Face Hub (hf CLI, transformers)",
+          "url": "https://github.com/huggingface/skills/tree/main/skills/hf-mem"
+        }
+      ]
     },
     {
-      "rank": 30,
-      "name": "hf-mem",
-      "purpose": "Memory estimate for a Hub model; matches the VRAM-sizing job.",
-      "how_to_use": "",
-      "repo": "huggingface/skills",
-      "branch": "main",
-      "skill_path": "skills/hf-mem",
-      "url": "https://github.com/huggingface/skills/tree/main/skills/hf-mem",
-      "stars": 11139,
-      "license": "Apache-2.0",
-      "license_ok": true,
-      "evidence": "Found by tool name (Hugging Face Hub (hf CLI, transformers)) in the tool-coverage pass",
-      "notes": "Memory estimate for a Hub model; matches the VRAM-sizing job.",
-      "tool": "Hugging Face Hub (hf CLI, transformers)",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 31,
-      "name": "unsloth",
-      "purpose": "4-bit QLoRA, response-only loss masking, GGUF export on one GPU.",
-      "how_to_use": "",
-      "repo": "ericrisco/rsc-harness",
-      "branch": "main",
-      "skill_path": "skills/unsloth",
-      "url": "https://github.com/ericrisco/rsc-harness/tree/main/skills/unsloth",
-      "stars": 146,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (Unsloth) in the tool-coverage pass",
-      "notes": "4-bit QLoRA, response-only loss masking, GGUF export on one GPU.",
-      "tool": "Unsloth",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 32,
-      "name": "runpod",
-      "purpose": "Community RunPod skill from the same repo as the Ollama skill.",
-      "how_to_use": "",
-      "repo": "ericrisco/rsc-harness",
-      "branch": "main",
-      "skill_path": "skills/runpod",
-      "url": "https://github.com/ericrisco/rsc-harness/tree/main/skills/runpod",
-      "stars": 146,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (RunPod) in the tool-coverage pass",
-      "notes": "Community RunPod skill from the same repo as the Ollama skill.",
-      "tool": "RunPod",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 33,
+      "rank": 27,
       "name": "sglang",
       "purpose": "RadixAttention prefix caching, structured output and constrained decoding; Orchestra Research origin.",
       "how_to_use": "",
@@ -521,98 +444,19 @@
       "license": "MIT",
       "license_ok": true,
       "evidence": "Found by tool name (SGLang) in the tool-coverage pass",
-      "notes": "RadixAttention prefix caching, structured output and constrained decoding; Orchestra Research origin.",
+      "notes": "RadixAttention prefix caching, structured output and constrained decoding; Orchestra Research origin. The same collection (davila7/claude-code-templates) also has: fine-tuning-axolotl (Axolotl).",
       "tool": "SGLang",
-      "tool_tier": "minor"
+      "tool_tier": "minor",
+      "also": [
+        {
+          "name": "fine-tuning-axolotl",
+          "tool": "Axolotl",
+          "url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/fine-tuning-axolotl"
+        }
+      ]
     },
     {
-      "rank": 34,
-      "name": "fine-tuning-axolotl",
-      "purpose": "YAML configs, LoRA/QLoRA, DPO, KTO, ORPO, GRPO, DeepSpeed and multimodal; short (about 5 KB).",
-      "how_to_use": "",
-      "repo": "davila7/claude-code-templates",
-      "branch": "main",
-      "skill_path": "cli-tool/components/skills/ai-research/fine-tuning-axolotl",
-      "url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/fine-tuning-axolotl",
-      "stars": 32389,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (Axolotl) in the tool-coverage pass",
-      "notes": "YAML configs, LoRA/QLoRA, DPO, KTO, ORPO, GRPO, DeepSpeed and multimodal; short (about 5 KB).",
-      "tool": "Axolotl",
-      "tool_tier": "minor"
-    },
-    {
-      "rank": 35,
-      "name": "transformers-to-mlx",
-      "purpose": "Converts a transformers LLM to mlx-lm; repo has no licence file, so link only.",
-      "how_to_use": "",
-      "repo": "huggingface/transformers-to-mlx",
-      "branch": "main",
-      "skill_path": "",
-      "url": "https://github.com/huggingface/transformers-to-mlx/tree/main",
-      "stars": 51,
-      "license": "none stated",
-      "license_ok": false,
-      "evidence": "Found by tool name (MLX LM) in the tool-coverage pass",
-      "notes": "Converts a transformers LLM to mlx-lm; repo has no licence file, so link only. -> link-only.",
-      "tool": "MLX LM",
-      "tool_tier": "minor"
-    },
-    {
-      "rank": 36,
-      "name": "open-webui",
-      "purpose": "Docker or pip install, connect to Ollama, llama.cpp or vLLM, env config, admin account, API and RAG knowledge bases.",
-      "how_to_use": "",
-      "repo": "TerminalSkills/skills",
-      "branch": "main",
-      "skill_path": "skills/open-webui",
-      "url": "https://github.com/TerminalSkills/skills/tree/main/skills/open-webui",
-      "stars": 160,
-      "license": "Apache-2.0",
-      "license_ok": false,
-      "evidence": "Found by tool name (Open WebUI) in the tool-coverage pass",
-      "notes": "Docker or pip install, connect to Ollama, llama.cpp or vLLM, env config, admin account, API and RAG knowledge bases. RISK: Repo is Apache-2.0, but Open WebUI itself uses a custom licence with a branding clause (GitHub reports NOASSERTION); check it before advising commercial use. -> excluded",
-      "tool": "Open WebUI",
-      "tool_tier": "major",
-      "risk": "Repo is Apache-2.0, but Open WebUI itself uses a custom licence with a branding clause (GitHub reports NOASSERTION); check it before advising commercial use."
-    },
-    {
-      "rank": 37,
-      "name": "openrouter-models",
-      "purpose": "Live model list with pricing, context length, throughput and provider performance; the repo has no licence file, so link only.",
-      "how_to_use": "",
-      "repo": "OpenRouterTeam/skills",
-      "branch": "main",
-      "skill_path": "skills/openrouter-models",
-      "url": "https://github.com/OpenRouterTeam/skills/tree/main/skills/openrouter-models",
-      "stars": 282,
-      "license": "none stated",
-      "license_ok": false,
-      "evidence": "Found by tool name (OpenRouter) in the tool-coverage pass",
-      "notes": "Live model list with pricing, context length, throughput and provider performance; the repo has no licence file, so link only. -> link-only.",
-      "tool": "OpenRouter",
-      "tool_tier": "minor"
-    },
-    {
-      "rank": 38,
-      "name": "openrouter-typescript-sdk",
-      "purpose": "callModel pattern in the TypeScript SDK; the repo has no licence file.",
-      "how_to_use": "",
-      "repo": "OpenRouterTeam/skills",
-      "branch": "main",
-      "skill_path": "skills/openrouter-typescript-sdk",
-      "url": "https://github.com/OpenRouterTeam/skills/tree/main/skills/openrouter-typescript-sdk",
-      "stars": 282,
-      "license": "none stated",
-      "license_ok": false,
-      "evidence": "Found by tool name (OpenRouter) in the tool-coverage pass",
-      "notes": "callModel pattern in the TypeScript SDK; the repo has no licence file. -> link-only.",
-      "tool": "OpenRouter",
-      "tool_tier": "minor"
-    },
-    {
-      "rank": 39,
+      "rank": 28,
       "name": "llamafactory-v1-docs",
       "purpose": "Official reference skill for the v1 docs and configs.",
       "how_to_use": "",
@@ -629,7 +473,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 40,
+      "rank": 29,
       "name": "together-fine-tuning",
       "purpose": "Official: LoRA, full, DPO, VLM and function-calling tuning and BYOM uploads on Together.",
       "how_to_use": "",
@@ -641,29 +485,19 @@
       "license": "MIT",
       "license_ok": true,
       "evidence": "Found by tool name (Together AI) in the tool-coverage pass",
-      "notes": "Official: LoRA, full, DPO, VLM and function-calling tuning and BYOM uploads on Together.",
+      "notes": "Official: LoRA, full, DPO, VLM and function-calling tuning and BYOM uploads on Together. The same collection (togethercomputer/skills) also has: together-dedicated-model-inference (Together AI).",
       "tool": "Together AI",
-      "tool_tier": "minor"
+      "tool_tier": "minor",
+      "also": [
+        {
+          "name": "together-dedicated-model-inference",
+          "tool": "Together AI",
+          "url": "https://github.com/togethercomputer/skills/tree/main/skills/together-dedicated-model-inference"
+        }
+      ]
     },
     {
-      "rank": 41,
-      "name": "together-dedicated-model-inference",
-      "purpose": "Official: dedicated GPU endpoints (v2 API), autoscaling, traffic splits, custom model and LoRA uploads.",
-      "how_to_use": "",
-      "repo": "togethercomputer/skills",
-      "branch": "main",
-      "skill_path": "skills/together-dedicated-model-inference",
-      "url": "https://github.com/togethercomputer/skills/tree/main/skills/together-dedicated-model-inference",
-      "stars": 36,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (Together AI) in the tool-coverage pass",
-      "notes": "Official: dedicated GPU endpoints (v2 API), autoscaling, traffic splits, custom model and LoRA uploads.",
-      "tool": "Together AI",
-      "tool_tier": "minor"
-    },
-    {
-      "rank": 42,
+      "rank": 30,
       "name": "wandb-primary",
       "purpose": "Official: runs, artifacts, Weave traces and evals, Reports. Needs WANDB_API_KEY from the environment; sends data only to W&B.",
       "how_to_use": "",

@@ -33,7 +33,8 @@ for i, slug in enumerate(slugs, 1):
     refs = sorted(str(p.relative_to(sd)) for p in sd.glob("references/*.md")) if sd.exists() else []
     skills = []
     for j, s in enumerate(ranked(t["skills"], meta.get("tools", [])), 1):
-        local = ROOT / "skills" / folder / f"{j:02d}_{b.safe(s['name'])}"
+        # build.py names library folders by research rank, not by this display order.
+        local = ROOT / "skills" / folder / f"{s['rank']:02d}_{b.safe(s['name'])}"
         nc = "NON-COMMERCIAL" in (s.get("notes") or "")
         if s.get("license_ok") and not nc and "link-only" in (s.get("notes") or ""):
             s = s | {"notes": re.sub(r"\s*-?>\s*link-only\.?", ". The author states the license in the README or SKILL.md, which this library accepts.", s["notes"])}

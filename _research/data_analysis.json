@@ -370,23 +370,6 @@
     },
     {
       "rank": 25,
-      "name": "power-bi-agentic-development (dax, tmdl, pbir-format, review-report)",
-      "purpose": "Broadest community Power BI set: DAX, TMDL, PBIR, Power Query, report review.",
-      "how_to_use": "",
-      "repo": "data-goblin/power-bi-agentic-development",
-      "branch": "main",
-      "skill_path": "plugins/semantic-models/skills/dax",
-      "url": "https://github.com/data-goblin/power-bi-agentic-development/tree/main/plugins/semantic-models/skills/dax",
-      "stars": 1002,
-      "license": "GPL-3.0",
-      "license_ok": false,
-      "evidence": "Found by tool name (Microsoft Power BI) in the tool-coverage pass",
-      "notes": "Broadest community Power BI set: DAX, TMDL, PBIR, Power Query, report review. -> link-only.",
-      "tool": "Microsoft Power BI",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 26,
       "name": "Tableau Calc Engine",
       "purpose": "Writes, debugs and optimises calculated fields (LODs, table calcs) using Tableau MCP.",
       "how_to_use": "",
@@ -403,7 +386,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 27,
+      "rank": 26,
       "name": "VizCritique Pro",
       "purpose": "Scores dashboards across seven design domains with prioritised fixes.",
       "how_to_use": "",
@@ -420,7 +403,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 28,
+      "rank": 27,
       "name": "tableau-migration",
       "purpose": "Official Hex skill for moving Tableau workbooks to Hex apps.",
       "how_to_use": "",
@@ -432,30 +415,19 @@
       "license": "MIT",
       "license_ok": true,
       "evidence": "Found by tool name (Tableau) in the tool-coverage pass",
-      "notes": "Official Hex skill for moving Tableau workbooks to Hex apps.",
+      "notes": "Official Hex skill for moving Tableau workbooks to Hex apps. The same collection (hex-inc/hex-skills) also has: context-consultant / looker-migration / tableau-migration (Hex).",
       "tool": "Tableau",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 29,
-      "name": "semantic-view-patterns (coco-skills)",
-      "purpose": "Official Snowflake-org collection for Cortex Code; semantic views, RBAC, docs.",
-      "how_to_use": "",
-      "repo": "Snowflake-Labs/coco-skills",
-      "branch": "main",
-      "skill_path": "skills/semantic-view-patterns",
-      "url": "https://github.com/Snowflake-Labs/coco-skills/tree/main/skills/semantic-view-patterns",
-      "stars": 38,
-      "license": "Snowflake Skills License",
-      "license_ok": false,
-      "evidence": "Found by tool name (Snowflake) in the tool-coverage pass",
-      "notes": "Official Snowflake-org collection for Cortex Code; semantic views, RBAC, docs. RISK: Custom licence: not permissive; link-only -> excluded -> link-only.",
-      "tool": "Snowflake",
       "tool_tier": "major",
-      "risk": "Custom licence: not permissive; link-only"
+      "also": [
+        {
+          "name": "context-consultant / looker-migration / tableau-migration",
+          "tool": "Hex",
+          "url": "https://github.com/hex-inc/hex-skills/tree/main/skills/context-consultant"
+        }
+      ]
     },
     {
-      "rank": 30,
+      "rank": 28,
       "name": "data skills (analyze, write-query, validate-data)",
       "purpose": "Anthropic's data plugin: SQL, analysis and validation against Snowflake/BigQuery/Databricks connectors; warehouse-agnostic.",
       "how_to_use": "",
@@ -472,7 +444,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 31,
+      "rank": 29,
       "name": "bigquery-data-analytics",
       "purpose": "Google extension skill for BigQuery AI/ML SQL.",
       "how_to_use": "",
@@ -489,7 +461,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 32,
+      "rank": 30,
       "name": "bigquery-expert",
       "purpose": "Five skills: cost, schema, query generation.",
       "how_to_use": "",
@@ -506,42 +478,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 33,
-      "name": "databricks-dbsql / aibi-dashboards / data-discovery",
-      "purpose": "Official Databricks skills: SQL, AI/BI dashboards, Genie, data discovery.",
-      "how_to_use": "",
-      "repo": "databricks/databricks-agent-skills",
-      "branch": "main",
-      "skill_path": "plugins/databricks/claude/skills/databricks-dbsql",
-      "url": "https://github.com/databricks/databricks-agent-skills/tree/main/plugins/databricks/claude/skills/databricks-dbsql",
-      "stars": 342,
-      "license": "Databricks License",
-      "license_ok": false,
-      "evidence": "Found by tool name (Databricks) in the tool-coverage pass",
-      "notes": "Official Databricks skills: SQL, AI/BI dashboards, Genie, data discovery. RISK: Custom licence: not permissive; link-only -> excluded -> link-only.",
-      "tool": "Databricks",
-      "tool_tier": "major",
-      "risk": "Custom licence: not permissive; link-only"
-    },
-    {
-      "rank": 34,
-      "name": "ai-dev-kit",
-      "purpose": "Field-engineering toolkit with SDK, SQL and eval skills.",
-      "how_to_use": "",
-      "repo": "databricks-solutions/ai-dev-kit",
-      "branch": "main",
-      "skill_path": "",
-      "url": "https://github.com/databricks-solutions/ai-dev-kit",
-      "stars": 1936,
-      "license": "NOASSERTION",
-      "license_ok": false,
-      "evidence": "Found by tool name (Databricks) in the tool-coverage pass",
-      "notes": "Field-engineering toolkit with SDK, SQL and eval skills. -> link-only.",
-      "tool": "Databricks",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 35,
+      "rank": 31,
       "name": "ggsql / quarto-authoring / shiny-bslib",
       "purpose": "Official Posit skills: grammar-of-graphics SQL, Quarto reports, Shiny apps.",
       "how_to_use": "",
@@ -558,7 +495,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 36,
+      "rank": 32,
       "name": "awesome-rstats-skills",
       "purpose": "Curated index of R skills for tidyverse, tidymodels and ggplot2.",
       "how_to_use": "",
@@ -575,7 +512,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 37,
+      "rank": 33,
       "name": "jupyter-to-marimo",
       "purpose": "Official marimo skill for converting .ipynb to marimo notebooks.",
       "how_to_use": "",
@@ -592,7 +529,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 38,
+      "rank": 34,
       "name": "looker-skills (lookml-*, creating-looker-dashboard)",
       "purpose": "Official LookML modelling, dashboards, CLI and performance skills.",
       "how_to_use": "",
@@ -609,24 +546,7 @@
       "tool_tier": "minor"
     },
     {
-      "rank": 39,
-      "name": "context-consultant / looker-migration / tableau-migration",
-      "purpose": "Official Hex skills for building context and migrating BI content.",
-      "how_to_use": "",
-      "repo": "hex-inc/hex-skills",
-      "branch": "main",
-      "skill_path": "skills/context-consultant",
-      "url": "https://github.com/hex-inc/hex-skills/tree/main/skills/context-consultant",
-      "stars": 3,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (Hex) in the tool-coverage pass",
-      "notes": "Official Hex skills for building context and migrating BI content.",
-      "tool": "Hex",
-      "tool_tier": "minor"
-    },
-    {
-      "rank": 40,
+      "rank": 35,
       "name": "gws-sheets (read, append, recipes)",
       "purpose": "Official Google Workspace CLI skills: read/write Sheets, helper commands, report recipes.",
       "how_to_use": "",
@@ -643,7 +563,7 @@
       "tool_tier": "minor"
     },
     {
-      "rank": 41,
+      "rank": 36,
       "name": "qlik-claude-framework",
       "purpose": "Community multi-agent framework for Qlik Sense development in Claude Code; not audited.",
       "how_to_use": "",
@@ -660,7 +580,7 @@
       "tool_tier": "minor"
     },
     {
-      "rank": 42,
+      "rank": 37,
       "name": "amplitude (analyze-chart, analyze-experiment, create-dashboard)",
       "purpose": "Official Amplitude plugin skills over its MCP: chart, dashboard and experiment analysis; scripts not audited.",
       "how_to_use": "",

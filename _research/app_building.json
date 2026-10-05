@@ -399,40 +399,6 @@
     },
     {
       "rank": 27,
-      "name": "xcode-skills (Apple-authored skills exported from Xcode 27.1 beta)",
-      "purpose": "swiftui-specialist, app-intents-specialist, modernize-tests (XCTest to Swift Testing), device-interaction, audit-xcode-security-settings; link-only, not redistributable.",
-      "how_to_use": "",
-      "repo": "mariusfanu/xcode-skills",
-      "branch": "main",
-      "skill_path": "plugins",
-      "url": "https://github.com/mariusfanu/xcode-skills",
-      "stars": 48,
-      "license": "none stated (Apple-authored content exported with `xcrun agent skills export`)",
-      "license_ok": false,
-      "evidence": "Found by tool name (Xcode) in the tool-coverage pass",
-      "notes": "swiftui-specialist, app-intents-specialist, modernize-tests (XCTest to Swift Testing), device-interaction, audit-xcode-security-settings; link-only, not redistributable. -> link-only.",
-      "tool": "Xcode",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 28,
-      "name": "xcode-skills (Claude Code plugin packaging)",
-      "purpose": "Same Apple skills from Xcode 27 packaged as a plugin.",
-      "how_to_use": "",
-      "repo": "artemnovichkov/xcode-skills",
-      "branch": "main",
-      "skill_path": ".",
-      "url": "https://github.com/artemnovichkov/xcode-skills",
-      "stars": 26,
-      "license": "none stated (Apple-authored content)",
-      "license_ok": false,
-      "evidence": "Found by tool name (Xcode) in the tool-coverage pass",
-      "notes": "Same Apple skills from Xcode 27 packaged as a plugin. -> link-only.",
-      "tool": "Xcode",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 29,
       "name": "ios-debugger-agent",
       "purpose": "Build, run and debug an iOS app on a booted simulator through XcodeBuildMCP.",
       "how_to_use": "",
@@ -444,63 +410,58 @@
       "license": "MIT",
       "license_ok": true,
       "evidence": "Found by tool name (Xcode) in the tool-coverage pass",
-      "notes": "Build, run and debug an iOS app on a booted simulator through XcodeBuildMCP.",
+      "notes": "Build, run and debug an iOS app on a booted simulator through XcodeBuildMCP. The same collection (Dimillian/Skills) also has: swiftui-ui-patterns (SwiftUI).",
       "tool": "Xcode",
-      "tool_tier": "major"
+      "tool_tier": "major",
+      "also": [
+        {
+          "name": "swiftui-ui-patterns",
+          "tool": "SwiftUI",
+          "url": "https://github.com/Dimillian/Skills/tree/main/swiftui-ui-patterns"
+        }
+      ]
     },
     {
-      "rank": 30,
-      "name": "testing-setup",
-      "purpose": "Official Android test scaffolding.",
+      "rank": 28,
+      "name": "migrate-xml-views-to-jetpack-compose",
+      "purpose": "Incremental XML to Compose migration.",
       "how_to_use": "",
       "repo": "android/skills",
       "branch": "main",
-      "skill_path": "testing/testing-setup",
-      "url": "https://github.com/android/skills/tree/main/testing/testing-setup",
+      "skill_path": "jetpack-compose/migration/migrate-xml-views-to-jetpack-compose",
+      "url": "https://github.com/android/skills/tree/main/jetpack-compose/migration",
       "stars": 7663,
       "license": "Apache-2.0",
       "license_ok": true,
-      "evidence": "Found by tool name (Android Studio) in the tool-coverage pass",
-      "notes": "Official Android test scaffolding.",
-      "tool": "Android Studio",
-      "tool_tier": "major"
+      "evidence": "Found by tool name (Jetpack Compose) in the tool-coverage pass",
+      "notes": "Incremental XML to Compose migration. The same collection (android/skills) also has: testing-setup (Android Studio), r8-analyzer (Android Studio), play-policy-insights (Google Play Console), play-billing-library-version-upgrade (Google Play Console).",
+      "tool": "Jetpack Compose",
+      "tool_tier": "major",
+      "also": [
+        {
+          "name": "testing-setup",
+          "tool": "Android Studio",
+          "url": "https://github.com/android/skills/tree/main/testing/testing-setup"
+        },
+        {
+          "name": "r8-analyzer",
+          "tool": "Android Studio",
+          "url": "https://github.com/android/skills/tree/main/performance/r8-analyzer"
+        },
+        {
+          "name": "play-policy-insights",
+          "tool": "Google Play Console",
+          "url": "https://github.com/android/skills/tree/main/play/play-policy-insights"
+        },
+        {
+          "name": "play-billing-library-version-upgrade",
+          "tool": "Google Play Console",
+          "url": "https://github.com/android/skills/tree/main/play/play-billing-library-version-upgrade"
+        }
+      ]
     },
     {
-      "rank": 31,
-      "name": "r8-analyzer",
-      "purpose": "Official R8/shrinker analysis for release size and keep rules.",
-      "how_to_use": "",
-      "repo": "android/skills",
-      "branch": "main",
-      "skill_path": "performance/r8-analyzer",
-      "url": "https://github.com/android/skills/tree/main/performance/r8-analyzer",
-      "stars": 7663,
-      "license": "Apache-2.0",
-      "license_ok": true,
-      "evidence": "Found by tool name (Android Studio) in the tool-coverage pass",
-      "notes": "Official R8/shrinker analysis for release size and keep rules.",
-      "tool": "Android Studio",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 32,
-      "name": "react-native-skills",
-      "purpose": "Margelo's RN skills (Reanimated, Skia, native modules authors).",
-      "how_to_use": "",
-      "repo": "margelo/react-native-skills",
-      "branch": "main",
-      "skill_path": ".",
-      "url": "https://github.com/margelo/react-native-skills",
-      "stars": 174,
-      "license": "none",
-      "license_ok": false,
-      "evidence": "Found by tool name (React Native) in the tool-coverage pass",
-      "notes": "Margelo's RN skills (Reanimated, Skia, native modules authors). -> link-only.",
-      "tool": "React Native",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 33,
+      "rank": 29,
       "name": "expo skills (expo-native-ui, expo-router, eas-app-stores, eas-workflows, eas-update, eas-observe)",
       "purpose": "Official; 20+ skills. Includes expo-skill-feedback whose feedback command uses `npx --yes submit-expo-feedback` and an opt-in telemetry switch (off by default); never run unprompted.",
       "how_to_use": "",
@@ -517,7 +478,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 34,
+      "rank": 30,
       "name": "flutter agent skills (add-integration-test, add-widget-test, fix-layout-issues, setup-localization, ...)",
       "purpose": "Official; 25 skills including integration and widget tests, layout fixes, localization, routing, JSON serialization.",
       "how_to_use": "",
@@ -534,24 +495,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 35,
-      "name": "Flutter-Skills",
-      "purpose": "Community architecture and Riverpod skills.",
-      "how_to_use": "",
-      "repo": "zakariaf/Flutter-Skills",
-      "branch": "main",
-      "skill_path": ".",
-      "url": "https://github.com/zakariaf/Flutter-Skills",
-      "stars": 52,
-      "license": "not checked",
-      "license_ok": false,
-      "evidence": "Found by tool name (Flutter) in the tool-coverage pass",
-      "notes": "Community architecture and Riverpod skills. -> link-only.",
-      "tool": "Flutter",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 36,
+      "rank": 31,
       "name": "swiftui-pro",
       "purpose": "Review checklist for deprecated APIs, accessibility, data flow, navigation.",
       "how_to_use": "",
@@ -568,41 +512,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 37,
-      "name": "swiftui-expert-skill",
-      "purpose": "State ownership, modern API, performance, Instruments trace scripts.",
-      "how_to_use": "",
-      "repo": "AvdLee/SwiftUI-Agent-Skill",
-      "branch": "main",
-      "skill_path": "skills/swiftui-expert-skill",
-      "url": "https://github.com/AvdLee/SwiftUI-Agent-Skill",
-      "stars": 3658,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (SwiftUI) in the tool-coverage pass",
-      "notes": "State ownership, modern API, performance, Instruments trace scripts.",
-      "tool": "SwiftUI",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 38,
-      "name": "swiftui-ui-patterns",
-      "purpose": "Example-driven app structure, tabs, sheets and components.",
-      "how_to_use": "",
-      "repo": "Dimillian/Skills",
-      "branch": "main",
-      "skill_path": "swiftui-ui-patterns",
-      "url": "https://github.com/Dimillian/Skills/tree/main/swiftui-ui-patterns",
-      "stars": 3985,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (SwiftUI) in the tool-coverage pass",
-      "notes": "Example-driven app structure, tabs, sheets and components.",
-      "tool": "SwiftUI",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 39,
+      "rank": 32,
       "name": "asc-testflight-orchestration",
       "purpose": "Groups, testers, builds and what-to-test via asc.",
       "how_to_use": "",
@@ -619,58 +529,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 40,
-      "name": "app-store-connect-skill",
-      "purpose": "Metadata, screenshots, reviews, TestFlight from the terminal.",
-      "how_to_use": "",
-      "repo": "199-biotechnologies/app-store-connect-skill",
-      "branch": "main",
-      "skill_path": ".",
-      "url": "https://github.com/199-biotechnologies/app-store-connect-skill",
-      "stars": 8,
-      "license": "not checked",
-      "license_ok": false,
-      "evidence": "Found by tool name (App Store Connect & TestFlight) in the tool-coverage pass",
-      "notes": "Metadata, screenshots, reviews, TestFlight from the terminal. -> link-only.",
-      "tool": "App Store Connect & TestFlight",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 41,
-      "name": "play-policy-insights",
-      "purpose": "Official; checks an app against Play policy before submission.",
-      "how_to_use": "",
-      "repo": "android/skills",
-      "branch": "main",
-      "skill_path": "play/play-policy-insights",
-      "url": "https://github.com/android/skills/tree/main/play/play-policy-insights",
-      "stars": 7663,
-      "license": "Apache-2.0",
-      "license_ok": true,
-      "evidence": "Found by tool name (Google Play Console) in the tool-coverage pass",
-      "notes": "Official; checks an app against Play policy before submission.",
-      "tool": "Google Play Console",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 42,
-      "name": "play-billing-library-version-upgrade",
-      "purpose": "Official Play Billing Library upgrade steps.",
-      "how_to_use": "",
-      "repo": "android/skills",
-      "branch": "main",
-      "skill_path": "play/play-billing-library-version-upgrade",
-      "url": "https://github.com/android/skills/tree/main/play/play-billing-library-version-upgrade",
-      "stars": 7663,
-      "license": "Apache-2.0",
-      "license_ok": true,
-      "evidence": "Found by tool name (Google Play Console) in the tool-coverage pass",
-      "notes": "Official Play Billing Library upgrade steps.",
-      "tool": "Google Play Console",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 43,
+      "rank": 33,
       "name": "firebase-crashlytics",
       "purpose": "Official; set up, instrument and validate Crashlytics on iOS and Android.",
       "how_to_use": "",
@@ -682,63 +541,24 @@
       "license": "Apache-2.0",
       "license_ok": true,
       "evidence": "Found by tool name (Firebase) in the tool-coverage pass",
-      "notes": "Official; set up, instrument and validate Crashlytics on iOS and Android.",
+      "notes": "Official; set up, instrument and validate Crashlytics on iOS and Android. The same collection (firebase/agent-skills) also has: firebase-basics (Firebase), firebase-remote-config-basics (Firebase).",
       "tool": "Firebase",
-      "tool_tier": "major"
+      "tool_tier": "major",
+      "also": [
+        {
+          "name": "firebase-basics",
+          "tool": "Firebase",
+          "url": "https://github.com/firebase/agent-skills/tree/main/skills/firebase-basics"
+        },
+        {
+          "name": "firebase-remote-config-basics",
+          "tool": "Firebase",
+          "url": "https://github.com/firebase/agent-skills/tree/main/skills/firebase-remote-config-basics"
+        }
+      ]
     },
     {
-      "rank": 44,
-      "name": "firebase-basics",
-      "purpose": "Official; CLI and MCP usage. Siblings: auth, firestore, remote-config, security-rules-auditor, xcode-project-setup.",
-      "how_to_use": "",
-      "repo": "firebase/agent-skills",
-      "branch": "main",
-      "skill_path": "skills/firebase-basics",
-      "url": "https://github.com/firebase/agent-skills/tree/main/skills/firebase-basics",
-      "stars": 462,
-      "license": "Apache-2.0",
-      "license_ok": true,
-      "evidence": "Found by tool name (Firebase) in the tool-coverage pass",
-      "notes": "Official; CLI and MCP usage. Siblings: auth, firestore, remote-config, security-rules-auditor, xcode-project-setup.",
-      "tool": "Firebase",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 45,
-      "name": "firebase-remote-config-basics",
-      "purpose": "Official; feature flags and config for apps.",
-      "how_to_use": "",
-      "repo": "firebase/agent-skills",
-      "branch": "main",
-      "skill_path": "skills/firebase-remote-config-basics",
-      "url": "https://github.com/firebase/agent-skills/tree/main/skills/firebase-remote-config-basics",
-      "stars": 462,
-      "license": "Apache-2.0",
-      "license_ok": true,
-      "evidence": "Found by tool name (Firebase) in the tool-coverage pass",
-      "notes": "Official; feature flags and config for apps.",
-      "tool": "Firebase",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 46,
-      "name": "migrate-xml-views-to-jetpack-compose",
-      "purpose": "Incremental XML to Compose migration.",
-      "how_to_use": "",
-      "repo": "android/skills",
-      "branch": "main",
-      "skill_path": "jetpack-compose/migration/migrate-xml-views-to-jetpack-compose",
-      "url": "https://github.com/android/skills/tree/main/jetpack-compose/migration",
-      "stars": 7663,
-      "license": "Apache-2.0",
-      "license_ok": true,
-      "evidence": "Found by tool name (Jetpack Compose) in the tool-coverage pass",
-      "notes": "Incremental XML to Compose migration.",
-      "tool": "Jetpack Compose",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 47,
+      "rank": 34,
       "name": "maestro-mobile",
       "purpose": "Maestro flow writing and run guidance.",
       "how_to_use": "",
@@ -755,24 +575,7 @@
       "tool_tier": "minor"
     },
     {
-      "rank": 48,
-      "name": "maestro-testing",
-      "purpose": "Flows plus per-stack references (Flutter, hybrid, native iOS and Android).",
-      "how_to_use": "",
-      "repo": "eagleisbatman/maestro-skill",
-      "branch": "main",
-      "skill_path": "skills/maestro-testing",
-      "url": "https://github.com/eagleisbatman/maestro-skill/tree/main/skills/maestro-testing",
-      "stars": 3,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (Maestro) in the tool-coverage pass",
-      "notes": "Flows plus per-stack references (Flutter, hybrid, native iOS and Android).",
-      "tool": "Maestro",
-      "tool_tier": "minor"
-    },
-    {
-      "rank": 49,
+      "rank": 35,
       "name": "fastlane-skill",
       "purpose": "setup-fastlane, match, beta, release, snapshot for iOS and Android; setup step suggests Homebrew's official installer.",
       "how_to_use": "",
@@ -789,7 +592,7 @@
       "tool_tier": "minor"
     },
     {
-      "rank": 50,
+      "rank": 36,
       "name": "revenuecat ai-toolkit (play-billing skills)",
       "purpose": "Official; rc-configuring-the-sdk, rc-catalog-management, rc-error-handling, rc-backend, payment recovery.",
       "how_to_use": "",
@@ -806,24 +609,7 @@
       "tool_tier": "minor"
     },
     {
-      "rank": 51,
-      "name": "revenuecat-skill (deprecated)",
-      "purpose": "README says deprecated in favour of ai-toolkit.",
-      "how_to_use": "",
-      "repo": "RevenueCat/revenuecat-skill",
-      "branch": "main",
-      "skill_path": ".",
-      "url": "https://github.com/RevenueCat/revenuecat-skill",
-      "stars": 14,
-      "license": "none",
-      "license_ok": false,
-      "evidence": "Found by tool name (RevenueCat) in the tool-coverage pass",
-      "notes": "README says deprecated in favour of ai-toolkit. -> link-only.",
-      "tool": "RevenueCat",
-      "tool_tier": "minor"
-    },
-    {
-      "rank": 52,
+      "rank": 37,
       "name": "sentry-react-native-sdk",
       "purpose": "Official; Sentry setup for Expo managed, Expo bare and vanilla RN. Siblings for cocoa, android and flutter. The repo's plugin MCP config and installer report usage to Sentry's own projects (TELEMETRY.md); official host.",
       "how_to_use": "",
@@ -840,25 +626,7 @@
       "tool_tier": "minor"
     },
     {
-      "rank": 53,
-      "name": "mobilebuildmcp",
-      "purpose": "Official skill for build, test, run, debug, log and UI automation on iOS, macOS, watchOS, tvOS, visionOS; CLI variant in skills/mobilebuildmcp-cli.",
-      "how_to_use": "",
-      "repo": "getsentry/MobileBuildMCP",
-      "branch": "main",
-      "skill_path": "skills/mobilebuildmcp",
-      "url": "https://github.com/getsentry/MobileBuildMCP/tree/main/skills/mobilebuildmcp",
-      "stars": 6458,
-      "license": "MIT",
-      "license_ok": false,
-      "evidence": "Found by tool name (XcodeBuildMCP) in the tool-coverage pass",
-      "notes": "Official skill for build, test, run, debug, log and UI automation on iOS, macOS, watchOS, tvOS, visionOS; CLI variant in skills/mobilebuildmcp-cli. RISK: The MCP server sends internal runtime error telemetry to Sentry by default (opt-out documented on its privacy page); the skill text itself only drives the tool. -> excluded",
-      "tool": "XcodeBuildMCP",
-      "tool_tier": "minor",
-      "risk": "The MCP server sends internal runtime error telemetry to Sentry by default (opt-out documented on its privacy page); the skill text itself only drives the tool."
-    },
-    {
-      "rank": 54,
+      "rank": 38,
       "name": "electron-skills",
       "purpose": "Small community repo (Electron and Electron EGG); not read in depth, read before use.",
       "how_to_use": "",
@@ -875,24 +643,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 55,
-      "name": "claude-electron-skills",
-      "purpose": "Electron 42 reference skills and workflow commands; very low adoption.",
-      "how_to_use": "",
-      "repo": "ohvignas/claude-electron-skills",
-      "branch": "main",
-      "skill_path": ".",
-      "url": "https://github.com/ohvignas/claude-electron-skills",
-      "stars": 1,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (Electron) in the tool-coverage pass",
-      "notes": "Electron 42 reference skills and workflow commands; very low adoption.",
-      "tool": "Electron",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 56,
+      "rank": 39,
       "name": "kotlin-tooling-cocoapods-spm-migration",
       "purpose": "Official JetBrains; moves a KMP iOS integration from CocoaPods to SwiftPM.",
       "how_to_use": "",
@@ -904,29 +655,19 @@
       "license": "Apache-2.0",
       "license_ok": true,
       "evidence": "Found by tool name (Kotlin Multiplatform) in the tool-coverage pass",
-      "notes": "Official JetBrains; moves a KMP iOS integration from CocoaPods to SwiftPM.",
+      "notes": "Official JetBrains; moves a KMP iOS integration from CocoaPods to SwiftPM. The same collection (Kotlin/kotlin-agent-skills) also has: kotlin-tooling-native-build-performance (Kotlin Multiplatform).",
       "tool": "Kotlin Multiplatform",
-      "tool_tier": "minor"
+      "tool_tier": "minor",
+      "also": [
+        {
+          "name": "kotlin-tooling-native-build-performance",
+          "tool": "Kotlin Multiplatform",
+          "url": "https://github.com/Kotlin/kotlin-agent-skills/tree/main/skills/kotlin-tooling-native-build-performance"
+        }
+      ]
     },
     {
-      "rank": 57,
-      "name": "kotlin-tooling-native-build-performance",
-      "purpose": "Official; Kotlin/Native (iOS) build speed. Sibling agp9-migration covers Android Gradle Plugin 9.",
-      "how_to_use": "",
-      "repo": "Kotlin/kotlin-agent-skills",
-      "branch": "main",
-      "skill_path": "skills/kotlin-tooling-native-build-performance",
-      "url": "https://github.com/Kotlin/kotlin-agent-skills/tree/main/skills/kotlin-tooling-native-build-performance",
-      "stars": 1069,
-      "license": "Apache-2.0",
-      "license_ok": true,
-      "evidence": "Found by tool name (Kotlin Multiplatform) in the tool-coverage pass",
-      "notes": "Official; Kotlin/Native (iOS) build speed. Sibling agp9-migration covers Android Gradle Plugin 9.",
-      "tool": "Kotlin Multiplatform",
-      "tool_tier": "minor"
-    },
-    {
-      "rank": 58,
+      "rank": 40,
       "name": "xcode-cloud-skills",
       "purpose": "Trigger and monitor builds, triage failures, author workflows; zero stars, not read in depth.",
       "how_to_use": "",
@@ -940,40 +681,6 @@
       "evidence": "Found by tool name (Xcode Cloud) in the tool-coverage pass",
       "notes": "Trigger and monitor builds, triage failures, author workflows; zero stars, not read in depth.",
       "tool": "Xcode Cloud",
-      "tool_tier": "minor"
-    },
-    {
-      "rank": 59,
-      "name": "capacitor-skills",
-      "purpose": "Official Ionic team repo but no LICENSE; link-only.",
-      "how_to_use": "",
-      "repo": "ionic-team/capacitor-skills",
-      "branch": "main",
-      "skill_path": ".",
-      "url": "https://github.com/ionic-team/capacitor-skills",
-      "stars": 27,
-      "license": "none",
-      "license_ok": false,
-      "evidence": "Found by tool name (Capacitor) in the tool-coverage pass",
-      "notes": "Official Ionic team repo but no LICENSE; link-only. -> link-only.",
-      "tool": "Capacitor",
-      "tool_tier": "minor"
-    },
-    {
-      "rank": 60,
-      "name": "capgo-skills",
-      "purpose": "From Capgo, a commercial live-update vendor; no LICENSE, link-only; check for vendor upsell steps.",
-      "how_to_use": "",
-      "repo": "Cap-go/capgo-skills",
-      "branch": "main",
-      "skill_path": ".",
-      "url": "https://github.com/Cap-go/capgo-skills",
-      "stars": 72,
-      "license": "none",
-      "license_ok": false,
-      "evidence": "Found by tool name (Capacitor) in the tool-coverage pass",
-      "notes": "From Capgo, a commercial live-update vendor; no LICENSE, link-only; check for vendor upsell steps. -> link-only.",
-      "tool": "Capacitor",
       "tool_tier": "minor"
     }
   ],

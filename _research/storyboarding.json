@@ -325,23 +325,6 @@
     },
     {
       "rank": 22,
-      "name": "open-fdx-toolkit (parser, not a skill)",
-      "purpose": "Parses .fdx XML into Python dataclasses, stdlib only; usable from a script. Brand new and tiny.",
-      "how_to_use": "",
-      "repo": "sfingali/open-fdx-toolkit",
-      "branch": "main",
-      "skill_path": "",
-      "url": "https://github.com/sfingali/open-fdx-toolkit",
-      "stars": 1,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (Final Draft) in the tool-coverage pass",
-      "notes": "Parses .fdx XML into Python dataclasses, stdlib only; usable from a script. Brand new and tiny.",
-      "tool": "Final Draft",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 23,
       "name": "screenplay-tools (library)",
       "purpose": "JS/Python/C#/C++ readers and writers for FDX and Fountain; no SKILL.md.",
       "how_to_use": "",
@@ -358,7 +341,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 24,
+      "rank": 23,
       "name": "sw-format-adaptation",
       "purpose": "Script format conventions for screen, stage and series; no FDX file handling (already a source of this craft).",
       "how_to_use": "",
@@ -375,7 +358,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 25,
+      "rank": 24,
       "name": "adobe-edit-quick-cut (Adobe plugin)",
       "purpose": "Skill declares Apache-2.0 in its frontmatter; the repo has no top-level licence. Cuts highlight reels through the Adobe connector tools; needs an uploaded video.",
       "how_to_use": "",
@@ -392,7 +375,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 26,
+      "rank": 25,
       "name": "premiere-pro-mcp",
       "purpose": "Local MCP via a CEP panel: import media, build sequences, ask before destructive actions. Independent, not Adobe's. Skill text is clean; its server code was not audited.",
       "how_to_use": "",
@@ -409,41 +392,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 27,
-      "name": "premiere-pro-mcp (leancoderkavy)",
-      "purpose": "Another independent local-first Premiere MCP with preview-and-approve edits; Claude Desktop .mcpb bundle. Server code not audited.",
-      "how_to_use": "",
-      "repo": "leancoderkavy/premiere-pro-mcp",
-      "branch": "main",
-      "skill_path": "",
-      "url": "https://github.com/leancoderkavy/premiere-pro-mcp",
-      "stars": 324,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (Adobe Premiere Pro) in the tool-coverage pass",
-      "notes": "Another independent local-first Premiere MCP with preview-and-approve edits; Claude Desktop .mcpb bundle. Server code not audited.",
-      "tool": "Adobe Premiere Pro",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 28,
-      "name": "nano-banana",
-      "purpose": "Gemini image generate/edit via the official generativelanguage API with style presets and platform sizes. Only Google hosts found in scripts; repo contains an encrypted secrets file.",
-      "how_to_use": "",
-      "repo": "glebis/claude-skills",
-      "branch": "main",
-      "skill_path": "nano-banana",
-      "url": "https://github.com/glebis/claude-skills/tree/main/nano-banana",
-      "stars": 387,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (Nano Banana (Gemini image)) in the tool-coverage pass",
-      "notes": "Gemini image generate/edit via the official generativelanguage API with style presets and platform sizes. Only Google hosts found in scripts; repo contains an encrypted secrets file.",
-      "tool": "Nano Banana (Gemini image)",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 29,
+      "rank": 26,
       "name": "nano-banana-2-skill",
       "purpose": "Bun CLI over Gemini image models with reference images and transparent output; talks only to Google.",
       "how_to_use": "",
@@ -460,25 +409,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 30,
-      "name": "gemini-skill",
-      "purpose": "Gemini drawing through the browser, no API key.",
-      "how_to_use": "",
-      "repo": "WJZ-P/gemini-skill",
-      "branch": "main",
-      "skill_path": "SKILL.md",
-      "url": "https://github.com/WJZ-P/gemini-skill",
-      "stars": 832,
-      "license": "MIT",
-      "license_ok": false,
-      "evidence": "Found by tool name (Nano Banana (Gemini image)) in the tool-coverage pass",
-      "notes": "Gemini drawing through the browser, no API key. RISK: Drives the Gemini web UI through a browser session rather than the API; not audited for cookie handling. Treat as high risk. -> excluded",
-      "tool": "Nano Banana (Gemini image)",
-      "tool_tier": "major",
-      "risk": "Drives the Gemini web UI through a browser session rather than the API; not audited for cookie handling. Treat as high risk."
-    },
-    {
-      "rank": 31,
+      "rank": 27,
       "name": "midjourney-prompter",
       "purpose": "Prompt engineering for v6 parameters; out of date for newer versions. Midjourney has no official public API, so this is prompts only.",
       "how_to_use": "",
@@ -495,7 +426,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 32,
+      "rank": 28,
       "name": "resolve-mcp",
       "purpose": "Index skill plus domain skills for editing, conforming, media analysis and delivery; scripting needs Studio, a bridge covers the free edition.",
       "how_to_use": "",
@@ -512,24 +443,7 @@
       "tool_tier": "minor"
     },
     {
-      "rank": 33,
-      "name": "davinci-resolve-mcp (skill + 440 tools)",
-      "purpose": "MCP server with a bundled Claude Code skill covering the whole scripting API; low adoption.",
-      "how_to_use": "",
-      "repo": "lordhoell/davinci-resolve-mcp",
-      "branch": "main",
-      "skill_path": "",
-      "url": "https://github.com/lordhoell/davinci-resolve-mcp",
-      "stars": 13,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (DaVinci Resolve) in the tool-coverage pass",
-      "notes": "MCP server with a bundled Claude Code skill covering the whole scripting API; low adoption.",
-      "tool": "DaVinci Resolve",
-      "tool_tier": "minor"
-    },
-    {
-      "rank": 34,
+      "rank": 29,
       "name": "fountain-syntax",
       "purpose": "Complete Fountain syntax reference: title page, scene headings, dialogue, transitions, notes.",
       "how_to_use": "",
@@ -546,41 +460,7 @@
       "tool_tier": "minor"
     },
     {
-      "rank": 35,
-      "name": "slate-fountain",
-      "purpose": "Fountain writing skill inside a screenwriters' room agent; unproven.",
-      "how_to_use": "",
-      "repo": "Oncorporation/slate-agent",
-      "branch": "main",
-      "skill_path": "skills/slate-fountain",
-      "url": "https://github.com/Oncorporation/slate-agent/tree/main/skills/slate-fountain",
-      "stars": 0,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (Fountain) in the tool-coverage pass",
-      "notes": "Fountain writing skill inside a screenwriters' room agent; unproven.",
-      "tool": "Fountain",
-      "tool_tier": "minor"
-    },
-    {
-      "rank": 36,
-      "name": "fountain (Obsidian plugin skill)",
-      "purpose": "Fountain writing inside Obsidian.",
-      "how_to_use": "",
-      "repo": "bgrundmann/obsidian-fountain",
-      "branch": "main",
-      "skill_path": "fountain/SKILL.md",
-      "url": "https://github.com/bgrundmann/obsidian-fountain",
-      "stars": 32,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (Fountain) in the tool-coverage pass",
-      "notes": "Fountain writing inside Obsidian.",
-      "tool": "Fountain",
-      "tool_tier": "minor"
-    },
-    {
-      "rank": 37,
+      "rank": 30,
       "name": "figma-use-figjam",
       "purpose": "Official skill for the use_figma tool in FigJam; beta, bound by Figma's developer terms, so link-only.",
       "how_to_use": "",
@@ -597,7 +477,7 @@
       "tool_tier": "minor"
     },
     {
-      "rank": 38,
+      "rank": 31,
       "name": "runway skills",
       "purpose": "Official Runway API skills: video, image and audio generation, batch jobs; the vendor's own host only (not audited line by line).",
       "how_to_use": "",
@@ -614,7 +494,7 @@
       "tool_tier": "minor"
     },
     {
-      "rank": 39,
+      "rank": 32,
       "name": "seedance-2-5-video-director",
       "purpose": "Seedance 2.5 prompts, scripts, diagnosis, character lock, extension and edit; already a Skill Garden source.",
       "how_to_use": "",
@@ -631,25 +511,7 @@
       "tool_tier": "minor"
     },
     {
-      "rank": 40,
-      "name": "seedance-v2",
-      "purpose": "Python wrapper for generating Seedance videos through MuAPI.",
-      "how_to_use": "",
-      "repo": "SamurAIGPT/Seedance-2.5-API",
-      "branch": "main",
-      "skill_path": "skills/seedance-v2",
-      "url": "https://github.com/SamurAIGPT/Seedance-2.5-API/tree/main/skills/seedance-v2",
-      "stars": 487,
-      "license": "MIT",
-      "license_ok": false,
-      "evidence": "Found by tool name (Seedance) in the tool-coverage pass",
-      "notes": "Python wrapper for generating Seedance videos through MuAPI. RISK: Sends the user's MUAPI_API_KEY and prompts to muapi.ai, a third-party reseller, not ByteDance. -> excluded",
-      "tool": "Seedance",
-      "tool_tier": "minor",
-      "risk": "Sends the user's MUAPI_API_KEY and prompts to muapi.ai, a third-party reseller, not ByteDance."
-    },
-    {
-      "rank": 41,
+      "rank": 33,
       "name": "kling-ai",
       "purpose": "Prompts and model choice for Kling 3.0 / Omni / Motion Control, sourced from official release notes.",
       "how_to_use": "",
@@ -666,7 +528,7 @@
       "tool_tier": "minor"
     },
     {
-      "rank": 42,
+      "rank": 34,
       "name": "veo-use",
       "purpose": "Text, image and reference to video, inpainting and extension through the official Google API via uv scripts; last update Feb 2026.",
       "how_to_use": "",
@@ -683,7 +545,7 @@
       "tool_tier": "minor"
     },
     {
-      "rank": 43,
+      "rank": 35,
       "name": "veo-3.2-prompter",
       "purpose": "Prompt writing for Veo; not audited for calls to Pexo's own service.",
       "how_to_use": "",
@@ -698,24 +560,6 @@
       "notes": "Prompt writing for Veo; not audited for calls to Pexo's own service.",
       "tool": "Veo / Flow",
       "tool_tier": "minor"
-    },
-    {
-      "rank": 44,
-      "name": "claude-photoshop-skill",
-      "purpose": "90 tools: documents, layers, text, selections, generative fill, raw batchPlay. Generic Photoshop control, nothing storyboard-specific; tiny adoption.",
-      "how_to_use": "",
-      "repo": "MastroMimmo/claude-photoshop-skill",
-      "branch": "main",
-      "skill_path": "",
-      "url": "https://github.com/MastroMimmo/claude-photoshop-skill",
-      "stars": 9,
-      "license": "MIT",
-      "license_ok": false,
-      "evidence": "Found by tool name (Adobe Photoshop) in the tool-coverage pass",
-      "notes": "90 tools: documents, layers, text, selections, generative fill, raw batchPlay. Generic Photoshop control, nothing storyboard-specific; tiny adoption. RISK: Runs a local proxy server (port 3001) and a UXP plugin in Photoshop Developer Mode via mikechambers/adb-mcp; server and plugin code not audited. -> excluded",
-      "tool": "Adobe Photoshop",
-      "tool_tier": "major",
-      "risk": "Runs a local proxy server (port 3001) and a UXP plugin in Photoshop Developer Mode via mikechambers/adb-mcp; server and plugin code not audited."
     }
   ],
   "sources_checked": [

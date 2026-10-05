@@ -466,46 +466,24 @@
       "license": "MIT",
       "license_ok": true,
       "evidence": "Found by tool name (PostgreSQL) in the tool-coverage pass",
-      "notes": "PlanetScale's Postgres query optimization, connection troubleshooting and performance guidance.",
+      "notes": "PlanetScale's Postgres query optimization, connection troubleshooting and performance guidance. The same collection (planetscale/database-skills) also has: mysql (MySQL), vitess (MySQL).",
       "tool": "PostgreSQL",
-      "tool_tier": "major"
+      "tool_tier": "major",
+      "also": [
+        {
+          "name": "mysql",
+          "tool": "MySQL",
+          "url": "https://github.com/planetscale/database-skills/tree/main/skills/mysql"
+        },
+        {
+          "name": "vitess",
+          "tool": "MySQL",
+          "url": "https://github.com/planetscale/database-skills/tree/main/skills/vitess"
+        }
+      ]
     },
     {
       "rank": 31,
-      "name": "mysql",
-      "purpose": "InnoDB schema, indexing, EXPLAIN reading, transactions, online schema change and ops.",
-      "how_to_use": "",
-      "repo": "planetscale/database-skills",
-      "branch": "main",
-      "skill_path": "skills/mysql",
-      "url": "https://github.com/planetscale/database-skills/tree/main/skills/mysql",
-      "stars": 692,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (MySQL) in the tool-coverage pass",
-      "notes": "InnoDB schema, indexing, EXPLAIN reading, transactions, online schema change and ops.",
-      "tool": "MySQL",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 32,
-      "name": "vitess",
-      "purpose": "Vitess sharding, VSchema and query optimization for PlanetScale Vitess.",
-      "how_to_use": "",
-      "repo": "planetscale/database-skills",
-      "branch": "main",
-      "skill_path": "skills/vitess",
-      "url": "https://github.com/planetscale/database-skills/tree/main/skills/vitess",
-      "stars": 692,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (MySQL) in the tool-coverage pass",
-      "notes": "Vitess sharding, VSchema and query optimization for PlanetScale Vitess.",
-      "tool": "MySQL",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 33,
       "name": "mysql",
       "purpose": "MySQL and MariaDB engine-specific design and tuning with a read-only verify script.",
       "how_to_use": "",
@@ -517,12 +495,19 @@
       "license": "MIT",
       "license_ok": true,
       "evidence": "Found by tool name (MySQL) in the tool-coverage pass",
-      "notes": "MySQL and MariaDB engine-specific design and tuning with a read-only verify script.",
+      "notes": "MySQL and MariaDB engine-specific design and tuning with a read-only verify script. The same collection (ericrisco/rsc-harness) also has: drizzle-orm (Drizzle ORM).",
       "tool": "MySQL",
-      "tool_tier": "major"
+      "tool_tier": "major",
+      "also": [
+        {
+          "name": "drizzle-orm",
+          "tool": "Drizzle ORM",
+          "url": "https://github.com/ericrisco/rsc-harness/tree/main/skills/drizzle-orm"
+        }
+      ]
     },
     {
-      "rank": 34,
+      "rank": 32,
       "name": "prisma-cli",
       "purpose": "Official CLI reference for init, generate, migrate, db, studio and mcp (Prisma 7).",
       "how_to_use": "",
@@ -539,24 +524,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 35,
-      "name": "drizzle-orm",
-      "purpose": "pgTable schemas, relational queries, drizzle-kit migrations; read-only static verify.sh with no network.",
-      "how_to_use": "",
-      "repo": "ericrisco/rsc-harness",
-      "branch": "main",
-      "skill_path": "skills/drizzle-orm",
-      "url": "https://github.com/ericrisco/rsc-harness/tree/main/skills/drizzle-orm",
-      "stars": 146,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (Drizzle ORM) in the tool-coverage pass",
-      "notes": "pgTable schemas, relational queries, drizzle-kit migrations; read-only static verify.sh with no network.",
-      "tool": "Drizzle ORM",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 36,
+      "rank": 33,
       "name": "drizzle-orm",
       "purpose": "Single-file overview of schema, queries, migrations and serverless targets.",
       "how_to_use": "",
@@ -568,29 +536,19 @@
       "license": "Apache-2.0",
       "license_ok": true,
       "evidence": "Found by tool name (Drizzle ORM) in the tool-coverage pass",
-      "notes": "Single-file overview of schema, queries, migrations and serverless targets.",
+      "notes": "Single-file overview of schema, queries, migrations and serverless targets. The same collection (TerminalSkills/skills) also has: aws-dynamodb (AWS databases (DynamoDB, Aurora, RDS)).",
       "tool": "Drizzle ORM",
-      "tool_tier": "major"
+      "tool_tier": "major",
+      "also": [
+        {
+          "name": "aws-dynamodb",
+          "tool": "AWS databases (DynamoDB, Aurora, RDS)",
+          "url": "https://github.com/TerminalSkills/skills/tree/main/skills/aws-dynamodb"
+        }
+      ]
     },
     {
-      "rank": 37,
-      "name": "drizzle",
-      "purpose": "Type-safe Drizzle patterns across several files.",
-      "how_to_use": "",
-      "repo": "bobmatnyc/claude-mpm-skills",
-      "branch": "main",
-      "skill_path": "toolchains/typescript/data/drizzle",
-      "url": "https://github.com/bobmatnyc/claude-mpm-skills/tree/main/toolchains/typescript/data/drizzle",
-      "stars": 76,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (Drizzle ORM) in the tool-coverage pass",
-      "notes": "Type-safe Drizzle patterns across several files.",
-      "tool": "Drizzle ORM",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 38,
+      "rank": 34,
       "name": "stripe-best-practices",
       "purpose": "Official guidance on choosing APIs: Checkout, Billing, Connect, current integration paths.",
       "how_to_use": "",
@@ -602,46 +560,24 @@
       "license": "MIT",
       "license_ok": true,
       "evidence": "Found by tool name (Stripe) in the tool-coverage pass",
-      "notes": "Official guidance on choosing APIs: Checkout, Billing, Connect, current integration paths.",
+      "notes": "Official guidance on choosing APIs: Checkout, Billing, Connect, current integration paths. The same collection (stripe/ai) also has: upgrade-stripe (Stripe), stripe-projects (Stripe).",
       "tool": "Stripe",
-      "tool_tier": "major"
+      "tool_tier": "major",
+      "also": [
+        {
+          "name": "upgrade-stripe",
+          "tool": "Stripe",
+          "url": "https://github.com/stripe/ai/tree/main/providers/claude/plugin/skills/upgrade-stripe"
+        },
+        {
+          "name": "stripe-projects",
+          "tool": "Stripe",
+          "url": "https://github.com/stripe/ai/tree/main/providers/claude/plugin/skills/stripe-projects"
+        }
+      ]
     },
     {
-      "rank": 39,
-      "name": "upgrade-stripe",
-      "purpose": "Official API version and SDK upgrade workflow.",
-      "how_to_use": "",
-      "repo": "stripe/ai",
-      "branch": "main",
-      "skill_path": "providers/claude/plugin/skills/upgrade-stripe",
-      "url": "https://github.com/stripe/ai/tree/main/providers/claude/plugin/skills/upgrade-stripe",
-      "stars": 1856,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (Stripe) in the tool-coverage pass",
-      "notes": "Official API version and SDK upgrade workflow.",
-      "tool": "Stripe",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 40,
-      "name": "stripe-projects",
-      "purpose": "Official skill for Stripe Projects provisioning of third-party services.",
-      "how_to_use": "",
-      "repo": "stripe/ai",
-      "branch": "main",
-      "skill_path": "providers/claude/plugin/skills/stripe-projects",
-      "url": "https://github.com/stripe/ai/tree/main/providers/claude/plugin/skills/stripe-projects",
-      "stars": 1856,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (Stripe) in the tool-coverage pass",
-      "notes": "Official skill for Stripe Projects provisioning of third-party services.",
-      "tool": "Stripe",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 41,
+      "rank": 35,
       "name": "firestore-rules-creation",
       "purpose": "Official Firestore security rules authoring.",
       "how_to_use": "",
@@ -653,29 +589,19 @@
       "license": "Apache-2.0",
       "license_ok": true,
       "evidence": "Found by tool name (Firebase) in the tool-coverage pass",
-      "notes": "Official Firestore security rules authoring.",
+      "notes": "Official Firestore security rules authoring. The same collection (firebase/agent-skills) also has: firebase-auth-basics (Firebase).",
       "tool": "Firebase",
-      "tool_tier": "major"
+      "tool_tier": "major",
+      "also": [
+        {
+          "name": "firebase-auth-basics",
+          "tool": "Firebase",
+          "url": "https://github.com/firebase/agent-skills/tree/main/skills/firebase-auth-basics"
+        }
+      ]
     },
     {
-      "rank": 42,
-      "name": "firebase-auth-basics",
-      "purpose": "Official Firebase Authentication setup and auth rules.",
-      "how_to_use": "",
-      "repo": "firebase/agent-skills",
-      "branch": "main",
-      "skill_path": "skills/firebase-auth-basics",
-      "url": "https://github.com/firebase/agent-skills/tree/main/skills/firebase-auth-basics",
-      "stars": 462,
-      "license": "Apache-2.0",
-      "license_ok": true,
-      "evidence": "Found by tool name (Firebase) in the tool-coverage pass",
-      "notes": "Official Firebase Authentication setup and auth rules.",
-      "tool": "Firebase",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 43,
+      "rank": 36,
       "name": "mongodb-query-optimizer",
       "purpose": "Official index and query plan advice.",
       "how_to_use": "",
@@ -687,29 +613,19 @@
       "license": "Apache-2.0",
       "license_ok": true,
       "evidence": "Found by tool name (MongoDB) in the tool-coverage pass",
-      "notes": "Official index and query plan advice.",
+      "notes": "Official index and query plan advice. The same collection (mongodb/agent-skills) also has: mongodb-connection (MongoDB).",
       "tool": "MongoDB",
-      "tool_tier": "major"
+      "tool_tier": "major",
+      "also": [
+        {
+          "name": "mongodb-connection",
+          "tool": "MongoDB",
+          "url": "https://github.com/mongodb/agent-skills/tree/main/skills/mongodb-connection"
+        }
+      ]
     },
     {
-      "rank": 44,
-      "name": "mongodb-connection",
-      "purpose": "Official client pool and timeout settings for any driver.",
-      "how_to_use": "",
-      "repo": "mongodb/agent-skills",
-      "branch": "main",
-      "skill_path": "skills/mongodb-connection",
-      "url": "https://github.com/mongodb/agent-skills/tree/main/skills/mongodb-connection",
-      "stars": 188,
-      "license": "Apache-2.0",
-      "license_ok": true,
-      "evidence": "Found by tool name (MongoDB) in the tool-coverage pass",
-      "notes": "Official client pool and timeout settings for any driver.",
-      "tool": "MongoDB",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 45,
+      "rank": 37,
       "name": "redis-connections",
       "purpose": "Official pooling, pipelining and client-side caching guidance.",
       "how_to_use": "",
@@ -721,29 +637,19 @@
       "license": "MIT",
       "license_ok": true,
       "evidence": "Found by tool name (Redis) in the tool-coverage pass",
-      "notes": "Official pooling, pipelining and client-side caching guidance.",
+      "notes": "Official pooling, pipelining and client-side caching guidance. The same collection (redis/agent-skills) also has: redis-security (Redis).",
       "tool": "Redis",
-      "tool_tier": "major"
+      "tool_tier": "major",
+      "also": [
+        {
+          "name": "redis-security",
+          "tool": "Redis",
+          "url": "https://github.com/redis/agent-skills/tree/main/skills/redis-security"
+        }
+      ]
     },
     {
-      "rank": 46,
-      "name": "redis-security",
-      "purpose": "Official ACL, TLS and network exposure guidance.",
-      "how_to_use": "",
-      "repo": "redis/agent-skills",
-      "branch": "main",
-      "skill_path": "skills/redis-security",
-      "url": "https://github.com/redis/agent-skills/tree/main/skills/redis-security",
-      "stars": 165,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (Redis) in the tool-coverage pass",
-      "notes": "Official ACL, TLS and network exposure guidance.",
-      "tool": "Redis",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 47,
+      "rank": 38,
       "name": "neon-postgres-branches",
       "purpose": "Official branch workflow for previews and migrations.",
       "how_to_use": "",
@@ -760,7 +666,7 @@
       "tool_tier": "minor"
     },
     {
-      "rank": 48,
+      "rank": 39,
       "name": "planetscale-postgres-safety-review",
       "purpose": "Official safety review of Postgres changes before applying them.",
       "how_to_use": "",
@@ -772,29 +678,19 @@
       "license": "MIT",
       "license_ok": true,
       "evidence": "Found by tool name (PlanetScale) in the tool-coverage pass",
-      "notes": "Official safety review of Postgres changes before applying them.",
+      "notes": "Official safety review of Postgres changes before applying them. The same collection (planetscale/skills) also has: planetscale-pscale-cli-automation (PlanetScale).",
       "tool": "PlanetScale",
-      "tool_tier": "minor"
+      "tool_tier": "minor",
+      "also": [
+        {
+          "name": "planetscale-pscale-cli-automation",
+          "tool": "PlanetScale",
+          "url": "https://github.com/planetscale/skills/tree/main/planetscale-pscale-cli-automation"
+        }
+      ]
     },
     {
-      "rank": 49,
-      "name": "planetscale-pscale-cli-automation",
-      "purpose": "Official pscale CLI automation.",
-      "how_to_use": "",
-      "repo": "planetscale/skills",
-      "branch": "main",
-      "skill_path": "planetscale-pscale-cli-automation",
-      "url": "https://github.com/planetscale/skills/tree/main/planetscale-pscale-cli-automation",
-      "stars": 131,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (PlanetScale) in the tool-coverage pass",
-      "notes": "Official pscale CLI automation.",
-      "tool": "PlanetScale",
-      "tool_tier": "minor"
-    },
-    {
-      "rank": 50,
+      "rank": 40,
       "name": "turso-db",
       "purpose": "Official Turso database and embedded usage.",
       "how_to_use": "",
@@ -806,29 +702,19 @@
       "license": "MIT",
       "license_ok": true,
       "evidence": "Found by tool name (SQLite and Turso) in the tool-coverage pass",
-      "notes": "Official Turso database and embedded usage.",
+      "notes": "Official Turso database and embedded usage. The same collection (tursodatabase/agent-skills) also has: turso-cloud (SQLite and Turso).",
       "tool": "SQLite and Turso",
-      "tool_tier": "major"
+      "tool_tier": "major",
+      "also": [
+        {
+          "name": "turso-cloud",
+          "tool": "SQLite and Turso",
+          "url": "https://github.com/tursodatabase/agent-skills/tree/main/skills/turso-cloud"
+        }
+      ]
     },
     {
-      "rank": 51,
-      "name": "turso-cloud",
-      "purpose": "Official Turso Cloud management.",
-      "how_to_use": "",
-      "repo": "tursodatabase/agent-skills",
-      "branch": "main",
-      "skill_path": "skills/turso-cloud",
-      "url": "https://github.com/tursodatabase/agent-skills/tree/main/skills/turso-cloud",
-      "stars": 28,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (SQLite and Turso) in the tool-coverage pass",
-      "notes": "Official Turso Cloud management.",
-      "tool": "SQLite and Turso",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 52,
+      "rank": 41,
       "name": "clerk-setup",
       "purpose": "Official setup via the Clerk CLI and framework quickstarts; MIT declared in SKILL.md, no LICENSE file in repo.",
       "how_to_use": "",
@@ -840,80 +726,24 @@
       "license": "MIT",
       "license_ok": true,
       "evidence": "Found by tool name (Clerk) in the tool-coverage pass",
-      "notes": "Official setup via the Clerk CLI and framework quickstarts; MIT declared in SKILL.md, no LICENSE file in repo.",
+      "notes": "Official setup via the Clerk CLI and framework quickstarts; MIT declared in SKILL.md, no LICENSE file in repo. The same collection (clerk/skills) also has: clerk-nextjs-patterns (Clerk), clerk-webhooks (Clerk).",
       "tool": "Clerk",
-      "tool_tier": "minor"
+      "tool_tier": "minor",
+      "also": [
+        {
+          "name": "clerk-nextjs-patterns",
+          "tool": "Clerk",
+          "url": "https://github.com/clerk/skills/tree/main/skills/clerk-nextjs-patterns"
+        },
+        {
+          "name": "clerk-webhooks",
+          "tool": "Clerk",
+          "url": "https://github.com/clerk/skills/tree/main/skills/clerk-webhooks"
+        }
+      ]
     },
     {
-      "rank": 53,
-      "name": "clerk-nextjs-patterns",
-      "purpose": "Official Next.js middleware, Server Actions and caching patterns.",
-      "how_to_use": "",
-      "repo": "clerk/skills",
-      "branch": "main",
-      "skill_path": "skills/clerk-nextjs-patterns",
-      "url": "https://github.com/clerk/skills/tree/main/skills/clerk-nextjs-patterns",
-      "stars": 86,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (Clerk) in the tool-coverage pass",
-      "notes": "Official Next.js middleware, Server Actions and caching patterns.",
-      "tool": "Clerk",
-      "tool_tier": "minor"
-    },
-    {
-      "rank": 54,
-      "name": "clerk-webhooks",
-      "purpose": "Official webhook verification and data sync.",
-      "how_to_use": "",
-      "repo": "clerk/skills",
-      "branch": "main",
-      "skill_path": "skills/clerk-webhooks",
-      "url": "https://github.com/clerk/skills/tree/main/skills/clerk-webhooks",
-      "stars": 86,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (Clerk) in the tool-coverage pass",
-      "notes": "Official webhook verification and data sync.",
-      "tool": "Clerk",
-      "tool_tier": "minor"
-    },
-    {
-      "rank": 55,
-      "name": "create-auth",
-      "purpose": "Official scaffolding for frameworks, adapters and OAuth providers.",
-      "how_to_use": "",
-      "repo": "better-auth/skills",
-      "branch": "main",
-      "skill_path": "better-auth/create-auth",
-      "url": "https://github.com/better-auth/skills/tree/main/better-auth/create-auth",
-      "stars": 222,
-      "license": "none stated",
-      "license_ok": false,
-      "evidence": "Found by tool name (Better Auth) in the tool-coverage pass",
-      "notes": "Official scaffolding for frameworks, adapters and OAuth providers. -> link-only.",
-      "tool": "Better Auth",
-      "tool_tier": "minor"
-    },
-    {
-      "rank": 56,
-      "name": "better-auth-security-best-practices",
-      "purpose": "Official rate limiting, CSRF, secrets and session hardening.",
-      "how_to_use": "",
-      "repo": "better-auth/skills",
-      "branch": "main",
-      "skill_path": "security",
-      "url": "https://github.com/better-auth/skills/tree/main/security",
-      "stars": 222,
-      "license": "none stated",
-      "license_ok": false,
-      "evidence": "Found by tool name (Better Auth) in the tool-coverage pass",
-      "notes": "Official rate limiting, CSRF, secrets and session hardening. -> link-only.",
-      "tool": "Better Auth",
-      "tool_tier": "minor"
-    },
-    {
-      "rank": 57,
+      "rank": 42,
       "name": "clickhouse-best-practices",
       "purpose": "Official 31 rules for ordering keys, partitioning, types and inserts.",
       "how_to_use": "",
@@ -925,46 +755,24 @@
       "license": "Apache-2.0",
       "license_ok": true,
       "evidence": "Found by tool name (ClickHouse) in the tool-coverage pass",
-      "notes": "Official 31 rules for ordering keys, partitioning, types and inserts.",
+      "notes": "Official 31 rules for ordering keys, partitioning, types and inserts. The same collection (ClickHouse/agent-skills) also has: clickhouse-architecture-advisor (ClickHouse), infra-clickhouse (ClickHouse).",
       "tool": "ClickHouse",
-      "tool_tier": "minor"
+      "tool_tier": "minor",
+      "also": [
+        {
+          "name": "clickhouse-architecture-advisor",
+          "tool": "ClickHouse",
+          "url": "https://github.com/ClickHouse/agent-skills/tree/main/skills/clickhouse-architecture-advisor"
+        },
+        {
+          "name": "infra-clickhouse",
+          "tool": "ClickHouse",
+          "url": "https://github.com/ClickHouse/agent-skills/tree/main/skills/infra-clickhouse"
+        }
+      ]
     },
     {
-      "rank": 58,
-      "name": "clickhouse-architecture-advisor",
-      "purpose": "Official workload-specific architecture and ingestion patterns.",
-      "how_to_use": "",
-      "repo": "ClickHouse/agent-skills",
-      "branch": "main",
-      "skill_path": "skills/clickhouse-architecture-advisor",
-      "url": "https://github.com/ClickHouse/agent-skills/tree/main/skills/clickhouse-architecture-advisor",
-      "stars": 544,
-      "license": "Apache-2.0",
-      "license_ok": true,
-      "evidence": "Found by tool name (ClickHouse) in the tool-coverage pass",
-      "notes": "Official workload-specific architecture and ingestion patterns.",
-      "tool": "ClickHouse",
-      "tool_tier": "minor"
-    },
-    {
-      "rank": 59,
-      "name": "infra-clickhouse",
-      "purpose": "Official clickhousectl local and Cloud setup.",
-      "how_to_use": "",
-      "repo": "ClickHouse/agent-skills",
-      "branch": "main",
-      "skill_path": "skills/infra-clickhouse",
-      "url": "https://github.com/ClickHouse/agent-skills/tree/main/skills/infra-clickhouse",
-      "stars": 544,
-      "license": "Apache-2.0",
-      "license_ok": true,
-      "evidence": "Found by tool name (ClickHouse) in the tool-coverage pass",
-      "notes": "Official clickhousectl local and Cloud setup.",
-      "tool": "ClickHouse",
-      "tool_tier": "minor"
-    },
-    {
-      "rank": 60,
+      "rank": 43,
       "name": "dsql",
       "purpose": "Official Aurora DSQL schema, migrations, query plans and performance; ships a safe_query.py helper (no external hosts found).",
       "how_to_use": "",
@@ -981,24 +789,7 @@
       "tool_tier": "minor"
     },
     {
-      "rank": 61,
-      "name": "aws-dynamodb",
-      "purpose": "Community single-file DynamoDB table design and access patterns.",
-      "how_to_use": "",
-      "repo": "TerminalSkills/skills",
-      "branch": "main",
-      "skill_path": "skills/aws-dynamodb",
-      "url": "https://github.com/TerminalSkills/skills/tree/main/skills/aws-dynamodb",
-      "stars": 160,
-      "license": "Apache-2.0",
-      "license_ok": true,
-      "evidence": "Found by tool name (AWS databases (DynamoDB, Aurora, RDS)) in the tool-coverage pass",
-      "notes": "Community single-file DynamoDB table design and access patterns.",
-      "tool": "AWS databases (DynamoDB, Aurora, RDS)",
-      "tool_tier": "minor"
-    },
-    {
-      "rank": 62,
+      "rank": 44,
       "name": "optimizing-ef-core-queries",
       "purpose": "Official .NET team skill for EF Core query performance, the usual data layer on SQL Server; no scripts.",
       "how_to_use": "",
@@ -1010,12 +801,24 @@
       "license": "MIT",
       "license_ok": true,
       "evidence": "Found by tool name (Microsoft SQL Server) in the tool-coverage pass",
-      "notes": "Official .NET team skill for EF Core query performance, the usual data layer on SQL Server; no scripts.",
+      "notes": "Official .NET team skill for EF Core query performance, the usual data layer on SQL Server; no scripts. The same collection (dotnet/skills) also has: dotnet-webapi (ASP.NET Core), create-datadriven-aspnetcore (ASP.NET Core).",
       "tool": "Microsoft SQL Server",
-      "tool_tier": "major"
+      "tool_tier": "major",
+      "also": [
+        {
+          "name": "dotnet-webapi",
+          "tool": "ASP.NET Core",
+          "url": "https://github.com/dotnet/skills/tree/main/plugins/dotnet-aspnetcore/skills/dotnet-webapi"
+        },
+        {
+          "name": "create-datadriven-aspnetcore",
+          "tool": "ASP.NET Core",
+          "url": "https://github.com/dotnet/skills/tree/main/plugins/dotnet-data/skills/create-datadriven-aspnetcore"
+        }
+      ]
     },
     {
-      "rank": 63,
+      "rank": 45,
       "name": "elasticsearch-index-design",
       "purpose": "Official Elastic skill: field types, multi-fields and avoiding mapping explosion; markdown only.",
       "how_to_use": "",
@@ -1027,29 +830,19 @@
       "license": "Apache-2.0",
       "license_ok": true,
       "evidence": "Found by tool name (Elasticsearch and OpenSearch) in the tool-coverage pass",
-      "notes": "Official Elastic skill: field types, multi-fields and avoiding mapping explosion; markdown only.",
+      "notes": "Official Elastic skill: field types, multi-fields and avoiding mapping explosion; markdown only. The same collection (elastic/agent-skills) also has: elasticsearch-query-optimization (Elasticsearch and OpenSearch).",
       "tool": "Elasticsearch and OpenSearch",
-      "tool_tier": "major"
+      "tool_tier": "major",
+      "also": [
+        {
+          "name": "elasticsearch-query-optimization",
+          "tool": "Elasticsearch and OpenSearch",
+          "url": "https://github.com/elastic/agent-skills/tree/main/plugins/elasticsearch/skills/elasticsearch-query-optimization"
+        }
+      ]
     },
     {
-      "rank": 64,
-      "name": "elasticsearch-query-optimization",
-      "purpose": "Official Elastic skill for slow-query diagnosis and Query DSL tuning; markdown only.",
-      "how_to_use": "",
-      "repo": "elastic/agent-skills",
-      "branch": "main",
-      "skill_path": "plugins/elasticsearch/skills/elasticsearch-query-optimization",
-      "url": "https://github.com/elastic/agent-skills/tree/main/plugins/elasticsearch/skills/elasticsearch-query-optimization",
-      "stars": 591,
-      "license": "Apache-2.0",
-      "license_ok": true,
-      "evidence": "Found by tool name (Elasticsearch and OpenSearch) in the tool-coverage pass",
-      "notes": "Official Elastic skill for slow-query diagnosis and Query DSL tuning; markdown only.",
-      "tool": "Elasticsearch and OpenSearch",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 65,
+      "rank": 46,
       "name": "auth0",
       "purpose": "Official router skill: login, sessions, API protection, MFA, passkeys, Organizations, RBAC and tenant audits for every SDK; scripts are a local PDF render and a skill validator, no network calls; needs the auth0 CLI.",
       "how_to_use": "",
@@ -1066,7 +859,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 66,
+      "rank": 47,
       "name": "node",
       "purpose": "Node.js core maintainer's skill for Node services, streams, errors and performance; applies to Express apps.",
       "how_to_use": "",
@@ -1083,7 +876,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 67,
+      "rank": 48,
       "name": "spring-boot",
       "purpose": "Spring Boot service structure, Spring Data JPA, REST API and MockMvcTester testing; markdown references only.",
       "how_to_use": "",
@@ -1100,7 +893,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 68,
+      "rank": 49,
       "name": "flyway-migrations",
       "purpose": "Flyway migration rules for Spring Boot 3 with good and bad SQL examples; templates only, no scripts.",
       "how_to_use": "",
@@ -1117,41 +910,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 69,
-      "name": "dotnet-webapi",
-      "purpose": "Official .NET team skill for building ASP.NET Core web APIs; markdown only.",
-      "how_to_use": "",
-      "repo": "dotnet/skills",
-      "branch": "main",
-      "skill_path": "plugins/dotnet-aspnetcore/skills/dotnet-webapi",
-      "url": "https://github.com/dotnet/skills/tree/main/plugins/dotnet-aspnetcore/skills/dotnet-webapi",
-      "stars": 5559,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (ASP.NET Core) in the tool-coverage pass",
-      "notes": "Official .NET team skill for building ASP.NET Core web APIs; markdown only.",
-      "tool": "ASP.NET Core",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 70,
-      "name": "create-datadriven-aspnetcore",
-      "purpose": "Official .NET team skill for data-driven ASP.NET Core apps with EF Core.",
-      "how_to_use": "",
-      "repo": "dotnet/skills",
-      "branch": "main",
-      "skill_path": "plugins/dotnet-data/skills/create-datadriven-aspnetcore",
-      "url": "https://github.com/dotnet/skills/tree/main/plugins/dotnet-data/skills/create-datadriven-aspnetcore",
-      "stars": 5559,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (ASP.NET Core) in the tool-coverage pass",
-      "notes": "Official .NET team skill for data-driven ASP.NET Core apps with EF Core.",
-      "tool": "ASP.NET Core",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 71,
+      "rank": 50,
       "name": "django-skills",
       "purpose": "Django docs-based skill on ORM, views, async, admin, testing and deployment; its one script checks links in the repo's own markdown.",
       "how_to_use": "",

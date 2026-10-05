@@ -352,29 +352,19 @@
       "license": "MIT",
       "license_ok": true,
       "evidence": "Found by tool name (LinkedIn Posts API (Community Management API)) in the tool-coverage pass",
-      "notes": "Largest LinkedIn skill suite; drafting with an approve-then-publish pattern and URN handling.",
+      "notes": "Largest LinkedIn skill suite; drafting with an approve-then-publish pattern and URN handling. The same collection (sergebulaev/linkedin-skills) also has: linkedin-engager-analytics / content-planner (LinkedIn data export and native analytics).",
       "tool": "LinkedIn Posts API (Community Management API)",
-      "tool_tier": "major"
+      "tool_tier": "major",
+      "also": [
+        {
+          "name": "linkedin-engager-analytics / content-planner",
+          "tool": "LinkedIn data export and native analytics",
+          "url": "https://github.com/sergebulaev/linkedin-skills/tree/HEAD/skills/linkedin-engager-analytics"
+        }
+      ]
     },
     {
       "rank": 24,
-      "name": "linkedin-automation (Composio/Rube toolkit)",
-      "purpose": "Posts, comments and uploads through Composio's OAuth LinkedIn toolkit; the repo itself tags the skill risk: critical, so it needs the approval gate.",
-      "how_to_use": "",
-      "repo": "sickn33/agentic-awesome-skills",
-      "branch": "main",
-      "skill_path": "plugins/agentic-awesome-skills/skills/linkedin-automation",
-      "url": "https://github.com/sickn33/agentic-awesome-skills/tree/HEAD/plugins/agentic-awesome-skills/skills/linkedin-automation",
-      "stars": 47262,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (LinkedIn Posts API (Community Management API)) in the tool-coverage pass",
-      "notes": "Posts, comments and uploads through Composio's OAuth LinkedIn toolkit; the repo itself tags the skill risk: critical, so it needs the approval gate.",
-      "tool": "LinkedIn Posts API (Community Management API)",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 25,
       "name": "taplio-linkedin-claude-skills (17 skills)",
       "purpose": "Official vendor skills: post writer, hooks, carousel builder, comment finder, DM opener, analytics interpreter; most call the Taplio MCP (needs a paid Taplio account).",
       "how_to_use": "",
@@ -386,12 +376,19 @@
       "license": "MIT",
       "license_ok": true,
       "evidence": "Found by tool name (Taplio) in the tool-coverage pass",
-      "notes": "Official vendor skills: post writer, hooks, carousel builder, comment finder, DM opener, analytics interpreter; most call the Taplio MCP (needs a paid Taplio account).",
+      "notes": "Official vendor skills: post writer, hooks, carousel builder, comment finder, DM opener, analytics interpreter; most call the Taplio MCP (needs a paid Taplio account). The same collection (TaplioOfficial/taplio-linkedin-claude-skills) also has: linkedin-analytics-interpreter (LinkedIn data export and native analytics).",
       "tool": "Taplio",
-      "tool_tier": "major"
+      "tool_tier": "major",
+      "also": [
+        {
+          "name": "linkedin-analytics-interpreter",
+          "tool": "LinkedIn data export and native analytics",
+          "url": "https://github.com/TaplioOfficial/taplio-linkedin-claude-skills/tree/HEAD/skills/linkedin-analytics-interpreter"
+        }
+      ]
     },
     {
-      "rank": 26,
+      "rank": 25,
       "name": "Canva Skills (resize-for-social-media, bulk-create, brand-check, edit-design)",
       "purpose": "Official Canva plugin skills built on the Canva Connector; resize-for-social-media outputs a LinkedIn post format.",
       "how_to_use": "",
@@ -408,7 +405,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 27,
+      "rank": 26,
       "name": "apollo-mcp-plugin (prospect, enrich-lead, sequence-load, analytics)",
       "purpose": "Official vendor plugin: ICP to ranked enriched leads and sequence loading. Contact data may derive from scraped LinkedIn data, so lead-research.md's caution applies.",
       "how_to_use": "",
@@ -425,41 +422,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 28,
-      "name": "linkedin-engager-analytics / content-planner",
-      "purpose": "Works from the user's own exported analytics; no scraping.",
-      "how_to_use": "",
-      "repo": "sergebulaev/linkedin-skills",
-      "branch": "main",
-      "skill_path": "skills/linkedin-engager-analytics",
-      "url": "https://github.com/sergebulaev/linkedin-skills/tree/HEAD/skills/linkedin-engager-analytics",
-      "stars": 4142,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (LinkedIn data export and native analytics) in the tool-coverage pass",
-      "notes": "Works from the user's own exported analytics; no scraping.",
-      "tool": "LinkedIn data export and native analytics",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 29,
-      "name": "linkedin-analytics-interpreter",
-      "purpose": "Reads post performance and suggests changes; uses the Taplio MCP for data.",
-      "how_to_use": "",
-      "repo": "TaplioOfficial/taplio-linkedin-claude-skills",
-      "branch": "main",
-      "skill_path": "skills/linkedin-analytics-interpreter",
-      "url": "https://github.com/TaplioOfficial/taplio-linkedin-claude-skills/tree/HEAD/skills/linkedin-analytics-interpreter",
-      "stars": 7,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (LinkedIn data export and native analytics) in the tool-coverage pass",
-      "notes": "Reads post performance and suggests changes; uses the Taplio MCP for data.",
-      "tool": "LinkedIn data export and native analytics",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 30,
+      "rank": 27,
       "name": "linkedin-post and linkedin-analytics",
       "purpose": "Official; scheduling text, image grid, video, PDF documents and @mentions through the Publora MCP, plus analytics.",
       "how_to_use": "",
@@ -476,7 +439,7 @@
       "tool_tier": "minor"
     },
     {
-      "rank": 31,
+      "rank": 28,
       "name": "typefully",
       "purpose": "Official; create, schedule and manage drafts for X, LinkedIn, Threads, Bluesky and Mastodon through a bundled CLI that talks only to typefully.com.",
       "how_to_use": "",
@@ -493,7 +456,7 @@
       "tool_tier": "minor"
     },
     {
-      "rank": 32,
+      "rank": 29,
       "name": "metricool-setup",
       "purpose": "Walks through getting the Metricool API token, user and blog IDs; setup only.",
       "how_to_use": "",

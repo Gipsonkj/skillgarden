@@ -457,23 +457,6 @@
   },
   {
    "rank": 30,
-   "name": "tailwind-4-docs",
-   "purpose": "Local snapshot and index of the official Tailwind v4 docs; sync script only git-clones tailwindlabs/tailwindcss.com.",
-   "how_to_use": "",
-   "repo": "Lombiq/Tailwind-Agent-Skills",
-   "branch": "main",
-   "skill_path": "skills/tailwind-4-docs",
-   "url": "https://github.com/Lombiq/Tailwind-Agent-Skills/tree/main/skills/tailwind-4-docs",
-   "stars": 75,
-   "license": "BSD-3-Clause",
-   "license_ok": true,
-   "evidence": "Found by tool name (Tailwind CSS) in the tool-coverage pilot",
-   "notes": "Local snapshot and index of the official Tailwind v4 docs; sync script only git-clones tailwindlabs/tailwindcss.com.",
-   "tool": "Tailwind CSS",
-   "tool_tier": "major"
-  },
-  {
-   "rank": 31,
    "name": "tailwindcss",
    "purpose": "Short utility-first and responsive guidelines; repo-level stars.",
    "how_to_use": "",
@@ -485,12 +468,24 @@
    "license": "Apache-2.0",
    "license_ok": true,
    "evidence": "Found by tool name (Tailwind CSS) in the tool-coverage pilot",
-   "notes": "Short utility-first and responsive guidelines; repo-level stars.",
+   "notes": "Short utility-first and responsive guidelines; repo-level stars. The same collection (Mindrally/skills) also has: storybook (Storybook), motion (Motion (Framer Motion)).",
    "tool": "Tailwind CSS",
-   "tool_tier": "major"
+   "tool_tier": "major",
+   "also": [
+    {
+     "name": "storybook",
+     "tool": "Storybook",
+     "url": "https://github.com/Mindrally/skills/tree/main/storybook"
+    },
+    {
+     "name": "motion",
+     "tool": "Motion (Framer Motion)",
+     "url": "https://github.com/Mindrally/skills/tree/main/motion"
+    }
+   ]
   },
   {
-   "rank": 32,
+   "rank": 31,
    "name": "migrate-radix-to-base",
    "purpose": "Official; moves a shadcn project from Radix to Base UI primitives.",
    "how_to_use": "",
@@ -507,7 +502,7 @@
    "tool_tier": "major"
   },
   {
-   "rank": 33,
+   "rank": 32,
    "name": "shadcn-ui",
    "purpose": "Community setup and patterns for shadcn with Tailwind v4; repo-level stars.",
    "how_to_use": "",
@@ -524,7 +519,7 @@
    "tool_tier": "major"
   },
   {
-   "rank": 34,
+   "rank": 33,
    "name": "figma-design-to-code",
    "purpose": "Official; mandatory workflow around get_design_context, screenshot as target, reuse Code Connect components.",
    "how_to_use": "",
@@ -541,7 +536,7 @@
    "tool_tier": "major"
   },
   {
-   "rank": 35,
+   "rank": 34,
    "name": "figma-code-connect",
    "purpose": "Official; maps code components to Figma components.",
    "how_to_use": "",
@@ -558,7 +553,7 @@
    "tool_tier": "major"
   },
   {
-   "rank": 36,
+   "rank": 35,
    "name": "sb-figma",
    "purpose": "Builds Figma variables from CSS tokens and Code Connect from Storybook; scripts are local only.",
    "how_to_use": "",
@@ -570,29 +565,19 @@
    "license": "MIT",
    "license_ok": true,
    "evidence": "Found by tool name (Figma) in the tool-coverage pilot",
-   "notes": "Builds Figma variables from CSS tokens and Code Connect from Storybook; scripts are local only.",
+   "notes": "Builds Figma variables from CSS tokens and Code Connect from Storybook; scripts are local only. The same collection (strongeron/storybook-workbench) also has: storybook-workbench (Storybook).",
    "tool": "Figma",
-   "tool_tier": "major"
+   "tool_tier": "major",
+   "also": [
+    {
+     "name": "storybook-workbench",
+     "tool": "Storybook",
+     "url": "https://github.com/strongeron/storybook-workbench/tree/main/skills"
+    }
+   ]
   },
   {
-   "rank": 37,
-   "name": "storybook-workbench",
-   "purpose": "Audit real vs dead components, write CSF3 stories for the states that matter, Figma parity; React + Vite.",
-   "how_to_use": "",
-   "repo": "strongeron/storybook-workbench",
-   "branch": "main",
-   "skill_path": "skills",
-   "url": "https://github.com/strongeron/storybook-workbench/tree/main/skills",
-   "stars": 37,
-   "license": "MIT",
-   "license_ok": true,
-   "evidence": "Found by tool name (Storybook) in the tool-coverage pilot",
-   "notes": "Audit real vs dead components, write CSF3 stories for the states that matter, Figma parity; React + Vite.",
-   "tool": "Storybook",
-   "tool_tier": "major"
-  },
-  {
-   "rank": 38,
+   "rank": 36,
    "name": "storybook",
    "purpose": "CSF3, play functions, args, interaction tests, addon config.",
    "how_to_use": "",
@@ -609,24 +594,7 @@
    "tool_tier": "major"
   },
   {
-   "rank": 39,
-   "name": "storybook",
-   "purpose": "Short Storybook guidelines; repo-level stars.",
-   "how_to_use": "",
-   "repo": "Mindrally/skills",
-   "branch": "main",
-   "skill_path": "storybook",
-   "url": "https://github.com/Mindrally/skills/tree/main/storybook",
-   "stars": 266,
-   "license": "Apache-2.0",
-   "license_ok": true,
-   "evidence": "Found by tool name (Storybook) in the tool-coverage pilot",
-   "notes": "Short Storybook guidelines; repo-level stars.",
-   "tool": "Storybook",
-   "tool_tier": "major"
-  },
-  {
-   "rank": 40,
+   "rank": 37,
    "name": "motion",
    "purpose": "Official; best-practice notes (CSS vs Motion, React, Base UI), docs search and CSS linear() springs via `npx motion-ai`. MotionScore audits run on the Motion+ MCP (paid, official host).",
    "how_to_use": "",
@@ -643,41 +611,7 @@
    "tool_tier": "major"
   },
   {
-   "rank": 41,
-   "name": "motion",
-   "purpose": "Short Motion for React guidelines; repo-level stars.",
-   "how_to_use": "",
-   "repo": "Mindrally/skills",
-   "branch": "main",
-   "skill_path": "motion",
-   "url": "https://github.com/Mindrally/skills/tree/main/motion",
-   "stars": 266,
-   "license": "Apache-2.0",
-   "license_ok": true,
-   "evidence": "Found by tool name (Motion (Framer Motion)) in the tool-coverage pilot",
-   "notes": "Short Motion for React guidelines; repo-level stars.",
-   "tool": "Motion (Framer Motion)",
-   "tool_tier": "major"
-  },
-  {
-   "rank": 42,
-   "name": "framer-motion-skills",
-   "purpose": "Variants, gestures, scroll and layout animations.",
-   "how_to_use": "",
-   "repo": "C-Jeril/framer-motion-skills",
-   "branch": "main",
-   "skill_path": "",
-   "url": "https://github.com/C-Jeril/framer-motion-skills",
-   "stars": 8,
-   "license": "MIT",
-   "license_ok": true,
-   "evidence": "Found by tool name (Motion (Framer Motion)) in the tool-coverage pilot",
-   "notes": "Variants, gestures, scroll and layout animations.",
-   "tool": "Motion (Framer Motion)",
-   "tool_tier": "major"
-  },
-  {
-   "rank": 43,
+   "rank": 38,
    "name": "axe-a11y-browser-auditor",
    "purpose": "Sandboxed browser audit with axe-core; ships docker-compose and shell scripts, not reviewed line by line.",
    "how_to_use": "",
@@ -694,7 +628,7 @@
    "tool_tier": "major"
   },
   {
-   "rank": 44,
+   "rank": 39,
    "name": "a11y-debugging",
    "purpose": "Official; accessibility-tree and audit workflow through the MCP.",
    "how_to_use": "",
@@ -706,29 +640,19 @@
    "license": "Apache-2.0",
    "license_ok": true,
    "evidence": "Found by tool name (Chrome DevTools MCP / Lighthouse) in the tool-coverage pilot",
-   "notes": "Official; accessibility-tree and audit workflow through the MCP.",
+   "notes": "Official; accessibility-tree and audit workflow through the MCP. The same collection (ChromeDevTools/chrome-devtools-mcp) also has: debug-optimize-lcp (Chrome DevTools MCP / Lighthouse).",
    "tool": "Chrome DevTools MCP / Lighthouse",
-   "tool_tier": "minor"
+   "tool_tier": "minor",
+   "also": [
+    {
+     "name": "debug-optimize-lcp",
+     "tool": "Chrome DevTools MCP / Lighthouse",
+     "url": "https://github.com/ChromeDevTools/chrome-devtools-mcp/tree/main/skills/debug-optimize-lcp"
+    }
+   ]
   },
   {
-   "rank": 45,
-   "name": "debug-optimize-lcp",
-   "purpose": "Official; LCP tracing and fixes.",
-   "how_to_use": "",
-   "repo": "ChromeDevTools/chrome-devtools-mcp",
-   "branch": "main",
-   "skill_path": "skills/debug-optimize-lcp",
-   "url": "https://github.com/ChromeDevTools/chrome-devtools-mcp/tree/main/skills/debug-optimize-lcp",
-   "stars": 52953,
-   "license": "Apache-2.0",
-   "license_ok": true,
-   "evidence": "Found by tool name (Chrome DevTools MCP / Lighthouse) in the tool-coverage pilot",
-   "notes": "Official; LCP tracing and fixes.",
-   "tool": "Chrome DevTools MCP / Lighthouse",
-   "tool_tier": "minor"
-  },
-  {
-   "rank": 46,
+   "rank": 40,
    "name": "lighthouse-skill",
    "purpose": "Runs Lighthouse CLI and verifies web quality scores.",
    "how_to_use": "",
@@ -745,24 +669,7 @@
    "tool_tier": "minor"
   },
   {
-   "rank": 47,
-   "name": "v0",
-   "purpose": "Guidance for apps that call the v0 API and SDK; keeps V0_API_KEY server-side.",
-   "how_to_use": "",
-   "repo": "vercel/v0-sdk",
-   "branch": "main",
-   "skill_path": "packages/create-v0-sdk-app/templates/v0",
-   "url": "https://github.com/vercel/v0-sdk/tree/main/packages/create-v0-sdk-app/templates/v0",
-   "stars": 514,
-   "license": "NOASSERTION (GitHub could not identify the licence)",
-   "license_ok": false,
-   "evidence": "Found by tool name (v0) in the tool-coverage pilot",
-   "notes": "Guidance for apps that call the v0 API and SDK; keeps V0_API_KEY server-side. -> link-only.",
-   "tool": "v0",
-   "tool_tier": "minor"
-  },
-  {
-   "rank": 48,
+   "rank": 41,
    "name": "shadcn-ui",
    "purpose": "Official; builds shadcn/ui code from Stitch screens. fetch-stitch.sh only curls the screen URL the MCP returns.",
    "how_to_use": "",
@@ -774,26 +681,16 @@
    "license": "Apache-2.0",
    "license_ok": true,
    "evidence": "Found by tool name (Google Stitch) in the tool-coverage pilot",
-   "notes": "Official; builds shadcn/ui code from Stitch screens. fetch-stitch.sh only curls the screen URL the MCP returns.",
+   "notes": "Official; builds shadcn/ui code from Stitch screens. fetch-stitch.sh only curls the screen URL the MCP returns. The same collection (google-labs-code/stitch-skills) also has: react-components (Google Stitch).",
    "tool": "Google Stitch",
-   "tool_tier": "minor"
-  },
-  {
-   "rank": 49,
-   "name": "react-components",
-   "purpose": "Official; converts Stitch screens to React components.",
-   "how_to_use": "",
-   "repo": "google-labs-code/stitch-skills",
-   "branch": "main",
-   "skill_path": "plugins/stitch-build/skills/react-components",
-   "url": "https://github.com/google-labs-code/stitch-skills/tree/main/plugins/stitch-build/skills/react-components",
-   "stars": 8424,
-   "license": "Apache-2.0",
-   "license_ok": true,
-   "evidence": "Found by tool name (Google Stitch) in the tool-coverage pilot",
-   "notes": "Official; converts Stitch screens to React components.",
-   "tool": "Google Stitch",
-   "tool_tier": "minor"
+   "tool_tier": "minor",
+   "also": [
+    {
+     "name": "react-components",
+     "tool": "Google Stitch",
+     "url": "https://github.com/google-labs-code/stitch-skills/tree/main/plugins/stitch-build/skills/react-components"
+    }
+   ]
   }
  ],
  "sources_checked": [

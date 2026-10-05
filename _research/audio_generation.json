@@ -339,40 +339,6 @@
   },
   {
    "rank": 23,
-   "name": "lyria",
-   "purpose": "CLI script for Lyria 3.5 text/image-to-music, lyrics, MP3/WAV export.",
-   "how_to_use": "",
-   "repo": "danicat/skills",
-   "branch": "main",
-   "skill_path": "media/lyria",
-   "url": "https://github.com/danicat/skills/tree/main/media/lyria",
-   "stars": 18,
-   "license": "Apache-2.0",
-   "license_ok": true,
-   "evidence": "Found by tool name (Google Gemini TTS and Lyria) in the tool-coverage pass",
-   "notes": "CLI script for Lyria 3.5 text/image-to-music, lyrics, MP3/WAV export.",
-   "tool": "Google Gemini TTS and Lyria",
-   "tool_tier": "major"
-  },
-  {
-   "rank": 24,
-   "name": "gemini-tts-cli",
-   "purpose": "Gemini TTS command-line skill with voices and style prompts.",
-   "how_to_use": "",
-   "repo": "doggy8088/gemini-tts-cli",
-   "branch": "main",
-   "skill_path": "skills/gemini-tts-cli",
-   "url": "https://github.com/doggy8088/gemini-tts-cli/tree/main/skills/gemini-tts-cli",
-   "stars": 28,
-   "license": "MIT",
-   "license_ok": true,
-   "evidence": "Found by tool name (Google Gemini TTS and Lyria) in the tool-coverage pass",
-   "notes": "Gemini TTS command-line skill with voices and style prompts.",
-   "tool": "Google Gemini TTS and Lyria",
-   "tool_tier": "major"
-  },
-  {
-   "rank": 25,
    "name": "suno-engineer and the album workflow skills",
    "purpose": "Builds Suno style prompts and settings per model; whole lyric-to-release workflow with checks.",
    "how_to_use": "",
@@ -389,24 +355,7 @@
    "tool_tier": "major"
   },
   {
-   "rank": 26,
-   "name": "suno-songwriting",
-   "purpose": "Paste-ready Suno inputs with lyric structure tags.",
-   "how_to_use": "",
-   "repo": "unagi/suno-skill",
-   "branch": "main",
-   "skill_path": "suno-songwriting",
-   "url": "https://github.com/unagi/suno-skill/tree/main/suno-songwriting",
-   "stars": 1,
-   "license": "MIT",
-   "license_ok": true,
-   "evidence": "Found by tool name (Suno) in the tool-coverage pass",
-   "notes": "Paste-ready Suno inputs with lyric structure tags.",
-   "tool": "Suno",
-   "tool_tier": "major"
-  },
-  {
-   "rank": 27,
+   "rank": 24,
    "name": "media-whisper",
    "purpose": "whisper.cpp and faster-whisper to SRT/VTT, translation, word timestamps.",
    "how_to_use": "",
@@ -418,63 +367,19 @@
    "license": "MIT",
    "license_ok": true,
    "evidence": "Found by tool name (Whisper (whisper.cpp / faster-whisper)) in the tool-coverage pass",
-   "notes": "whisper.cpp and faster-whisper to SRT/VTT, translation, word timestamps.",
+   "notes": "whisper.cpp and faster-whisper to SRT/VTT, translation, word timestamps. The same collection (damionrashford/media-os) also has: media-ffmpeg-normalize / ffmpeg-audio-filter / workflow-podcast-pipeline (FFmpeg).",
    "tool": "Whisper (whisper.cpp / faster-whisper)",
-   "tool_tier": "major"
+   "tool_tier": "major",
+   "also": [
+    {
+     "name": "media-ffmpeg-normalize / ffmpeg-audio-filter / workflow-podcast-pipeline",
+     "tool": "FFmpeg",
+     "url": "https://github.com/damionrashford/media-os/tree/main/skills/media-ffmpeg-normalize"
+    }
+   ]
   },
   {
-   "rank": 28,
-   "name": "Whisper-Skill",
-   "purpose": "Local Whisper transcription and burned-in subtitles without OpenAI API.",
-   "how_to_use": "",
-   "repo": "Mobiss11/Whisper-Skill",
-   "branch": "main",
-   "skill_path": "",
-   "url": "https://github.com/Mobiss11/Whisper-Skill",
-   "stars": 15,
-   "license": "MIT",
-   "license_ok": true,
-   "evidence": "Found by tool name (Whisper (whisper.cpp / faster-whisper)) in the tool-coverage pass",
-   "notes": "Local Whisper transcription and burned-in subtitles without OpenAI API.",
-   "tool": "Whisper (whisper.cpp / faster-whisper)",
-   "tool_tier": "major"
-  },
-  {
-   "rank": 29,
-   "name": "minutes",
-   "purpose": "Local-first on-device transcription of meetings and memos into markdown, queryable over MCP.",
-   "how_to_use": "",
-   "repo": "silverstein/minutes",
-   "branch": "main",
-   "skill_path": "",
-   "url": "https://github.com/silverstein/minutes",
-   "stars": 1529,
-   "license": "MIT",
-   "license_ok": true,
-   "evidence": "Found by tool name (Whisper (whisper.cpp / faster-whisper)) in the tool-coverage pass",
-   "notes": "Local-first on-device transcription of meetings and memos into markdown, queryable over MCP.",
-   "tool": "Whisper (whisper.cpp / faster-whisper)",
-   "tool_tier": "major"
-  },
-  {
-   "rank": 30,
-   "name": "media-ffmpeg-normalize / ffmpeg-audio-filter / workflow-podcast-pipeline",
-   "purpose": "Loudness normalization, audio filters and a podcast pipeline workflow.",
-   "how_to_use": "",
-   "repo": "damionrashford/media-os",
-   "branch": "main",
-   "skill_path": "skills/media-ffmpeg-normalize",
-   "url": "https://github.com/damionrashford/media-os/tree/main/skills/media-ffmpeg-normalize",
-   "stars": 20,
-   "license": "MIT",
-   "license_ok": true,
-   "evidence": "Found by tool name (FFmpeg) in the tool-coverage pass",
-   "notes": "Loudness normalization, audio filters and a podcast pipeline workflow.",
-   "tool": "FFmpeg",
-   "tool_tier": "major"
-  },
-  {
-   "rank": 31,
+   "rank": 25,
    "name": "ffmpeg-audio-normalization-pipeline",
    "purpose": "Two-pass loudnorm pipeline.",
    "how_to_use": "",
@@ -491,7 +396,7 @@
    "tool_tier": "major"
   },
   {
-   "rank": 32,
+   "rank": 26,
    "name": "descript-mcp skills (create-video, edit-project, export-transcript, export-timeline, publish-project)",
    "purpose": "Official vendor skills for importing media, Underlord edits, transcript export and publishing; OAuth sign-in.",
    "how_to_use": "",
@@ -508,24 +413,7 @@
    "tool_tier": "major"
   },
   {
-   "rank": 33,
-   "name": "Audacity MCP",
-   "purpose": "MCP server that drives Audacity (needs mod-script-pipe enabled, which Audacity warns weakens security).",
-   "how_to_use": "",
-   "repo": "xDarkzx/Audacity-MCP",
-   "branch": "main",
-   "skill_path": "",
-   "url": "https://github.com/xDarkzx/Audacity-MCP",
-   "stars": 102,
-   "license": "Apache-2.0",
-   "license_ok": true,
-   "evidence": "Found by tool name (Audacity) in the tool-coverage pass",
-   "notes": "MCP server that drives Audacity (needs mod-script-pipe enabled, which Audacity warns weakens security).",
-   "tool": "Audacity",
-   "tool_tier": "major"
-  },
-  {
-   "rank": 34,
+   "rank": 27,
    "name": "cli-anything-audacity",
    "purpose": "Generated stateful command-line harness for Audacity audio editing.",
    "how_to_use": "",
@@ -542,7 +430,7 @@
    "tool_tier": "major"
   },
   {
-   "rank": 35,
+   "rank": 28,
    "name": "audition (Flue ExtendScript bridge)",
    "purpose": "Controls the real Audition app from the shell via ExtendScript, JSON results.",
    "how_to_use": "",
@@ -559,7 +447,7 @@
    "tool_tier": "major"
   },
   {
-   "rank": 36,
+   "rank": 29,
    "name": "audition-clean-voice",
    "purpose": "Drives Audition on macOS to denoise, de-hum and de-ess a voice recording.",
    "how_to_use": "",
@@ -576,7 +464,7 @@
    "tool_tier": "major"
   },
   {
-   "rank": 37,
+   "rank": 30,
    "name": "cartesia-api",
    "purpose": "Official skill for Sonic TTS, Ink STT, voices and short-lived access tokens.",
    "how_to_use": "",
@@ -593,7 +481,7 @@
    "tool_tier": "minor"
   },
   {
-   "rank": 38,
+   "rank": 31,
    "name": "deepgram-python-speech-to-text (plus text-to-speech, audio-intelligence, voice-agent)",
    "purpose": "Official SDK skills for pre-recorded and streaming STT, TTS and audio intelligence.",
    "how_to_use": "",
@@ -610,41 +498,7 @@
    "tool_tier": "minor"
   },
   {
-   "rank": 39,
-   "name": "deepgram-js-speech-to-text",
-   "purpose": "Same in JavaScript.",
-   "how_to_use": "",
-   "repo": "deepgram/deepgram-js-sdk",
-   "branch": "main",
-   "skill_path": ".agents/skills/deepgram-js-speech-to-text",
-   "url": "https://github.com/deepgram/deepgram-js-sdk/tree/main/.agents/skills/deepgram-js-speech-to-text",
-   "stars": 274,
-   "license": "MIT",
-   "license_ok": true,
-   "evidence": "Found by tool name (Deepgram) in the tool-coverage pass",
-   "notes": "Same in JavaScript.",
-   "tool": "Deepgram",
-   "tool_tier": "minor"
-  },
-  {
-   "rank": 40,
-   "name": "assemblyai-skill",
-   "purpose": "Official vendor skill (repo has no LICENSE file, so link-only).",
-   "how_to_use": "",
-   "repo": "AssemblyAI/assemblyai-skill",
-   "branch": "main",
-   "skill_path": "skills",
-   "url": "https://github.com/AssemblyAI/assemblyai-skill/tree/main/skills",
-   "stars": 15,
-   "license": "none stated",
-   "license_ok": false,
-   "evidence": "Found by tool name (AssemblyAI) in the tool-coverage pass",
-   "notes": "Official vendor skill (repo has no LICENSE file, so link-only). -> link-only.",
-   "tool": "AssemblyAI",
-   "tool_tier": "minor"
-  },
-  {
-   "rank": 41,
+   "rank": 32,
    "name": "assemblyai-hello-world and related",
    "purpose": "Third-party generic AssemblyAI integration skills.",
    "how_to_use": "",
@@ -661,25 +515,7 @@
    "tool_tier": "minor"
   },
   {
-   "rank": 42,
-   "name": "notebooklm-skill",
-   "purpose": "Generates audio overviews (deep-dive, brief, critique, debate) plus slides and reports from uploaded sources.",
-   "how_to_use": "",
-   "repo": "claude-world/notebooklm-skill",
-   "branch": "main",
-   "skill_path": "",
-   "url": "https://github.com/claude-world/notebooklm-skill",
-   "stars": 464,
-   "license": "MIT",
-   "license_ok": false,
-   "evidence": "Found by tool name (Google NotebookLM Audio Overviews) in the tool-coverage pass",
-   "notes": "Generates audio overviews (deep-dive, brief, critique, debate) plus slides and reports from uploaded sources. RISK: Unofficial: drives NotebookLM through notebooklm-py with a saved Google browser login (Playwright); auth files are session secrets and use may breach Google ToS. -> excluded",
-   "tool": "Google NotebookLM Audio Overviews",
-   "tool_tier": "major",
-   "risk": "Unofficial: drives NotebookLM through notebooklm-py with a saved Google browser login (Playwright); auth files are session secrets and use may breach Google ToS."
-  },
-  {
-   "rank": 43,
+   "rank": 33,
    "name": "notebooklm-skill",
    "purpose": "Most-starred NotebookLM skill, but for source-grounded Q&A rather than audio.",
    "how_to_use": "",
@@ -697,25 +533,7 @@
    "risk": "Browser automation of real Chrome with persistent Google login and 'anti-detection' (Patchright); querying only, no audio generation."
   },
   {
-   "rank": 44,
-   "name": "logic-pro-mcp",
-   "purpose": "MCP server for stateful Logic Pro control (transport, tracks, mixer) with project readback.",
-   "how_to_use": "",
-   "repo": "koltyj/logic-pro-mcp",
-   "branch": "main",
-   "skill_path": "",
-   "url": "https://github.com/koltyj/logic-pro-mcp",
-   "stars": 113,
-   "license": "MIT",
-   "license_ok": false,
-   "evidence": "Found by tool name (Apple GarageBand and Logic Pro) in the tool-coverage pass",
-   "notes": "MCP server for stateful Logic Pro control (transport, tracks, mixer) with project readback. RISK: Needs macOS Accessibility permission for the terminal and drives the app via CGEvent/AppleScript; local only. -> excluded",
-   "tool": "Apple GarageBand and Logic Pro",
-   "tool_tier": "major",
-   "risk": "Needs macOS Accessibility permission for the terminal and drives the app via CGEvent/AppleScript; local only."
-  },
-  {
-   "rank": 45,
+   "rank": 34,
    "name": "murf-mcp",
    "purpose": "Official Murf MCP server for TTS from agents; key in env var.",
    "how_to_use": "",

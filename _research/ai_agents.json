@@ -432,63 +432,19 @@
       "license": "Apache-2.0 (LICENSE.txt in skill)",
       "license_ok": true,
       "evidence": "Found by tool name (Claude Agent SDK and Claude API tool use) in the tool-coverage pass",
-      "notes": "Official Anthropic reference for models, tool use, streaming, caching, MCP connector, Agent SDK, in 8 languages. Already listed under Go deeper.",
+      "notes": "Official Anthropic reference for models, tool use, streaming, caching, MCP connector, Agent SDK, in 8 languages. Already listed under Go deeper. The same collection (anthropics/skills) also has: mcp-builder (Model Context Protocol (MCP) SDKs and Inspector).",
       "tool": "Claude Agent SDK and Claude API tool use",
-      "tool_tier": "major"
+      "tool_tier": "major",
+      "also": [
+        {
+          "name": "mcp-builder",
+          "tool": "Model Context Protocol (MCP) SDKs and Inspector",
+          "url": "https://github.com/anthropics/skills/tree/HEAD/skills/mcp-builder"
+        }
+      ]
     },
     {
       "rank": 29,
-      "name": "claude-agent-sdk-skill",
-      "purpose": "Review and build production Claude agents with the Agent SDK.",
-      "how_to_use": "",
-      "repo": "raroque/claude-agent-sdk-skill",
-      "branch": "main",
-      "skill_path": "",
-      "url": "https://github.com/raroque/claude-agent-sdk-skill",
-      "stars": 28,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (Claude Agent SDK and Claude API tool use) in the tool-coverage pass",
-      "notes": "Review and build production Claude agents with the Agent SDK.",
-      "tool": "Claude Agent SDK and Claude API tool use",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 30,
-      "name": "claude-agent-sdk-skill",
-      "purpose": "Builds production agents with the Agent SDK.",
-      "how_to_use": "",
-      "repo": "btgaskin/claude-agent-sdk-skill",
-      "branch": "main",
-      "skill_path": "",
-      "url": "https://github.com/btgaskin/claude-agent-sdk-skill",
-      "stars": 10,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (Claude Agent SDK and Claude API tool use) in the tool-coverage pass",
-      "notes": "Builds production agents with the Agent SDK.",
-      "tool": "Claude Agent SDK and Claude API tool use",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 31,
-      "name": "mcp-builder",
-      "purpose": "Step-by-step MCP server build in FastMCP or TS SDK plus eval harness. Already distilled and listed.",
-      "how_to_use": "",
-      "repo": "anthropics/skills",
-      "branch": "main",
-      "skill_path": "skills/mcp-builder",
-      "url": "https://github.com/anthropics/skills/tree/HEAD/skills/mcp-builder",
-      "stars": 179740,
-      "license": "Apache-2.0 (LICENSE.txt in skill)",
-      "license_ok": true,
-      "evidence": "Found by tool name (Model Context Protocol (MCP) SDKs and Inspector) in the tool-coverage pass",
-      "notes": "Step-by-step MCP server build in FastMCP or TS SDK plus eval harness. Already distilled and listed.",
-      "tool": "Model Context Protocol (MCP) SDKs and Inspector",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 32,
       "name": "openai-docs",
       "purpose": "Official: current OpenAI API and model guidance through the docs MCP; scripts only call developers.openai.com.",
       "how_to_use": "",
@@ -500,29 +456,19 @@
       "license": "Apache-2.0 (LICENSE.txt in skill)",
       "license_ok": true,
       "evidence": "Found by tool name (OpenAI Agents SDK) in the tool-coverage pass",
-      "notes": "Official: current OpenAI API and model guidance through the docs MCP; scripts only call developers.openai.com.",
+      "notes": "Official: current OpenAI API and model guidance through the docs MCP; scripts only call developers.openai.com. The same collection (openai/skills) also has: chatgpt-apps (OpenAI ChatGPT Plugins (Apps SDK)).",
       "tool": "OpenAI Agents SDK",
-      "tool_tier": "major"
+      "tool_tier": "major",
+      "also": [
+        {
+          "name": "chatgpt-apps",
+          "tool": "OpenAI ChatGPT Plugins (Apps SDK)",
+          "url": "https://github.com/openai/skills/tree/HEAD/skills/.curated/chatgpt-apps"
+        }
+      ]
     },
     {
-      "rank": 33,
-      "name": "openai-agents-sdk",
-      "purpose": "Python Agents SDK: handoffs, function tools, guardrails, sessions, streaming, tracing.",
-      "how_to_use": "",
-      "repo": "laguagu/claude-code-nextjs-skills",
-      "branch": "main",
-      "skill_path": "skills/openai-agents-sdk",
-      "url": "https://github.com/laguagu/claude-code-nextjs-skills/tree/HEAD/skills/openai-agents-sdk",
-      "stars": 67,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (OpenAI Agents SDK) in the tool-coverage pass",
-      "notes": "Python Agents SDK: handoffs, function tools, guardrails, sessions, streaming, tracing.",
-      "tool": "OpenAI Agents SDK",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 34,
+      "rank": 30,
       "name": "langchain-skills (langgraph-*, langchain-*, deep-agents-*)",
       "purpose": "Official: about 20 skills covering LangGraph state, persistence, human-in-the-loop, LangChain middleware, RAG, Deep Agents, eval engineering.",
       "how_to_use": "",
@@ -539,24 +485,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 35,
-      "name": "langchain-agent-skills",
-      "purpose": "Community collection for LangChain, LangGraph and LangSmith.",
-      "how_to_use": "",
-      "repo": "soba-labs/langchain-agent-skills",
-      "branch": "main",
-      "skill_path": "",
-      "url": "https://github.com/soba-labs/langchain-agent-skills",
-      "stars": 107,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (LangGraph and LangChain (Deep Agents)) in the tool-coverage pass",
-      "notes": "Community collection for LangChain, LangGraph and LangSmith.",
-      "tool": "LangGraph and LangChain (Deep Agents)",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 36,
+      "rank": 31,
       "name": "ai-sdk",
       "purpose": "Official: tells the agent to check installed docs before coding with generateText, streamText, ToolLoopAgent, useChat.",
       "how_to_use": "",
@@ -573,24 +502,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 37,
-      "name": "design-agent (with design-task, getting-started, ask-docs)",
-      "purpose": "Official: role, goal, backstory, tools, delegation, guardrails, YAML vs code.",
-      "how_to_use": "",
-      "repo": "crewaiinc/skills",
-      "branch": "main",
-      "skill_path": "skills/design-agent",
-      "url": "https://github.com/crewaiinc/skills/tree/HEAD/skills/design-agent",
-      "stars": 44,
-      "license": "MIT stated in README only, no LICENSE file",
-      "license_ok": false,
-      "evidence": "Found by tool name (CrewAI) in the tool-coverage pass",
-      "notes": "Official: role, goal, backstory, tools, delegation, guardrails, YAML vs code. -> link-only.",
-      "tool": "CrewAI",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 38,
+      "rank": 32,
       "name": "crewai",
       "purpose": "Multi-agent crews, flows and tools overview.",
       "how_to_use": "",
@@ -602,12 +514,19 @@
       "license": "MIT",
       "license_ok": true,
       "evidence": "Found by tool name (CrewAI) in the tool-coverage pass",
-      "notes": "Multi-agent crews, flows and tools overview.",
+      "notes": "Multi-agent crews, flows and tools overview. The same collection (Orchestra-Research/AI-Research-SKILLs) also has: llamaindex (LlamaIndex).",
       "tool": "CrewAI",
-      "tool_tier": "major"
+      "tool_tier": "major",
+      "also": [
+        {
+          "name": "llamaindex",
+          "tool": "LlamaIndex",
+          "url": "https://github.com/Orchestra-Research/AI-Research-SKILLs/tree/HEAD/14-agents/llamaindex"
+        }
+      ]
     },
     {
-      "rank": 39,
+      "rank": 33,
       "name": "agent-framework-azure-ai-py",
       "purpose": "Official Microsoft skill for Agent Framework agents on Azure AI (Python).",
       "how_to_use": "",
@@ -619,29 +538,19 @@
       "license": "MIT",
       "license_ok": true,
       "evidence": "Found by tool name (Microsoft Agent Framework (AutoGen, Semantic Kernel)) in the tool-coverage pass",
-      "notes": "Official Microsoft skill for Agent Framework agents on Azure AI (Python).",
+      "notes": "Official Microsoft skill for Agent Framework agents on Azure AI (Python). The same collection (microsoft/skills) also has: microsoft-foundry (Microsoft Agent Framework (AutoGen, Semantic Kernel)).",
       "tool": "Microsoft Agent Framework (AutoGen, Semantic Kernel)",
-      "tool_tier": "major"
+      "tool_tier": "major",
+      "also": [
+        {
+          "name": "microsoft-foundry",
+          "tool": "Microsoft Agent Framework (AutoGen, Semantic Kernel)",
+          "url": "https://github.com/microsoft/skills/tree/HEAD/.github/plugins/azure-skills/skills/microsoft-foundry"
+        }
+      ]
     },
     {
-      "rank": 40,
-      "name": "microsoft-foundry",
-      "purpose": "Foundry deploy, invoke, evaluate; already listed under Go deeper.",
-      "how_to_use": "",
-      "repo": "microsoft/skills",
-      "branch": "main",
-      "skill_path": ".github/plugins/azure-skills/skills/microsoft-foundry",
-      "url": "https://github.com/microsoft/skills/tree/HEAD/.github/plugins/azure-skills/skills/microsoft-foundry",
-      "stars": 3081,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (Microsoft Agent Framework (AutoGen, Semantic Kernel)) in the tool-coverage pass",
-      "notes": "Foundry deploy, invoke, evaluate; already listed under Go deeper.",
-      "tool": "Microsoft Agent Framework (AutoGen, Semantic Kernel)",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 41,
+      "rank": 34,
       "name": "langsmith-trace / dataset / evaluator",
       "purpose": "Official: query traces, build datasets, write evaluators, online evals.",
       "how_to_use": "",
@@ -658,7 +567,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 42,
+      "rank": 35,
       "name": "langfuse",
       "purpose": "Official: docs lookup, traces, datasets, experiments, prompt management through the langfuse CLI and API; only calls langfuse.com.",
       "how_to_use": "",
@@ -670,29 +579,19 @@
       "license": "MIT",
       "license_ok": true,
       "evidence": "Found by tool name (Langfuse) in the tool-coverage pass",
-      "notes": "Official: docs lookup, traces, datasets, experiments, prompt management through the langfuse CLI and API; only calls langfuse.com.",
+      "notes": "Official: docs lookup, traces, datasets, experiments, prompt management through the langfuse CLI and API; only calls langfuse.com. The same collection (langfuse/skills) also has: migrate-to-langfuse (Langfuse).",
       "tool": "Langfuse",
-      "tool_tier": "major"
+      "tool_tier": "major",
+      "also": [
+        {
+          "name": "migrate-to-langfuse",
+          "tool": "Langfuse",
+          "url": "https://github.com/langfuse/skills/tree/HEAD/skills/migrate-to-langfuse"
+        }
+      ]
     },
     {
-      "rank": 43,
-      "name": "migrate-to-langfuse",
-      "purpose": "Official: move from another observability tool.",
-      "how_to_use": "",
-      "repo": "langfuse/skills",
-      "branch": "main",
-      "skill_path": "skills/migrate-to-langfuse",
-      "url": "https://github.com/langfuse/skills/tree/HEAD/skills/migrate-to-langfuse",
-      "stars": 295,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (Langfuse) in the tool-coverage pass",
-      "notes": "Official: move from another observability tool.",
-      "tool": "Langfuse",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 44,
+      "rank": 36,
       "name": "building-pydantic-ai-agents",
       "purpose": "Official: tools, capabilities, structured output, streaming, testing, multi-agent.",
       "how_to_use": "",
@@ -709,41 +608,7 @@
       "tool_tier": "minor"
     },
     {
-      "rank": 45,
-      "name": "pydantic-ai",
-      "purpose": "Community overview of agents, tools and dependency injection.",
-      "how_to_use": "",
-      "repo": "davila7/claude-code-templates",
-      "branch": "main",
-      "skill_path": "cli-tool/components/skills/ai-research/pydantic-ai",
-      "url": "https://github.com/davila7/claude-code-templates/tree/HEAD/cli-tool/components/skills/ai-research/pydantic-ai",
-      "stars": 32388,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (Pydantic AI) in the tool-coverage pass",
-      "notes": "Community overview of agents, tools and dependency injection.",
-      "tool": "Pydantic AI",
-      "tool_tier": "minor"
-    },
-    {
-      "rank": 46,
-      "name": "llamaindex",
-      "purpose": "Ingestion, indices, query engines and agents.",
-      "how_to_use": "",
-      "repo": "Orchestra-Research/AI-Research-SKILLs",
-      "branch": "main",
-      "skill_path": "14-agents/llamaindex",
-      "url": "https://github.com/Orchestra-Research/AI-Research-SKILLs/tree/HEAD/14-agents/llamaindex",
-      "stars": 13267,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (LlamaIndex) in the tool-coverage pass",
-      "notes": "Ingestion, indices, query engines and agents.",
-      "tool": "LlamaIndex",
-      "tool_tier": "minor"
-    },
-    {
-      "rank": 47,
+      "rank": 37,
       "name": "vibe-llama",
       "purpose": "Official LlamaIndex tool that writes context files for coding agents (a CLI, not a plain SKILL.md).",
       "how_to_use": "",
@@ -760,7 +625,7 @@
       "tool_tier": "minor"
     },
     {
-      "rank": 48,
+      "rank": 38,
       "name": "agents-build",
       "purpose": "Official AWS: add memory, multi-agent, A2A, VPC and browser to AgentCore agents.",
       "how_to_use": "",
@@ -777,7 +642,7 @@
       "tool_tier": "minor"
     },
     {
-      "rank": 49,
+      "rank": 39,
       "name": "strands-context-manager",
       "purpose": "Strands context management.",
       "how_to_use": "",
@@ -794,24 +659,7 @@
       "tool_tier": "minor"
     },
     {
-      "rank": 50,
-      "name": "aws-strands",
-      "purpose": "Strands SDK guide; no licence file.",
-      "how_to_use": "",
-      "repo": "hoodini/ai-agents-skills",
-      "branch": "main",
-      "skill_path": "skills/aws-strands",
-      "url": "https://github.com/hoodini/ai-agents-skills/tree/HEAD/skills/aws-strands",
-      "stars": 281,
-      "license": "none found",
-      "license_ok": false,
-      "evidence": "Found by tool name (AWS Strands Agents and Bedrock AgentCore) in the tool-coverage pass",
-      "notes": "Strands SDK guide; no licence file. -> link-only.",
-      "tool": "AWS Strands Agents and Bedrock AgentCore",
-      "tool_tier": "minor"
-    },
-    {
-      "rank": 51,
+      "rank": 40,
       "name": "google-agents-cli-* (adk-code, eval, deploy, scaffold)",
       "purpose": "Official: ADK code, scaffold, eval, deploy and observability skills.",
       "how_to_use": "",
@@ -828,7 +676,7 @@
       "tool_tier": "minor"
     },
     {
-      "rank": 52,
+      "rank": 41,
       "name": "mastra",
       "purpose": "Official: agents, workflows, tools, memory, mastra api CLI, current APIs.",
       "how_to_use": "",
@@ -845,7 +693,7 @@
       "tool_tier": "minor"
     },
     {
-      "rank": 53,
+      "rank": 42,
       "name": "promptfoo-evals / provider-setup / redteam-setup",
       "purpose": "Official: eval suites, assertions, rubrics, CI gates, red-team scans.",
       "how_to_use": "",
@@ -862,7 +710,7 @@
       "tool_tier": "minor"
     },
     {
-      "rank": 54,
+      "rank": 43,
       "name": "skills-for-copilot-studio",
       "purpose": "Official Microsoft: build and edit Copilot Studio agents as YAML with schema validation, topics, actions, evals and Direct Line chat tests. (MSAL bundle sends standard client-telemetry headers to Microsoft login only)",
       "how_to_use": "",
@@ -879,24 +727,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 55,
-      "name": "Copilot-Studio-Skill-Builder",
-      "purpose": "Community skill to design, challenge and repair Copilot Studio agents.",
-      "how_to_use": "",
-      "repo": "RomainTheLowCodeBeardedBear/Copilot-Studio-Skill-Builder",
-      "branch": "main",
-      "skill_path": "",
-      "url": "https://github.com/RomainTheLowCodeBeardedBear/Copilot-Studio-Skill-Builder",
-      "stars": 2,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (Microsoft Copilot Studio) in the tool-coverage pass",
-      "notes": "Community skill to design, challenge and repair Copilot Studio agents.",
-      "tool": "Microsoft Copilot Studio",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 56,
+      "rank": 44,
       "name": "agent-auto-improvement",
       "purpose": "Official Braintrust skill: improve an agent from its traces and evals; install.sh only copies or symlinks skill folders locally.",
       "how_to_use": "",
@@ -913,24 +744,7 @@
       "tool_tier": "minor"
     },
     {
-      "rank": 57,
-      "name": "arize-phoenix",
-      "purpose": "Official Phoenix skill: tracing, evaluators, prompt iteration, experiments. Licence conflict: treat as link-only.",
-      "how_to_use": "",
-      "repo": "Arize-ai/phoenix",
-      "branch": "main",
-      "skill_path": "docs/phoenix/skill.md",
-      "url": "https://github.com/Arize-ai/phoenix/tree/HEAD/docs/phoenix/skill.md",
-      "stars": 11714,
-      "license": "MIT stated in skill frontmatter, but the repo LICENSE is Elastic License 2.0",
-      "license_ok": false,
-      "evidence": "Found by tool name (Arize Phoenix) in the tool-coverage pass",
-      "notes": "Official Phoenix skill: tracing, evaluators, prompt iteration, experiments. Licence conflict: treat as link-only. -> link-only.",
-      "tool": "Arize Phoenix",
-      "tool_tier": "minor"
-    },
-    {
-      "rank": 58,
+      "rank": 45,
       "name": "arize-skills",
       "purpose": "Official Arize AX skills (instrumentation, datasets, evaluators, experiments); install.sh only points to the official ax CLI repo.",
       "how_to_use": "",
@@ -947,7 +761,7 @@
       "tool_tier": "minor"
     },
     {
-      "rank": 59,
+      "rank": 46,
       "name": "agents",
       "purpose": "Official: create, configure and publish voice agents, tools, procedures, widget embedding and outbound calls; needs ELEVENLABS_API_KEY.",
       "how_to_use": "",
@@ -964,7 +778,7 @@
       "tool_tier": "minor"
     },
     {
-      "rank": 60,
+      "rank": 47,
       "name": "building-livekit-agents",
       "purpose": "Official: architecture, latency, handoffs and tasks, plus sibling skills for docs, testing, debugging and simulations; eval scripts are repo-local.",
       "how_to_use": "",
@@ -981,7 +795,7 @@
       "tool_tier": "minor"
     },
     {
-      "rank": 61,
+      "rank": 48,
       "name": "skills",
       "purpose": "Official Vapi plugin: create assistants, tools and calls; ships an MCP config for Vapi's own server.",
       "how_to_use": "",
@@ -998,24 +812,7 @@
       "tool_tier": "minor"
     },
     {
-      "rank": 62,
-      "name": "chatgpt-apps",
-      "purpose": "Official OpenAI: scaffold and validate ChatGPT apps on MCP with window.openai widget patterns; scaffold script writes local files only.",
-      "how_to_use": "",
-      "repo": "openai/skills",
-      "branch": "main",
-      "skill_path": "skills/.curated/chatgpt-apps",
-      "url": "https://github.com/openai/skills/tree/HEAD/skills/.curated/chatgpt-apps",
-      "stars": 27888,
-      "license": "Apache-2.0 (LICENSE.txt in skill)",
-      "license_ok": true,
-      "evidence": "Found by tool name (OpenAI ChatGPT Plugins (Apps SDK)) in the tool-coverage pass",
-      "notes": "Official OpenAI: scaffold and validate ChatGPT apps on MCP with window.openai widget patterns; scaffold script writes local files only.",
-      "tool": "OpenAI ChatGPT Plugins (Apps SDK)",
-      "tool_tier": "minor"
-    },
-    {
-      "rank": 63,
+      "rank": 49,
       "name": "agents-sdk",
       "purpose": "Official Cloudflare: build, debug and review Agents SDK apps.",
       "how_to_use": "",

@@ -371,23 +371,6 @@
     },
     {
       "rank": 25,
-      "name": "xlsx-author / audit-xls (financial-analysis plugin)",
-      "purpose": "Anthropic's own live-formula workbook authoring and Excel audit skills used by its DCF, comps, LBO and 3-statement skills.",
-      "how_to_use": "",
-      "repo": "anthropics/financial-services",
-      "branch": "main",
-      "skill_path": "plugins/vertical-plugins/financial-analysis/skills/xlsx-author",
-      "url": "https://github.com/anthropics/financial-services/tree/main/plugins/vertical-plugins/financial-analysis/skills/xlsx-author",
-      "stars": 38772,
-      "license": "Apache-2.0",
-      "license_ok": true,
-      "evidence": "Found by tool name (Microsoft Excel (with Claude for Excel)) in the tool-coverage pass",
-      "notes": "Anthropic's own live-formula workbook authoring and Excel audit skills used by its DCF, comps, LBO and 3-statement skills.",
-      "tool": "Microsoft Excel (with Claude for Excel)",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 26,
       "name": "financial-analysis plugin (comps, DCF, LBO, 3-statement on connected data)",
       "purpose": "Carries the FactSet and ten other data connectors in .mcp.json; no FactSet-specific skill, the modelling skills pull from the connectors.",
       "how_to_use": "",
@@ -399,29 +382,29 @@
       "license": "Apache-2.0",
       "license_ok": true,
       "evidence": "Found by tool name (FactSet) in the tool-coverage pass",
-      "notes": "Carries the FactSet and ten other data connectors in .mcp.json; no FactSet-specific skill, the modelling skills pull from the connectors.",
+      "notes": "Carries the FactSet and ten other data connectors in .mcp.json; no FactSet-specific skill, the modelling skills pull from the connectors. The same collection (anthropics/financial-services) also has: xlsx-author / audit-xls (financial-analysis plugin) (Microsoft Excel (with Claude for Excel)), tear-sheet / earnings-preview-beta / funding-digest (S&P Global partner plugin) (S&P Capital IQ), bond-relative-value / swap-curve-strategy / fx-carry-trade / option-vol-analysis (LSEG partner plugin) (LSEG Workspace (Refinitiv Eikon)).",
       "tool": "FactSet",
-      "tool_tier": "major"
+      "tool_tier": "major",
+      "also": [
+        {
+          "name": "xlsx-author / audit-xls (financial-analysis plugin)",
+          "tool": "Microsoft Excel (with Claude for Excel)",
+          "url": "https://github.com/anthropics/financial-services/tree/main/plugins/vertical-plugins/financial-analysis/skills/xlsx-author"
+        },
+        {
+          "name": "tear-sheet / earnings-preview-beta / funding-digest (S&P Global partner plugin)",
+          "tool": "S&P Capital IQ",
+          "url": "https://github.com/anthropics/financial-services/tree/main/plugins/partner-built/spglobal/skills/tear-sheet"
+        },
+        {
+          "name": "bond-relative-value / swap-curve-strategy / fx-carry-trade / option-vol-analysis (LSEG partner plugin)",
+          "tool": "LSEG Workspace (Refinitiv Eikon)",
+          "url": "https://github.com/anthropics/financial-services/tree/main/plugins/partner-built/lseg/skills"
+        }
+      ]
     },
     {
-      "rank": 27,
-      "name": "tear-sheet / earnings-preview-beta / funding-digest (S&P Global partner plugin)",
-      "purpose": "Company tear sheets and earnings previews on Capital IQ data via the Kensho kFinance MCP.",
-      "how_to_use": "",
-      "repo": "anthropics/financial-services",
-      "branch": "main",
-      "skill_path": "plugins/partner-built/spglobal/skills/tear-sheet",
-      "url": "https://github.com/anthropics/financial-services/tree/main/plugins/partner-built/spglobal/skills/tear-sheet",
-      "stars": 38772,
-      "license": "Apache-2.0",
-      "license_ok": true,
-      "evidence": "Found by tool name (S&P Capital IQ) in the tool-coverage pass",
-      "notes": "Company tear sheets and earnings previews on Capital IQ data via the Kensho kFinance MCP.",
-      "tool": "S&P Capital IQ",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 28,
+      "rank": 26,
       "name": "ib-portfolio / ib-account / ib-option-chain (trading_skills)",
       "purpose": "Read-only portfolio, account and option-chain pulls through a local TWS or IB Gateway session.",
       "how_to_use": "",
@@ -438,7 +421,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 29,
+      "rank": 27,
       "name": "ibkr-cli",
       "purpose": "Walks a newcomer from IB Gateway setup to quotes, scanners and orders via a third-party CLI; it can place orders, so it needs the paper-first rules.",
       "how_to_use": "",
@@ -455,7 +438,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 30,
+      "rank": 28,
       "name": "pine-script (strategy export to TradingView and other platforms)",
       "purpose": "Exports a backtested strategy as Pine plus other platform code; export only, not a Pine language guide.",
       "how_to_use": "",
@@ -472,76 +455,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 31,
-      "name": "pine-developer / pine-debugger / pine-backtester",
-      "purpose": "Most complete Pine authoring/debug/backtest skill set found; no licence file, so link-only.",
-      "how_to_use": "",
-      "repo": "TradersPost/pinescript-agents",
-      "branch": "main",
-      "skill_path": ".claude/skills/pine-developer",
-      "url": "https://github.com/TradersPost/pinescript-agents",
-      "stars": 167,
-      "license": "none stated",
-      "license_ok": false,
-      "evidence": "Found by tool name (TradingView (Pine Script)) in the tool-coverage pass",
-      "notes": "Most complete Pine authoring/debug/backtest skill set found; no licence file, so link-only. -> link-only.",
-      "tool": "TradingView (Pine Script)",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 32,
-      "name": "tradingview-reader",
-      "purpose": "Reads quotes, options chains, alerts and watchlists from the user's TradingView desktop app.",
-      "how_to_use": "",
-      "repo": "himself65/finance-skills",
-      "branch": "main",
-      "skill_path": "plugins/data-providers/skills/tradingview-reader",
-      "url": "https://github.com/himself65/finance-skills/tree/main/plugins/data-providers/skills/tradingview-reader",
-      "stars": 3373,
-      "license": "MIT",
-      "license_ok": false,
-      "evidence": "Found by tool name (TradingView (Pine Script)) in the tool-coverage pass",
-      "notes": "Reads quotes, options chains, alerts and watchlists from the user's TradingView desktop app. RISK: Its opencli plugin harvests TradingView session cookies from the local desktop app over Chrome DevTools Protocol and replays them to TradingView's own endpoints; official host only, but it reads browser/app cookies. -> excluded",
-      "tool": "TradingView (Pine Script)",
-      "tool_tier": "major",
-      "risk": "Its opencli plugin harvests TradingView session cookies from the local desktop app over Chrome DevTools Protocol and replays them to TradingView's own endpoints; official host only, but it reads browser/app cookies."
-    },
-    {
-      "rank": 33,
-      "name": "quantconnect-backtest",
-      "purpose": "Backtest API usage with a decision step; tiny project, no licence.",
-      "how_to_use": "",
-      "repo": "derekcrosslu/CLAUDE_CODE_EXPLORE",
-      "branch": "main",
-      "skill_path": ".claude/skills/quantconnect-backtest",
-      "url": "https://github.com/derekcrosslu/CLAUDE_CODE_EXPLORE",
-      "stars": 2,
-      "license": "none stated",
-      "license_ok": false,
-      "evidence": "Found by tool name (QuantConnect (LEAN)) in the tool-coverage pass",
-      "notes": "Backtest API usage with a decision step; tiny project, no licence. -> link-only.",
-      "tool": "QuantConnect (LEAN)",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 34,
-      "name": "QuantConnect (component-based strategy development)",
-      "purpose": "Aggregator copy of a modular strategy skill; provenance and licence unclear.",
-      "how_to_use": "",
-      "repo": "majiayu000/claude-skill-registry-data",
-      "branch": "main",
-      "skill_path": "data/quantconnect",
-      "url": "https://github.com/majiayu000/claude-skill-registry-data/tree/main/data/quantconnect",
-      "stars": 23,
-      "license": "none stated",
-      "license_ok": false,
-      "evidence": "Found by tool name (QuantConnect (LEAN)) in the tool-coverage pass",
-      "notes": "Aggregator copy of a modular strategy skill; provenance and licence unclear. -> link-only.",
-      "tool": "QuantConnect (LEAN)",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 35,
+      "rank": 29,
       "name": "edgartools (core, financials, holdings, ownership, xbrl)",
       "purpose": "Official skills from the edgartools library with sharp-edges lists; needs set_identity() with a real name and email for the SEC User-Agent.",
       "how_to_use": "",
@@ -558,7 +472,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 36,
+      "rank": 30,
       "name": "sec-data",
       "purpose": "Income statement, balance sheet and cash flow JSON from XBRL facts (Spanish-language).",
       "how_to_use": "",
@@ -570,29 +484,29 @@
       "license": "MIT",
       "license_ok": true,
       "evidence": "Found by tool name (SEC EDGAR) in the tool-coverage pass",
-      "notes": "Income statement, balance sheet and cash flow JSON from XBRL facts (Spanish-language).",
+      "notes": "Income statement, balance sheet and cash flow JSON from XBRL facts (Spanish-language). The same collection (gauss314/skills) also has: yahoo-finance (Yahoo Finance (yfinance)), alpaca-trading (Alpaca), fred-macro (FRED (St. Louis Fed)).",
       "tool": "SEC EDGAR",
-      "tool_tier": "major"
+      "tool_tier": "major",
+      "also": [
+        {
+          "name": "yahoo-finance",
+          "tool": "Yahoo Finance (yfinance)",
+          "url": "https://github.com/gauss314/skills/tree/main/skills/yahoo-finance"
+        },
+        {
+          "name": "alpaca-trading",
+          "tool": "Alpaca",
+          "url": "https://github.com/gauss314/skills/tree/main/skills/alpaca-trading"
+        },
+        {
+          "name": "fred-macro",
+          "tool": "FRED (St. Louis Fed)",
+          "url": "https://github.com/gauss314/skills/tree/main/skills/fred-macro"
+        }
+      ]
     },
     {
-      "rank": 37,
-      "name": "sec-edgar-skill",
-      "purpose": "Full-text search (EFTS) and filing queries over the public APIs; brand new.",
-      "how_to_use": "",
-      "repo": "FrancoReyesDev/sec-edgar-skill",
-      "branch": "main",
-      "skill_path": ".",
-      "url": "https://github.com/FrancoReyesDev/sec-edgar-skill",
-      "stars": 0,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (SEC EDGAR) in the tool-coverage pass",
-      "notes": "Full-text search (EFTS) and filing queries over the public APIs; brand new.",
-      "tool": "SEC EDGAR",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 38,
+      "rank": 31,
       "name": "yfinance-data",
       "purpose": "Quotes, history, statements, options chains, estimates and holders via yfinance, with sibling skills for earnings and valuation.",
       "how_to_use": "",
@@ -609,24 +523,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 39,
-      "name": "yahoo-finance",
-      "purpose": "Spanish-language Yahoo Finance data helper.",
-      "how_to_use": "",
-      "repo": "gauss314/skills",
-      "branch": "main",
-      "skill_path": "skills/yahoo-finance",
-      "url": "https://github.com/gauss314/skills/tree/main/skills/yahoo-finance",
-      "stars": 244,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (Yahoo Finance (yfinance)) in the tool-coverage pass",
-      "notes": "Spanish-language Yahoo Finance data helper.",
-      "tool": "Yahoo Finance (yfinance)",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 40,
+      "rank": 32,
       "name": "alpaca-trading-paper-trading",
       "purpose": "Official; preview, confirm and submit paper orders, states no telemetry; CLI and MCP variants alongside.",
       "how_to_use": "",
@@ -643,41 +540,7 @@
       "tool_tier": "minor"
     },
     {
-      "rank": 41,
-      "name": "alpaca-trading",
-      "purpose": "Order, position and account scripts for paper and live; unofficial and in Spanish.",
-      "how_to_use": "",
-      "repo": "gauss314/skills",
-      "branch": "main",
-      "skill_path": "skills/alpaca-trading",
-      "url": "https://github.com/gauss314/skills/tree/main/skills/alpaca-trading",
-      "stars": 244,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (Alpaca) in the tool-coverage pass",
-      "notes": "Order, position and account scripts for paper and live; unofficial and in Spanish.",
-      "tool": "Alpaca",
-      "tool_tier": "minor"
-    },
-    {
-      "rank": 42,
-      "name": "fred-macro",
-      "purpose": "FRED series, search and release queries; Spanish-language; needs the user's own FRED key.",
-      "how_to_use": "",
-      "repo": "gauss314/skills",
-      "branch": "main",
-      "skill_path": "skills/fred-macro",
-      "url": "https://github.com/gauss314/skills/tree/main/skills/fred-macro",
-      "stars": 244,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (FRED (St. Louis Fed)) in the tool-coverage pass",
-      "notes": "FRED series, search and release queries; Spanish-language; needs the user's own FRED key.",
-      "tool": "FRED (St. Louis Fed)",
-      "tool_tier": "minor"
-    },
-    {
-      "rank": 43,
+      "rank": 33,
       "name": "use_openbb_cli / configure_mcp_server / work_with_server",
       "purpose": "Official skills shipped with the OpenBB MCP server extension; LICENSE file says Apache-2.0 though GitHub reports it as undetected.",
       "how_to_use": "",
@@ -694,7 +557,7 @@
       "tool_tier": "minor"
     },
     {
-      "rank": 44,
+      "rank": 34,
       "name": "ta-lib",
       "purpose": "150+ functions and 61 candlestick patterns; scripts checked, no network calls.",
       "how_to_use": "",
@@ -711,24 +574,7 @@
       "tool_tier": "minor"
     },
     {
-      "rank": 45,
-      "name": "bond-relative-value / swap-curve-strategy / fx-carry-trade / option-vol-analysis (LSEG partner plugin)",
-      "purpose": "Eight LSEG-built skills (also bond-futures-basis, fixed-income-portfolio, macro-rates-monitor, equity-research) on the LSEG MCP; needs an LSEG data entitlement. A standalone copy at LSEG-API-Samples/lseg-claude-plugin has no licence file.",
-      "how_to_use": "",
-      "repo": "anthropics/financial-services",
-      "branch": "main",
-      "skill_path": "plugins/partner-built/lseg/skills",
-      "url": "https://github.com/anthropics/financial-services/tree/main/plugins/partner-built/lseg/skills",
-      "stars": 38772,
-      "license": "Apache-2.0",
-      "license_ok": true,
-      "evidence": "Found by tool name (LSEG Workspace (Refinitiv Eikon)) in the tool-coverage pass",
-      "notes": "Eight LSEG-built skills (also bond-futures-basis, fixed-income-portfolio, macro-rates-monitor, equity-research) on the LSEG MCP; needs an LSEG data entitlement. A standalone copy at LSEG-API-Samples/lseg-claude-plugin has no licence file.",
-      "tool": "LSEG Workspace (Refinitiv Eikon)",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 46,
+      "rank": 35,
       "name": "mql5-development / metatrader-platform / metatrader-research (metatrader-skills marketplace)",
       "purpose": "Seven Claude Code plugins for MQL4/5 EA development, platform automation and backtest analytics; created July 2026, no stars yet, scripts not reviewed. Community MCP ariadng/metatrader-mcp-server (MIT, ~820 stars) can place trades, so paper/demo-first rules apply.",
       "how_to_use": "",
@@ -745,7 +591,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 47,
+      "rank": 36,
       "name": "binance (Binance Skills Hub)",
       "purpose": "Official Binance skills marketplace (also fiat, p2p, payment, onchain-pay); no licence file, so link-only; payment skills fall outside the no-transfer ground rule.",
       "how_to_use": "",

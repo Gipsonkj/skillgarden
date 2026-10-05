@@ -371,23 +371,6 @@
   },
   {
    "rank": 25,
-   "name": "sprout-mcp-server",
-   "purpose": "Community MCP wrapping the Sprout API (28 tools: analytics, publishing drafts, listening, messages, cases); not official, licence not checked.",
-   "how_to_use": "",
-   "repo": "oliverames/sprout-mcp-server",
-   "branch": "main",
-   "skill_path": "",
-   "url": "https://github.com/oliverames/sprout-mcp-server",
-   "stars": 0,
-   "license": "unverified",
-   "license_ok": false,
-   "evidence": "Found by tool name (Sprout Social) in the tool-coverage pass",
-   "notes": "Community MCP wrapping the Sprout API (28 tools: analytics, publishing drafts, listening, messages, cases); not official, licence not checked. -> link-only.",
-   "tool": "Sprout Social",
-   "tool_tier": "major"
-  },
-  {
-   "rank": 26,
    "name": "resize-for-social-media",
    "purpose": "Official Canva skill: resizes one design to each platform size via the Canva connector.",
    "how_to_use": "",
@@ -399,63 +382,24 @@
    "license": "Apache-2.0",
    "license_ok": true,
    "evidence": "Found by tool name (Canva) in the tool-coverage pass",
-   "notes": "Official Canva skill: resizes one design to each platform size via the Canva connector.",
+   "notes": "Official Canva skill: resizes one design to each platform size via the Canva connector. The same collection (canva-sdks/canva-skills) also has: bulk-create (Canva), brand-check (Canva).",
    "tool": "Canva",
-   "tool_tier": "major"
+   "tool_tier": "major",
+   "also": [
+    {
+     "name": "bulk-create",
+     "tool": "Canva",
+     "url": "https://github.com/canva-sdks/canva-skills/tree/HEAD/plugins/canva/skills/bulk-create"
+    },
+    {
+     "name": "brand-check",
+     "tool": "Canva",
+     "url": "https://github.com/canva-sdks/canva-skills/tree/HEAD/plugins/canva/skills/brand-check"
+    }
+   ]
   },
   {
-   "rank": 27,
-   "name": "bulk-create",
-   "purpose": "Official: makes many designs from a template and a data list, good for carousels and post batches.",
-   "how_to_use": "",
-   "repo": "canva-sdks/canva-skills",
-   "branch": "main",
-   "skill_path": "plugins/canva/skills/bulk-create",
-   "url": "https://github.com/canva-sdks/canva-skills/tree/HEAD/plugins/canva/skills/bulk-create",
-   "stars": 114,
-   "license": "Apache-2.0",
-   "license_ok": true,
-   "evidence": "Found by tool name (Canva) in the tool-coverage pass",
-   "notes": "Official: makes many designs from a template and a data list, good for carousels and post batches.",
-   "tool": "Canva",
-   "tool_tier": "major"
-  },
-  {
-   "rank": 28,
-   "name": "brand-check",
-   "purpose": "Official: checks a design against the brand kit.",
-   "how_to_use": "",
-   "repo": "canva-sdks/canva-skills",
-   "branch": "main",
-   "skill_path": "plugins/canva/skills/brand-check",
-   "url": "https://github.com/canva-sdks/canva-skills/tree/HEAD/plugins/canva/skills/brand-check",
-   "stars": 114,
-   "license": "Apache-2.0",
-   "license_ok": true,
-   "evidence": "Found by tool name (Canva) in the tool-coverage pass",
-   "notes": "Official: checks a design against the brand kit.",
-   "tool": "Canva",
-   "tool_tier": "major"
-  },
-  {
-   "rank": 29,
-   "name": "instagram skill (Graph API)",
-   "purpose": "Small community Instagram skill; unvetted and no licence checked. Deep Instagram API work belongs to the instagram-automation craft.",
-   "how_to_use": "",
-   "repo": "geegewu/gegeewu-open-skill",
-   "branch": "main",
-   "skill_path": ".claude/skills/instagram",
-   "url": "https://github.com/geegewu/gegeewu-open-skill/tree/HEAD/.claude/skills/instagram",
-   "stars": 0,
-   "license": "unverified",
-   "license_ok": false,
-   "evidence": "Found by tool name (Meta Business Suite and Graph API (Instagram, Facebook)) in the tool-coverage pass",
-   "notes": "Small community Instagram skill; unvetted and no licence checked. Deep Instagram API work belongs to the instagram-automation craft. -> link-only.",
-   "tool": "Meta Business Suite and Graph API (Instagram, Facebook)",
-   "tool_tier": "major"
-  },
-  {
-   "rank": 30,
+   "rank": 26,
    "name": "xurl",
    "purpose": "Official X CLI repo with a root SKILL.md: posts, replies, media upload, search, raw v2 calls, auth status.",
    "how_to_use": "",
@@ -472,24 +416,7 @@
    "tool_tier": "major"
   },
   {
-   "rank": 31,
-   "name": "xurl",
-   "purpose": "The xurl skill the guide was distilled from.",
-   "how_to_use": "",
-   "repo": "openclaw/openclaw",
-   "branch": "main",
-   "skill_path": "skills/xurl",
-   "url": "https://github.com/openclaw/openclaw/tree/HEAD/skills/xurl",
-   "stars": 391416,
-   "license": "MIT",
-   "license_ok": true,
-   "evidence": "Found by tool name (X API and xurl) in the tool-coverage pass",
-   "notes": "The xurl skill the guide was distilled from.",
-   "tool": "X API and xurl",
-   "tool_tier": "major"
-  },
-  {
-   "rank": 32,
+   "rank": 27,
    "name": "capcut-edit",
    "purpose": "Drives the CapCut phone app through UI automation (templates, captions, export); scripts not reviewed beyond the SKILL.md.",
    "how_to_use": "",
@@ -506,7 +433,7 @@
    "tool_tier": "major"
   },
   {
-   "rank": 33,
+   "rank": 28,
    "name": "youtube (yutu)",
    "purpose": "yutu CLI/MCP over the YouTube Data API v3: videos, playlists, captions, thumbnails, comments, analytics; SKILL.md requires confirm-before-delete. Repo licence is Apache-2.0, SKILL.md says MIT.",
    "how_to_use": "",
@@ -523,59 +450,7 @@
    "tool_tier": "major"
   },
   {
-   "rank": 34,
-   "name": "tiktok-marketing",
-   "purpose": "Hook, caption, trend, planner and repurposer skills; publishing is through the Publora service (third-party key), so treat that route as optional.",
-   "how_to_use": "",
-   "repo": "sergebulaev/tiktok-skills",
-   "branch": "main",
-   "skill_path": "",
-   "url": "https://github.com/sergebulaev/tiktok-skills",
-   "stars": 62,
-   "license": "MIT",
-   "license_ok": false,
-   "evidence": "Found by tool name (TikTok Content Posting API) in the tool-coverage pass",
-   "notes": "Hook, caption, trend, planner and repurposer skills; publishing is through the Publora service (third-party key), so treat that route as optional. RISK: Publishing step sends the post and video to Publora (third-party host) with a Publora API key; not TikTok's official API. -> excluded",
-   "tool": "TikTok Content Posting API",
-   "tool_tier": "major",
-   "risk": "Publishing step sends the post and video to Publora (third-party host) with a Publora API key; not TikTok's official API."
-  },
-  {
-   "rank": 35,
-   "name": "metricool",
-   "purpose": "Schedules and reads metrics through the Metricool API token; no licence on the repo.",
-   "how_to_use": "",
-   "repo": "sundial-org/awesome-openclaw-skills",
-   "branch": "main",
-   "skill_path": "skills/metricool",
-   "url": "https://github.com/sundial-org/awesome-openclaw-skills/tree/HEAD/skills/metricool",
-   "stars": 662,
-   "license": "none",
-   "license_ok": false,
-   "evidence": "Found by tool name (Metricool) in the tool-coverage pass",
-   "notes": "Schedules and reads metrics through the Metricool API token; no licence on the repo. -> link-only.",
-   "tool": "Metricool",
-   "tool_tier": "minor"
-  },
-  {
-   "rank": 36,
-   "name": "postiz",
-   "purpose": "Official Postiz agent CLI skill for scheduling and analytics; no licence asserted, so link only.",
-   "how_to_use": "",
-   "repo": "gitroomhq/postiz-agent",
-   "branch": "main",
-   "skill_path": "skills/postiz",
-   "url": "https://github.com/gitroomhq/postiz-agent/tree/HEAD/skills/postiz",
-   "stars": 501,
-   "license": "NOASSERTION",
-   "license_ok": false,
-   "evidence": "Found by tool name (Postiz) in the tool-coverage pass",
-   "notes": "Official Postiz agent CLI skill for scheduling and analytics; no licence asserted, so link only. -> link-only.",
-   "tool": "Postiz",
-   "tool_tier": "minor"
-  },
-  {
-   "rank": 37,
+   "rank": 29,
    "name": "ayrshare plugin (analytics, comments, publishing skills)",
    "purpose": "Official plugin: publish, schedule, analytics, comments, with per-platform content validation; its MCP config sends the Ayrshare key to api.ayrshare.com only.",
    "how_to_use": "",
@@ -592,7 +467,7 @@
    "tool_tier": "minor"
   },
   {
-   "rank": 38,
+   "rank": 30,
    "name": "bluesky",
    "purpose": "Posts text, images, video with alt text, replies and quotes via the bsky terminal app.",
    "how_to_use": "",
@@ -607,24 +482,6 @@
    "notes": "Posts text, images, video with alt text, replies and quotes via the bsky terminal app.",
    "tool": "Bluesky AT Protocol",
    "tool_tier": "minor"
-  },
-  {
-   "rank": 39,
-   "name": "threads-api",
-   "purpose": "curl script over graph.threads.net: container create, threads_publish, multi-post threads with images; README partly in Chinese.",
-   "how_to_use": "",
-   "repo": "madebypan/threads-api-skill",
-   "branch": "main",
-   "skill_path": ".claude/skills/threads-api",
-   "url": "https://github.com/madebypan/threads-api-skill/tree/HEAD/.claude/skills/threads-api",
-   "stars": 72,
-   "license": "MIT",
-   "license_ok": false,
-   "evidence": "Found by tool name (Threads API) in the tool-coverage pass",
-   "notes": "curl script over graph.threads.net: container create, threads_publish, multi-post threads with images; README partly in Chinese. RISK: Tells the user to upload post images to catbox.moe (third-party public host) and includes guides for driving Chrome through the Meta developer console. -> excluded",
-   "tool": "Threads API",
-   "tool_tier": "minor",
-   "risk": "Tells the user to upload post images to catbox.moe (third-party public host) and includes guides for driving Chrome through the Meta developer console."
   }
  ],
  "sources_checked": [

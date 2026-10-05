@@ -317,29 +317,19 @@
       "license": "MIT",
       "license_ok": true,
       "evidence": "Found by tool name (Klaviyo) in the tool-coverage pass",
-      "notes": "Flow/campaign audits, benchmarks and Python API scripts; reads KLAVIYO_API_KEY from env, no other hosts found in the client scripts.",
+      "notes": "Flow/campaign audits, benchmarks and Python API scripts; reads KLAVIYO_API_KEY from env, no other hosts found in the client scripts. The same collection (thatrebeccarae/claude-marketing) also has: klaviyo-developer (Klaviyo).",
       "tool": "Klaviyo",
-      "tool_tier": "major"
+      "tool_tier": "major",
+      "also": [
+        {
+          "name": "klaviyo-developer",
+          "tool": "Klaviyo",
+          "url": "https://github.com/thatrebeccarae/claude-marketing/tree/HEAD/skills/klaviyo-developer"
+        }
+      ]
     },
     {
       "rank": 22,
-      "name": "klaviyo-developer",
-      "purpose": "Event tracking, SDKs, webhooks, rate limits, OAuth, catalog sync; MCP vs SDK guidance (tested against revision 2026-04-15).",
-      "how_to_use": "",
-      "repo": "thatrebeccarae/claude-marketing",
-      "branch": "main",
-      "skill_path": "skills/klaviyo-developer",
-      "url": "https://github.com/thatrebeccarae/claude-marketing/tree/HEAD/skills/klaviyo-developer",
-      "stars": 160,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (Klaviyo) in the tool-coverage pass",
-      "notes": "Event tracking, SDKs, webhooks, rate limits, OAuth, catalog sync; MCP vs SDK guidance (tested against revision 2026-04-15).",
-      "tool": "Klaviyo",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 23,
       "name": "klaviyo-webhooks",
       "purpose": "Receive and verify Klaviyo webhooks safely.",
       "how_to_use": "",
@@ -351,29 +341,19 @@
       "license": "MIT",
       "license_ok": true,
       "evidence": "Found by tool name (Klaviyo) in the tool-coverage pass",
-      "notes": "Receive and verify Klaviyo webhooks safely.",
+      "notes": "Receive and verify Klaviyo webhooks safely. The same collection (hookdeck/webhook-skills) also has: mailchimp-webhooks (Mailchimp).",
       "tool": "Klaviyo",
-      "tool_tier": "major"
+      "tool_tier": "major",
+      "also": [
+        {
+          "name": "mailchimp-webhooks",
+          "tool": "Mailchimp",
+          "url": "https://github.com/hookdeck/webhook-skills/tree/HEAD/skills/mailchimp-webhooks"
+        }
+      ]
     },
     {
-      "rank": 24,
-      "name": "mailchimp-webhooks",
-      "purpose": "Mailchimp's GET URL validation, URL-secret protection and audience event handling.",
-      "how_to_use": "",
-      "repo": "hookdeck/webhook-skills",
-      "branch": "main",
-      "skill_path": "skills/mailchimp-webhooks",
-      "url": "https://github.com/hookdeck/webhook-skills/tree/HEAD/skills/mailchimp-webhooks",
-      "stars": 89,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (Mailchimp) in the tool-coverage pass",
-      "notes": "Mailchimp's GET URL validation, URL-secret protection and audience event handling.",
-      "tool": "Mailchimp",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 25,
+      "rank": 23,
       "name": "mailchimp-integration",
       "purpose": "API-key auth, audience segmentation and campaign workflows against the official api.mailchimp.com host; no scripts.",
       "how_to_use": "",
@@ -390,25 +370,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 26,
-      "name": "mailchimp-automation",
-      "purpose": "Campaign, audience and report tasks written for Composio's toolkit.",
-      "how_to_use": "",
-      "repo": "sickn33/agentic-awesome-skills",
-      "branch": "main",
-      "skill_path": "skills/mailchimp-automation",
-      "url": "https://github.com/sickn33/agentic-awesome-skills/tree/HEAD/skills/mailchimp-automation",
-      "stars": 47262,
-      "license": "MIT",
-      "license_ok": false,
-      "evidence": "Found by tool name (Mailchimp) in the tool-coverage pass",
-      "notes": "Campaign, audience and report tasks written for Composio's toolkit. RISK: Routes every call (including the user's Mailchimp/ESP data and OAuth) through Composio's Rube MCP, a third-party host that is not the vendor's; the repo marks it risk: critical. -> excluded",
-      "tool": "Mailchimp",
-      "tool_tier": "major",
-      "risk": "Routes every call (including the user's Mailchimp/ESP data and OAuth) through Composio's Rube MCP, a third-party host that is not the vendor's; the repo marks it risk: critical."
-    },
-    {
-      "rank": 27,
+      "rank": 24,
       "name": "agent-cli-skills (audience-targeting, bulk-operations)",
       "purpose": "Official HubSpot skills for the hubspot agent CLI: segment contacts by lifecycle and engagement, export JSONL, bulk updates.",
       "how_to_use": "",
@@ -425,24 +387,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 28,
-      "name": "hubspot-admin-skills",
-      "purpose": "Bounce, unsubscribe and engagement suppression workflows, list and workflow cleanup, audits via the HubSpot MCP.",
-      "how_to_use": "",
-      "repo": "TomGranot/hubspot-admin-skills",
-      "branch": "main",
-      "skill_path": "skills",
-      "url": "https://github.com/TomGranot/hubspot-admin-skills/tree/HEAD/skills",
-      "stars": 72,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (HubSpot Marketing Hub) in the tool-coverage pass",
-      "notes": "Bounce, unsubscribe and engagement suppression workflows, list and workflow cleanup, audits via the HubSpot MCP.",
-      "tool": "HubSpot Marketing Hub",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 29,
+      "rank": 25,
       "name": "amazon-ses",
       "purpose": "Official AWS onboarding: identities, production access, test send, troubleshooting.",
       "how_to_use": "",
@@ -459,7 +404,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 30,
+      "rank": 26,
       "name": "twilio-sendgrid-email-send",
       "purpose": "Official: v3 Mail Send, dynamic templates, scheduled sends, sandbox mode.",
       "how_to_use": "",
@@ -471,46 +416,24 @@
       "license": "MIT",
       "license_ok": true,
       "evidence": "Found by tool name (SendGrid) in the tool-coverage pass",
-      "notes": "Official: v3 Mail Send, dynamic templates, scheduled sends, sandbox mode.",
+      "notes": "Official: v3 Mail Send, dynamic templates, scheduled sends, sandbox mode. The same collection (twilio/ai) also has: twilio-sendgrid-suppressions (SendGrid), twilio-sendgrid-webhooks (SendGrid).",
       "tool": "SendGrid",
-      "tool_tier": "major"
+      "tool_tier": "major",
+      "also": [
+        {
+          "name": "twilio-sendgrid-suppressions",
+          "tool": "SendGrid",
+          "url": "https://github.com/twilio/ai/tree/HEAD/skills/sendgrid/twilio-sendgrid-suppressions"
+        },
+        {
+          "name": "twilio-sendgrid-webhooks",
+          "tool": "SendGrid",
+          "url": "https://github.com/twilio/ai/tree/HEAD/skills/sendgrid/twilio-sendgrid-webhooks"
+        }
+      ]
     },
     {
-      "rank": 31,
-      "name": "twilio-sendgrid-suppressions",
-      "purpose": "Official: bounces, blocks, spam reports, unsubscribe groups.",
-      "how_to_use": "",
-      "repo": "twilio/ai",
-      "branch": "main",
-      "skill_path": "skills/sendgrid/twilio-sendgrid-suppressions",
-      "url": "https://github.com/twilio/ai/tree/HEAD/skills/sendgrid/twilio-sendgrid-suppressions",
-      "stars": 36,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (SendGrid) in the tool-coverage pass",
-      "notes": "Official: bounces, blocks, spam reports, unsubscribe groups.",
-      "tool": "SendGrid",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 32,
-      "name": "twilio-sendgrid-webhooks",
-      "purpose": "Official: event webhook setup and signature verification.",
-      "how_to_use": "",
-      "repo": "twilio/ai",
-      "branch": "main",
-      "skill_path": "skills/sendgrid/twilio-sendgrid-webhooks",
-      "url": "https://github.com/twilio/ai/tree/HEAD/skills/sendgrid/twilio-sendgrid-webhooks",
-      "stars": 36,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (SendGrid) in the tool-coverage pass",
-      "notes": "Official: event webhook setup and signature verification.",
-      "tool": "SendGrid",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 33,
+      "rank": 27,
       "name": "resend",
       "purpose": "Official: every endpoint, contacts, segments, automations, domains, inbound.",
       "how_to_use": "",
@@ -522,64 +445,24 @@
       "license": "MIT",
       "license_ok": true,
       "evidence": "Found by tool name (Resend) in the tool-coverage pass",
-      "notes": "Official: every endpoint, contacts, segments, automations, domains, inbound.",
+      "notes": "Official: every endpoint, contacts, segments, automations, domains, inbound. The same collection (resend/resend-skills) also has: resend-cli (Resend), email-best-practices (Resend).",
       "tool": "Resend",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 34,
-      "name": "resend-cli",
-      "purpose": "Official: drive Resend from the CLI.",
-      "how_to_use": "",
-      "repo": "resend/resend-skills",
-      "branch": "main",
-      "skill_path": "skills/resend-cli",
-      "url": "https://github.com/resend/resend-skills/tree/HEAD/skills/resend-cli",
-      "stars": 195,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (Resend) in the tool-coverage pass",
-      "notes": "Official: drive Resend from the CLI.",
-      "tool": "Resend",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 35,
-      "name": "email-best-practices",
-      "purpose": "Official: deliverability and compliance guidance.",
-      "how_to_use": "",
-      "repo": "resend/resend-skills",
-      "branch": "main",
-      "skill_path": "skills/email-best-practices",
-      "url": "https://github.com/resend/resend-skills/tree/HEAD/skills/email-best-practices",
-      "stars": 195,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (Resend) in the tool-coverage pass",
-      "notes": "Official: deliverability and compliance guidance.",
-      "tool": "Resend",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 36,
-      "name": "convertkit-automation",
-      "purpose": "Subscribers, tags, broadcasts and stats written for Composio's Kit toolkit.",
-      "how_to_use": "",
-      "repo": "sickn33/agentic-awesome-skills",
-      "branch": "main",
-      "skill_path": "skills/convertkit-automation",
-      "url": "https://github.com/sickn33/agentic-awesome-skills/tree/HEAD/skills/convertkit-automation",
-      "stars": 47262,
-      "license": "MIT",
-      "license_ok": false,
-      "evidence": "Found by tool name (Kit) in the tool-coverage pass",
-      "notes": "Subscribers, tags, broadcasts and stats written for Composio's Kit toolkit. RISK: Routes every call (including the user's Mailchimp/ESP data and OAuth) through Composio's Rube MCP, a third-party host that is not the vendor's; the repo marks it risk: critical. -> excluded",
-      "tool": "Kit",
       "tool_tier": "major",
-      "risk": "Routes every call (including the user's Mailchimp/ESP data and OAuth) through Composio's Rube MCP, a third-party host that is not the vendor's; the repo marks it risk: critical."
+      "also": [
+        {
+          "name": "resend-cli",
+          "tool": "Resend",
+          "url": "https://github.com/resend/resend-skills/tree/HEAD/skills/resend-cli"
+        },
+        {
+          "name": "email-best-practices",
+          "tool": "Resend",
+          "url": "https://github.com/resend/resend-skills/tree/HEAD/skills/email-best-practices"
+        }
+      ]
     },
     {
-      "rank": 37,
+      "rank": 28,
       "name": "email-deliverability",
       "purpose": "SPF/DKIM/DMARC, reputation monitoring and spam diagnosis, generic across providers.",
       "how_to_use": "",
@@ -596,7 +479,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 38,
+      "rank": 29,
       "name": "postmark-skills",
       "purpose": "Official: send, templates, inbound, webhooks, best practices.",
       "how_to_use": "",
@@ -613,7 +496,7 @@
       "tool_tier": "minor"
     },
     {
-      "rank": 39,
+      "rank": 30,
       "name": "customerio-journeys",
       "purpose": "Official: automations, campaigns, broadcasts, segments, transactional messages via the Customer.io MCP.",
       "how_to_use": "",
@@ -625,82 +508,24 @@
       "license": "MIT",
       "license_ok": true,
       "evidence": "Found by tool name (Customer.io) in the tool-coverage pass",
-      "notes": "Official: automations, campaigns, broadcasts, segments, transactional messages via the Customer.io MCP.",
+      "notes": "Official: automations, campaigns, broadcasts, segments, transactional messages via the Customer.io MCP. The same collection (customerio/claude-plugin) also has: customerio-pipelines (Customer.io), customerio-sdk (Customer.io).",
       "tool": "Customer.io",
-      "tool_tier": "minor"
-    },
-    {
-      "rank": 40,
-      "name": "customerio-pipelines",
-      "purpose": "Official: data pipelines, sources and destinations.",
-      "how_to_use": "",
-      "repo": "customerio/claude-plugin",
-      "branch": "main",
-      "skill_path": "skills/customerio-pipelines",
-      "url": "https://github.com/customerio/claude-plugin/tree/HEAD/skills/customerio-pipelines",
-      "stars": 1,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (Customer.io) in the tool-coverage pass",
-      "notes": "Official: data pipelines, sources and destinations.",
-      "tool": "Customer.io",
-      "tool_tier": "minor"
-    },
-    {
-      "rank": 41,
-      "name": "customerio-sdk",
-      "purpose": "Official: SDK instrumentation.",
-      "how_to_use": "",
-      "repo": "customerio/claude-plugin",
-      "branch": "main",
-      "skill_path": "skills/customerio-sdk",
-      "url": "https://github.com/customerio/claude-plugin/tree/HEAD/skills/customerio-sdk",
-      "stars": 1,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (Customer.io) in the tool-coverage pass",
-      "notes": "Official: SDK instrumentation.",
-      "tool": "Customer.io",
-      "tool_tier": "minor"
-    },
-    {
-      "rank": 42,
-      "name": "brevo-automation",
-      "purpose": "Contacts, campaigns and lists written for Composio's Brevo toolkit.",
-      "how_to_use": "",
-      "repo": "sickn33/agentic-awesome-skills",
-      "branch": "main",
-      "skill_path": "skills/brevo-automation",
-      "url": "https://github.com/sickn33/agentic-awesome-skills/tree/HEAD/skills/brevo-automation",
-      "stars": 47262,
-      "license": "MIT",
-      "license_ok": false,
-      "evidence": "Found by tool name (Brevo) in the tool-coverage pass",
-      "notes": "Contacts, campaigns and lists written for Composio's Brevo toolkit. RISK: Routes every call (including the user's Mailchimp/ESP data and OAuth) through Composio's Rube MCP, a third-party host that is not the vendor's; the repo marks it risk: critical. -> excluded",
-      "tool": "Brevo",
       "tool_tier": "minor",
-      "risk": "Routes every call (including the user's Mailchimp/ESP data and OAuth) through Composio's Rube MCP, a third-party host that is not the vendor's; the repo marks it risk: critical."
+      "also": [
+        {
+          "name": "customerio-pipelines",
+          "tool": "Customer.io",
+          "url": "https://github.com/customerio/claude-plugin/tree/HEAD/skills/customerio-pipelines"
+        },
+        {
+          "name": "customerio-sdk",
+          "tool": "Customer.io",
+          "url": "https://github.com/customerio/claude-plugin/tree/HEAD/skills/customerio-sdk"
+        }
+      ]
     },
     {
-      "rank": 43,
-      "name": "brevo",
-      "purpose": "Brevo contacts, campaigns, transactional via Maton managed OAuth.",
-      "how_to_use": "",
-      "repo": "LeoYeAI/openclaw-master-skills",
-      "branch": "main",
-      "skill_path": "skills/brevo-api",
-      "url": "https://github.com/LeoYeAI/openclaw-master-skills/tree/HEAD/skills/brevo-api",
-      "stars": 2156,
-      "license": "MIT",
-      "license_ok": false,
-      "evidence": "Found by tool name (Brevo) in the tool-coverage pass",
-      "notes": "Brevo contacts, campaigns, transactional via Maton managed OAuth. RISK: Sends the user's Brevo traffic through Maton's third-party API gateway and needs a MATON_API_KEY. -> excluded",
-      "tool": "Brevo",
-      "tool_tier": "minor",
-      "risk": "Sends the user's Brevo traffic through Maton's third-party API gateway and needs a MATON_API_KEY."
-    },
-    {
-      "rank": 44,
+      "rank": 31,
       "name": "beehiiv-newsletter-advisor",
       "purpose": "Official advisor with 2026 benchmarks from 28B emails; no license file, so link-only.",
       "how_to_use": "",
@@ -717,7 +542,7 @@
       "tool_tier": "minor"
     },
     {
-      "rank": 45,
+      "rank": 32,
       "name": "react-email",
       "purpose": "Official skill from the library's own repo.",
       "how_to_use": "",
@@ -734,7 +559,7 @@
       "tool_tier": "minor"
     },
     {
-      "rank": 46,
+      "rank": 33,
       "name": "email-html-mjml",
       "purpose": "Full MJML component reference and dark-mode patterns; already bundled as templates.",
       "how_to_use": "",

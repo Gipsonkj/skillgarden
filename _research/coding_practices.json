@@ -453,23 +453,6 @@
     },
     {
       "rank": 30,
-      "name": "commit",
-      "purpose": "Sentry's conventional-commit workflow with issue references; refuses to commit on main and creates a branch first.",
-      "how_to_use": "",
-      "repo": "getsentry/skills",
-      "branch": "main",
-      "skill_path": "skills/commit",
-      "url": "https://github.com/getsentry/skills/tree/main/skills/commit",
-      "stars": 1037,
-      "license": "Apache-2.0",
-      "license_ok": true,
-      "evidence": "Found by tool name (Git) in the tool-coverage pass",
-      "notes": "Sentry's conventional-commit workflow with issue references; refuses to commit on main and creates a branch first.",
-      "tool": "Git",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 31,
       "name": "git-commit",
       "purpose": "Reads the real diff, stages intelligently and writes a Conventional Commits message.",
       "how_to_use": "",
@@ -481,12 +464,24 @@
       "license": "MIT",
       "license_ok": true,
       "evidence": "Found by tool name (Git) in the tool-coverage pass",
-      "notes": "Reads the real diff, stages intelligently and writes a Conventional Commits message.",
+      "notes": "Reads the real diff, stages intelligently and writes a Conventional Commits message. The same collection (github/awesome-copilot) also has: copilot-pr-autopilot (GitHub Copilot code review), ruff-recursive-fix (Ruff).",
       "tool": "Git",
-      "tool_tier": "major"
+      "tool_tier": "major",
+      "also": [
+        {
+          "name": "copilot-pr-autopilot",
+          "tool": "GitHub Copilot code review",
+          "url": "https://github.com/github/awesome-copilot/tree/main/skills/copilot-pr-autopilot"
+        },
+        {
+          "name": "ruff-recursive-fix",
+          "tool": "Ruff",
+          "url": "https://github.com/github/awesome-copilot/tree/main/skills/ruff-recursive-fix"
+        }
+      ]
     },
     {
-      "rank": 32,
+      "rank": 31,
       "name": "worktrees",
       "purpose": "Parallel agent work in git worktrees, with helper scripts and per-app notes.",
       "how_to_use": "",
@@ -503,7 +498,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 33,
+      "rank": 32,
       "name": "gh-fix-ci",
       "purpose": "Uses gh to find failing PR checks, pulls Actions logs, drafts a fix plan and implements only after approval; script only shells out to gh.",
       "how_to_use": "",
@@ -515,63 +510,24 @@
       "license": "Apache-2.0 (LICENSE.txt in skill folder)",
       "license_ok": true,
       "evidence": "Found by tool name (GitHub) in the tool-coverage pass",
-      "notes": "Uses gh to find failing PR checks, pulls Actions logs, drafts a fix plan and implements only after approval; script only shells out to gh.",
+      "notes": "Uses gh to find failing PR checks, pulls Actions logs, drafts a fix plan and implements only after approval; script only shells out to gh. The same collection (openai/skills) also has: gh-address-comments (GitHub), sentry (Sentry).",
       "tool": "GitHub",
-      "tool_tier": "major"
+      "tool_tier": "major",
+      "also": [
+        {
+          "name": "gh-address-comments",
+          "tool": "GitHub",
+          "url": "https://github.com/openai/skills/tree/main/skills/.curated/gh-address-comments"
+        },
+        {
+          "name": "sentry",
+          "tool": "Sentry",
+          "url": "https://github.com/openai/skills/tree/main/skills/.curated/sentry"
+        }
+      ]
     },
     {
-      "rank": 34,
-      "name": "gh-address-comments",
-      "purpose": "Finds the open PR for the branch and walks through its review comments with gh.",
-      "how_to_use": "",
-      "repo": "openai/skills",
-      "branch": "main",
-      "skill_path": "skills/.curated/gh-address-comments",
-      "url": "https://github.com/openai/skills/tree/main/skills/.curated/gh-address-comments",
-      "stars": 27889,
-      "license": "Apache-2.0 (LICENSE.txt in skill folder)",
-      "license_ok": true,
-      "evidence": "Found by tool name (GitHub) in the tool-coverage pass",
-      "notes": "Finds the open PR for the branch and walks through its review comments with gh.",
-      "tool": "GitHub",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 35,
-      "name": "iterate-pr",
-      "purpose": "Loops on a PR until CI is green and high/medium review feedback is handled.",
-      "how_to_use": "",
-      "repo": "getsentry/skills",
-      "branch": "main",
-      "skill_path": "skills/iterate-pr",
-      "url": "https://github.com/getsentry/skills/tree/main/skills/iterate-pr",
-      "stars": 1037,
-      "license": "Apache-2.0",
-      "license_ok": true,
-      "evidence": "Found by tool name (GitHub) in the tool-coverage pass",
-      "notes": "Loops on a PR until CI is green and high/medium review feedback is handled.",
-      "tool": "GitHub",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 36,
-      "name": "copilot-pr-autopilot",
-      "purpose": "Triggers Copilot Code Review via GraphQL and replies to every finding (fix, decline with reason, or escalate); has scripts, only skimmed the SKILL.md header.",
-      "how_to_use": "",
-      "repo": "github/awesome-copilot",
-      "branch": "main",
-      "skill_path": "skills/copilot-pr-autopilot",
-      "url": "https://github.com/github/awesome-copilot/tree/main/skills/copilot-pr-autopilot",
-      "stars": 39720,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (GitHub Copilot code review) in the tool-coverage pass",
-      "notes": "Triggers Copilot Code Review via GraphQL and replies to every finding (fix, decline with reason, or escalate); has scripts, only skimmed the SKILL.md header.",
-      "tool": "GitHub Copilot code review",
-      "tool_tier": "minor"
-    },
-    {
-      "rank": 37,
+      "rank": 33,
       "name": "code-review",
       "purpose": "Official vendor skill: runs the CodeRabbit CLI in --agent mode on committed/uncommitted/base-branch scopes and keeps severities; sends code to CodeRabbit (the tool's own service); says never pipe installers to a shell.",
       "how_to_use": "",
@@ -583,29 +539,19 @@
       "license": "MIT",
       "license_ok": true,
       "evidence": "Found by tool name (CodeRabbit) in the tool-coverage pass",
-      "notes": "Official vendor skill: runs the CodeRabbit CLI in --agent mode on committed/uncommitted/base-branch scopes and keeps severities; sends code to CodeRabbit (the tool's own service); says never pipe installers to a shell.",
+      "notes": "Official vendor skill: runs the CodeRabbit CLI in --agent mode on committed/uncommitted/base-branch scopes and keeps severities; sends code to CodeRabbit (the tool's own service); says never pipe installers to a shell. The same collection (coderabbitai/skills) also has: autofix (CodeRabbit).",
       "tool": "CodeRabbit",
-      "tool_tier": "major"
+      "tool_tier": "major",
+      "also": [
+        {
+          "name": "autofix",
+          "tool": "CodeRabbit",
+          "url": "https://github.com/coderabbitai/skills/tree/main/skills/autofix"
+        }
+      ]
     },
     {
-      "rank": 38,
-      "name": "autofix",
-      "purpose": "Applies unresolved CodeRabbit PR review-thread feedback with per-change approval and never executes reviewer-provided prompts directly.",
-      "how_to_use": "",
-      "repo": "coderabbitai/skills",
-      "branch": "main",
-      "skill_path": "skills/autofix",
-      "url": "https://github.com/coderabbitai/skills/tree/main/skills/autofix",
-      "stars": 187,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (CodeRabbit) in the tool-coverage pass",
-      "notes": "Applies unresolved CodeRabbit PR review-thread feedback with per-change approval and never executes reviewer-provided prompts directly.",
-      "tool": "CodeRabbit",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 39,
+      "rank": 34,
       "name": "eslint",
       "purpose": "Generic ESLint 9 flat-config guide from a large aggregator repo; no vendor skill exists.",
       "how_to_use": "",
@@ -622,7 +568,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 40,
+      "rank": 35,
       "name": "ruff",
       "purpose": "Official Astral plugin skill (siblings: uv, ty) for running Ruff checks and format.",
       "how_to_use": "",
@@ -639,24 +585,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 41,
-      "name": "ruff-recursive-fix",
-      "purpose": "Iterative safe and unsafe autofix loop with a review of each change and user decisions for the rest.",
-      "how_to_use": "",
-      "repo": "github/awesome-copilot",
-      "branch": "main",
-      "skill_path": "skills/ruff-recursive-fix",
-      "url": "https://github.com/github/awesome-copilot/tree/main/skills/ruff-recursive-fix",
-      "stars": 39720,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (Ruff) in the tool-coverage pass",
-      "notes": "Iterative safe and unsafe autofix loop with a review of each change and user decisions for the rest.",
-      "tool": "Ruff",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 42,
+      "rank": 36,
       "name": "sentry-debug-issue",
       "purpose": "Official: pulls stack trace, breadcrumbs and trace, optional Seer root cause, fixes with a test and resolves via a 'Fixes PROJECT-ID' commit.",
       "how_to_use": "",
@@ -673,58 +602,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 43,
-      "name": "sentry",
-      "purpose": "Read-only Sentry CLI queries for recent production errors; asks the user to run `sentry auth login` rather than handling tokens.",
-      "how_to_use": "",
-      "repo": "openai/skills",
-      "branch": "main",
-      "skill_path": "skills/.curated/sentry",
-      "url": "https://github.com/openai/skills/tree/main/skills/.curated/sentry",
-      "stars": 27889,
-      "license": "Apache-2.0 (LICENSE.txt in skill folder)",
-      "license_ok": true,
-      "evidence": "Found by tool name (Sentry) in the tool-coverage pass",
-      "notes": "Read-only Sentry CLI queries for recent production errors; asks the user to run `sentry auth login` rather than handling tokens.",
-      "tool": "Sentry",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 44,
-      "name": "troubleshooting",
-      "purpose": "Official skill for diagnosing live pages through the DevTools MCP.",
-      "how_to_use": "",
-      "repo": "ChromeDevTools/chrome-devtools-mcp",
-      "branch": "main",
-      "skill_path": "skills/troubleshooting",
-      "url": "https://github.com/ChromeDevTools/chrome-devtools-mcp/tree/main/skills/troubleshooting",
-      "stars": 52993,
-      "license": "Apache-2.0",
-      "license_ok": true,
-      "evidence": "Found by tool name (Chrome DevTools) in the tool-coverage pass",
-      "notes": "Official skill for diagnosing live pages through the DevTools MCP.",
-      "tool": "Chrome DevTools",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 45,
-      "name": "memory-leak-debugging",
-      "purpose": "Official heap-snapshot driven leak hunting.",
-      "how_to_use": "",
-      "repo": "ChromeDevTools/chrome-devtools-mcp",
-      "branch": "main",
-      "skill_path": "skills/memory-leak-debugging",
-      "url": "https://github.com/ChromeDevTools/chrome-devtools-mcp/tree/main/skills/memory-leak-debugging",
-      "stars": 52993,
-      "license": "Apache-2.0",
-      "license_ok": true,
-      "evidence": "Found by tool name (Chrome DevTools) in the tool-coverage pass",
-      "notes": "Official heap-snapshot driven leak hunting.",
-      "tool": "Chrome DevTools",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 46,
+      "rank": 37,
       "name": "chrome-devtools",
       "purpose": "Official general-purpose skill for driving Chrome; the cookie-debugging sibling reads page cookies, so read it before use.",
       "how_to_use": "",
@@ -736,12 +614,24 @@
       "license": "Apache-2.0",
       "license_ok": true,
       "evidence": "Found by tool name (Chrome DevTools) in the tool-coverage pass",
-      "notes": "Official general-purpose skill for driving Chrome; the cookie-debugging sibling reads page cookies, so read it before use.",
+      "notes": "Official general-purpose skill for driving Chrome; the cookie-debugging sibling reads page cookies, so read it before use. The same collection (ChromeDevTools/chrome-devtools-mcp) also has: troubleshooting (Chrome DevTools), memory-leak-debugging (Chrome DevTools).",
       "tool": "Chrome DevTools",
-      "tool_tier": "major"
+      "tool_tier": "major",
+      "also": [
+        {
+          "name": "troubleshooting",
+          "tool": "Chrome DevTools",
+          "url": "https://github.com/ChromeDevTools/chrome-devtools-mcp/tree/main/skills/troubleshooting"
+        },
+        {
+          "name": "memory-leak-debugging",
+          "tool": "Chrome DevTools",
+          "url": "https://github.com/ChromeDevTools/chrome-devtools-mcp/tree/main/skills/memory-leak-debugging"
+        }
+      ]
     },
     {
-      "rank": 47,
+      "rank": 38,
       "name": "python-debugpy",
       "purpose": "breakpoint() and pdb first, debugpy (DAP) for attach and headless; sibling node-inspect-debugger skill.",
       "how_to_use": "",
@@ -758,41 +648,7 @@
       "tool_tier": "minor"
     },
     {
-      "rank": 48,
-      "name": "debug-lldb",
-      "purpose": "lldb debugging recipe; repo has no clear licence, so link only.",
-      "how_to_use": "",
-      "repo": "regenrek/codex-1up",
-      "branch": "main",
-      "skill_path": "templates/skills/debug-lldb",
-      "url": "https://github.com/regenrek/codex-1up/tree/main/templates/skills/debug-lldb",
-      "stars": 436,
-      "license": "NOASSERTION",
-      "license_ok": false,
-      "evidence": "Found by tool name (Python debugger (pdb and debugpy)) in the tool-coverage pass",
-      "notes": "lldb debugging recipe; repo has no clear licence, so link only. -> link-only.",
-      "tool": "Python debugger (pdb and debugpy)",
-      "tool_tier": "minor"
-    },
-    {
-      "rank": 49,
-      "name": "semgrep",
-      "purpose": "Official skill that prefers the Semgrep MCP and falls back to the CLI; custom licence is not permissive, so link only.",
-      "how_to_use": "",
-      "repo": "semgrep/skills",
-      "branch": "main",
-      "skill_path": "skills/semgrep",
-      "url": "https://github.com/semgrep/skills/tree/main/skills/semgrep",
-      "stars": 320,
-      "license": "Semgrep Rules License v1.0",
-      "license_ok": false,
-      "evidence": "Found by tool name (Semgrep) in the tool-coverage pass",
-      "notes": "Official skill that prefers the Semgrep MCP and falls back to the CLI; custom licence is not permissive, so link only. -> link-only.",
-      "tool": "Semgrep",
-      "tool_tier": "minor"
-    },
-    {
-      "rank": 50,
+      "rank": 39,
       "name": "biomejs-skill",
       "purpose": "Adopting Biome and migrating from ESLint and Prettier; tiny community repo, not reviewed in depth. Biome's own repo skills are for contributors only.",
       "how_to_use": "",
@@ -809,7 +665,7 @@
       "tool_tier": "minor"
     },
     {
-      "rank": 51,
+      "rank": 40,
       "name": "glab",
       "purpose": "Community skill for the official glab CLI: MRs, issues, pipelines, auth via `glab auth login` (no token handling in files); default branch has an odd name, so link the repo root.",
       "how_to_use": "",
@@ -824,23 +680,6 @@
       "notes": "Community skill for the official glab CLI: MRs, issues, pipelines, auth via `glab auth login` (no token handling in files); default branch has an odd name, so link the repo root.",
       "tool": "GitLab",
       "tool_tier": "major"
-    },
-    {
-      "rank": 52,
-      "name": "graphite",
-      "purpose": "In-repo skill that routes branch and PR work through gt create/modify/submit/sync/restack and detects Graphite repos; licence unclear, so link only.",
-      "how_to_use": "",
-      "repo": "lightdash/lightdash",
-      "branch": "main",
-      "skill_path": ".claude/skills/graphite",
-      "url": "https://github.com/lightdash/lightdash/tree/main/.claude/skills/graphite",
-      "stars": 6172,
-      "license": "NOASSERTION (repo mixes open and enterprise licences)",
-      "license_ok": false,
-      "evidence": "Found by tool name (Graphite) in the tool-coverage pass",
-      "notes": "In-repo skill that routes branch and PR work through gt create/modify/submit/sync/restack and detects Graphite repos; licence unclear, so link only. -> link-only.",
-      "tool": "Graphite",
-      "tool_tier": "minor"
     }
   ],
   "sources_checked": [

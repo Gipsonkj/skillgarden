@@ -390,40 +390,6 @@
     },
     {
       "rank": 26,
-      "name": "claude-wordpress-skills",
-      "purpose": "WordPress engineering skills (performance, security review); developer-oriented, little on editorial publishing.",
-      "how_to_use": "",
-      "repo": "elvismdev/claude-wordpress-skills",
-      "branch": "main",
-      "skill_path": ".",
-      "url": "https://github.com/elvismdev/claude-wordpress-skills",
-      "stars": 234,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (WordPress) in the tool-coverage pass",
-      "notes": "WordPress engineering skills (performance, security review); developer-oriented, little on editorial publishing.",
-      "tool": "WordPress",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 27,
-      "name": "WordPress agent-skills (official)",
-      "purpose": "Official skills for blocks, themes, plugins, REST routes, Abilities API and WP-CLI; developer-focused, not copyable into a super skill because of GPL.",
-      "how_to_use": "",
-      "repo": "WordPress/agent-skills",
-      "branch": "main",
-      "skill_path": "skills/wp-rest-api",
-      "url": "https://github.com/WordPress/agent-skills/tree/trunk/skills/wp-rest-api",
-      "stars": 2200,
-      "license": "GPL-2.0-or-later (per LICENSE text; GitHub reports NOASSERTION)",
-      "license_ok": false,
-      "evidence": "Found by tool name (WordPress) in the tool-coverage pass",
-      "notes": "Official skills for blocks, themes, plugins, REST routes, Abilities API and WP-CLI; developer-focused, not copyable into a super skill because of GPL. -> link-only.",
-      "tool": "WordPress",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 28,
       "name": "gws-docs-write / persona-content-creator",
       "purpose": "Official Google Workspace CLI skills: append and write to Docs, Drive upload, and a content-creator persona that chains Docs, Drive, Gmail, Chat and Slides.",
       "how_to_use": "",
@@ -440,41 +406,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 29,
-      "name": "google-docs-skill",
-      "purpose": "Docs and Drive management for Claude Code.",
-      "how_to_use": "",
-      "repo": "robtaylor/google-docs-skill",
-      "branch": "main",
-      "skill_path": ".",
-      "url": "https://github.com/robtaylor/google-docs-skill",
-      "stars": 24,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (Google Docs) in the tool-coverage pass",
-      "notes": "Docs and Drive management for Claude Code.",
-      "tool": "Google Docs",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 30,
-      "name": "google-docs-skill",
-      "purpose": "Docs and Drive skill for several coding assistants.",
-      "how_to_use": "",
-      "repo": "danielkwapien/google-docs-skill",
-      "branch": "main",
-      "skill_path": ".",
-      "url": "https://github.com/danielkwapien/google-docs-skill",
-      "stars": 11,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (Google Docs) in the tool-coverage pass",
-      "notes": "Docs and Drive skill for several coding assistants.",
-      "tool": "Google Docs",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 31,
+      "rank": 27,
       "name": "grammarly-document-evaluator",
       "purpose": "Dry-run-by-default helper for Grammarly Writing Score, AI Detection and Plagiarism document jobs (create, presigned upload, poll). Part of a templated SaaS pack; the API itself is account-gated, so most users only get a manual workflow.",
       "how_to_use": "",
@@ -491,7 +423,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 32,
+      "rank": 28,
       "name": "notion-cli (ntn)",
       "purpose": "Official skill for the ntn CLI: call the Notion API, create pages, query databases, upload files.",
       "how_to_use": "",
@@ -508,24 +440,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 33,
-      "name": "Notion plugin skills (research-documentation, knowledge-capture)",
-      "purpose": "Official plugin wiring the Notion MCP plus skills that turn research and notes into structured Notion docs.",
-      "how_to_use": "",
-      "repo": "makenotion/claude-code-notion-plugin",
-      "branch": "main",
-      "skill_path": "skills/notion",
-      "url": "https://github.com/makenotion/claude-code-notion-plugin/tree/main/skills/notion",
-      "stars": 492,
-      "license": "none stated (no LICENSE file)",
-      "license_ok": false,
-      "evidence": "Found by tool name (Notion) in the tool-coverage pass",
-      "notes": "Official plugin wiring the Notion MCP plus skills that turn research and notes into structured Notion docs. -> link-only.",
-      "tool": "Notion",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 34,
+      "rank": 29,
       "name": "hubspot-skills (HubL, CMS local dev, CLI)",
       "purpose": "Skills on HubL, CMS local development, membership and the HubSpot CLI; the only CMS-side skills found. New and unproven.",
       "how_to_use": "",
@@ -542,42 +457,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 35,
-      "name": "HubSpot-Sales plugin skills",
-      "purpose": "Official, but CRM and sales (contact lookup, call prep); no blog or content skills.",
-      "how_to_use": "",
-      "repo": "HubSpot/hubspot-mcp-plugins",
-      "branch": "main",
-      "skill_path": "HubSpot-Sales/skills/hubspot",
-      "url": "https://github.com/HubSpot/hubspot-mcp-plugins/tree/main/HubSpot-Sales/skills/hubspot",
-      "stars": 4,
-      "license": "Apache-2.0",
-      "license_ok": true,
-      "evidence": "Found by tool name (HubSpot Content Hub) in the tool-coverage pass",
-      "notes": "Official, but CRM and sales (contact lookup, call prep); no blog or content skills.",
-      "tool": "HubSpot Content Hub",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 36,
-      "name": "semrush (Membrane)",
-      "purpose": "Projects, keywords, domains and competitors via Membrane.",
-      "how_to_use": "",
-      "repo": "membranedev/application-skills",
-      "branch": "main",
-      "skill_path": "skills/semrush",
-      "url": "https://github.com/membranedev/application-skills/tree/main/skills/semrush",
-      "stars": 267,
-      "license": "MIT (skill frontmatter; repo has no LICENSE file)",
-      "license_ok": false,
-      "evidence": "Found by tool name (Semrush) in the tool-coverage pass",
-      "notes": "Projects, keywords, domains and competitors via Membrane. RISK: Requires a Membrane account (getmembrane.com): calls to Semrush are routed through a third-party integration platform, not Semrush's own host. -> excluded -> link-only.",
-      "tool": "Semrush",
-      "tool_tier": "major",
-      "risk": "Requires a Membrane account (getmembrane.com): calls to Semrush are routed through a third-party integration platform, not Semrush's own host."
-    },
-    {
-      "rank": 37,
+      "rank": 30,
       "name": "seo-ahrefs (extension)",
       "purpose": "Reads backlinks, referring domains, organic keywords and Content Explorer through the Ahrefs MCP; part of a large SEO suite with a content-brief skill.",
       "how_to_use": "",
@@ -594,24 +474,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 38,
-      "name": "ahrefs-skill-examples",
-      "purpose": "Example skills that use the Ahrefs MCP for marketing tasks; account name suggests an Ahrefs employee but ownership is unverified.",
-      "how_to_use": "",
-      "repo": "constancetanahrefs/ahrefs-skill-examples",
-      "branch": "main",
-      "skill_path": ".",
-      "url": "https://github.com/constancetanahrefs/ahrefs-skill-examples",
-      "stars": 0,
-      "license": "none stated",
-      "license_ok": false,
-      "evidence": "Found by tool name (Ahrefs) in the tool-coverage pass",
-      "notes": "Example skills that use the Ahrefs MCP for marketing tasks; account name suggests an Ahrefs employee but ownership is unverified. -> link-only.",
-      "tool": "Ahrefs",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 39,
+      "rank": 31,
       "name": "substack-skills (writer, publisher, notes, repurposer)",
       "purpose": "11 skills with an approval-card-before-publish rule and a refusal to automate unattended posting (cites Substack ToS); uses python-substack with a session cookie in .env against substack.com only, so no third-party host seen, but it relies on an unofficial API.",
       "how_to_use": "",
@@ -628,42 +491,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 40,
-      "name": "claude-substack-skills",
-      "purpose": "Draft, list and publish via curl with the substack.sid session cookie from a local config file; unofficial API.",
-      "how_to_use": "",
-      "repo": "eracle/claude-substack-skills",
-      "branch": "main",
-      "skill_path": ".claude/skills",
-      "url": "https://github.com/eracle/claude-substack-skills",
-      "stars": 2,
-      "license": "none stated",
-      "license_ok": false,
-      "evidence": "Found by tool name (Substack) in the tool-coverage pass",
-      "notes": "Draft, list and publish via curl with the substack.sid session cookie from a local config file; unofficial API. -> link-only.",
-      "tool": "Substack",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 41,
-      "name": "pp-beehiiv",
-      "purpose": "Syncs audience data into a local database for growth questions; audience analytics, not writing.",
-      "how_to_use": "",
-      "repo": "mvanhorn/printing-press-library",
-      "branch": "main",
-      "skill_path": "cli-skills/pp-beehiiv",
-      "url": "https://github.com/mvanhorn/printing-press-library/tree/main/cli-skills/pp-beehiiv",
-      "stars": 2051,
-      "license": "Apache-2.0 (skill frontmatter; repo LICENSE not found)",
-      "license_ok": false,
-      "evidence": "Found by tool name (beehiiv) in the tool-coverage pass",
-      "notes": "Syncs audience data into a local database for growth questions; audience analytics, not writing. RISK: Installs a third-party binary (beehiiv-pp-cli) via npx from the library's own installer; not read. -> excluded -> link-only.",
-      "tool": "beehiiv",
-      "tool_tier": "minor",
-      "risk": "Installs a third-party binary (beehiiv-pp-cli) via npx from the library's own installer; not read."
-    },
-    {
-      "rank": 42,
+      "rank": 32,
       "name": "ghost-admin-api / ghost-content-api",
       "purpose": "Admin API (posts, members, newsletters, JWT auth, images, Lexical) and Content API, plus themes and webhooks.",
       "how_to_use": "",
@@ -680,24 +508,7 @@
       "tool_tier": "minor"
     },
     {
-      "rank": 43,
-      "name": "ghost skill",
-      "purpose": "Write, publish and manage Ghost posts.",
-      "how_to_use": "",
-      "repo": "chrisagiddings/moltbot-ghost-skill",
-      "branch": "main",
-      "skill_path": ".",
-      "url": "https://github.com/chrisagiddings/moltbot-ghost-skill",
-      "stars": 5,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (Ghost) in the tool-coverage pass",
-      "notes": "Write, publish and manage Ghost posts.",
-      "tool": "Ghost",
-      "tool_tier": "minor"
-    },
-    {
-      "rank": 44,
+      "rank": 33,
       "name": "webflow-skills (safe-publish, bulk-cms-update, cms-best-practices)",
       "purpose": "Official; includes a plan-confirm-publish skill and CMS collection setup and bulk update skills.",
       "how_to_use": "",
@@ -714,7 +525,7 @@
       "tool_tier": "minor"
     },
     {
-      "rank": 45,
+      "rank": 34,
       "name": "canva skills (brand-check, bulk-create, resize-for-social-media)",
       "purpose": "Official; brand-kit check, bulk design creation and social resizing through the Canva connector.",
       "how_to_use": "",
@@ -731,7 +542,7 @@
       "tool_tier": "minor"
     },
     {
-      "rank": 46,
+      "rank": 35,
       "name": "sanity agent-toolkit (content-modeling, portable-text, seo-aeo)",
       "purpose": "Official; content modeling, Portable Text conversion, migration, and SEO/AEO metadata guidance.",
       "how_to_use": "",
@@ -748,7 +559,7 @@
       "tool_tier": "minor"
     },
     {
-      "rank": 47,
+      "rank": 36,
       "name": "contentful skills",
       "purpose": "Official Contentful skills for API, migration and Next.js; developer-oriented.",
       "how_to_use": "",
@@ -765,7 +576,7 @@
       "tool_tier": "minor"
     },
     {
-      "rank": 48,
+      "rank": 37,
       "name": "wix-manage (blog: how-to-create-blog-posts)",
       "purpose": "Official Wix skills; wix-manage has references/blog/how-to-create-blog-posts.md and dashboard navigation for posts, used with the Wix MCP. Not audited for scripts.",
       "how_to_use": "",
@@ -782,7 +593,7 @@
       "tool_tier": "minor"
     },
     {
-      "rank": 49,
+      "rank": 38,
       "name": "hemingway",
       "purpose": "Copy-editor skill modelled on Hemingway: flags passive voice, adverbs and hard-to-read sentences. Single SKILL.md, no scripts. Small and unproven.",
       "how_to_use": "",

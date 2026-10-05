@@ -431,9 +431,26 @@
       "license": "Apache-2.0",
       "license_ok": true,
       "evidence": "Found by tool name (Agent Skills (SKILL.md format)) in the tool-coverage pass",
-      "notes": "OpenAI's version for Codex; shows where the format differs across vendors (agents/ metadata, .agents/skills paths).",
+      "notes": "OpenAI's version for Codex; shows where the format differs across vendors (agents/ metadata, .agents/skills paths). The same collection (openai/skills) also has: plugin-creator (Codex) (Claude Code plugins and marketplaces), migrate-to-codex (OpenAI Codex CLI), gh-fix-ci (Claude Code GitHub Actions).",
       "tool": "Agent Skills (SKILL.md format)",
-      "tool_tier": "major"
+      "tool_tier": "major",
+      "also": [
+        {
+          "name": "plugin-creator (Codex)",
+          "tool": "Claude Code plugins and marketplaces",
+          "url": "https://github.com/openai/skills/tree/main/skills/.system/plugin-creator"
+        },
+        {
+          "name": "migrate-to-codex",
+          "tool": "OpenAI Codex CLI",
+          "url": "https://github.com/openai/skills/tree/main/skills/.curated/migrate-to-codex"
+        },
+        {
+          "name": "gh-fix-ci",
+          "tool": "Claude Code GitHub Actions",
+          "url": "https://github.com/openai/skills/tree/main/skills/.curated/gh-fix-ci"
+        }
+      ]
     },
     {
       "rank": 29,
@@ -448,9 +465,26 @@
       "license": "MIT",
       "license_ok": true,
       "evidence": "Found by tool name (AGENTS.md) in the tool-coverage pass",
-      "notes": "GitHub-org skill that drafts an AGENTS.md following agents.md guidance.",
+      "notes": "GitHub-org skill that drafts an AGENTS.md following agents.md guidance. The same collection (github/awesome-copilot) also has: python-mcp-server-generator (Model Context Protocol (MCP)), copilot-instructions-blueprint-generator (GitHub Copilot), github-copilot-starter (GitHub Copilot).",
       "tool": "AGENTS.md",
-      "tool_tier": "major"
+      "tool_tier": "major",
+      "also": [
+        {
+          "name": "python-mcp-server-generator",
+          "tool": "Model Context Protocol (MCP)",
+          "url": "https://github.com/github/awesome-copilot/tree/main/skills/python-mcp-server-generator"
+        },
+        {
+          "name": "copilot-instructions-blueprint-generator",
+          "tool": "GitHub Copilot",
+          "url": "https://github.com/github/awesome-copilot/tree/main/skills/copilot-instructions-blueprint-generator"
+        },
+        {
+          "name": "github-copilot-starter",
+          "tool": "GitHub Copilot",
+          "url": "https://github.com/github/awesome-copilot/tree/main/skills/github-copilot-starter"
+        }
+      ]
     },
     {
       "rank": 30,
@@ -488,6 +522,23 @@
     },
     {
       "rank": 32,
+      "name": "claude-api",
+      "purpose": "Official bundled reference for API, SDKs, agents, caching and model migration.",
+      "how_to_use": "",
+      "repo": "anthropics/skills",
+      "branch": "main",
+      "skill_path": "skills/claude-api",
+      "url": "https://github.com/anthropics/skills/tree/main/skills/claude-api",
+      "stars": 179752,
+      "license": "Apache-2.0",
+      "license_ok": true,
+      "evidence": "Found by tool name (Claude Agent SDK) in the tool-coverage pass",
+      "notes": "Official bundled reference for API, SDKs, agents, caching and model migration.",
+      "tool": "Claude Agent SDK",
+      "tool_tier": "minor"
+    },
+    {
+      "rank": 33,
       "name": "mcp-server-dev (build-mcp-server, build-mcp-app, build-mcpb)",
       "purpose": "Official plugin with skills for servers, interactive MCP apps and .mcpb bundles.",
       "how_to_use": "",
@@ -499,26 +550,21 @@
       "license": "Apache-2.0",
       "license_ok": true,
       "evidence": "Found by tool name (Model Context Protocol (MCP)) in the tool-coverage pass",
-      "notes": "Official plugin with skills for servers, interactive MCP apps and .mcpb bundles.",
+      "notes": "Official plugin with skills for servers, interactive MCP apps and .mcpb bundles. The same collection (anthropics/claude-plugins-official) also has: agent-sdk-dev (verifier agents and /new-sdk-app) (Claude Agent SDK), code-review (plugin) (Claude Code GitHub Actions).",
       "tool": "Model Context Protocol (MCP)",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 33,
-      "name": "python-mcp-server-generator",
-      "purpose": "Scaffolds a Python MCP server; sibling generators exist for TS, Go, Rust, Java, Kotlin, Swift, PHP, Ruby.",
-      "how_to_use": "",
-      "repo": "github/awesome-copilot",
-      "branch": "main",
-      "skill_path": "skills/python-mcp-server-generator",
-      "url": "https://github.com/github/awesome-copilot/tree/main/skills/python-mcp-server-generator",
-      "stars": 39720,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (Model Context Protocol (MCP)) in the tool-coverage pass",
-      "notes": "Scaffolds a Python MCP server; sibling generators exist for TS, Go, Rust, Java, Kotlin, Swift, PHP, Ruby.",
-      "tool": "Model Context Protocol (MCP)",
-      "tool_tier": "major"
+      "tool_tier": "major",
+      "also": [
+        {
+          "name": "agent-sdk-dev (verifier agents and /new-sdk-app)",
+          "tool": "Claude Agent SDK",
+          "url": "https://github.com/anthropics/claude-plugins-official/tree/main/plugins/agent-sdk-dev"
+        },
+        {
+          "name": "code-review (plugin)",
+          "tool": "Claude Code GitHub Actions",
+          "url": "https://github.com/anthropics/claude-plugins-official/tree/main/plugins/code-review"
+        }
+      ]
     },
     {
       "rank": 34,
@@ -539,23 +585,6 @@
     },
     {
       "rank": 35,
-      "name": "plugin-creator (Codex)",
-      "purpose": "Equivalent for packaging Codex plugins; useful for cross-tool plugin parity.",
-      "how_to_use": "",
-      "repo": "openai/skills",
-      "branch": "main",
-      "skill_path": "skills/.system/plugin-creator",
-      "url": "https://github.com/openai/skills/tree/main/skills/.system/plugin-creator",
-      "stars": 27889,
-      "license": "Apache-2.0",
-      "license_ok": true,
-      "evidence": "Found by tool name (Claude Code plugins and marketplaces) in the tool-coverage pass",
-      "notes": "Equivalent for packaging Codex plugins; useful for cross-tool plugin parity.",
-      "tool": "Claude Code plugins and marketplaces",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 36,
       "name": "codex-delegate",
       "purpose": "Delegate a task to Codex, then review and land the diff; relay scripts use Node built-ins only, no network or telemetry.",
       "how_to_use": "",
@@ -567,217 +596,29 @@
       "license": "MIT",
       "license_ok": true,
       "evidence": "Found by tool name (OpenAI Codex CLI) in the tool-coverage pass",
-      "notes": "Delegate a task to Codex, then review and land the diff; relay scripts use Node built-ins only, no network or telemetry.",
+      "notes": "Delegate a task to Codex, then review and land the diff; relay scripts use Node built-ins only, no network or telemetry. The same collection (amElnagdy/delegate-skills) also has: copilot-delegate (GitHub Copilot), cursor-delegate (Cursor), opencode-delegate (OpenCode).",
       "tool": "OpenAI Codex CLI",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 37,
-      "name": "migrate-to-codex",
-      "purpose": "Moves CLAUDE.md, skills, agents and MCP config into Codex project and global files (AGENTS.md, .agents/skills, config.toml).",
-      "how_to_use": "",
-      "repo": "openai/skills",
-      "branch": "main",
-      "skill_path": "skills/.curated/migrate-to-codex",
-      "url": "https://github.com/openai/skills/tree/main/skills/.curated/migrate-to-codex",
-      "stars": 27889,
-      "license": "Apache-2.0",
-      "license_ok": true,
-      "evidence": "Found by tool name (OpenAI Codex CLI) in the tool-coverage pass",
-      "notes": "Moves CLAUDE.md, skills, agents and MCP config into Codex project and global files (AGENTS.md, .agents/skills, config.toml).",
-      "tool": "OpenAI Codex CLI",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 38,
-      "name": "codex-skills catalog",
-      "purpose": "Community Codex CLI skills catalog.",
-      "how_to_use": "",
-      "repo": "jMerta/codex-skills",
-      "branch": "main",
-      "skill_path": "",
-      "url": "https://github.com/jMerta/codex-skills",
-      "stars": 130,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (OpenAI Codex CLI) in the tool-coverage pass",
-      "notes": "Community Codex CLI skills catalog.",
-      "tool": "OpenAI Codex CLI",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 39,
-      "name": "copilot-instructions-blueprint-generator",
-      "purpose": "Generates .github/copilot-instructions.md from the codebase.",
-      "how_to_use": "",
-      "repo": "github/awesome-copilot",
-      "branch": "main",
-      "skill_path": "skills/copilot-instructions-blueprint-generator",
-      "url": "https://github.com/github/awesome-copilot/tree/main/skills/copilot-instructions-blueprint-generator",
-      "stars": 39720,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (GitHub Copilot) in the tool-coverage pass",
-      "notes": "Generates .github/copilot-instructions.md from the codebase.",
-      "tool": "GitHub Copilot",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 40,
-      "name": "github-copilot-starter",
-      "purpose": "Sets up a repo's Copilot customisation (instructions, prompts, agents).",
-      "how_to_use": "",
-      "repo": "github/awesome-copilot",
-      "branch": "main",
-      "skill_path": "skills/github-copilot-starter",
-      "url": "https://github.com/github/awesome-copilot/tree/main/skills/github-copilot-starter",
-      "stars": 39720,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (GitHub Copilot) in the tool-coverage pass",
-      "notes": "Sets up a repo's Copilot customisation (instructions, prompts, agents).",
-      "tool": "GitHub Copilot",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 41,
-      "name": "copilot-delegate",
-      "purpose": "Delegates implementation to the Copilot CLI and reviews the diff.",
-      "how_to_use": "",
-      "repo": "amElnagdy/delegate-skills",
-      "branch": "main",
-      "skill_path": "skills/copilot-delegate",
-      "url": "https://github.com/amElnagdy/delegate-skills/tree/main/skills/copilot-delegate",
-      "stars": 2306,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (GitHub Copilot) in the tool-coverage pass",
-      "notes": "Delegates implementation to the Copilot CLI and reviews the diff.",
-      "tool": "GitHub Copilot",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 42,
-      "name": "cursor-delegate",
-      "purpose": "Hands a bounded task to cursor-agent, then reviews and lands the diff.",
-      "how_to_use": "",
-      "repo": "amElnagdy/delegate-skills",
-      "branch": "main",
-      "skill_path": "skills/cursor-delegate",
-      "url": "https://github.com/amElnagdy/delegate-skills/tree/main/skills/cursor-delegate",
-      "stars": 2306,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (Cursor) in the tool-coverage pass",
-      "notes": "Hands a bounded task to cursor-agent, then reviews and lands the diff.",
-      "tool": "Cursor",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 43,
-      "name": "caliber (ai-setup)",
-      "purpose": "Generates and syncs Cursor, Claude and Codex configs from the codebase.",
-      "how_to_use": "",
-      "repo": "caliber-ai-org/ai-setup",
-      "branch": "main",
-      "skill_path": "",
-      "url": "https://github.com/caliber-ai-org/ai-setup",
-      "stars": 1295,
-      "license": "MIT",
-      "license_ok": false,
-      "evidence": "Found by tool name (Cursor) in the tool-coverage pass",
-      "notes": "Generates and syncs Cursor, Claude and Codex configs from the codebase. RISK: CLI sends anonymous telemetry (src/telemetry, opt-out flag --no-traces); review before use. -> excluded",
-      "tool": "Cursor",
       "tool_tier": "major",
-      "risk": "CLI sends anonymous telemetry (src/telemetry, opt-out flag --no-traces); review before use."
+      "also": [
+        {
+          "name": "copilot-delegate",
+          "tool": "GitHub Copilot",
+          "url": "https://github.com/amElnagdy/delegate-skills/tree/main/skills/copilot-delegate"
+        },
+        {
+          "name": "cursor-delegate",
+          "tool": "Cursor",
+          "url": "https://github.com/amElnagdy/delegate-skills/tree/main/skills/cursor-delegate"
+        },
+        {
+          "name": "opencode-delegate",
+          "tool": "OpenCode",
+          "url": "https://github.com/amElnagdy/delegate-skills/tree/main/skills/opencode-delegate"
+        }
+      ]
     },
     {
-      "rank": 44,
-      "name": "claude-api",
-      "purpose": "Official bundled reference for API, SDKs, agents, caching and model migration.",
-      "how_to_use": "",
-      "repo": "anthropics/skills",
-      "branch": "main",
-      "skill_path": "skills/claude-api",
-      "url": "https://github.com/anthropics/skills/tree/main/skills/claude-api",
-      "stars": 179752,
-      "license": "Apache-2.0",
-      "license_ok": true,
-      "evidence": "Found by tool name (Claude Agent SDK) in the tool-coverage pass",
-      "notes": "Official bundled reference for API, SDKs, agents, caching and model migration.",
-      "tool": "Claude Agent SDK",
-      "tool_tier": "minor"
-    },
-    {
-      "rank": 45,
-      "name": "agent-sdk-dev (verifier agents and /new-sdk-app)",
-      "purpose": "Official plugin to scaffold and verify Agent SDK apps in Python or TypeScript.",
-      "how_to_use": "",
-      "repo": "anthropics/claude-plugins-official",
-      "branch": "main",
-      "skill_path": "plugins/agent-sdk-dev",
-      "url": "https://github.com/anthropics/claude-plugins-official/tree/main/plugins/agent-sdk-dev",
-      "stars": 37419,
-      "license": "Apache-2.0",
-      "license_ok": true,
-      "evidence": "Found by tool name (Claude Agent SDK) in the tool-coverage pass",
-      "notes": "Official plugin to scaffold and verify Agent SDK apps in Python or TypeScript.",
-      "tool": "Claude Agent SDK",
-      "tool_tier": "minor"
-    },
-    {
-      "rank": 46,
-      "name": "claude-agent-sdk-expert",
-      "purpose": "Review and build guide for production Claude agents; one local pattern-scan script, no network use found.",
-      "how_to_use": "",
-      "repo": "raroque/claude-agent-sdk-skill",
-      "branch": "main",
-      "skill_path": "claude-agent-sdk-expert",
-      "url": "https://github.com/raroque/claude-agent-sdk-skill/tree/main/claude-agent-sdk-expert",
-      "stars": 28,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (Claude Agent SDK) in the tool-coverage pass",
-      "notes": "Review and build guide for production Claude agents; one local pattern-scan script, no network use found.",
-      "tool": "Claude Agent SDK",
-      "tool_tier": "minor"
-    },
-    {
-      "rank": 47,
-      "name": "code-review (plugin)",
-      "purpose": "The plugin Anthropic's own review workflow runs through the action.",
-      "how_to_use": "",
-      "repo": "anthropics/claude-plugins-official",
-      "branch": "main",
-      "skill_path": "plugins/code-review",
-      "url": "https://github.com/anthropics/claude-plugins-official/tree/main/plugins/code-review",
-      "stars": 37419,
-      "license": "Apache-2.0",
-      "license_ok": true,
-      "evidence": "Found by tool name (Claude Code GitHub Actions) in the tool-coverage pass",
-      "notes": "The plugin Anthropic's own review workflow runs through the action.",
-      "tool": "Claude Code GitHub Actions",
-      "tool_tier": "minor"
-    },
-    {
-      "rank": 48,
-      "name": "gh-fix-ci",
-      "purpose": "Debugs failing GitHub Actions checks; tool-neutral CI triage.",
-      "how_to_use": "",
-      "repo": "openai/skills",
-      "branch": "main",
-      "skill_path": "skills/.curated/gh-fix-ci",
-      "url": "https://github.com/openai/skills/tree/main/skills/.curated/gh-fix-ci",
-      "stars": 27889,
-      "license": "Apache-2.0",
-      "license_ok": true,
-      "evidence": "Found by tool name (Claude Code GitHub Actions) in the tool-coverage pass",
-      "notes": "Debugs failing GitHub Actions checks; tool-neutral CI triage.",
-      "tool": "Claude Code GitHub Actions",
-      "tool_tier": "minor"
-    },
-    {
-      "rank": 49,
+      "rank": 36,
       "name": "spec-kit",
       "purpose": "Installs /speckit.* commands or skills into the chosen agent; the toolkit is the skill.",
       "how_to_use": "",
@@ -794,7 +635,7 @@
       "tool_tier": "minor"
     },
     {
-      "rank": 50,
+      "rank": 37,
       "name": "skill-porter",
       "purpose": "Converts Claude Code skills to Gemini CLI extensions and back; Node CLI, optional gh-based PR helper.",
       "how_to_use": "",
@@ -811,24 +652,7 @@
       "tool_tier": "minor"
     },
     {
-      "rank": 51,
-      "name": "gemini_cli_skill",
-      "purpose": "Lets Claude call Gemini CLI as a second opinion; no license stated.",
-      "how_to_use": "",
-      "repo": "forayconsulting/gemini_cli_skill",
-      "branch": "main",
-      "skill_path": "",
-      "url": "https://github.com/forayconsulting/gemini_cli_skill",
-      "stars": 191,
-      "license": "none",
-      "license_ok": false,
-      "evidence": "Found by tool name (Gemini CLI) in the tool-coverage pass",
-      "notes": "Lets Claude call Gemini CLI as a second opinion; no license stated. -> link-only.",
-      "tool": "Gemini CLI",
-      "tool_tier": "minor"
-    },
-    {
-      "rank": 52,
+      "rank": 38,
       "name": "opencode-skill-creator",
       "purpose": "Create, test and optimise OpenCode skills (adapted from Anthropic's skill-creator); ships a plugin runtime.",
       "how_to_use": "",
@@ -841,23 +665,6 @@
       "license_ok": true,
       "evidence": "Found by tool name (OpenCode) in the tool-coverage pass",
       "notes": "Create, test and optimise OpenCode skills (adapted from Anthropic's skill-creator); ships a plugin runtime.",
-      "tool": "OpenCode",
-      "tool_tier": "minor"
-    },
-    {
-      "rank": 53,
-      "name": "opencode-delegate",
-      "purpose": "Delegates a task to OpenCode and reviews the diff.",
-      "how_to_use": "",
-      "repo": "amElnagdy/delegate-skills",
-      "branch": "main",
-      "skill_path": "skills/opencode-delegate",
-      "url": "https://github.com/amElnagdy/delegate-skills/tree/main/skills/opencode-delegate",
-      "stars": 2306,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (OpenCode) in the tool-coverage pass",
-      "notes": "Delegates a task to OpenCode and reviews the diff.",
       "tool": "OpenCode",
       "tool_tier": "minor"
     }

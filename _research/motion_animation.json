@@ -503,23 +503,6 @@
   },
   {
    "rank": 33,
-   "name": "rive-skill",
-   "purpose": "Editor, state machines, data binding/view models, runtimes, scripting, performance, accessibility; only PowerShell validation scripts, which HEAD/GET the doc links they check.",
-   "how_to_use": "",
-   "repo": "uianimation/rive-skill",
-   "branch": "main",
-   "skill_path": "SKILL.md",
-   "url": "https://github.com/uianimation/rive-skill",
-   "stars": 6,
-   "license": "MIT",
-   "license_ok": true,
-   "evidence": "Found by tool name (Rive) in the tool-coverage pilot",
-   "notes": "Editor, state machines, data binding/view models, runtimes, scripting, performance, accessibility; only PowerShell validation scripts, which HEAD/GET the doc links they check.",
-   "tool": "Rive",
-   "tool_tier": "major"
-  },
-  {
-   "rank": 34,
    "name": "react-native-best-practices / animations",
    "purpose": "Official; Reanimated 4 CSS transitions, shared values, layout and scroll animations, Skia, TypeGPU, version check, scheduleOnRN instead of runOnJS.",
    "how_to_use": "",
@@ -536,7 +519,7 @@
    "tool_tier": "major"
   },
   {
-   "rank": 35,
+   "rank": 34,
    "name": "react-native-best-practices (Reanimated reference)",
    "purpose": "Callstack's React Native performance guide with a Reanimated section; not read in full.",
    "how_to_use": "",
@@ -553,7 +536,7 @@
    "tool_tier": "major"
   },
   {
-   "rank": 36,
+   "rank": 35,
    "name": "emilkowalski/skills (animate, review-animations, improve-animations, emil-design-eng, animation-vocabulary, find-animation-opportunities, animate-expo, apple-design)",
    "purpose": "The source the router's principles are distilled from; install with npx skills@latest add emilkowalski/skills.",
    "how_to_use": "",
@@ -570,24 +553,7 @@
    "tool_tier": "major"
   },
   {
-   "rank": 37,
-   "name": "userinterface-wiki",
-   "purpose": "UI craft and animation rules; found by search, not read in full.",
-   "how_to_use": "",
-   "repo": "raphaelsalaja/userinterface-wiki",
-   "branch": "main",
-   "skill_path": "skills/SKILL.md",
-   "url": "https://github.com/raphaelsalaja/userinterface-wiki",
-   "stars": 902,
-   "license": "MIT",
-   "license_ok": true,
-   "evidence": "Found by tool name (CSS animations, WAAPI and View Transitions) in the tool-coverage pilot",
-   "notes": "UI craft and animation rules; found by search, not read in full.",
-   "tool": "CSS animations, WAAPI and View Transitions",
-   "tool_tier": "major"
-  },
-  {
-   "rank": 38,
+   "rank": 36,
    "name": "threejs-skills (threejs-animation and nine more)",
    "purpose": "Most-starred Three.js skill set; unlicensed so link-only.",
    "how_to_use": "",
@@ -604,42 +570,7 @@
    "tool_tier": "minor"
   },
   {
-   "rank": 39,
-   "name": "mint-threejs-skills",
-   "purpose": "Permissive Three.js skill set; not read in full.",
-   "how_to_use": "",
-   "repo": "mintdotgg/mint-threejs-skills",
-   "branch": "main",
-   "skill_path": "skills",
-   "url": "https://github.com/mintdotgg/mint-threejs-skills",
-   "stars": 114,
-   "license": "MIT",
-   "license_ok": true,
-   "evidence": "Found by tool name (Three.js) in the tool-coverage pilot",
-   "notes": "Permissive Three.js skill set; not read in full.",
-   "tool": "Three.js",
-   "tool_tier": "minor"
-  },
-  {
-   "rank": 40,
-   "name": "after-effects-scripting",
-   "purpose": "Builds keyframed comps in an open After Effects and checks renders; macOS, AE 2024+. Skill path inferred, not opened.",
-   "how_to_use": "",
-   "repo": "vlad7329-debug/claude-after-effects-skills",
-   "branch": "main",
-   "skill_path": "skills/after-effects-scripting",
-   "url": "https://github.com/vlad7329-debug/claude-after-effects-skills",
-   "stars": 2,
-   "license": "MIT",
-   "license_ok": false,
-   "evidence": "Found by tool name (After Effects (with Bodymovin / LottieFiles plugin)) in the tool-coverage pilot",
-   "notes": "Builds keyframed comps in an open After Effects and checks renders; macOS, AE 2024+. Skill path inferred, not opened. RISK: Runs ExtendScript inside the user's AE and asks them to enable Allow Scripts to Write Files and Access Network; installer may add ffmpeg and a private Python env after asking. Adobe's docs page returned 403 to WebFetch, so the docs URL is unconfirmed. -> excluded",
-   "tool": "After Effects (with Bodymovin / LottieFiles plugin)",
-   "tool_tier": "minor",
-   "risk": "Runs ExtendScript inside the user's AE and asks them to enable Allow Scripts to Write Files and Access Network; installer may add ffmpeg and a private Python env after asking. Adobe's docs page returned 403 to WebFetch, so the docs URL is unconfirmed."
-  },
-  {
-   "rank": 41,
+   "rank": 37,
    "name": "remotion skills (best-practices, markup, render, create, captions, maps, studio, docs and more)",
    "purpose": "Official, 12 skills; install with npx skills add remotion-dev/skills. Overlaps ai-video, which owns video production.",
    "how_to_use": "",
@@ -656,7 +587,7 @@
    "tool_tier": "minor"
   },
   {
-   "rank": 42,
+   "rank": 38,
    "name": "animejs-animation",
    "purpose": "Community collection entry (repo stars, not the skill's); body not read, so it may target Anime.js v3.",
    "how_to_use": "",
@@ -673,7 +604,7 @@
    "tool_tier": "minor"
   },
   {
-   "rank": 43,
+   "rank": 39,
    "name": "antigravity-spline-skills",
    "purpose": "Only skill found; tiny and not read. MCP URL is the docs hub, exact endpoint not confirmed.",
    "how_to_use": "",

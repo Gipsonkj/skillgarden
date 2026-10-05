@@ -521,23 +521,6 @@
   },
   {
    "rank": 34,
-   "name": "ffmpeg-skill (n0an)",
-   "purpose": "Categorized recipes for convert, trim and mix pipelines; smaller and less specific than kajisho5.",
-   "how_to_use": "",
-   "repo": "n0an/ffmpeg-skill",
-   "branch": "main",
-   "skill_path": "SKILL.md",
-   "url": "https://github.com/n0an/ffmpeg-skill",
-   "stars": 11,
-   "license": "MIT",
-   "license_ok": true,
-   "evidence": "Found by tool name (FFmpeg) in the tool-coverage pilot",
-   "notes": "Categorized recipes for convert, trim and mix pipelines; smaller and less specific than kajisho5.",
-   "tool": "FFmpeg",
-   "tool_tier": "major"
-  },
-  {
-   "rank": 35,
    "name": "claude-remotion-skill",
    "purpose": "Community motion-graphics skill with scripts and examples; narrower and older (Aug 2026) than the official one.",
    "how_to_use": "",
@@ -554,7 +537,7 @@
    "tool_tier": "major"
   },
   {
-   "rank": 36,
+   "rank": 35,
    "name": "visual-skills / video",
    "purpose": "Prompt-only skill (no scripts, no external calls) with dedicated Veo 3.1, Kling 3.0 and Seedance 2.5 syntax and dramaturgy references.",
    "how_to_use": "",
@@ -571,7 +554,7 @@
    "tool_tier": "major"
   },
   {
-   "rank": 37,
+   "rank": 36,
    "name": "kling-skill",
    "purpose": "Operator guide and API cheatsheet with scripts (July 2026); tiny and unproven.",
    "how_to_use": "",
@@ -588,25 +571,7 @@
    "tool_tier": "major"
   },
   {
-   "rank": 38,
-   "name": "kling (RunAPI)",
-   "purpose": "Excluded later by the risk rule.",
-   "how_to_use": "",
-   "repo": "runapi-ai/kling",
-   "branch": "main",
-   "skill_path": ".",
-   "url": "https://github.com/runapi-ai/kling",
-   "stars": 0,
-   "license": "Apache-2.0",
-   "license_ok": false,
-   "evidence": "Found by tool name (Kling AI) in the tool-coverage pilot",
-   "notes": "Excluded later by the risk rule. RISK: Routes Kling calls through the third-party RunAPI reseller, so prompts and its API key go to runapi.ai rather than Kling. -> excluded",
-   "tool": "Kling AI",
-   "tool_tier": "major",
-   "risk": "Routes Kling calls through the third-party RunAPI reseller, so prompts and its API key go to runapi.ai rather than Kling."
-  },
-  {
-   "rank": 39,
+   "rank": 37,
    "name": "seedance-skills (28 skills)",
    "purpose": "Prompt skills split by camera, audio, characters and anti-slop for Seedance 2.0.",
    "how_to_use": "",
@@ -623,7 +588,7 @@
    "tool_tier": "major"
   },
   {
-   "rank": 40,
+   "rank": 38,
    "name": "seedance-skill (whitebox)",
    "purpose": "White-model reference video plus prompt from one scene.json, with a geometry check before rendering.",
    "how_to_use": "",
@@ -640,24 +605,7 @@
    "tool_tier": "major"
   },
   {
-   "rank": 41,
-   "name": "seedance-skill (liquid glass)",
-   "purpose": "App-promo motion graphics via Seedance 2.0 on fal; FAL_KEY from .env.",
-   "how_to_use": "",
-   "repo": "robonuggets/seedance-skill",
-   "branch": "main",
-   "skill_path": ".",
-   "url": "https://github.com/robonuggets/seedance-skill",
-   "stars": 103,
-   "license": "none stated",
-   "license_ok": false,
-   "evidence": "Found by tool name (Seedance (ByteDance ModelArk / BytePlus)) in the tool-coverage pilot",
-   "notes": "App-promo motion graphics via Seedance 2.0 on fal; FAL_KEY from .env. -> link-only.",
-   "tool": "Seedance (ByteDance ModelArk / BytePlus)",
-   "tool_tier": "major"
-  },
-  {
-   "rank": 42,
+   "rank": 39,
    "name": "heygen-video",
    "purpose": "Official v3 Video Agent pipeline with frame check and avatar/voice resolution; siblings heygen-avatar and heygen-translate.",
    "how_to_use": "",
@@ -674,7 +622,7 @@
    "tool_tier": "minor"
   },
   {
-   "rank": 43,
+   "rank": 40,
    "name": "resolve-claude-mcp",
    "purpose": "Third-party MCP (not a skill): 48 Resolve-control tools over the local scripting API, local mlx-whisper transcription on macOS; self-declared experimental.",
    "how_to_use": "",
@@ -691,41 +639,7 @@
    "tool_tier": "major"
   },
   {
-   "rank": 44,
-   "name": "davinci-resolve-mcp + skill",
-   "purpose": "MCP exposing 440+ scripting API tools plus a Claude Code skill; last push Apr 2026.",
-   "how_to_use": "",
-   "repo": "lordhoell/davinci-resolve-mcp",
-   "branch": "main",
-   "skill_path": ".",
-   "url": "https://github.com/lordhoell/davinci-resolve-mcp",
-   "stars": 13,
-   "license": "MIT",
-   "license_ok": true,
-   "evidence": "Found by tool name (DaVinci Resolve) in the tool-coverage pilot",
-   "notes": "MCP exposing 440+ scripting API tools plus a Claude Code skill; last push Apr 2026.",
-   "tool": "DaVinci Resolve",
-   "tool_tier": "major"
-  },
-  {
-   "rank": 45,
-   "name": "davinci-resolve-skill",
-   "purpose": "Agent skill for editing in Resolve via scripting; tiny, recent (Sep 2026).",
-   "how_to_use": "",
-   "repo": "odaiouattara0022-del/davinci-resolve-skill",
-   "branch": "main",
-   "skill_path": ".",
-   "url": "https://github.com/odaiouattara0022-del/davinci-resolve-skill",
-   "stars": 1,
-   "license": "MIT",
-   "license_ok": true,
-   "evidence": "Found by tool name (DaVinci Resolve) in the tool-coverage pilot",
-   "notes": "Agent skill for editing in Resolve via scripting; tiny, recent (Sep 2026).",
-   "tool": "DaVinci Resolve",
-   "tool_tier": "major"
-  },
-  {
-   "rank": 46,
+   "rank": 41,
    "name": "claude-capcut-skill",
    "purpose": "Drives CapCut/JianYing drafts via capcut-cli: highlight scoring, project paths, known issues.",
    "how_to_use": "",
@@ -742,61 +656,7 @@
    "tool_tier": "minor"
   },
   {
-   "rank": 47,
-   "name": "capcut-ai-editor",
-   "purpose": "MCP that edits CapCut desktop drafts for talking-head cleanup: removes pauses and repeats.",
-   "how_to_use": "",
-   "repo": "mrbuslov/capcut-ai-editor",
-   "branch": "main",
-   "skill_path": ".",
-   "url": "https://github.com/mrbuslov/capcut-ai-editor",
-   "stars": 116,
-   "license": "MIT",
-   "license_ok": false,
-   "evidence": "Found by tool name (CapCut) in the tool-coverage pilot",
-   "notes": "MCP that edits CapCut desktop drafts for talking-head cleanup: removes pauses and repeats. RISK: Optional duplicate-take detection sends transcript text to OpenAI (needs OPENAI_API_KEY); off unless a key is set. -> excluded",
-   "tool": "CapCut",
-   "tool_tier": "minor",
-   "risk": "Optional duplicate-take detection sends transcript text to OpenAI (needs OPENAI_API_KEY); off unless a key is set."
-  },
-  {
-   "rank": 48,
-   "name": "adobe-edit-quick-cut",
-   "purpose": "Official Adobe skill: AI highlight cut (video_create_quick_cut, soft target duration, picks moments by relevance, not exact timestamps), video_render for exact trims and music, video_resize. Sibling adobe-resize-photos-and-videos and adobe-create-social-variations cover platform resizes (resize only, no smart reframe for video).",
-   "how_to_use": "",
-   "repo": "adobe/skills",
-   "branch": "main",
-   "skill_path": "plugins/creative-cloud/adobe-for-creativity/skills/adobe-edit-quick-cut/SKILL.md",
-   "url": "https://github.com/adobe/skills/tree/main/plugins/creative-cloud/adobe-for-creativity/skills/adobe-edit-quick-cut",
-   "stars": 192,
-   "license": "Apache-2.0",
-   "license_ok": false,
-   "evidence": "Found by tool name (Adobe Premiere Pro (and the Adobe for creativity connector)) in the tool-coverage pass",
-   "notes": "Official Adobe skill: AI highlight cut (video_create_quick_cut, soft target duration, picks moments by relevance, not exact timestamps), video_render for exact trims and music, video_resize. Sibling adobe-resize-photos-and-videos and adobe-create-social-variations cover platform resizes (resize only, no smart reframe for video). RISK: Uploads the source video to Adobe Creative Cloud (official vendor host); needs the Adobe connector. -> excluded",
-   "tool": "Adobe Premiere Pro (and the Adobe for creativity connector)",
-   "tool_tier": "major",
-   "risk": "Uploads the source video to Adobe Creative Cloud (official vendor host); needs the Adobe connector."
-  },
-  {
-   "rank": 49,
-   "name": "Adobe_Premiere_Pro_MCP",
-   "purpose": "Local MCP bridge to a running desktop Premiere Pro (2020+): 283 tools behind search_tools/invoke_tool via a CEP panel (UXP experimental); ships a Claude Code plugin and a Premiere editing skill.",
-   "how_to_use": "",
-   "repo": "hetpatel-11/Adobe_Premiere_Pro_MCP",
-   "branch": "main",
-   "skill_path": ".",
-   "url": "https://github.com/hetpatel-11/Adobe_Premiere_Pro_MCP",
-   "stars": 649,
-   "license": "MIT",
-   "license_ok": false,
-   "evidence": "Found by tool name (Adobe Premiere Pro (and the Adobe for creativity connector)) in the tool-coverage pass",
-   "notes": "Local MCP bridge to a running desktop Premiere Pro (2020+): 283 tools behind search_tools/invoke_tool via a CEP panel (UXP experimental); ships a Claude Code plugin and a Premiere editing skill. RISK: Third-party; anonymous usage telemetry on by default (opt out with PREMIERE_MCP_TELEMETRY=0 or DO_NOT_TRACK=1); installer enables Adobe's CEP debug setting. -> excluded",
-   "tool": "Adobe Premiere Pro (and the Adobe for creativity connector)",
-   "tool_tier": "major",
-   "risk": "Third-party; anonymous usage telemetry on by default (opt out with PREMIERE_MCP_TELEMETRY=0 or DO_NOT_TRACK=1); installer enables Adobe's CEP debug setting."
-  },
-  {
-   "rank": 50,
+   "rank": 42,
    "name": "fcp-mcp-server (FCPXML MCP)",
    "purpose": "Local Python MCP (uvx fcp-mcp-server): reads, edits and generates FCPXML timelines, markers on cuts, roles, flash-frame and gap QC, rough cuts, EDL/CSV export and Resolve/FCP7 hand-off; defusedxml and sandboxed writes; FCP 10.4 to 12.x.",
    "how_to_use": "",
@@ -811,24 +671,6 @@
    "notes": "Local Python MCP (uvx fcp-mcp-server): reads, edits and generates FCPXML timelines, markers on cuts, roles, flash-frame and gap QC, rough cuts, EDL/CSV export and Resolve/FCP7 hand-off; defusedxml and sandboxed writes; FCP 10.4 to 12.x.",
    "tool": "Final Cut Pro (FCPXML)",
    "tool_tier": "major"
-  },
-  {
-   "rank": 51,
-   "name": "descript-plugin",
-   "purpose": "Zero-dependency Claude Code plugin and CLI over the Descript API: import, Underlord edits, publish, jobs, bulk pipelines; brand new and unproven.",
-   "how_to_use": "",
-   "repo": "juliandickie/descript-plugin",
-   "branch": "main",
-   "skill_path": ".",
-   "url": "https://github.com/juliandickie/descript-plugin",
-   "stars": 0,
-   "license": "MIT",
-   "license_ok": false,
-   "evidence": "Found by tool name (Descript) in the tool-coverage pass",
-   "notes": "Zero-dependency Claude Code plugin and CLI over the Descript API: import, Underlord edits, publish, jobs, bulk pipelines; brand new and unproven. RISK: Sends media and edits to Descript (official vendor API) with DESCRIPT_API_TOKEN; publish defaults to private. -> excluded",
-   "tool": "Descript",
-   "tool_tier": "major",
-   "risk": "Sends media and edits to Descript (official vendor API) with DESCRIPT_API_TOKEN; publish defaults to private."
   }
  ],
  "sources_checked": [

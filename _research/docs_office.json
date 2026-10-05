@@ -531,29 +531,19 @@
       "license": "Apache-2.0 (per SKILL.md; mirror of openai/skills)",
       "license_ok": true,
       "evidence": "Found by tool name (Microsoft Word) in the tool-coverage pass",
-      "notes": "python-docx plus render_docx.py visual check; mirror of the OpenAI curated skill",
+      "notes": "python-docx plus render_docx.py visual check; mirror of the OpenAI curated skill The same collection (JetBrains/skills) also has: spreadsheet (Microsoft Excel).",
       "tool": "Microsoft Word",
-      "tool_tier": "major"
+      "tool_tier": "major",
+      "also": [
+        {
+          "name": "spreadsheet",
+          "tool": "Microsoft Excel",
+          "url": "https://github.com/JetBrains/skills/tree/main/spreadsheet"
+        }
+      ]
     },
     {
       "rank": 35,
-      "name": "spreadsheet",
-      "purpose": "Formula-aware create/edit with cached recalculation and visual review; mirror of the OpenAI curated skill",
-      "how_to_use": "",
-      "repo": "JetBrains/skills",
-      "branch": "main",
-      "skill_path": "spreadsheet",
-      "url": "https://github.com/JetBrains/skills/tree/main/spreadsheet",
-      "stars": 360,
-      "license": "Apache-2.0 (per SKILL.md; mirror of openai/skills)",
-      "license_ok": true,
-      "evidence": "Found by tool name (Microsoft Excel) in the tool-coverage pass",
-      "notes": "Formula-aware create/edit with cached recalculation and visual review; mirror of the OpenAI curated skill",
-      "tool": "Microsoft Excel",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 36,
       "name": "ms-365-mcp-server (community MCP, not a skill)",
       "purpose": "Community MCP server over Graph (mail, files, Excel, OneNote); useful when the Anthropic connector is not enabled. Tenant admin consent and a token are needed",
       "how_to_use": "",
@@ -570,7 +560,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 37,
+      "rank": 36,
       "name": "adobe-anypdf",
       "purpose": "Official: OCR, redact, compress, merge/split, forms, sign, PDF<->Office through the Adobe MCP tools; needs the connector",
       "how_to_use": "",
@@ -582,63 +572,24 @@
       "license": "Apache-2.0",
       "license_ok": true,
       "evidence": "Found by tool name (Adobe Acrobat (PDF Services)) in the tool-coverage pass",
-      "notes": "Official: OCR, redact, compress, merge/split, forms, sign, PDF<->Office through the Adobe MCP tools; needs the connector",
+      "notes": "Official: OCR, redact, compress, merge/split, forms, sign, PDF<->Office through the Adobe MCP tools; needs the connector The same collection (adobe/skills) also has: adobe-document-review (Adobe Acrobat (PDF Services)), adobe-create-pdfs-from-data (Adobe Acrobat (PDF Services)).",
       "tool": "Adobe Acrobat (PDF Services)",
-      "tool_tier": "major"
+      "tool_tier": "major",
+      "also": [
+        {
+          "name": "adobe-document-review",
+          "tool": "Adobe Acrobat (PDF Services)",
+          "url": "https://github.com/adobe/skills/tree/main/plugins/creative-cloud/adobe-for-creativity/skills/adobe-document-review"
+        },
+        {
+          "name": "adobe-create-pdfs-from-data",
+          "tool": "Adobe Acrobat (PDF Services)",
+          "url": "https://github.com/adobe/skills/tree/main/plugins/creative-cloud/adobe-for-creativity/skills/adobe-create-pdfs-from-data"
+        }
+      ]
     },
     {
-      "rank": 38,
-      "name": "adobe-document-review",
-      "purpose": "Official: review a PDF and annotate with highlights and comments",
-      "how_to_use": "",
-      "repo": "adobe/skills",
-      "branch": "main",
-      "skill_path": "plugins/creative-cloud/adobe-for-creativity/skills/adobe-document-review",
-      "url": "https://github.com/adobe/skills/tree/main/plugins/creative-cloud/adobe-for-creativity/skills/adobe-document-review",
-      "stars": 192,
-      "license": "Apache-2.0",
-      "license_ok": true,
-      "evidence": "Found by tool name (Adobe Acrobat (PDF Services)) in the tool-coverage pass",
-      "notes": "Official: review a PDF and annotate with highlights and comments",
-      "tool": "Adobe Acrobat (PDF Services)",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 39,
-      "name": "adobe-create-pdfs-from-data",
-      "purpose": "Official: generate PDFs from data/templates",
-      "how_to_use": "",
-      "repo": "adobe/skills",
-      "branch": "main",
-      "skill_path": "plugins/creative-cloud/adobe-for-creativity/skills/adobe-create-pdfs-from-data",
-      "url": "https://github.com/adobe/skills/tree/main/plugins/creative-cloud/adobe-for-creativity/skills/adobe-create-pdfs-from-data",
-      "stars": 192,
-      "license": "Apache-2.0",
-      "license_ok": true,
-      "evidence": "Found by tool name (Adobe Acrobat (PDF Services)) in the tool-coverage pass",
-      "notes": "Official: generate PDFs from data/templates",
-      "tool": "Adobe Acrobat (PDF Services)",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 40,
-      "name": "pandoc-docx-template",
-      "purpose": "Markdown to docx with reference templates and Lua filters (Chinese templates)",
-      "how_to_use": "",
-      "repo": "Achuan-2/pandoc_docx_template",
-      "branch": "main",
-      "skill_path": "SKILL.md",
-      "url": "https://github.com/Achuan-2/pandoc_docx_template",
-      "stars": 1082,
-      "license": "No license file found",
-      "license_ok": false,
-      "evidence": "Found by tool name (Pandoc) in the tool-coverage pass",
-      "notes": "Markdown to docx with reference templates and Lua filters (Chinese templates) -> link-only.",
-      "tool": "Pandoc",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 41,
+      "rank": 37,
       "name": "cli-pandoc",
       "purpose": "General Pandoc usage: formats, citations, PDF engines",
       "how_to_use": "",
@@ -655,7 +606,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 42,
+      "rank": 38,
       "name": "OCRmyPDF Searchable PDF OCR Pipeline",
       "purpose": "Thin wrapper around upstream install and usage notes",
       "how_to_use": "",
@@ -670,42 +621,6 @@
       "notes": "Thin wrapper around upstream install and usage notes",
       "tool": "OCRmyPDF / Tesseract",
       "tool_tier": "minor"
-    },
-    {
-      "rank": 43,
-      "name": "mistral-pdf-to-markdown",
-      "purpose": "Registry copy; PDF to Markdown with images",
-      "how_to_use": "",
-      "repo": "majiayu000/claude-skill-registry-data",
-      "branch": "main",
-      "skill_path": "data/mistral-pdf-to-markdown",
-      "url": "https://github.com/majiayu000/claude-skill-registry-data/tree/main/data/mistral-pdf-to-markdown",
-      "stars": 23,
-      "license": "No license file found",
-      "license_ok": false,
-      "evidence": "Found by tool name (Mistral OCR) in the tool-coverage pass",
-      "notes": "Registry copy; PDF to Markdown with images RISK: Uploads the PDF to Mistral's own API using a user key (official host, but private files leave the machine) -> excluded -> link-only.",
-      "tool": "Mistral OCR",
-      "tool_tier": "minor",
-      "risk": "Uploads the PDF to Mistral's own API using a user key (official host, but private files leave the machine)"
-    },
-    {
-      "rank": 44,
-      "name": "wps-skills (wps-word, wps-excel, wps-office)",
-      "purpose": "Community, not Kingsoft; instructions mostly in Chinese; also covers PPT (presentations craft)",
-      "how_to_use": "",
-      "repo": "lc2panda/wps-skills",
-      "branch": "main",
-      "skill_path": "skills",
-      "url": "https://github.com/lc2panda/wps-skills/tree/main/skills",
-      "stars": 635,
-      "license": "MIT",
-      "license_ok": false,
-      "evidence": "Found by tool name (WPS Office) in the tool-coverage pass",
-      "notes": "Community, not Kingsoft; instructions mostly in Chinese; also covers PPT (presentations craft) RISK: Install steps tell the agent to write an MCP server into ~/.claude/settings.json and build a local Node MCP (231 tools) that controls the desktop app; read before running -> excluded",
-      "tool": "WPS Office",
-      "tool_tier": "major",
-      "risk": "Install steps tell the agent to write an MCP server into ~/.claude/settings.json and build a local Node MCP (231 tools) that controls the desktop app; read before running"
     }
   ],
   "sources_checked": [

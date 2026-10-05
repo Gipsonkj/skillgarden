@@ -293,57 +293,74 @@
     },
     {
       "rank": 20,
-      "name": "ads-meta",
-      "purpose": "Meta account audit and creative checks inside a 12-platform paid-media suite; most popular ads skill pack.",
+      "name": "ads-google",
+      "purpose": "Google Ads audit including RSA and asset checks.",
       "how_to_use": "",
       "repo": "AgriciDaniel/claude-ads",
       "branch": "main",
-      "skill_path": "skills/ads-meta/SKILL.md",
-      "url": "https://github.com/AgriciDaniel/claude-ads/tree/main/skills/ads-meta",
+      "skill_path": "skills/ads-google/SKILL.md",
+      "url": "https://github.com/AgriciDaniel/claude-ads/tree/main/skills/ads-google",
       "stars": 9722,
       "license": "MIT",
       "license_ok": true,
-      "evidence": "Found by tool name (Meta Ads Manager and Marketing API) in the tool-coverage pass",
-      "notes": "Meta account audit and creative checks inside a 12-platform paid-media suite; most popular ads skill pack.",
-      "tool": "Meta Ads Manager and Marketing API",
-      "tool_tier": "major"
+      "evidence": "Found by tool name (Google Ads (Ads Editor and API)) in the tool-coverage pass",
+      "notes": "Google Ads audit including RSA and asset checks. The same collection (AgriciDaniel/claude-ads) also has: ads-meta (Meta Ads Manager and Marketing API), ads-competitor (Meta Ad Library), ads-tiktok (TikTok Ads Manager and Symphony), ads-linkedin (LinkedIn Campaign Manager and Marketing API).",
+      "tool": "Google Ads (Ads Editor and API)",
+      "tool_tier": "major",
+      "also": [
+        {
+          "name": "ads-meta",
+          "tool": "Meta Ads Manager and Marketing API",
+          "url": "https://github.com/AgriciDaniel/claude-ads/tree/main/skills/ads-meta"
+        },
+        {
+          "name": "ads-competitor",
+          "tool": "Meta Ad Library",
+          "url": "https://github.com/AgriciDaniel/claude-ads/tree/main/skills/ads-competitor"
+        },
+        {
+          "name": "ads-tiktok",
+          "tool": "TikTok Ads Manager and Symphony",
+          "url": "https://github.com/AgriciDaniel/claude-ads/tree/main/skills/ads-tiktok"
+        },
+        {
+          "name": "ads-linkedin",
+          "tool": "LinkedIn Campaign Manager and Marketing API",
+          "url": "https://github.com/AgriciDaniel/claude-ads/tree/main/skills/ads-linkedin"
+        }
+      ]
     },
     {
       "rank": 21,
-      "name": "meta-ads (kostja94)",
-      "purpose": "Concise Meta ads platform guidance (formats, targeting, creative).",
+      "name": "google-ads",
+      "purpose": "Platform guidance for ads and assets.",
       "how_to_use": "",
       "repo": "kostja94/marketing-skills",
       "branch": "main",
-      "skill_path": "skills/paid-ads/platforms/meta-ads",
-      "url": "https://github.com/kostja94/marketing-skills/tree/main/skills/paid-ads/platforms/meta-ads",
+      "skill_path": "skills/paid-ads/platforms/google-ads",
+      "url": "https://github.com/kostja94/marketing-skills/tree/main/skills/paid-ads/platforms/google-ads",
       "stars": 1013,
       "license": "MIT",
       "license_ok": true,
-      "evidence": "Found by tool name (Meta Ads Manager and Marketing API) in the tool-coverage pass",
-      "notes": "Concise Meta ads platform guidance (formats, targeting, creative).",
-      "tool": "Meta Ads Manager and Marketing API",
-      "tool_tier": "major"
+      "evidence": "Found by tool name (Google Ads (Ads Editor and API)) in the tool-coverage pass",
+      "notes": "Platform guidance for ads and assets. The same collection (kostja94/marketing-skills) also has: meta-ads (kostja94) (Meta Ads Manager and Marketing API), linkedin-ads (kostja94) (LinkedIn Campaign Manager and Marketing API).",
+      "tool": "Google Ads (Ads Editor and API)",
+      "tool_tier": "major",
+      "also": [
+        {
+          "name": "meta-ads (kostja94)",
+          "tool": "Meta Ads Manager and Marketing API",
+          "url": "https://github.com/kostja94/marketing-skills/tree/main/skills/paid-ads/platforms/meta-ads"
+        },
+        {
+          "name": "linkedin-ads (kostja94)",
+          "tool": "LinkedIn Campaign Manager and Marketing API",
+          "url": "https://github.com/kostja94/marketing-skills/tree/main/skills/paid-ads/platforms/linkedin-ads"
+        }
+      ]
     },
     {
       "rank": 22,
-      "name": "ads-competitor",
-      "purpose": "Competitor ad research across Meta, Google, TikTok, LinkedIn and Microsoft libraries.",
-      "how_to_use": "",
-      "repo": "AgriciDaniel/claude-ads",
-      "branch": "main",
-      "skill_path": "skills/ads-competitor/SKILL.md",
-      "url": "https://github.com/AgriciDaniel/claude-ads/tree/main/skills/ads-competitor",
-      "stars": 9722,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (Meta Ad Library) in the tool-coverage pass",
-      "notes": "Competitor ad research across Meta, Google, TikTok, LinkedIn and Microsoft libraries.",
-      "tool": "Meta Ad Library",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 23,
       "name": "canva-skills (resize-for-social-media, bulk-create, brand-check, edit-design)",
       "purpose": "Official; resizes a design to Facebook/Instagram/LinkedIn sizes, bulk autofill from a sheet (Enterprise), brand checks; all calls go to the Canva MCP.",
       "how_to_use": "",
@@ -360,7 +377,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 24,
+      "rank": 23,
       "name": "adobe-create-social-variations",
       "purpose": "Official; subject-aware crops, generative expand and video resize into per-platform sizes with a 3-crop preview before a full run.",
       "how_to_use": "",
@@ -372,63 +389,24 @@
       "license": "Apache-2.0",
       "license_ok": true,
       "evidence": "Found by tool name (Adobe Creative Cloud (Photoshop, Express, Firefly, Premiere)) in the tool-coverage pass",
-      "notes": "Official; subject-aware crops, generative expand and video resize into per-platform sizes with a 3-crop preview before a full run.",
+      "notes": "Official; subject-aware crops, generative expand and video resize into per-platform sizes with a 3-crop preview before a full run. The same collection (adobe/skills) also has: adobe-resize-photos-and-videos (Adobe Creative Cloud (Photoshop, Express, Firefly, Premiere)), adobe-edit-quick-cut (Adobe Creative Cloud (Photoshop, Express, Firefly, Premiere)).",
       "tool": "Adobe Creative Cloud (Photoshop, Express, Firefly, Premiere)",
-      "tool_tier": "major"
+      "tool_tier": "major",
+      "also": [
+        {
+          "name": "adobe-resize-photos-and-videos",
+          "tool": "Adobe Creative Cloud (Photoshop, Express, Firefly, Premiere)",
+          "url": "https://github.com/adobe/skills/tree/main/plugins/creative-cloud/adobe-for-creativity/skills/adobe-resize-photos-and-videos"
+        },
+        {
+          "name": "adobe-edit-quick-cut",
+          "tool": "Adobe Creative Cloud (Photoshop, Express, Firefly, Premiere)",
+          "url": "https://github.com/adobe/skills/tree/main/plugins/creative-cloud/adobe-for-creativity/skills/adobe-edit-quick-cut"
+        }
+      ]
     },
     {
-      "rank": 25,
-      "name": "adobe-resize-photos-and-videos",
-      "purpose": "Official batch resize for images and video.",
-      "how_to_use": "",
-      "repo": "adobe/skills",
-      "branch": "main",
-      "skill_path": "plugins/creative-cloud/adobe-for-creativity/skills/adobe-resize-photos-and-videos",
-      "url": "https://github.com/adobe/skills/tree/main/plugins/creative-cloud/adobe-for-creativity/skills/adobe-resize-photos-and-videos",
-      "stars": 192,
-      "license": "Apache-2.0",
-      "license_ok": true,
-      "evidence": "Found by tool name (Adobe Creative Cloud (Photoshop, Express, Firefly, Premiere)) in the tool-coverage pass",
-      "notes": "Official batch resize for images and video.",
-      "tool": "Adobe Creative Cloud (Photoshop, Express, Firefly, Premiere)",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 26,
-      "name": "adobe-edit-quick-cut",
-      "purpose": "Official quick video cut through the Premiere/Express tools.",
-      "how_to_use": "",
-      "repo": "adobe/skills",
-      "branch": "main",
-      "skill_path": "plugins/creative-cloud/adobe-for-creativity/skills/adobe-edit-quick-cut",
-      "url": "https://github.com/adobe/skills/tree/main/plugins/creative-cloud/adobe-for-creativity/skills/adobe-edit-quick-cut",
-      "stars": 192,
-      "license": "Apache-2.0",
-      "license_ok": true,
-      "evidence": "Found by tool name (Adobe Creative Cloud (Photoshop, Express, Firefly, Premiere)) in the tool-coverage pass",
-      "notes": "Official quick video cut through the Premiere/Express tools.",
-      "tool": "Adobe Creative Cloud (Photoshop, Express, Firefly, Premiere)",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 27,
-      "name": "ads-tiktok",
-      "purpose": "TikTok account audit and creative checks.",
-      "how_to_use": "",
-      "repo": "AgriciDaniel/claude-ads",
-      "branch": "main",
-      "skill_path": "skills/ads-tiktok/SKILL.md",
-      "url": "https://github.com/AgriciDaniel/claude-ads/tree/main/skills/ads-tiktok",
-      "stars": 9722,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (TikTok Ads Manager and Symphony) in the tool-coverage pass",
-      "notes": "TikTok account audit and creative checks.",
-      "tool": "TikTok Ads Manager and Symphony",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 28,
+      "rank": 24,
       "name": "google-ads-skills",
       "purpose": "Analysis, audit, math and safe-write skills that sit on the Google Ads MCP.",
       "how_to_use": "",
@@ -445,58 +423,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 29,
-      "name": "google-ads",
-      "purpose": "Platform guidance for ads and assets.",
-      "how_to_use": "",
-      "repo": "kostja94/marketing-skills",
-      "branch": "main",
-      "skill_path": "skills/paid-ads/platforms/google-ads",
-      "url": "https://github.com/kostja94/marketing-skills/tree/main/skills/paid-ads/platforms/google-ads",
-      "stars": 1013,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (Google Ads (Ads Editor and API)) in the tool-coverage pass",
-      "notes": "Platform guidance for ads and assets.",
-      "tool": "Google Ads (Ads Editor and API)",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 30,
-      "name": "ads-google",
-      "purpose": "Google Ads audit including RSA and asset checks.",
-      "how_to_use": "",
-      "repo": "AgriciDaniel/claude-ads",
-      "branch": "main",
-      "skill_path": "skills/ads-google/SKILL.md",
-      "url": "https://github.com/AgriciDaniel/claude-ads/tree/main/skills/ads-google",
-      "stars": 9722,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (Google Ads (Ads Editor and API)) in the tool-coverage pass",
-      "notes": "Google Ads audit including RSA and asset checks.",
-      "tool": "Google Ads (Ads Editor and API)",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 31,
-      "name": "claude-capcut-skill",
-      "purpose": "Drives CapCut/JianYing draft projects through a community capcut-cli; small, license not confirmed.",
-      "how_to_use": "",
-      "repo": "mane23-ai/claude-capcut-skill",
-      "branch": "main",
-      "skill_path": ".",
-      "url": "https://github.com/mane23-ai/claude-capcut-skill",
-      "stars": 5,
-      "license": "unverified",
-      "license_ok": false,
-      "evidence": "Found by tool name (CapCut) in the tool-coverage pass",
-      "notes": "Drives CapCut/JianYing draft projects through a community capcut-cli; small, license not confirmed. -> link-only.",
-      "tool": "CapCut",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 32,
+      "rank": 25,
       "name": "motion-creative-plugin",
       "purpose": "Official; 15 skills (analyze-ad, create-concepts, build-brief, find-iterations, write-hooks, ugc-scripts) that read the Motion MCP; needs a Motion account.",
       "how_to_use": "",
@@ -513,24 +440,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 33,
-      "name": "foreplay",
-      "purpose": "Foreplay Public API skill (search ads, brand velocity, duplicate groups) using FOREPLAY_API_KEY; no license file.",
-      "how_to_use": "",
-      "repo": "vibecode/Skillsforagent",
-      "branch": "main",
-      "skill_path": "Foundational/foreplay",
-      "url": "https://github.com/vibecode/Skillsforagent/tree/main/Foundational/foreplay",
-      "stars": 1,
-      "license": "none stated",
-      "license_ok": false,
-      "evidence": "Found by tool name (Foreplay) in the tool-coverage pass",
-      "notes": "Foreplay Public API skill (search ads, brand velocity, duplicate groups) using FOREPLAY_API_KEY; no license file. -> link-only.",
-      "tool": "Foreplay",
-      "tool_tier": "minor"
-    },
-    {
-      "rank": 34,
+      "rank": 26,
       "name": "heygen-video",
       "purpose": "Official; v3 Video Agent pipeline with frame check, avatar and voice selection.",
       "how_to_use": "",
@@ -542,29 +452,19 @@
       "license": "MIT",
       "license_ok": true,
       "evidence": "Found by tool name (HeyGen) in the tool-coverage pass",
-      "notes": "Official; v3 Video Agent pipeline with frame check, avatar and voice selection.",
+      "notes": "Official; v3 Video Agent pipeline with frame check, avatar and voice selection. The same collection (heygen-com/skills) also has: heygen-avatar (HeyGen).",
       "tool": "HeyGen",
-      "tool_tier": "minor"
+      "tool_tier": "minor",
+      "also": [
+        {
+          "name": "heygen-avatar",
+          "tool": "HeyGen",
+          "url": "https://github.com/heygen-com/skills/tree/main/heygen-avatar"
+        }
+      ]
     },
     {
-      "rank": 35,
-      "name": "heygen-avatar",
-      "purpose": "Official; create a reusable avatar identity before making videos.",
-      "how_to_use": "",
-      "repo": "heygen-com/skills",
-      "branch": "main",
-      "skill_path": "heygen-avatar",
-      "url": "https://github.com/heygen-com/skills/tree/main/heygen-avatar",
-      "stars": 466,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (HeyGen) in the tool-coverage pass",
-      "notes": "Official; create a reusable avatar identity before making videos.",
-      "tool": "HeyGen",
-      "tool_tier": "minor"
-    },
-    {
-      "rank": 36,
+      "rank": 27,
       "name": "gemini-omni-flash-api",
       "purpose": "Official skill for video generation and conversational video editing with the Gemini API.",
       "how_to_use": "",
@@ -581,7 +481,7 @@
       "tool_tier": "minor"
     },
     {
-      "rank": 37,
+      "rank": 28,
       "name": "gemini-api-dev",
       "purpose": "Official Gemini API developer skill covering image models.",
       "how_to_use": "",
@@ -596,58 +496,6 @@
       "notes": "Official Gemini API developer skill covering image models.",
       "tool": "Gemini API (Veo, Nano Banana)",
       "tool_tier": "minor"
-    },
-    {
-      "rank": 38,
-      "name": "ads-linkedin",
-      "purpose": "LinkedIn account audit and creative checks in the same 12-platform suite as ads-meta.",
-      "how_to_use": "",
-      "repo": "AgriciDaniel/claude-ads",
-      "branch": "main",
-      "skill_path": "skills/ads-linkedin/SKILL.md",
-      "url": "https://github.com/AgriciDaniel/claude-ads/tree/main/skills/ads-linkedin",
-      "stars": 9722,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (LinkedIn Campaign Manager and Marketing API) in the tool-coverage pass",
-      "notes": "LinkedIn account audit and creative checks in the same 12-platform suite as ads-meta.",
-      "tool": "LinkedIn Campaign Manager and Marketing API",
-      "tool_tier": "minor"
-    },
-    {
-      "rank": 39,
-      "name": "linkedin-ads (kostja94)",
-      "purpose": "Concise LinkedIn ads platform guidance (formats, targeting, creative).",
-      "how_to_use": "",
-      "repo": "kostja94/marketing-skills",
-      "branch": "main",
-      "skill_path": "skills/paid-ads/platforms/linkedin-ads",
-      "url": "https://github.com/kostja94/marketing-skills/tree/main/skills/paid-ads/platforms/linkedin-ads",
-      "stars": 1013,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (LinkedIn Campaign Manager and Marketing API) in the tool-coverage pass",
-      "notes": "Concise LinkedIn ads platform guidance (formats, targeting, creative).",
-      "tool": "LinkedIn Campaign Manager and Marketing API",
-      "tool_tier": "minor"
-    },
-    {
-      "rank": 40,
-      "name": "arcads-claude-code",
-      "purpose": "Arcads external API skills (video and image generation, polling), prompt library and a 37-template static Meta ad library.",
-      "how_to_use": "",
-      "repo": "krusemediallc/arcads-claude-code",
-      "branch": "main",
-      "skill_path": ".",
-      "url": "https://github.com/krusemediallc/arcads-claude-code",
-      "stars": 1573,
-      "license": "MIT",
-      "license_ok": false,
-      "evidence": "Found by tool name (Arcads) in the tool-coverage pass",
-      "notes": "Arcads external API skills (video and image generation, polling), prompt library and a 37-template static Meta ad library. RISK: Community, not by Arcads; README carries an affiliate link and a paid-community upsell, and a bundled Meta Ad Library workflow drives headless Chrome to download snapshot images. Needs an Arcads API key. Read scripts before running. -> excluded",
-      "tool": "Arcads",
-      "tool_tier": "minor",
-      "risk": "Community, not by Arcads; README carries an affiliate link and a paid-community upsell, and a bundled Meta Ad Library workflow drives headless Chrome to download snapshot images. Needs an Arcads API key. Read scripts before running."
     }
   ],
   "sources_checked": [

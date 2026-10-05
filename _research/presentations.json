@@ -409,23 +409,6 @@
     },
     {
       "rank": 27,
-      "name": "pptxgenjs",
-      "purpose": "Standalone PptxGenJS skill; licence not checked.",
-      "how_to_use": "",
-      "repo": "PancrePal-xiaoyibao/VitaForge",
-      "branch": "main",
-      "skill_path": ".codex/skills/pptxgenjs",
-      "url": "https://github.com/PancrePal-xiaoyibao/VitaForge/tree/main/.codex/skills/pptxgenjs",
-      "stars": 0,
-      "license": "unverified",
-      "license_ok": false,
-      "evidence": "Found by tool name (PptxGenJS) in the tool-coverage pass",
-      "notes": "Standalone PptxGenJS skill; licence not checked. -> link-only.",
-      "tool": "PptxGenJS",
-      "tool_tier": "major"
-    },
-    {
-      "rank": 28,
       "name": "minorun-marp-skill (slide-story, slide-figures, slide-design-dark, checkers)",
       "purpose": "Story, figure and dark-theme skills plus Python/Node lint scripts (AI-smell, margins, SVG fit); content is in Japanese.",
       "how_to_use": "",
@@ -442,7 +425,7 @@
       "tool_tier": "minor"
     },
     {
-      "rank": 29,
+      "rank": 28,
       "name": "slidev-skills (20 skills)",
       "purpose": "Split into animations, code, content, customization, export.",
       "how_to_use": "",
@@ -459,7 +442,7 @@
       "tool_tier": "minor"
     },
     {
-      "rank": 30,
+      "rank": 29,
       "name": "revealjs-skill",
       "purpose": "Named in the guide's source list; not re-verified in this pass.",
       "how_to_use": "",
@@ -476,7 +459,7 @@
       "tool_tier": "minor"
     },
     {
-      "rank": 31,
+      "rank": 30,
       "name": "figma-use-slides",
       "purpose": "Official; Slides context for the use_figma tool, used alongside figma-use.",
       "how_to_use": "",
@@ -493,24 +476,7 @@
       "tool_tier": "minor"
     },
     {
-      "rank": 32,
-      "name": "figma-slides",
-      "purpose": "Slide grid, text, shapes, backgrounds and transitions through the Plugin API; needs Figma Desktop.",
-      "how_to_use": "",
-      "repo": "southleft/figma-console-mcp-skills",
-      "branch": "main",
-      "skill_path": "skills/figma-slides",
-      "url": "https://github.com/southleft/figma-console-mcp-skills/tree/main/skills/figma-slides",
-      "stars": 88,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (Figma Slides) in the tool-coverage pass",
-      "notes": "Slide grid, text, shapes, backgrounds and transitions through the Plugin API; needs Figma Desktop.",
-      "tool": "Figma Slides",
-      "tool_tier": "minor"
-    },
-    {
-      "rank": 33,
+      "rank": 31,
       "name": "thinkcell (ppttc build, validate, template inspect)",
       "purpose": "Builds and validates .ppttc JSON and inspects named template elements; three stdlib-only Python scripts with no network calls (read in this pass). Tiny repo, unofficial; needs a think-cell licence to render.",
       "how_to_use": "",
@@ -525,23 +491,6 @@
       "notes": "Builds and validates .ppttc JSON and inspects named template elements; three stdlib-only Python scripts with no network calls (read in this pass). Tiny repo, unofficial; needs a think-cell licence to render.",
       "tool": "think-cell",
       "tool_tier": "major"
-    },
-    {
-      "rank": 34,
-      "name": "quarto-revealjs",
-      "purpose": "SKILL.md plus references; no licence, so link-only. Not opened beyond the file list.",
-      "how_to_use": "",
-      "repo": "rplsmn/quarto-revealjs-skill",
-      "branch": "main",
-      "skill_path": "quarto-revealjs",
-      "url": "https://github.com/rplsmn/quarto-revealjs-skill/tree/main/quarto-revealjs",
-      "stars": 0,
-      "license": "none stated",
-      "license_ok": false,
-      "evidence": "Found by tool name (Quarto) in the tool-coverage pass",
-      "notes": "SKILL.md plus references; no licence, so link-only. Not opened beyond the file list. -> link-only.",
-      "tool": "Quarto",
-      "tool_tier": "minor"
     }
   ],
   "sources_checked": [
