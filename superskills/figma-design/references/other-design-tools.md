@@ -1,8 +1,19 @@
-# Penpot and OpenPencil
+# Penpot, Sketch and OpenPencil
 
-> Distilled from: penpot-uiux-design and its setup and component references (github/awesome-copilot, MIT); open-pencil (open-pencil/skills, MIT). Safety notes are this skill's own.
+> Distilled from: penpot-uiux-design and its setup and component references (github/awesome-copilot, MIT); open-pencil (open-pencil/skills, MIT). Sketch section written in our own words from Sketch's MCP server docs. Safety notes are this skill's own.
 
-Use this when the design lives outside Figma: **Penpot** (open-source, browser-based, self-hostable) or **OpenPencil** (open-source editor and CLI that reads and writes `.fig` files). The craft rules in the other guides (tokens, specs, audits, hand-off) apply unchanged; only the tooling differs.
+Use this when the design lives outside Figma: **Penpot** (open-source, browser-based, self-hostable), **Sketch** (Mac app with a built-in local MCP server) or **OpenPencil** (open-source editor and CLI that reads and writes `.fig` files). The craft rules in the other guides (tokens, specs, audits, hand-off) apply unchanged; only the tooling differs.
+
+## Pick a tool
+
+| Situation | Use | Why |
+|---|---|---|
+| The team already designs in one tool | That tool's bridge | The file and its library live there |
+| A Figma file and a Figma seat | Figma MCP, see [figma-mcp.md](figma-mcp.md) | Richest bridge; writes through `use_figma` |
+| A Sketch document on this Mac | Sketch MCP server (section 3) | Built into Sketch; reads and writes the open document |
+| A Penpot file | Penpot MCP (section 1) | Open-source, self-hostable |
+| A `.fig` file but no Figma seat, or a headless audit | OpenPencil (section 2) | Free CLI, works on the file directly |
+| Unsure which app or file the user means | Ask | Several design apps can be open at once |
 
 ## 1. Penpot
 
@@ -51,7 +62,39 @@ MCP tools mirror this (read, create, modify, variables, analyze, export, `design
 
 Uses in this craft: audit a `.fig` file without a Figma seat (`analyze` + `lint`), pull variables into DTCG, export icons and assets, and generate a JSX starting point that you then rework with [design-to-code.md](design-to-code.md).
 
-## 3. Safety for local design servers
+## 3. Sketch
+
+**Bridge.** Sketch 2025.2.4 or later has a local-only MCP server, off by default. It is not in the Mac App Store build; the user needs the version from sketch.com.
+
+| Step | How |
+|---|---|
+| Start the server | In Sketch: ⌘K, type "MCP", choose Start MCP Server; or Settings > General > MCP Server. Allow Local Network access if macOS asks |
+| Address | `http://localhost:31126/mcp` (HTTP) |
+| Claude Code | `claude mcp add --transport http sketch http://localhost:31126/mcp`, check with `claude mcp get sketch` |
+| Claude Desktop | Settings > Extensions, search "Sketch", install, set tool permissions under Configure |
+| Other port | `defaults write com.bohemiancoding.sketch3 mcpServerPortNumber -int 1234` (pick a free port in 1024-49151) and use it in the URL |
+
+**Tools.** It works on the document currently open in Sketch.
+
+| Tool | Use |
+|---|---|
+| `get_document_info` | Document id, file name, pages: the first call |
+| `get_layer_tree_summary` | Text outline of the layers |
+| `get_design_assets` | Symbols, text styles, layer styles, colours, templates: the inventory before any write |
+| `get_symbol_overrides` | The overrides a symbol exposes: these become component props in code |
+| `get_libraries` | Linked libraries |
+| `get_screenshot` | A layer or the canvas, for intent and for checking writes |
+| `get_guide` | Sketch's built-in reference guides; read before writing `run_code` scripts |
+| `run_code` | JavaScript with the full SketchAPI, as a plugin would run it: multi-step, branching, error handling. **Writes** |
+
+**Mapping to this craft.** Symbols are components and symbol overrides are their props; shared text and layer styles and colours play the part of styles and tokens. Inventory with `get_design_assets` before creating anything, and apply [design-to-code.md](design-to-code.md) and [design-tokens.md](design-tokens.md) as written. Sketch publishes its own agent skills (`sketch-design-to-code`, `sketch-design-from-reference`) in `sketch-hq/agents`; read them before installing.
+
+**Gotchas.**
+- `run_code` changes the open document directly. Duplicate the document or page first, say what the script will change, wait for a yes, then screenshot the result.
+- The calls act on whichever document is active in Sketch. If several are open, ask the user to make the right one active.
+- Connection fails: check System Settings > Privacy & Security > Local Network for Sketch (toggle it off and on), and that nothing else uses the port.
+
+## 4. Safety for local design servers
 
 | Rule | Why |
 |---|---|

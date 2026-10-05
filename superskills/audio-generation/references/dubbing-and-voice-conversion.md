@@ -52,3 +52,5 @@ speaker with a neutral premade voice is the safe use of conversion.
 - After isolation, still apply the voice chain (high-pass, compression, limiter) from
   `mixing-and-mastering.md`; isolation removes noise, it doesn't fix tone or level.
 - Gate vs isolation: a gate only silences pauses; noise under speech stays.
+- Isolation in an editor the user already has (Descript Studio Sound, Adobe Enhance Speech,
+  Audition, iZotope RX Dialogue Isolate): see `editing-and-repair.md`.

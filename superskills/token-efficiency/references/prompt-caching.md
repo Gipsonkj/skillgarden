@@ -48,6 +48,32 @@ On Claude Sonnet 5.5 keep history append-only for another reason: replaying one 
 - **Explicit breakpoints** (Claude `cache_control`, Bedrock `cachePoint`, OpenAI explicit breakpoints on newer models, Gemini explicit cache objects): you mark where the stable prefix ends. Use them when many independent conversations share one static prefix, or when layers change at different rates (tools rarely, a document daily, history every turn). Put the marker on the last block whose whole prefix should stay identical.
 - A robust agent-loop shape: one explicit breakpoint at the end of the static prefix plus automatic caching for the growing tail.
 
+### OpenAI settings (Responses and Chat Completions, as of OpenAI's prompt-caching guide, Oct 2026)
+
+Caching is on by default for supported models; there is nothing to enable, only the layout to get right and a few request fields.
+
+| Setting | What it does | Use it when |
+|---|---|---|
+| Minimum size | 1,024 visible input tokens on GPT-5.6 and later; on earlier models it depends on the request (tools, images, schemas, reasoning settings) and cached tokens are rounded down to a multiple of 128 | Check before expecting any hit |
+| `prompt_cache_key` | A stable string you send with every request that shares a prefix, e.g. `"ticket_tagger_v3"`. On earlier models it helps route related requests to the same cache; on GPT-5.6+ it is optional and separates cache accounting | Many requests share one prefix. On earlier models, keep each key to about 15 requests per minute in total across the prefixes using it: above that, overflow routing can happen. Partition busier traffic over a few keys with a stable mapping (`..._v3:0` to `..._v3:3`). Keys influence routing; they do not guarantee a hit |
+| `prompt_cache_retention` (before GPT-5.6) | `"in_memory"`: usually 5-10 minutes idle, at most an hour. `"24h"`: usually around 30 minutes, kept up to 24 hours, on the models the guide lists (GPT-5.5, 5.4, 5.2, 5.1 and 5 families, GPT-4.1) | `"24h"` when gaps between requests can exceed a few minutes; it is the better chance of a hit, not a promise. Zero Data Retention organisations default to `"in_memory"`, others to `"24h"` |
+| `prompt_cache_options: {"ttl": "30m"}` (GPT-5.6+) | Keeps an entry 30 minutes after its last write or reuse; `"30m"` is the only value | Replaces `prompt_cache_retention` on these models |
+| `prompt_cache_breakpoint: {"mode": "explicit"}` (GPT-5.6+) | Set on an `input_text` content block to mark the end of a stable prefix; up to four cache writes per request | Several layers change at different rates (section 3 above) |
+
+```python
+# Responses API: fixed instructions and examples first, the changing ticket last
+resp = client.responses.create(
+    model=MODEL,                         # from config
+    instructions=TAGGING_INSTRUCTIONS,   # the same 6,000 tokens every call, byte for byte
+    input=ticket_text,                   # volatile part last
+    prompt_cache_key="ticket_tagger_v3",
+)
+u = resp.usage
+print(u.input_tokens, u.input_tokens_details.cached_tokens)   # cached is part of input_tokens
+```
+
+Price shape on GPT-5.6+: cached reads at 0.1x uncached input (0.05x on GPT-6.1 Sol) and cache writes at 1.25x, reported as `cache_write_tokens`; GPT-5.5 and earlier charge no cache-write premium. Caches are never shared across organisations. Check current pricing before quoting a saving.
+
 ## 4. Verify from usage fields, never from reading code
 
 Every provider reports cache hits in the response usage. Log them per request, by route and model.
@@ -59,7 +85,7 @@ Every provider reports cache hits in the response usage. Log them per request, b
 | Gemini | `cached_content_token_count` (Generate Content) or `total_cached_tokens` (Interactions) | Inclusive |
 | Bedrock Converse | `CacheReadInputTokens`, `CacheWriteInputTokens` | Check the reference: differs by API |
 
-Getting the denominator wrong is the most common reporting error. Hit rate = cached read tokens / total input tokens, with total input computed per the accounting column. Wrappers and gateways (OpenRouter, Azure, LiteLLM) may change which applies: check before trusting a ratio.
+Getting the denominator wrong is the most common reporting error. Hit rate = cached read tokens / total input tokens, with total input computed per the accounting column. Wrappers and gateways (OpenRouter, Azure, LiteLLM) may change which applies: check before trusting a ratio. LiteLLM's `prompt_tokens` counts cache hits and misses together; OpenRouter returns `prompt_tokens_details.cached_tokens` and `cache_write_tokens` in every response's usage. Gateway setup and their own cache settings: `api-cost-patterns.md` section 7.
 
 Healthy signs:
 - In a warmed agent loop, cache reads dominate uncached input, and cache writes per turn are about one turn's worth, not the whole conversation.

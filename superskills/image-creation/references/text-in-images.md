@@ -18,6 +18,18 @@ Why overlay wins for exact copy: it is spell-checked, editable and identical at 
 
 ## 2. Model choice for in-image text
 
+**Pick a tool**
+
+| Situation | Tool | Why |
+|---|---|---|
+| The user already uses one of the models below | That one | Proof every word anyway |
+| Headline on a design, UI or banner | GPT Image 2.x | Strong on layout and on-image text |
+| The type is the artwork | Ideogram 3, Recraft V4.x, FLUX.2 [flex] | Best typographic accuracy |
+| Dense poster or infographic | GPT Image 2.x at `quality: high`, or Nano Banana Pro at 2K/4K | Large canvas keeps glyphs intact |
+| Midjourney subscriber | Midjourney with the text in double quotes; the user runs it (`hosted-models-flux-replicate-fal.md` §10) | No API |
+| Free, local | SD 3.5 (`local-open-models.md`) | Better text than SDXL; still proof hard |
+| The words carry information | No model: overlay (§6) | Spell-checked and editable |
+
 | Need | Use |
 |---|---|
 | Best typographic accuracy | Ideogram 3, Recraft V4.x, FLUX.2 [flex], GPT Image 2.x |
@@ -62,6 +74,18 @@ Hierarchy that reads: one headline ≤ 6 words at ≥ 3x the size of details; at
 - For precise or data-bearing diagrams, prefer code (SVG, Mermaid, D3, matplotlib). Generated "charts" have invented numbers.
 
 ## 6. Overlay workflow (exact text)
+
+**Pick a tool**
+
+| Situation | Tool | Why |
+|---|---|---|
+| The user already designs in Figma, Canva or Adobe Express | That one | Their fonts and brand kit; the file stays editable for them |
+| Free, one image, in code | HTML/CSS or SVG over the image, then export | Exact and spell-checkable |
+| Many variants (OG images, social cards) | `@vercel/og`/Satori or HTML-to-image | One template, many images |
+| Quick caption from the shell | ImageMagick `-annotate` | No design tool needed |
+| Text in an existing Canva template | Canva connector: `replace_text` or `find_and_replace_text` in an edit transaction (`retouch-resize-upscale.md` §4) | It can't add new text boxes or change the font family |
+| Text in an Adobe Express template | `fill_text` (`retouch-resize-upscale.md` §2) | Template-based posts |
+| Not clear who edits the file later | Ask which tool they or their team update it in | The overlay must stay editable there |
 
 1. Prompt for the image with explicit empty space: "clean empty sky in the top 40% for a headline, no text".
 2. Choose the type in HTML/CSS, SVG, Figma or Canva; set it on the image.

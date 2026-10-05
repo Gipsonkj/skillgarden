@@ -30,6 +30,20 @@ This super skill is distilled from the skills below. Reference files are rewritt
 | seo-aeo-best-practices | https://github.com/sanity-io/agent-toolkit | MIT | AEO structure, Next.js metadata/sitemap patterns, freshness signals |
 | seo | https://github.com/iannuttall/seo | Apache-2.0 | Report catalogue, evidence rules, finding-resolution discipline |
 
+## Official tool docs (link-only reference, written in our own words)
+
+Used for the Google Analytics 4, Screaming Frog, Keyword Planner, Yoast SEO and Rank Math sections of `references/tools-vendors.md`. No text or code was copied from them.
+
+| Tool | Docs |
+|---|---|
+| Google Analytics 4 Data API | https://developers.google.com/analytics/devguides/reporting/data/v1 , https://developers.google.com/analytics/devguides/reporting/data/v1/rest/v1beta/properties/runReport , https://developers.google.com/analytics/devguides/reporting/data/v1/api-schema , https://developers.google.com/analytics/devguides/reporting/data/v1/quotas |
+| Google Analytics MCP server | https://developers.google.com/analytics/devguides/MCP , https://github.com/googleanalytics/google-analytics-mcp |
+| Screaming Frog SEO Spider | https://www.screamingfrog.co.uk/seo-spider/user-guide/general/ , https://www.screamingfrog.co.uk/seo-spider/user-guide/configuration/ , https://www.screamingfrog.co.uk/seo-spider/user-guide/tabs/ |
+| Google Keyword Planner (Ads UI and API) | https://support.google.com/google-ads/answer/7337243 , https://support.google.com/google-ads/answer/3022575 , https://developers.google.com/google-ads/api/docs/keyword-planning/overview , https://developers.google.com/google-ads/api/docs/keyword-planning/generate-keyword-ideas , https://developers.google.com/google-ads/api/docs/keyword-planning/generate-historical-metrics , https://developers.google.com/google-ads/api/docs/api-policy/access-levels , https://github.com/googleads/google-ads-mcp |
+| Yoast SEO | https://developer.yoast.com/customization/apis/rest-api/ , https://developer.yoast.com/features/yoast-seo-abilities/overview/ , https://developer.yoast.com/features/yoast-seo-abilities/posts-seo-data/ , https://developer.yoast.com/features/wp-cli/reindex-indexables/ , https://developer.yoast.com/features/xml-sitemaps/functional-specification/ , https://yoast.com/yoast-seo-redirect-manager/ |
+| Rank Math | https://rankmath.com/kb/headless-cms-support/ , https://rankmath.com/kb/configure-sitemaps/ , https://rankmath.com/kb/setting-up-redirections/ |
+| WordPress Application Passwords | https://developer.wordpress.org/rest-api/using-the-rest-api/authentication/ |
+
 ## Also see (not included)
 
 - claude-seo's other sub-skills (backlinks, maps, Google APIs, images, hreflang) and its Python runner: https://github.com/AgriciDaniel/claude-seo

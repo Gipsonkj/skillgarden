@@ -24,6 +24,20 @@ This super skill is distilled from the open-licensed skills below. Text was rewr
 | citation-verification | https://github.com/Galaxy-Dawn/claude-scholar/tree/main/skills/citation-verification | MIT | Verification authority order and match criteria |
 | deep-research | https://github.com/199-biotechnologies/claude-deep-research-skill | MIT (stated in README) | Depth modes, phase list, report shape, sources/evidence/claims ledgers, placeholder check (ideas only; no files copied) |
 
+## Official documentation (tool guides added October 2026)
+
+Docs, link-only reference, written in our own words:
+
+| Tool | Docs used | Used in |
+|---|---|---|
+| Covidence | https://support.covidence.org/help/study-imports, https://support.covidence.org/help/troubleshooting-reference-imports, https://support.covidence.org/help/tracking-and-reporting-snowballed-references, https://support.covidence.org/help/switching-from-dual-to-single-reviewer-mode, https://support.covidence.org/help/how-to-create-and-manage-eligibility-criteria, https://support.covidence.org/help/customising-reasons-for-exclusion, https://support.covidence.org/help/does-covidence-record-exclusion-reasons-at-the-title-and-abstract-screening-stage, https://support.covidence.org/knowledge_base/topics/viewing-duplicates, https://support.covidence.org/help/export-prisma | literature-review.md |
+| PubMed export | https://pubmed.ncbi.nlm.nih.gov/help/, https://www.nlm.nih.gov/pubs/techbull/ma20/ma20_pubmed_updated.html | literature-review.md |
+| Zotero | https://www.zotero.org/support/dev/web_api/v3/basics, https://www.zotero.org/support/dev/web_api/v3/local_api, https://www.zotero.org/support/kb/importing_standardized_formats, https://www.zotero.org/support/kb/exporting, https://www.zotero.org/support/duplicate_detection | citations.md |
+| Scopus | https://dev.elsevier.com/sc_search_tips.html, https://dev.elsevier.com/documentation/ScopusSearchAPI.wadl, https://dev.elsevier.com/api_key_settings.html, https://dev.elsevier.com/, https://www.elsevier.support/scopus/answer/how-do-i-export-documents-from-scopus | literature-search.md, database-apis.md |
+| Web of Science | https://webofscience.zendesk.com/hc/en-us/articles/20016122409105-Search-Operators, https://webofscience.zendesk.com/hc/en-us/articles/25350084904721-Search-Rules, https://webofscience.zendesk.com/hc/en-us/articles/26916258216209-Web-of-Science-Core-Collection-Search-Fields, https://webofscience.zendesk.com/hc/en-us/articles/20135824927505-Saving-and-Exporting-Marked-Lists, https://webofscience.zendesk.com/hc/en-us/articles/47843018003601-APIs, https://developer.clarivate.com/apis/wos-starter | literature-search.md, database-apis.md |
+| Embase | https://www.elsevier.support/embase/answer/how-do-i-search-in-embase, https://www.elsevier.support/embase/answer/what-field-codes-can-i-use-in-embase, https://www.elsevier.support/embase/answer/can-i-use-boolean-operators-wildcards-and-proximity-operators-in-embase, https://www.elsevier.support/embase/answer/how-do-i-export-my-search-results, https://dev.elsevier.com/embase_apis.html | literature-search.md, database-apis.md |
+| Google Scholar | https://scholar.google.com/intl/en/scholar/help.html | literature-search.md |
+
 Reviewed but not used for content: research-lookup (K-Dense, MIT; overlaps the database guidance), tavily-research (tavily-ai/skills, MIT; depends on a paid search API), notebooklm (PleasePrompto/notebooklm-skill, MIT; automates a Google account through a browser), paperjury (Spark-To-Paper-Skills/paperjury, MIT; includes a GitHub update check). Several K-Dense skills ask the agent to add a citation to the K-Dense paper in the user's work; that directive was not carried over.
 
 ## Also see (not included)

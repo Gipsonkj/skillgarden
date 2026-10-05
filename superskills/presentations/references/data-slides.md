@@ -1,4 +1,4 @@
-> Distilled from: scientific-slides data visualization guide (K-Dense-AI/scientific-agent-skills, MIT); pitch-deck formatting and calculation standards (anthropics/financial-services, Apache-2.0); consulting-pptx-skill slide rules (carnot-tech/consulting-pptx-skill, MIT); deck-writing and powerpoint-pptx guides of the docs-office craft (kami (tw93/Kami, MIT), pptx-generator (MiniMax-AI/skills, MIT)); presentation-creator (mblode/agent-skills, MIT); revealjs charts reference (ryanbbrown/revealjs-skill, MIT); presenting-conference-talks (Orchestra-Research/AI-Research-SKILLs, MIT)
+> Distilled from: scientific-slides data visualization guide (K-Dense-AI/scientific-agent-skills, MIT); pitch-deck formatting and calculation standards (anthropics/financial-services, Apache-2.0); consulting-pptx-skill slide rules (carnot-tech/consulting-pptx-skill, MIT); deck-writing and powerpoint-pptx guides of the docs-office craft (kami (tw93/Kami, MIT), pptx-generator (MiniMax-AI/skills, MIT)); presentation-creator (mblode/agent-skills, MIT); revealjs charts reference (ryanbbrown/revealjs-skill, MIT); presenting-conference-talks (Orchestra-Research/AI-Research-SKILLs, MIT); think-cell manual, JSON data automation and introduction to automation (docs, link-only, written in our own words)
 
 # Data slides: charts, tables and numbers
 
@@ -57,6 +57,18 @@ Distance test: if it isn't readable from 2-3 feet away from a laptop screen, it 
 
 ## 6. Building charts per format
 
+Pick a tool:
+
+| The user's need or situation | Use | Why |
+|---|---|---|
+| Already uses one (think-cell, Sheets charts, the charts in their deck app) | That one | Their templates and colleagues expect it |
+| Editable chart in a new .pptx, no add-in | PptxGenJS `addChart` or python-pptx `add_chart` | Native chart objects, free, built locally |
+| Waterfall, Mekko, Gantt or consulting-style charts, and think-cell is installed | think-cell (below) | The add-in's own chart types, filled from JSON |
+| Many decks refreshed from data with the same think-cell template | think-cell `.ppttc` (below) | One JSON file per deck, no clicking |
+| Google Slides | Chart built in Sheets and linked | Stays updatable in Workspace |
+| HTML, Slidev, Marp, reveal.js or Beamer deck | SVG or a chart library, matplotlib/plotly image, pgfplots | Fits the format's own pipeline |
+| Not sure think-cell is installed or licensed | Ask | It is a paid add-in; without it the `.ppttc` file can't render |
+
 | Format | Chart route |
 |---|---|
 | PowerPoint (PptxGenJS) | Native `slide.addChart(pres.charts.BAR, data, opts)` with `data = [{name, labels, values}]`; native charts stay editable. Types: BAR, LINE, PIE, DOUGHNUT, SCATTER, BUBBLE, RADAR |
@@ -70,6 +82,30 @@ Distance test: if it isn't readable from 2-3 feet away from a laptop screen, it 
 Prefer native, editable charts in decks someone else will update. Images are fine for one-off talks if exported at slide resolution (at least 1920 px wide for full-width, PNG or SVG).
 
 Research results: embed the original figure or regenerate it from the source data. Never let an image model redraw a results chart: it invents points, axes and labels.
+
+### think-cell (PowerPoint add-in)
+
+think-cell's charts include column, line, area, waterfall, pie, doughnut, scatter, bubble, Mekko and Gantt. Claude can't click through its UI; the route is **JSON data automation**: write a `.ppttc` file and let the user's think-cell turn it into a .pptx.
+
+1. **Name the elements in the template** (the user does this in PowerPoint): select a think-cell chart, table, Harvey ball or checkbox, or an automation text field (Insert > Elements > Automation Text Field), and in its mini toolbar type a unique name into **AddRangeData Name**, then Enter. Elements sharing a name get the same data.
+2. **Write the `.ppttc` file**: a JSON array; each object names a `template` (a local path or an HTTP/HTTPS URL to the .pptx) and a `data` list of `{"name", "table"}`. The array sets which templates are used and in what order.
+3. **Cells**: `{"string": "..."}`, `{"number": 12.5}`, `{"date": "2026-01-01"}` (ISO 8601), `{"percentage": 46.5}`; add `"fill": "#1f6feb"` (hex or `rgb(...)`) to colour a cell's segment; `null` is an empty cell. A text field, single Harvey ball or single checkbox takes a one-cell table such as `[[{"string": "..."}]]`. A chart table is its datasheet: the first row is `null` then the category labels, each next row is a series name then its values; `[]` is an empty row.
+
+```json
+[{"template": "q3-template.pptx",
+  "data": [
+    {"name": "Title", "table": [[{"string": "Churn fell 30% after the price change"}]]},
+    {"name": "ChurnChart", "table": [
+      [null, {"string": "Q1"}, {"string": "Q2"}, {"string": "Q3"}],
+      [{"string": "Churn %"}, {"percentage": 6.1}, {"percentage": 5.9}, {"percentage": 4.2}]
+    ]}
+  ]}]
+```
+
+4. **Render**: double-clicking a `.ppttc` opens it in think-cell, which builds the slides in PowerPoint. On Windows also `ppttc.exe input.ppttc -o output.pptx` (in the `ppttc` folder of the think-cell install), or `tcserver.exe` with a registered URL such as `http://127.0.0.1:8080` that takes an HTTP POST of the JSON (`Content-Type: application/vnd.think-cell.ppttc+json`) and returns the .pptx. Keep that server on localhost.
+5. **Check** the rendered .pptx like any deck ([deck-qa.md](deck-qa.md)) and confirm every named element got its data; names must match the template exactly.
+
+Data from Excel instead of JSON: link the elements to Excel ranges and use think-cell's `PresentationFromTemplate`, or its `UpdateBatch` API with named elements. Never invent values to fill a chart; leave the element out and list it as `[DATA NEEDED]`.
 
 ## 7. Sources and honesty
 

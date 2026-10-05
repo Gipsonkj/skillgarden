@@ -6,10 +6,29 @@ Rule one for every platform here: **list models from the API, don't trust memory
 
 ## 1. Which model for which job
 
+**Pick where to run it**
+
+| Situation | Tool | Why |
+|---|---|---|
+| The user already has a key, credits or a wrapper (OpenAI, Gemini, OpenRouter, fal, Replicate, Higgsfield, ModelArk, Firefly) | That one | Many models run on several of these (`gemini-nano-banana.md` §7) |
+| No API key, working in Codex | Codex `image_gen` (`openai-gpt-image.md` §4) | Needs no API key |
+| No account, has a GPU, or private images | Local SDXL, SD 3.5 or FLUX.2 [dev] (`local-open-models.md`) | No per-image cost; check model licences |
+| Wants to compare several models with one key | OpenRouter (§5) | Free `--list-models`, `--model-info` and `--dry-run` before paying |
+| Many endpoints, cost known before a batch | fal.ai (§4) | `estimate_cost` |
+| Community models or a LoRA trainer | Replicate (§3) | Schema first, trainers |
+| Seedream photoreal | ModelArk direct (§7) | No reseller markup |
+| One CLI for many models, Soul characters, ad formats | Higgsfield (§6) | Paid credits |
+| Adobe enterprise contract | Firefly Services API (`retouch-resize-upscale.md` §3) | Already licensed |
+| Midjourney subscriber | Midjourney, manual (§10) | No API; the user runs the prompt |
+| Many prompts from files | baoyu-image-gen or `image_gen.py generate-batch` (§8) | Retries and parallel jobs |
+| Nothing set up, no preference | Ask which account or key they have before suggesting a sign-up | A new account costs them time and money |
+
+**Then pick the model:**
+
 | Need | First choice | Also good |
 |---|---|---|
 | General quality, prompt adherence | Gemini 3.1 Flash / 3 Pro, GPT Image 2.5 | FLUX.2 [pro] |
-| Photorealism, art direction | FLUX.2 [max]/[pro], Seedream 4.5/5 (direct on ModelArk, §7) | Midjourney (no API; manual only) |
+| Photorealism, art direction | FLUX.2 [max]/[pro], Seedream 4.5/5 (direct on ModelArk, §7) | Midjourney (no API; the user runs the prompt, §10) |
 | Typography in the image | Ideogram 3, Recraft V4.1, FLUX.2 [flex] | GPT Image 2.5, Nano Banana Pro |
 | Vector / SVG logos and icons | Recraft V4.1 vector (`svg` output) | redraw by hand as SVG |
 | Brand-consistent sets | FLUX.2 multi-reference, Nano Banana Pro refs | Recraft Styles (1-10 style refs) |
@@ -18,6 +37,8 @@ Rule one for every platform here: **list models from the API, don't trust memory
 | Cheapest drafts | FLUX.2 [klein] 4B, Gemini Flash Lite, Recraft V4.1 Flash, GPT Image 1 mini | Z Image |
 | Inpainting with a hard mask | FLUX.1 Fill | SD inpaint (local) |
 | Local / open weights | FLUX.2 [dev] (non-commercial licence; check), SDXL, SD 3.5 | see `local-open-models.md` |
+
+The user already pays for Adobe, Canva, Photoroom or Topaz, or the job is a cutout, resize or upscale of a real photo: see `retouch-resize-upscale.md`.
 
 ## 2. FLUX (Black Forest Labs)
 
@@ -119,3 +140,29 @@ When one job needs many images from saved prompt files, use a batch runner inste
 - Reuse backgrounds and textures across assets.
 - Post-process (crop, overlay text, colour) instead of regenerating.
 - Inspect per-model pricing units: per image, per megapixel and per token are not comparable without converting.
+
+## 10. Midjourney (manual: Claude writes, the user runs)
+
+Midjourney offers no API (apart from rare exceptions it grants explicitly), and its terms and community guidelines forbid automated tools and third-party apps. So Claude never drives it, and never uses third-party "Midjourney API" wrappers (they automate an account, which the terms forbid, and send the prompts and a key to someone else's service). Claude writes copy-ready prompts; the user pastes them into the Imagine bar on midjourney.com or Discord, downloads the picks into the project, and Claude checks them at 100%.
+
+Prompt shape: the description first, then parameters at the very end, with a space before each `--` and no punctuation inside the parameters. Text to render goes in double quotes (single quotes don't work).
+
+```text
+ceramic mug on a warm cream linen tabletop, soft window light from the left, shallow depth of field, editorial product photo, "MORNING" lettered on the mug --ar 4:5 --s 100 --raw --seed 1234
+```
+
+| Parameter | What it does |
+|---|---|
+| `--ar W:H` | Aspect ratio (default 1:1; up to 14:1 in V8.x, 4:1 with `--hd`) |
+| `--s 0-1000` | Stylize: how freely it interprets the prompt (default 100) |
+| `--raw` | Raw Mode, for more control over the look |
+| `--no x` | Leave out an element |
+| `--seed 0-4294967295` | Same starting noise for A/B tests; not a way to keep a style or character, and unreliable in Turbo mode |
+| `--sref <url>` + `--sw 0-1000` | Style reference and its weight (default 100); describe content, not "copy this style" |
+| `--edit <url> ...` | V8.1/8.2 Edit model: instructions plus up to 4 reference images; replaces Omni and Character Reference. Matches the first image's ratio unless `--ar` is given |
+| `--hd` / `--sd` | V8.1+ images at 2048 px or 1024 px |
+| `--v`, `--niji` | Model version (default V8.2 since 24 July 2026), or the anime-focused model |
+| `--tile`, `--chaos`, `--weird`, `--stealth` | Seamless pattern; more varied results; quirkier results; private creations (Pro and Mega plans) |
+
+Sizes: V8.2 SD is 1024×1024 at 1:1 (1456×816 at 16:9), HD and upscaled 2048×2048 (2912×1632). Upscaling (Subtle or Creative) can cost twice the GPU minutes of the first generation. For print beyond that, upscale outside Midjourney (`retouch-resize-upscale.md` §6).
+

@@ -139,3 +139,6 @@ Pivot rules:
 ## 9. Common mistakes
 
 Slow hooks; no on-screen text; poor audio; too long (if it can be shorter, cut it); no CTA; ignoring comments in the first hour; reposting horizontal video; the product appearing so early it feels like an ad.
+
+
+**Editing in CapCut or another editor:** the user edits by hand in CapCut from the script, shot list and an `.srt` caption file you prepare; for the edit, captions and export themselves, hand off to `ai-video` -> `references/captions-talking-head.md` and `references/footage-editing-ffmpeg.md`.

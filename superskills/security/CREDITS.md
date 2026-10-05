@@ -24,6 +24,18 @@ Reference files are distilled in our own words from the skills below. Scripts ar
 
 Files derived from CC-BY-SA-4.0 sources (static-analysis.md, supply-chain.md, github-actions.md, scripts/semgrep/, scripts/supply-chain-risk-auditor/) remain under CC-BY-SA-4.0.
 
+## Official tool docs (link-only reference, written in our own words)
+
+| Tool | Docs | Used for |
+|---|---|---|
+| Dependabot | https://docs.github.com/en/code-security/dependabot | supply-chain.md section 3 (options reference, security updates, Actions behaviour) |
+| Trivy | https://trivy.dev/latest/docs/ | supply-chain.md section 4 (image and fs targets, filtering, DB, CLI flags, reporting) |
+| trivy-action | https://github.com/aquasecurity/trivy-action | supply-chain.md section 4 CI gate (inputs, caching, March 2026 tag notice in its releases) |
+| Snyk CLI and Snyk Studio | https://docs.snyk.io/ | supply-chain.md section 5, static-analysis.md picker (test, container test, code test, monitor, ignore, auth, install, MCP for Claude Code) |
+| Gitleaks and gitleaks-action | https://github.com/gitleaks/gitleaks, https://github.com/gitleaks/gitleaks-action | secrets.md Gitleaks section |
+| TruffleHog | https://github.com/trufflesecurity/trufflehog | secrets.md TruffleHog section |
+| OWASP ZAP (packaged scans, Docker, authentication, GitHub Actions) | https://www.zaproxy.org/docs/docker/, https://github.com/zaproxy/action-baseline | dynamic-testing.md |
+
 ## Also see (not included)
 
 - code-security (semgrep/skills, Semgrep Rules License, not redistributable here): https://github.com/semgrep/skills/tree/main/skills/code-security

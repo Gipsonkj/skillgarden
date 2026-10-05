@@ -1,6 +1,6 @@
 ---
 name: seo
-description: Audit, fix and grow a site's organic search and AI search visibility. Use for SEO audits, traffic or ranking drops, pages not indexed, crawling, robots.txt, sitemaps, canonicals, redirects, site migrations, JavaScript rendering, Core Web Vitals (LCP, INP, CLS), hreflang and international SEO, keyword research, search intent, topic clusters, title tags and meta descriptions, writing or refreshing content to rank, E-E-A-T, schema markup and JSON-LD, rich results, site architecture, URL structure, internal linking, programmatic SEO and template pages at scale, AI search / GEO / AEO (AI Overviews, ChatGPT, Perplexity, Copilot citations, llms.txt, AI crawlers), local SEO and Google Business Profile, reviews, NAP citations, backlinks and link building, directory submissions and Product Hunt launches, competitor "alternative" and "vs" pages, and SEO tools such as Search Console, PageSpeed, CrUX, Screaming Frog, Ahrefs, Semrush and DataForSEO.
+description: Audit, fix and grow a site's organic search and AI search visibility. Use for SEO audits, traffic or ranking drops, pages not indexed, crawling, robots.txt, sitemaps, canonicals, redirects, site migrations, JavaScript rendering, Core Web Vitals (LCP, INP, CLS), hreflang and international SEO, keyword research, search intent, topic clusters, title tags and meta descriptions, writing or refreshing content to rank, E-E-A-T, schema markup and JSON-LD, rich results, site architecture, URL structure, internal linking, programmatic SEO and template pages at scale, AI search / GEO / AEO (AI Overviews, ChatGPT, Perplexity, Copilot citations, llms.txt, AI crawlers), local SEO and Google Business Profile, reviews, NAP citations, backlinks and link building, directory submissions and Product Hunt launches, competitor "alternative" and "vs" pages, and SEO tools such as Search Console, Google Analytics 4, PageSpeed, CrUX, Screaming Frog, Google Keyword Planner, Yoast SEO, Rank Math, Ahrefs, Semrush and DataForSEO.
 ---
 
 # SEO
@@ -59,7 +59,7 @@ Work out what the request needs before opening a guide; most real requests need 
 | AI Overviews, ChatGPT, Perplexity, Copilot, AI crawlers, llms.txt, agent readiness, measuring AI citations | [references/ai-search.md](references/ai-search.md) |
 | Google Business Profile, reviews, NAP, citations, location pages, geo-grid tracking | [references/local.md](references/local.md) |
 | Backlink review, link earning, disavow, directory submissions, Product Hunt, competitor and alternative pages | [references/offpage-competitors.md](references/offpage-competitors.md) |
-| Specific tools: Search Console, PSI and CrUX APIs, Screaming Frog, squirrelscan, Firecrawl, DataForSEO, OpenSEO, claude-seo, the `seo` CLI, Apify | [references/tools-vendors.md](references/tools-vendors.md) |
+| Specific tools and picking one (crawler, keyword data, WordPress SEO plugin): Search Console, Google Analytics 4, PSI and CrUX APIs, Screaming Frog (headless CLI, MCP), Keyword Planner, Yoast SEO and Rank Math, squirrelscan, Firecrawl, DataForSEO, OpenSEO, claude-seo, the `seo` CLI, Apify | [references/tools-vendors.md](references/tools-vendors.md) |
 | Tracking a directory submission campaign | [templates/directory-submissions/submission-tracker-template.csv](templates/directory-submissions/submission-tracker-template.csv) |
 
 ## Other crafts

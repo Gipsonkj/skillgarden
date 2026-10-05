@@ -16,6 +16,23 @@ For comic pages, four-panel strips, vertical webtoons and educational/knowledge 
 
 Ask the user only what changes the plan (style, page count, language, aspect). Offer partial runs: storyboard only; storyboard + prompts; images from existing prompts; regenerate pages N.
 
+### Who draws the pages: pick a tool
+
+| Situation | Use | Why |
+|---|---|---|
+| The artist already draws in an app | That app; deliver the page storyboard and lettering text | Their brushes and habits are the fast path |
+| A person draws comic pages or a webtoon | Clip Studio Paint (below) | Native frame borders, page management and webtoon export |
+| Pages rendered by an image model | Steps 5-6 above; models in **image-creation** (`references/gemini-nano-banana.md`); [baoyu-comic](https://github.com/JimLiu/baoyu-skills/tree/main/skills/baoyu-comic) for batch runs | No drawing app needed |
+| Unsure whether they have Clip Studio Paint PRO or EX | Ask | Multi-page files and batch export need EX |
+
+**Clip Studio Paint.** Desktop drawing app, so Claude delivers the page storyboard (§4), a panel layout per page, the lettering text and any reference sheets; the artist draws.
+
+- Panels: Layer → New Layer → Frame Border folder builds a frame from the page's inner border. Split it with the Divide frame border tool (vertical and horizontal gutter in Tool Settings) or Layer → Ruler/Frame → Divide frame border equally. Ready-made layouts sit in Material palette → Manga material. Frames are not in the DEBUT edition.
+- Webtoon: View → Show on-screen area (webtoon) shows what a phone displays; set its ratio in View → On-screen area settings (webtoon). Write the scroll beats so each screenful lands one beat.
+- Webtoon export: File → Export webtoon; Divide vertically cuts the strip every N pixels into separate images. Take N from the platform's upload spec, and ask the user for it rather than guessing.
+- EX only: multi-page management (a `.cmc` management file plus one file per page, in a management folder), webtoon export by page range, as separate pages or as one continuous strip, and batch export: File → Export multiple pages → Batch export to BMP, JPEG, PNG, WebP, TIFF, Targa, PSD, PSB or PDF.
+- Name pages and panels by the storyboard's IDs (`p03-panel2`) so feedback maps back to the script.
+
 ## 2. Style, tone and layout menus
 
 | Art style | Look | Good for |

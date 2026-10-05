@@ -10,7 +10,7 @@ Decide the level before writing a test. The wrong level gives slow, flaky or mea
 |---|---|---|---|
 | Unit | One function/class, no I/O | ms | Business rules, parsing, calculations, edge cases, error branches |
 | Integration | Your code + a real DB, queue or file system | 10-500 ms | Repositories, queries, migrations, serialisation, framework wiring |
-| API / contract | HTTP endpoints, request -> response | 10-200 ms | CRUD, validation errors (400/422), auth and permissions, response shapes |
+| API / contract | HTTP endpoints, request -> response | 10-200 ms | CRUD, validation errors (400/422), auth and permissions, response shapes; Postman collections in [api-testing.md](api-testing.md) |
 | Component | One UI component rendered in a real or simulated DOM | 10-300 ms | Form validation, widgets, conditional rendering, per-component a11y, visual states |
 | End-to-end | The deployed app through a real browser | 1-30 s | Critical journeys across pages: sign-up, login, checkout, onboarding |
 | Exploratory / manual QA | A human or agent driving the app looking for problems | minutes | New features, release candidates, things no one thought to script |

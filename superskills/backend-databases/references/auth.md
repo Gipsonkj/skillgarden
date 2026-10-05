@@ -1,6 +1,6 @@
 # Authentication and authorization implementation
 
-> Distilled from: auth-implementation-patterns (wshobson/agents, MIT), backend-patterns (affaan-m/ECC, MIT), supabase (supabase/agent-skills, MIT).
+> Distilled from: auth-implementation-patterns (wshobson/agents, MIT), backend-patterns (affaan-m/ECC, MIT), supabase (supabase/agent-skills, MIT). Auth0 section written in our own words from the Auth0 docs.
 
 Use this when adding login, sessions, tokens, OAuth, API keys or role checks to a backend. Prefer a managed provider or a maintained library over building auth yourself.
 
@@ -11,6 +11,20 @@ Use this when adding login, sessions, tokens, OAuth, API keys or role checks to 
 | Managed provider (Supabase Auth, Clerk, Auth0, Firebase Auth, Cognito) | Default for new apps; MFA, social login and resets come built in |
 | Maintained library (Auth.js, Better Auth, Lucia-style patterns, Django auth, fastapi-users) | You want users in your own database |
 | Hand-rolled | Only for narrow cases (internal API keys); still use vetted primitives |
+
+**Pick a provider or library**
+
+| Situation | Use | Why |
+|---|---|---|
+| The app already uses one, or the user pays for one | That one | Migrating users and sessions is costly |
+| Database is Supabase | Supabase Auth (supabase.md) | Same JWT drives RLS |
+| Firebase / Firestore app | Firebase Auth (firebase.md) | Rules read `request.auth` |
+| Next.js or React app, wants the quickest hosted setup | Clerk | Framework quickstarts and a CLI; see clerk-setup under "Go deeper" in SKILL.md |
+| Several apps or APIs, enterprise SSO, B2B organizations, free tier to start | Auth0 (section 8) | Universal Login, RBAC in tokens, Actions; free plan covers small apps |
+| Already on AWS | Cognito | Stays in the same cloud account as the rest of the stack |
+| Users must live in your own database, no vendor | Auth.js, Better Auth, Django auth, fastapi-users | Free; you run resets, MFA and security updates |
+
+If the user has not said which provider their app uses, ask; don't scaffold a second one.
 
 ## 2. Sessions vs tokens
 
@@ -62,7 +76,44 @@ Token rules:
 - Generate 32 random bytes with a prefix (`sk_live_...`) so leaks are scannable; show once; store a hash.
 - Scope keys (read-only, per resource), set expiry, record last use, allow rotation with overlap.
 
-## 8. Checklist
+## 8. Auth0 (managed provider)
+
+**Access:** Dashboard, Auth0 CLI, Management API, SDKs. CLI on macOS: `brew tap auth0/auth0-cli && brew install auth0`, then `auth0 login`.
+
+```bash
+auth0 apis create --name "Orders API" --identifier "https://api.example.com"
+auth0 apps create --name "Web" --type spa
+```
+
+These change the user's tenant: show the exact command and wait for a yes. The API identifier becomes the `audience`.
+
+**Protect an Express API** with `express-oauth2-jwt-bearer`; config from env vars (`AUTH0_DOMAIN`, `AUTH0_AUDIENCE`), never in the repo:
+
+```js
+const { auth, requiredScopes } = require("express-oauth2-jwt-bearer");
+
+const checkJwt = auth({
+  issuerBaseURL: `https://${process.env.AUTH0_DOMAIN}`,
+  audience: process.env.AUTH0_AUDIENCE,
+});
+
+app.get("/api/orders", checkJwt, requiredScopes("read:orders"), (req, res) => {
+  const userId = req.auth.payload.sub; // still check this user may see each order
+});
+```
+
+The middleware rejects tokens whose `iss` or `aud` don't match with 401.
+
+**Gotchas:**
+
+- **Always request the API's audience.** Without an `audience`, Auth0 issues an opaque token meant only for `/userinfo`; your API cannot validate it. With your API identifier as audience you get a JWT.
+- **RBAC:** in Applications > APIs > (your API) > Settings, turn on "Enable RBAC" and "Add Permissions in the Access Token". Permissions then arrive in the `permissions` claim, and `scope` holds the requested permissions the user actually has, so `requiredScopes` works when the client asks for those scopes.
+- **Custom claims** (tenant id, plan) go in a post-login Action with a namespaced name you control, for example `api.accessToken.setCustomClaim("https://example.com/tenant_id", tenantId)`. Non-namespaced claims can collide with reserved ones and be dropped.
+- **Lifetimes:** access tokens for a custom API last 86400 seconds (24 hours) by default; shorten it in the API settings to match section 2.
+- **Machine-to-machine:** `POST https://{AUTH0_DOMAIN}/oauth/token` with `grant_type=client_credentials`, `client_id`, `client_secret` and `audience`, from server code only.
+- **Plan limits (Free):** up to 25,000 monthly active users, 5 Organizations, 1 custom domain (needs card verification). Moving to a paid plan spends money: show the plan and price and wait for a yes.
+
+## 9. Checklist
 
 - [ ] Provider or library chosen; no custom crypto.
 - [ ] Tokens/sessions in httpOnly cookies; access tokens 15-30 min.

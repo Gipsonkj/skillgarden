@@ -115,8 +115,8 @@ Customise the guardrail list with the user: ask project vs global scope and whic
 | Must happen on every event, no judgement | Hook |
 | Repeatable workflow with steps and files | Skill |
 | Specialised reviewer/worker with its own context and limited tools | Subagent (`references/subagents-and-delegation.md`) |
-| External system (DB, GitHub, browser, docs) | MCP server |
-| Bundle of the above to share | Plugin |
+| External system (DB, GitHub, browser, docs) | MCP server (connect: `references/packaging-and-connecting.md`) |
+| Bundle of the above to share | Plugin (`references/packaging-and-connecting.md`) |
 | Allow/deny a command without a script | `permissions.allow` / `permissions.deny` in settings |
 
 To recommend automations for a repo, read `package.json`/`pyproject.toml`/`go.mod`, existing `.claude/`, test and CI config, then give the top 1-2 per category with a one-line "why" tied to what you found (e.g. "Prettier config present: PostToolUse auto-format"). This is read-only; build only what the user picks.

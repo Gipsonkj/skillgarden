@@ -9,13 +9,29 @@ Platform-neutral rules for any automation: n8n, Make, Zapier, a script on cron, 
 | Situation | Use |
 |---|---|
 | One-off task right now ("send this email", "make an issue") | Direct CLI/API/MCP call (gws, gh, Composio CLI, Zapier CLI). No workflow |
-| Repeating, deterministic, connects SaaS apps | No-code platform (n8n, Make, Zapier) or a small script |
+| Repeating, deterministic, connects SaaS apps | A workflow platform (pick one with the table below) or a small script |
 | Repeating, needs judgment (classify, summarise, draft) | Workflow with one AI step, not a free-roaming agent |
 | Open-ended multi-step judgment | Agent (see the ai-agents super skill) |
 | No API exists, only a web UI | Browser automation (browser-automation.md) |
 | Only a native desktop app | Computer use, as a last resort |
 
 Order of preference for reaching a system: **official API/CLI → MCP/connector → integration broker (Composio, Zapier) → browser → GUI**. A plain HTTP fetch beats a browser for public pages.
+
+### Pick a platform
+
+| The user's situation | Use | Why |
+|---|---|---|
+| Already uses or pays for one of these | That one | Connections, licences and admins already exist; a second platform doubles the upkeep |
+| Not sure what they have | Ask which platform they log into and on which plan or licence | Connectors, limits and quotas depend on it; don't guess |
+| Team on Microsoft 365 (Outlook, Teams, SharePoint, Excel) | Power Automate → platform-workflows.md | Microsoft 365 plans include it at the lowest request tier; official Claude Code plugin |
+| Team on Google Workspace, data in Sheets, Gmail, Forms | Google Apps Script → platform-workflows.md | Free with the Google account, within daily quotas |
+| A script that should run on a schedule next to its code | GitHub Actions → platform-workflows.md | Free in public repos; private repos get monthly minutes |
+| Desktop or legacy apps with no API, or an existing robot estate | UiPath → platform-workflows.md (Power Automate desktop flows in a Microsoft shop) | Robots drive the UI where nothing else can |
+| Many SaaS apps, wants code nodes or to self-host | n8n → n8n.md | |
+| Many SaaS apps in a visual builder | Make → make.md | |
+| Code or an agent calling many apps through managed connections | Zapier → zapier.md, or Composio → app-integrations.md | |
+| No account and no budget | Apps Script on a personal Google account, or GitHub Actions in a public repo | Both free within their limits |
+| A script that runs in the user's cloud (Cloud Run job, Workers Cron) | `cloud-devops` craft | |
 
 ## 2. Plan before building
 

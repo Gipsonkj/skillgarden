@@ -1,6 +1,6 @@
 # Lead research (no scraping)
 
-> Distilled from: lead-intelligence and its signal-scorer, mutual-mapper and enrichment agents (affaan-m/ECC, MIT): scoring model, warm-path types and untrusted-content rules only, with its cookie and browser LinkedIn access left out; connections-optimizer (affaan-m/ECC, MIT): review-first defaults; linkedin-skills policy (alirezarezvani/claude-skills, MIT).
+> Distilled from: lead-intelligence and its signal-scorer, mutual-mapper and enrichment agents (affaan-m/ECC, MIT): scoring model, warm-path types and untrusted-content rules only, with its cookie and browser LinkedIn access left out; connections-optimizer (affaan-m/ECC, MIT): review-first defaults; linkedin-skills policy (alirezarezvani/claude-skills, MIT). Sales Navigator plans and limits from LinkedIn's Sales Navigator pages and Help Center, in our own words.
 
 ToS reminder: **never scrape LinkedIn.** That means no crawlers, cookie-based (`li_at`) tools, "no-cookie" scraping APIs or actors, browser automation on linkedin.com, or extensions. Research uses the user's own data, manual LinkedIn use, and public or consented sources. Outreach is drafted and sent by hand ([tos-and-safe-automation.md](tos-and-safe-automation.md)).
 
@@ -18,6 +18,30 @@ ToS reminder: **never scrape LinkedIn.** That means no crawlers, cookie-based (`
 | Web search (Exa, Google) for public pages | Discovery and enrichment | Low. Don't treat LinkedIn pages that search surfaces as a database to harvest |
 | Third-party enrichment databases (Apollo, Clay, ZoomInfo and similar) | Contact data | **Medium-High**. Often derived from scraped LinkedIn data, and raises GDPR questions. Only with the user's informed choice; never the default |
 | Scrapers, PhantomBuster, cookie or "no-cookie" LinkedIn APIs, Selenium or Playwright on LinkedIn | Bulk profile data | **HIGH. Prohibited. Never** |
+
+## Pick a tool for finding people
+
+| The user's situation | Use | Why |
+|---|---|---|
+| Already pays for a lead tool (Sales Navigator, a CRM with enrichment, Apollo, Clay) | That one, within the cautions in the table above | Their saved lists and history are there. Ask which they use |
+| Warm paths first, no budget | Their own data export plus manual LinkedIn search | Free and low risk |
+| Regular B2B prospecting on LinkedIn | Sales Navigator, used by hand (below) | LinkedIn's own lead search; no scraping involved |
+| Leads must land in Salesforce, Dynamics or HubSpot | Sales Navigator Advanced Plus CRM sync | The only sanctioned way to move Sales Navigator leads out |
+| Contact emails at volume | A third-party enrichment database, only on the user's informed choice | Medium-High risk (above); never the default |
+
+## Sales Navigator (by hand)
+
+LinkedIn's paid lead-search product. Claude never operates it: Claude plans the search and the user runs it.
+
+- **Plans:** Core, Advanced and Advanced Plus, with a free trial. Advanced adds TeamLink (warm paths through colleagues), Smart Links, alerts, buyer intent signals and 50 InMail credits a month. Advanced Plus adds CRM sync with Salesforce, Microsoft Dynamics and HubSpot, and lead creation in the CRM.
+- **No export:** LinkedIn offers no CSV or XLS export from Sales Navigator; CRM sync on Advanced Plus is the sanctioned route. Third-party exporter extensions are scraping (HIGH risk, above).
+- **Limits:** a search shows at most 2,500 leads (100 pages) or 1,000 accounts (40 pages). Up to 50 saved lead searches and 50 saved account searches, with weekly alerts. Lists hold up to 1,000 leads each and 10,000 in total; up to 25 search results can be saved to a list at once.
+
+Workflow:
+1. Claude turns Step 1 below into a filter plan: role and seniority, industry, company size, geography, and the keywords to include and exclude. If the target is wider than 2,500 people, split it into narrower searches (by region or company size) rather than paging past the cap.
+2. The user runs the searches and turns on **Save search to get notified of new results** for the ones worth watching.
+3. The user saves good fits to a named list and copies across only the shortlist they want help with (name, role, company, the signal they saw).
+4. Claude scores that shortlist (Step 2), finds warm paths (Step 3, TeamLink on Advanced) and drafts messages; the user sends each one by hand.
 
 ## Step 1: Define the target
 

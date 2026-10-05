@@ -129,6 +129,27 @@ Panel density follows loudness: a quiet ritual beat = one held panel for 1.5-2.5
 
 Objects appear on a panel only when they change state (board the after-state). Hands appear only on a decision (name the verb: grip, release, sign).
 
+### Drawing the panels: pick a tool
+
+| Situation | Use | Why |
+|---|---|---|
+| The artist already draws in an app | That app | Speed comes from their own brushes and shortcuts |
+| Animation studio boards with camera moves and an editorial round trip | Toon Boom Storyboard Pro ([storyboard-projects.md](storyboard-projects.md) §5c) | Panels, captions, animatic and EDL/AAF/XML export in one place |
+| The artist lives in Photoshop | Photoshop (below) | One layer per panel; a rough animatic from the frame timeline |
+| Comic pages or webtoons | Clip Studio Paint ([comics-and-panels.md](comics-and-panels.md) §1) | Native frame borders and webtoon export |
+| Rough sketches for a client board | Boords' frame editor ([storyboard-projects.md](storyboard-projects.md) §5a) | Shapes, arrows and zoom, pan and tilt overlays on the frame |
+| Free, no account | Storyboarder ([storyboard-projects.md](storyboard-projects.md) §5d) | Free and open source |
+| Nobody draws: AI keyframes | **image-creation**: Nano Banana in `references/gemini-nano-banana.md`; Midjourney has no API and its terms forbid automating it, so Claude writes the prompts and the user runs them (`references/hosted-models-flux-replicate-fal.md`) | Rendering stills is that craft's job; this guide supplies the keyframe cards and identity strings |
+
+**Photoshop.** Desktop app; Claude prepares the panel list, captions and file names and the user draws. For a rough animatic without an editor:
+
+1. One layer (or layer group) per panel, named by shot ID, bottom to top in shot order.
+2. Window → Timeline, choose Create Frame Animation, then Make Frames From Layers from the Timeline panel menu.
+3. Select a frame and click the delay value under it to set its hold in seconds (Other... for a custom value such as 3.5); use the shot durations from the board.
+4. File → Export → Render Video for a video or image sequence (Save for Web (Legacy) gives a GIF).
+
+In Claude, Adobe's official **Adobe for creativity** connector (Customize → Connectors → Browse connectors; works as a guest with about 40 tools, sign in with an Adobe account for more and for work saved across sessions) gives 50+ tools across Photoshop, Lightroom, Illustrator, Firefly, Premiere, Express, InDesign and Stock. Use it for edits on images the user supplies (crops, retouch, resizing a cut for a platform), not as a board app.
+
 ## 8. Grid boards for multi-shot video models
 
 Some models accept one image containing a numbered grid of panels as the shot order (Seedance 2.5 officially up to 15 panels). Use clean line art or stick figures with minimal text, then declare in the prompt that the grid gives order and rough composition only and that its line style, labels and placeholder figures must not be copied; supply appearance from separate character/scene references and describe each shot's time, composition, action and end state. Separate keyframe images align better than one grid. Details: [ai-video-prompts.md](ai-video-prompts.md).

@@ -1,8 +1,8 @@
-# MongoDB, Redis and ClickHouse
+# MongoDB, Redis, ClickHouse and search engines
 
-> Distilled from: mongodb-schema-design (mongodb/agent-skills, Apache-2.0), redis-core (redis/agent-skills, MIT), clickhouse-best-practices (clickhouse/agent-skills, Apache-2.0).
+> Distilled from: mongodb-schema-design (mongodb/agent-skills, Apache-2.0), redis-core (redis/agent-skills, MIT), clickhouse-best-practices (clickhouse/agent-skills, Apache-2.0). Search section written in our own words from the Elasticsearch and OpenSearch docs.
 
-Use this when the data store is MongoDB (document modeling), Redis (cache, counters, queues, sessions) or ClickHouse (analytics).
+Use this when the data store is MongoDB (document modeling), Redis (cache, counters, queues, sessions), ClickHouse (analytics) or Elasticsearch/OpenSearch (full-text search).
 
 ## 1. MongoDB schema design
 
@@ -51,11 +51,76 @@ Pick the data type by access pattern:
 - Pre-aggregate with materialized views into `AggregatingMergeTree` / `SummingMergeTree` for dashboards.
 - Query: filter on the `ORDER BY` prefix, select only needed columns, avoid `SELECT *` and large `JOIN`s on the right side (put the smaller table on the right, or use dictionaries).
 
-## 4. Choosing between them
+## 4. Search: Elasticsearch and OpenSearch
+
+A search engine is a secondary index fed from the database of record, not the system of record. Rebuild it from the database when the mapping changes.
+
+**Pick a search tool**
+
+| Situation | Use | Why |
+|---|---|---|
+| The team already runs or pays for one | That one | Reindexing into a second engine is a project |
+| Search over one modest table, no new service wanted | Postgres full-text search (`tsvector` + GIN index) | Free, stays transactional; no sync job |
+| Relevance-ranked search, facets, logs, large volume; Elastic Cloud or self-managed | Elasticsearch | Query DSL with scoring and filters, official clients |
+| On AWS (Amazon OpenSearch Service) or wants the Apache-2.0 project | OpenSearch | Same request shapes for the basics (bulk, bool queries); separate client and docs |
+
+Ask which one they have before writing client code; the clients and some features differ.
+
+**Access and auth:** official clients (`npm install @elastic/elasticsearch`; `npm install @opensearch-project/opensearch`) or the REST API. Elasticsearch takes an API key; keep it in an env var:
+
+```ts
+import { Client } from "@elastic/elasticsearch";
+const es = new Client({ node: process.env.ES_URL!, auth: { apiKey: process.env.ES_API_KEY! } }); // Elastic Cloud: cloud: { id } instead of node
+```
+
+Amazon OpenSearch Service signs requests with AWS SigV4 (`AwsSigv4Signer` from `@opensearch-project/opensearch/aws-v3`, `service: "es"`; Serverless uses `"aoss"`), using the AWS credential chain, so no key sits in code.
+
+**Mappings first.** Create the index with an explicit mapping and `"dynamic": "strict"`, which rejects documents with unknown fields instead of adding them:
+
+```json
+PUT /products
+{
+  "mappings": {
+    "dynamic": "strict",
+    "properties": {
+      "name":  { "type": "text", "fields": { "keyword": { "type": "keyword" } } },
+      "sku":   { "type": "keyword" },
+      "price": { "type": "scaled_float", "scaling_factor": 100 },
+      "updated_at": { "type": "date" }
+    }
+  }
+}
+```
+
+- `text` is analyzed for full-text search; `keyword` is the exact value for filters, sorting, aggregations and `term` queries. Don't run full-text search on `keyword`. Use a multi-field (`name` + `name.keyword`) when you need both.
+- Dynamic mapping on user-shaped JSON causes a mapping explosion; `index.mapping.total_fields.limit` defaults to 1000 fields.
+
+**Indexing:** use `_bulk` with NDJSON: an action line, then the document line, and a final newline. Send `Content-Type: application/x-ndjson`; with curl use `--data-binary`, because `-d` strips newlines. No batch size is right for everyone: try a few sizes on your own data and keep the fastest. The response can succeed overall while single items fail, so check each item's error. Requests over 100 MB (the default HTTP limit) are refused.
+
+**Querying:** put scoring clauses in `bool.must`/`should` and yes/no conditions in `bool.filter` (no scoring, cached, faster):
+
+```json
+GET /products/_search
+{
+  "query": { "bool": {
+    "must":   [ { "match": { "name": "trail shoe" } } ],
+    "filter": [ { "term": { "sku": "TS-42" } }, { "range": { "price": { "lte": 120 } } } ]
+  } },
+  "size": 20
+}
+```
+
+**Pagination:** `from` + `size` stops at 10,000 hits (`index.max_result_window`). Beyond that use `search_after` with a point in time (PIT) and a sort; the PIT adds `_shard_doc` as the tiebreaker. Scroll is no longer recommended for this.
+
+**Freshness:** search is near real time. Indices refresh every second by default, but only those searched in the last 30 seconds; a document is not searchable until the next refresh. Don't read-after-write through search; read the database.
+
+## 5. Choosing between them
 
 | Workload | Store |
 |---|---|
+| The team already runs one that fits | Keep it |
 | Transactions, relations, reporting on moderate data | Postgres |
 | Variable document shapes, per-entity reads | MongoDB |
 | Sub-millisecond cache, counters, rate limits, ephemeral queues | Redis |
 | Aggregations over hundreds of millions of rows | ClickHouse |
+| Full-text relevance search, facets, log search | Elasticsearch or OpenSearch (section 4), fed from the main database |

@@ -32,6 +32,44 @@ A match needs: title (allowing punctuation and case differences), first author s
 
 Typical flow: collect identifiers → `extract_metadata.py`/`doi_to_bibtex.py` → `format_bibtex.py --deduplicate --rekey` → `validate_citations.py --check-dois --manuscript paper.tex` → fix → re-run until clean.
 
+## Reference managers
+
+### Pick a tool
+
+| The user's situation | Use | Why |
+|---|---|---|
+| Already keeps references in a manager (Zotero, EndNote, Mendeley or another) | That manager | Their library, their Word/LaTeX plug-in, their styles; ask which one before touching anything |
+| Uses Zotero | Zotero local API (read) or Web API (read and write) | Claude can read collections and export RIS/BibTeX directly, no file shuffling |
+| Uses EndNote or Mendeley | File round-trip: they export RIS or BibTeX, Claude cleans it, they import the result | These are driven through their apps here; RIS is the common format both import |
+| No manager, writing in LaTeX or Markdown | A `.bib` file plus the bundled scripts above | Free, no account, versioned with the paper |
+| Has no manager but needs one for a team or a review | Suggest Zotero; the user installs it | Imports PubMed `.nbib`, RIS, BibTeX and EndNote XML, finds duplicates, and has an API Claude can read |
+
+### Zotero
+
+**Local API (desktop app running; use it for reads).** The user turns it on once: Settings → Advanced → "Allow other applications on this computer to communicate with Zotero" (otherwise every call returns 403). Base `http://localhost:23119/api/`, user ID `0`, no key needed for reads, no rate limits. It serves the whole library to anything on the machine, so never expose the port.
+
+```bash
+curl -s "http://localhost:23119/api/users/0/collections/top"   # top-level collections and their keys
+curl -s "http://localhost:23119/api/users/0/collections/ABCD1234/items/top?format=bibtex&limit=100" > refs.bib
+```
+
+**Web API (`https://api.zotero.org`, works without the desktop app; the local API only accepts writes in Zotero 10+ with a locally granted key, so use this one for writes).**
+- Key: the user creates one at zotero.org/settings/keys and stores it as `ZOTERO_API_KEY`; the same page shows their numeric user ID. Send it as `Zotero-API-Key: $ZOTERO_API_KEY` (or `Authorization: Bearer`), never as a URL parameter. Add `Zotero-API-Version: 3`.
+- Paths: `/users/<userID>/...` or `/groups/<groupID>/...`; then `items`, `items/top`, `collections`, `collections/<key>/items`.
+- Parameters: `format` (`json`, `bibtex`, `biblatex`, `ris`, `csv`, `keys`...), `q` (quick search of titles and creators), `itemType`, `tag`, `since`, `limit` (1-100, default 25), `start`.
+- Paging: read the `Total-Results` header and follow `Link: rel="next"` until it is gone.
+- Rate limits: obey a `Backoff: <seconds>` header, and on `429` wait for `Retry-After`.
+- Writes use `Zotero-Write-Token` or `If-Unmodified-Since-Version` to avoid overwriting edits (`412` = version out of date or write token reused, `428` = version header missing). Show the user the exact items to be created or changed and wait for a yes; never delete.
+
+```bash
+curl -s -H "Zotero-API-Key: $ZOTERO_API_KEY" -H "Zotero-API-Version: 3" \
+  "https://api.zotero.org/users/$ZOTERO_USER_ID/collections/ABCD1234/items/top?format=ris&limit=100" > review.ris
+```
+
+**In the app (when the user does it):** File → Import… → "A file" reads RIS, BibTeX, MEDLINE/nbib, PubMed XML, EndNote XML, CSL JSON and more. Right-click a collection → "Export Collection…" (or "Export Items…" for a selection). The "Duplicate Items" view lists suspected duplicates (matched on title, DOI and ISBN, then year within one and an author surname plus initial); select one, pick the master record and click the "Merge N Items" button. Only items of the same type merge.
+
+Gotchas: Zotero's duplicate merge is item by item, so for thousands of review records let the screening tool de-duplicate (literature-review.md) and keep the counts it reports. Exported metadata is still untrusted input: validate the `.bib` with `validate_citations.py` before submission.
+
 ## BibTeX conventions
 
 | Type | Use for | Required fields |

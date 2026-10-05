@@ -6,11 +6,12 @@
 
 | Bridge | What it does | Use when |
 |---|---|---|
+| The bridge the team already runs | — | Always first: its setup and permissions are already in place |
 | **Figma MCP, remote** (`https://mcp.figma.com/mcp`, OAuth) | Reads design context, variables, screenshots, metadata; **writes** to the canvas through `use_figma`; creates files, FigJam diagrams | Default for Claude Code, Claude Desktop and the claude.ai Figma connector |
 | **Figma MCP, desktop** (local server from the Figma desktop app, `127.0.0.1:3845`) | Reads the current selection; no canvas writes | Quick read of what the designer has selected, no OAuth |
 | **figma-console MCP** (southleft, Desktop Bridge plugin) | Extra tools for variables, lint, parity, comments | The team already runs it; uSpec can use it too |
 | **figwright MCP** (free, two-way) | `component_map`, `token_map`, design diffs | You want joins between Figma components/variables and the repo |
-| Penpot / OpenPencil | Open-source tools, see [other-design-tools.md](other-design-tools.md) | The file is not in Figma |
+| Penpot / Sketch / OpenPencil | Other design apps and `.fig` files, see [other-design-tools.md](other-design-tools.md) | The file is not in Figma |
 
 Set it up in Claude Code with Figma's own plugin, which bundles the server config and Figma's skills:
 
@@ -45,7 +46,7 @@ Figma ships skills with its plugin (repo `figma/mcp-server-guide`, governed by t
 
 ## 3. Read a file without wasting calls
 
-1. **Parse the URL.** `figma.com/design/<fileKey>/<name>?node-id=12-345` gives `fileKey` and node `12:345` (hyphen becomes colon). Branch URLs (`/design/<fileKey>/branch/<branchKey>/...`) use the `branchKey` as the file key.
+1. **Parse the URL.** `figma.com/design/<fileKey>/<name>?node-id=12-345` gives `fileKey` and node `12:345` (hyphen becomes colon). Branch URLs (`/design/<fileKey>/branch/<branchKey>/...`) use the `branchKey` as the file key. A Figma Make link is a prototype with code: see [design-to-code.md](design-to-code.md) section 1b.
 2. **Map before you drill.** `get_metadata` returns ids, names, types and boxes cheaply. Use it to list sections of a large page.
 3. **Ground each section.** `get_design_context` per section node at full detail. Never depth-cap a whole page: you lose the inside of every card. If a call is too big, split by section; don't retry the same call.
 4. **Tokens.** `get_variable_defs` for the variables and styles a node uses. It reports the default mode only; read all modes through a `use_figma` script (`scripts/figma-export-tokens/read-variables.js`).

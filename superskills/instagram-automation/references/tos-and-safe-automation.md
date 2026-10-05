@@ -17,7 +17,7 @@ Read this first whenever a request involves acting on Instagram rather than writ
 | Drafting scripts, carousels, captions, plans | Allowed | The default mode. No account access needed. |
 | Manual posting from the app, Edits or Meta Business Suite | Allowed | Recommended for Personal accounts and small volumes. |
 | Publishing through the official Graph API / Instagram API (Business or Creator) | Allowed | Check `content_publishing_limit` first. The user approves each post. |
-| Official-API schedulers and connectors (Meta Business Suite, Composio, Publora, SocialClaw) | Allowed | Account connected through OAuth in the vendor's dashboard. Read the vendor's own limits. |
+| Official-API schedulers and connectors (Meta Business Suite, Buffer, Metricool, ManyChat, Composio, Publora, SocialClaw) | Allowed | Account connected through OAuth in the vendor's dashboard. Read the vendor's own limits. |
 | Reading your own insights, media and comments through the API | Allowed | Request only the permissions you need. |
 | Replying to, hiding or deleting comments on your own posts through the API | Allowed | A human reviews replies. No identical canned reply on every comment. |
 | Replying to DMs the user started, within 24 h | Allowed | Messaging API with `instagram_manage_messages` (or `instagram_business_manage_messages`). |

@@ -1,6 +1,6 @@
-# Running models locally: Ollama, llama.cpp, LM Studio, MLX
+# Running models locally: Ollama, llama.cpp, LM Studio, MLX, and a chat page with Open WebUI
 
-> Distilled from: ollama and its api and hardware-sizing references (ericrisco/rsc-harness, MIT); huggingface-local-models and its references (huggingface/skills, Apache-2.0); gguf-quantization and its references (Orchestra-Research/AI-Research-SKILLs, MIT); swift-mlx-lm (ml-explore/mlx-swift-lm, MIT); unsloth-buddy (TYH-labs/unsloth-buddy, MIT).
+> Distilled from: ollama and its api and hardware-sizing references (ericrisco/rsc-harness, MIT); huggingface-local-models and its references (huggingface/skills, Apache-2.0); gguf-quantization and its references (Orchestra-Research/AI-Research-SKILLs, MIT); swift-mlx-lm (ml-explore/mlx-swift-lm, MIT); unsloth-buddy (TYH-labs/unsloth-buddy, MIT). Section 6 is written in our own words from the official Open WebUI, llama.cpp server, LM Studio and Docker docs (as of October 2026).
 
 One machine, one user or a small team. When weights plus cache exceed the box, stop downgrading and move to a GPU host ([gpu-hosting-runpod-modal.md](gpu-hosting-runpod-modal.md)).
 
@@ -135,7 +135,81 @@ for try await chunk in session.streamResponse(to: "Explain structured concurrenc
   It also covers vision models (`VLMModelFactory`), embeddings, tool calling, wired-memory policies and LoRA training; its original skill has the details (router, Go deeper).
 - **Python:** the `mlx-lm` package runs `mlx-community` models from the command line and Python; check its README for the current commands. Fine-tuning on a Mac is in [fine-tuning-runners.md](fine-tuning-runners.md).
 
-## 6. Troubleshooting
+## 6. A chat page for other people: Open WebUI
+
+### Pick a tool
+
+| Situation | Use | Why |
+|---|---|---|
+| The user already uses or pays for a chat front end | That one | Keep their accounts and history; point it at the model's `/v1` URL |
+| One person at their own computer, no terminal | LM Studio (section 4) | Desktop app with its own chat window; runs offline |
+| A quick look in a browser on the same machine | llama-server's built-in web UI | On by default at the server URL (`http://127.0.0.1:8080`); no accounts; `--no-webui` turns it off |
+| Family or a team on other devices, each with a login and their own chat history | **Open WebUI** | Self-hosted, multi-user, roles; works with Ollama and any OpenAI-compatible server |
+| Not sure who will use it, from where, or who looks after accounts | Ask first | Whether it must be reachable beyond the home or office network changes the whole setup |
+
+**Open WebUI** is a self-hosted web chat app in front of Ollama, llama-server, vLLM or LM Studio. Its licence is custom: since v0.6.6 the "Open WebUI" branding may not be removed or changed unless the deployment has 50 or fewer users in a 30-day period (or holds an enterprise licence). Fine for a family or small team; check it before rebranding it for a client.
+
+### Install with Docker (Ollama on the same machine)
+
+```bash
+mkdir -p ~/.config/open-webui
+(umask 077; printf 'WEBUI_SECRET_KEY=%s\n' "$(openssl rand -hex 32)" > ~/.config/open-webui/env)   # once; reuse on every update
+docker run -d -p 3000:8080 --add-host=host.docker.internal:host-gateway \
+  -v open-webui:/app/backend/data --env-file ~/.config/open-webui/env \
+  --name open-webui --restart always ghcr.io/open-webui/open-webui:main
+```
+
+- `-p 3000:8080`: the UI is at `http://localhost:3000`, and at `http://<this-machine's-LAN-IP>:3000` from other devices on the network.
+- `-v open-webui:/app/backend/data`: the named volume holds users, chats and settings. Every update reuses it; never recreate the container without it.
+- `WEBUI_SECRET_KEY` signs sessions. Left unset, the image generates a random key on first start and keeps it in a file inside the container, so recreating the container (every update) makes a new key and logs everyone out. Set it once and keep it in the env file above (outside any repo), never in chat or on the command line.
+- `--restart always` brings it back after a reboot.
+- Tags: `:main` is the recommended image; `:cuda` adds NVIDIA GPU support (add `--gpus all`); `:ollama` bundles Ollama inside the container. For anything long-lived, pin a release tag (`:vX.Y.Z` from the releases page) instead of `:main` (principle 5).
+- Without Docker: `pip install open-webui`, then `open-webui serve` (Python 3.11 or 3.12; 3.13 is not supported yet). It listens on port 8080; change it with `--port`.
+
+**Reaching Ollama from the container.** Inside a container `localhost` is the container itself, so `http://127.0.0.1:11434` finds nothing. The image looks for Ollama at `http://host.docker.internal:11434` by default, which `--add-host=host.docker.internal:host-gateway` makes resolve to the host. Ollama on another machine: add `-e OLLAMA_BASE_URL=http://<host>:11434`. If no models show up on Linux, the docs give two routes:
+- `--network=host` with `-e OLLAMA_BASE_URL=http://127.0.0.1:11434` (drop `-p` and `--add-host`). The UI is then on port **8080**, not 3000.
+- Or set `OLLAMA_HOST=0.0.0.0` on Ollama. That opens Ollama to the whole network with no auth (section 2), so firewall port 11434; prefer the first route.
+
+### Accounts
+
+1. **The first account to sign up becomes the admin.** Create it straight after the first start, before sharing the URL.
+2. Roles are `admin`, `user` and `pending`. New sign-ups get `DEFAULT_USER_ROLE`, which defaults to `pending`: they have no access until an admin promotes them in **Admin Panel > Users**.
+3. For a family or team: let each person sign up, approve them, then turn sign-ups off (`ENABLE_SIGNUP`, default `True`, or the same switch in Admin Settings).
+4. Don't use `WEBUI_AUTH=False`. It is single-user mode with no login, and the docs say you cannot switch between single-user and multi-account mode afterwards.
+5. **Saved settings beat environment variables.** `ENABLE_SIGNUP`, `DEFAULT_USER_ROLE`, `ENABLE_OLLAMA_API`, `OLLAMA_BASE_URLS` and `OPENAI_API_BASE_URLS` are persistent config: after the first start the values stored in the database win, and later `-e` changes are ignored unless `ENABLE_PERSISTENT_CONFIG=False`. Change them in Admin Settings instead.
+
+### Other model servers
+
+Admin path: **Settings > Admin > Connections > Manage OpenAI API Connections > Add Connection**, URL ending in `/v1`: llama-server `http://host.docker.internal:<port>/v1`, vLLM `http://host.docker.internal:8000/v1`, LM Studio `http://host.docker.internal:1234/v1` (from Docker, `localhost` becomes `host.docker.internal`). Leave the key blank for local servers without auth. Env equivalent: `OPENAI_API_BASE_URLS` and `OPENAI_API_KEYS`, each `;`-separated (persistent config, as above).
+
+### Update without losing anything
+
+```bash
+docker pull ghcr.io/open-webui/open-webui:main      # or the next pinned vX.Y.Z tag
+docker rm -f open-webui
+# then the same docker run as above: same volume, same env file (same WEBUI_SECRET_KEY)
+```
+
+Accounts and chats live in the `open-webui` volume, so they survive. Back the volume up before a major version jump.
+
+### Driving it from Claude (API)
+
+An admin turns API keys on (**Settings > Admin > Authentication > API Keys**, or `ENABLE_API_KEYS`); non-admins also need the API Keys feature permission. Each user creates a key in **Settings > Account > API keys**. The user puts it in an environment variable themselves; then:
+
+```bash
+curl http://localhost:3000/api/models -H "Authorization: Bearer $OPENWEBUI_API_KEY"
+curl http://localhost:3000/api/chat/completions -H "Authorization: Bearer $OPENWEBUI_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"model": "qwen3:8b", "messages": [{"role": "user", "content": "Say hello in one sentence."}]}'
+```
+
+`/api/chat/completions` is OpenAI-compatible and reaches every model the UI shows.
+
+### Verify
+
+From another device on the same network: open `http://<pc-ip>:3000`, sign in with a non-admin account, check the Ollama models are listed and one chat answers. Keep it on the local network; for use from outside, a VPN, not a router port-forward ([serving-endpoints.md](serving-endpoints.md), section 6).
+
+## 7. Troubleshooting
 
 | Symptom | Cause | Fix |
 |---|---|---|
@@ -144,7 +218,7 @@ for try await chunk in session.streamResponse(to: "Explain structured concurrenc
 | Rambling, wrong format, repeated tokens | Wrong chat template or a base model | Use the instruct model; `--jinja` or the model's own template; check `ollama show` |
 | 403 when downloading | Gated repo | Accept the terms on the model page; `hf auth login` |
 | Vision model ignores the image | Missing `mmproj` projector | Download the matching `mmproj-*.gguf` |
-| Another device can't connect | Bound to localhost | Intended. Expose only through an authenticated proxy or VPN |
+| Another device can't connect | Bound to localhost | Intended. Expose only through an authenticated proxy or VPN, or give people Open WebUI with logins (section 6) |
 | Slow first load | Reading weights from disk | Normal; `keep_alive` keeps it warm |
 
 ## Checklist
@@ -154,3 +228,4 @@ for try await chunk in session.streamResponse(to: "Explain structured concurrenc
 - [ ] Chat template correct (instruct model, `--jinja` or Modelfile template)
 - [ ] Bound to localhost unless an auth layer is in front
 - [ ] Smoke-tested with a real request; tokens per second noted
+- [ ] Open WebUI (if used): admin created first, sign-ups approved then closed, secret key and data volume kept across updates, checked from another device

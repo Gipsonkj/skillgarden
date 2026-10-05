@@ -1,6 +1,6 @@
 ---
 name: instagram-automation
-description: Instagram content and safe automation. Drafts Reels scripts, carousels, captions and hashtag sets. Plans content calendars and fixes profiles. Publishes and reads insights only through Meta's official Instagram Graph API or official-API tools (Composio, Publora, SocialClaw, Meta Business Suite). Handles comments and DMs within Meta policy, researches influencers and collabs with risk flags, and diagnoses performance. Use when asked to write a Reel script or hook, plan or design an Instagram carousel, write an Instagram caption, CTA or hashtags, plan a week of posts, audit a bio or profile, publish or schedule to Instagram by API, check publishing limits, pull Instagram insights or work out why a Reel flopped, set up comment replies or comment-to-DM flows, or find creators and brand partnerships. Also use when someone asks for an Instagram bot, auto-follow, auto-like, mass DM or scraper, to offer the ToS-safe alternative. Default: draft, then post manually or via the official API.
+description: Instagram content and safe automation. Drafts Reels scripts, carousels, captions and hashtag sets. Plans content calendars and fixes profiles. Publishes and reads insights only via Meta's official API or tools built on it (Business Suite, Buffer, Metricool, Hootsuite, Sprout Social, Later, Composio). Handles comments and DMs within Meta policy, researches influencers and collabs with risk flags, and diagnoses performance. Use when asked to write a Reel script or hook, plan or design an Instagram carousel, write an Instagram caption, CTA or hashtags, plan a week of posts, audit a bio or profile, publish or schedule to Instagram, Canva export, check publishing limits, pull Instagram insights or work out why a Reel flopped, set up comment replies or comment-to-DM (ManyChat, Linktree), or find creators and brand partnerships. Also use when someone asks for an Instagram bot, auto-follow, auto-like, mass DM or scraper, to offer the ToS-safe alternative. Default: draft, then post manually or via the official API.
 ---
 
 # Instagram automation
@@ -55,13 +55,13 @@ Work out what the request needs before opening a guide; most real requests need 
 |---|---|
 | Is this automation allowed? Bot/scraper/mass-DM requests, risk table | [references/tos-and-safe-automation.md](references/tos-and-safe-automation.md) |
 | Reel script, hooks, beat sheet, on-screen text, Trial Reels, audio | [references/reels-scripting.md](references/reels-scripting.md) + `scripts/ig-reel/hookscore.py`, `scripts/ig-reel/beats.py`, `scripts/ig-reel/hooks.json` |
-| Carousel copy (slide by slide) and visual design/export | [references/carousels.md](references/carousels.md) |
+| Carousel copy (slide by slide) and visual design/export, pick an export route (Canva, Figma, Keynote or code) | [references/carousels.md](references/carousels.md) |
 | Caption, CTA, hashtag set, alt text, AI-tell scrub | [references/captions-hashtags-ctas.md](references/captions-hashtags-ctas.md) |
-| Weekly plan, content pillars, cadence, profile/bio audit, repurposing | [references/content-strategy.md](references/content-strategy.md) |
-| Publish or schedule by API: Graph API, Composio, Publora, SocialClaw, limits, Trial Reels and paid-partnership fields | [references/graph-api-publishing.md](references/graph-api-publishing.md) |
-| Comment moderation, replies, comment-to-DM, DM inbox within policy | [references/dms-and-comments.md](references/dms-and-comments.md) |
+| Weekly plan, content pillars, cadence, profile/bio audit, link in bio (pick a direct link or Linktree), repurposing | [references/content-strategy.md](references/content-strategy.md) |
+| Publish or schedule, pick a scheduler: Graph API, Meta Business Suite, Buffer, Metricool, Hootsuite, Sprout Social, Later, Composio, Publora, SocialClaw, limits, Trial Reels and paid-partnership fields | [references/graph-api-publishing.md](references/graph-api-publishing.md) |
+| Comment moderation, replies, comment-to-DM (pick a tool: own webhook, ManyChat or Linktree auto-reply), DM inbox within policy (pick a tool: app, API, Hootsuite Nest, Sprout) | [references/dms-and-comments.md](references/dms-and-comments.md) |
 | Influencer or brand-collab research, creator vetting | [references/influencer-research.md](references/influencer-research.md) |
-| Insights, Reels metrics, why a post flopped, reporting | [references/analytics.md](references/analytics.md) |
+| Insights, Reels metrics, why a post flopped, reporting; pick a numbers source (in-app, API, Metricool, Buffer, Hootsuite, Sprout Social, Linktree clicks) | [references/analytics.md](references/analytics.md) |
 
 To call one capability directly, name the task, or say "use instagram-automation: carousels".
 

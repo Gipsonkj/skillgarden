@@ -1,6 +1,6 @@
 # Code <-> Figma token sync and drift checks
 
-> Distilled from: token-sync-layer (jrpease/throughline, MIT); figma-export-tokens, figma-import-tokens, figma-check-design-parity and figma-lint-design (southleft/figma-console-mcp-skills, MIT); figma-codegen design-diff and mapping-file practice (awdr74100/figwright, MIT); design-system-patterns token governance (wshobson/agents, MIT).
+> Distilled from: token-sync-layer (jrpease/throughline, MIT); figma-export-tokens, figma-import-tokens, figma-check-design-parity and figma-lint-design (southleft/figma-console-mcp-skills, MIT); figma-codegen design-diff and mapping-file practice (awdr74100/figwright, MIT); design-system-patterns token governance (wshobson/agents, MIT). Tokens Studio section written in our own words from the Tokens Studio docs and the sd-transforms README (MIT).
 
 ## 1. Decide the direction first
 
@@ -13,6 +13,16 @@
 Bidirectional sync of the same tier without an owner always drifts. Pick one per tier and record it in the repo README or a `tokens/OWNERSHIP.md`.
 
 Generated files (CSS, Tailwind theme, Swift, Kotlin) are build artifacts: never hand-edit them; fix the source and rebuild.
+
+### Pick a sync tool
+
+| Situation | Use | Why |
+|---|---|---|
+| The team already syncs one way (a plugin, a script, CI) | Keep it | Two sync routes for one tier always drift |
+| Tokens are Figma variables and you have `use_figma` | Bundled scripts, sections 2 and 3 | Any Figma plan; no extra account |
+| Designers already use the Tokens Studio plugin, tokens as JSON in git | Tokens Studio, section 3a | The plugin pulls and pushes the repo; you work on the git side |
+| Enterprise plan and a CI job with no agent in the loop | Figma Variables REST API | The Variables endpoints need the Enterprise plan; guests can't use them |
+| Unsure which the designers use | Ask which plugin or file they open to edit tokens | Guessing writes to the wrong source of truth |
 
 ## 2. Figma -> code
 
@@ -41,6 +51,54 @@ Generated files (CSS, Tailwind theme, Swift, Kotlin) are build artifacts: never 
    - Default policy: code wins on values; never delete Figma-only variables without asking.
 3. Set scopes and code syntax on new variables (they default to all scopes).
 4. Read back with `read-variables.js` and diff against the source.
+
+## 3a. Tokens Studio (plugin + git)
+
+A Figma plugin that keeps tokens as JSON in a sync provider (GitHub, GitLab, Bitbucket, Azure DevOps, JSONBin, Supernova, the Tokens Studio platform, or a URL) and exports them to Figma variables and styles. You don't drive the plugin; the designer does. You work on the repo it syncs with.
+
+**Connecting GitHub (the user does this in the plugin).** They create a fine-grained personal access token for that one repo with **Contents: Read and write**, and enter it in the plugin's sync settings with a name, `owner/repo`, branch and the token file or folder path (plus a base URL for GitHub Enterprise). The token goes only into the plugin: never into chat, a repo file or your environment.
+
+**What you change, and how.**
+1. Read the settings first: single file or folder (folder sync is a Pro feature), and the token format. New users default to the **legacy** format (`value`, `type`); the **W3C DTCG** setting uses `$value`, `$type`, `$description`. Write in whichever the file already uses; switching converts the files and is the designer's call.
+2. Edit token JSON on a branch and open a PR. The designer pulls it into the plugin after merge. Branch switching inside the plugin is a Pro feature, so don't assume they can review your branch there.
+3. Token sets are files (`brands/berry` makes a folder). Set status matters: **Enabled** sets apply and override earlier sets with the same token name (the lowest enabled set wins), **Source** sets can be referenced but aren't applied, **Disabled** sets are ignored.
+4. Themes (Pro) live in `$themes.json`, written by the plugin. Don't hand-edit it; ask the designer to change themes in the plugin.
+
+**Export to Figma variables (designer, in the plugin: Styles & Variables > Export styles & variables).**
+- From themes: one collection per theme group, one mode per theme. From token sets: a collection named after each set.
+- Colour exports as variables and styles; dimensions, numbers, booleans, text and opacity as variables; gradients as styles only; shadows as effect styles. Typography becomes text styles (text case and decoration exist only inside them), with variable references where the properties allow.
+- The plugin can't set variable scopes or hide-from-publishing: set those afterwards (scripts or by hand, see [design-tokens.md](design-tokens.md)).
+- After exporting themes as variables, the plugin's theme switcher stops working; switch with Figma's own modes.
+- Exported variables and styles stay attached to the token of the same name. To rename, rename the token in the plugin and export with "Update existing Style and Variable names" on.
+
+**Build to code** with Style Dictionary 4.0.0 or later and `@tokens-studio/sd-transforms` (MIT):
+
+```bash
+npm install style-dictionary @tokens-studio/sd-transforms
+```
+
+```js
+import StyleDictionary from 'style-dictionary';
+import { register } from '@tokens-studio/sd-transforms';
+
+register(StyleDictionary);
+
+const sd = new StyleDictionary({
+  source: ['tokens/**/*.json'],
+  preprocessors: ['tokens-studio'],
+  platforms: {
+    css: {
+      transformGroup: 'tokens-studio',
+      transforms: ['name/kebab'],
+      buildPath: 'build/css/',
+      files: [{ destination: 'variables.css', format: 'css/variables' }],
+    },
+  },
+});
+await sd.buildAllPlatforms();
+```
+
+For themes, `permutateThemes($themes, { separator: '_' })` (same package) turns `$themes.json` into one list of sets per theme combination; build each into its own output file, the same per-mode rule as section 2. With the DTCG format, Style Dictionary's `convertToDTCG` utility and the `tokens-studio` preprocessor handle the type differences.
 
 ## 4. Drift checks
 

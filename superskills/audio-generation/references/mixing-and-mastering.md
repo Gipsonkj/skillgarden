@@ -54,7 +54,7 @@ ffmpeg -i in.wav -af silencedetect=n=-45dB:d=0.4 -f null - 2>&1 | grep silence_ 
 | Dull, closed | 10-20 kHz | gentle high shelf lift |
 | Uneven word levels | - | compressor ~3:1, threshold -18 dB |
 | Room tone between sentences | - | gate (it does not remove noise under speech) |
-| Background noise under speech | - | voice isolation / denoise model, not EQ |
+| Background noise under speech | - | voice isolation / denoise model, not EQ (tools: `editing-and-repair.md`) |
 | Peaks clipping | - | limiter last, ceiling -1 dBTP |
 | Voice and music fighting | 1-3 kHz | carve or sidechain-duck the bed, never EQ the voice |
 

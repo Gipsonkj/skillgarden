@@ -1,6 +1,6 @@
 # Measuring usage and cost
 
-> Distilled from: tare (kelviq/tare, MIT; scripts bundled), claude-usage-analyst (daymade/claude-code-skills, MIT), exploring-llm-costs (PostHog/skills, MIT), llm-cost-optimizer (alirezarezvani/claude-skills, MIT), context-budget (affaan-m/ECC, MIT), audit-prompt-caching (sernote/audit-prompt-caching, MIT)
+> Distilled from: tare (kelviq/tare, MIT; scripts bundled), claude-usage-analyst (daymade/claude-code-skills, MIT), exploring-llm-costs (PostHog/skills, MIT), llm-cost-optimizer (alirezarezvani/claude-skills, MIT), context-budget (affaan-m/ECC, MIT), audit-prompt-caching (sernote/audit-prompt-caching, MIT). Langfuse and LangSmith section written in our own words from their official docs (see CREDITS.md)
 
 You can't cut what you can't see. Measure first, change one thing, measure again. Lead every report with the finding, then the evidence, then what to change, then what you're unsure about.
 
@@ -109,6 +109,52 @@ cost per completed task = total cost of all attempts (incl. retries, escalations
 
 Turn the queries that answered the question into a dashboard and alerts (spend by feature and model, cost per active user, week-over-week trend, p95 cost per request). Dashboard design: `data-analysis`; alert plumbing: `cloud-devops`.
 
+## 8. Tracing platforms: cost per trace, user and model
+
+A tracing platform records each LLM call with its tokens and cost, grouped into traces, users and sessions, so the section 5 log and the section 7 questions come for free. Traces hold full prompts and outputs: sending them to a hosted service is the user's call.
+
+**Pick a tool**
+
+| Situation | Use | Why |
+|---|---|---|
+| The team already uses one (Langfuse, LangSmith, PostHog LLM analytics, a gateway's logs) | That one | Its history is the baseline |
+| No platform yet; want open source or to keep traces on own servers | Langfuse | Open source, self-hostable with Docker; drop-in OpenAI wrapper; cost per trace, user and model |
+| The app is built on LangChain or LangGraph | LangSmith | Traces and costs recorded automatically for LangChain calls |
+| PostHog is already the product analytics tool | PostHog LLM analytics (`exploring-llm-costs` under Go deeper) | Costs next to product events |
+| No account and no new service wanted | The per-request log in section 5 plus `analyze_usage_logs.py` | Nothing leaves the machine |
+| Unsure which one the user has an account with | Ask the user | Don't create accounts or send traces on a guess |
+
+Keys go in environment variables, never in code or chat. Turn on tracing in one environment first and check one trace before rolling it out.
+
+### Langfuse (as of langfuse.com docs, Oct 2026)
+
+- **Setup:** `pip install langfuse openai`; set `LANGFUSE_PUBLIC_KEY` (`pk-lf-...`), `LANGFUSE_SECRET_KEY` (`sk-lf-...`) and `LANGFUSE_BASE_URL` (EU `https://cloud.langfuse.com`, US `https://us.cloud.langfuse.com`, or your self-hosted URL). Self-host with Docker Compose for testing, Kubernetes (Helm) or a cloud for production.
+- **Drop-in for the OpenAI SDK:** replace `import openai` with `from langfuse.openai import openai`; calls then log tokens and cost. Attribute them with metadata keys:
+  ```python
+  from langfuse.openai import openai
+  r = openai.chat.completions.create(model=MODEL, messages=msgs, name="ticket-tagger",
+        metadata={"langfuse_user_id": tenant_hash, "langfuse_session_id": sid, "langfuse_tags": ["nightly"]})
+  from langfuse import get_client; get_client().flush()   # short-lived scripts: send before exit
+  ```
+  LangChain, LiteLLM and LlamaIndex integrations also capture usage automatically.
+- **How cost is set:** usage and cost sent with the call (`usage_details`, `cost_details`, with keys such as `input`, `output`, `cache_read_input_tokens`) win over cost Langfuse infers from its model price table. For contracted prices or a model it doesn't know, add a model definition (regex match pattern plus price per usage type); your definitions override Langfuse's. It cannot infer cost by tokenising for reasoning models, so send their token counts.
+- **Query spend:** the Metrics API, `GET /api/public/v2/metrics`, Basic auth with the public key as user and secret key as password:
+  ```bash
+  curl -s -u "$LANGFUSE_PUBLIC_KEY:$LANGFUSE_SECRET_KEY" -G "$LANGFUSE_BASE_URL/api/public/v2/metrics" \
+    --data-urlencode 'query={"view":"observations","metrics":[{"measure":"totalCost","aggregation":"sum"}],
+      "dimensions":[{"field":"providedModelName"}],"filters":[],
+      "fromTimestamp":"2026-09-01T00:00:00Z","toTimestamp":"2026-10-01T00:00:00Z",
+      "orderBy":[{"field":"sum_totalCost","direction":"desc"}]}'
+  ```
+  `config.row_limit` defaults to 100 (max 1,000). The older `/api/public/metrics` and `/metrics/daily` paths are deprecated.
+
+### LangSmith (as of docs.langchain.com, Oct 2026)
+
+- **Setup:** `pip install -U langsmith openai`; set `LANGSMITH_TRACING=true`, `LANGSMITH_API_KEY`, `LANGSMITH_PROJECT` (otherwise traces go to `default`), and `LANGSMITH_ENDPOINT=https://eu.api.smith.langchain.com` for EU accounts; `LANGSMITH_WORKSPACE_ID` if the key spans several workspaces.
+- **Capture:** LangChain calls are traced automatically. For the OpenAI SDK, `from langsmith.wrappers import wrap_openai; client = wrap_openai(OpenAI())`; wrap your own steps with `@traceable` so a whole task becomes one trace, the unit for cost per completed task (section 6). An Anthropic wrapper also exists.
+- **Fields:** `usage_metadata` with `input_tokens`, `output_tokens`, `total_tokens`, `input_token_details` (`cache_read`, `cache_creation`), `output_token_details` (`reasoning`). For non-linear pricing or non-LLM steps (a paid search tool), send `input_cost`, `output_cost` or `total_cost` yourself.
+- **Prices and views:** cost needs token counts, the model name and a price; edit or add prices (per 1M tokens, regex match on the model name) in the workspace's model pricing table. Costs show in the trace tree, project stats and dashboards.
+
 ## Checklist
 
 - [ ] Scope stated (which logs, which dates and timezone, local vs billed)
@@ -117,3 +163,4 @@ Turn the queries that answered the question into a dashboard and alerts (spend b
 - [ ] Finding first, evidence second, mechanism, fix, uncertainty
 - [ ] API apps log the four usage fields per request with the right accounting
 - [ ] Comparisons use cost per completed task
+- [ ] Tracing platform (if any) chosen with the user; keys in the environment; one trace checked before rollout

@@ -23,11 +23,13 @@ Pick one word before building: **feedback** (the interface heard you), **spatial
 
 | Need | Tool |
 |---|---|
+| The project already uses a motion library (`motion`, GSAP, another) | Keep it for new UI motion; don't add a second |
 | Hover, press, colour, class/attribute toggles | CSS `transition` |
 | Entry animation on mount, no JS state | CSS `@starting-style` |
 | Predetermined motion that must stay smooth while the page is busy | CSS animation (off the main thread) |
 | Programmatic control, no library | WAAPI (`element.animate()`) |
 | Springs, layout animations, exit animations, gestures | `motion` (motion.dev) |
+| Timelines, scroll-driven scenes, Lottie, 3D | Hand to `motion-animation` (GSAP and the rest) |
 
 If the task is really a component (toast, drawer, command menu, dropdown), use a tested library for it rather than hand-animating a `<div>` (see [components-and-states.md](components-and-states.md)).
 
@@ -136,3 +138,46 @@ Ship these with the animation every time:
 - No flashing more than 3 times per second.
 - Scroll-linked effects use `IntersectionObserver` or CSS scroll-driven animations, never a `scroll` listener that sets state.
 - Review motion at slow speed (DevTools animation panel at 10-25%) and frame by frame before calling it done.
+
+## 9. Motion (`motion/react`) for UI components
+
+Reach for Motion only when section 3 says so: exits, shared or layout animation, springs, gestures. Everything here follows sections 4-8; this is just how to express them. Variants, stagger, scroll, Next.js client boundaries and React View Transitions go to `motion-animation` → `references/react-transitions-and-motion.md`.
+
+**Install.** `npm install motion`, then `import { motion, AnimatePresence } from "motion/react"`. Moving off the old package: `npm uninstall framer-motion`, `npm install motion`, and change imports from `"framer-motion"` to `"motion/react"`. Motion durations are in seconds, not milliseconds.
+
+| UI job | Motion API | Watch out for |
+|---|---|---|
+| Exit animation (popover, modal, toast) | Wrap in `<AnimatePresence>`, give the child `exit` | Direct children need a unique `key`. `initial={false}` skips the entry on first render. `mode="wait"` holds the new child until the old one has left; `mode="popLayout"` lets siblings reflow at once |
+| Tab indicator, selected highlight | Render one `<motion.div layoutId="underline" />` inside the selected tab only | Same `layoutId` on two mounted elements crossfades them |
+| Siblings reflowing (list reorder, accordion stack) | `layout` on each item; `<LayoutGroup>` around components that don't re-render together | Layout animation uses `transform`; set `borderRadius` and `boxShadow` in `style` so Motion corrects the scale distortion. `layout="position"` when the aspect ratio changes |
+| Press and hover feedback | `whileTap`, `whileHover`, `whileFocus` | Plain CSS `:active` / `:hover` is cheaper when nothing else needs Motion |
+| Spring | `transition={{ type: "spring", bounce: 0, visualDuration: 0.3 }}` | `visualDuration` is when it looks settled; keep `bounce` low on UI chrome |
+| Named curve | `transition={{ duration: 0.18, ease: [0.23, 1, 0.32, 1] }}` | Same numbers as the `--ease-out` token, so CSS and Motion match |
+| Different timing per property | `transition={{ default: { type: "spring" }, opacity: { ease: "linear" } }}` | |
+
+```tsx
+import { AnimatePresence, motion } from "motion/react";
+
+export function MenuPanel({ open, children }: { open: boolean; children: React.ReactNode }) {
+  return (
+    <AnimatePresence>
+      {open && (
+        <motion.div
+          key="menu-panel"
+          initial={{ opacity: 0, scale: 0.96 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.96 }}
+          transition={{ duration: 0.16, ease: [0.23, 1, 0.32, 1] }}
+          style={{ transformOrigin: "var(--transform-origin)" }}
+        >
+          {children}
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
+```
+
+**Reduced motion.** Put `<MotionConfig reducedMotion="user">` at the app root: when the OS setting is on, Motion drops transform and layout animations and keeps opacity and colour, which is exactly section 8's rule. `"always"` forces it, `"never"` ignores the setting (don't ship that). For anything else (parallax, autoplay) branch on `useReducedMotion()`.
+
+**Bundle size.** The full `motion` component is about 34 kb. For a few UI animations, use `LazyMotion` with the slimmer `m` component (`import * as m from "motion/react-m"`) and load only the features used: `domAnimation` (+15 kb: animations, variants, exit, tap/hover/focus) or `domMax` (+25 kb: adds drag, pan and layout animation). Add `strict` to `LazyMotion` so a stray `motion.*` import throws instead of quietly pulling the full bundle back in.

@@ -40,6 +40,41 @@ Match production cost to evidence:
 | T2 remix | days | New creative from existing footage, assets or AI generation | Decent evidence or a first signal |
 | T3 production | weeks | New shoot, creators, full build | Own-account proof or a prior low-fi signal |
 
+## Getting the performance data
+
+### Pick a tool
+
+| The user's need or situation | Use | Why |
+|---|---|---|
+| They already use a creative-analytics or BI tool | That one | Their tags, naming and reports are set up there. Ask which they use. |
+| No tool, or a one-off review | A per-ad report exported from the ad platform, analysed here | Free; ask for the funnel metrics above, per ad |
+| Meta account connected to Motion | Motion MCP (below) | Ranked creatives, AI tags, transcripts, demographics |
+| TikTok results | TikTok for Business MCP reporting ([production-tools.md](production-tools.md)) | Motion's MCP covers Meta only |
+| Is the winner real? | `data-analysis` → `references/experiments-causal.md` | Significance and an honest readout |
+
+### Motion (creative analytics)
+
+**For:** Meta advertisers who already pay for Motion. It ranks creatives, tags hooks, formats and angles, and keeps transcripts, so Claude reads the analysis instead of rebuilding it from a CSV.
+
+**Connect** (OAuth with the user's Motion login; nothing to paste):
+- claude.ai: Settings → Connectors → Add custom connector → `https://projects.motionapp.com/mcp` → Connect. An admin may need to add the connector to the workspace once first.
+- Claude Code: `claude mcp add --transport http motion https://projects.motionapp.com/mcp`, then `/mcp` to sign in. Motion's official plugin adds its skills on top: `/plugin marketplace add Motion-Creative/motion-creative-plugin`, then `/plugin install motion-creative@motion-mcp`.
+
+**Limits.** Meta only (no TikTok, YouTube or LinkedIn yet). Read-only: it never changes ads or settings. Only Owners, Admins and Collaborators can connect, not guests. Legacy and custom plans need an upgrade for MCP access. After a new ad account is connected, the first sync and tagging take a few hours.
+
+| Step in this guide | Motion tool |
+|---|---|
+| Which workspace | `get_auth_context` |
+| Rank winners and losers on the deciding metric | `get_creative_insights` |
+| Read one ad: what it is, why it works | `get_creative_summary` |
+| The spoken hook, with timings | `get_creative_transcript` |
+| Who it works for | `get_demographic_breakdown` |
+| The account's tag names (hook type, format, angle) | `get_glossary_values` |
+| Brand positioning to stay on message | `get_workspace_brand` |
+| Saved reports | `get_reports` |
+
+Use it inside the iteration loop below: rank with `get_creative_insights`, judge concepts (group by tag, not single ads), read the transcripts of the top and bottom five, then write variations and new angles here. Motion's plugin skills (`/find-iterations`, `/write-hooks`, `/analyze-ad`, `/build-brief`) do parts of this; check their output against the funnel rules above.
+
 ## Iterating from performance data
 
 1. Ask which metric decides (CTR, CVR, CPA, ROAS). Get at least 30 days of data with impressions, spend and the funnel metrics per ad.

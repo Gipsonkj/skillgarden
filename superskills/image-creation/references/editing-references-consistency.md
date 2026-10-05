@@ -80,20 +80,48 @@ Set rules:
 
 ## 6. Transparent backgrounds
 
+**Pick a tool**
+
+| Situation | Tool | Why |
+|---|---|---|
+| The user already uses or pays for one (Photoroom, Adobe, Topaz, an OpenAI key) | That one | No new account, key or bill |
+| New image, OpenAI key | GPT Image 1 / 1.5 / 2.5 with `background=transparent` | Alpha straight from the model (not GPT Image 2) |
+| New image on any other model | Green screen + `ffmpeg` key (below) | Works with every model, no extra tool |
+| Real photo, no account, or private images | rembg locally: `rembg i in.png out.png` (downloads its model on first use), or BiRefNet | Free (MIT), nothing leaves the machine, good on hair |
+| Product photo that also needs a surface, shadow or exact size | Photoroom `/v2/edit` or its MCP (`retouch-resize-upscale.md` §5) | All in one call; a `sandbox_` key is free but watermarked |
+| Already upscaling with Topaz | Topaz `RemoveBG` on `/matting/async` (`retouch-resize-upscale.md` §6) | Cutout (default) or mask (`mode: alpha`) on the same key |
+| Background swap on an Adobe account | `image_select_subject`, then `image_fill_area` if the tool is available (not on Claude per Adobe's skill) (`retouch-resize-upscale.md` §2) | Files stay in Creative Cloud |
+| Icon or logo | Recraft vector (`svg`) or redraw as SVG | Real vector, no halo to clean |
+| Unsure which account they have, or the photo is private client work | Ask before uploading it anywhere | Every hosted route uploads the image |
+
 | Route | How |
 |---|---|
 | Native alpha | GPT Image 1 / 1.5 / 2.5 with `background=transparent` and PNG or WebP output (not JPEG). GPT Image 2 does **not** support transparent. |
 | Green-screen + key | Prompt "on a flat solid chroma green #00FF00 background, no green on the subject, even lighting, no shadow", then key: `ffmpeg -i in.png -vf "colorkey=0x00FF00:0.3:0.1,despill=green" out.png`. Works with any model (nano-banana's `-t` flag automates this). |
 | Background-removal model | rembg / BiRefNet locally, or a hosted remove-background endpoint. Best for photos with hair. |
+| Product cutout + new background in one call | Photoroom `/v2/edit` (cutout, colour or AI surface, shadow, exact size); see `retouch-resize-upscale.md` §5 |
 | Vector | For icons/logos, generate with Recraft vector models (`svg` output) or redraw as SVG. |
 
 Always check the result has a real alpha channel (`magick identify -format '%[channels]' out.png` should show `srgba`) and no halo; inspect on dark and light backgrounds.
 
 ## 7. Exact output dimensions
 
+**Pick an upscaler**
+
+| Situation | Tool | Why |
+|---|---|---|
+| The user already uses or pays for one (Topaz, Photoroom, Midjourney, a ComfyUI setup) | That one | No new account or bill |
+| Your own generated image, prompt locked | Re-render at the model's top size (Nano Banana up to 4K, Midjourney `--hd` or its upscalers) | Real detail from the model, no second tool |
+| Free, no account | Real-ESRGAN (BSD-3; portable builds for Windows, Linux and macOS, 4x models) or ComfyUI `ImageUpscaleWithModel` with a 4x ESRGAN model (`local-open-models.md` §6) | Runs on this machine |
+| Real photo, product shot or real people, for print | Topaz Gigapixel (`retouch-resize-upscale.md` §6) | Precision upscaler, keeps the source look |
+| Degraded, compressed or AI image that needs new detail | Topaz Wonder or Bloom | Generative; check faces, labels and text at 100% |
+| Photo already going through Photoroom | Photoroom MCP (upscaling is one of its jobs) | Same tool and account |
+| Already on Replicate or fal | A hosted upscale endpoint; search the catalogue and read its schema | Pay per run, same key |
+| Print job or paid batch, target size or budget unknown | Ask for the final size and whether to spend credits | Topaz bills per output megapixel |
+
 - APIs snap to supported sizes. Generate at the nearest supported ratio and size up, then crop/resize to the exact pixels.
 - Gemini trick (nano-banana): pass a blank image of the target size as the **last** reference and state the size in the prompt.
-- Upscale for print: model upscalers (Real-ESRGAN, hosted upscale endpoints) then check faces/edges at 100%.
+- Upscale for print: model upscalers (Real-ESRGAN, hosted upscale endpoints, Topaz Gigapixel via API: `retouch-resize-upscale.md` §6) then check faces/edges at 100%.
 
 ## 8. Failure fixes
 

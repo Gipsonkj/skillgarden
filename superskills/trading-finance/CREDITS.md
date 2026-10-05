@@ -36,6 +36,23 @@ Notes on sources:
 - Factual issues corrected rather than copied: a sign error in risk-metrics' parametric VaR example, a negative-debt-weight WACC allowance in the DCF source (replaced with gross/target weights), and an ARR/MRR mismatch in the startup-model example.
 - No source contained instructions to exfiltrate data or disable safeguards.
 
+## Tool docs (link-only references)
+
+Official documentation used for the tool sections in `brokers-exchanges.md` (Interactive Brokers), `backtesting.md` (TradingView, QuantConnect) and `market-signals.md` (yfinance, FRED, FactSet, S&P Capital IQ). Docs, link-only reference, written in our own words; no text or code copied beyond short identifiers.
+
+| Tool | Docs |
+|---|---|
+| Interactive Brokers AI connector | https://www.interactivebrokers.com/en/trading/ai-integrations.php, https://www.interactivebrokers.com/campus/traders-insight/ibkr-toolbox/how-to-connect-claude-ai-and-chatgpt-to-your-ibkr-account/, https://www.interactivebrokers.com/en/general/about/mediaRelations/7-28-26.php, https://www.interactivebrokers.com/campus/ibkr-quant-news/an-ai-options-research-workflow-with-the-ibkr-ai-integration/ |
+| Interactive Brokers TWS API | https://www.interactivebrokers.com/campus/trading-lessons/installing-configuring-tws-for-the-api/, https://www.interactivebrokers.com/campus/trading-lessons/accessing-the-tws-python-api-source-code/, https://www.interactivebrokers.com/campus/trading-lessons/essential-components-of-tws-api-programs/ |
+| TradingView Pine Script | https://www.tradingview.com/pine-script-docs/concepts/strategies/, https://www.tradingview.com/pine-script-docs/concepts/alerts/, https://www.tradingview.com/pine-script-docs/primer/first-steps/, https://www.tradingview.com/support/solutions/43000529348-about-webhooks/ |
+| QuantConnect MCP | https://www.quantconnect.com/docs/v2/ai-assistance/mcp-server/key-concepts, https://www.quantconnect.com/docs/v2/ai-assistance/mcp-server/claude-code, https://github.com/QuantConnect/mcp-server (Apache-2.0; deprecation note) |
+| yfinance | https://ranaroussi.github.io/yfinance/, https://ranaroussi.github.io/yfinance/reference/api/yfinance.download.html |
+| FRED | https://fred.stlouisfed.org/docs/api/api_key.html |
+| S&P Global / Kensho | https://docs.kensho.com/llmreadyapi/overview, https://docs.kensho.com/llmreadyapi/mcp/third-party/claude, https://support.claude.com/en/articles/12220135-using-s-p-global-data-for-financial-analysis |
+| FactSet | https://academy.claude.com/tutorials/using-factset-for-comprehensive-financial-research |
+| Connector URLs and the financial-analysis plugin | https://github.com/anthropics/financial-services (Apache-2.0; README and `.mcp.json`) |
+| Adding remote MCP servers in Claude Code | https://code.claude.com/docs/en/mcp |
+
 ## Also see (not included)
 
 All 24 sources in this topic's research list were usable and are credited above; nothing was excluded for licence reasons.

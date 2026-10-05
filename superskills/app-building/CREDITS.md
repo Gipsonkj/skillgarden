@@ -31,6 +31,18 @@ The references in this skill are written fresh from the sources below. Scripts a
 | macos-spm-app-packaging | [dimillian/skills](https://github.com/dimillian/skills/tree/main/macos-spm-app-packaging) | MIT | SwiftPM Mac app packaging, signing, notarization, Sparkle steps; copied `templates/macos-spm-app-packaging/` (scripts + bootstrap) |
 | convex-quickstart | [get-convex/agent-skills](https://github.com/get-convex/agent-skills/tree/main/skills/convex-quickstart) | Apache-2.0 | Quick Convex backend setup for Expo apps |
 
+## Official docs (link-only reference, written in our own words)
+
+| Source | Used for |
+|---|---|
+| [Electron docs](https://www.electronjs.org/docs/latest/): process model, IPC, security checklist, code signing, updates, automated testing, release timelines | Electron section in `references/desktop-tauri-macos.md` |
+| [Electron Forge docs](https://www.electronforge.io/): getting started, makers, macOS signing, GitHub publisher | Electron scaffolding, packaging, notarization and publishing |
+| [electron-builder docs](https://www.electron.build/) | One-line note for projects already on electron-builder |
+| [Firebase docs](https://firebase.google.com/docs): Crashlytics (setup, deobfuscated reports, test crash), Cloud Messaging (APNs key, Android and Flutter clients, HTTP v1, quotas), CLI, MCP server, API keys, pricing | `references/crash-reporting-push.md` |
+| [React Native Firebase docs](https://rnfirebase.io/): Expo setup, Crashlytics, Messaging | Expo / React Native Crashlytics and FCM steps |
+| [Expo docs](https://docs.expo.dev/): using Firebase, push notifications setup, sending, FAQ, expo-build-properties | Expo push service and Firebase-on-Expo steps |
+| [Sentry docs](https://docs.sentry.io/platforms/react-native/), [Sentry MCP](https://mcp.sentry.dev/), [Sentry pricing](https://sentry.io/pricing/) | Sentry section in `references/crash-reporting-push.md` |
+
 ## Also see (not included)
 
 - [ios-simulator-skill scripts](https://github.com/conorluddy/ios-simulator-skill) - semantic tap/type, accessibility audit, visual diff; need Facebook `idb`.

@@ -1,8 +1,43 @@
 > Distilled from: apify-ads-intelligence (apify/awesome-skills, Apache-2.0), ad-library-teardown (scrapecreators/social-media-research-skills, MIT)
 
-# Vendor notes: Apify and ScrapeCreators ad-library APIs
+# Vendor notes: Meta Ad Library API, Apify and ScrapeCreators
 
-Use these when a teardown needs more ads than you can review by hand, or a CSV/JSON export. Both are paid and need the user's own account. The method and the output template are in [competitor-ad-research.md](competitor-ad-research.md).
+Use these when a teardown needs more ads than you can review by hand, or a CSV/JSON export. Meta's own API is free but narrow; Apify and ScrapeCreators are paid and need the user's own account. Which to pick: the table at the top of [competitor-ad-research.md](competitor-ad-research.md), which also has the method and the output template.
+
+## Meta Ad Library API (official, free)
+
+**For:** structured Meta ad data straight from Meta, at no cost. It covers ads of any type delivered in the EU or UK during the past year, and political and issue ads worldwide from the past seven years. Ads that reached no EU country come back only if they are political or issue ads, so for a US-only commercial competitor use the free web library by hand or a paid scraper.
+
+**Access.** The user confirms identity and location at facebook.com/ID (the same check Meta uses for political advertisers), creates a Meta for Developers account, then creates an app from the Ad Library API page (Access the API → My apps → Create app) and generates an access token. Keep it in an environment variable (here `META_AD_LIBRARY_TOKEN`); never paste it into chat or a file in the repo.
+
+**Endpoint:** `GET https://graph.facebook.com/<VERSION>/ads_archive`
+
+| Parameter | Values |
+|---|---|
+| `ad_reached_countries` (required) | ISO codes, e.g. `['DE']`, or `ALL` |
+| `search_terms` or `search_page_ids` (one required) | Keywords, or the competitor's Page IDs |
+| `search_type` | `KEYWORD_UNORDERED` (any order) or `KEYWORD_EXACT_PHRASE` |
+| `ad_type` | `ALL`, `POLITICAL_AND_ISSUE_ADS`, `EMPLOYMENT_ADS`, `HOUSING_ADS`, `FINANCIAL_PRODUCTS_AND_SERVICES_ADS` |
+| `ad_active_status` | `ACTIVE`, `INACTIVE`, `ALL` |
+| `media_type` | `ALL`, `IMAGE`, `MEME`, `VIDEO`, `NONE` |
+| `publisher_platforms` | e.g. `FACEBOOK`, `INSTAGRAM`, `MESSENGER`, `AUDIENCE_NETWORK`, `THREADS` |
+| `ad_delivery_date_min` / `_max` | `YYYY-mm-dd` |
+
+Fields worth asking for: `page_name`, `page_id`, `ad_creative_bodies`, `ad_creative_link_titles`, `ad_creative_link_descriptions`, `ad_delivery_start_time`, `ad_delivery_stop_time`, `ad_snapshot_url`, `publisher_platforms`, `languages`, and for EU ads `eu_total_reach` and `target_ages`. `spend` and `impressions` (as ranges) exist only for political and issue ads.
+
+```bash
+curl -G "https://graph.facebook.com/<VERSION>/ads_archive" \
+  -d "search_page_ids=['<PAGE_ID>']" \
+  -d "ad_reached_countries=['DE']" \
+  -d "ad_active_status=ACTIVE" \
+  -d "fields=page_name,ad_creative_bodies,ad_creative_link_titles,ad_delivery_start_time,ad_snapshot_url,publisher_platforms" \
+  -d "access_token=$META_AD_LIBRARY_TOKEN" > meta_ads.json
+```
+
+- Results arrive in `data`; the next page is linked under `paging`. Save each page to disk and analyse from the files.
+- Days running = today minus `ad_delivery_start_time` (the longevity signal in the teardown method).
+- Error 613 means you hit the rate limit: wait and retry, don't loop.
+- Keyword search also matches text in images, audio from video and the CTA button, so filter by `page_name` before analysing.
 
 Before any run: confirm the user has an account and the key is set as an environment variable (don't ask them to paste it into chat), set a result limit, and warn before runs of 500+ ads. Don't install CLIs without the user's go-ahead.
 

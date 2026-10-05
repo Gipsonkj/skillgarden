@@ -83,7 +83,7 @@ Founder content is often a brand's first winner. Four story shapes:
 - **Shiny object**: something visually novel you have access to (factory, machine, process).
 - **Expert walk-through**: narrate the real world through your professional lens, on location.
 
-Shooting: film each moment close / medium / wide (0.5x); 2-3 s clips; if the subject moves, hold still, otherwise slow push or slide; get 5+ shots of the presenter; mark the best hook shot. Edit: record the voice track first, then lay 0.5-1 s shots under it (a 45 s track ≈ 45 shots). CapCut or Instagram Edits is enough.
+Shooting: film each moment close / medium / wide (0.5x); 2-3 s clips; if the subject moves, hold still, otherwise slow push or slide; get 5+ shots of the presenter; mark the best hook shot. Edit: record the voice track first, then lay 0.5-1 s shots under it (a 45 s track ≈ 45 shots). CapCut or Instagram Edits is enough (CapCut hand-off and caption import: [production-tools.md](production-tools.md)).
 
 ## Chat-reveal ads (iMessage style)
 
@@ -98,6 +98,7 @@ A scripted text thread: a screenshot of a result lands → friend reactions → 
 - Formats: In-Feed (main), Spark Ads (boost an organic or creator post; reads native), TopView (premium first impression), Collection (catalog).
 - Audience skews 18-34 and is sound-on more than other feeds: use music and captions both.
 - Creative is the main lever: plan a high refresh rate. Install Pixel + Events API (server-side) and use consistent UTMs.
+- Symphony Creative Studio (TikTok's free AI video tools) and the TikTok for Business MCP for building ads from Claude: [production-tools.md](production-tools.md).
 
 ## UGC creator brief
 

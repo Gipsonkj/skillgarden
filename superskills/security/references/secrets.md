@@ -1,6 +1,7 @@
 # Secrets: storage, scanning and leak response
 
 > Distilled from: secrets-management (wshobson/agents, MIT), secret-scanning (github/awesome-copilot, MIT), security-and-hardening (addyosmani/agent-skills, MIT), secret-serialization (getsentry/skills, Apache-2.0).
+> Gitleaks and TruffleHog sections: written in our own words from each tool's official docs (see CREDITS.md).
 
 Use this for "where should this API key live?", setting up secret scanning, `.env` handling, responding to a leaked credential, and reviewing code where a credential could end up in logs, traces or error output.
 
@@ -32,7 +33,70 @@ Rules:
 *.key
 ```
 
-Add a pre-commit scanner (gitleaks, trufflehog, or detect-secrets) and run it in CI too, since hooks can be skipped.
+Add a pre-commit scanner and run the same scanner in CI too, since hooks can be skipped.
+
+### Pick a scanner
+
+| The user's situation | Use | Why |
+|---|---|---|
+| Already uses or pays for one (GitHub secret scanning, GitGuardian, a company scanner) | That one | Alerts and bypasses stay in one place; ask before adding a second |
+| Repo on GitHub, wants pushes of known token types blocked | GitHub push protection (section 3) | Runs on the server, so a skipped local hook does not matter |
+| Free pre-commit hook and CI gate, no account | Gitleaks | Fast pattern rules, a baseline for old leaks, redacted reports |
+| Needs to know which found keys are live, or to scan images, buckets or a whole org | TruffleHog | Verifies candidates with the provider; ask first, because verification sends the found credential to that provider |
+| Python team already on detect-secrets | detect-secrets | Keep it; do not run two hooks that disagree |
+
+Every scanner's report must not become a new leak: redact output and keep reports out of git.
+
+### Gitleaks
+
+- **Install**: `brew install gitleaks`, a release binary, or the Docker image (`zricethezav/gitleaks`, also on ghcr.io). The project is feature complete and now gets security patches only (its author moved to Betterleaks); fine to use, worth knowing.
+- **Commands** (always `--redact` so secrets never print):
+
+```bash
+gitleaks git --redact -v .                                   # whole git history (git log -p)
+gitleaks git --redact --log-opts="--all main..feature" .     # a commit range
+gitleaks dir --redact .                                      # files on disk, not history
+gitleaks git --redact --report-format sarif --report-path out/gitleaks.sarif .
+```
+
+- **Old leaks**: save one full scan as JSON, then report only new findings with `--baseline-path out/gitleaks-baseline.json`. Every secret in the baseline still needs section 4.
+- **Exit codes**: `0` nothing found, `1` leaks or an error, `126` unknown flag; `--exit-code` changes the leak code.
+- **Config**: `--config`, else `GITLEAKS_CONFIG`, else `GITLEAKS_CONFIG_TOML`, else `.gitleaks.toml` in the target. Start the file with `[extend]` and `useDefault = true` so custom rules (internal token formats) add to the defaults instead of replacing them.
+- **False positives**: a `#gitleaks:allow` comment on the line, or the finding's fingerprint in `.gitleaksignore`. Audit suppressions now and then with `--ignore-gitleaks-allow`.
+- **Pre-commit hook** (`.pre-commit-config.yaml`, then `pre-commit install`); the hook runs `gitleaks git --pre-commit --redact --staged --verbose`:
+
+```yaml
+repos:
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.30.1
+    hooks:
+      - id: gitleaks
+```
+
+  `SKIP=gitleaks git commit` bypasses it, which is why CI must run it too.
+- **GitHub Action** (`gitleaks/gitleaks-action`, v3): checkout with `fetch-depth: 0` to scan history. Repos owned by an **organization** need a free `GITLEAKS_LICENSE` key (the user requests it on gitleaks.io with their name and email, then stores it as an Actions secret); personal-account repos do not. Pin the action to a SHA.
+
+### TruffleHog
+
+- **What it adds**: 800+ detectors and **verification**: each candidate is tested against the API it belongs to, giving `verified` (live), `unverified` or `unknown` (the check errored). Scans git, GitHub orgs, Docker images, S3, GCS and filesystems. AGPL-3.0.
+- **Install**: `brew install trufflehog` or the `trufflesecurity/trufflehog` image.
+- **Commands**:
+
+```bash
+trufflehog git file://. --results=verified,unknown --fail          # local repo history
+trufflehog git file://. --since-commit main --branch HEAD \
+  --results=verified,unknown --fail                                # only the PR's commits
+trufflehog filesystem . --no-verification --json                   # nothing leaves the machine
+trufflehog docker --image my-api:1.4.2 --results=verified          # a built image
+```
+
+- `--results` takes `verified`, `unknown`, `unverified`, `filtered_unverified`; the default prints `verified,unverified,unknown`.
+- Exit codes: `0` clean, `1` scan error, `183` results found (only with `--fail`).
+- **Verification contacts the credential's provider** with the found secret. That is the provider's own host, but tell the user before a verified scan of a private repo; `--no-verification` keeps the scan local.
+- Ignore a known test value with a `trufflehog:ignore` comment on that line; `--no-ignore-tag` shows them again for review.
+- `--sarif` writes SARIF for GitHub code scanning.
+- **GitHub Action** (`trufflesecurity/trufflehog`, `extra_args: --results=verified,unknown`, checkout with `fetch-depth: 0`): the docs' examples use `@main` and the action pulls the latest TruffleHog by default. Pin the action to a SHA and set its `version` input.
+- A `verified` hit means a live key: go straight to section 4. Treat `unknown` as possibly live until checked.
 
 ## 3. GitHub secret scanning and push protection
 

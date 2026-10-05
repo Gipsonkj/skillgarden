@@ -26,6 +26,20 @@ Reference files are distilled in our own words from the skills below. The templa
 | redis-core | https://github.com/redis/agent-skills/tree/main/skills/redis-core | MIT | nosql-analytics.md Redis |
 | clickhouse-best-practices | https://github.com/clickhouse/agent-skills/tree/main/skills/clickhouse-best-practices | Apache-2.0 | nosql-analytics.md ClickHouse |
 
+## Official docs (link-only reference, written in our own words)
+
+| Source | Link | Used for |
+|---|---|---|
+| Drizzle ORM docs | https://orm.drizzle.team/docs/overview | prisma.md section 9 (Drizzle) |
+| MySQL 8.4 Reference Manual | https://dev.mysql.com/doc/refman/8.4/en/ | sql-engines.md MySQL |
+| Microsoft SQL Server docs | https://learn.microsoft.com/en-us/sql/sql-server/ | sql-engines.md SQL Server |
+| SQLite docs | https://www.sqlite.org/docs.html | sql-engines.md SQLite |
+| Turso docs | https://docs.turso.tech | sql-engines.md Turso, prisma.md Drizzle + Turso |
+| Elasticsearch docs | https://www.elastic.co/docs/solutions/search | nosql-analytics.md search section |
+| OpenSearch docs | https://docs.opensearch.org/latest/ | nosql-analytics.md search section |
+| PostgreSQL docs (isolation, text search) | https://www.postgresql.org/docs/current/ | sql-engines.md, nosql-analytics.md search picker |
+| Auth0 docs and pricing | https://auth0.com/docs | auth.md Auth0 section and provider picker |
+
 ## Also see (not included)
 
 - better-auth-best-practices (better-auth/skills, no license file): https://github.com/better-auth/skills/tree/main/better-auth/best-practices

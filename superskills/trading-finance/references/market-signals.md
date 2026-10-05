@@ -77,9 +77,39 @@ Check `ex.has["fetchOHLCV"]` before calling; paginate with `since` (ms). For any
 | `volume` vs `amount` (kline) | USD value vs token units | Do not confuse |
 Omitting `--filter` still applies chain-default safety filters (SOL: renounced, frozen; EVM: not_honeypot, verified, renounced). Present these fields as risk flags. Newly launched tokens are extremely high risk; never frame "smart money" counts as a reason for the user to buy.
 
-## 6. Equity data sources
+## 6. Equity data sources: pick a tool
 
-Free: SEC EDGAR (filings, Form 4), company IR sites, Yahoo Finance/yfinance (unofficial, best effort), Stooq, FRED (macro), US Treasury yield curve. Keyed: FMP, Finnhub, Alpha Vantage, Tiingo, Polygon, broker data APIs (Alpaca `alpaca data bars`). State the source and timestamp of every quote; quotes from free sources may be delayed 15+ minutes.
+| The user's situation | Use | Why |
+|---|---|---|
+| Already pays for or has connected a data source | That one | Licensed, consistent with their other work; ask what their firm subscribes to before reaching for free data |
+| Filings, statements as reported, insider trades | SEC EDGAR | Primary source, free |
+| Quick prices, history, statements or option chains for personal research | yfinance | Free, no key; unofficial |
+| Macro series | FRED | St. Louis Fed API; the user requests a key from their fredaccount.stlouisfed.org account |
+| Institutional fundamentals, consensus estimates, ownership, M&A | FactSet or S&P Capital IQ connector | Licensed vendor data through an official Claude connector |
+| Keyed retail data APIs | FMP, Finnhub, Alpha Vantage, Tiingo, Polygon | User's own key, kept in an environment variable |
+| Their broker's data | Alpaca `alpaca data bars`, IBKR connector (`brokers-exchanges.md` §6) | Same feed as their account |
+| Crypto | OKX CLI (§3), ccxt (§4) | Public data, no key |
+
+Other free sources: company IR sites, Stooq, US Treasury yield curve. State the source and timestamp of every quote; quotes from free sources may be delayed 15+ minutes.
+
+**yfinance.** `pip install yfinance` (the user installs it). It is not affiliated with or vetted by Yahoo, and Yahoo's API is for personal use only, so do not use it for anything published or commercial; say so when it is the source.
+```python
+import yfinance as yf
+px = yf.download(["MSFT", "AAPL"], period="2y", interval="1d")   # auto_adjust=True by default
+msft = yf.Ticker("MSFT")
+msft.quarterly_income_stmt; msft.info; msft.calendar; msft.analyst_price_targets
+chain = msft.option_chain()
+```
+- `period`: `1d 5d 1mo 3mo 6mo 1y 2y 5y 10y ytd max`; `interval`: `1m 2m 5m 15m 30m 60m 90m 1h 1d 5d 1wk 1mo 3mo`. Intraday intervals reach back 60 days at most.
+- Prices come back adjusted by default (`auto_adjust=True`); say which you used, and do not mix adjusted and raw prices (`backtesting.md` §2).
+- `multi_level_index=True` is the default, so columns come back with two levels; flatten before saving.
+- It is unofficial and reads Yahoo's public APIs: check for empty frames and gaps, and cross-check figures that matter against filings.
+
+**FactSet and S&P Capital IQ connectors.** Both need access arranged with the vendor first; if the user has none, use the free sources above and say so.
+- **S&P Global (Capital IQ via Kensho):** Capital IQ financials, market data, business relationships, earnings call transcripts, M&A and more. Access is requested through S&P (Kensho LLM-ready API on the S&P Global Marketplace). In Claude: a team owner adds the "S&P Global" connector from the connector directory (or a custom connector with `https://kfinance.kensho.com/integrations/mcp`); users log in with their Kensho Okta credentials. Claude Code: `claude mcp add --transport http sp-global https://kfinance.kensho.com/integrations/mcp`, then `/mcp`.
+- **FactSet:** prices, standardized statements and segments, consensus estimates and surprises, M&A, supply-chain relationships, institutional and insider ownership, people and corporate events. The integration is in early access: the firm's FactSet representative supplies the URL (Anthropic's financial-analysis plugin lists `https://mcp.factset.com/mcp`), and an organization owner adds it under Admin settings → Connectors → Add custom connector.
+- Anthropic's `financial-analysis` plugin bundles these and other data connectors with comps, DCF, LBO and three-statement skills: `claude plugin marketplace add anthropics/financial-services`, then `claude plugin install financial-analysis@claude-for-financial-services`.
+- Gotchas: ownership and insider data lag filings; relationship data covers only what was disclosed; cite the connector and retrieval date for each figure ("FactSet, retrieved 2026-10-05"), and still check headline numbers against the filing.
 
 ## 7. Output rules
 

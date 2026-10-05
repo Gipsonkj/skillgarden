@@ -25,6 +25,26 @@ All guides in `references/` are written fresh, distilled from the skills below. 
 | web-asset-generator | https://github.com/alonw0/web-asset-generator/tree/main/skills/web-asset-generator | MIT | Favicon/app-icon/OG specs and meta tags; `scripts/web-asset-generator/` (copied) |
 | youtube-thumbnail | https://github.com/charlie947/social-media-skills/tree/main/skills/youtube-thumbnail | MIT | Thumbnail rules (face %, word count, two colours, bottom-right), brief format |
 
+## Official docs (link-only reference, written in our own words)
+
+Used for `references/app-built-posters.md`, the Canva line in `references/print-and-academic-posters.md` and section 8 of `references/ai-image-posters.md`. No text was copied beyond short phrases.
+
+| Source | URL | Used for |
+|---|---|---|
+| Gemini API: Nano Banana image generation | https://ai.google.dev/gemini-api/docs/image-generation | Aspect ratios and pixel sizes per resolution, `response_format`, negative-space prompting, SynthID |
+| OpenAI: image generation guide | https://developers.openai.com/api/docs/guides/image-generation | GPT Image 2.5 custom size rules, quality, output format |
+| Adobe for Creativity (overview, getting started, workflows, FAQ) | https://developer.adobe.com/adobe-for-creativity/ | Earlier connector setup, guest vs signed-in access, limits |
+| Adobe Help: Adobe for Claude overview (24 Sep 2026) | https://helpx.adobe.com/creative-cloud/apps/integration-with-other-apps/adobe-connectors/adobe-for-claude.html | Current setup (renamed connector), what it can edit, Claude Code availability, plans |
+| Adobe blog: Adobe expands what you can do in Claude (24 Sep 2026) | https://blog.adobe.com/en/publish/2026/09/24/adobe-comes-to-gemini-expands-what-you-can-do-in-claude | Tool count, Express layer editor |
+| Photoshop UXP scripting and DOM reference | https://developer.adobe.com/photoshop/uxp/2022/scripting/ | `.psjs` scripts, documents, generative upscale, colour conversion, saving |
+| InDesign UXP scripts and DOM reference | https://developer.adobe.com/indesign/uxp/ | `.idjs` scripts, document preferences, bleed, place, fit, PDF export presets |
+| Adobe Help: Illustrator, install and run scripts; create Adobe PDF files; Adobe PDF options | https://helpx.adobe.com/illustrator/desktop/automate-visualize-data/automate-actions/install-and-run-scripts.html , https://helpx.adobe.com/illustrator/using/creating-pdf-files.html , https://helpx.adobe.com/illustrator/using/pdf-options.html | Running `.jsx` scripts, PDF/X save with bleed and trim marks |
+| Canva Help: margins, bleed and crop marks | https://www.canva.com/help/margins-bleed-crop-marks/ | Canva default bleed and PDF Print |
+| Photoshop API (Adobe Firefly Services) | https://developer.adobe.com/firefly-services/docs/photoshop/ | One-line mention of the cloud route |
+| Figma help: export formats and settings | https://help.figma.com/hc/en-us/articles/13402894554519-Export-formats-and-settings | Export scale notation, 1x-only PDF/SVG, colour profiles |
+| Figma REST API: file endpoints | https://developers.figma.com/docs/rest-api/file-endpoints/ | `GET /v1/images/:key` parameters and limits |
+| Affinity integrations | https://www.affinity.studio/integrations | Affinity AI Connector for Claude |
+
 ## Also see (not included)
 
 Link-only skills: no licence file, so nothing was copied or closely paraphrased.

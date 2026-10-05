@@ -83,9 +83,71 @@ Each finding runs **what is** (a number) â†’ **why it matters** (the tension) â†
 
 ## 6. Data sources
 
+**Pick a tool**
+
+| Need or situation | Use | Why |
+|---|---|---|
+| The owner already has a dashboard or analytics tool they trust | That tool | Their numbers are the ones they act on; ask which one before pulling anything |
+| Revenue, orders, AOV, customers, refunds, product mix | The store's order export or platform reports (Shopify ShopifyQL, Woo analytics) | Orders are the source of truth for money; free, no extra account |
+| Sessions, funnel steps, traffic sources, landing pages | Google Analytics 4 through the Data API or the GA MCP server (section 7) | The store doesn't see visits that didn't buy |
+| "The store and GA4 disagree" | Both, joined on order id (section 7) | Only the join tells a normal gap from a tracking bug |
+
 - Platform analytics or exports (orders with line items, customers, refunds, discounts); Shopify also offers ShopifyQL reports. An order CSV with order id, date, customer id or email and revenue (after discounts, before tax and shipping) is enough for most of this guide.
 - Compute in code, interpret in words: never hand-calculate deltas the tool already returns, and never present a number without what it means.
 - Customer-level analysis stays inside the store's systems; share aggregates only.
+
+## 7. Google Analytics 4: pulling purchases and reconciling with orders
+
+GA4 is the visit-side view of the store. Read it; don't change tags or property settings without the owner's yes.
+
+**Access (read-only).**
+- Scope `https://www.googleapis.com/auth/analytics.readonly`. Sign in with Application Default Credentials: `gcloud auth application-default login --scopes="https://www.googleapis.com/auth/cloud-platform,https://www.googleapis.com/auth/analytics.readonly"`, or point `GOOGLE_APPLICATION_CREDENTIALS` at a service-account key file kept outside the repo. A service account only sees properties it has been granted access to in GA4 (the Viewer role can see data and settings through the UI or the APIs).
+- **GA MCP server** (official, marked experimental): `claude mcp add analytics-mcp --scope user -e "GOOGLE_APPLICATION_CREDENTIALS=..." -e "GOOGLE_PROJECT_ID=..." -- pipx run analytics-mcp`. Needs the Analytics Admin API and Data API enabled in the Cloud project. Tools: `get_account_summaries`, `get_property_details`, `list_google_ads_links`, `run_report`, `run_funnel_report`, `get_custom_dimensions_and_metrics`, `run_realtime_report`; all read.
+- **Data API directly:** `POST https://analyticsdata.googleapis.com/v1beta/properties/{propertyId}:runReport`. Python: `pip install google-analytics-data`.
+
+```python
+from google.analytics.data_v1beta import BetaAnalyticsDataClient
+from google.analytics.data_v1beta.types import DateRange, Dimension, Metric, RunReportRequest
+
+client = BetaAnalyticsDataClient()  # uses Application Default Credentials
+resp = client.run_report(RunReportRequest(
+    property="properties/481516234",
+    dimensions=[Dimension(name="date"), Dimension(name="transactionId")],
+    metrics=[Metric(name="ecommercePurchases"), Metric(name="purchaseRevenue")],
+    date_ranges=[DateRange(start_date="2026-09-01", end_date="2026-09-30")],
+    limit=100000,
+    return_property_quota=True,
+))
+print(resp.metadata.time_zone, resp.metadata.currency_code,
+      resp.metadata.subject_to_thresholding, resp.metadata.data_loss_from_other_row)
+```
+
+**Fields that matter.**
+- `ecommercePurchases` counts `purchase` events only. `transactions` also counts in-app purchases, subscription events and refunds: don't use it to match an order count.
+- `purchaseRevenue` is purchase revenue minus refunds; `grossPurchaseRevenue` before refunds; `itemRevenue` excludes tax and shipping; `totalRevenue` adds subscription and ad revenue.
+- `transactionId` and `date` (`YYYYMMDD`) are the join keys.
+- Rows: 10,000 by default, up to 250,000 per request with `limit`; page with `offset`. Rows whose metrics are all zero are dropped unless `keepEmptyRows` is true.
+
+**Limits (standard property; Analytics 360 gets 2,000,000 tokens a day and 50 concurrent requests).** 200,000 core tokens per property per day, 40,000 per hour, 14,000 per project per property per hour, 10 concurrent requests, 120 potentially thresholded requests per hour. `returnPropertyQuota: true` reports what each call used.
+
+**Check the response metadata every time.**
+- `subjectToThresholding`: low counts or demographic dimensions may hide rows; widen the date range or drop the dimension.
+- `dataLossFromOtherRow`: rows were rolled into "(other)"; high-cardinality dimensions (500+ values) can do this. Split the range.
+- `samplingMetadatas`: present only when the report is sampled.
+- `timeZone`: days are counted in the property's reporting time zone, not the store's or the shopper's.
+
+**Reconciling store orders with GA4 purchases**
+
+1. Same window and clock: export store orders for the period in the property's time zone; skip the last 48 hours (GA4 processing can take 24-48 hours and numbers change meanwhile).
+2. Clean the store side: drop test, cancelled and voided orders, and channels the web tag never sees (POS, draft or manual orders, marketplace orders). Compare revenue on the same basis (GA4 `value` should exclude tax and shipping) and the same currency.
+3. Join on order id = `transactionId`. List orders missing from GA4 by gateway, device and day, and GA4 ids missing from the store (test or foreign orders).
+4. Duplicates: GA4 deduplicates web purchases with the same `transaction_id`, but not app-stream purchases, and every purchase sent with an empty `transaction_id` collapses into one. Duplicated or empty ids point to a tag firing twice or a missing parameter.
+5. Expected loss: shoppers who decline consent are missing (behavioral modeling, when the property qualifies, models users, not event counts), and blocked tags never send. Report this share as normal, with the order count behind it.
+6. Bug signals: missing orders clustered on one payment method (an off-site redirect that never returns to the thank-you page), one device or browser, or one date (a theme or app change); revenue off by a constant factor (tax or shipping included, wrong currency).
+7. Separate the two with counts: "x of y orders missing; z of those on one gateway". State the threshold you used and what you couldn't verify (consent rate, thresholded rows).
+8. Fixes are proposals until the owner says yes. Verify a fix with a test order in DebugView: enable debug mode via Tag Assistant or preview, or `gtag('config', 'G-XXXX', { debug_mode: true })` (remove the parameter to turn it off; `false` doesn't).
+
+The `purchase` event itself needs `transaction_id`, `value`, `currency` (required when `value` is set) and `items`. Ad-platform conversion tracking for purchases goes to `google-ads`.
 
 ## Checklist
 
@@ -95,3 +157,4 @@ Each finding runs **what is** (a number) â†’ **why it matters** (the tension) â†
 - [ ] Small samples shown as counts; no invented causes; attribution caveats stated
 - [ ] Health checks marked pass / watch / fail with category context
 - [ ] Every finding: what is, why it matters, what to do; 3 doable next actions
+- [ ] GA4 read-only; store vs GA4 joined on order id in the property's time zone; thresholding and "(other)" checked

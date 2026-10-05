@@ -27,6 +27,20 @@ The router and references are written in this skill's own words from the license
 
 Licence texts: `scripts/interview-system-designer/LICENSE` (MIT, Copyright (c) 2025 Alireza Rezvani) and `templates/resume-builder/LICENSE` (MIT, Copyright (c) 2026 Amruth Pillai). Apache-2.0 sources were distilled, not copied; no NOTICE file applies.
 
+## Official docs (tool sections)
+
+Docs, link-only reference, written in our own words. No third-party skill was used for these sections.
+
+| Source | Used in |
+|---|---|
+| [Indeed MCP server docs](https://docs.indeed.com/mcp) and [Claude's Indeed connector listing](https://claude.com/connectors/indeed) | job-search-and-outreach.md section 10, negotiation-and-offers.md section 1 |
+| [Claude's ZipRecruiter connector listing](https://claude.com/marketplace/connectors/ziprecruiter) and [ZipRecruiter's announcement](https://ziprecruiter-investors.com/news/news-details/2026/ZipRecruiter-Expands-AI-Powered-Job-Search-with-Claude-Integration/default.aspx) | job-search-and-outreach.md section 10 |
+| [Use Google Workspace connectors (Claude Help Center)](https://support.claude.com/en/articles/10166901-use-google-workspace-connectors), [Google Workspace MCP servers](https://developers.google.com/workspace/guides/configure-mcp-servers), [Google Docs: download a file](https://support.google.com/docs/answer/49114) | job-search-and-outreach.md section 11 |
+| [Greenhouse Job Board API](https://docs.greenhouse.io/job-board.html) and [Greenhouse job board URL](https://support.greenhouse.io/hc/en-us/articles/360020776251-Job-board-URL-for-Greenhouse-hosted-job-board) | tailoring-and-ats.md section 8 |
+| [Lever Postings API](https://github.com/lever/postings-api) | tailoring-and-ats.md section 8 |
+| [Ashby job posting API](https://developers.ashbyhq.com/docs/public-job-posting-api) | tailoring-and-ats.md section 8 |
+| [Levels.fyi API and MCP access](https://www.levels.fyi/api-access/) | negotiation-and-offers.md section 1 |
+
 ## Also see (not included)
 
 | Source | Why not included |
@@ -38,4 +52,6 @@ Licence texts: `scripts/interview-system-designer/LICENSE` (MIT, Copyright (c) 2
 | interview-coach `.claude/settings.json` | Pre-grants tool permissions; not copied |
 | leetcode-teacher scripts | Problem generators that output pages loading third-party CDN assets; not needed, not copied |
 | interview-system-designer `loop_designer.py`, `question_bank_generator.py`, `hiring_calibrator.py` | Larger scripts with overlapping output; linked under Go deeper instead |
+| Indeed and Glassdoor scraping or browser adapters (inspizzz/job-search indeed-search, imoonkey/openweb indeed and glassdoor) | Automated access against the sites' terms; the guides use the official Indeed connector and user-pasted figures instead |
+| tinyfish-io salary-market-scanner | Sends role and company queries to a third-party agent API and scrapes boards |
 | Lenny skills' quoted newsletter text and benchmark pay figures | Verbatim third-party text and fast-dating numbers; paraphrased principles only |

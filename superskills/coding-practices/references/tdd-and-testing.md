@@ -32,6 +32,24 @@ function submitForm(data: FormData) {
 // run -> PASS; run full suite -> PASS
 ```
 
+### Running the loop with pytest (Python)
+
+| Step | Command |
+|---|---|
+| RED / GREEN on one test | `python -m pytest tests/test_checkout.py::test_rejects_empty_code -q` (node ID: `file::Class::test`) |
+| A group by name | `python -m pytest -k "discount and not expired"` |
+| Stop at the first failure | `-x` (or `--maxfail=3`) |
+| Rerun only what failed last time | `--lf`; `--ff` runs those first, then the rest |
+| Fix failures one at a time | `--sw` stops at the first failure and resumes from it next run |
+| Whole suite before GREEN counts | `python -m pytest` |
+| Find slow tests | `--durations=10` |
+
+- `python -m pytest` also puts the current directory on `sys.path`, which plain `pytest` doesn't; use it when imports of the project fail.
+- Read the exit code: `0` all passed, `1` some failed, `2` interrupted, `3` internal error, `4` usage error, `5` **no tests collected**. A "red" with exit `5` means your new test never ran (wrong file or function name), not that it failed.
+- `--lf` with no failures recorded runs the whole suite (the default `--lfnf all`). State lives in `.pytest_cache`; `--cache-clear` resets it.
+- `--pdb` and `--trace` open the interactive debugger: for a user at a terminal, not an unattended run.
+- Fixtures, parametrize, markers, coverage and other runners' idioms: `testing-qa` → `references/unit-runners-by-language.md`.
+
 ## Where tests go: seams
 
 - Test at public interfaces (the *seam*), never private methods or internal collaborators.

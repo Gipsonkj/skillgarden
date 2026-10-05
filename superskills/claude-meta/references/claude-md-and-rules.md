@@ -1,4 +1,4 @@
-> Distilled from: claude-md-improver (anthropics/claude-plugins-official, Apache-2.0), context-engineering (addyosmani/agent-skills, MIT), writing-for-agents (mattpocock/skills, MIT), strategic-compact (affaan-m/ECC, MIT). Rules, imports and prompt audit follow the Claude Code memory docs (code.claude.com/docs/en/memory), described in our own words.
+> Distilled from: claude-md-improver (anthropics/claude-plugins-official, Apache-2.0), context-engineering (addyosmani/agent-skills, MIT), writing-for-agents (mattpocock/skills, MIT), strategic-compact (affaan-m/ECC, MIT). Rules, imports and prompt audit follow the Claude Code memory docs (code.claude.com/docs/en/memory), described in our own words. The other-agents section follows the GitHub Copilot, Cursor, Codex, Gemini CLI and OpenCode docs, also link-only and in our own words.
 
 # CLAUDE.md and rules files
 
@@ -14,7 +14,7 @@
 | `./.claude/rules/*.md` | This repo, one topic per file, optionally path-scoped | Yes |
 | `./CLAUDE.local.md` | This repo, personal | No (gitignore it) |
 | `./packages/x/CLAUDE.md` | Sub-package; loaded when working there | Yes |
-| `AGENTS.md`, `.cursor/rules/`, `.github/copilot-instructions.md` | Same idea for other tools | Yes |
+| `AGENTS.md`, `.cursor/rules/`, `.github/copilot-instructions.md`, `GEMINI.md` | Same idea for other tools (see "Same instructions and skills in other agents") | Yes |
 
 Claude Code also reads `CLAUDE.md` files in parent directories, so monorepos work without duplication. Put a rule in exactly one of these places.
 
@@ -116,6 +116,40 @@ Monorepo root: add a `Packages | Purpose | Path` table and cross-package pattern
 - Durable state beats conversation history: for multi-turn tasks keep a notes/plan file in the repo with requirements, decisions, files changed and what's outstanding (see `references/context-and-memory.md`).
 - Prune on every edit. Stale lines (sediment) dilute the live ones. Shorter files stay relevant.
 - Personal preferences go in `~/.claude/CLAUDE.md` or `CLAUDE.local.md`, not the team file.
+
+## Same instructions and skills in other agents
+
+For teams where people use GitHub Copilot, Cursor, Codex, Gemini CLI or OpenCode next to Claude Code. Delegating a task to Codex is `references/codex-cross-review.md`; sharing a Claude Code bundle is `references/packaging-and-connecting.md`.
+
+### Pick a tool
+
+| Situation | Do | Why |
+|---|---|---|
+| Everyone uses one agent | Write only that agent's native files (table below) | No sync to maintain |
+| Claude Code plus other agents | Shared text in `AGENTS.md`; `CLAUDE.md` is `@AGENTS.md` plus Claude-only lines | Copilot, Cursor, Codex and OpenCode read `AGENTS.md` directly, Gemini CLI after one setting, Claude Code through the import |
+| A skill everyone's agent should load | Keep one real folder and link the other: `.agents/skills/` covers Codex, Gemini CLI, Copilot, Cursor and OpenCode; Claude Code needs `.claude/skills/` | Claude Code doesn't read `.agents/`; Codex and Gemini CLI don't read `.claude/skills/` |
+| Rules for one part of the repo | A nested `AGENTS.md` in that folder for the portable part; path-scoped rules per tool only where needed | Path-rule formats differ per tool |
+| Don't know which agents teammates run | **Ask** before adding files for tools nobody uses | Each extra file is upkeep |
+
+### Where each agent reads
+
+| Agent | Instructions | Skills: project / personal |
+|---|---|---|
+| Claude Code | `CLAUDE.md`, `.claude/rules/*.md`. Reads `AGENTS.md` itself (v2.1.277+) only when no `CLAUDE.md`, `.claude/CLAUDE.md` or `CLAUDE.local.md` sits in the working directory or above; nothing under `.agents/` | `.claude/skills/` / `~/.claude/skills/` |
+| GitHub Copilot | `.github/copilot-instructions.md`; `.github/instructions/NAME.instructions.md` with `applyTo:` globs (optional `excludeAgent: "code-review"` or `"cloud-agent"`); `AGENTS.md` anywhere (nearest wins) or one root `CLAUDE.md` / `GEMINI.md` | `.github/skills/`, `.claude/skills/`, `.agents/skills/` / `~/.copilot/skills/`, `~/.agents/skills/` |
+| Cursor | `.cursor/rules/*.mdc` with `description`, `globs`, `alwaysApply` (a plain `.md` there is ignored); `AGENTS.md` at root and in subfolders; User Rules in settings | `.cursor/skills/`, `.agents/skills/`, also `.claude/skills/`, `.codex/skills/` / same under `~/` |
+| Codex | `AGENTS.override.md` or `AGENTS.md` per folder, git root down to the working dir, plus `~/.codex/AGENTS.md`; 32 KiB combined by default (`project_doc_max_bytes`) | `.agents/skills/` from the working dir up to the repo root / `~/.agents/skills/` |
+| Gemini CLI | `GEMINI.md` (global `~/.gemini/GEMINI.md`, workspace and parents, subfolders as it works); to read `AGENTS.md`, set `"context": {"fileName": ["AGENTS.md", "GEMINI.md"]}` in `settings.json` | `.gemini/skills/` or `.agents/skills/` (wins on a tie) / `~/.gemini/skills/`, `~/.agents/skills/` |
+| OpenCode | `AGENTS.md` (project, walking up) and `~/.config/opencode/AGENTS.md`; falls back to `CLAUDE.md` / `~/.claude/CLAUDE.md` only when no `AGENTS.md` exists; extra files via `"instructions": [...]` in `opencode.json` | `.opencode/skills/`, `.claude/skills/`, `.agents/skills/` / `~/.config/opencode/skills/`, `~/.claude/skills/`, `~/.agents/skills/` |
+
+### Writing for several agents
+
+- **One source.** Put commands, architecture and boundaries in `AGENTS.md`. Claude Code then loads it through `@AGENTS.md` in `CLAUDE.md`; OpenCode and Copilot read it directly. A `CLAUDE.local.md` alone is enough to stop Claude Code reading `AGENTS.md` on its own, which is another reason to import it explicitly.
+- **Keep it short for every reader.** Cursor's docs ask for rules under 500 lines, Copilot's for instructions no longer than 2 pages, Codex stops adding files past its 32 KiB default. The 200-line target above fits all of them.
+- **Portable skill frontmatter.** Use `name` (lowercase letters, digits, single hyphens, same as the folder, max 64 chars) and a `description` up to 1024 characters. OpenCode recognises only `name`, `description`, `license`, `compatibility` and `metadata` and ignores the rest; Cursor also honours `disable-model-invocation`. So a skill marked `disable-model-invocation: true` (deploy, publish) can still be picked automatically in OpenCode: keep such skills out of shared folders, or make the body ask for confirmation first.
+- **Linking skill folders.** After creating the link (e.g. `.claude/skills` → `.agents/skills`), confirm each agent sees the skill: Claude Code `/` menu, Codex `/skills`, Gemini CLI `/skills list` (then `/skills reload` after changes), Cursor `/` in Agent chat. Gemini CLI can also attach a folder with `/skills link <path> --scope workspace`.
+- **Gemini CLI asks before a skill loads**: it shows the skill name and folder and waits for consent. Its `gemini skills install <git-url>` takes `--consent` to skip that prompt; don't pass it for a repo you haven't read.
+- **Path-scoped rules** don't share a format: Claude Code `paths:` in `.claude/rules/`, Cursor `globs:` in `.mdc`, Copilot `applyTo:` in `.instructions.md`. Keep the wording identical so they don't drift.
 
 ## Rules files and trust
 

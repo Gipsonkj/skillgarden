@@ -6,6 +6,17 @@ This guide is the store side of taking money: carts, shipping, discounts, tax, s
 
 ## 1. Use the platform's checkout when there is one
 
+**Pick a payment tool**
+
+| Need or situation | Use | Why |
+|---|---|---|
+| The store already takes payments with a provider | That provider | Switching costs migrations, payouts and saved cards; ask which account they log into |
+| Shopify, WooCommerce or another platform with its own checkout | The platform's checkout and its payment settings or plugin (table below) | Hosting, PCI and tax are handled there |
+| Custom store, cards and wallets in one integration | Stripe Checkout Sessions (sections 2-3) | Hosted page, dynamic payment methods, Tax and Billing in one API |
+| Shoppers expect PayPal, Venmo or Pay Later, beside cards | PayPal Orders v2 with the JS SDK buttons (section 9) | Server creates and captures; add it next to Stripe, not instead |
+| A few products, no code | Stripe Payment Links | No integration to maintain |
+| Subscriptions | Section 4 picker | Depends on the platform |
+
 | Platform | Checkout | What you build |
 |---|---|---|
 | Shopify (theme or headless) | Shopify Checkout, always | Payment settings, Functions for discount, shipping and payment logic, checkout UI extensions ([shopify-apps-and-apis.md](shopify-apps-and-apis.md)) |
@@ -47,12 +58,44 @@ const session = await stripe.checkout.sessions.create({
 
 ## 4. Subscriptions in a store (subscribe and save, boxes, memberships)
 
+**Pick a tool**
+
+| Need or situation | Use | Why |
+|---|---|---|
+| The store already runs a subscription app or billing system | That one | Moving active subscribers is a migration project; ask which app they use |
+| Shopify store | A Shopify subscription app on selling plans, most often Recharge (below) | Subscriptions must go through Shopify's checkout |
+| Custom store | Stripe Billing with Checkout (this section) | Renewals, dunning and the Customer Portal included |
+
+### Stripe Billing (custom store)
+
 - Use Billing with Checkout (`mode: 'subscription'`); never build renewals with raw PaymentIntents in a loop.
 - **One Product per plan** a customer can choose; several Prices on a Product only for billing variants of the same plan (monthly vs yearly, currencies).
 - Give customers the **Customer Portal** to skip, swap, change card or cancel; make cancelling as easy as signing up.
 - Drive access and shipments from `customer.subscription.*`, `invoice.paid` and `invoice.payment_failed`, plus the risk events above. These handlers are required, not a later phase.
 - Usage-based billing goes to Metronome per Stripe's current guidance; uncommon in physical-goods stores.
 - On Shopify, subscriptions run through a subscription app on Shopify's selling plans, not through Stripe.
+
+### Recharge (Shopify subscriptions)
+
+Recharge bills the subscription and creates the store order once each charge succeeds; its plans map to Shopify selling plans (`external_plan_group_id`, `external_plan_id`) and each charge carries `external_order_id.ecommerce`. API endpoints tagged SCI apply to stores on Shopify's checkout, RCS to Recharge-hosted checkout: check which the store uses.
+
+- **Access:** REST at `https://api.rechargeapps.com`, HTTPS only. Headers `X-Recharge-Access-Token: $RECHARGE_TOKEN` and `X-Recharge-Version: 2021-11` (the other accepted value is `2021-01`; without the header the store's default applies). The owner creates the token in the Recharge admin (Tools & apps > API tokens) with per-scope No / Read / Read and Write; ask for read scopes only unless a write is planned. Keep it in an environment variable.
+- **Resources:** subscriptions, charges, onetimes (extra items on a queued charge), addresses, customers, orders, plans, products, discounts.
+- **Common jobs:**
+  - Upcoming renewals: `GET /charges?status=queued` (filters include `scheduled_at_min`, `scheduled_at_max`, `customer_id`; scope `read_orders`).
+  - Skip or unskip a delivery: `POST /charges/{id}/skip` with `purchase_item_ids`, and `/unskip` (scope `write_orders`).
+  - Cancel: `POST /subscriptions/{id}/cancel` with required `cancellation_reason` (optional `cancellation_reason_comments`, up to 1024 characters, and `send_email`); undo with `POST /subscriptions/{id}/activate`.
+  - Processing a charge on demand (`POST /charges/{id}/process`) is Plus-plan only, on request.
+- **Pagination:** cursor based; default 50, `limit` up to 250; follow `next_cursor` with `?cursor=`. No total counts in 2021-11. Processed charges older than 90 days no longer appear in list results: older history is in the Exports tool in the Recharge merchant portal.
+- **Rate limit:** leaky bucket of 40 calls draining 2 per second; on 429 wait at least 2 seconds and retry.
+- **Webhooks:** created only through the API, `POST /webhooks` with `address` and `topic` (for example `subscription/created`, `subscription/cancelled`, `charge/paid`, `charge/failed`, `charge/max_retries_reached`, `charge/upcoming`); at most 10 per topic per token; test with `/webhooks/{id}/test`. Verify with HMAC-SHA256 keyed by the API **client secret** (not the token): compute it over `"<X-Recharge-Webhook-Timestamp>.<raw body>"`, compare in constant time with the `v1=` value of `X-Recharge-Webhook-Signature`, and reject events older than 48 hours. The older `X-Recharge-Hmac-Sha256` scheme still works but isn't for new code.
+
+```bash
+curl -s "https://api.rechargeapps.com/charges?status=queued&limit=250" \
+  -H "X-Recharge-Access-Token: $RECHARGE_TOKEN" -H "X-Recharge-Version: 2021-11"
+```
+
+Skips, cancels, discounts and refunds change what a customer pays: show the subscriber, charge, date and amount and wait for a yes; do one, read it back, then batch.
 
 ## 5. Sales tax, VAT and GST with Stripe Tax
 
@@ -97,6 +140,29 @@ const session = await stripe.checkout.sessions.create({
 - Restricted API keys (`rk_`) on the server, publishable key in the browser; separate sandboxes for local development and CI.
 - Test with the provider's test cards in a sandbox, including a declined card, a 3-D Secure challenge and a delayed payment method, before going live.
 
+## 9. PayPal Checkout (Orders v2)
+
+For a custom store whose shoppers expect PayPal (and Venmo, which is US merchants, US buyers and USD only, through the JS SDK). On a platform checkout use the platform's own PayPal option instead.
+
+**Auth.** Client id and secret from the PayPal developer dashboard, in environment variables on the server. Exchange them for a bearer token: `POST /v1/oauth2/token` with `grant_type=client_credentials` and Basic auth (`client_id:secret`). Cache the token until `expires_in` runs out; don't fetch one per payment. Hosts: sandbox `https://api-m.sandbox.paypal.com`, live `https://api-m.paypal.com`.
+
+**Flow: the server creates and captures, the browser only shows buttons.**
+1. Page loads `https://www.paypal.com/sdk/js?client-id=CLIENT_ID&currency=USD&components=buttons&intent=capture` (`currency` defaults to USD; the SDK `intent` must match the order's).
+2. `createOrder` calls your server, which calls `POST /v2/checkout/orders` with `intent` (`CAPTURE` or `AUTHORIZE`) and `purchase_units`, amounts as strings from your catalog: `{"intent":"CAPTURE","purchase_units":[{"amount":{"currency_code":"USD","value":"42.00"}}]}`. Return the order id.
+3. The buyer approves; `onApprove` calls your server, which calls `POST /v2/checkout/orders/{id}/capture`.
+4. Send a `PayPal-Request-Id` header on create and capture so retries don't double-charge; PayPal keeps the key for 6 hours by default.
+5. Order statuses: `CREATED`, `SAVED`, `APPROVED`, `VOIDED`, `COMPLETED`, `PAYER_ACTION_REQUIRED`. Read the order (`GET /v2/checkout/orders/{id}`) rather than trusting the client.
+
+**Fulfil from webhooks**, as with Stripe: `PAYMENT.CAPTURE.COMPLETED` (fulfil), `PAYMENT.CAPTURE.PENDING` (wait), `PAYMENT.CAPTURE.DENIED` (cancel), `PAYMENT.CAPTURE.REFUNDED` and `PAYMENT.CAPTURE.REVERSED` (restock, reverse), `CUSTOMER.DISPUTE.CREATED` (pause, gather evidence). Verify each with `POST /v1/notifications/verify-webhook-signature`, passing `auth_algo`, `cert_url`, `transmission_id`, `transmission_sig`, `transmission_time` (from the `PAYPAL-*` headers), your `webhook_id` and the `webhook_event`; act only on `verification_status: SUCCESS`.
+
+**Refunds:** `POST /v2/payments/captures/{capture_id}/refund`; no `amount` means a full refund. Show the order, capture and amount and wait for a yes.
+
+**Limits:** PayPal publishes no rate-limit numbers; a 429 means slow down. Use webhooks instead of polling.
+
+**Testing:** a developer account comes with a sandbox business and a sandbox personal account (Developer Dashboard > Sandbox > Accounts); make more there. `buyer-country` in the SDK URL is for sandbox testing only.
+
+**PayPal MCP server** (orders, refunds, invoices, disputes, subscriptions, reporting): remote at `https://mcp.sandbox.paypal.com` and `https://mcp.paypal.com`, or locally `npx -y @paypal/mcp --tools=all` (Node 18+) with `PAYPAL_ACCESS_TOKEN` and `PAYPAL_ENVIRONMENT=SANDBOX`. Start in sandbox. In production its tools can refund money and accept dispute claims: show each call's exact order, amount and action and wait for a yes.
+
 ## Checklist
 
 - [ ] Platform checkout used where one exists; custom stores on Checkout Sessions
@@ -106,3 +172,5 @@ const session = await stripe.checkout.sessions.create({
 - [ ] Subscriptions: one Product per plan, portal on, lifecycle handlers live
 - [ ] Marketplace: Accounts v2, capability checks, tax liability decided with an adviser
 - [ ] Sandbox end-to-end run incl. decline, 3DS and delayed payment
+- [ ] PayPal: server creates and captures with `PayPal-Request-Id`; fulfilment from verified webhooks
+- [ ] Recharge: read scopes unless a write is planned; webhooks verified with the client secret; each skip, cancel or refund confirmed

@@ -1,8 +1,21 @@
 # CI/CD pipelines
 
-> Distilled from: ci-cd-and-automation (addyosmani/agent-skills, MIT), github-actions-templates (wshobson/agents, MIT), terraform-skill (antonbabenko/terraform-skill, Apache-2.0), wrangler (cloudflare/skills, Apache-2.0)
+> Distilled from: ci-cd-and-automation (addyosmani/agent-skills, MIT), github-actions-templates (wshobson/agents, MIT), terraform-skill (antonbabenko/terraform-skill, Apache-2.0), wrangler (cloudflare/skills, Apache-2.0), plus the official GitLab CI/CD and Jenkins docs (written in our own words)
 
 CI is the enforcement layer: every change passes the same gates, every time. Shift checks left (cheap and fast first) and ship small batches often.
+
+## Pick a CI tool
+
+| Situation | Use | Why |
+|---|---|---|
+| The repo already has a pipeline (`.github/workflows/`, `.gitlab-ci.yml`, `Jenkinsfile`) or the team pays for one | That one | Gates belong where the team already looks; never run two CIs on the same branch |
+| Code on GitHub, no CI yet | GitHub Actions (below) | Built in, and OIDC login to AWS, Azure and GCP (table below) |
+| Code on GitLab (gitlab.com or self-managed) | [GitLab CI/CD](#gitlab-cicd) | Built in; environments, rollback button and registry in the same place |
+| Company runs a Jenkins controller, or builds must stay on its own machines | [Jenkins](#jenkins) | Self-hosted; reuse its agents and stored credentials, don't start a new controller for one repo |
+| Only a static site or Worker with no tests to gate | The host's Git integration (Vercel, Netlify, Cloudflare) | Previews per PR without a pipeline; add CI once there are tests |
+| Not sure where the code lives or who owns CI | Ask the user | Which Git host they push to and who approves prod decides the tool |
+
+The quality gates, rules and deploy strategies below hold in every tool; only the syntax changes.
 
 ## Quality gates (in order, on every PR and push to main)
 
@@ -94,6 +107,115 @@ Use `docker/login-action`, `docker/metadata-action` (tags: branch, PR, semver, s
 - Branch protection on `main`: required status checks, ≥ 1 review, no force-push.
 - Dependabot/Renovate weekly, PR limit ~5; group minor/patch updates.
 - Someone owns keeping CI green; a broken main is fixed or reverted first.
+
+## GitLab CI/CD
+
+The pipeline is `.gitlab-ci.yml` at the repo root. Jobs run in stages; with no `stages:` list GitLab uses `.pre`, `build`, `test`, `deploy`, `.post`.
+
+**Drive it from Claude:** the `glab` CLI (`brew install glab`, then `glab auth login`; or set `GITLAB_TOKEN`, plus `GITLAB_HOST` for a self-managed instance, in the shell, never in the repo). `glab ci lint` validates the file before you push, `glab ci status` / `glab ci view` show the current pipeline, `glab ci trace` streams a job log, `glab ci retry` reruns failed jobs, `glab ci run` starts a pipeline, `glab ci list` shows history. GitLab also has an MCP server (beta, all tiers) at `https://<gitlab-host>/api/v4/mcp` with OAuth: `claude mcp add -s user --transport http GitLab https://<gitlab-host>/api/v4/mcp`; MCP access must first be allowed for the top-level group (gitlab.com, by its Owner) or for the instance (self-managed, by an administrator). On gitlab.com it allows 60 requests a minute on Free, 600 on Premium and Ultimate.
+
+```yaml
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+stages: [test, deploy]
+
+test:
+  stage: test
+  image: node:22
+  interruptible: true
+  cache:
+    key:
+      files: [package-lock.json]
+    paths: [node_modules]
+  script:
+    - npm ci
+    - npm run lint
+    - npx tsc --noEmit
+    - npm test
+
+deploy_prod:
+  stage: deploy
+  script:
+    - ./deploy.sh "$CI_COMMIT_SHA"
+  environment:
+    name: production
+    url: https://example.com
+  resource_group: production
+  interruptible: false
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: manual
+```
+
+What matters:
+- **Manual prod gate.** `when: manual` *inside* `rules` makes a blocking manual job (`allow_failure` defaults to `false`), so the pipeline waits for someone to press play. Outside `rules` it defaults to `allow_failure: true` and the pipeline goes green without it. On Premium/Ultimate, also make `production` a protected environment (only listed people can deploy) and add deployment approvals; approved deployments still have to be started by hand.
+- **One deploy at a time.** `resource_group: production` runs deploy jobs to that group one by one (`process_mode` defaults to `unordered`; `oldest_first` keeps order).
+- **Cancel stale runs** with `interruptible: true` on test jobs only; keep deploys `interruptible: false`.
+- **Useful variables:** `CI_COMMIT_SHA` / `CI_COMMIT_SHORT_SHA` (first 8 chars) for image tags, `CI_PIPELINE_SOURCE` (`merge_request_event`, `push`, `schedule`, `web`), `CI_REGISTRY_IMAGE` with `CI_REGISTRY_USER` / `CI_REGISTRY_PASSWORD` to push to the project registry, `CI_ENVIRONMENT_NAME`.
+- **Secrets:** Settings > CI/CD > Variables, never in `.gitlab-ci.yml` (anyone with repo access can read it). Mask them (single line, no spaces, 8+ characters) and mark prod ones protected so only protected branches and tags get them. Use a File-type variable for things a tool wants as a path (kubeconfig, service-account file).
+- **Keyless cloud auth:** request an OIDC token with `id_tokens` and trade it with the cloud. The token's `sub` is `project_path:{group}/{project}:ref_type:{type}:ref:{branch}`; pin the cloud trust policy to it (for AWS, the condition key `<gitlab-host>:sub`). The token expires with the job timeout, or after 5 minutes if none is set.
+
+  ```yaml
+  deploy_aws:
+    id_tokens:
+      GITLAB_OIDC_TOKEN:
+        aud: https://gitlab.com
+    script:
+      - aws sts assume-role-with-web-identity --role-arn "$ROLE_ARN" --role-session-name "gl-$CI_JOB_ID" --web-identity-token "$GITLAB_OIDC_TOKEN"
+  ```
+- **Rollback:** Operate > Environments > the environment > **Rollback environment** on an earlier successful deployment. It creates a new deployment of that commit but reruns only the deploy job, so the deploy must live in that job's `script` (not depend on artifacts from an earlier job). "Prevent outdated deployment jobs" can hide the rollback button.
+- **Limits:** gitlab.com Free namespaces get 400 compute minutes a month on GitLab-hosted runners; a small Linux runner uses 1 minute per minute of runtime. Check the user's plan before adding heavy matrix jobs.
+
+## Jenkins
+
+Self-hosted automation server; pipelines are a `Jenkinsfile` in the repo. A **Multibranch Pipeline** job finds every branch (and, with the Git host's plugin, every PR) that has a `Jenkinsfile` and builds each one; `BRANCH_NAME` and `CHANGE_ID` (the PR number) tell the pipeline where it is. Write declarative syntax, not scripted.
+
+```groovy
+pipeline {
+  agent { docker 'node:22' }
+  options {
+    timeout(time: 30, unit: 'MINUTES')
+    disableConcurrentBuilds()
+    buildDiscarder(logRotator(numToKeepStr: '20'))
+  }
+  stages {
+    stage('Test') {
+      steps {
+        sh 'npm ci && npm run lint && npx tsc --noEmit && npm test'
+      }
+    }
+    stage('Deploy prod') {
+      when { branch 'main' }
+      input {
+        message 'Deploy to production?'
+        ok 'Deploy'
+        submitter 'release-managers'
+      }
+      environment { DEPLOY = credentials('prod-deploy') }   // username/password -> DEPLOY_USR, DEPLOY_PSW
+      steps {
+        sh './deploy.sh "$(git rev-parse HEAD)"'
+      }
+    }
+  }
+  post {
+    failure { echo "Build ${BUILD_NUMBER} failed: ${BUILD_URL}" }
+  }
+}
+```
+
+**Drive it from Claude** (always against the user's own controller URL, with their API token in env vars):
+- **Lint before pushing:** `curl -X POST --user "$JENKINS_USER_ID:$JENKINS_API_TOKEN" -F "jenkinsfile=<Jenkinsfile" "$JENKINS_URL/pipeline-model-converter/validate"`. With an API token no CSRF crumb is needed.
+- **CLI:** the client jar is served by the controller itself at `$JENKINS_URL/jnlpJars/jenkins-cli.jar`. It reads `JENKINS_USER_ID` and `JENKINS_API_TOKEN` from the environment (or `-auth @file`, never `-auth user:token` typed into chat or a script). `java -jar jenkins-cli.jar -s "$JENKINS_URL" build my-job -p ENV=staging -f -v` starts a build and follows it; `console my-job` prints the log; `help` lists what the controller allows.
+- **REST:** POST to `$JENKINS_URL/job/<name>/buildWithParameters` (or `/build`); append `/api/json` to any job or build URL for machine-readable status.
+- **MCP:** the community `mcp-server` plugin exposes `/mcp-server/mcp` (tools such as `getJob`, `triggerBuild`, `getBuildLog`) with Basic auth from a user's API token. Installing plugins is the Jenkins admin's call; ask first.
+
+Gotchas:
+- **Secrets in single quotes.** `sh "curl -H 'Authorization: Bearer ${TOKEN}' ..."` lets Groovy paste the secret into the process arguments, visible in `ps`. Write `sh 'curl -H "Authorization: Bearer $TOKEN" ...'` so the shell expands it. Store secrets in Jenkins credentials and bind them with `credentials('id')` or `withCredentials`.
+- **Groovy is glue only.** The controller runs the Groovy; heavy logic, `JsonSlurper` or HTTP calls there eat its memory. Do the work in `sh` steps on agents and return only the result. Batch shell commands into one step.
+- Triggering a build that deploys, or approving an `input`, is a production action: show the job, parameters and target and wait for a yes.
 
 ## Speed (pipeline over ~10 minutes)
 

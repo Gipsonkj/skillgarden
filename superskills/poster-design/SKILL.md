@@ -1,6 +1,6 @@
 ---
 name: poster-design
-description: Poster and graphic design end to end - layout, typography, colour and contrast rules; posters, flyers, art prints and editorial posters rendered in code (PNG/PDF/SVG/HTML); AI-image posters, movie/book/album and article covers; social posts, stories, banners, headers, display ads and multi-size resizing; YouTube thumbnails and video covers; brand kits, brand guidelines, themes, brand boards and identity mockups; logos, wordmarks, monograms and app icons in SVG; infographics and visual summaries; print files, bleed, CMYK and academic/conference research posters in LaTeX or PPTX; Canva resize and bulk-create from CSV; favicons, PWA icons and Open Graph images with meta tags. Use when asked to design, make, fix or critique a poster, flyer, cover, banner, header, social graphic, ad, thumbnail, logo, brand kit, style guide, theme, infographic, research poster, favicon or OG image, or when resizing a design for several platforms.
+description: Poster and graphic design end to end - layout, type, colour and contrast; posters, flyers, art prints and editorial posters rendered in code (PNG/PDF/SVG/HTML); AI-image posters, movie/book/album and article covers; social posts, stories, banners, headers, display ads, resizing; YouTube thumbnails and video covers; brand kits, guidelines, themes, brand boards and identity mockups; logos, wordmarks, monograms and app icons in SVG; infographics and visual summaries; print files, bleed, CMYK and academic/conference research posters in LaTeX or PPTX; posters in Photoshop, Illustrator, InDesign, Adobe Express, Affinity or Figma; Nano Banana/GPT Image print sizes; Canva resize and bulk-create from CSV; favicons, PWA icons and Open Graph images with meta tags. Use when asked to design, make, fix or critique a poster, flyer, cover, banner, header, social graphic, ad, thumbnail, logo, brand kit, style guide, theme, infographic, research poster, favicon or OG image, or to resize a design for several platforms.
 ---
 
 # Poster & graphic design
@@ -44,7 +44,7 @@ Name the task, or say "use poster-design: <capability>".
 |---|---|---|
 | Layout, grid, hierarchy, type sizes, colour, contrast; "why does this look off" | references/foundations.md | — |
 | Poster or art print rendered with code (no image model), typographic/Swiss/screen-print looks, editorial/magazine poster | references/code-rendered-posters.md | templates/magazine-poster/example.html |
-| Poster, flyer, event graphic, movie/book/album or article cover with an image model; consistent series | references/ai-image-posters.md | scripts/banner-creator/crop_banner.py |
+| Poster, flyer, event graphic, movie/book/album or article cover with an image model; consistent series; Gemini/Nano Banana and GPT Image size settings and print resolution | references/ai-image-posters.md | scripts/banner-creator/crop_banner.py |
 | Social posts/stories, banners, headers, display ads, website heroes; resizing one design to many sizes | references/banners-social.md | scripts/banner-creator/crop_banner.py, scripts/logo-design/scripts/render_png.py |
 | YouTube thumbnail, Shorts/Reels cover | references/thumbnails.md | templates/higgsfield-youtube-thumbnail/text-overlay-bake.md |
 | Brand kit, brand guidelines, theme for slides/docs/pages, brand board, CIP mockups, applying a brand | references/brand-kits.md | templates/theme-factory/themes/, templates/logo-design/brand-guidelines-template.md |
@@ -52,6 +52,7 @@ Name the task, or say "use poster-design: <capability>".
 | Infographic, visual summary, data poster | references/infographics.md | — |
 | Print files (bleed, CMYK, dpi), research/conference poster in LaTeX, PPTX or HTML | references/print-and-academic-posters.md | templates/latex-posters/ (beamerposter, tikzposter, baposter .tex, poster_quality_checklist.md), scripts/latex-posters/review_poster.sh |
 | Canva: resize a design for social, bulk-create designs from CSV | references/canva.md | — |
+| Poster in Photoshop, Illustrator, InDesign, Adobe Express (Adobe connector in Claude, or scripts), Affinity or Figma; PDF/X export from those apps | references/app-built-posters.md | — |
 | Favicons, PWA/app icons, Open Graph / Twitter images, meta tags | references/web-assets.md | scripts/web-asset-generator/ (generate_favicons.py, generate_og_images.py, check_dependencies.py), scripts/logo-design/scripts/export_variants.py |
 | Higgsfield CLI (paid) for thumbnails, brand mockups, logos | references/higgsfield.md | — |
 
@@ -62,12 +63,14 @@ Scripts are Python 3 (logo-design scripts are dependency-free; web-asset-generat
 | When the request also needs | Use |
 |---|---|
 | Key art from an image model beyond the poster prompts in `references/ai-image-posters.md`: model choice, consistency | `image-creation` → `references/prompting-fundamentals.md`, `references/editing-references-consistency.md` |
+| Calling Gemini (Nano Banana) or GPT Image: setup, keys, models, editing (poster sizes are in `references/ai-image-posters.md`) | `image-creation` → `references/gemini-nano-banana.md`, `references/openai-gpt-image.md` |
 | Headlines, taglines and event copy when the user has none | `content-creation` → `references/conversion-copy.md`, `references/brand-voice.md` |
 | Paid ad graphics (beyond the sizes in `references/banners-social.md`): angles, copy limits, testing | `ad-creation` → `references/meta-ads-creative.md`, `references/ad-copywriting.md`, `references/testing-iteration.md` |
 | Carousels, or the YouTube title and description a thumbnail ships with | `social-media` → `references/carousels.md`, `references/youtube-seo-thumbnails.md` |
 | Charts in an infographic or data poster that must be right about the numbers | `data-analysis` → `references/visualization.md` |
 | An animated logo or poster: SVG draw-on, Lottie or GIF | `motion-animation` → `references/lottie-svg-gif.md`, `references/motion-principles.md` |
 | Brand colours and type turned into Figma variables or a component library | `figma-design` → `references/design-tokens.md`, `references/building-in-figma.md` |
+| Connecting to Figma and writing the poster frame on the canvas (MCP setup, `use_figma`) | `figma-design` → `references/figma-mcp.md`, `references/building-in-figma.md` |
 | A branded report or one-pager as DOCX or PDF | `docs-office` → `references/document-design.md`, `references/pdf.md` |
 | A branded slide deck or pitch deck | `presentations` → `references/slide-design.md`, `references/powerpoint-pptx.md` |
 

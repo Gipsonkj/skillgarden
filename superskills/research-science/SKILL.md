@@ -1,6 +1,6 @@
 ---
 name: research-science
-description: Academic and scientific research end to end. Use for finding papers (PubMed, OpenAlex, arXiv, Semantic Scholar, Crossref, bioRxiv), building search strings, literature reviews (narrative, scoping, systematic, PRISMA), screening and data extraction, synthesis of evidence, citations and BibTeX (DOI lookup, verifying references, fixing bibliographies), writing papers (abstract, introduction, methods, results, discussion, related work), reporting guidelines (CONSORT, STROBE, PRISMA), statistics in text, peer review of manuscripts and self-review before submission, generating testable hypotheses and choosing a study design, deep research reports with many cited sources, and practical Biopython/RDKit work (sequences, Entrez, structures, molecules, fingerprints, similarity search).
+description: Academic and scientific research end to end. Use for finding papers (PubMed, OpenAlex, arXiv, Semantic Scholar, Crossref, bioRxiv), searching and exporting from Scopus, Web of Science, Embase or Google Scholar, building search strings, literature reviews (narrative, scoping, systematic, PRISMA), screening in Covidence and data extraction, synthesis of evidence, citations and BibTeX (DOI lookup, verifying references, fixing bibliographies, Zotero libraries), writing papers (abstract, introduction, methods, results, discussion, related work), reporting guidelines (CONSORT, STROBE, PRISMA), statistics in text, peer review of manuscripts and self-review before submission, generating testable hypotheses and choosing a study design, deep research reports with many cited sources, and practical Biopython/RDKit work (sequences, Entrez, structures, molecules, fingerprints, similarity search).
 ---
 
 # Research & Science
@@ -39,10 +39,10 @@ Work out what the request needs before opening a guide; most real requests need 
 
 | Task | Read |
 |---|---|
-| Frame a question, build search strings, choose databases, snowball, quick scan | [references/literature-search.md](references/literature-search.md) |
-| Use OpenAlex, PubMed, arXiv, Semantic Scholar, Crossref, bioRxiv APIs; rate limits; bundled search scripts | [references/database-apis.md](references/database-apis.md) + `scripts/openalex/`, `scripts/pubmed/`, `scripts/arxiv-search/` |
-| Literature / scoping / systematic review: screening, extraction, quality appraisal, synthesis, PRISMA | [references/literature-review.md](references/literature-review.md) |
-| Citations: DOI to BibTeX, metadata, cleaning and validating .bib files, verifying references, styles | [references/citations.md](references/citations.md) + `scripts/citation-management/` |
+| Frame a question, build search strings, choose databases and pick a search tool (Scopus, Web of Science, Embase, Google Scholar), snowball, quick scan | [references/literature-search.md](references/literature-search.md) |
+| Use OpenAlex, PubMed, arXiv, Semantic Scholar, Crossref, bioRxiv, Scopus and Web of Science APIs; rate limits; bundled search scripts | [references/database-apis.md](references/database-apis.md) + `scripts/openalex/`, `scripts/pubmed/`, `scripts/arxiv-search/` |
+| Literature / scoping / systematic review: pick a screening tool (Covidence), screening, extraction, quality appraisal, synthesis, PRISMA | [references/literature-review.md](references/literature-review.md) |
+| Citations: pick a reference manager (Zotero, EndNote, Mendeley), DOI to BibTeX, metadata, cleaning and validating .bib files, verifying references, styles | [references/citations.md](references/citations.md) + `scripts/citation-management/` |
 | Integrity rules, statistics in text, reporting guidelines, style, declarations | [references/scientific-writing.md](references/scientific-writing.md) |
 | Write a paper: title, abstract, introduction, related work, methods, results, discussion, self-review | [references/paper-sections.md](references/paper-sections.md) |
 | Peer review a manuscript or critique a draft | [references/peer-review.md](references/peer-review.md) + `templates/peer-review/` |

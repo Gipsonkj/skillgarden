@@ -60,6 +60,7 @@ Report the mode and what you will keep before you change anything. If unsure, as
 - Don't break existing functionality; check after each change.
 - Check the dependency file before importing anything new; give the install command if needed.
 - Check the Tailwind version before touching config (v4 has no `tailwind.config.js` theme by default).
+- On MUI, Ant Design, Bootstrap or Sass, change the look through the library's theme layer: [component-library-theming.md](component-library-theming.md).
 - No framework? Use vanilla CSS with custom properties.
 - Keep each change focused and reviewable. Show before/after for visible changes.
 - Run the [anti-slop.md](anti-slop.md) gate and [accessibility.md](accessibility.md) checks on the result.

@@ -1,6 +1,6 @@
 # Carousels: writing and visual design
 
-> Distilled from: carousel-writer-sms (blacktwist/social-media-skills, MIT), instagram-marketing / ig-carousel-planner (sergebulaev/instagram-skills, MIT), social-carousel (nexu-io/open-design, Apache-2.0; series and stage design ideas only), instagram-post (publora/skills, MIT; API limits).
+> Distilled from: carousel-writer-sms (blacktwist/social-media-skills, MIT), instagram-marketing / ig-carousel-planner (sergebulaev/instagram-skills, MIT), social-carousel (nexu-io/open-design, Apache-2.0; series and stage design ideas only), instagram-post (publora/skills, MIT; API limits). Canva export: Canva's Connect API docs (link-only, restated in our words) and canva-skills (canva-sdks/canva-skills, Apache-2.0; tool names and plugin install).
 
 On Instagram, carousels are the format people save. Slide 1 decides whether anyone swipes. The last slide earns the save and the follow.
 
@@ -98,7 +98,21 @@ Alt text: [one line per slide]
 
 ## Building and exporting the images
 
+**Pick a tool**
+
+| The user's situation | Use | Why |
+|---|---|---|
+| Already designs in Canva, Figma or Keynote | That tool, exported at 1080x1350 | Their templates and brand are already there |
+| Not sure where the slides live | **Ask** | It decides whether Claude can fetch them or the user exports |
+| Slides are in Canva and Claude should fetch them | Canva's MCP connector | Signs in with the user's Canva account; `export-design` as PNG or JPG |
+| A script exports Canva designs on its own | Canva Connect API | `POST /v1/exports` with an OAuth token |
+| No design tool, or slides built from data | HTML/CSS plus a headless-browser screenshot | Free, no account, pixel-exact 1080x1350 |
+
 - **Hand-made:** Canva, Figma or Keynote at 1080x1350. Export PNG or high-quality JPEG.
+- **Getting slides out of Canva from Claude** (designing the slides is `poster-design`'s job; this is only the hand-off to publishing):
+  - **Connector:** Canva's official MCP server, `https://mcp.canva.com/mcp`, signed in with the user's Canva account (OAuth). In Claude Code, Canva's plugin adds it: `/plugin marketplace add canva-sdks/canva-skills`, then `/plugin install canva@canva-skills`. Find the design with `search-designs` or `get-design` (IDs start with `D`, or take the part after `/design/` in its URL), check `get-export-formats`, then `export-design` as PNG or JPG. `resize-design` creates a resized copy; for a carousel ask for a custom 1080x1350, not the 1080x1080 "Instagram post" size Canva's resize skill uses.
+  - **Connect API (code):** `POST https://api.canva.com/rest/v1/exports` with `design_id` and `format: {type: "png"}` (or `"jpg"` plus `quality` 1-100; optional `width`, `height`, `pages`), scope `design:content:read`, OAuth token in an environment variable. Poll `GET /v1/exports/{exportId}` until `status` is `success`; multi-page designs can come back as one download URL per page. Limits: 20 export requests per minute and 75 exports per 5 minutes per user (500 a day).
+  - **Gotcha:** export URLs expire after 24 hours. Download the files, check the size and order, and host them on the user's own storage before building the Instagram containers; don't hand Canva's temporary links to the publish step.
 - **As code:**
   1. Render one HTML/CSS page per slide at exactly 1080x1350, using `width/height` in px, inline CSS and local fonts or Google Fonts.
   2. Screenshot each slide with a headless browser at device scale 1 (for example Playwright `page.screenshot({clip})`).

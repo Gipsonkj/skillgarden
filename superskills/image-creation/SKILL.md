@@ -1,6 +1,6 @@
 ---
 name: image-creation
-description: Create and edit images with AI models or code. Covers prompt writing for any image model; text and typography inside images; editing, inpainting, reference images, character/product consistency and transparent backgrounds; OpenAI GPT Image (Images API, Codex image_gen); Google Gemini / Nano Banana; FLUX, Replicate, fal.ai, OpenRouter, Seedream/ByteDance ModelArk, Recraft, Ideogram, Higgsfield; local Stable Diffusion, diffusers and ComfyUI workflows; p5.js/SVG generative art; website heroes, design comps, game and UI assets; marketing, social, ad, product and brand images. Use when asked to generate an image, picture, illustration, photo, hero image, banner, thumbnail, poster, sprite, icon, texture, logo concept, mockup or OG image; to edit, restyle, remove or replace something in an image, change a background or make it transparent; to keep a character or product consistent; to write or fix an image prompt; to pick an image model; to build a ComfyUI workflow; or to make generative/algorithmic art.
+description: Create and edit images with AI models or code. Covers prompts for any image model; text in images; editing, inpainting, references, character/product consistency and transparent backgrounds; GPT Image (Images API, Codex image_gen); Gemini / Nano Banana; FLUX, Replicate, fal.ai, OpenRouter, Seedream/ModelArk, Recraft, Ideogram, Higgsfield, Midjourney prompts; Adobe (Photoshop, Lightroom, Express, Firefly), Canva, Photoroom cutouts, Topaz Gigapixel upscaling; local Stable Diffusion and ComfyUI; p5.js/SVG generative art; web heroes, design comps, game and UI assets; marketing, social, ad, product and brand images. Use when asked to generate an image, illustration, photo, hero, banner, thumbnail, poster, sprite, icon, texture, logo concept, mockup or OG image; to edit, restyle, remove or replace something, change or remove a background; to keep a character or product consistent; to upscale for print; to write or fix an image prompt; to pick a model; to build a ComfyUI workflow; or to make generative art.
 ---
 
 # Image creation
@@ -41,15 +41,16 @@ Work out what the request needs before opening a guide; most real requests need 
 | Task | Read |
 |---|---|
 | Write or improve any image prompt, choose words for light, lens and composition, check an output | [references/prompting-fundamentals.md](references/prompting-fundamentals.md) |
-| Headlines, labels, posters, infographics, translating text in an image | [references/text-in-images.md](references/text-in-images.md) |
-| Edit, inpaint or outpaint, swap a background, remove an object, try-on, style transfer, keep a character or product consistent, transparent PNGs, exact dimensions | [references/editing-references-consistency.md](references/editing-references-consistency.md) |
+| Headlines, labels, posters, infographics, translating text in an image; pick a text model or overlay tool | [references/text-in-images.md](references/text-in-images.md) |
+| Edit, inpaint or outpaint, swap a background, remove an object, try-on, style transfer, keep a character or product consistent, transparent PNGs, exact dimensions; pick a cutout or upscale tool | [references/editing-references-consistency.md](references/editing-references-consistency.md) |
 | OpenAI GPT Image (models, sizes, transparency, edits, Codex `image_gen`) | [references/openai-gpt-image.md](references/openai-gpt-image.md) + `scripts/imagegen/image_gen.py` |
 | Gemini / Nano Banana (Pro, 2, Lite; 512-4K) | [references/gemini-nano-banana.md](references/gemini-nano-banana.md) + `scripts/nano-banana-pro/generate_image.py` |
-| FLUX.2, Replicate, fal.ai, OpenRouter, Seedream (also direct on ByteDance ModelArk, phone-photo realism recipe), Recraft, Ideogram, Higgsfield; picking a model | [references/hosted-models-flux-replicate-fal.md](references/hosted-models-flux-replicate-fal.md) + `scripts/generate-image/generate_image.py`, `scripts/bytedance-modelark/ark.py` |
+| FLUX.2, Replicate, fal.ai, OpenRouter, Seedream (also direct on ByteDance ModelArk, phone-photo realism recipe), Recraft, Ideogram, Higgsfield, Midjourney prompts; picking a model and where to run it | [references/hosted-models-flux-replicate-fal.md](references/hosted-models-flux-replicate-fal.md) + `scripts/generate-image/generate_image.py`, `scripts/bytedance-modelark/ark.py` |
 | Local Stable Diffusion / SDXL / FLUX dev with diffusers, ControlNet, LoRA, ComfyUI workflow JSON | [references/local-open-models.md](references/local-open-models.md) |
 | Generative or algorithmic art, flow fields, particles, seeded p5.js, SVG patterns | [references/algorithmic-art.md](references/algorithmic-art.md) + `templates/algorithmic-art/viewer.html` |
 | Website heroes, section images, design comps for a landing page, game sprites, UI icons, textures, web optimisation, OG images | [references/web-frontend-assets.md](references/web-frontend-assets.md) |
-| Social posts, ads, product shots, posters, banners, logo concepts, brand boards, campaign series and their sizes | [references/marketing-brand-images.md](references/marketing-brand-images.md) |
+| Social posts, ads, product shots, posters, banners, logo concepts, brand boards, campaign series and their sizes; pick a resize tool | [references/marketing-brand-images.md](references/marketing-brand-images.md) |
+| Finish a real photo in pro tools (pick one): Adobe (Photoshop, Lightroom, Express, Firefly API), Canva, Photoroom cutouts and surfaces, resize to placements, Topaz upscaling | [references/retouch-resize-upscale.md](references/retouch-resize-upscale.md) |
 
 You can name a task, or say "use image-creation: <capability>" (for example "image-creation: transparent sprite" or "image-creation: ComfyUI workflow").
 

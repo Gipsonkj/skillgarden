@@ -1,15 +1,24 @@
-> Distilled from: text-to-lottie (diffusionstudio/lottie, MIT), hyperframes-animation adapters/lottie (heygen-com/hyperframes, Apache-2.0), pixel2motion (nolangz/pixel2motion, MIT), slack-gif-creator (anthropics/skills, Apache-2.0), motion-design (LottieFiles/motion-design-skill, MIT)
+> Distilled from: text-to-lottie (diffusionstudio/lottie, MIT), hyperframes-animation adapters/lottie (heygen-com/hyperframes, Apache-2.0), pixel2motion (nolangz/pixel2motion, MIT), slack-gif-creator (anthropics/skills, Apache-2.0), motion-design (LottieFiles/motion-design-skill, MIT); Rive section written in our own words from the official Rive runtime docs (rive.app/docs, link-only); "From After Effects" and "Other Lottie sources" written in our own words from the official Airbnb Lottie, lottie-web, lottie-react-native, LottieFiles, Adobe, Cavalry and Jitter docs (link-only)
 
-# Lottie, SVG logo motion and GIFs
+# Lottie, Rive, SVG logo motion and GIFs
 
-Short, self-contained motion assets: icons, loaders, state feedback, logo stings, stickers, emoji GIFs.
+Short, self-contained motion assets: icons, loaders, state feedback, interactive vector controls, logo stings, stickers, emoji GIFs.
 
-| Deliverable | Route |
-|---|---|
-| Vector animation for app/web/mobile players, editable later | Lottie JSON (`.json` / `.lottie`) |
-| Logo reveal, splash, brand mark loop for the web | SVG + CSS keyframes or a small JS timeline, single HTML file |
-| Slack emoji or chat reaction | GIF built with PIL (scripts below) |
-| Logo sting as a video file | HyperFrames or a video pipeline (`hyperframes-animation.md`, ai-video super skill) |
+## Pick a tool
+
+| Your situation | Use | Why |
+|---|---|---|
+| You (or your designer) already use or pay for one of the tools below | That one | Files, presets and habits carry over; each has a route in this guide |
+| A designer will make it, and you don't know their app or the target players | Ask: which app, and which players (web, iOS, Android, React Native)? | Feature support differs by app and by player; don't guess |
+| No designer, no app, no account; an icon, loader, check or small loop | Claude writes Lottie JSON by hand, previewed in text-to-lottie's local Skottie player | Free and open source (MIT), runs locally, diffable |
+| Logo reveal, splash or brand loop on the web only | SVG + CSS keyframes or a small JS timeline in one HTML file | Needs no player library |
+| Designer animates in After Effects; free, nothing uploaded | Bodymovin | Free and open source (MIT); exports plain JSON |
+| After Effects, and you want dotLottie, an optimised file or a phone preview | LottieFiles for After Effects | Exports dotLottie and optimised formats, previews by QR code; needs a LottieFiles sign-in |
+| Designer works in Cavalry | Cavalry's Lottie export | Built in (File > Export Lottie...); check its unsupported list |
+| Quick motion in the browser; free plan | Jitter | A motion design tool on the web; Lottie export on every plan, Free included |
+| The graphic reacts to input or app data (hover, toggle, live values, resizing) | Rive (`.riv`) with a state machine and data binding | Lottie plays a timeline; Rive runs states and bindings |
+| Slack emoji or chat reaction | GIF built with PIL (scripts below) | Bundled helpers hit the emoji and message GIF specs below |
+| Logo sting as a video file | HyperFrames or a video pipeline (`hyperframes-animation.md`, ai-video super skill) | It's a render, not a player asset |
 
 ## Shared timing for short assets (60 fps frames)
 
@@ -101,6 +110,15 @@ Render in the target player (Skottie for Skia/Android-native pipelines, lottie-w
 
 ### Playing Lottie
 
+| Your situation | Player | Why |
+|---|---|---|
+| The app already ships a Lottie player | Keep it | Its feature support is what you've been testing against |
+| Web, `.json` file | lottie-web (`svg`, `canvas` or `html` renderer) | Runs a subset of expressions; the only player in Airbnb's table with the Fill, Stroke, Tint and Tritone layer effects |
+| Web, `.lottie` file | dotLottie player | Plays the `.lottie` container |
+| React Native | `lottie-react-native` | Wraps the native iOS and Android players (see "From After Effects") |
+| Frame checks while authoring | text-to-lottie's Skottie player | Local, pins any frame with `?frame=N` |
+
+
 ```js
 // web
 const anim = lottie.loadAnimation({ container, renderer: "svg", loop: false, autoplay: true, path: "/anim.json" });
@@ -113,6 +131,165 @@ const player = new DotLottie({ canvas, src: "/anim.lottie", loop: false, autopla
 - React Native: `lottie-react-native`, for illustration and celebration only, never to represent UI state.
 - In a rendered video (HyperFrames), Lottie must be seekable and registered: see `hyperframes-animation.md`.
 - Characters (walk cycles, mascots): the Lottie owns the body's acting; the page/timeline owns the stage around it. Use a character the user owns or one licensed for redistribution.
+
+### From After Effects (Bodymovin or the LottieFiles plugin)
+
+Claude can't open an `.aep`. The designer exports in After Effects (or first runs the audit script in `motion-app-handoff.md`); Claude picks the settings, then reads, plays and checks the result.
+
+| Exporter | Pick it when | How |
+|---|---|---|
+| Bodymovin (Airbnb's lottie-web) | Free, plain JSON, nothing leaves the machine | Install from aescripts or the ZXP in lottie-web's `build/extension`. **Window > Extensions > Bodymovin**, select the comp, pick a destination, **Render**. Images and unconverted AI layers land in an `images/` folder beside the JSON. |
+| LottieFiles for After Effects | You also want dotLottie, an optimised file, a device preview by QR code or the Lottie Feature Checker | Exports Lottie JSON, Optimized Lottie JSON, dotLottie, Optimized dotLottie and TGS. Needs a LottieFiles account sign-in; free to install, with some limits. Saving to a LottieFiles workspace uploads the file: name the file and wait for a yes. |
+
+Bodymovin needs **Allow Scripts To Write Files And Access Network**: Edit > Preferences (Windows) or After Effects > Settings (macOS) > Scripting & Expressions.
+
+Bodymovin comp settings (the gear beside each comp): **Glyphs** turns text characters into shapes (off: supply a font file or class name); **Hidden** and **Guided** export hidden or guide layers, usually needed when expressions point at them, and they add size; **Extra Comps** adds comps that expressions reference from outside the comp tree; **Standalone** bundles the player into one file; **Demo** writes a `demo.html` preview. Under expression options, **Convert expressions to keyframes** bakes them all; to bake one, add the comment line `// lottie:bake` to that expression. Neither changes the AE project.
+
+**What breaks where.** Airbnb's supported-features table covers lottie-android, lottie-ios and lottie-web; React Native's `lottie-react-native` uses the native players, so read those columns. dotLottie players aren't in it: test them separately. 👍 works, ⛔ unsupported, ? unknown.
+
+| AE feature | Android | iOS (Core Animation / Main Thread) | Web (SVG, Canvas, HTML) | Fix |
+|---|---|---|---|---|
+| Expressions (`wiggle()`, loops) | ⛔ | ⛔ / ⛔ | 👍 (a subset; lottie-web's wiki says native functions such as `wiggle` aren't supported) | Bake: Bodymovin's option, `// lottie:bake`, or **Animation > Keyframe Assistant > Convert Expression To Keyframes** (a key on every frame; the expression is kept, switched off). For size, hand-key a few loose keys instead. |
+| Gaussian Blur | 👍 (4.1+) | ⛔ / ⛔ | ? | Fake a glow with a soft shape and opacity |
+| Drop Shadow | 👍 (4.1+) | 👍 / 👍 | ? | Test on the web |
+| Alpha matte, alpha inverted | 👍 | 👍 / 👍 | 👍 | Keep the matte small: matte size costs performance |
+| Luma matte | ⛔ | ⛔ / ⛔ | ? | Rebuild as an alpha matte |
+| Merge Paths | 👍 (KitKat+) | ⛔ / ⛔ | ⛔ | Combine the shapes before export, or use a matte |
+| Trim Paths, multiple shapes trimmed individually | 👍 | 👍 / 👍 | 👍 | |
+| Trim Paths, multiple shapes trimmed simultaneously | 👍 | ⛔ / 👍 | 👍 | Switch to individually for iOS's default engine |
+| Text: glyphs / fonts | 👍 / 👍 | ⛔ / 👍 | 👍 / 👍 | Ship the font with each player, or **Layer > Create Shapes From Text** for one look everywhere |
+| Layer effects Fill, Stroke, Tint, Tritone | ⛔ | ⛔ / ⛔ | 👍 | Use shape fills and strokes |
+| Auto-Orient | ⛔ | ⛔ / ⛔ | 👍 | Keyframe the rotation |
+| Mask modes Lighten, Darken, Difference; mask Feather | ⛔ | ⛔ / ⛔ | ⛔ | Add or Subtract only (Intersect also fails on the web) |
+
+- iOS uses the Core Animation engine by default since Lottie 4.0 and falls back to Main Thread by itself when a file needs it; `LottieConfiguration.renderingEngine` picks one.
+- Android applies blur and shadow to each fill and stroke, so overlaps darken, and clips them at the precomp's edge: pad the precomp.
+- Images, precomps and time remap work on Android, iOS and the web; image sequences, video and audio don't export.
+
+**Keep it small.** Export with the comp at 1x (AE pixels become points and dp). Parent layers instead of copying keyframes. Path (vertex) keyframes and a key on every frame (wiggler, auto-trace, baked expressions) cost the most. Convert AI, EPS and SVG layers with **Layer > Create > Create Shapes from Vector Layer** and drop the originals. A null that drives layers must stay visible at 0% opacity or it won't export. Serve web JSON gzipped. State a size budget and report the measured size.
+
+**React Native and the web.** Current `lottie-react-native` needs React Native 0.84+ and the New Architecture (older apps: 7.3.x). `<LottieView source={require("./hero.json")} autoPlay loop={false} style={{ width: 240, height: 240 }} />`. `loop` defaults to `true`, so set it. For `.lottie` files add `"lottie"` to Metro's `resolver.assetExts`. Under reduced motion drop `autoPlay` and pass `progress={1}` (0–1, iOS and Android) to hold the final frame. Web playback: "Playing Lottie" above.
+
+**Verify before shipping.** Compare frame 0, the busiest middle frame and the last frame in a local player against the same frames rendered from AE, then on a real iOS and Android device. List every feature you replaced or baked, and say what you could not check. Don't drop the JSON onto lottiefiles.com or any other site without a yes.
+
+### Other Lottie sources: Cavalry and Jitter
+
+- **Cavalry** (procedural 2D, macOS and Windows): **File > Export Lottie...**, or the Render Manager for batches. Position, rotation, fill and stroke alpha, stroke width, trim and path animation export lean; deformers, Duplicator and primitive attribute animation export but heavy. Not exported: filters and shaders, sweep and conical gradients, dash patterns, skew, track mattes and looping animation curves; text becomes shapes. Each shape's Advanced tab has a Lottie Baking setting: Still for a static scene with a large file, Animated or Nuclear when animation goes missing.
+- **Jitter** (browser app): the designer exports and hands over the file. Lottie, GIF and MP4 on every plan; WebM and ProRes 4444 MOV from Pro; transparent and frame-by-frame exports on Max and Ultra. Pro adds 1080p and 60 fps exports; Max and Ultra add 4K and 120 fps. Jitter's help page lists no limits for Free. Jitter lists no Lottie limits, so run the per-player checks above.
+
+## Rive
+
+Pick Rive over Lottie when the graphic has to react: hover and press states, toggles, values fed from the app, layouts that resize. Pick Lottie for play-once or looping playback. A `.riv` file is binary and authored in the Rive editor, so it can't be hand-written or diffed like Lottie JSON: Claude drives the runtime from code, and changes to the file itself go through the editor (or its MCP, below).
+
+### Packages
+
+| Package | When |
+|---|---|
+| `@rive-app/webgl2` · React: `@rive-app/react-webgl2` | Default. Draws with the Rive Renderer, the same one the editor uses, so vector feathering and every blend mode render as designed. Blend modes other than Normal are costly on mobile browsers, and browsers cap WebGL contexts per page. |
+| `@rive-app/canvas` · React: `@rive-app/react-canvas` | Same API on the browser's Canvas2D. Blend modes cost nothing extra and there is no context cap, but no vector feathering yet. Switching is a one-line import change: try both on real devices. |
+| `@rive-app/canvas-lite` · React: `@rive-app/react-canvas-lite` | Smallest. Drops the text, layout, audio and scripting engines; content that uses them doesn't appear. |
+| `@rive-app/canvas-single` | Inlines `rive.wasm` into the JS: one request instead of two, bigger bundle. |
+| `@rive-app/react-native` (with `react-native-nitro-modules`) | The new React Native runtime (`rive-react-native` is the legacy one). It has native code, so Expo needs a development build (`npx expo install expo-dev-client`), not Expo Go. |
+
+`@rive-app/webgl` is deprecated and gets no updates after v2.37.0. Rive's Runtime Sizes page (January 2026, brotli -9) lists the web WASM at about 222 KB compressed for `canvas-lite`, 567 KB for `canvas` and 648 KB for `webgl2`; the `.riv` is extra. Measure `rive.wasm` and the `.riv` in the network panel and report the real numbers.
+
+### Get the file contract first
+
+Before writing code, get from the designer (or read in the editor): the artboard name, the state machine name, and the view model property names and types. Use them exactly. Ways to drive the file:
+
+- **Data binding (current).** View model properties (boolean, number, string, colour, enum, trigger, image, list, artboard) drive transitions and any bindable property, and your code can listen to them changing.
+- **State machine inputs and Rive Events (deprecated).** `useStateMachineInput` (deprecated in React v4.33.0) and, in the web runtime, `stateMachineInputs()`, `onStateChange` and `EventType.RiveEvent` (events deprecated in v2.41.0) still work and existing files needn't change, but new work uses data binding. The editor's hamburger menu has **Convert Inputs to View Models**. Legacy React form: `useStateMachineInput(rive, 'SM name', 'input name')`, then `.value = true` or `.fire()` for a trigger.
+
+### React (Next.js)
+
+```tsx
+// LikeRive.tsx
+'use client';
+import { useEffect, useState } from 'react';
+import { useRive, useViewModelInstanceBoolean, useViewModelInstanceTrigger } from '@rive-app/react-webgl2';
+
+export default function LikeRive() {
+  const [reduce] = useState(() => matchMedia('(prefers-reduced-motion: reduce)').matches);
+  const { rive, RiveComponent } = useRive({
+    src: '/rive/like.riv',   // served from your own public/ folder
+    stateMachine: 'Like',
+    autoplay: true,
+    autoBind: true,          // binds the file's default view model instance
+  });
+  const vmi = rive?.viewModelInstance;
+  const { value: liked, setValue: setLiked } = useViewModelInstanceBoolean('liked', vmi);
+  const { trigger: hover } = useViewModelInstanceTrigger('hover', vmi);
+  const { setValue: setReduced } = useViewModelInstanceBoolean('prefersReducedMotion', vmi);
+  useEffect(() => { if (vmi) setReduced(reduce); }, [vmi, reduce]);
+
+  return (
+    <button type="button" aria-label="Like" aria-pressed={!!liked}
+      onClick={() => setLiked(!liked)} onPointerEnter={() => { if (!reduce) hover(); }}
+      style={{ width: 48, height: 48 }}>
+      <RiveComponent aria-hidden="true" />
+    </button>
+  );
+}
+```
+
+```tsx
+// in a client component: Rive never runs on the server, and the fallback holds the same box
+const LikeRive = dynamic(() => import('./LikeRive'), { ssr: false, loading: () => <LikeIcon /> });
+```
+
+- `ssr: false` only works inside a Client Component; Next.js errors if it's used in a Server Component.
+- `useRive(params, opts)` returns `rive` and `RiveComponent`. `RiveComponent` sizes itself to its container, so the parent needs a set width and height or nothing shows. `style`/`className` land on the wrapping `<div>`; other props such as `aria-*` reach the `<canvas>`.
+- `useDevicePixelRatio` defaults to `true`, so retina screens stay sharp. Layout defaults to `Fit.Contain`, `Alignment.Center`; pass `layout: new Layout({ fit, alignment })` to change it (`Fit.Layout` resizes the artboard to the canvas).
+- Property hooks take a path (`'settings/volume'` for nested view models) and the instance; they return `value` plus `setValue` (`trigger` for triggers, which also accept `{ onTrigger }`). `value` is `null` when the property isn't found, so check names on first run.
+- The hooks bind after the first frame has rendered, even with `autoplay: false`. To set values the first frame must show, use `autoBind: false` and do the work in `onRiveReady(rive)`: `rive.viewModelByName('VM').defaultInstance()`, set values, `rive.setViewModelInstance(inst)`, then one `rive.bind()`.
+- Keep `useRive` and its `RiveComponent` together in one small component; if React remounts the canvas, the animation restarts or vanishes.
+- Many graphics, one file: `useRiveFile({ src })` parses once and returns `{ riveFile, status }` to share. `useOffscreenRenderer` (WebGL2 only) defaults to `true` so instances share one WebGL context; leave it.
+
+### Vanilla JS
+
+```js
+import { Rive, Layout, Fit, Alignment } from '@rive-app/webgl2';
+const r = new Rive({
+  src: '/rive/like.riv', canvas, stateMachine: 'Like', autoplay: true, autoBind: true,
+  layout: new Layout({ fit: Fit.Contain, alignment: Alignment.Center }),
+  onLoad: () => {
+    r.resizeDrawingSurfaceToCanvas();                  // match devicePixelRatio
+    r.viewModelInstance.boolean('liked').value = false;  // .number() .string() .color() .enum() .trigger('x').trigger()
+  },
+});
+addEventListener('resize', () => r.resizeDrawingSurfaceToCanvas());
+// on teardown: remove the listener, then r.cleanup();
+```
+
+- Give the canvas a CSS width and height: `resizeDrawingSurfaceToCanvas()` sizes the drawing buffer from them, and without them the canvas can double in size.
+- `cleanup()` stops the render loop and frees the native objects; skip it and memory leaks. In a React `useEffect`, call it in the effect's cleanup.
+- Listen with `vmi.number('x').on(cb)`, stop with `.off()`.
+- Name `stateMachine` (singular, v2.41.0+; `stateMachines` is deprecated). With none named, v2 plays the artboard's first linear animation, not its state machine.
+
+### Loading, hosting and privacy
+
+- By default the runtime fetches `rive.wasm` from unpkg. To keep the page first-party, self-host it and call `RuntimeLoader.setWasmUrl(url)` before any instance. The WASM version must match the web package the runtime wraps; a React package's own version number differs, so read the wrapped `@rive-app/*` version from its `package.json`. Serve it as `application/wasm` with `Cache-Control: public, max-age=31536000, immutable`, and add `Access-Control-Allow-Origin` if it's on another origin.
+- With `@rive-app/react-canvas` under npm or yarn, `import wasmUrl from '@rive-app/canvas/rive.wasm'` (Vite: add `?url`) emits a hashed file you pass to `setWasmUrl`; pnpm needs `@rive-app/canvas` as a direct dependency at the matching version.
+- Hero graphics: call `RuntimeLoader.awaitInstance()` as early as possible (guard with `typeof window !== 'undefined'`), and add `<link rel="preload" as="fetch" crossorigin>` for both the WASM and the `.riv`. The preload `href` must equal the `setWasmUrl` URL exactly, or the file downloads twice.
+- `enableRiveAssetCDN` defaults to `true`, letting the runtime pull assets such as fonts from Rive's CDN. Set it to `false` when the page must load nothing from other hosts, and embed or load those assets yourself.
+- A Content-Security-Policy that blocks `unsafe-eval` stops the WASM loading; allow `wasm-unsafe-eval` instead.
+- Hosting `.riv` files on a CDN or bucket needs CORS headers for your page's origin.
+
+### Reduced motion and accessibility
+
+- Rive does not apply reduced motion for you. Pass the preference in through a view model boolean (the docs use `prefersReducedMotion`) and let the file act on it: a separate reduced path in the state machine, timeline speed bound to 0 through a converter, opacity or colour changes in place of movement, or shorter travel. If the file has no such property, ask the designer to add one, or render a static fallback under reduced motion.
+- For one control, keep a real `<button>` with `aria-pressed` around an `aria-hidden` canvas, as above. For richer graphics, roles authored in the editor are exposed with `semanticsMode: SemanticMode.Enabled` and `semanticsOptions: { riveCanvasLabel }`; nothing is exposed if no semantics were authored.
+
+### Editing the `.riv`: the Rive editor MCP
+
+- Works only with the Rive desktop editor (macOS or Windows) open; the docs name the Early Access app. The server is local at `http://127.0.0.1:9791/mcp`. Add it with `claude mcp add --transport http rive http://127.0.0.1:9791/mcp`.
+- Tools cover artboards, the scene hierarchy and properties, shapes, paths, layouts and components, linear animations, state machines, transitions, conditions and keyframes, view models and bindings, and Luau scripts and WGSL shaders.
+- Flow: open the file with an artboard created, prompt, then type **End Prompt** to let the AI apply the changes. List the exact changes for the user and wait for a yes before applying them to a file they own.
+- Without the editor and MCP, Claude can't open or check a `.riv`. Say which names, inputs or behaviours you took on trust.
+
+### Verify
+
+Names resolve (no `null` hook values), sharp at 2× and 3×, no layout shift (fallback and canvas share one box), reduced motion and keyboard work, mount and unmount a few times without leaks, and the network panel shows the WASM and `.riv` coming from where you meant.
 
 ## SVG logo animation
 

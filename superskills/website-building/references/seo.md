@@ -96,6 +96,66 @@ Per page, one primary topic; title, H1 and URL agree; two pages targeting the sa
 
 Executive summary (health, top 3-5 issues, quick wins) → findings per area, each with **Issue / Impact (High-Med-Low) / Evidence / Fix / Priority** → prioritised action plan (critical blockers, high impact, quick wins, longer-term). After a fix, re-run the same checks and say that indexing and ranking outcomes are pending Google's recrawl.
 
+## 9. Measure after launch: analytics (Google Analytics 4)
+
+**Pick a tool**
+
+| Situation | Use | Why |
+|---|---|---|
+| The site already has an analytics tool or the owner pays for one | **Keep it**; ask which account or property | Two tools add script weight and split the numbers |
+| A Google Tag Manager container is already on the site | Add GA4 **inside GTM**, not as a second tag | Next.js docs recommend this when GTM is present |
+| Next.js App Router | `@next/third-parties/google` `<GoogleAnalytics gaId="G-…" />` | Loads the tag after hydration; package is marked experimental |
+| Plain HTML, Astro, Vue, Vite | The gtag.js snippet | No dependency |
+| Squarespace, WordPress, Wix, Webflow | The builder's head-code setting (Squarespace: Header code injection) or its own analytics integration; ask the user which | See `site-builders.md` |
+| Read traffic or conversion numbers from Claude | Google Analytics MCP (read-only) | Reports without dashboard screenshots |
+| Index coverage and field Core Web Vitals | Search Console (section 7) | Indexing and field data live there |
+
+Ask the owner for the measurement ID (starts with `G-`; it is public and lives in page code) and whether visitors in regions that need consent (EU/UK) will land on the site.
+
+**Install (gtag.js)**: immediately after `<head>` on every page, consent defaults first:
+
+```html
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {          // must run before the tag loads
+    ad_storage: 'denied', ad_user_data: 'denied',
+    ad_personalization: 'denied', analytics_storage: 'denied',
+    wait_for_update: 500                 // ms to wait for the consent banner
+  });
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX"></script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXX');
+</script>
+```
+
+The banner calls `gtag('consent', 'update', { analytics_storage: 'granted', … })` after the visitor chooses. Defaults set out of order do not work. `region` (ISO 3166-2 codes) limits a default to certain places. Which defaults and banner the site needs is a legal call for the owner: ask, don't decide.
+
+**Events and key events**
+
+```js
+gtag('event', 'sign_up', { method: 'pricing_form' });   // or sendGAEvent('event', 'sign_up', {...}) in Next.js
+```
+
+- Prefer Google's recommended event names (`sign_up`, `login`, `purchase`, `share`) so prebuilt reports fill in.
+- Limits: event and parameter names 40 characters, parameter values 100 characters (`page_location` 1,000), 25 parameters per event, 25 user properties per property. No cap on distinct event names for web streams.
+- Mark the CTA event as a key event in Admin → Data display → Events (a key event name over 40 characters is not reported as one).
+- Client-side route changes are counted as page views when Enhanced Measurement has "Page changes based on browser history events" on. Do not also send manual `page_view` events, or every view counts twice.
+
+**Verify**: add `debug_mode: true` to the `config` call (or open the site through Tag Assistant), then Admin → Data display → DebugView, and the Realtime report. Remove `debug_mode` before production.
+
+**Read reports with the Analytics MCP** (Google's official server, Apache-2.0, read-only). The owner enables the Google Analytics Admin API and Data API in their Google Cloud project and signs in with Application Default Credentials scoped to `https://www.googleapis.com/auth/analytics.readonly`; ask before installing:
+
+```bash
+claude mcp add analytics-mcp --scope user \
+  -e "GOOGLE_APPLICATION_CREDENTIALS=PATH_TO_CREDENTIALS_JSON" -e "GOOGLE_PROJECT_ID=YOUR_PROJECT_ID" \
+  -- pipx run analytics-mcp
+```
+
+Tools: `get_account_summaries`, `get_property_details`, `run_report`, `run_funnel_report`, `run_realtime_report`, `get_custom_dimensions_and_metrics`. The credentials file stays outside the repo.
+
 ## Pitfalls
 
 - "No schema found" from a curl fetch.
@@ -103,3 +163,4 @@ Executive summary (health, top 3-5 issues, quick wins) → findings per area, ea
 - Every locale canonical to the English page.
 - Promising rank changes, or scoring content with invented percentages.
 - Keyword stuffing titles; duplicate titles across a template.
+- Analytics tag firing before consent defaults, or GA4 installed twice (gtag plus GTM).

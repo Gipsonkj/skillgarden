@@ -9,10 +9,12 @@ direction was vague or contradictory, or nobody listened to the result. Fix all 
 
 | Need | Use | Why |
 |---|---|---|
+| The user or project already uses or pays for one | That engine and its voice | One narrator across a product; keys and billing already exist |
 | Best expressive quality, many languages, cloned voices | ElevenLabs (`eleven_v3` / `eleven_multilingual_v2`) | Widest voice library; see `elevenlabs.md` |
 | Real-time / lowest latency (~75 ms) | ElevenLabs `eleven_flash_v2_5` | Built for agents and live apps |
 | Directed delivery from plain-language instructions | OpenAI `gpt-4o-mini-tts` | `instructions` field steers tone; see `openai-audio.md` |
-| Directed delivery, Google stack | Gemini TTS (`style` text, prebuilt voice e.g. `Kore`) | Put directions in style, never in spoken text |
+| Directed delivery, Google stack, two-voice dialogue in one call, mu-law/A-law for phone lines | Gemini TTS (`gemini-3.8-flash-tts`; section 7) | `style` metadata and inline tags steer delivery without being read aloud |
+| High volume at low cost, Google stack | Gemini TTS `gemini-3.8-flash-lite-tts` (section 7) | Same API, cheaper workhorse |
 | Free, no key, quick drafts | `uvx edge-tts` (Microsoft Edge neural voices) | Unofficial endpoint: fine for drafts and personal use, not for production SLAs |
 | Offline, private, deterministic | Kokoro-82M local (see `local-open-models.md`) | No network, no per-character cost |
 | Word timestamps in the same call | HeyGen TTS, or any TTS + a transcription pass | Needed for captions and cut sync |
@@ -94,3 +96,48 @@ transitions, above 1.5 almost never.
 - Clone or convert only voices you have consent for.
 - Never put API keys in request files, compositions or chat. Read them from env vars
   (`ELEVENLABS_API_KEY`, `OPENAI_API_KEY`, `GEMINI_API_KEY`).
+
+## 7. Gemini TTS (Google)
+
+Two models, same request shape: `gemini-3.8-flash-tts` (best fidelity, acting, tricky names,
+long narration) and `gemini-3.8-flash-lite-tts` (fast, cheaper, bulk and agent turns).
+Key: `GEMINI_API_KEY` in the environment, sent as `x-goog-api-key`. SDKs: `google-genai`
+>= 2.25.0 (Python) or `@google/genai` >= 2.24.0 (JS). Try voices first in AI Studio
+(aistudio.google.com/generate-speech).
+
+```bash
+curl -X POST "https://generativelanguage.googleapis.com/v1beta/interactions" \
+  -H "x-goog-api-key: $GEMINI_API_KEY" -H "Content-Type: application/json" \
+  -d '{"model":"gemini-3.8-flash-tts",
+       "input":[{"type":"user_input","content":[{"type":"text",
+         "text":"Welcome to Lumo. <short pause> Let'\''s get you set up.",
+         "annotations":[{"type":"speech_metadata","style":"warm and composed"}]}]}],
+       "response_format":{"type":"audio"},
+       "generation_config":{"speech_config":[{"voice":"Kore"}]}}' \
+| jq -r '[.steps[] | select(.type=="model_output") | .content[] | select(.type=="audio")] | last | .data' \
+| base64 --decode > vo.wav
+```
+
+- **Text is read verbatim.** Sustained delivery (emotion, pace, pitch: "speaking slowly",
+  "whispers") goes in `speech_metadata.style`; one-off sounds and pauses go inline in angle
+  brackets: `<short pause>`, `<long pause>`, `<breath>`, `<sigh>`, `<laugh>`, `<cough>`. Use
+  English tags even for other languages. CAPITALS stress a word. Leave `style` empty first;
+  add a short one only where a line needs it.
+- **Voices:** 30 prebuilt (e.g. `Kore` firm, `Puck` upbeat, `Charon` informative, `Sulafat`
+  warm), hundreds more from `GET /v1beta/voices`, or a custom persona from Voice design
+  (`POST /v1beta/voices`, `type="prompted"`, returns a `voice_...` ID). Voice replication
+  (`type="replicated"`) needs the speaker's reference and consent audio. Stored voices: 200
+  per project, deleted after a year unused.
+- **Don't** put age, gender, accent or long "director's notes" in `style`; they cause drift.
+  Pick or design the voice instead.
+- **Two speakers in one call:** `speech_config` becomes `{"mode":"conversational","speakers":
+  [{"speaker":"Joe","voice":"Puck"},{"speaker":"Jane","voice":"Kore"}]}` and every turn's
+  `speech_metadata` names its `speaker`. Prebuilt voices only, max 2; with custom voices,
+  synthesize each turn separately. `|oh really?|` inside a turn adds a listener backchannel.
+- **Output:** unary calls return WAV (24 kHz, mono, 16-bit). `"stream": true` returns raw
+  `audio/l16` chunks. Set `response_format.mime_type` to `audio/mulaw` or `audio/alaw` with
+  `sample_rate` 8000 for telephony. Older models (`gemini-3.1-flash-tts-preview`) returned raw
+  PCM: drop any WAV-header wrapping when you switch.
+- **Price (paid tier, through 31 Dec 2026):** Flash TTS $9.00 and Flash-Lite TTS $6.00 per
+  1M audio output tokens (25 tokens per second of audio), about $0.00225 and $0.0015 per
+  10 s; both double from 1 Jan 2027. Flash TTS on Batch costs half. A free tier exists.

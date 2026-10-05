@@ -1,14 +1,112 @@
-> Distilled from: tauri-v2 (nodnarbnitram/claude-code-extensions, MIT), macos-spm-app-packaging (dimillian/skills, MIT)
+> Distilled from: tauri-v2 (nodnarbnitram/claude-code-extensions, MIT), macos-spm-app-packaging (dimillian/skills, MIT); Electron section written from the Electron and Electron Forge docs
 
-# Desktop apps: Tauri v2 and SwiftPM macOS apps without Xcode
+# Desktop apps: Electron, Tauri v2 and SwiftPM macOS apps without Xcode
 
-| Want | Use |
+## Pick a tool
+
+| Situation | Use | Why |
+|---|---|---|
+| The project already uses one of these (or electron-builder) | Keep it | A desktop shell rewrite is rarely worth it; fix what is there |
+| A web app (JS/TS) for Windows, macOS and Linux, Node.js libraries in the backend, same Chromium on every OS | Electron (section 1) | Embeds Chromium and Node.js; one JS codebase |
+| One web frontend shipped as a small desktop (and mobile) app, Rust backend | Tauri v2 (section 2) | Capabilities scope permissions per window; the same project also targets mobile |
+| A native Mac app (SwiftUI), built and packaged from the command line | SwiftPM + `templates/macos-spm-app-packaging/` (section 3) | No Xcode project; scripts sign and notarize |
+| A native Mac app with the full Xcode project workflow | Xcode; SwiftUI rules in `swiftui.md` | Apple's standard path |
+| Unsure whether size or Node.js matters more, or which OSes ship | Ask the user | The answer picks Electron vs Tauri in one line |
+
+## 1. Electron
+
+Electron embeds Chromium and Node.js in the app binary, so one JavaScript codebase runs on Windows, macOS and Linux. Scaffold, package and publish with Electron Forge.
+
+```bash
+npx create-electron-app@latest my-app --template=vite-typescript   # or vite, webpack, webpack-typescript
+cd my-app && npm start                                              # dev run
+# existing Electron app:
+npm install --save-dev @electron-forge/cli && npx electron-forge import   # adds start, package, make scripts
+```
+
+Three kinds of process:
+- **Main** (one per app): Node.js, app lifecycle, creates `BrowserWindow`s, menus, dialogs, tray.
+- **Renderer** (one per window): the web page; no Node.js access by default.
+- **Preload**: runs before the page loads and exposes a narrow API with `contextBridge`. All renderer ↔ main traffic goes through it.
+
+```js
+// main.js
+const { app, BrowserWindow, ipcMain, dialog } = require('electron/main')
+const path = require('node:path')
+const isOurPage = (frame) => !!frame && frame.url.startsWith('file://')   // match your own origin or custom protocol
+ipcMain.handle('dialog:openFile', async (e) => {
+  if (!isOurPage(e.senderFrame)) return null          // validate the sender of every IPC message
+  const { canceled, filePaths } = await dialog.showOpenDialog({})
+  return canceled ? null : filePaths[0]
+})
+app.whenReady().then(() => {
+  const win = new BrowserWindow({ webPreferences: { preload: path.join(__dirname, 'preload.js') } })
+  win.loadFile('index.html')
+})
+
+// preload.js: expose one function per action, never ipcRenderer itself
+const { contextBridge, ipcRenderer } = require('electron/renderer')
+contextBridge.exposeInMainWorld('electronAPI', { openFile: () => ipcRenderer.invoke('dialog:openFile') })
+
+// renderer: const path = await window.electronAPI.openFile()
+```
+
+**Security rules** (from Electron's own checklist)
+- Keep the defaults: `nodeIntegration` off (since v5), `contextIsolation` on (since v12), renderer `sandbox` on (since v20). Never turn them back on to make `require` work; move the code to main or preload.
+- Expose specific functions through `contextBridge`, never the whole `ipcRenderer`. Check `e.senderFrame` (its `origin`) in every `ipcMain.handle`.
+- Set a Content-Security-Policy (`<meta http-equiv="Content-Security-Policy" content="default-src 'none'">`, then allow only what the page needs, e.g. `script-src 'self'`). Load remote content over HTTPS only; never disable `webSecurity` or enable `allowRunningInsecureContent`.
+- Limit navigation and new windows: in `app.on('web-contents-created')`, handle `will-navigate` (parse with `new URL()`, `preventDefault()` unless the origin is yours) and `setWindowOpenHandler` (return `{ action: 'deny' }`; open vetted links with `shell.openExternal`, never untrusted strings).
+- Prefer a custom protocol over `file://`; switch off fuses you don't need (e.g. `runAsNode`).
+- Stay on a supported Electron: the latest three stable majors are supported, and a new major ships every 8 weeks.
+
+**See it running** with Playwright's Electron support (experimental, over CDP):
+
+```js
+import { test, expect, _electron as electron } from '@playwright/test'
+test('launches', async () => {
+  const app = await electron.launch({ args: ['.'] })
+  expect(await app.evaluate(async ({ app }) => app.isPackaged)).toBe(false)   // runs in main
+  const win = await app.firstWindow()
+  await win.screenshot({ path: 'home.png' })
+  await app.close()
+})
+```
+
+Run with `npx playwright test`; check both themes and every window, as for mobile.
+
+**Package, sign, update**
+- `npm run make` runs `electron-forge package` then the makers; installers land in `out/make/`, the packaged app in `out/<name>-<platform>-<arch>/`. Makers live in `forge.config.js` (`@electron-forge/maker-squirrel` gives Windows `Setup.exe` + `.nupkg` + `RELEASES`; `maker-dmg`, `maker-zip` and others for macOS/Linux).
+- Signing is required for users to open the app safely on macOS and Windows, and for auto-update. Forge signs and notarizes in the package step:
+
+```js
+// forge.config.js (the user sets these env vars themselves; never commit the .p8)
+module.exports = {
+  packagerConfig: {
+    osxSign: {},                                   // @electron/osx-sign default entitlements
+    osxNotarize: {
+      appleApiKey: process.env.APPLE_API_KEY,      // path to the App Store Connect .p8
+      appleApiKeyId: process.env.APPLE_API_KEY_ID,
+      appleApiIssuer: process.env.APPLE_API_ISSUER,
+    },                                             // or appleId + appleIdPassword (app-specific) + teamId, or keychainProfile
+  },
+  publishers: [{ name: '@electron-forge/publisher-github',
+    config: { repository: { owner: 'me', name: 'my-app' }, draft: true } }],   // GITHUB_TOKEN from env
+}
+```
+
+- Windows: Azure Artifact Signing (formerly Trusted Signing) is the cheapest route and removes SmartScreen warnings; otherwise an EV certificate on a hardware module. Configure with `windowsSign` (`@electron/windows-sign`).
+- Auto-update: `npm install update-electron-app`, then `require('update-electron-app')()` in main; it checks at startup and every ten minutes against update.electronjs.org (free; macOS and Windows only; needs a public GitHub repo with builds on GitHub Releases, and signed macOS builds). Private repo or own bucket: `updateElectronApp({ updateSource: { type: UpdateSourceType.StaticStorage, baseUrl: 'https://...' } })`.
+- **Publish (ask first):** `npm run publish` uploads to GitHub Releases; in GitHub Actions grant `permissions: contents: write`. Keep `draft: true` and let the user release it.
+- Projects on electron-builder: config in `electron-builder.yml` or the `build` key of `package.json`, `npx electron-builder --mac --win --linux`, updates via `electron-updater`. Keep it rather than switching to Forge.
+
+| Symptom | Fix |
 |---|---|
-| One web frontend shipped as a small desktop (and mobile) app, Rust backend | Tauri v2 |
-| A native Mac app (SwiftUI), built and packaged from the command line | SwiftPM + the bundled scripts in `templates/macos-spm-app-packaging/` |
-| A native Mac app with the full Xcode project workflow | Xcode; SwiftUI rules in `swiftui.md` |
+| `require is not defined` in the page | Expected with Node off; move the call to main, expose it via preload |
+| `window.electronAPI` is undefined | `webPreferences.preload` path wrong, or the preload threw; check the main-process console |
+| Links open inside the app window | Add `setWindowOpenHandler` and `will-navigate` guards |
+| Auto-update never fires on Linux / unsigned Mac build | update.electronjs.org serves macOS and Windows only, and macOS builds must be signed |
 
-## 1. Tauri v2
+## 2. Tauri v2
 
 ```
 src-tauri/
@@ -60,7 +158,7 @@ const msg = await invoke<string>("greet", { name: "World" });
 
 Commands: `npm run tauri dev`, `npm run tauri build`, `npm run tauri android dev`, `npm run tauri ios dev`.
 
-## 2. SwiftPM macOS app, no Xcode project (bundled templates)
+## 3. SwiftPM macOS app, no Xcode project (bundled templates)
 
 `templates/macos-spm-app-packaging/` (MIT, Thomas Ricouard) contains a starter app and the scripts to bundle, sign, notarize and publish it. Needs Xcode command-line tools.
 
@@ -87,6 +185,8 @@ App icon: `Scripts/build_icon.sh` turns an Icon Composer file into `.icns` (need
 
 ## Pitfalls
 
+- Electron: exposing `ipcRenderer` or Node APIs to the page, or re-enabling `nodeIntegration` to "fix" an error.
+- Electron: publishing a release or update feed before the user said yes; an unsigned build that users cannot open and that never updates.
 - Tauri logic in `main.rs` (breaks mobile).
 - `&str` parameters in async Tauri commands.
 - Shipping an unsigned or un-notarized Mac build to users (Gatekeeper blocks it).

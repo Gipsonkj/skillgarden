@@ -31,6 +31,51 @@ Default for agent work: a transparent narrative review of about 20 papers (cap 5
 6. **Synthesise:** by theme, not paper by paper (see below).
 7. **Verify and write:** check every citation (citations.md), then write and produce the PRISMA flow diagram if relevant.
 
+## Screening tools
+
+### Pick a tool
+
+| The user's situation | Use | Why |
+|---|---|---|
+| The team already screens in a platform (Covidence, Rayyan, EPPI-Reviewer, DistillerSR...) or the supervisor names one | That platform | Votes, conflicts and the PRISMA counts must live in one place; ask which before preparing files |
+| Systematic or scoping review, institution has Covidence (or the team will pay for it) | Covidence | Dual screening by default, de-duplicates on import, drafts the PRISMA 2020 flow diagram |
+| Small review, no platform and no budget | A shared spreadsheet (one row per record, one decision column per reviewer, a reason column) | Free and transparent; Claude can de-duplicate and count, two humans still decide |
+| Quick or narrative review | A CSV in the working folder | No dual screening needed; keep the decisions and reasons anyway |
+
+Paid seats or a new subscription spend money: name the option and wait for a yes.
+
+### Covidence (web app, driven by files)
+
+Claude prepares the import files, the eligibility text and the PRISMA numbers; the user does the clicks in their own account. Don't log in for them or automate the site.
+
+**Files it imports:** RIS, PubMed text format and EndNote XML; up to 50 MB and 15,000 references per file (split bigger sets), one file per import, as many imports as needed.
+- PubMed: Send to → Citation manager saves an `.nbib` file in PubMed format (up to 10,000 records); Save → Format: PubMed gives the same format as text.
+- Scopus, Web of Science, Embase: export RIS with abstracts (literature-search.md §3a).
+- Anything else (CSV, BibTeX, a Google Scholar list): import into a reference manager such as Zotero and export RIS. Google Scholar exports have no abstracts.
+- If a RIS import comes out garbled, look for quotation marks around tags (`"A1` instead of `A1`) and strip them in a text editor.
+
+**Set up the review (user, in this order):**
+1. Create the review and add the second reviewer to it.
+2. Review Setup → Eligibility criteria: pick the framework (PICOS, PECOS, PCC, SPIDER...) and paste the inclusion and exclusion criteria Claude drafted. Reviewers see them in a sidebar while screening.
+3. Review Setup → Full-text exclusion reasons: enter the agreed list in the order of the criteria (wrong population, wrong intervention, wrong comparator, wrong outcome, wrong design...).
+4. Review Settings: reviewers required for screening and for full text are separate settings; both default to 2. Leave them at 2. Switching to 1 mid-review moves every record with one vote forward, and that can't be undone in bulk.
+5. Import: Review Summary → Import → choose the stage (title and abstract screening) → pick the source (add "PubMed", "Scopus", "Web of Science" under Manage sources) → Choose file → Import. One file per database, so the PRISMA diagram shows records per source.
+
+**Screening rules to agree before the first vote:** each reviewer votes alone; a conflict needs a third, final vote (discussion or a third person, decided in the protocol); title-and-abstract stage takes no exclusion reasons (use tags if the team wants counts, knowing tags are visible to all); full-text exclusions always get a reason. If AI help is used for screening, it supports one reviewer at most, and the methods must say so.
+
+**Duplicates:** Covidence matches on title, year, volume and authors at import and holds duplicates aside; reviewers can also mark duplicates while screening, and "Not a duplicate" returns a record. The PRISMA "duplicates removed" box is the sum of both. If you de-duplicate before upload instead, report your own count and don't let the two methods double-count.
+
+**PRISMA you can report before screening:**
+
+| Box | Where the number comes from |
+|---|---|
+| Records identified, per database | The search log (hits at export) and Covidence's Import history (records per file); they should match, explain any gap |
+| Duplicates removed | Covidence Review Summary / Import history after all imports |
+| Records screened | Identified minus duplicates removed (check it against the title-and-abstract count in Covidence) |
+| Excluded, sought for retrieval, assessed, included | Pending: mark `[PENDING: screening]` |
+
+Covidence updates the flow diagram on the Review Summary page as screening proceeds; Download DOCX gives a PRISMA 2020 version. In the DOCX, "Studies not retrieved" is always 0: correct it by hand.
+
 ## Synthesis
 
 - Group into 3-6 themes or research questions. For each: what the evidence shows, how strong and consistent it is, and where studies disagree and why (populations, methods, measures).

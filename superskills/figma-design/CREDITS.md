@@ -29,6 +29,23 @@ Licence texts: each `scripts/<source-skill>/LICENSE` (MIT, Copyright (c) 2025 So
 
 Not copied from uSpec: its Figma-rendering pipeline (template library, `firstrun`, `uspecs.config.json`, the Extract plugin and render scripts) and its other skills (`create-structure`, `create-property`, `create-motion`, `extract-*`). Install uSpec itself to render specs as Figma frames; component-specs.md says when.
 
+## Tool docs (link-only reference, written in our own words)
+
+| Source | Link | Used in |
+|---|---|---|
+| Storybook AI docs: overview, MCP server, MCP API, setup, best practices | https://storybook.js.org/docs/ai | design-to-code.md (Storybook MCP addon) |
+| storybookjs/mcp README (Claude Code plugin install) | [storybookjs/mcp](https://github.com/storybookjs/mcp), MIT | design-to-code.md; nothing copied |
+| Figma MCP server docs: tools and Make resources | https://developers.figma.com/docs/figma-mcp-server/ | design-to-code.md (Figma Make), figma-mcp.md |
+| Figma help: Push from Figma Make to GitHub; Beyond the basics: Using Figma Make | https://help.figma.com/hc/en-us/articles/35463818346647-Push-from-Figma-Make-to-GitHub | design-to-code.md |
+| Figma Variables REST API docs | https://developers.figma.com/docs/rest-api/variables/ | token-sync-and-drift.md |
+| Sketch MCP server docs | https://www.sketch.com/docs/mcp-server/ | other-design-tools.md (Sketch) |
+| Stark: Using the MCP server; Claude connector post; Stark for Figma | https://www.getstark.co/support/getting-started/using-the-mcp-server/ | accessibility-specs.md (Stark) |
+| Tokens Studio docs: GitHub sync, token format, token sets, themes, variables, export, Pro licence, Style Dictionary | https://docs.tokens.studio | token-sync-and-drift.md (Tokens Studio) |
+| @tokens-studio/sd-transforms README | [tokens-studio/sd-transforms](https://github.com/tokens-studio/sd-transforms), MIT | token-sync-and-drift.md build example, adapted from its README usage (MIT) |
+| Style Dictionary API reference | https://styledictionary.com/reference/api/ | token-sync-and-drift.md |
+| Tailwind CSS docs: theme variables, dark mode | https://tailwindcss.com/docs/theme | design-tokens.md (Tailwind v4 `@theme`) |
+| Claude Code MCP docs | https://code.claude.com/docs/en/mcp | `claude mcp add` commands |
+
 ## Also see (not included)
 
 Link-only: their licences don't allow copying (Figma Developer Terms) or no licence was found. Nothing from them is copied or paraphrased here; the router only tells you when to load Figma's own skills.

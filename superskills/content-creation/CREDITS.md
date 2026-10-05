@@ -28,6 +28,25 @@ This super skill distills the sources below into new text. Nothing was copied ve
 | newsletter | https://github.com/openclaudia/openclaudia-skills/tree/main/skills/newsletter | MIT | Archetypes, frequency, growth tiers, metrics table, welcome and re-engagement sequences, monetization and deliverability (newsletters.md) |
 | content-repurposer-sms | https://github.com/blacktwist/social-media-skills/tree/main/skills/content-repurposer-sms | MIT | Source-to-derivative matrix, insight extraction and ranking, platform length rules, leverage ranking, anti-patterns (repurposing.md) |
 
+## Tool docs (publishing-tools.md, copy-editing.md, content-strategy.md)
+
+Docs, link-only reference, written in our own words; nothing copied.
+
+| Source | URL | Used for |
+|---|---|---|
+| WordPress REST API handbook (posts, media, categories, tags, authentication, pagination, global parameters, modifying responses) | https://developer.wordpress.org/rest-api/ | WordPress draft, media, terms and scheduling flow |
+| WordPress post statuses | https://wordpress.org/documentation/article/post-status/ | Meaning of `future` and the other statuses |
+| WP-CLI `wp post create` | https://developer.wordpress.org/cli/commands/post/create/ | WP-CLI route |
+| WordPress MCP Adapter | https://github.com/WordPress/mcp-adapter | What the adapter exposes (GPL-2.0-or-later; facts only, no text used) |
+| Yoast REST API | https://developer.yoast.com/customization/apis/rest-api/ | Read-only SEO fields |
+| HubSpot blog posts, tags, blog settings, Files API, private apps, usage limits, MCP | https://developers.hubspot.com/docs/api-reference/cms-posts-v3/guide | HubSpot draft, schedule and push-live flow |
+| Google Drive API (uploads and conversion, folders, comments, fields) | https://developers.google.com/workspace/drive/api/guides/manage-uploads | Markdown to Google Doc, reading comments |
+| Google Workspace CLI README and gws skills | https://github.com/googleworkspace/cli | `gws` commands (Apache-2.0; commands only) |
+| Notion API (create page, query data source, authorization, request limits) and Notion MCP | https://developers.notion.com/ | Notion page and calendar routes |
+| Grammarly developer docs (Writing Score, AI Detection, OAuth credentials, first request) | https://developer.grammarly.com/ | Grammarly checker flow |
+
+Not used: makenotion/skills `notion-cli` (MIT), because its installer pipes a download into a shell; WordPress/agent-skills (GPL), link only.
+
 ## Copied as-is
 
 | File | From | License file beside it |

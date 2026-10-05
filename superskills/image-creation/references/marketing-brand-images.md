@@ -15,11 +15,24 @@
 |---|---|
 | AI generation | Unique heroes, lifestyle scenes, abstract brand visuals, concept exploration |
 | AI editing | Background swaps, seasonal variants, product in new scenes |
-| Design tools (Figma, Canva) | Exact brand templates, many size variants, recurring social templates |
+| Design tools (Figma, Canva, Adobe Express) | Exact brand templates, many size variants, recurring social templates; Canva and Adobe connectors in `retouch-resize-upscale.md` |
 | Screenshot + overlay | Product UI showcases, feature announcements |
 | Stock | Generic scenes when speed beats uniqueness |
 
 ## 3. Sizes
+
+**Pick a tool to resize**
+
+| Situation | Tool | Why |
+|---|---|---|
+| The user already uses or pays for one (Canva, Adobe, Photoroom) | That one | Their templates and brand kit come along |
+| Free, no account, small ratio change | ImageMagick crop-to-fill: `magick in.jpg -resize 1080x1350^ -gravity center -extent 1080x1350 out.jpg` (or Pillow, sharp) | Exact pixels on this machine; the centre crop can cut the subject, so look |
+| Photo on an Adobe account | `image_crop_and_resize` per size with `focus` on the subject; `image_generative_expand` first for 4:3 → 9:16 (`retouch-resize-upscale.md` §2) | Subject-aware crop; expand needs the entitlement |
+| A Canva design with type and logo | `resize-design` (Pro and above), then `export-design` (`retouch-resize-upscale.md` §4) | Resizes the layout, not just the pixels |
+| Product cutout on a plain or AI surface | Photoroom `outputSize=WIDTHxHEIGHT` with `padding` (`retouch-resize-upscale.md` §5) | Cutout, surface and exact size in one call |
+| Adobe enterprise contract, from code | Firefly `POST /v3/images/expand-async` (`retouch-resize-upscale.md` §3) | Expands to a new size in a batch |
+| Generating the image anyway | Generate at the placement's ratio (model aspect setting, Midjourney `--ar`), outpaint any gap | Nothing lost to cropping |
+| Big ratio change and no generative expand | Ask: plain or brand-colour bars (pad), or a generated extension | Both change the picture; the user decides |
 
 | Placement | Pixels | Ratio |
 |---|---|---|
@@ -43,7 +56,7 @@ Generate at the model's nearest ratio and highest affordable resolution, then cr
 ```
 Text/headline baked in?        → Ideogram 3 / Recraft / GPT Image 2.5 / Nano Banana Pro; or overlay
 Many images, same brand look?  → references: FLUX.2 multi-ref, Nano Banana Pro, Recraft Styles
-Edit an existing photo?        → Gemini, GPT Image edits, FLUX.2
+Edit an existing photo?        → Gemini, GPT Image edits, FLUX.2; Photoroom or Adobe for cutouts and sizes
 Vector / illustration system?  → Recraft (SVG); finish in a design tool
 Highest aesthetic?             → FLUX.2 [max], Midjourney (manual only)
 Volume, low cost?              → Gemini Flash, FLUX.2 [klein], Seedream

@@ -1,18 +1,37 @@
-# Vendor APIs: Runway, ByteDance ModelArk (Seedance), fal, LTX-2, FLUX 3, Atlas Cloud and the model landscape
+# Vendor APIs: Runway, ByteDance ModelArk (Seedance), Luma Ray, fal, LTX-2, FLUX 3, Atlas Cloud and the model landscape
 
-> Distilled from: rw-generate-video (runwayml/skills, MIT); genmedia (fal-ai-community/skills, MIT per README); ltx2 (digitalsamba/claude-code-video-toolkit, MIT); flux-3-video (black-forest-labs/skills, MIT); bytedance-modelark (Gipsonkj/skillgarden, MIT); vox-director models-and-gotchas (Alisa0808/vox-director, MIT); video (coreyhaines31/marketingskills, MIT); video-editing (affaan-m/everything-claude-code, MIT).
+> Distilled from: rw-generate-video (runwayml/skills, MIT); genmedia (fal-ai-community/skills, MIT per README); ltx2 (digitalsamba/claude-code-video-toolkit, MIT); flux-3-video (black-forest-labs/skills, MIT); bytedance-modelark (Gipsonkj/skillgarden, MIT); vox-director models-and-gotchas (Alisa0808/vox-director, MIT); video (coreyhaines31/marketingskills, MIT); video-editing (affaan-m/everything-claude-code, MIT). Luma section: Luma's API docs (docs.agents.lumalabs.ai), in our own words.
 
 Model names, prices and limits change monthly. Treat the tables as a starting point: list the live models or schema before the first paid call, and quote cost from the vendor, not from memory. Gemini Omni has its own file (vendor-gemini-omni.md); avatars are in vendor-heygen-avatars.md.
 
 ## Rules for every vendor
 
-1. Credentials come from environment variables only (`RUNWAYML_API_SECRET`, `ARK_API_KEY`, `FAL_KEY`, `GEMINI_API_KEY`, `MINIMAX_API_KEY`, `ATLASCLOUD_API_KEY`, `HEYGEN_API_KEY`, `MODAL_LTX2_ENDPOINT_URL`). Never pass a key as a CLI flag (it leaks into shell history), never write it into the user's project, never echo it.
+1. Credentials come from environment variables only (`RUNWAYML_API_SECRET`, `ARK_API_KEY`, `FAL_KEY`, `GEMINI_API_KEY`, `MINIMAX_API_KEY`, `ATLASCLOUD_API_KEY`, `HEYGEN_API_KEY`, `LUMA_AGENTS_API_KEY`, `MODAL_LTX2_ENDPOINT_URL`). Never pass a key as a CLI flag (it leaks into shell history), never write it into the user's project, never echo it.
 2. Before the first paid call, state the model, seconds per clip, number of clips, approximate cost and the retry ceiling. Get a yes.
 3. Generation POSTs create billable jobs, so don't auto-retry them. Polling GETs may retry. Save task/request IDs; after an interruption, poll the saved ID before resubmitting.
 4. Prefer local files uploaded through the vendor over arbitrary remote URLs. Treat generated media as untrusted input to later automation.
 5. Name outputs `yyyy-mm-dd-hh-mm-ss-<slug>.mp4` in the user's working directory. Report the path; don't read the video back. Pull frames to check it.
 6. Never invent endpoint or model IDs. Search or list them, then inspect the schema before custom parameters (a guessed field gives a 422).
 7. Batch at most 2 to 3 concurrent jobs per vendor unless its docs say more; queues congest.
+
+## Pick a tool (where to run the model)
+
+The landscape below says which model suits a shot; this table says which account or host to call it through.
+
+| The user's situation | Use | Why |
+|---|---|---|
+| Already has a key or credits with one of these hosts | That host, if it serves the model the shot needs | No new account; the same model is often on several hosts (Seedance on ModelArk, Runway and fal) |
+| You don't know which account they'd pay through | Ask before the first paid call | Rule 2 needs the model and cost stated anyway |
+| No API spend; own or rented GPU | Self-hosted Wan 2.1/2.2 or LTX-2.3 | Open weights, no API fee; Wan 2.1/2.2 Apache-2.0, LTX free under $10M revenue |
+| Cheapest working i2v in volume | Seedance 1.5 Pro on ByteDance ModelArk (`ark.py`) | `probe` is free; price and spend guard in the ModelArk section below |
+| Top photoreal quality with native audio, edits, extensions | Veo 3.1 or Gemini Omni Flash (`GEMINI_API_KEY`) | See vendor-gemini-omni.md; Omni edits and extensions of uploaded video are unavailable in the EEA, Switzerland and the UK |
+| Set start/end frames or keyframes, seamless loops, HDR/EXR | Luma Ray 3.2 | $0.06 per 5 s 360p draft |
+| Motion control, video-to-video edits, Runway credits | Runway (`gen4_aleph`, `gen4.5`, `gen4_turbo`, `seedance2`, `veo3.1`) | Official runner script submits, polls and downloads |
+| Many models under one key, price check per call | fal `genmedia` or Atlas Cloud | 1,200+ endpoints with `genmedia pricing`; Atlas lists models without auth |
+| Consented real person or brand, long takes | Kling, through a host such as fal | Allows real people and brands where others block |
+| Wan 2.5 to 3.0 with every parameter | Alibaba Cloud Model Studio (`DASHSCOPE_API_KEY`) | First-party host; see wan.md |
+| Keyframe continuation, audio and dialogue in one BFL flow | FLUX 3 video | Draft, then enhance |
+| One character across shots | Hailuo / MiniMax (`MINIMAX_API_KEY`) | Character consistency is its strength |
 
 ## Model landscape (late 2026 snapshot, verify live)
 
@@ -25,6 +44,7 @@ Model names, prices and limits change monthly. Treat the tables as a starting po
 | Kling (Kuaishou) | Long takes, cheap per second; allows real people and brands where others block | 5 s to 2 min | Use for consented real-person content |
 | Hailuo / MiniMax | Character consistency across shots | short | |
 | Pika | Fast, simple effects, i2v | 5 to 15 s | Less camera control |
+| Luma Ray 3.2 | Start/end frames, up to 64 keyframes, seamless loops, HDR and EXR | 5 or 10 s | See Luma below |
 | LTX-2.3, Wan 2.x, Hunyuan (open weights) | Self-hosted, no API fee, LoRAs | ~5 to 8 s | Wan 2.1/2.2 are Apache-2.0; LTX and Hunyuan have community licences (check revenue limits). Wan prompting: [wan.md](wan.md) |
 | FLUX 3 video (BFL) | t2v, keyframes/continuation, audio and dialogue, product ads | short | Draft first, then enhance |
 
@@ -114,6 +134,25 @@ Faces, consent and edits:
 | `OutputVideoSensitiveContentDetected` | Output moderation fails at random on identical inputs | Resubmit unchanged, once or twice |
 
 Run `probe` once per session before a batch, state the cost, and show one finished clip before batching. Never paste the key into chat; if it ever was, rotate it.
+
+## Luma Ray (`LUMA_AGENTS_API_KEY`)
+
+Pick Ray when the shot must hit set frames (start and end frame, or up to 64 keyframes), loop seamlessly, or come out as HDR/EXR for grading. One API for generation, `video_edit` (restyle a clip) and `video_reframe` (change an existing video's aspect ratio).
+
+- **Call:** `POST https://agents.lumalabs.ai/v1/generations` with `Authorization: Bearer $LUMA_AGENTS_API_KEY` (key from platform.lumalabs.ai). Body: `model: "ray-3.2"`, `type: "video"`, `prompt` (up to 6,000 characters), optional `aspect_ratio` (`9:16`, `3:4`, `1:1`, `4:3`, `16:9`, `21:9`), and a `video` object: `resolution` (`360p` draft, `540p`, `720p` default, `1080p`), `duration` (`"5s"` default or `"10s"`), `start_frame` / `end_frame` as `{"url": ...}`, `keyframes` with `keyframe_indexes` (0 to 120 for 5 s, 0 to 240 for 10 s), `loop`, `hdr`, `exr_export`.
+- **Poll:** `GET /v1/generations/{id}`. Submit returns `state: "queued"`; wait about 30 s, poll every 5 s, stop at 10 minutes; finish on `completed` or `failed` (`failure_reason`, `failure_code`). The MP4 is at `output[0].url`, a presigned link that expires after an hour, so download it at once.
+- **Combinations that fail:** `10s` can't take HDR, `start_frame`, `end_frame` or `loop`; `loop` can't take `end_frame`; HDR needs 720p or 1080p and 5 s. Anchor images up to 50 MB and 8,000 px a side.
+- **Price (docs, per clip, SDR):** 360p $0.06 / 5 s; 540p $0.15; 720p $0.30 (10 s $0.90); 1080p $1.20 (10 s $3.60). HDR doubles 720p and 1080p. Draft at 360p, final once.
+- **Limits:** requests per minute and concurrent jobs depend on the plan (shown in the platform dashboard); either limit returns HTTP 429 with `Retry-After` (60 s for "Too many concurrent jobs").
+- **Migration:** older Ray models (Ray 3, Ray 2, Ray 2 Flash and others) are being retired in favour of `ray-3.2`; old `keyframes.frame0`/`frame1` map to `video.start_frame`/`end_frame`, and top-level `resolution`, `duration` and `loop` move inside `video`.
+
+```bash
+curl -s -X POST https://agents.lumalabs.ai/v1/generations \
+  -H "Authorization: Bearer $LUMA_AGENTS_API_KEY" -H "Content-Type: application/json" \
+  -d '{"model":"ray-3.2","type":"video","prompt":"Slow push-in on the ceramic cup, steam rising, morning light",
+       "aspect_ratio":"9:16","video":{"resolution":"360p","duration":"5s",
+       "start_frame":{"url":"https://example.com/cup.jpg"}}}'
+```
 
 ## fal.ai via the `genmedia` CLI (`FAL_KEY`)
 

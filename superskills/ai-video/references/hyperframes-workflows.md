@@ -1,8 +1,17 @@
 # HyperFrames compositions and workflows
 
-> Distilled from: hyperframes, general-video, music-to-video, faceless-explainer, talking-head-recut, hyperframes-core, hyperframes-cli, hyperframes-registry, hyperframes-studio (heygen-com/hyperframes, Apache-2.0); brag (latent-spaces/brag, MIT); video (coreyhaines31/marketingskills, MIT).
+> Distilled from: hyperframes, general-video, music-to-video, faceless-explainer, talking-head-recut, hyperframes-core, hyperframes-cli, hyperframes-registry, hyperframes-studio (heygen-com/hyperframes, Apache-2.0); brag (latent-spaces/brag, MIT); video (coreyhaines31/marketingskills, MIT). Remotion section: Remotion's official docs (remotion.dev), in our own words.
 
-HyperFrames renders video from HTML. A composition is an HTML file whose elements declare timing with `data-*` attributes, whose animation timeline is seekable, and whose media playback is owned by the framework. It is the default for code-rendered video: plain HTML/CSS/GSAP, deterministic renders, Apache-2.0. Use Remotion only when the user already has a Remotion project or asks for it.
+HyperFrames renders video from HTML. A composition is an HTML file whose elements declare timing with `data-*` attributes, whose animation timeline is seekable, and whose media playback is owned by the framework. It is the default for code-rendered video: plain HTML/CSS/GSAP, deterministic renders, Apache-2.0. Use Remotion only when the user already has a Remotion project or asks for it; how to drive it is in [Remotion projects](#remotion-projects-react) at the end of this file.
+
+**Pick a tool**
+
+| The user's situation | Use | Why |
+|---|---|---|
+| Already has a Remotion project, or the team works in React | Remotion | Keep their stack; see the Remotion section |
+| Anything new, or no preference | HyperFrames | Plain HTML/CSS/GSAP, deterministic renders, Apache-2.0 |
+| Many renders fanned out in the cloud | Remotion Lambda on AWS | Up to 200 Lambdas per render; render one row first and multiply its cost |
+| Wants Remotion at a for-profit company | Ask the team size first | Over 3 employees needs a Remotion Company License |
 
 The upstream project ships its own skills (`/hyperframes`, `/hyperframes-core`, `/hyperframes-cli`, workflow skills). When they are installed, load them for the full contracts. This file is the working summary. Design spec, type, narration, beat and storyboard direction are in [hyperframes-creative-direction.md](hyperframes-creative-direction.md); keyframes and motion rules are in the sibling `motion-animation` super skill.
 
@@ -218,3 +227,82 @@ Resolve the design source `frame.md` → `design.md` → `DESIGN.md` before writ
 | Small caption overflow (1 to 4 px) on caption words | Snug caption line-height | Known false positive; act only when a frame element is named |
 | Render times out on a Mac | Software GPU | `PRODUCER_BROWSER_GPU_MODE=hardware` |
 | Chrome dies at startup inside an agent sandbox (macOS) | Sandbox blocks Chromium | Deliver the checked composition and say rendering is blocked; render outside the sandbox, with `--docker`, or let the user run it. Don't build a substitute rasterizer. |
+
+## Remotion projects (React)
+
+Remotion renders React components to video. Pick it over HyperFrames when the project is already Remotion, the team works in React, or the job needs Remotion Lambda's fan-out on AWS. For anything new and small, HyperFrames stays the default.
+
+**Licence first.** Free for individuals, for-profit organisations with up to 3 employees, non-profits and evaluation; everyone else needs a Company License (remotion.pro/license). Ask the team size before building and put the licence in the cost estimate. Remotion's own agent skills are link-only here: read them at the source, don't copy them.
+
+### CLI
+
+| Command | Use |
+|---|---|
+| `npx remotion studio [entry]` | Preview; a zod schema turns props into editable controls |
+| `npx remotion compositions [entry] --quiet` | List composition IDs (never guess the ID) |
+| `npx remotion still <entry> <id> out/still.png --frame=90 --props=./props/row1.json` | One frame for approval |
+| `npx remotion render <entry> <id> out/video.mp4 --props=./props/row1.json` | Render one video |
+
+Render flags that matter: `--codec` (`h264` default; `h265`, `vp9`, `prores`, `aac`, `wav`…), `--crf` (not with `--video-bitrate`), `--concurrency` (frames rendered in parallel), `--frames=0-89` (a range, for a quick check), `--scale`, `--timeout` (ms a frame may wait on `delayRender`, default 30000), `--muted`, `--log=verbose`. `--props` takes a JSON file path; inline JSON is lost on Windows shells, so always write a file.
+
+### Parameterise one composition
+
+Type the props with zod (`npx remotion add zod`; the top level must be `z.object()`), pass it as `schema` with matching `defaultProps`, and let `calculateMetadata` set what depends on the data. It runs once before the render, may be `async`, must resolve within the timeout, and its return (`durationInFrames`, `fps`, `width`, `height`, `props`, `defaultOutName`, `defaultCodec`…) overrides the composition's own values; explicit `renderMedia()` options override it in turn.
+
+```tsx
+import {Composition, CalculateMetadataFunction} from 'remotion';
+import {z} from 'zod';
+import {Teaser} from './Teaser';
+
+export const teaserSchema = z.object({name: z.string(), logoUrl: z.string(), code: z.string()});
+type Props = z.infer<typeof teaserSchema>;
+
+const calculateMetadata: CalculateMetadataFunction<Props> = ({props}) => ({
+  durationInFrames: 15 * 30,
+  defaultOutName: `teaser-${props.code}`,
+});
+
+export const Root = () => (
+  <Composition id="Teaser" component={Teaser} schema={teaserSchema}
+    fps={30} width={1080} height={1920} durationInFrames={450}
+    calculateMetadata={calculateMetadata}
+    defaultProps={{name: 'Ada', logoUrl: 'https://example.com/logo.png', code: 'ADA10'}} />
+);
+```
+
+**Wait for every asset.** Use Remotion's `<Img>` for logos and images: it holds the frame until the image loads, retries (`maxRetries`, default 2) and cancels the render if the image never loads. For fetched data use `useDelayRender()` (or `delayRender('label')` then `continueRender(handle)`); the label shows up in the timeout error. GIFs need `@remotion/gif`. Before a batch, request every logo URL once and render stills of the longest name and the widest logo.
+
+### Batches
+
+**Local.** Bundle once, then render row by row with `@remotion/bundler` and `@remotion/renderer`. Remotion advises against rendering several videos at once on one machine: each render already uses all of it. Tune `concurrency` per render instead (the docs suggest starting at `os.cpus().length`).
+
+```ts
+import {bundle} from '@remotion/bundler';
+import {selectComposition, renderMedia} from '@remotion/renderer';
+
+const serveUrl = await bundle({entryPoint: './src/index.ts'});
+for (const row of rows) {                       // rows parsed from customers.csv
+  const inputProps = {name: row.name, logoUrl: row.logo_url, code: row.code};
+  const composition = await selectComposition({serveUrl, id: 'Teaser', inputProps});
+  await renderMedia({composition, serveUrl, codec: 'h264', inputProps,
+    outputLocation: `out/teaser-${row.code}.mp4`});
+}
+```
+
+**Remotion Lambda (AWS).** Setup, in order: `npx remotion add @remotion/lambda`; create the IAM role and user from `npx remotion lambda policies role` and `npx remotion lambda policies user`, then `npx remotion lambda policies validate`; credentials go in `REMOTION_AWS_ACCESS_KEY_ID` and `REMOTION_AWS_SECRET_ACCESS_KEY` (shell environment or a git-ignored `.env`, never props, flags or logs); `npx remotion lambda functions deploy`; `npx remotion lambda sites create src/index.ts --site-name=teaser` returns the serve URL. Then `npx remotion lambda render <serve-url> Teaser --props=./props/row1.json --privacy=private`, or from Node `renderMediaOnLambda({region, functionName, serveUrl, composition: 'Teaser', inputProps, codec: 'h264', privacy: 'private', outName})`, which returns `renderId` and `bucketName`. Poll `getRenderProgress()` for `done`, `overallProgress`, `outputFile`, `fatalErrorEncountered`, `errors` and `costs` (`accruedSoFar`, `displayCost`).
+
+| Lambda limit (docs) | Value |
+|---|---|
+| Concurrent executions per region per account | 1000 by default, lower on new accounts; raise in AWS Service Quotas or `npx remotion lambda quotas increase` (root accounts only) |
+| `concurrency` of one render | at most 200 Lambdas |
+| Function timeout | at most 15 minutes |
+| Memory and disk | at most 10 GB each |
+
+**Cost.** Remotion's published example (2048 MB, us-east-1) puts a 1-minute video at about $0.017 and a 10 s 4K video at about $0.013, but says to measure your own composition. So render one real row, read `costs.displayCost`, multiply by the row count, add S3, bandwidth and the licence (`estimatePrice()` leaves out S3 and licensing). Show the user the row count, output names, the per-video and total estimate, the privacy setting and the licence status, and wait for a yes before launching the batch.
+
+### Remotion gotchas
+
+- Lambda output is `public` by default. Personalised videos go out with `--privacy=private` (or `privacy: 'private'`) and signed links.
+- `npx remotion lambda render` stores the file in S3; it downloads only when you pass an output path.
+- A slow logo host makes a frame miss the 30 s `delayRender` window. Fix the host or raise `--timeout`; don't loop retries over a whole batch.
+- Name every output after the row (`teaser-<code>.mp4`) and finish with `ffprobe` on a sample: duration 15 s, 1080x1920, audio present if expected.

@@ -1,6 +1,6 @@
 ---
 name: ai-agents
-description: Design, build, test and ship AI agents and their tools. Covers agent vs workflow and stack choice; tool design (names, schemas, errors, tool count); MCP servers (remote HTTP, stdio, MCPB, OAuth, elicitation, Inspector) and MCP apps with in-chat widgets; multi-agent orchestration and parallel sub-agents; context engineering, prompt caching, memory; agent system prompts; agent and MCP evals (rubrics, held-back sets, MCP eval harness); Claude API tool loops, Tool Runner, Agent SDK, Managed Agents; Vercel AI SDK, Mastra, LangGraph, Deep Agents, Google ADK, Cloudflare Agents, Microsoft Foundry; ElevenLabs voice agents. Use when asked to build an agent or chatbot with tools, wrap an API for Claude, build an MCP server or connector, add MCP widgets, split work across sub-agents, add memory to an agent, write an agent system prompt, evaluate or debug an agent, launch a managed or scheduled agent, or build a voice agent.
+description: Design, build, test and ship AI agents and their tools. Covers agent vs workflow and stack choice; tool design (names, schemas, errors, tool count); MCP servers (remote HTTP, stdio, MCPB, OAuth, elicitation, Inspector) and MCP apps with in-chat widgets; multi-agent orchestration and parallel sub-agents; context engineering, prompt caching, memory; agent system prompts; agent and MCP evals and tracing (rubrics, held-back sets, MCP eval harness, LangSmith, Langfuse); Claude API tool loops, Tool Runner, Agent SDK, Managed Agents; Vercel AI SDK, Mastra, LangGraph, Deep Agents, Google ADK, Cloudflare Agents, OpenAI Agents SDK, CrewAI, Microsoft Agent Framework, Foundry, Copilot Studio; ElevenLabs voice agents. Use when asked to build an agent or chatbot with tools, wrap an API for Claude, build an MCP server or connector, add MCP widgets, split work across sub-agents, add memory to an agent, write an agent system prompt, evaluate or debug an agent, launch a managed or scheduled agent, or build a voice agent.
 ---
 
 # AI agents
@@ -42,16 +42,16 @@ Work out what the request needs before opening a guide; most real requests need 
 
 | Task | Read |
 |---|---|
-| Decide agent vs workflow, scope a v0, choose a stack | [references/agent-or-workflow.md](references/agent-or-workflow.md) |
+| Decide agent vs workflow, scope a v0, choose a stack (pick a framework) | [references/agent-or-workflow.md](references/agent-or-workflow.md) |
 | Design or audit tools: names, descriptions, schemas, errors, pagination, tool count | [references/tool-design.md](references/tool-design.md) |
 | Build an MCP server: deployment model, transport, framework, auth/OAuth, elicitation, testing, Directory checklist | [references/mcp-servers.md](references/mcp-servers.md) |
 | Add interactive widgets (pickers, forms, charts) to an MCP server | [references/mcp-apps.md](references/mcp-apps.md) |
 | Multi-agent topologies, parallel sub-agent dispatch, task decomposition, briefs | [references/multi-agent.md](references/multi-agent.md) |
 | Context window management, prompt caching, compaction, long-term memory | [references/context-and-memory.md](references/context-and-memory.md) |
 | Write or fix an agent's system prompt and guardrails | [references/agent-prompts.md](references/agent-prompts.md) |
-| Build eval sets, rubrics and judges; run the MCP 10-question eval | [references/evaluation.md](references/evaluation.md); harness `scripts/mcp-builder/evaluation.py`, sample `scripts/mcp-builder/example_evaluation.xml` |
+| Build eval sets, rubrics and judges; run the MCP 10-question eval; trace runs and pick a tracing/eval tool (LangSmith, Langfuse) | [references/evaluation.md](references/evaluation.md); harness `scripts/mcp-builder/evaluation.py`, sample `scripts/mcp-builder/example_evaluation.xml` |
 | Claude: manual tool loop, Tool Runner, Agent SDK, Managed Agents launch/schedule | [references/claude-platform.md](references/claude-platform.md) |
-| Vercel AI SDK, Mastra, LangGraph, Deep Agents, Google ADK, Cloudflare Agents, Microsoft Foundry | [references/frameworks.md](references/frameworks.md) |
+| Pick a framework; Vercel AI SDK, Mastra, LangGraph, Deep Agents, Google ADK, Cloudflare Agents, Microsoft Foundry, OpenAI Agents SDK, CrewAI, Microsoft Agent Framework (AutoGen, Semantic Kernel), Copilot Studio | [references/frameworks.md](references/frameworks.md) |
 | Real-time voice agents (ElevenLabs; ADK Live alternatives) | [references/voice-agents-elevenlabs.md](references/voice-agents-elevenlabs.md) |
 
 Call a sub-capability by naming the task, or say "use ai-agents: mcp-servers", "use ai-agents: evaluation", etc. For no-code automations (n8n, Make, Zapier) and browser control, use the `automation` super skill.

@@ -88,7 +88,65 @@ Do not solve or bypass CAPTCHAs or bot checks, and don't use stealth or proxy fe
 
 Only when no API, CLI, file or browser route exists. Prefer the accessibility tree over screenshots, act on one window, verify after each step, and never operate OS security dialogs, password prompts or system settings.
 
-## 10. Done checklist
+## 10. Browser scripts that run on their own: Playwright, Selenium, Puppeteer
+
+Sections 2–8 are an agent driving a browser live. This is for a script that runs without the agent, often one the user hands over to fix.
+
+| The user's situation | Use | Why |
+|---|---|---|
+| Already has a Selenium or Puppeteer script or suite | Keep it and fix it in place | A rewrite costs more than a fix; convert only if they ask |
+| New script or test, JS/TS or Python | Playwright → playwright-testing.md | Auto-waiting locators, codegen, traces |
+| Needs Java, C#, Ruby or another WebDriver language, or a Selenium Grid | Selenium | Official bindings in several languages; Grid spreads runs over machines |
+| Node script for Chrome: page to PDF, quick scrape of an allowed site | Puppeteer | Downloads a matching Chrome for Testing; `page.pdf()` |
+| Live, one-off browsing by the agent | A driver from section 2 | No script to maintain |
+
+**Selenium**
+- Install `pip install selenium` (Python) or `npm install selenium-webdriver` (JS). Since 4.6, Selenium Manager finds or downloads the driver and browser itself and caches them in `~/.cache/selenium`: delete hand-managed driver paths from old scripts.
+- Selenium Manager sends usage statistics; set `SE_AVOID_STATS=true` to opt out, and `SE_OFFLINE=true` to stop it downloading anything.
+- Waits: the implicit wait defaults to 0. Use explicit waits (`WebDriverWait`) and **never mix them with an implicit wait**: a 10 s implicit plus a 15 s explicit can time out after 20 s. Replace every `sleep` with a wait on a condition.
+- Always `driver.quit()` in a `finally`; it ends the driver and closes the browser.
+- Grid for parallel or cross-browser runs: `java -jar selenium-server-<version>.jar standalone` (Java 11+) listens on `http://localhost:4444`. Keep it behind a firewall: an exposed Grid lets anyone run binaries on that machine.
+
+```python
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
+
+options = webdriver.ChromeOptions()
+options.add_argument("--headless=new")
+driver = webdriver.Chrome(options=options)
+try:
+    driver.get("https://www.selenium.dev/selenium/web/web-form.html")
+    driver.find_element(By.NAME, "my-text").send_keys("Selenium")
+    driver.find_element(By.CSS_SELECTOR, "button").click()
+    message = WebDriverWait(driver, timeout=5).until(lambda d: d.find_element(By.ID, "message"))
+    print(message.text)
+finally:
+    driver.quit()
+```
+
+**Puppeteer**
+- `npm i puppeteer` downloads Chrome for Testing and `chrome-headless-shell` into `~/.cache/puppeteer`; `puppeteer-core` downloads nothing and drives a browser you point it at. If the package manager blocks install scripts, run `npx puppeteer browsers install`.
+- Headless by default; `puppeteer.launch({headless: false})` to watch it, `{headless: 'shell'}` for the faster shell variant.
+- Prefer locators: `page.locator(sel).click()` / `.fill()` wait until the element is visible, enabled, stable and in the viewport. Selectors can be ARIA (`::-p-aria(Search)`) or text (`::-p-text(Sign in)`); `.setTimeout(ms)` per locator. `waitForSelector` is the lower-level API: it doesn't retry the action and its element handle needs `dispose()`, so move old scripts to locators.
+- `page.pdf({path: 'out.pdf'})` waits for fonts before rendering.
+
+```js
+import puppeteer from 'puppeteer';
+const browser = await puppeteer.launch();
+try {
+  const page = await browser.newPage();
+  await page.goto('https://developer.chrome.com/');
+  await page.locator('::-p-aria(Search)').fill('automate beyond recorder');
+  await page.pdf({path: 'page.pdf'});
+} finally {
+  await browser.close();
+}
+```
+
+Handed-over scripts often carry stealth plugins, CAPTCHA solvers or hard-coded passwords: take those out and tell the user why (section 7 and the credentials rules).
+
+## 11. Done checklist
 
 - [ ] A browser was actually needed (no API/fetch route)
 - [ ] Driver's own version-matched guide loaded

@@ -1,6 +1,6 @@
 ---
 name: backend-databases
-description: Backend services and databases. Use when designing Postgres tables, keys, constraints or migrations; fixing slow queries, indexes, N+1, pagination, connection pooling or timeouts; designing REST or GraphQL (Apollo) APIs, error formats and versioning; structuring Node/Fastify/Express, FastAPI or Go services with caching and background jobs; implementing auth, sessions, JWT, OAuth, passwords and RBAC; Supabase RLS, keys and CLI migrations; Neon pooled vs direct URLs and branching; Prisma schema, raw SQL and transactions; Stripe Checkout, webhooks and API upgrades; Firestore modeling, rules and Data Connect @auth; MongoDB schema design, Redis data types, ClickHouse table design.
+description: Backend services and databases. Use when designing Postgres tables, keys, constraints or migrations; fixing slow queries, indexes, N+1, pagination, connection pooling or timeouts; designing REST or GraphQL (Apollo) APIs, error formats and versioning; structuring Node/Fastify/Express, FastAPI or Go services with caching and background jobs; implementing auth, sessions, JWT, OAuth, passwords and RBAC, and protecting APIs with Auth0; Supabase RLS, keys and CLI migrations; Neon pooled vs direct URLs and branching; Prisma schema, raw SQL and transactions; Drizzle ORM schema, relations and drizzle-kit migrations; Stripe Checkout, webhooks and API upgrades; Firestore modeling, rules and Data Connect @auth; MongoDB schema design, Redis data types, ClickHouse table design; Elasticsearch or OpenSearch mappings, bulk indexing and search queries; MySQL, SQL Server / Azure SQL, SQLite and Turso schemas, migrations and slow queries.
 ---
 
 # Backend and databases
@@ -43,14 +43,15 @@ Work out what the request needs before opening a guide; most real requests need 
 | Tables, types, keys, constraints, multi-tenancy, time zones, migrations | [references/postgres-schema.md](references/postgres-schema.md) |
 | Slow query, index design, N+1, pagination, pooling, timeouts | [references/query-performance.md](references/query-performance.md) |
 | REST endpoints, status codes, errors, versioning, GraphQL/Apollo | [references/api-design.md](references/api-design.md) + `templates/api-design-principles/api-design-checklist.md` |
-| Service layering, Fastify/Express/FastAPI/Go, caching, jobs, deploy, platform choice (incl. Convex) | [references/backend-architecture.md](references/backend-architecture.md) |
-| Login, sessions, JWT, OAuth, passwords, API keys, RBAC | [references/auth.md](references/auth.md) |
+| Service layering, Fastify/Express/FastAPI/Go, caching, jobs, deploy, pick a database or platform (incl. Convex) | [references/backend-architecture.md](references/backend-architecture.md) |
+| Login, sessions, JWT, OAuth, passwords, API keys, RBAC; pick an auth provider; Auth0 | [references/auth.md](references/auth.md) |
 | Supabase RLS, keys, views/functions, CLI, storage | [references/supabase.md](references/supabase.md) |
 | Neon connection strings, serverless driver, branching | [references/neon.md](references/neon.md) |
-| Prisma setup, queries, raw SQL, transactions, Prisma Compute | [references/prisma.md](references/prisma.md) |
+| Prisma or Drizzle setup, queries, raw SQL, transactions, migrations, Prisma Compute; pick an ORM | [references/prisma.md](references/prisma.md) |
 | Stripe Checkout, webhooks, keys, API version upgrades | [references/stripe.md](references/stripe.md) |
 | Firestore modeling, indexes, rules; Data Connect `@auth` | [references/firebase.md](references/firebase.md) |
-| MongoDB schema, Redis data types, ClickHouse tables | [references/nosql-analytics.md](references/nosql-analytics.md) |
+| MongoDB schema, Redis data types, ClickHouse tables; search with Elasticsearch or OpenSearch, pick a search tool | [references/nosql-analytics.md](references/nosql-analytics.md) |
+| MySQL, SQL Server / Azure SQL, SQLite or Turso; pick a SQL database | [references/sql-engines.md](references/sql-engines.md) |
 
 ## Other crafts
 

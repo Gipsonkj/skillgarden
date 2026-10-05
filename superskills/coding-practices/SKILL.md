@@ -1,6 +1,6 @@
 ---
 name: coding-practices
-description: Expert engineering-discipline guide for writing, fixing and shipping code. Use when debugging any bug, failing or flaky test, build break or regression; doing TDD, writing or judging tests and mocks; verifying work before saying done, committing or opening a PR; reviewing code, a diff or a PR, or requesting a review; acting on review feedback or bot comments; simplifying, refactoring or cleaning up code, or keeping a change minimal and surgical; designing modules, interfaces, seams, domain glossaries or ADRs, or finding architecture hot spots; git commits, branches, worktrees, pre-commit hooks, blocking dangerous git commands, or finishing a branch (merge, PR, keep); and React or Next.js performance (waterfalls, bundle size, re-renders). Also use when the user says "use coding-practices", "TDD this", "find the root cause", "review this", "is it done?", "keep it simple", or "make a worktree".
+description: Expert engineering-discipline guide for writing, fixing and shipping code. Use when debugging any bug, failing or flaky test, build break or regression, Sentry issues, browser bugs in Chrome DevTools; doing TDD (pytest), writing or judging tests and mocks; verifying work before saying done, committing or opening a PR, lint (ESLint, Biome, Ruff); reviewing code, a diff or a PR, or requesting a review, AI review (CodeRabbit, Copilot); acting on review feedback or bot comments; simplifying, refactoring or cleaning up code, or keeping a change minimal and surgical; designing modules, interfaces, seams, domain glossaries or ADRs, or finding architecture hot spots; git commits, branches, worktrees, pre-commit hooks, blocking dangerous git commands, or finishing a branch (merge, PR, keep); and React or Next.js performance (waterfalls, bundle size, re-renders). Also use when the user says "use coding-practices", "TDD this", "find the root cause", "review this", "is it done?", "keep it simple", or "make a worktree".
 ---
 
 # Coding practices
@@ -42,10 +42,10 @@ Work out what the request needs before opening a guide; most real requests need 
 
 | Task | Read |
 |---|---|
-| Bug, failing/flaky test, build break, perf regression, "it worked yesterday" | [references/debugging.md](references/debugging.md) |
-| Feature or fix via TDD; writing, judging or fixing tests and mocks | [references/tdd-and-testing.md](references/tdd-and-testing.md) |
-| About to say done, commit, push or open a PR; defining acceptance checks | [references/verification.md](references/verification.md) |
-| Reviewing code, a diff, a PR or an agent's work; requesting a review | [references/code-review.md](references/code-review.md) |
+| Bug, failing/flaky test, build break, perf regression, "it worked yesterday"; a Sentry issue or a browser bug (pick an evidence tool: Sentry, Chrome DevTools MCP) | [references/debugging.md](references/debugging.md) |
+| Feature or fix via TDD; writing, judging or fixing tests and mocks; the pytest loop | [references/tdd-and-testing.md](references/tdd-and-testing.md) |
+| About to say done, commit, push or open a PR; defining acceptance checks; lint, format and typecheck gates (pick a linter: ESLint, Prettier, Biome, Ruff) | [references/verification.md](references/verification.md) |
+| Reviewing code, a diff, a PR or an agent's work; requesting a review; AI review (pick a tool: CodeRabbit, Copilot, a reviewer subagent) | [references/code-review.md](references/code-review.md) |
 | Responding to review comments, bot suggestions or reviewer subagents | [references/review-feedback.md](references/review-feedback.md) |
 | Keeping a change minimal, simplifying, refactoring, naming and code standards | [references/simplicity-and-refactoring.md](references/simplicity-and-refactoring.md) |
 | Designing modules and interfaces, seams, glossary, ADRs, architecture hot spots | [references/design-and-architecture.md](references/design-and-architecture.md) |

@@ -107,7 +107,7 @@ AI answers are not deterministic. One manual query proves nothing.
    - **recommended**: you are named as an option to choose.
 4. Report rates with sample sizes ("cited in 7 of 15 runs on Perplexity"), and share of voice against 2–4 named competitors.
 5. Track the result over time, weekly or monthly. Record first-ever citations and drops against prior runs.
-6. In analytics, separate referral traffic from `chatgpt.com`, `perplexity.ai`, `copilot.microsoft.com` and `gemini.google.com`. Expect it to be small but high-converting.
+6. In analytics, separate referral traffic from `chatgpt.com`, `perplexity.ai`, `copilot.microsoft.com` and `gemini.google.com` (a GA4 `sessionSource` report: `tools-vendors.md`). Expect it to be small but high-converting.
 
 To find gaps, take the prompts where you aren't cited, identify the top-cited URL for each, and compare its structure with your page: answer position, headings matching the query, data, freshness and format. Then fix the biggest gap first.
 

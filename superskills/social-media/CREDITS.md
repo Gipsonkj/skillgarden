@@ -25,6 +25,25 @@ This skill is distilled from the open-source skills below. Reference files are r
 | baoyu-post-to-x | https://github.com/jimliu/baoyu-skills/tree/main/skills/baoyu-post-to-x | MIT | Mentioned only as a risky route (browser automation of x.com); nothing copied |
 | agent-reach | https://github.com/Panniantong/Agent-Reach | MIT | Mentioned only as a risky route (cookie-based access); nothing copied |
 
+## Official tool docs (docs, link-only reference, written in our own words)
+
+| Tool | Docs | Used in |
+|---|---|---|
+| Buffer (MCP, GraphQL API, limits, plans) | https://developers.buffer.com/guides/integrations/claude.html, https://developers.buffer.com/guides/your-first-post.html, https://developers.buffer.com/guides/posts-and-scheduling.html, https://developers.buffer.com/guides/api-limits.html, https://buffer.com/pricing | publishing-apis.md |
+| Hootsuite (MCP servers, REST API) | https://blog.hootsuite.com/post-on-social-media-from-claude/, https://developer.hootsuite.com/docs/perch-mcp-server.md, https://developer.hootsuite.com/reference/schedulemessage-1.md, https://developer.hootsuite.com/docs/api-rate-limits.md | publishing-apis.md, listening-research.md |
+| Sprout Social API | https://api.sproutsocial.com/docs/, https://sproutsocial.com/pricing/ | publishing-apis.md, listening-research.md |
+| Facebook Pages API | https://developers.facebook.com/docs/pages-api/posts | publishing-apis.md |
+| Threads API | https://developers.facebook.com/docs/threads/posts | publishing-apis.md |
+| Meta Business Suite | https://www.facebook.com/business/tools/meta-business-suite | publishing-apis.md |
+| LinkedIn Posts API (hand-off note only) | https://learn.microsoft.com/en-us/linkedin/marketing/community-management/shares/posts-api | publishing-apis.md |
+| YouTube Data API v3 | https://developers.google.com/youtube/v3/docs/videos/insert, https://developers.google.com/youtube/v3/docs/videos, https://developers.google.com/youtube/v3/determine_quota_cost | publishing-apis.md |
+| TikTok Content Posting API | https://developers.tiktok.com/doc/content-posting-api-get-started, https://developers.tiktok.com/doc/content-posting-api-reference-direct-post, https://developers.tiktok.com/doc/content-posting-api-reference-upload-video, https://developers.tiktok.com/doc/content-posting-api-media-transfer-guide, https://developers.tiktok.com/doc/content-sharing-guidelines | publishing-apis.md |
+| Meltwater (picker row) | https://community.meltwater.com/meltwater-it-resources-375/connect-meltwater-to-claude-it-guide-11712 | listening-research.md |
+| Brandwatch Consumer Research API (picker row) | https://developers.brandwatch.com/docs/authenticate.md | listening-research.md |
+| Linktree (one-line note) | https://linktr.ee/marketplace/developer | analytics-growth.md |
+| Postiz (picker row: self-hosting) | https://docs.postiz.com | publishing-apis.md |
+| Claude Code MCP setup (`claude mcp add`) | https://code.claude.com/docs/en/mcp | publishing-apis.md |
+
 ## Also see (not included)
 
 - **postiz** (Postiz scheduler skill, 28+ channels, self-hostable): https://github.com/gitroomhq/postiz-agent/tree/main/skills/postiz (license not asserted; link only)

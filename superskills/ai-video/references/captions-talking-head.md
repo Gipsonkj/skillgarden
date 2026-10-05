@@ -17,7 +17,15 @@ Probe and sample frames at 20%, 50% and 80%, plus a 1 fps contact sheet (`ffmpeg
 
 ## 2. Transcript
 
-Word-level timestamps are required. Local: `npx hyperframes transcribe audio.mp3 --json --model small.en`. Verbatim hosted: `scripts/video-use/transcribe.py` (ask before uploading). Then correct homophones, names, product terms and numbers **in place, keeping each word's start/end**. Clamp the last word's end to the media duration.
+Word-level timestamps are required. **Pick a tool:**
+
+| The user's situation | Use | Why |
+|---|---|---|
+| Already captions in Descript, Resolve, Premiere or CapCut, and will style them there | That editor's captions (footage-editing-ffmpeg.md) | Hand over an `.srt`; don't also burn them in |
+| Free, nothing leaves the machine | `npx hyperframes transcribe audio.mp3 --json --model small.en` | Local Whisper, word-level, no key |
+| Verbatim words with "um" and speaker labels | `scripts/video-use/transcribe.py` (ElevenLabs Scribe) | Needs `ELEVENLABS_API_KEY` and uploads the audio: ask first |
+
+Then correct homophones, names, product terms and numbers **in place, keeping each word's start/end**. Clamp the last word's end to the media duration.
 
 ## 3. Group words into caption cues
 

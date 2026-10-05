@@ -1,6 +1,6 @@
 ---
 name: claude-meta
-description: Expert guide to working with and extending Claude Code and agents. Use when writing, editing, testing or packaging a skill (SKILL.md, description triggering, evals); writing or auditing CLAUDE.md, AGENTS.md or rules files; creating hooks or guardrails (PreToolUse, Stop, block git push, auto-format, "whenever X do Y"); defining subagents or delegating tasks to them; brainstorming, grilling a plan, writing specs or implementation plans and executing them; managing context, compaction, long sessions, handoffs, memory and planning files; capturing lessons as skills, turning saved reels, bookmarks or creator freebies into a skill stack, finding or vetting skills to install, recommending Claude Code automations; or delegating to or cross-reviewing with the Codex CLI. Also use when the user says "use claude-meta", "make a skill", "grill me" or "handoff". Cutting tokens, cost or usage: token-efficiency.
+description: Expert guide to working with and extending Claude Code and agents. Use when writing, editing, testing or packaging a skill (SKILL.md, description triggering, evals); writing or auditing CLAUDE.md, AGENTS.md or rules files, also for Copilot, Cursor, Gemini CLI or OpenCode; creating hooks or guardrails (PreToolUse, Stop, block git push, auto-format, "whenever X do Y"); defining subagents or delegating tasks to them; building a plugin or marketplace; adding MCP servers; brainstorming, grilling a plan, writing specs or implementation plans and executing them; managing context, compaction, long sessions, handoffs, memory and planning files; capturing lessons as skills, turning saved reels, bookmarks or creator freebies into a skill stack, finding or vetting skills to install, recommending Claude Code automations; or delegating to or cross-reviewing with the Codex CLI. Also use when the user says "use claude-meta", "make a skill", "grill me" or "handoff". Cutting tokens, cost or usage: token-efficiency.
 ---
 
 # Claude meta-skills
@@ -43,12 +43,13 @@ Work out what the request needs before opening a guide; most real requests need 
 |---|---|
 | Write or edit a skill: anatomy, frontmatter, description, body, progressive disclosure, router skills | `references/skill-authoring.md` |
 | Test a skill, run evals, pressure-test a discipline skill, optimise the description's triggering | `references/skill-testing-and-triggering.md` (+ `scripts/skill-creator/`) |
-| Write, audit or score CLAUDE.md / AGENTS.md / rules files | `references/claude-md-and-rules.md` |
+| Write, audit or score CLAUDE.md / AGENTS.md / rules files; share instructions and skills with Copilot, Cursor, Codex, Gemini CLI or OpenCode (pick which files each agent reads) | `references/claude-md-and-rules.md` |
 | Create hooks, block dangerous commands, auto-format, guard files, choose hook vs skill vs agent vs MCP | `references/hooks-and-guardrails.md` (+ `scripts/hook-development/`, `scripts/git-guardrails-claude-code/`) |
+| Package skills, agents, hooks and MCP servers as a plugin, run a (private) marketplace, enable it for a repo; connect MCP servers to Claude Code (pick a sharing route or connection type) | `references/packaging-and-connecting.md` |
 | Define a subagent, write a dispatch prompt, run a plan with subagents, pick models | `references/subagents-and-delegation.md` (+ `templates/subagent-driven-development/implementer-prompt.md`, `scripts/agent-development/validate-agent.sh`) |
 | Brainstorm, grill a plan, write a spec or implementation plan, define acceptance gates, execute a plan | `references/planning-and-execution.md` |
 | Long sessions: planning files, compaction, context budget, handoff, memory search, terse output | `references/context-and-memory.md` (+ `templates/planning-with-files/`) |
-| Save a lesson as a skill, automatic learning, find/vet/install skills, recommend automations for a repo | `references/learning-and-skill-discovery.md` (+ `templates/self-learning/SKILL.template.md`) |
+| Save a lesson as a skill, automatic learning, find/vet/install skills (pick an installer), recommend automations for a repo | `references/learning-and-skill-discovery.md` (+ `templates/self-learning/SKILL.template.md`) |
 | Turn saved reels, bookmarks and creator freebies into task skills plus one chain skill that runs them in order; merge duplicate tips and flag conflicts; weekly refresh | `references/skill-stack-from-saves.md` |
 | Delegate implementation to Codex CLI or cross-review a plan Claude <-> Codex | `references/codex-cross-review.md` |
 

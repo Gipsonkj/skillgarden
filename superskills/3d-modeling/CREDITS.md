@@ -27,6 +27,23 @@ The router and references are written in this skill's own words from the license
 | omniverse-usd-performance-tuning | [NVIDIA/skills](https://github.com/NVIDIA/skills/tree/main/skills/omniverse-usd-performance-tuning) | Apache-2.0 | Intent briefing, composition audit, levers by asset shape, measured tradeoffs (openusd-and-splats.md) |
 | omniverse-gaussian-splat-to-usd | [NVIDIA-Omniverse/usd-convert-gsplat](https://github.com/NVIDIA-Omniverse/usd-convert-gsplat/tree/main/skills/omniverse-gaussian-splat-to-usd) | Apache-2.0 (code) and CC-BY-4.0 (docs); attribution: NVIDIA OpenUSD | Converter commands, flags and input layout (openusd-and-splats.md) |
 
+## Official docs used (link-only reference, written in our own words)
+
+No text or code was copied from these; facts were checked against them in October 2026.
+
+| Tool | Docs | Used in |
+|---|---|---|
+| Autodesk Fusion MCP server | https://help.autodesk.com/view/ADSKMCP/ENU/ | cad-parametric.md |
+| Autodesk Fusion API | https://help.autodesk.com/cloudhelp/ENU/Fusion-360-API/files/Units_UM.htm (and the API reference pages beside it) | cad-parametric.md |
+| SketchUp connector for Claude | https://help.sketchup.com/en/sketchup-claude-connector | cad-parametric.md |
+| SketchUp Ruby API | https://ruby.sketchup.com/ | cad-parametric.md |
+| SketchUp STL import and export | https://help.sketchup.com/en/sketchup/importing-and-exporting-stl-files-3d-printing | cad-parametric.md |
+| SOLIDWORKS API | https://help.solidworks.com/2025/english/api/sldworksapiprogguide/Welcome.htm | cad-parametric.md |
+| UltiMaker Cura and CuraEngine | https://github.com/Ultimaker/CuraEngine, https://github.com/Ultimaker/Cura, https://ultimaker.com/software/ultimaker-cura/ | 3d-printing.md |
+| Unity Manual and Scripting Reference | https://docs.unity3d.com/Manual/3D-formats.html, https://docs.unity3d.com/ScriptReference/ModelImporter.html | game-assets.md |
+| Unity glTFast | https://docs.unity3d.com/Packages/com.unity.cloud.gltfast@6.20/manual/index.html | game-assets.md |
+| Adobe Substance 3D Painter (user guide and Python API) | https://experienceleague.adobe.com/en/docs/substance-3d-painter/using/getting-started/project-creation, https://experienceleague.adobe.com/en/docs/substance-3d-dev/painter-python/api/substancepainter-package/export | game-assets.md |
+
 Licence texts: `scripts/scenario-blender-expert/LICENSE` (MIT, Copyright (c) 2026 Scenario), `scripts/blender-image-to-3d/LICENSE` (MIT, Copyright (c) 2026 Majid Manzarpour), `scripts/gcode/LICENSE` (MIT, Copyright (c) 2026 Thompson Labs LLC), `scripts/openscad/LICENSE` and `templates/openscad/LICENSE` (Apache-2.0 full text). Other Apache-2.0 and CC-BY-4.0 sources were distilled, not copied; no NOTICE file applies.
 
 Every copied script was read before copying: none makes network calls, sends telemetry or reads cookies. `orca_presets.py` reads and writes JSON only.

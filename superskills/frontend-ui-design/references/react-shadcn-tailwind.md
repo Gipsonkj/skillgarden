@@ -2,7 +2,7 @@
 
 > Distilled from: shadcn (shadcn-ui/ui, MIT), vercel-composition-patterns (vercel-labs/agent-skills, MIT), tailwind-design-system (wshobson/agents, MIT), pick-ui-library (emilkowalski/skills, MIT), baseline-ui (ibelick/ui-skills, MIT), design-taste-frontend (leonxlnx/taste-skill, MIT), frontend-ui-engineering (addyosmani/agent-skills, MIT), ask-sonner (emilkowalski/skills, MIT)
 
-Read this only when the project uses React, shadcn/ui or Tailwind. The general rules in the other references still apply.
+Read this only when the project uses React, shadcn/ui or Tailwind. The general rules in the other references still apply. Projects on MUI, Ant Design, Bootstrap or Sass: [component-library-theming.md](component-library-theming.md).
 
 ## Before touching code
 
@@ -124,6 +124,7 @@ Use the `motion` package (`import { motion } from "motion/react"`) only when you
 
 | Need | Pick |
 |---|---|
+| Anything the project already has, or pays for | Keep it; this table only fills gaps |
 | Accessible unstyled primitives | Base UI (or Radix / React Aria if already present) |
 | Command menu (⌘K) | cmdk |
 | Toasts | Sonner |
@@ -137,6 +138,16 @@ Use the `motion` package (`import { motion } from "motion/react"`) only when you
 | Conditional classes / variants | clsx / cva (+ tailwind-merge via `cn`) |
 | Theme switching without flash | next-themes |
 | Syntax highlighting | shiki |
-| Icons | one family only; keep the project's (Lucide, Phosphor, Tabler, Radix icons), consistent stroke width |
+
+**Icons: pick a set.** One family per product, at one stroke width.
+
+| Situation | Use | Why |
+|---|---|---|
+| The project already ships an icon set (Lucide, Phosphor, Tabler, Radix icons, or the brand's own SVGs) | That set | A second family is an instant tell (see [anti-slop.md](anti-slop.md)) |
+| shadcn/ui project | The icon library its config names (`npx shadcn@latest info --json`) | Generated components import from it |
+| React, nothing installed | Lucide (`npm install lucide-react`) | Free, one component per icon, tree-shaken so only imported icons ship |
+| A designer or brand guide supplies icons | Ask for the SVG set before picking a library | Don't paper over a brand set with a generic one |
+
+Lucide in practice: `size` 24, `strokeWidth` 2 and `color` `currentColor` by default; set one `strokeWidth` project-wide, and `nonScalingStroke` keeps it constant when icons are resized. Since v1 icons render `aria-hidden="true"` by default, so icon-only buttons need the name on the button (`aria-label` or visually hidden text), not on the icon.
 
 Common mismatches to fix: hand-built toasts or dropdowns with manual focus handling; re-rendering text to animate a counter; rendering 1,000+ rows directly; template-literal class ternaries three levels deep.

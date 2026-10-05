@@ -8,6 +8,9 @@ How to produce ad visuals with image and video models without shipping slop or f
 
 | Need | Use | Why |
 |---|---|---|
+| The user already uses or pays for a generator or design app | That one | Their credits, styles and brand assets are there; ask which |
+| Extend or reframe a real product photo to 4:5, 9:16 or wide | Adobe generative expand + crops ([production-tools.md](production-tools.md)) | Keeps the real photo, invents only the edges |
+| TikTok-native AI video, avatars or dubbing | TikTok Symphony Creative Studio ([production-tools.md](production-tools.md)) | Built into TikTok for Business, exports to Ads Manager |
 | Static ad with headline text baked in | A text-strong image model (Nano Banana Pro / Gemini image, Ideogram, GPT Image) | Legible type in-image |
 | Same product or person across 20+ variants | A model with multi-image reference (FLUX 2 with up to 8 references, Gemini with reference images) | Identity holds across scenes |
 | Product photo into lifestyle scenes | Image edit from the real product photo | Faithful product |

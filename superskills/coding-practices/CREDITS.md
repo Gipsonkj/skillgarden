@@ -31,6 +31,22 @@ All sources are MIT. Reference files are distilled in our own words; scripts and
 | refactor | https://github.com/github/awesome-copilot | MIT | Safe refactoring steps and common moves |
 | unlazy | https://github.com/Leonxlnx/unlazy | MIT | Acceptance gates before work (ideas only, no scripts) |
 
+## Tool docs
+
+Official documentation, used as link-only reference and written in our own words (no text or files copied).
+
+| Tool | Docs | Used in |
+|---|---|---|
+| Sentry | https://mcp.sentry.dev/ , https://github.com/getsentry/sentry-mcp , https://docs.sentry.io/api/organizations/resolve-a-short-id/ , https://docs.sentry.io/api/events/retrieve-an-issue-event/ , https://docs.sentry.io/product/issues/issue-details/ , https://docs.sentry.io/platforms/javascript/sourcemaps/ , https://docs.sentry.io/product/releases/associate-commits/ , https://docs.sentry.io/product/issues/states-triage/ | debugging.md |
+| Chrome DevTools MCP | https://github.com/ChromeDevTools/chrome-devtools-mcp (README, docs/tool-reference.md, docs/configuration.md, docs/client-configurations.md) | debugging.md |
+| ESLint | https://eslint.org/docs/latest/use/getting-started , https://eslint.org/docs/latest/use/command-line-interface , https://eslint.org/docs/latest/use/mcp | verification.md |
+| Prettier | https://prettier.io/docs/cli | verification.md |
+| Biome | https://biomejs.dev/guides/getting-started/ | verification.md |
+| Ruff | https://docs.astral.sh/ruff/linter/ , https://docs.astral.sh/ruff/formatter/ , https://docs.astral.sh/ruff/configuration/ , https://docs.astral.sh/ruff/installation/ , https://docs.astral.sh/ruff/integrations/ , https://docs.astral.sh/ruff/settings/ | verification.md, git-workflow.md |
+| pytest | https://docs.pytest.org/en/stable/how-to/usage.html , https://docs.pytest.org/en/stable/how-to/cache.html , https://docs.pytest.org/en/stable/reference/exit-codes.html | tdd-and-testing.md |
+| CodeRabbit | https://docs.coderabbit.ai/cli , https://docs.coderabbit.ai/cli/claude-code-integration , https://docs.coderabbit.ai/guides/commands | code-review.md |
+| GitHub Copilot code review | https://docs.github.com/en/copilot/how-tos/use-copilot-agents/request-a-code-review/use-code-review | code-review.md |
+
 ## Also see (not included)
 
 - no-mistakes: a full validation pipeline (review, tests, lint, push, PR, CI) that needs its own CLI installed: https://github.com/kunchenguid/no-mistakes

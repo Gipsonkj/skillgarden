@@ -1,6 +1,6 @@
 ---
 name: testing-qa
-description: Plan, write, run and fix automated tests, and QA running apps. Use for test strategy (unit vs integration vs API vs component vs E2E, what to mock, coverage); TDD red-green-refactor and writing tests that catch real bugs; Playwright E2E tests (locators, web-first assertions, auth storageState, network mocking, config, traces, CI sharding); driving a browser to verify or debug a web app (Python Playwright with a server helper, playwright-cli, Chrome DevTools); exploratory QA with health scores, issue reports and a fix loop; flaky tests (classify, root cause, prove in CI); pytest, Vitest/Jest, Go, JUnit 5, Swift Testing; Cypress E2E and component tests; mobile UI flows on simulators, Flutter widget tests; property-based and mutation testing. Triggers: "write tests", "add a regression test", "TDD", "E2E test", "test this flow", "QA my app", "this test is flaky", "increase coverage", "why did CI fail".
+description: Plan, write, run and fix automated tests, and QA running apps. Use for test strategy (unit vs integration vs API vs component vs E2E, what to mock, coverage); TDD and tests that catch real bugs; Playwright E2E (locators, web-first assertions, auth, network mocking, traces, CI sharding); Selenium WebDriver and BrowserStack cloud browsers; driving a browser to verify or debug a web app (Python Playwright, playwright-cli, Chrome DevTools); API tests in Postman collections run by the Postman CLI or Newman in CI; exploratory QA with health scores, issue reports and a fix loop, filing bugs in Jira and results in TestRail; flaky tests (classify, root cause, prove in CI); pytest, Vitest/Jest, Go, JUnit 5, Swift Testing; Cypress E2E and component tests; mobile UI flows on simulators, Appium, Flutter widget tests; property-based and mutation testing. Triggers: "write tests", "add a regression test", "TDD", "E2E test", "test this flow", "QA my app", "this test is flaky", "increase coverage", "why did CI fail".
 ---
 
 # Testing and QA
@@ -44,10 +44,11 @@ Work out what the request needs before opening a guide; most real requests need 
 | pytest, Vitest/Jest, Go, JUnit 5, Swift Testing commands and idioms | [references/unit-runners-by-language.md](references/unit-runners-by-language.md) |
 | Playwright E2E suites: locators, assertions, auth, mocking, config, debugging, CI | [references/playwright-e2e.md](references/playwright-e2e.md) |
 | Cypress E2E and component tests | [references/cypress.md](references/cypress.md) |
-| Drive a browser to check or debug a running web app | [references/browser-automation.md](references/browser-automation.md) + `scripts/webapp-testing/with_server.py`, `scripts/webapp-testing/examples/` |
-| Exploratory QA pass, health score, issue report, fix loop | [references/exploratory-qa.md](references/exploratory-qa.md) + `templates/qa/qa-report-template.md` |
+| API tests in Postman collections, run by the Postman CLI or Newman in CI, Postman MCP (pick a runner) | [references/api-testing.md](references/api-testing.md) |
+| Drive a browser to check or debug a running web app; Selenium suites and Grid; BrowserStack cloud browsers (pick a tool) | [references/browser-automation.md](references/browser-automation.md) + `scripts/webapp-testing/with_server.py`, `scripts/webapp-testing/examples/` |
+| Exploratory QA pass, health score, issue report, fix loop; file bugs in Jira or push results to TestRail (pick a tracker) | [references/exploratory-qa.md](references/exploratory-qa.md) + `templates/qa/qa-report-template.md` |
 | Flaky or intermittently failing tests | [references/flaky-tests.md](references/flaky-tests.md) |
-| iOS/Android UI flows on a simulator, Flutter widget tests, native UI tests | [references/mobile-app-testing.md](references/mobile-app-testing.md) |
+| iOS/Android UI flows on a simulator, Appium suites, BrowserStack real devices, Flutter widget tests, native UI tests (pick a tool) | [references/mobile-app-testing.md](references/mobile-app-testing.md) |
 | Property-based tests, mutation testing campaigns | [references/property-and-mutation.md](references/property-and-mutation.md) |
 
 When to run the script: use `python scripts/webapp-testing/with_server.py --help` first, then `--server "<start cmd>" --port <port> -- python <your_check>.py` whenever a Python Playwright check needs the dev server started and stopped around it.

@@ -71,6 +71,8 @@ Flag without being asked: **thin content** (competitors at 2,000+ words, you pla
 | Competitors (`site:competitor.com/blog`) | Top posts, repeated topics, gaps, stale pieces | Topics to do better or differently |
 | Support and sales teams | Ticket patterns, success stories | FAQ and how-to backlog |
 
+Pulling the keyword data itself (picking Ahrefs, Semrush, Search Console or a free route, and running it) is the `seo` craft's job: `seo` → `references/tools-vendors.md`, `references/keywords-content.md`. Bring back the export and use the table above.
+
 ## 6. Prioritize
 
 Score each idea 1-10 per factor, multiply by the weight, sum.
@@ -113,3 +115,18 @@ Use [templates/content-production/content-brief-template.md](../templates/conten
 4. Calendar: first 8-12 weeks at the 60/30/10 mix, cadence the team can sustain
 5. Distribution: owned/rented/borrowed channel per piece
 ```
+
+## 10. Where the calendar and briefs live
+
+**Pick a tool**
+
+| The user's need or situation | Use | Why |
+|---|---|---|
+| The team already keeps a calendar somewhere (Notion, Asana, a spreadsheet, a CMS planner) | That one; ask where and who can edit it | A second calendar goes stale within a month |
+| Team works in Notion | A Notion database, one page per piece, filled through the Notion MCP ([publishing-tools.md](publishing-tools.md) §4) | The brief and the draft sit on the piece's page; OAuth acts as the user |
+| Reviewers comment in Google Docs | Calendar where the team keeps it; each brief or draft as a Doc ([publishing-tools.md](publishing-tools.md) §3) | Comments come back through the Drive API |
+| Solo writer or no tool yet (free) | A markdown table in the repo (`content-calendar.md`) with the columns below | No account; diffable; easy to move later |
+
+**Columns** (use the team's names when a calendar exists): title, pillar, searchable/shareable, primary keyword, stage, owner, status (idea → brief → draft → review → scheduled → live), due date, publish date, channel, URL, brief link.
+
+**With Notion:** fetch the database first and use its exact property names and status options; never add properties or options without asking. Show the rows you will create (title, status, dates, owner) and wait for a yes before writing them.

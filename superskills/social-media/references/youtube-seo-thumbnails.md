@@ -67,7 +67,7 @@ Concept frameworks (brainstorm at least 5 options across several, then pick the 
 | Real frame | A strong frame from the video itself |
 
 Production:
-- Generate or design with whatever image tool the user has (an image model, Canva, Figma, a photo plus cut-out). Keep generated images **text-free** and add text as a separate, deterministic overlay so spelling is exact.
+- Generate or design with whatever image tool the user has (an image model, Canva (connector steps in `poster-design` -> `references/canva.md`), Figma, a photo plus cut-out). Keep generated images **text-free** and add text as a separate, deterministic overlay so spelling is exact.
 - Never copy another creator's thumbnail identity or exact composition; references are for mood and layout only.
 - Do not depict real people without their consent, and do not invent screenshots, stats or results.
 - Deliver 3-4 variants with short labels (e.g. "shock / close-up", "product / size contrast") and let the user choose. YouTube's built-in "Test & Compare" can A/B up to 3 thumbnails on a live video.

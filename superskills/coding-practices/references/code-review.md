@@ -91,3 +91,37 @@ Reasoning: core design is sound; the race must be fixed first.
 ## Requesting a review from a subagent
 
 Use `templates/requesting-code-review/code-reviewer.md`: fill in what was built, the plan or requirements, BASE and HEAD SHAs. Give the reviewer context, never your session history. Review after each task in a multi-task plan, after major features, and before merging to main. The reviewer stays read-only on the checkout and lists anything it chose not to judge.
+
+## AI review tools: CodeRabbit and Copilot
+
+A second reviewer catches what the author misses. Its findings are input, not verdicts: check each one against the code (review-feedback.md) before acting.
+
+**Pick a tool**
+
+| Situation | Use | Why |
+|---|---|---|
+| The team already has an AI reviewer on its PRs | That one | Its config and learnings are already tuned to the repo |
+| No account, or the code mustn't leave the machine | Reviewer subagent with the template above | Free, local, nothing to install |
+| Local changes before a PR, user has a CodeRabbit account | CodeRabbit CLI or its Claude Code plugin | Reviews uncommitted or committed work against the base branch |
+| PR on GitHub, team pays for Copilot | Copilot code review via `gh` | Built into the PR; no extra service |
+| PR already has the CodeRabbit app installed | `@coderabbitai` comment commands | Re-review on demand |
+
+CodeRabbit and Copilot are hosted services: if you don't know whether this code may be sent to them, ask.
+
+### CodeRabbit
+
+- **Install the CLI**: `brew install coderabbit` (skip the pipe-to-shell installer). `cr` is the short alias of `coderabbit`.
+- **Auth**: the user runs `cr auth login` themselves; never take a key in chat.
+- **Review**: `cr review` covers tracked changes (commits, staged files, unstaged edits to tracked files) against the base branch, `main` by default. Narrow it with `--committed` or `--uncommitted`; add `--include-untracked` for new files not yet added; `--base develop` for another base. `--agent` prints NDJSON, one JSON object per line, for parsing.
+- **In Claude Code**: `claude plugin install coderabbit`, then `/coderabbit:coderabbit-review` (same flags). It checks the CLI and auth, runs the review and groups findings by severity; turn them into a task list and show the planned fixes before applying them.
+- **Time**: a review takes 7 to 30+ minutes depending on the change size. Run it in the background and keep working.
+- **Limits**: the free plan has limited daily usage; paid plans raise it, and usage-based billing can continue past the limit. Before reviews that would bill, ask.
+- **On a PR** (CodeRabbit app installed): `@coderabbitai review` reviews only what changed since its last full review; `@coderabbitai full review` starts over; `@coderabbitai pause` / `resume` toggle automatic reviews; `@coderabbitai resolve` marks all its comments resolved. A PR comment is public to the team: show the exact comment and wait for a yes.
+
+### GitHub Copilot code review
+
+- Request it: `gh pr edit <number> --add-reviewer @copilot`, or `gh pr create --reviewer @copilot` with a new PR. Adding a reviewer shows on the PR, so it needs the user's go-ahead like any other PR action.
+- By default it leaves a "Comment" review, so it doesn't count toward required approvals.
+- It doesn't re-review new pushes unless automatic reviews are set up; re-request from the Reviewers menu.
+- Repo-wide guidance for it lives in `.github/copilot-instructions.md`.
+- Org members without a Copilot licence can get it when an enterprise admin or org owner turns it on.

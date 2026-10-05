@@ -1,6 +1,6 @@
 ---
 name: audio-generation
-description: Create, transcribe and finish audio with AI - voiceovers and text-to-speech, music and songs, sound effects, podcasts, dubbing, voice conversion, transcription and subtitles, and the final mix. Use when asked to make a voiceover, narration, TTS, IVR prompts or an audiobook; to generate background music, a jingle, a song, lyrics or a Suno/MiniMax/ACE-Step/MusicGen prompt; to create sound effects, UI sounds or ambiences; to turn an article into a two-host podcast; to dub a video into another language, change or anonymize a voice, or remove background noise; to transcribe audio or video, label speakers, or make SRT/VTT captions; or to mix voice and music, duck a bed, normalize loudness (LUFS) or export for podcast, YouTube or telephony. Covers ElevenLabs, OpenAI speech/transcribe, Gemini TTS, edge-tts, Kokoro, MiniMax, ACE-Step, Suno, AudioCraft and Whisper, plus ffmpeg recipes.
+description: Create, transcribe and finish audio with AI - voiceovers and text-to-speech, music and songs, sound effects, podcasts, dubbing, voice conversion, transcription and subtitles, and the final mix. Use when asked to make a voiceover, narration, TTS, IVR prompts or an audiobook; to generate background music, a jingle, a song, lyrics or a Suno/MiniMax/ACE-Step/Lyria/MusicGen prompt; to create sound effects, UI sounds or ambiences; to turn an article into a two-host podcast; to dub a video into another language, change or anonymize a voice, or remove background noise; to edit a recorded podcast (cut ums, clean voices) in Descript, Audacity, Audition, Enhance Speech, iZotope RX, GarageBand or Logic; to transcribe audio or video, label speakers, or make SRT/VTT captions; or to mix voice and music, duck a bed, normalize loudness (LUFS) or export for podcast, YouTube or telephony. Covers ElevenLabs, OpenAI, Gemini TTS, Lyria, edge-tts, Kokoro, MiniMax, ACE-Step, Suno, AudioCraft, Whisper and ffmpeg.
 ---
 
 # Audio generation
@@ -63,16 +63,17 @@ Name the task, or say "use audio-generation: <capability>".
 
 | Task | Read |
 |---|---|
-| Voiceover, narration, TTS, IVR, accessibility read, audiobook; choosing a TTS engine | `references/voiceover-tts.md` |
+| Voiceover, narration, TTS, IVR, accessibility read, audiobook; pick a TTS engine (incl. Gemini TTS) | `references/voiceover-tts.md` |
 | Anything on ElevenLabs (TTS, Scribe STT, SFX, Music, Dubbing, Voice Changer, Isolator) | `references/elevenlabs.md` |
 | OpenAI TTS or transcription via the bundled CLIs | `references/openai-audio.md`, `scripts/speech/text_to_speech.py`, `scripts/transcribe/transcribe_diarize.py` |
 | Background music, jingles, songs, lyrics, music prompts, BPM/key choices | `references/music-generation.md` |
-| MiniMax `mmx`, ACE-Step, Suno commands and knobs | `references/music-tools.md` |
+| Pick a music tool; MiniMax `mmx`, ACE-Step, Suno, Lyria commands and knobs | `references/music-tools.md` |
 | Sound effects, UI sounds, ambiences, risers, placement | `references/sound-effects.md` |
 | Transcription, speaker labels, word timestamps, SRT/VTT subtitles | `references/transcription.md`, `scripts/asr-transcribe-to-text/prepare_asr_input.py` |
 | Merge recorder segments, convert to 16 kHz mono, shrink uploads before ASR | `scripts/asr-transcribe-to-text/prepare_asr_input.py` (see `references/transcription.md`) |
 | Mixing, ducking, voice cleanup EQ, loudness, ffmpeg recipes, export formats | `references/mixing-and-mastering.md` |
-| Article-to-podcast, two-host dialogue, multi-voice scripts | `references/podcast-and-dialogue.md` |
+| Edit a recorded podcast or interview: cut ums and pauses, clean voices, repair noise; pick an editor (Descript, Audacity, Audition, Enhance Speech, iZotope RX, GarageBand/Logic) | `references/editing-and-repair.md` |
+| Article-to-podcast, two-host dialogue, multi-voice scripts; pick a voice tool | `references/podcast-and-dialogue.md` |
 | Dubbing, voice conversion, anonymizing a speaker, noise/music removal | `references/dubbing-and-voice-conversion.md` |
 | Offline or free: edge-tts, Kokoro, MusicGen/AudioGen, Whisper/whisper.cpp | `references/local-open-models.md` |
 

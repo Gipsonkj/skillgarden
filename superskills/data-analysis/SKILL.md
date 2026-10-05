@@ -1,6 +1,6 @@
 ---
 name: data-analysis
-description: Answer questions with data and present the results honestly. Covers profiling a new dataset (grain, keys, nulls, placeholders), analytical SQL across Postgres/Snowflake/BigQuery/Redshift/Databricks/DuckDB (windows, cohorts, funnels, dedup), descriptive and inferential statistics (test choice, effect sizes, power, multiple comparisons, regression with statsmodels), A/B test design and readouts (SRM, MDE) and quasi-experiments (difference-in-differences), charts that don't mislead (chart choice, colourblind-safe palettes, matplotlib/seaborn/plotly), KPI design and single-file HTML dashboards, pandas and Polars, scikit-learn pipelines without leakage, marimo and Jupyter notebooks, and warehouse work in BigQuery, dbt and DuckDB. Use when the user asks to explore, query, analyse, test, model, chart or report on data, build a dashboard or define metrics, or check whether a difference is real.
+description: Answer questions with data and present the results honestly. Covers profiling a new dataset (grain, keys, nulls, placeholders), analytical SQL across Postgres/Snowflake/BigQuery/Redshift/Databricks/DuckDB (windows, cohorts, funnels, dedup), descriptive and inferential statistics (test choice, effect sizes, power, multiple comparisons, regression with statsmodels), A/B test design and readouts (SRM, MDE) and quasi-experiments (difference-in-differences), charts that don't mislead (chart choice, colourblind-safe palettes, matplotlib/seaborn/plotly), KPI design and single-file HTML dashboards, querying and building in Power BI (DAX, Fabric), Tableau and Looker, pandas, Polars and R (tidyverse, ggplot2), scikit-learn pipelines without leakage, marimo and Jupyter notebooks, and warehouse work in BigQuery, Snowflake, Databricks, dbt and DuckDB. Use when the user asks to explore, query, analyse, test, model, chart or report on data, build a dashboard or define metrics, or check whether a difference is real.
 ---
 
 # Data analysis
@@ -47,11 +47,11 @@ Work out what the request needs before opening a guide; most real requests need 
 | Descriptives, choosing a test, effect sizes, power, regression, time series | [references/statistics.md](references/statistics.md) |
 | A/B test design and readout, difference-in-differences, observational causal questions | [references/experiments-causal.md](references/experiments-causal.md) |
 | Choose and style a chart, accessibility, matplotlib/seaborn/plotly | [references/visualization.md](references/visualization.md) |
-| Define KPIs, design or build a dashboard (single-file HTML with Chart.js) | [references/dashboards-kpis.md](references/dashboards-kpis.md) |
-| pandas or Polars code, performance, merges, pandas→Polars | [references/dataframes.md](references/dataframes.md) |
+| Define KPIs, design or build a dashboard (single-file HTML with Chart.js), or query and build in Power BI, Tableau or Looker; pick a BI tool | [references/dashboards-kpis.md](references/dashboards-kpis.md) |
+| pandas, Polars or R tidyverse code, reading Excel inputs, performance, merges; pick a dataframe tool | [references/dataframes.md](references/dataframes.md) |
 | Predictive modelling with scikit-learn, leakage, metrics, imbalance | [references/machine-learning.md](references/machine-learning.md) |
 | marimo or Jupyter notebooks | [references/notebooks.md](references/notebooks.md) |
-| BigQuery cost and `bq`, dbt models and tests, sandboxed DuckDB | [references/warehouses.md](references/warehouses.md) |
+| Warehouse work: BigQuery cost and `bq`, Snowflake, Databricks, dbt models and tests, sandboxed DuckDB; pick a warehouse tool | [references/warehouses.md](references/warehouses.md) |
 
 Scripts (run `--help` first):
 - `scripts/exploratory-data-analysis/scripts/tabular_profile.py`, `missingness_leakage_audit.py`, `distribution_sensitivity.py`, `report_scaffold.py`: bounded local profiling and leakage audit for CSV/TSV, run when profiling a new file (see data-profiling).

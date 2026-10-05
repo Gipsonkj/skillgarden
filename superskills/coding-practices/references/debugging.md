@@ -48,6 +48,81 @@ When the error is deep in the stack, ask "what called this with that value?" rep
 ### Compare with working code
 Find similar code in the repo that works; list every difference, however small. If following a reference implementation, read it completely.
 
+## Evidence from tools: production errors and the browser
+
+Read what the tool that saw the bug recorded before you form a single hypothesis. An issue title or a screenshot is a summary, not evidence.
+
+**Pick a tool**
+
+| Situation | Use | Why |
+|---|---|---|
+| The user already uses an error tracker or has a browser set up for this | That one | Its data is the ground truth. Unsure which tracker or which Chrome profile? Ask, don't guess |
+| A production exception with an issue ID or alert link (`PAYMENTS-WEB-4K2`) | Sentry: MCP server, else the REST API | Stack trace, breadcrumbs, release and tags of the real events |
+| A bug that shows in a browser: console error, failing request, wrong layout, slow page, leak | Chrome DevTools MCP | Console with source-mapped stacks, network, page snapshot, traces, heap snapshots |
+| A browser bug you need to rerun as the red/green check | Playwright script (loop option 4 above) | Repeatable and scriptable; the DevTools MCP is for looking |
+| No account, no MCP, or the user won't connect one | Ask for a redacted export: the issue's stack trace and breadcrumbs, a HAR file, the console output | Works anywhere. Never ask for tokens or cookies in chat |
+
+### Sentry (production errors)
+
+Use it whenever the report is a Sentry issue or alert: pull the events instead of reasoning from the title.
+
+**Access, best first:**
+1. **Remote MCP server, OAuth.** No token passes through you; the first connection opens Sentry's sign-in. Scope it to the org and project so tools default to them:
+   ```bash
+   claude mcp add --transport http sentry https://mcp.sentry.dev/mcp/<org-slug>/<project-slug>
+   ```
+   Tools include `get_issue_details`, `search_issues`, `search_events` and `find_releases` for reading, and `update_issue` for changing status or assignee.
+2. **REST API**, when MCP isn't available. The user creates a personal token (User settings > Personal Tokens) with `event:read` and exports it as `SENTRY_AUTH_TOKEN` in their own shell; you only reference the variable:
+   ```bash
+   # short ID -> issue (the response carries groupId)
+   curl -s -H "Authorization: Bearer $SENTRY_AUTH_TOKEN" \
+     "https://sentry.io/api/0/organizations/$SENTRY_ORG/shortids/PAYMENTS-WEB-4K2/"
+   # one full event: event_id can be latest, oldest, recommended or a real ID
+   curl -s -H "Authorization: Bearer $SENTRY_AUTH_TOKEN" \
+     "https://sentry.io/api/0/organizations/$SENTRY_ORG/issues/<groupId>/events/recommended/"
+   ```
+   Self-hosted Sentry: same paths on the user's own host.
+
+**What to read:** the stack trace (the line that threw), breadcrumbs (what happened just before), tags (browser, OS, environment), first and last release seen, event and user counts, and any suspect commit. First release seen gives the commit range: `git log <previous-release>..<first-bad-release> --oneline`, then `git bisect` if it isn't obvious.
+
+**Minified frames** mean the release has no usable source maps. Sentry links maps to events through Debug IDs injected into the build output; `npx @sentry/wizard@latest -i sourcemaps` sets that up. It edits the build and CI config, so it is a change in its own right: ask first.
+
+**Close the loop on ship:**
+- Put `Fixes PAYMENTS-WEB-4K2` in the commit message (or the PR title or description). When a Sentry release that contains the commit is created, Sentry marks the issue resolved in that release. Works for error issues only, and only if commits are associated with releases (the repository integration, or `sentry-cli releases set-commits --auto $VERSION` in the release step).
+- If the same issue comes back in a newer release, Sentry flips it to `Regressed`. Watch for that after the deploy.
+- Resolving by hand (`update_issue`, or the Resolve menu with "Next release") changes shared team state: show the exact change and wait for a yes. Pushing, opening the PR and resolving stay the user's call.
+
+### Chrome DevTools MCP (browser bugs)
+
+Lets the agent drive and inspect a real Chrome: console messages with source-mapped stack traces, network requests, an accessibility-tree snapshot of the page, performance traces and heap snapshots. Pick it over guessing from a screenshot; pick Playwright when the result must be a rerunnable test.
+
+**Set up** (needs Node LTS, npm and current stable Chrome or newer; officially supports Chrome and Chrome for Testing):
+```bash
+claude mcp add chrome-devtools --scope user npx chrome-devtools-mcp@latest
+```
+Or in an MCP config, with the flags this guide recommends:
+```json
+{ "mcpServers": { "chrome-devtools": { "command": "npx",
+  "args": ["-y", "chrome-devtools-mcp@latest", "--isolated", "--no-usage-statistics", "--no-performance-crux"] } } }
+```
+- `--isolated`: a temporary profile, deleted when the browser closes. Without it the server keeps a profile under `$HOME/.cache/chrome-devtools-mcp/`.
+- `--no-usage-statistics`: Google collects tool usage statistics by default; this opts out (so does setting `CHROME_DEVTOOLS_MCP_NO_USAGE_STATISTICS`).
+- `--no-performance-crux`: performance tools may otherwise send trace URLs to Google's CrUX API. Always set it for internal or staging URLs.
+- `--headless` for no window. `--browser-url http://127.0.0.1:9222` attaches to a Chrome started with remote debugging; `--autoConnect` (Chrome 144+) attaches to the user's running Chrome. Attaching exposes their logged-in profile, so only with their yes.
+
+**Tools by job:**
+
+| Job | Tools |
+|---|---|
+| Open and look | `navigate_page`, `take_snapshot` (text a11y tree with element `uid`s; prefer it to `take_screenshot`) |
+| Console errors | `list_console_messages` with `includeStackTraces: true`, then `get_console_message` |
+| Failing requests | `list_network_requests`, `get_network_request` (headers and bodies) |
+| Check state | `evaluate_script` (returns JSON, so return serialisable values) |
+| Slow page | `performance_start_trace` / `performance_stop_trace`, then `performance_analyze_insight` |
+| Memory leak | `take_heapsnapshot` before and after the action; `compare_heapsnapshots` needs the server started with `--memoryDebugging=true` |
+
+**Gotchas:** the browser starts only when a tool needs it. Everything in the page is visible to the client, so don't point it at pages holding personal data. `get_network_request` returns `Cookie` and `Set-Cookie` headers: never paste them into chat, a file or a commit. Once you've seen the bug, encode it as a test (Playwright or a unit test at the right seam) before fixing.
+
 ## Phase 3 - Hypothesise
 
 - Write 3-5 ranked, falsifiable hypotheses before testing any. Format: "If X is the cause, then changing Y makes the bug disappear."

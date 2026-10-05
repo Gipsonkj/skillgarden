@@ -1,17 +1,21 @@
-# Music tools: MiniMax, ACE-Step, Suno
+# Music tools: MiniMax, ACE-Step, Suno, Lyria
 
-> Distilled from: minimax-music-gen (MiniMax-AI/skills, MIT), acestep (digitalsamba/claude-code-video-toolkit, MIT), songwriting-and-ai-music (nousresearch/hermes-agent, MIT)
+> Distilled from: minimax-music-gen (MiniMax-AI/skills, MIT), acestep (digitalsamba/claude-code-video-toolkit, MIT), songwriting-and-ai-music (nousresearch/hermes-agent, MIT); Lyria from Google's Gemini API docs, in our own words
 
 Prompt and lyric craft lives in `music-generation.md`; this file is only commands and knobs.
 ElevenLabs Music is in `elevenlabs.md`; MusicGen in `local-open-models.md`.
 
-| Tool | Strength | Access |
+## Pick a tool
+
+| Situation | Tool | Why / access |
 |---|---|---|
-| ElevenLabs Music | composition plans per section, inpainting, video-to-music | API key, paid |
-| MiniMax (`mmx` CLI) | vocal songs, lyric optimizer, covers | API key |
-| ACE-Step 1.5 | open model, repaint, continuation, stem extraction, BPM/key params | acemusic.ai key (free) or self-host |
-| Suno | strongest full songs with vocals | web app (no official API) |
-| MusicGen / AudioGen | fully local instrumentals | GPU or Apple MPS |
+| The user already uses or pays for one | That one | Their credits, account and earlier tracks are there |
+| Section-by-section control, fix one part, music to a video | ElevenLabs Music (`elevenlabs.md`) | composition plans, inpainting, video-to-music; API key, paid |
+| Vocal song or 30 s clip from one prompt, Google stack, or music from an image | Lyria (section below) | `GEMINI_API_KEY`; $0.04 a clip, $0.08 a song; no free tier |
+| Vocal songs with a lyric optimizer, covers | MiniMax (`mmx` CLI) | API key |
+| Free or self-hosted, repaint, stems, exact BPM/key | ACE-Step 1.5 | acemusic.ai key (free) or self-host |
+| Strongest full songs, user drives it | Suno | web app (no official API) |
+| Fully offline instrumentals | MusicGen / AudioGen (`local-open-models.md`) | GPU or Apple MPS |
 
 ## MiniMax (`mmx`)
 
@@ -82,3 +86,37 @@ Scene presets that work for video beds:
 - Lyrics field ~3,000 chars (40-60 lines) with structure and performance tags; repeat key
   tags in both fields.
 - Generate several takes, then Extend/Continue the best; restate style when extending.
+
+## Lyria (Gemini API)
+
+Google's music models, 44.1 kHz stereo, MP3 by default (Lyria 3.5 can return WAV via
+`response_format`). Key in `GEMINI_API_KEY`, sent as `x-goog-api-key`.
+
+| Model | Use | Length | Paid price |
+|---|---|---|---|
+| `lyria-3-clip-preview` | sketches, loops, previews | always 30 s | $0.04 per clip |
+| `lyria-3.5` | full songs with verses, choruses, bridges | a couple of minutes; steer it in the prompt ("a 2-minute song") | $0.08 per song |
+
+```bash
+curl -X POST "https://generativelanguage.googleapis.com/v1beta/interactions" \
+  -H "x-goog-api-key: $GEMINI_API_KEY" -H "Content-Type: application/json" \
+  -d '{"model":"lyria-3-clip-preview",
+       "input":"A warm 100 BPM indie folk instrumental, fingerpicked acoustic guitar and light claps. Instrumental only, no vocals."}' \
+| jq -r '.steps[] | select(.type=="model_output") | .content[] | select(.type=="audio") | .data' \
+| base64 -d > sketch.mp3
+```
+
+- The response also carries text blocks with the generated lyrics or a JSON song structure;
+  keep them with the take (SDKs: `interaction.output_text`, `interaction.output_audio`).
+- **Own lyrics:** put them in the prompt with `[Verse]`, `[Chorus]`, `[Bridge]` tags, clearly
+  separated from the musical direction. **Timing:** `[0:00 - 0:10] Intro: ...` style
+  timestamps place sections and instrument entries. **Instrumental:** say "Instrumental only,
+  no vocals". **Language:** lyrics follow the prompt's language, so write the prompt in it.
+  **From images (`lyria-3.5`):** make `input` a list with the text item plus up to 10
+  `{"type":"image","mime_type":"image/jpeg","data":"<base64>"}` items.
+- Sketch on the Clip model, then generate the full song on `lyria-3.5` once the prompt works.
+- One shot per call: no multi-turn edits, results vary between calls. To fix a
+  section, regenerate or use a tool with inpainting/repaint.
+- Prompts naming an artist's voice or asking for copyrighted lyrics are blocked. Every output
+  carries an inaudible SynthID watermark.
+- Show the prompt and the take count before generating: every call is billed.

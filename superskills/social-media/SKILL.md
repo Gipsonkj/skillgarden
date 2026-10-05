@@ -1,6 +1,6 @@
 ---
 name: social-media
-description: Plan, write, publish and measure organic social media across X, LinkedIn, Instagram, TikTok, YouTube, Facebook, Threads and Bluesky. Use for social strategy, content pillars and calendars; writing posts, captions, hooks, X threads, carousels and short-form video scripts (Reels, TikTok, Shorts); removing AI tells or matching a voice; repurposing or crossposting one piece to many platforms; social listening, brand or competitor mentions, "top posts to comment on", trend research on what people say in the last 30 days; engagement, community replies, audits, analytics and follower growth; influencer, creator, UGC and ambassador programs with FTC disclosure; YouTube titles, descriptions, chapters and thumbnails; and publishing or scheduling through official APIs and tools (xurl/X API, Composio TikTok and YouTube, HubSpot, schedulers). Triggers: "what should I post", "content calendar", "write a thread", "reel script", "repurpose this", "grow my following", "influencer", "schedule posts".
+description: Plan, write, publish and measure organic social media across X, LinkedIn, Instagram, TikTok, YouTube, Facebook, Threads and Bluesky. Use for social strategy, content pillars and calendars; writing posts, captions, hooks, X threads, carousels and short-form video scripts (Reels, TikTok, Shorts); removing AI tells or matching a voice; repurposing or crossposting one piece to many platforms; social listening, brand or competitor mentions, "top posts to comment on", trend research on what people say in the last 30 days; engagement, community replies, audits, analytics and follower growth; influencer, creator, UGC and ambassador programs with FTC disclosure; YouTube titles, descriptions, chapters and thumbnails; publishing or scheduling via Buffer, Hootsuite, Sprout Social or official APIs (Meta, LinkedIn, YouTube, TikTok, X); Meltwater or Brandwatch listening. Triggers: "what should I post", "content calendar", "write a thread", "reel script", "repurpose this", "grow my following", "influencer", "schedule posts".
 ---
 
 # Social media
@@ -50,11 +50,11 @@ Work out what the request needs before opening a guide; most real requests need 
 | Short-form video scripts and hooks (TikTok, Reels, Shorts), captions, audio | [references/short-form-video.md](references/short-form-video.md) |
 | Carousels and LinkedIn document posts | [references/carousels.md](references/carousels.md) |
 | Repurposing long content, crossposting one idea to many platforms | [references/repurposing-crossposting.md](references/repurposing-crossposting.md) |
-| Social listening, comment triage, mentions, trend research (last 30 days), reverse-engineering a niche | [references/listening-research.md](references/listening-research.md) |
-| Metrics, weekly review, audits, community management, growth | [references/analytics-growth.md](references/analytics-growth.md) |
+| Social listening, comment triage, mentions, trend research (last 30 days), reverse-engineering a niche; pick a listening tool (Meltwater, Brandwatch, Hootsuite Lumen, Sprout or free searches) | [references/listening-research.md](references/listening-research.md) |
+| Metrics, weekly review, audits, community management, growth, link in bio (Linktree) | [references/analytics-growth.md](references/analytics-growth.md) |
 | Influencers, creators, UGC programs, ambassadors, FTC disclosure, rates | [references/influencer-marketing.md](references/influencer-marketing.md) |
 | YouTube titles, descriptions, chapters, tags, thumbnails, Shorts, playlists | [references/youtube-seo-thumbnails.md](references/youtube-seo-thumbnails.md) |
-| Publishing and scheduling: xurl, X API, Composio TikTok/YouTube, SocialClaw, HubSpot, CSV | [references/publishing-apis.md](references/publishing-apis.md) |
+| Publishing and scheduling, pick a scheduler or API: Buffer, Hootsuite, Sprout Social, Later, Metricool, Postiz, Facebook Pages, Meta Business Suite, YouTube Data API, TikTok Content Posting API, xurl/X API, Composio, HubSpot, CSV | [references/publishing-apis.md](references/publishing-apis.md) |
 
 Call a capability by naming the task, or say "use social-media: <capability>" (for example "use social-media: carousels").
 

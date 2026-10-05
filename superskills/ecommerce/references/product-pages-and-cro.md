@@ -26,7 +26,7 @@ Segment by device and traffic source before concluding: a mobile-only drop is us
 3. **Price block:** the price the shopper will pay, unit price where required, instalment or subscription price clearly secondary; never a compare-at price that wasn't really charged.
 4. **Delivery and returns next to the button:** delivery estimate or cost to the shopper's region, free-shipping threshold if any, returns window in one line with a link to the policy.
 5. **Product details:** materials, dimensions, size guide (with a real measurement table), care, what's in the box. Write from the shopper's questions; product copy itself goes to `content-creation`.
-6. **Reviews:** only real reviews from real buyers; show the count and the distribution; let shoppers filter by rating. Never write, buy or seed reviews, and never hide negative ones. Rating markup must reflect reviews visible on the page.
+6. **Reviews:** only real reviews from real buyers; show the count and the distribution; let shoppers filter by rating. Never write, buy or seed reviews, and never hide negative ones. Rating markup must reflect reviews visible on the page. Working with a reviews app (Judge.me): section 8.
 7. **Stock messages:** "Only 3 left" only when the stock number is real; no fake countdowns or invented "12 people are viewing this".
 8. **Cross-sell:** a few genuinely related items ("pairs with", "complete the set") below the main purchase area. Base them on real co-purchase data where you have it (pairs bought together far more often than chance).
 9. **Out of stock:** keep the page live with a back-in-stock option and alternatives; don't 404 a product that will return.
@@ -66,6 +66,38 @@ Segment by device and traffic source before concluding: a mobile-only drop is us
 - Watch guardrails: average order value, return rate, discount usage.
 - Test design, sample size and readouts go to `data-analysis`.
 
+## 8. Running product reviews with Judge.me (Shopify)
+
+Judge.me is a reviews app for Shopify only (it was sunset on WooCommerce, Squarespace, BigCommerce and PrestaShop in 2025-26). If the store already runs another reviews app, work in that one; ask which before touching anything.
+
+**What to use it for from Claude:** reading reviews to find product problems (sizing, quality, delivery), counting ratings per product, publishing or hiding reviews the owner has moderated, replying, and importing genuine reviews from another app or a marketplace.
+
+**Plans:** the free plan includes unlimited review requests, the review widget and CSV import; Awesome ($15/month, 15-day trial) adds per-product email templates, custom forms and schedules.
+
+**Access.**
+- Tokens are under Settings > Integrations > View API tokens. The **public** token only reads widget endpoints and may sit in storefront JavaScript. The **private** token reads and writes everything and stays on the server, in an environment variable. A leaked private token can't be rotated by the owner (support has to do it), so never paste it into chat or a file. For an app other stores install, Judge.me recommends OAuth.
+- Base URL `https://api.judge.me/api/v1` in the OpenAPI spec (the help article shows `https://judge.me/api/v1`). Every call takes `shop_domain`; send the token in the `X-Api-Token` header (OAuth tokens go in `Authorization: Bearer` instead).
+- `per_page` is capped at 100 (help article); no rate limit is published: page gently.
+
+```bash
+curl -s "https://api.judge.me/api/v1/reviews?shop_domain=$SHOP.myshopify.com&rating=1&per_page=10&page=1" \
+  -H "X-Api-Token: $JUDGEME_PRIVATE_TOKEN"
+```
+
+**Endpoints that matter.**
+- `GET /reviews` (filters `product_id`, `rating`, `reviewer_id`, `page`, `per_page`); without `product_id` it returns product and store reviews. It includes unpublished reviews and unsanitised text, so never render its output on the storefront; use the widget endpoints there.
+- `GET /reviews/count` (filters `product_id`, `rating`, `reviewer_id`) and `GET /reviews/{id}`.
+- `PUT /reviews/{id}` with `curated` = `ok` (publish) or `spam` (hide). Review text can't be edited through the API.
+- `POST /replies` (`review_id`, `reply.content`, `send_reply_email`, default true) posts a public reply and emails the reviewer; `POST /private_replies` emails only.
+- Webhooks on `/webhooks` (topics such as `review/created`, `review/updated`); verify the `JUDGEME-HMAC-SHA256` header, an HMAC-SHA256 keyed with the OAuth app's secret (or, for a webhook created directly with the API, the private token).
+
+**Import and export.** Settings > Import reviews > Import from apps > "Judge.me format": `body` (up to 5,000 characters) and `rating` (1-5) required; optional title, date, reviewer name and email, product id, handle or URL, up to 5 picture URLs, reply. Imported reviews aren't verified and are labelled as imported; videos don't import. Export (Reviews > Export) is up to 100,000 reviews per file and leaves out videos, verified status, tags and order details.
+
+**Honesty rules (and Judge.me's).**
+- `POST /reviews` accepts a review without authentication, like the public form. Never use it to write, seed or "test" reviews on a live store; fabricated or automated reviews get the account suspended.
+- Import only reviews real customers wrote, with their source. Incentivised reviews carry a reward badge; don't strip it.
+- Hiding negative reviews is not moderation. `spam` is for spam and abuse; show the owner which reviews would be hidden and why, and wait for a yes before curating or replying in bulk.
+
 ## Checklist
 
 - [ ] Funnel measured and the biggest drop named, split by device
@@ -74,3 +106,4 @@ Segment by device and traffic source before concluding: a mobile-only drop is us
 - [ ] Cart: threshold progress, edit in place, no default-added upsells
 - [ ] Mobile Core Web Vitals within targets; unused app scripts removed
 - [ ] No dark patterns, no fabricated reviews, scarcity or urgency
+- [ ] Reviews app: private token server-side; no reviews created via API; curating and bulk replies confirmed

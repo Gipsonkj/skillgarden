@@ -1,6 +1,6 @@
 # Carousels and document posts
 
-> Distilled from: gemini-carousel (charlie947/social-media-skills, MIT), linkedin-content formats canon and accessibility guide (alirezarezvani/claude-skills, MIT), linkedin-content (openclaudia/openclaudia-skills, MIT), linkedin-posts (kostja94/marketing-skills, MIT), linkedin-post / Publora API restrictions (publora/skills, MIT), linkedin-marketing heuristics (sergebulaev/linkedin-skills, MIT).
+> Distilled from: gemini-carousel (charlie947/social-media-skills, MIT), linkedin-content formats canon and accessibility guide (alirezarezvani/claude-skills, MIT), linkedin-content (openclaudia/openclaudia-skills, MIT), linkedin-posts (kostja94/marketing-skills, MIT), linkedin-post / Publora API restrictions (publora/skills, MIT), linkedin-marketing heuristics (sergebulaev/linkedin-skills, MIT). Canva MCP details from Canva's developer docs, in our own words.
 
 ToS reminder: the deck is drafted here. The user uploads it by hand, or it is published through the official API after an explicit yes. No browser automation or unofficial posting tools ([tos-and-safe-automation.md](tos-and-safe-automation.md)).
 
@@ -29,6 +29,34 @@ Make a carousel only when **the sequence is the content**: steps, a before/after
 3. **Final slide**: a useful conclusion or next step. Add a CTA only for a real, user-approved offer or link. No "follow for more" bait.
 
 Write the brief as a table: slide #, headline, body, visual (icon, diagram, chart, illustration). **Get the user's approval of the brief before producing any images or image prompts.** Keep every required fact. If the content needs more room, add slides rather than cutting facts to hit a word count.
+
+## Make the slides
+
+### Pick a tool
+
+| The user's situation | Use | Why |
+|---|---|---|
+| Already designs in a tool (Canva, Figma, Keynote, Google Slides) | That one | Their brand files and templates are there. Ask which if you don't know |
+| No design tool, wants Claude to build the deck | Canva through its MCP server (below) | Free Canva account works; Claude generates, edits and exports the PDF |
+| Brand kit or brand templates must be applied | Canva Pro or above, through the MCP | Brand kits, brand templates and resizing need a paid plan |
+| Illustrated slides from an image model | The image prompts below, then set the type in a design tool | Models garble text; see `image-creation` for the visuals |
+| No account at all | Keynote, Google Slides or PowerPoint, exported to PDF | Free; Claude writes the slide brief, the user lays it out |
+
+### Canva (Canva MCP)
+
+- **Access:** remote MCP server `https://mcp.canva.com/mcp`. Each user signs in to their own Canva account by OAuth, and sees only their own designs. In claude.ai, add Canva from the connectors list; in Claude Code, `claude mcp add --transport http canva https://mcp.canva.com/mcp`, then `/mcp` to sign in. No API key is involved.
+- **Plans:** generating, editing, searching, exporting and commenting work on every plan. `resize-design`, autofill, brand kits (`list-brand-kits`) and brand templates need Pro or above; Free gets a limited resize trial.
+- **Rate limits:** `generate-design`, `create-design-from-candidate`, `export-design`, `resize-design` and the editing-transaction start and commit calls are 20 a minute each; anything without its own limit shares a cap of 300 a minute per user.
+
+Flow for a document post, after the user approves the slide brief:
+
+1. `generate-design` with the brief (size 1080 x 1350, slide count, exact headline and body per slide, brand colours). It returns candidates. **Show them and let the user pick**; don't choose for them.
+2. `create-design-from-candidate` turns the pick into an editable design.
+3. Fix wording with `start-editing-transaction`, `perform-editing-operations`, `commit-editing-transaction` (or `cancel-editing-transaction`). Check every slide's text with `get-design-content` against the brief.
+4. Give the user the design's edit link so they can review and adjust it in Canva.
+5. `get-export-formats` to confirm PDF is offered, then `export-design` with that `format`. The download links expire, so fetch the file at once and don't store or share the link.
+
+Gotchas: Free exports are standard quality; a design with premium elements can fail export with `license_required`. `resize-design` makes a copy at a preset `design_type` or a custom `width` and `height` and returns `quota_exceeded` when the allowance is spent. Open the exported PDF and check the text is selectable before it goes anywhere.
 
 ## Image prompts (when slides are AI-generated)
 

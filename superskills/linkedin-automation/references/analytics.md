@@ -1,20 +1,42 @@
 # Analytics
 
-> Distilled from: linkedin-marketing engagement-metrics taxonomy, industry benchmarks and algorithm heuristics (sergebulaev/linkedin-skills, MIT), linkedin-skills platform canon and operating agreement (alirezarezvani/claude-skills, MIT), linkedin-content (openclaudia/openclaudia-skills, MIT).
+> Distilled from: linkedin-marketing engagement-metrics taxonomy, industry benchmarks and algorithm heuristics (sergebulaev/linkedin-skills, MIT), linkedin-skills platform canon and operating agreement (alirezarezvani/claude-skills, MIT), linkedin-content (openclaudia/openclaudia-skills, MIT). Export steps from LinkedIn Help; Buffer and Hootsuite metrics tools from their developer docs, in our own words.
 
 ToS reminder: analyse **the user's own data**, exported from LinkedIn or read through the official API. Never scrape other people's posts, engagers or profiles to analyse them ([tos-and-safe-automation.md](tos-and-safe-automation.md)).
 
 ## Getting the data
 
+### Pick a tool
+
+| The user's situation | Use | Why |
+|---|---|---|
+| Already schedules through a tool with analytics (Buffer, Hootsuite) | That tool's metrics | Already joined to the posts it sent. Ask which they use |
+| Own profile, no tools | Creator analytics export (below) | Free, first-party, one XLSX file |
+| A company page | Page analytics export (below) | Free for page admins; adds visitors, followers and competitors |
+| A developer with page access already approved | Community Management API share and follower statistics | Repeatable pulls; same app as [publishing-official-api.md](publishing-official-api.md) |
+| Just a few numbers | The user pastes them from each post's analytics | Fastest; enough for a weekly review |
+
 | Source | What |
 |---|---|
 | Post analytics (on each post) and the Analytics tab | Impressions, members reached, reactions, comments, reposts, saves and sends (where shown), profile views from the post, follower gains |
-| Analytics export (creator or company page) | XLSX/CSV of content and follower metrics over a date range |
+| Analytics export (creator or company page) | XLSX/XLS of content and follower metrics over a date range |
 | Settings, then Data privacy, then "Get a copy of your data" | Posts, connections, messages, profile |
 | Official API (company pages via Community Management API) | Share statistics, follower statistics |
+| Buffer `get_aggregated_post_metrics` | Totals and averages for posts it sent over up to 365 days; refreshed once a day, so up to a day behind |
+| Hootsuite Perch MCP analytics tools | Metrics for connected profiles: `get_entitled_workspaces` (analytics side), `list_providers`, `search_sources`, `search_metrics`, `query_analytics` |
 | A simple post log (date, first line, format, hook shape, pillar, time posted) | Lets you join metrics to what you did |
 
 If the user pastes numbers, use those. Never invent a baseline.
+
+### LinkedIn's own exports, step by step
+
+The user downloads these by hand and shares the file; Claude never logs in to LinkedIn to fetch them.
+
+- **Creator analytics (own posts):** Me, View Profile, the Analytics section, **Show all analytics**, open **Post impressions**, then **Export** (top right). The file is `.xlsx`. Ranges come as presets (such as the past 7 days); a custom date range is only in the mobile app.
+- **Page analytics (admins):** page admin view, **Analytics**, pick **Content**, **Visitors**, **Followers** or **Competitors**, then **Export**, choose the timeframe, **Export**. The file is XLS.
+- **Full account archive:** Me, **Settings & Privacy**, **Data privacy**, **Get a copy of your data**, **Request archive**. A download link arrives at the primary email address. Connections' email addresses appear only where they allowed it, only 1st-degree connections are included, and the CSV and vCard files don't support extended character sets such as Chinese, Japanese or Hebrew.
+
+Reading the file: open it with Python (`openpyxl` or pandas), list the sheet names and header rows first, and map columns from what is actually there. Don't assume a layout; it changes. Keep the raw file out of any shared repo, since it holds the user's own data.
 
 ## Four layers: don't mix them in one report
 

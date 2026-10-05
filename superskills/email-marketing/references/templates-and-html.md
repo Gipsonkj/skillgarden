@@ -1,8 +1,8 @@
 # Email templates: React Email, MJML and HTML quirks
 
-> Distilled from: react-email and its STYLING, COMPONENTS and PATTERNS references (resend/react-email, MIT), email-html-mjml with its compilation and MJML references (framix-team/skill-email-html-mjml, MIT), email-template-builder (alirezarezvani/claude-skills, MIT), email-best-practices (resend/resend-skills, MIT), email-marketing-bible design sections (CosmoBlk/email-marketing-bible, MIT).
+> Distilled from: react-email and its STYLING, COMPONENTS and PATTERNS references (resend/react-email, MIT), email-html-mjml with its compilation and MJML references (framix-team/skill-email-html-mjml, MIT), email-template-builder (alirezarezvani/claude-skills, MIT), email-best-practices (resend/resend-skills, MIT), email-marketing-bible design sections (CosmoBlk/email-marketing-bible, MIT). Litmus notes in section 7 are from Litmus's own docs (CREDITS.md).
 
-Use for "build this email in React Email", "MJML template", "responsive email", "email looks broken in Outlook", "Gmail clipped my email", "dark mode email", "email accessibility", "plain-text version", "email design system".
+Use for "build this email in React Email", "MJML template", "responsive email", "email looks broken in Outlook", "Gmail clipped my email", "dark mode email", "email accessibility", "plain-text version", "email design system", "test in Litmus", "email previews across clients".
 
 Visual direction (brand look, images) can come from `image-creation` or the brand's design system; this guide makes it render in inboxes.
 
@@ -129,8 +129,24 @@ npx mjml welcome.mjml -o dist/welcome.html --config.minify=true --config.validat
 
 ## 7. Test before it ships
 
+**Pick a rendering tool.** Ask which testing tool the team has before suggesting one.
+
+| The user's situation | Use | Why |
+|---|---|---|
+| Already pays for Litmus or Email on Acid | That one | Screenshots across many clients without owning the devices |
+| No testing tool, no budget | Real test sends to Gmail (web and app), Outlook, Apple Mail and iOS, light and dark | Free, and shows what real inboxes do |
+| Wants client screenshots plus spam and authentication checks in one place | Litmus | Previews & QA plus Spam Testing on emails sent to its test address |
+| Building an editor or product that needs previews by API | Litmus Instant API | Only if Litmus grants partner access (see below) |
+
+**Litmus.** For most accounts there is no API route: Claude prepares the email and the test send, and reads the results the user shares.
+- Get the email in by sending a test from the ESP to the user's own Litmus test address (each full-access user has one; find it under Test your email on the Home or Emails page). Litmus builds the previews from it, and it shows what subscribers get. Pasting HTML is quicker but gives no spam results; ESP sync, where the plan has it, keeps the Litmus copy in step with the ESP.
+- Previews & QA shows client previews and pre-send checks: inbox envelope, subject line, UTM checks, images-off view and load time.
+- Spam Testing runs 8 checks, among them DMARC, DKIM, blocklists and BIMI, only on mail that arrived at the test address. It needs a Plus or Enterprise plan.
+- A test send is still a send: show the exact email and the test address, and wait for a yes.
+- Instant API (`https://instant-api.litmus.com/v1`) is for partners; Litmus grants access case by case. Auth is HTTP basic with the API key as the username and an empty password. `POST /emails` (`html_text`, `plain_text`, `subject`) returns an `email_guid`; `GET /emails/{email_guid}/previews/{client}` returns screenshot URLs, usually within about 10 seconds (Outlook clients 3-7 seconds). Emails are kept 48 hours. Keep the key in an env var.
+
 1. Compile or render with strict validation; check the HTML size (under 102 KB).
-2. Send a real test with real merge data to Gmail (web and app), Outlook (desktop and web), Apple Mail and iOS, in light and dark mode. A rendering service (Litmus, Email on Acid) covers more clients if available.
+2. Send a real test with real merge data to Gmail (web and app), Outlook (desktop and web), Apple Mail and iOS, in light and dark mode. A rendering service (table above) covers more clients if the team has one.
 3. Images off: is the message still clear?
 4. Click every link; check UTMs and that no placeholder URL is left.
 5. Screen reader or accessibility check on headings, alt text, link names; contrast check.

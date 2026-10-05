@@ -3,6 +3,7 @@
 > Distilled from: article-writing (affaan-m/ECC, MIT), content-production (alirezarezvani/claude-skills, MIT), blog-writing-guide (getsentry/skills, Apache-2.0), sepia tech-articles and release-notes domains (Nanako0129/sepia, MIT), ai-copywriter strategic blog rules (mikiarlo3/ai-copywriter, MIT), content-creation templates (anthropics/knowledge-work-plugins, Apache-2.0).
 
 Use for "write a post about", "draft an article", "blog post", "guide", "tutorial", "engineering deep dive", "case study", "press release", "thought leadership", "optimize this post for SEO". If the user hands you notes, a transcript or a fragments file and wants to build the piece together, use [writing-from-raw-material.md](writing-from-raw-material.md) instead.
+To put the finished piece into Google Docs, Notion, WordPress or HubSpot, see [publishing-tools.md](publishing-tools.md).
 
 ## Three modes
 

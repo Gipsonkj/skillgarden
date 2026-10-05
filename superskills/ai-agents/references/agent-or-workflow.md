@@ -54,6 +54,7 @@ Match the user's language and existing project first. If nothing exists yet:
 
 | Need | Good default | Notes |
 |---|---|---|
+| The project or team already uses a framework or platform | Keep it | Switching costs more than a feature gap; full picker in frameworks.md |
 | Claude, you host, your own tools | Claude API + Tool Runner (SDK helper loop) | Manual `while stop_reason == "tool_use"` loop only when you must own every step |
 | Claude, batteries-included file/shell agent on your infra | Claude Agent SDK | Claude Code as a library: built-in Read/Edit/Bash/Grep, subagents, hooks |
 | Claude, hosted loop + sandbox, schedules, versioned agents | Claude Managed Agents | Least code you own for scheduled or long-running agents |
@@ -62,9 +63,14 @@ Match the user's language and existing project first. If nothing exists yet:
 | Python/TS explicit graph, checkpoints, human-in-the-loop | LangGraph | Deep Agents on top for planning + files + subagents |
 | Google Cloud deploy, A2A, eval tooling | Google ADK via `agents-cli` | Scaffold first; Agent Runtime / Cloud Run / GKE |
 | Stateful agents at the edge, WebSockets, schedules | Cloudflare Agents SDK | Durable Objects + SQLite state |
+| Python, OpenAI models, handoffs + guardrails + tracing built in | OpenAI Agents SDK | `needs_approval` on risky tools |
+| Python crews of role-based agents in config files | CrewAI | Wrap in a Flow for state and approvals |
 | Azure / enterprise Microsoft stack | Microsoft Foundry (`azd`) | Hosted or prompt agents |
+| .NET / Go / Python code agents on Microsoft, or leaving AutoGen / Semantic Kernel | Microsoft Agent Framework | Successor to both; graph workflows |
+| Low-code agent for Microsoft 365 / Teams users, owned by makers | Microsoft Copilot Studio | Edit as YAML via the VS Code extension |
 | Real-time voice | ElevenLabs Agents (or ADK Live) | See voice-agents-elevenlabs.md |
 | No-code business automation | n8n / Make / Zapier | See the automation super skill |
+| Unsure which language, cloud or Microsoft tenant the team uses | Ask the user | Don't guess a stack |
 
 Framework-specific rules live in frameworks.md and claude-platform.md.
 

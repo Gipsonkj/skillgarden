@@ -1,6 +1,6 @@
 ---
 name: automation
-description: Automate work across browsers, web apps and SaaS tools. Covers choosing API vs workflow vs browser vs agent; browser automation with playwright-cli, agent-browser, browser-use, Browserbase and Chrome DevTools MCP; Playwright testing of local web apps (server helper, locators, plan/generate/heal, debugging); page debugging (console, network, CSS, performance, extensions); n8n workflows (MCP tools, expressions, Code nodes, loops, AI agents); Make scenarios (modules, connections, blueprints, routers, error handlers); Zapier SDK, CLI and durable workflows; Composio, Google Workspace CLI (gws) and GitHub CLI actions; web data extraction and Firecrawl. Use when asked to automate a task or process, build an n8n workflow, Make scenario or Zap, connect apps, click through or scrape a website, fill a form, test a web app in a browser, debug a page, triage email or act in Gmail, Slack, GitHub or other apps, or make an automation reliable.
+description: Automate work across browsers, web apps and SaaS tools. Covers choosing API vs workflow vs browser vs agent and picking a platform; browser automation with playwright-cli, agent-browser, browser-use, Browserbase and Chrome DevTools MCP; Playwright testing of local web apps; Selenium and Puppeteer scripts; page debugging; n8n workflows; Make scenarios; Zapier SDK, CLI and durable workflows; Power Automate cloud flows; Google Apps Script and clasp; scheduled GitHub Actions; UiPath jobs (uip CLI); Composio, Google Workspace CLI (gws) and GitHub CLI actions; web data extraction and Firecrawl. Use when asked to automate a task or process, build an n8n workflow, Make scenario, Zap or Power Automate flow, write an Apps Script trigger, schedule a script with GitHub Actions, run a UiPath job, connect apps, click through or scrape a website, fill a form, test a web app in a browser, debug a page, triage email or act in Gmail, Slack, GitHub or other apps, or make an automation reliable.
 ---
 
 # Automation
@@ -40,13 +40,14 @@ Work out what the request needs before opening a guide; most real requests need 
 
 | Task | Read |
 |---|---|
-| Choose the vehicle, plan the flow, reliability, credentials, handoff | [references/automation-design.md](references/automation-design.md) |
-| Drive a browser: pick a driver, snapshot loop, sessions, logins, evidence | [references/browser-automation.md](references/browser-automation.md) |
+| Choose the vehicle, pick a workflow platform, plan the flow, reliability, credentials, handoff | [references/automation-design.md](references/automation-design.md) |
+| Drive a browser: pick a driver, snapshot loop, sessions, logins, evidence; fix or pick a Selenium, Puppeteer or Playwright script | [references/browser-automation.md](references/browser-automation.md) |
 | Test a local web app with Playwright; write, generate or fix tests | [references/playwright-testing.md](references/playwright-testing.md); helper `scripts/webapp-testing/with_server.py`, templates in `templates/webapp-testing/` |
 | Debug a page: console, network, CSS, performance, Chrome extensions | [references/devtools-debugging.md](references/devtools-debugging.md) |
 | Build or fix an n8n workflow (MCP tools, expressions, Code nodes, loops, AI agent) | [references/n8n.md](references/n8n.md) |
 | Build a Make scenario (modules, connections, blueprint, routing, errors) | [references/make.md](references/make.md) |
 | Zapier SDK/CLI actions or a durable Zapier workflow | [references/zapier.md](references/zapier.md) |
+| Power Automate flows, Google Apps Script triggers, scheduled GitHub Actions, UiPath jobs | [references/platform-workflows.md](references/platform-workflows.md) |
 | Act directly in apps: Composio, Gmail/Workspace via `gws`, GitHub via `gh-axi` | [references/app-integrations.md](references/app-integrations.md) |
 | Extract structured data from websites; Firecrawl agent | [references/web-extraction.md](references/web-extraction.md) |
 

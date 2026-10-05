@@ -58,3 +58,6 @@ Judge carousels on **saves and completion**, not likes. Where per-slide analytic
 - [ ] Real proof (screenshots, numbers) where claimed
 - [ ] One CTA; caption written as its own hook
 - [ ] Alt text written for each slide image
+
+
+**Building the slides in Canva:** hand off to `poster-design` -> `references/canva.md` (Canva connector: find, resize, bulk-create from data); bring the exported slides back here for the checklist above.

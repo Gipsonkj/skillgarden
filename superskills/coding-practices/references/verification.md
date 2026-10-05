@@ -54,6 +54,47 @@ G2 no TODO left in src/export   CHECK: ! grep -rn TODO src/export   EXPECT: exit
 | Agent/subagent finished | `git diff` reviewed, tests rerun | Its success message |
 | Requirements met | Line-by-line checklist against the request | Tests passing |
 
+## Lint, format and typecheck gates
+
+Run the project's own gates the way CI runs them (its `lint`, `format:check`, `typecheck` scripts or Makefile targets first). Read the exit code: most of these tools use `2` for "the tool itself failed", which means the gate never ran, not that it passed or failed.
+
+**Pick a tool**
+
+| Situation | Use | Why |
+|---|---|---|
+| The project already has a config (`eslint.config.*`, `biome.json`, `.prettierrc`, `[tool.ruff]`) or a lint script | That one, through the project's script | Matches CI. Never add a second linter beside it |
+| JS/TS, nothing set up, user asks for linting | ESLint, with Prettier for formatting | The standard pair; Prettier is already in the pre-commit recipe (git-workflow.md) |
+| JS/TS, user wants one fast tool for lint and format | Biome | One binary and one `biome.json`; migrating off ESLint is the user's call |
+| Python | Ruff for lint and format | One tool, a drop-in replacement for Black's formatting |
+| Types | `npx tsc --noEmit`; mypy or the project's checker in Python | Lint passing says nothing about types |
+| Project has none of these | Ask before adding one | A new linter is a change of its own, with its own commit |
+
+All of them are free, local CLIs with no account.
+
+### ESLint (JS/TS)
+
+- Setup, only when asked: `npm init @eslint/config@latest` writes `eslint.config.js` or `eslint.config.mjs` (flat config). Needs Node `^20.19.0`, `^22.13.0` or `>=24`.
+- Gate: `npx eslint .` (or named files). Exit `0` clean, `1` errors or too many warnings, `2` config or internal error.
+- `--max-warnings 0` makes warnings fail the gate; `--quiet` reports errors only; `--format json` gives parseable output.
+- Fixing: preview with `--fix-dry-run --format json`, then `--fix` writes to disk. Review the diff and commit fixes on their own.
+- `--cache` (stored in `.eslintcache`) only rechecks changed files and doesn't track dependencies, so type-aware rules can report stale results: leave it off for the final gate.
+- Official MCP server: `npx @eslint/mcp@latest` (its docs give configs for VS Code, Cursor and Windsurf). The CLI above is enough for Claude Code.
+
+### Prettier and Biome (JS/TS formatting)
+
+- Prettier gate: `npx prettier . --check` (exit `0` formatted, `1` something isn't, `2` Prettier failed); fix with `--write`.
+- Biome: `npm i -D -E @biomejs/biome` (`-E` pins the exact version), `npx biome init` creates `biome.json`; gate `npx biome check`, fix `npx biome check --write`. What `--write` leaves behind needs a manual fix.
+
+### Ruff (Python)
+
+- Install into the project: `uv add --dev ruff` or `pip install ruff`; one-off without installing: `uvx ruff@latest check`. Skip the pipe-to-shell installer.
+- Config: `[tool.ruff]` in `pyproject.toml`, or `ruff.toml` / `.ruff.toml`. Choose rules under `[tool.ruff.lint]` with `select`, `extend-select` and `ignore`. Default line length is 88.
+- Gates: `ruff check` (exit `0` clean, `1` violations, `2` abnormal end) and `ruff format --check` (non-zero when files would change).
+- Fixing: `ruff check --fix` applies safe fixes only. `--unsafe-fixes` can change runtime behaviour or drop comments: use it only with tests green and the diff read. `--diff` shows fixes without writing; `--statistics` counts violations per rule; `--output-format json` (also `github`, `gitlab`, `junit`, `sarif`) for tooling.
+- The formatter doesn't sort imports: run `ruff check --select I --fix`, then `ruff format`.
+- Some lint rules fight the formatter (quote rules `Q000`-`Q004`, `W191`, `E111`, `E114`, `E117`, `COM812`, `COM819`): Ruff's docs advise ignoring them when you use `ruff format`.
+- Silencing one finding: `# noqa: F841` on that line. Every suppression goes in your report.
+
 ## 3. Report honestly
 
 - Lead with the outcome. If something failed, show the output.

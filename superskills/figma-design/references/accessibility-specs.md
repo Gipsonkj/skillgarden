@@ -1,10 +1,42 @@
 # Accessibility checks and screen-reader specs
 
-> Distilled from: create-voice and the screen-reader references for VoiceOver, TalkBack and ARIA (redongreen/uSpec, MIT); figma-lint-design WCAG rules and thresholds (southleft/figma-console-mcp-skills, MIT); design-handoff accessibility section (anthropics/knowledge-work-plugins, Apache-2.0). Plus general knowledge of WCAG 2.2.
+> Distilled from: create-voice and the screen-reader references for VoiceOver, TalkBack and ARIA (redongreen/uSpec, MIT); figma-lint-design WCAG rules and thresholds (southleft/figma-console-mcp-skills, MIT); design-handoff accessibility section (anthropics/knowledge-work-plugins, Apache-2.0). Plus general knowledge of WCAG 2.2. Stark section written in our own words from Stark's docs.
 
 Two jobs: **check the design** (can people see and reach it?) and **spec the semantics** (what does a screen reader land on and say, per platform?). Do the first before hand-off, the second for every interactive component.
 
 ## 1. Design-side checks
+
+### Pick a checker
+
+| Situation | Use | Why |
+|---|---|---|
+| The team already uses or pays for a checker (Stark, an audit tool) | That one | Findings land where the team tracks them |
+| A Figma file and a Figma MCP that can run `use_figma` | `scripts/figma-lint-design/lint-design.js` | Free, no extra account, node ids in every finding |
+| The team has Stark, or wants scans of Figma files, live URLs, source code, iOS/Android builds or a Storybook library in one place | Stark connector (below) | Scans and compliance status from chat; violations come with remediation context |
+| Components live in Storybook with the MCP addon and `@storybook/addon-vitest` | Storybook `test-run` (see [design-to-code.md](design-to-code.md)) | Reports accessibility issues per story, in code |
+| A designer checking by hand in Figma | Stark Figma plugin | Contrast Checker and Vision Simulator are free |
+| Unsure which the team uses | Ask | Don't open a Stark trial or install an addon on a guess |
+
+Every route still needs the hand checks in the table below that no tool can judge (reading order intent, alt text quality, disabled context).
+
+### Stark
+
+Accessibility suite with a Figma plugin and a remote MCP server that Claude uses as a connector.
+
+**Connect.** In Claude (web or desktop): Settings > Connectors > Add custom connector, name `Stark`, URL `https://mcp.getstark.ai/mcp`, then Connect and sign in to Stark when prompted (no API key). Stark is also listed in Claude's connector directory. In Claude Code: `claude mcp add --transport http stark https://mcp.getstark.ai/mcp`, then `/mcp` if it asks you to authenticate. After connecting, list its tools rather than assuming names; the public docs don't list them.
+
+**What to ask it for.**
+- Scan: create an asset from a Figma file, one or more live URLs, source code, an iOS or Android build, or a Storybook library, and run it through Stark. It creates a project on the fly if none exists.
+- Violations: pull every issue for a project with the context needed to fix it.
+- Status: summarise accessibility posture for a project, a team or the whole Compliance Center.
+
+**Gotchas.**
+- A scan sends the asset (including source code) to Stark and creates projects in the user's Stark account. Say what you will scan and create, and wait for a yes.
+- Accounts: a free two-week trial needs no card; reports and insights need a paid plan. Don't start a trial for the user.
+- The Figma plugin's full set is Contrast Checker, Typography, Vision Simulator, Focus Order, Landmarks, Touch Targets and Alt-Text Annotations; Contrast Checker and Vision Simulator are free; check Stark's plans for the rest. Its focus order and alt-text annotations are a good input to the screen-reader spec in section 2.
+- Treat Stark's findings like the linter's: give each one a node id or URL, rule, severity and fix, and recheck the fix.
+
+### Lint script
 
 Run `scripts/figma-lint-design/lint-design.js` through `use_figma` with `RULES = ['wcag']` (and `NODE_ID` set to the frame) for a fast first pass, then check by hand what a linter can't judge.
 

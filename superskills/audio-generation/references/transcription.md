@@ -15,6 +15,8 @@
 
 | Need | Route |
 |---|---|
+| The user already uses or pays for a transcription service | That one |
+| The recording is being edited in Descript anyway | Descript's transcript export (`txt`, `markdown`, `srt`, ...; `editing-and-repair.md`) |
 | Fast plain text, any platform | OpenAI `gpt-4o-mini-transcribe` (`openai-audio.md`) |
 | Speaker labels + word timestamps + SRT in one call | ElevenLabs `scribe_v2` with `diarize` (`elevenlabs.md`) |
 | Known speakers by name (<= 4 reference clips) | OpenAI `gpt-4o-transcribe-diarize` |

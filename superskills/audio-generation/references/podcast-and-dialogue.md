@@ -3,6 +3,8 @@
 > Distilled from: podcast-generation (bytedance/deer-flow, MIT), speech (openai/skills, Apache-2.0), text-to-speech (elevenlabs/skills, MIT), notebooklm (teng-lin/notebooklm-py, MIT)
 
 Turn an article, report or notes into a conversation people can follow by ear.
+A podcast someone already recorded (cut ums and pauses, clean the voices) is in
+`editing-and-repair.md`.
 
 ## 1. Plan
 
@@ -39,9 +41,21 @@ Writing rules:
 
 ## 3. Synthesize
 
+### Pick a tool
+
+| Situation | Use | Why |
+|---|---|---|
+| The user already uses or pays for one TTS service | That one | Same voices as their other audio |
+| Best voice quality, cloned host voices | ElevenLabs, one call per line (`elevenlabs.md`) | Request stitching keeps prosody across a speaker's lines |
+| Two hosts with prebuilt voices, natural turn-taking in one call | Gemini TTS multi-speaker (`voiceover-tts.md` section 7) | `mode: conversational`, backchannels; max 2 speakers |
+| Per-line delivery instructions, OpenAI stack | OpenAI batch JSONL (`openai-audio.md`) | `instructions` per line |
+| Hands-off summary podcast, no control needed | NotebookLM Audio Overview (section 5) | Unofficial client; ask before using |
+
 1. Generate one file per line (`0001_host_a.wav`, ...) with fixed voice and settings per speaker.
    ElevenLabs: pass `previous_text`/`next_text` within a speaker's run for smooth prosody.
    OpenAI: batch JSONL with per-line `voice` (see `openai-audio.md`).
+   Gemini: up to 2 prebuilt voices can share one request (send the episode in chunks of
+   turns); custom voices need one request per turn.
 2. Retry failed lines individually with backoff on 429; never regenerate the whole show for one line.
 3. Join with short gaps: 0.25-0.4 s between speakers, 0.6-1 s at topic changes (ffmpeg concat,
    see `mixing-and-mastering.md`). Overlap reactions slightly (-0.1 s) only if the tool allows.

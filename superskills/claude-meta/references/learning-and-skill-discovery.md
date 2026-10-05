@@ -53,6 +53,15 @@ Hook-based learners (e.g. continuous-learning-v2) record prompts and tool calls 
 
 ## 6. Find and install new skills
 
+### Pick a tool (installing)
+
+| Situation | Use | Why |
+|---|---|---|
+| The user already installs through one route | That route | One place to update and remove |
+| It's published as a Claude Code plugin (skills plus hooks, agents or MCP) | `/plugin marketplace add <owner/repo>`, then `/plugin install <plugin>@<marketplace>`; browse the official one in `/plugin` → **Discover** | Versioned updates; review steps in `references/packaging-and-connecting.md` |
+| A single skill, or the user also runs Cursor, Codex, Copilot, Gemini CLI or OpenCode | `npx skills add <owner/repo> --skill <name>` (`-a claude-code codex ...` picks agents, `-g` installs for the user instead of the project) | One command writes the skill into each agent's folder |
+| No network installer wanted | Copy the reviewed folder into `.claude/skills/` (or `~/.claude/skills/`) | Nothing runs but what you read |
+
 When the user asks "is there a skill for X" or wants to extend capabilities:
 1. Identify the domain and the specific task (e.g. "React performance", "PR review").
 2. Check well-known sources first: `anthropics/skills`, `anthropics/claude-plugins-official`, `vercel-labs/agent-skills`, `obra/superpowers`, the skills.sh leaderboard.

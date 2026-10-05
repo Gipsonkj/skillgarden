@@ -1,4 +1,4 @@
-> Distilled from: social (coreyhaines31/marketingskills, MIT), social-media-manager (alirezarezvani/claude-skills, MIT), x-twitter-growth (alirezarezvani/claude-skills, MIT), x-marketing (sergebulaev/x-skills, MIT)
+> Distilled from: social (coreyhaines31/marketingskills, MIT), social-media-manager (alirezarezvani/claude-skills, MIT), x-twitter-growth (alirezarezvani/claude-skills, MIT), x-marketing (sergebulaev/x-skills, MIT). Link-in-bio note (Linktree) written in our own words from Linktree's developer page (see CREDITS.md).
 
 # Analytics, audits, community and growth
 
@@ -69,6 +69,8 @@ If the user's scheduler or API exposes post stats, pull them at the start of eac
 - [ ] Present in relevant groups, communities, threads
 
 Deliver: findings per section, rated, then a prioritized fix list (impact x effort), then a 30-day plan.
+
+**Link-in-bio pages (Linktree):** its APIs are not open (developers register interest), so draft the link list with titles and UTM'd URLs and let the user paste it in; check every bio link works and matches what posts promise. Deeper notes next round.
 
 ## 5. Daily engagement routine (30 minutes)
 

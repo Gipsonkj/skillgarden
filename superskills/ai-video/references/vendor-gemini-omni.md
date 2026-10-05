@@ -9,7 +9,7 @@ Model `gemini-omni-1.1-flash`, called through the Interactions API with the `goo
 - `GEMINI_API_KEY` in the environment (never on the command line or in a prompt file).
 - Python 3.10+, `google-genai >= 2.19.0` (`pip install -U google-genai`); ask the user before installing.
 - ffmpeg/ffprobe on PATH (for prep, inspect, strip-audio).
-- **Region limit:** uploading a video for edit or extend is not available in the EEA, Switzerland, the UK and some US states. An edit that returns instantly with no video (`total_output_tokens: 0`) is this restriction, not a prompt problem.
+- **Region limit:** uploading a video for edit or extend is not available in the EEA, Switzerland and the UK. An edit that returns instantly with no video (`total_output_tokens: 0`) is this restriction, not a prompt problem.
 
 ## Limits
 

@@ -1,6 +1,6 @@
 ---
 name: linkedin-automation
-description: LinkedIn growth done inside LinkedIn's rules - drafting posts, hooks, carousels, profiles, comments and outreach for the account holder to send by hand, plus publishing only through LinkedIn's official API or API-partner schedulers. Use when asked to write or fix a LinkedIn post or hook, pick a format, build a writing voice, make a carousel or PDF document post, rewrite a headline or About section, plan comments, write a connection note, DM or InMail, research leads without scraping, ghostwrite for an executive or a team, schedule or publish via the Posts API, Composio or another official-API tool, or read post analytics. Also use when someone asks for LinkedIn automation, bots, auto-connect or auto-message tools, scrapers, Dripify, Expandi, PhantomBuster, browser extensions or engagement pods: explain the ToS risk and give the compliant route.
+description: LinkedIn growth done inside LinkedIn's rules - drafting posts, hooks, carousels, profiles, comments and outreach for the account holder to send by hand, plus publishing only through LinkedIn's official API or API-partner schedulers. Use when asked to write or fix a LinkedIn post or hook, pick a format, build a writing voice, make a carousel or PDF document post, rewrite a headline or About section, plan comments, write a connection note, DM or InMail, research leads without scraping or with Sales Navigator, ghostwrite for an executive or a team, schedule or publish via LinkedIn's own scheduler, the Posts API, Buffer, Hootsuite, Composio or another official-API tool, design a carousel in Canva, or read and export post analytics. Also use when someone asks for LinkedIn automation, bots, auto-connect or auto-message tools, scrapers, Dripify, Expandi, PhantomBuster, browser extensions or engagement pods: explain the ToS risk and give the compliant route.
 ---
 
 # LinkedIn automation (the safe kind)
@@ -53,14 +53,14 @@ Name the task, or say "use linkedin-automation: <capability>".
 | "Can I automate X?", tool risk check, Dripify/Expandi/scraper requests, safe volume limits | [references/tos-and-safe-automation.md](references/tos-and-safe-automation.md) + `scripts/linkedin-skills/linkedin_policy_gate.py` |
 | Write or fix a post, hooks, formats, formulas, pre-publish lint | [references/post-writing.md](references/post-writing.md) + `scripts/linkedin-content/post_linter.py` |
 | Build a voice profile (about-me.md, voice.md, story bank) | [references/voice-building.md](references/voice-building.md) |
-| Carousel / PDF document post, slide briefs, image prompts | [references/carousels-documents.md](references/carousels-documents.md) |
+| Carousel / PDF document post, slide briefs, image prompts, pick a design tool (Canva) | [references/carousels-documents.md](references/carousels-documents.md) |
 | Profile audit, headline, About, Experience, Featured, banner | [references/profile-optimization.md](references/profile-optimization.md) + `scripts/linkedin-profile/` + `templates/linkedin-profile/profile_worksheet.md` |
 | Comments, replies to your own thread, commenting roster | [references/comments-engagement.md](references/comments-engagement.md) |
 | Connection notes, DMs, InMail, follow-ups, volume check | [references/outreach-messages.md](references/outreach-messages.md) + `scripts/linkedin-engagement/` + `templates/linkedin-engagement/outreach_worksheet.md` |
-| Finding and qualifying leads, warm paths, no scraping | [references/lead-research.md](references/lead-research.md) |
+| Finding and qualifying leads, warm paths, no scraping, pick a lead tool (Sales Navigator) | [references/lead-research.md](references/lead-research.md) |
 | Ghostwriting for a founder or exec, employee advocacy programme | [references/ghostwriting.md](references/ghostwriting.md) |
-| Publish or schedule via official API, Composio, API-partner schedulers | [references/publishing-official-api.md](references/publishing-official-api.md) |
-| Post analytics, what's working, reach dropped, benchmarks | [references/analytics.md](references/analytics.md) |
+| Publish or schedule a post, pick a scheduler (LinkedIn's own, Buffer, Hootsuite, Posts API, Composio, Publora) | [references/publishing-official-api.md](references/publishing-official-api.md) |
+| Post analytics, export LinkedIn analytics, what's working, reach dropped, benchmarks | [references/analytics.md](references/analytics.md) |
 
 ## Other crafts
 

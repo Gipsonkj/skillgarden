@@ -1,6 +1,6 @@
 ---
 name: ad-creation
-description: Plan, write, produce and iterate paid ad creative for Google, Meta (Facebook/Instagram), TikTok, LinkedIn and X. Use for creative strategy, ad briefs, angles and concept matrices; ad copy, hooks, headlines, RSA headlines and descriptions, primary text, CTAs and character-limit checks; Meta static and video ad formats, crop-safe design and Special Ad Categories; TikTok/Reels/Shorts video ads, UGC and creator briefs, founder ads, chat-reveal ads; AI-generated product images and video ads (FLUX, Higgsfield, Nano Banana, Veo, faceless motion ads); competitor ad research and ad library teardowns (Meta Ad Library, Google Ads Transparency, TikTok Creative Center, Apify, ScrapeCreators); creative testing, iteration from performance data, creative audits and creative fatigue; client review pages. Triggers: "write me some ads", "ad copy", "ad creative", "ad variations", "hooks", "creative brief", "UGC ad", "product ad", "spy on competitor ads", "which ad won", "ads are fatiguing".
+description: Plan, write, produce and iterate paid ad creative for Google, Meta (Facebook/Instagram), TikTok, LinkedIn and X. Use for creative strategy, ad briefs, angles and concept matrices; ad copy, hooks, headlines, RSA headlines and descriptions, primary text, CTAs and character-limit checks; Meta static and video ad formats, crop-safe design and Special Ad Categories; TikTok/Reels/Shorts video ads, UGC and creator briefs, founder ads, chat-reveal ads; AI-generated product images and video ads (FLUX, Higgsfield, Nano Banana, Veo, faceless motion ads); Canva, Adobe or CapCut edits; competitor ad research and ad library teardowns (Meta Ad Library, Google Ads Transparency, TikTok Creative Center, Apify, ScrapeCreators); creative testing, iteration from performance data (Motion), creative audits and creative fatigue; client review pages. Triggers: "write me some ads", "ad copy", "ad creative", "ad variations", "hooks", "creative brief", "UGC ad", "product ad", "spy on competitor ads", "which ad won", "ads are fatiguing".
 ---
 
 # Ad creation
@@ -47,11 +47,12 @@ Work out what the request needs before opening a guide; most real requests need 
 | Character limits, image sizes, safe zones, video specs per platform | [references/platform-specs.md](references/platform-specs.md) |
 | Meta/Facebook/Instagram: format tiers, static templates, crop-safe, Advantage+, Special Ad Categories | [references/meta-ads-creative.md](references/meta-ads-creative.md) |
 | TikTok/Reels/Shorts video, hooks, UGC and creator formats, briefs, rights, founder and chat-reveal ads | [references/short-form-video-ugc.md](references/short-form-video-ugc.md) |
-| AI product images and video ads, faceless motion ads, VO, assembly and QC (any provider) | [references/ai-ad-production.md](references/ai-ad-production.md) |
+| AI product images and video ads, faceless motion ads, VO, assembly and QC (any provider); pick a generator | [references/ai-ad-production.md](references/ai-ad-production.md) |
+| Make, resize, brand-check or cut ads in an app; pick a tool (Canva, Adobe, CapCut, TikTok Symphony) and get assets into TikTok Ads Manager (MCP) | [references/production-tools.md](references/production-tools.md) |
 | FLUX 3 (BFL API) product ads or Higgsfield product photoshoot CLI | [references/vendor-flux-higgsfield.md](references/vendor-flux-higgsfield.md) |
-| Competitor ads, ad library teardown, swipe file, gap analysis | [references/competitor-ad-research.md](references/competitor-ad-research.md) |
-| Bulk ad-library pulls with Apify Actors or ScrapeCreators API | [references/vendor-ad-library-apis.md](references/vendor-ad-library-apis.md) |
-| Testing plan, iterating from data, creative audit, fatigue, monthly retro | [references/testing-iteration.md](references/testing-iteration.md) |
+| Competitor ads, ad library teardown, swipe file, gap analysis; pick a research tool | [references/competitor-ad-research.md](references/competitor-ad-research.md) |
+| Bulk ad-library pulls with the Meta Ad Library API, Apify Actors or ScrapeCreators API | [references/vendor-ad-library-apis.md](references/vendor-ad-library-apis.md) |
+| Testing plan, iterating from data, creative audit, fatigue, monthly retro; pick an analytics tool (Motion) | [references/testing-iteration.md](references/testing-iteration.md) |
 
 Call a sub-capability by naming the task, or say "use ad-creation: <capability>" (for example "use ad-creation: competitor teardown").
 

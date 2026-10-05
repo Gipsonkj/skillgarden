@@ -1,6 +1,6 @@
 ---
 name: app-building
-description: Build, test and ship mobile and desktop apps that feel native. Use for choosing a stack (Expo/React Native, SwiftUI, Jetpack Compose, Flutter, Tauri, PWA); designing native-feeling screens, navigation (push vs modal vs sheet), motion, haptics and dark mode without AI-template looks; Expo Router, Expo Go vs dev builds, Expo SDK and React Native upgrades; React Native jank, slow startup, list and bundle performance; SwiftUI state, modern APIs, accessibility and Instruments traces; Swift 6 concurrency errors (Sendable, actors, MainActor); Android Compose adaptive layouts and XML-to-Compose migration; Flutter architecture and responsive layout; Tauri v2 commands and capabilities; packaging, signing and notarizing Mac apps; simulator and emulator testing, screen recordings, E2E tests; EAS builds, TestFlight, App Store review and Google Play tracks; making a web app or PWA feel native on phones.
+description: Build, test and ship mobile and desktop apps that feel native. Use for choosing a stack (Expo/React Native, SwiftUI, Jetpack Compose, Flutter, Tauri, PWA); designing native-feeling screens, navigation (push vs modal vs sheet), motion, haptics and dark mode without AI-template looks; Expo Router, Expo Go vs dev builds, Expo SDK and React Native upgrades; React Native jank, slow startup, list and bundle performance; SwiftUI state, modern APIs, accessibility and Instruments traces; Swift 6 concurrency errors (Sendable, actors, MainActor); Android Compose adaptive layouts and XML-to-Compose migration; Flutter architecture and responsive layout; Electron (Forge, signing, auto-update) and Tauri v2 desktop apps; packaging, signing and notarizing Mac apps; crash reporting (Firebase Crashlytics, Sentry) and push notifications (FCM, Expo push); simulator and emulator testing, screen recordings, E2E tests; EAS builds, TestFlight, App Store review and Google Play tracks; making a web app or PWA feel native on phones.
 ---
 
 # App building
@@ -47,9 +47,10 @@ Work out what the request needs before opening a guide; most real requests need 
 | Swift 6 concurrency errors, actors, Sendable, migration, general modern Swift | `references/swift-concurrency.md` |
 | Native Android: Compose, adaptive layouts for tablets and foldables, XML-to-Compose, `android` CLI | `references/android-compose.md` |
 | Flutter architecture (MVVM + repositories) and responsive layouts | `references/flutter.md` |
-| Tauri v2 desktop/mobile apps; SwiftPM Mac apps built, signed and notarized without Xcode | `references/desktop-tauri-macos.md` + `templates/macos-spm-app-packaging/` |
+| Desktop apps, pick a tool (Electron, Tauri v2, SwiftPM): Electron Forge, IPC, signing, auto-update; Tauri v2 desktop/mobile apps; SwiftPM Mac apps built, signed and notarized without Xcode | `references/desktop-tauri-macos.md` + `templates/macos-spm-app-packaging/` |
 | Run on simulators and emulators, screenshots, screen recordings, crash logs, E2E tests, failing builds | `references/testing-simulators.md` |
 | EAS builds, TestFlight, App Store review, `asc` CLI, Google Play tracks, versioning | `references/release-app-stores.md` |
+| Crash reporting and push notifications, pick a tool (Firebase Crashlytics, Sentry, FCM, Expo push): setup, readable stack traces, test crash, sending pushes | `references/crash-reporting-push.md` |
 | A web app or PWA that must feel native on phones (sticky hover, 100vh, input zoom, safe areas) | `references/mobile-web-pwa.md` |
 
 ## Other crafts

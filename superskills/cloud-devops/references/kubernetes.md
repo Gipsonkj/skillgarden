@@ -1,6 +1,6 @@
 # Kubernetes
 
-> Distilled from: kubernetes-specialist (Jeffallan/claude-skills, MIT), k8s-security-policies (wshobson/agents, MIT), gke-basics (google/skills, Apache-2.0), aws-containers (aws/agent-toolkit-for-aws, Apache-2.0), azure-diagnostics (microsoft/azure-skills, MIT)
+> Distilled from: kubernetes-specialist (Jeffallan/claude-skills, MIT), k8s-security-policies (wshobson/agents, MIT), gke-basics (google/skills, Apache-2.0), aws-containers (aws/agent-toolkit-for-aws, Apache-2.0), azure-diagnostics (microsoft/azure-skills, MIT), plus the official Argo CD docs (written in our own words)
 
 Template: `templates/k8s-security-policies/network-policy-template.yaml` (default-deny, allow-DNS, and common allow rules).
 
@@ -118,8 +118,85 @@ General sequence: `kubectl get pods -o wide` → `describe` → `logs [--previou
 **AKS**
 - Triage order: cluster reachable (`kubectl` auth) → node health → `kube-system` (CoreDNS, CNI) → workload. Azure resource health and activity log for platform-side issues (see [azure.md](azure.md)).
 
-## GitOps and packaging (brief)
+## GitOps and packaging
 
-- Helm for packaging: values per env, `helm lint`, `helm template | kubeconform` in CI.
-- Argo CD or Flux for pull-based deploys; secrets via Sealed Secrets / External Secrets Operator.
-- Progressive delivery (canary %) via Argo Rollouts or a service mesh, only once basic rollouts are solid.
+### Pick a deploy tool
+
+| Situation | Use | Why |
+|---|---|---|
+| The cluster already runs Argo CD or Flux, or the team uses one | That one | Two controllers fighting over the same objects undo each other |
+| One cluster, small team, CI already deploys | `helm upgrade --install --atomic --wait` from CI (above) | Fewest moving parts; rollback is `helm rollback` or `kubectl rollout undo` |
+| Several clusters or environments, want git as the source of truth, drift fixed automatically, a UI showing what runs where | Argo CD (below) | Pulls from git, shows diffs, syncs per app, manual sync for prod |
+| Unsure who owns the cluster or whether a GitOps tool is installed | Ask the user (`kubectl get ns argocd flux-system`) | Installing a controller into someone's cluster is their decision |
+
+Helm packages either way: values per env, `helm lint`, `helm template | kubeconform` in CI. Progressive delivery (canary %) via Argo Rollouts or a service mesh, only once basic rollouts are solid.
+
+### Argo CD
+
+Argo CD runs in the cluster, watches git and makes each `Application` match it.
+
+**Install and access** (only with the cluster owner's yes): `kubectl create namespace argocd`, then apply the install manifest from the Argo CD release you pin (read it first; the docs' `stable` URL moves). Get the first admin password with `argocd admin initial-password -n argocd`, change it, then delete the `argocd-initial-admin-secret`. `argocd login <server>` for the CLI. `argocd cluster add <kube-context>` registers another cluster by creating an `argocd-manager` ServiceAccount with admin-level rights in its `kube-system`; name the context and get a yes before running it. Declaratively, clusters are Secrets labelled `argocd.argoproj.io/secret-type: cluster`; keep their tokens out of git.
+
+**Project first.** The `default` project allows any repo, any cluster and every kind. Give each app its own `AppProject`:
+
+```yaml
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata: { name: api, namespace: argocd }
+spec:
+  sourceRepos: [https://github.com/acme/api.git]
+  destinations:
+    - { server: https://staging-api.example.com, namespace: api }
+    - { server: https://prod-api.example.com, namespace: api }
+```
+
+`destinations` limits where it can deploy; `clusterResourceWhitelist` (group + kind) lists the cluster-scoped kinds it may create, and `namespaceResourceBlacklist` denies namespaced kinds.
+
+**One Application per environment**, Helm values per env, staging auto, prod manual:
+
+```yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: api-staging
+  namespace: argocd
+  finalizers: [resources-finalizer.argocd.argoproj.io]   # deleting the app deletes its resources
+spec:
+  project: api
+  source:
+    repoURL: https://github.com/acme/api.git
+    targetRevision: main
+    path: charts/api
+    helm:
+      releaseName: api
+      valueFiles: [values-staging.yaml]
+  destination: { server: https://staging-api.example.com, namespace: api }
+  syncPolicy:
+    automated: { prune: true, selfHeal: true }
+---
+# api-prod: same, but targetRevision pinned to a release tag (e.g. v1.4.2),
+# valueFiles [values-prod.yaml], the prod server as destination, and NO syncPolicy.automated.
+```
+
+Keep these manifests in git (e.g. `apps/`) and apply them with `kubectl apply -n argocd -f apps/`, or let one parent Application manage them (app of apps).
+
+How sync behaves:
+- Auto sync tries once per commit SHA plus parameters; a failed sync of the same commit is not retried unless `selfHeal` is on (retried after 5 s by default). The auto-sync interval is `timeout.reconciliation` in the `argocd-cm` ConfigMap: 120 s plus up to 60 s jitter, so up to 3 minutes.
+- `prune: true` deletes objects removed from git; `selfHeal: true` reverts hand edits in the cluster.
+- Create the `api` namespace beforehand, or add `syncOptions: [CreateNamespace=true]` so Argo CD creates it.
+- Values files can live in another repo with multiple `sources` and `ref: values`, referenced as `$values/path/values-prod.yaml` (only at the start of the path).
+- Argo CD renders charts with `helm template` and applies them itself, so `helm ls` shows nothing and `helm upgrade` / `helm rollback` must not be used on Argo-managed releases. Helm hooks map to Argo hooks (`pre-install` → `PreSync`, `post-install` → `PostSync`); if the chart has any Argo CD hook, all Helm hooks are ignored.
+- Freeze windows: `syncWindows` on the AppProject (`kind: allow|deny`, cron `schedule`, `duration`, `applications`, `manualSync`, `timeZone`).
+
+**Secrets.** Argo CD recommends creating secrets on the destination cluster (External Secrets Operator, Sealed Secrets, Secrets Store CSI Driver, Vault Secrets Operator) over injecting them while rendering manifests, because rendered manifests sit in plaintext in its Redis cache. So the chart references an existing Secret by name; no password in values files, templates or the Application.
+
+**Release to prod** (show the diff and wait for a yes):
+1. Before pushing: `helm lint charts/api` and `helm template api charts/api -f charts/api/values-prod.yaml | kubeconform`.
+2. Raise `targetRevision` in `apps/api-prod.yaml` to the new tag (PR, review, merge), then apply it (or let the parent app pick it up).
+3. `argocd app diff api-prod` (exit code 0 = no diff, 1 = diff, 2 = error) and show it.
+4. On yes: `argocd app sync api-prod`, then `argocd app get api-prod` until it reports synced and healthy.
+
+**Roll back prod:**
+- Durable: revert the `targetRevision` change in git, apply it, then `argocd app sync api-prod`. Git stays the truth.
+- Fast, during an incident: `argocd app history api-prod` (ID, date, revision), then `argocd app rollback api-prod <ID>`. Rollback is refused on apps with automated sync, so it works for prod here, not staging. The app now runs something git doesn't say, so revert git straight after or the next sync redeploys the bad version.
+- Either way only the manifests go back: database migrations and data do not.

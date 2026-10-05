@@ -1,6 +1,6 @@
 # Design tokens and Figma variables
 
-> Distilled from: design-system-patterns and its references (wshobson/agents, MIT); figma-export-tokens and figma-import-tokens, incl. the variable-ops notes (southleft/figma-console-mcp-skills, MIT); token-sync-layer (jrpease/throughline, MIT); create-color and the structure-spec reference (redongreen/uSpec, MIT); design-system (anthropics/knowledge-work-plugins, Apache-2.0). Plus general knowledge of the W3C DTCG format and Style Dictionary.
+> Distilled from: design-system-patterns and its references (wshobson/agents, MIT); figma-export-tokens and figma-import-tokens, incl. the variable-ops notes (southleft/figma-console-mcp-skills, MIT); token-sync-layer (jrpease/throughline, MIT); create-color and the structure-spec reference (redongreen/uSpec, MIT); design-system (anthropics/knowledge-work-plugins, Apache-2.0). Plus general knowledge of the W3C DTCG format and Style Dictionary. Tailwind v4 section written in our own words from the Tailwind CSS docs.
 
 ## 1. Three tiers
 
@@ -84,9 +84,55 @@ The W3C Design Tokens Community Group format is the neutral format between Figma
 | iOS / Android | Swift / Kotlin / XML constants | Flatten references (`outputReferences: false`); one build per mode; check units (pt/dp), a px-to-rem transform must never run here |
 | JS/TS | Nested object, per-mode values | `as const` for types |
 
-Style Dictionary (v4+) reads DTCG directly. Web platforms: `outputReferences: true`. Build **once per mode** with that mode's sources; a single glob over all modes silently keeps whichever file sorted last. Tokens Studio is the Figma-plugin alternative when the team stores tokens as JSON in git.
+### Pick a build tool
+
+| Situation | Use | Why |
+|---|---|---|
+| The project already builds tokens one way | Keep it | A second pipeline drifts from the first |
+| Figma variables are the source, web only, small system | Bundled `convert-tokens.mjs` (below) | No setup; handles modes, aliases and units |
+| DTCG files in git, several platforms (web, iOS, Android) | Style Dictionary v4+ | One source, a build per platform and mode |
+| Tokens come from the Tokens Studio plugin | Style Dictionary + `@tokens-studio/sd-transforms`, see [token-sync-and-drift.md](token-sync-and-drift.md) | Converts Tokens Studio token types for Style Dictionary |
+| Tailwind v4 is the only consumer | `convert-tokens.mjs --format tailwind-v4`, or a hand-owned `@theme` file if code owns the tokens | Tailwind reads tokens straight from CSS |
+| Unsure who owns the tokens | Ask, then record it ([token-sync-and-drift.md](token-sync-and-drift.md) section 1) | The owner decides where the build runs |
+
+Style Dictionary (v4+) reads DTCG directly. Web platforms: `outputReferences: true`. Build **once per mode** with that mode's sources; a single glob over all modes silently keeps whichever file sorted last. Tokens Studio is the Figma-plugin route when the team stores tokens as JSON in git; its sync and build are in [token-sync-and-drift.md](token-sync-and-drift.md).
 
 For a Figma-first pipeline use the bundled scripts: `scripts/figma-export-tokens/read-variables.js` (run through `use_figma`) then `node scripts/figma-export-tokens/convert-tokens.mjs variables.json --format dtcg --out tokens/` (formats: `dtcg`, `css-vars`, `tailwind-v4`, `tailwind-v3`, `scss`, `ts-module`, `json-flat`, `json-nested`, `style-dictionary-v3`, `tokens-studio`). It handles modes, aliases, units and weight names and warns on slug collisions; don't hand-convert.
+
+### Tailwind v4 `@theme`
+
+In v4 tokens live in CSS. A variable inside `@theme` is a CSS variable **and** creates utilities; a variable in `:root` is only a CSS variable. Put tokens that should become classes in `@theme`, everything else in `:root`. `@theme` must be top level, never inside a selector or media query.
+
+| Namespace | Creates | Figma source |
+|---|---|---|
+| `--color-*` | `bg-*`, `text-*`, `border-*`... | Colour variables |
+| `--spacing-*` (and the base `--spacing`) | Padding, margin, gap, sizes | Spacing FLOATs |
+| `--radius-*` | `rounded-*` | Radius |
+| `--font-*`, `--text-*`, `--font-weight-*`, `--leading-*`, `--tracking-*` | Family, size, weight, line height, letter spacing | Typography variables and text styles |
+| `--shadow-*`, `--inset-shadow-*`, `--drop-shadow-*`, `--blur-*` | Shadows and blurs | Effect styles |
+| `--breakpoint-*`, `--container-*` | `sm:` variants, `@sm:` container variants, `max-w-*` | Breakpoint frames |
+| `--ease-*`, `--animate-*` | `ease-*`, `animate-*` | Motion tokens |
+
+Modes with semantic tokens: keep per-mode values as plain variables and point the theme at them with `@theme inline`, so the utility uses the variable and switches with the mode:
+
+```css
+@import "tailwindcss";
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+:root { --surface: #ffffff; --text-primary: #111827; }
+[data-theme=dark] { --surface: #0b0f19; --text-primary: #f3f4f6; }
+
+@theme inline {
+  --color-surface: var(--surface);
+  --color-text-primary: var(--text-primary);
+}
+```
+
+- Without `inline`, a theme variable that references another variable can resolve to the wrong value; with it, the utility holds the referenced variable.
+- `dark:` follows `prefers-color-scheme` by default. The `@custom-variant` line switches it to the `data-theme` attribute; use `(&:where(.dark, .dark *))` for a `.dark` class. Match whatever the app's theme switcher sets.
+- `--color-*: initial;` inside `@theme` removes Tailwind's default palette so only system tokens exist; do this only when the team agrees, since every default colour class stops working.
+- Only variables that are used get emitted; `@theme static` emits all of them (useful when JS reads them).
+- Share one theme across apps by putting `@theme` in its own CSS file and `@import`ing it after `tailwindcss`.
 
 ## 6. Accessibility and theming in tokens
 

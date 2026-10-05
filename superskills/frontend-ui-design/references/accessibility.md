@@ -91,7 +91,18 @@ Target WCAG 2.2 level AA on everything you ship. Accessibility is part of the bu
 
 ## Audit workflow (evidence first)
 
-1. Run an automated pass on the rendered page: Lighthouse Accessibility (Chrome DevTools, or `lighthouse_audit` via Chrome DevTools MCP) or axe-core (`@axe-core/playwright`, `@axe-core/cli`, browser extension). Use mobile emulation for public pages.
+**Pick a tool for the automated pass.** All of these are free; none needs an account.
+
+| Situation | Use | Why |
+|---|---|---|
+| The team already runs one (axe in CI, Lighthouse CI, the Storybook a11y addon) | That one; make sure it includes the `wcag22aa` rules | Keeps results comparable over time |
+| Storybook project | The a11y addon with `test: "error"` ([component-workshop.md](component-workshop.md)) | Every story, every state, fails in CI |
+| One page, no setup | Lighthouse Accessibility in Chrome DevTools | Built into the browser |
+| Claude drives the browser | Chrome DevTools MCP (`lighthouse_audit`, accessibility tree) | Same audit from Claude. It sends usage statistics to Google by default: add `--no-usage-statistics` to its args, and `--no-performance-crux` so performance tools don't send trace URLs to the CrUX API. Ask before adding it |
+| Flows in end-to-end tests, or a scripted scan | axe-core: `@axe-core/playwright` (with `testing-qa` → `references/playwright-e2e.md`) or `@axe-core/cli` | Repeatable, runs in CI |
+| Screen reader for the manual pass | Ask which ones their users rely on; otherwise the ones in step 4 below | Automation can't judge reading order or announcements |
+
+1. Run an automated pass on the rendered page: Lighthouse Accessibility (Chrome DevTools, or `lighthouse_audit` via Chrome DevTools MCP) or axe-core (`@axe-core/playwright`, `@axe-core/cli`, browser extension). Use mobile emulation for public pages. In a Storybook project, run axe on every story with the a11y addon set to fail ([component-workshop.md](component-workshop.md)).
 2. Use the failing nodes to find the component; don't grep the whole repo for generic patterns.
 3. Inspect the accessibility tree (DevTools, or a snapshot from Playwright / DevTools MCP): names, roles, states, landmarks, heading outline.
 4. Manual checks automation can't do: Tab through the whole flow, operate every widget with the keyboard, read with a screen reader (VoiceOver, NVDA, TalkBack), zoom to 200%, test reduced motion and forced colours.

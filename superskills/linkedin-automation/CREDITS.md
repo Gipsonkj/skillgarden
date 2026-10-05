@@ -26,6 +26,22 @@ All sources are MIT licensed (license_ok = true, no NON-COMMERCIAL notes). Refer
 | linkedin-content | https://github.com/openclaudia/openclaudia-skills | MIT | Pillar mix idea, carousel slide format, "what kills reach" list (its "Repost this" / "DM me keyword" CTAs rejected as bait) |
 | linkedin-post | https://github.com/publora/skills | MIT | API-partner scheduler pattern, platform limits, API restrictions |
 
+Tool docs (link-only reference, written in our own words; nothing copied):
+
+| Source | URL | Used for |
+|---|---|---|
+| LinkedIn Help: schedule a post | https://www.linkedin.com/help/linkedin/answer/a1347212 | Native scheduler for members (`publishing-official-api.md`) |
+| LinkedIn Help: schedule a Page post | https://www.linkedin.com/help/linkedin/answer/a1419179 | Native scheduler for pages |
+| LinkedIn Help: download your account data | https://www.linkedin.com/help/linkedin/answer/a566336 | Data archive steps and limits (`analytics.md`) |
+| LinkedIn Help: creator analytics | https://www.linkedin.com/help/linkedin/answer/a704175 | Creator analytics export |
+| LinkedIn Help: export Page analytics | https://www.linkedin.com/help/linkedin/answer/a551206 | Page analytics export |
+| LinkedIn Sales Navigator | https://business.linkedin.com/sales-solutions/sales-navigator | Plans and features (`lead-research.md`) |
+| Sales Navigator Help (export, search limits, saved searches, saving leads) | https://www.linkedin.com/help/sales-navigator/answer/a102031 , https://www.linkedin.com/help/sales-navigator/answer/a106030 , https://www.linkedin.com/help/sales-navigator/answer/a102024 , https://www.linkedin.com/help/sales-navigator/answer/a101025 | Limits and the no-export rule |
+| Buffer developer docs (MCP, API, limits, media, character limits) and pricing | https://developers.buffer.com/guides/integrations/mcp.html , https://developers.buffer.com/reference.html , https://buffer.com/pricing | Buffer section |
+| Hootsuite developer docs (Perch MCP, scheduling messages, rate limits) | https://developer.hootsuite.com/docs/perch-mcp-server , https://developer.hootsuite.com/docs/message-scheduling , https://developer.hootsuite.com/docs/api-rate-limits | Hootsuite section |
+| Canva MCP docs (access, tools and rate limits, export, resize) | https://www.canva.dev/docs/apps/mcp/ , https://www.canva.dev/docs/apps/mcp/access/ , https://www.canva.dev/docs/apps/mcp/tools/ | Canva section (`carousels-documents.md`) |
+| Claude Code MCP docs | https://code.claude.com/docs/en/mcp | `claude mcp add` and `/mcp` sign-in commands |
+
 Read but not used: **linkedin-post-writer** (https://github.com/TaplioOfficial/taplio-linkedin-claude-skills, MIT). It requires the Taplio MCP, tells the agent to "STOP ... do not produce any output" without it, and tells the agent to rewrite an affiliate/UTM signup link. Nothing from it was copied.
 
 ## Also see (not included)

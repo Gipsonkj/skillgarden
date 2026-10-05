@@ -26,6 +26,22 @@ All sources below are license_ok and not non-commercial. Reference files are dis
 | comfyui-workflow-builder | https://github.com/mckruz/comfyui-expert/tree/master/skills/comfyui-workflow-builder | MIT | API-JSON node format, validation steps, VRAM table, common mistakes |
 | image-prompt | https://github.com/gongnyang/gongnyang-prompt-kit/tree/main/skills/image-prompt | MIT | GPT Image 2 positive-phrasing rule, banned SD-era vocabulary, role-labelled text, 3x3 grid positions, canvas size as text-accuracy lever |
 | bytedance-modelark | https://github.com/Gipsonkj/skillgarden/tree/main/authored/bytedance-modelark | MIT | Seedream 5.0 on ModelArk: endpoint, canvas floor and working sizes, model activation, phone-photo realism recipe (hosted-models-flux-replicate-fal); `scripts/bytedance-modelark/ark.py` copied with LICENSE |
+| adobe-for-creativity skills | https://github.com/adobe/skills/tree/main/plugins/creative-cloud/adobe-for-creativity | Apache-2.0 | Connector tool names and order (init, picker, crop/resize fit modes and focus, generative expand and its 403 fallback, surface limits on generative tools), MCP server URL from `.mcp.json` (retouch-resize-upscale) |
+| canva-skills | https://github.com/canva-sdks/canva-skills | Apache-2.0 | Plugin install commands, MCP server URL, editing-transaction protocol, what the edit API can and cannot change, responsive-page limits (retouch-resize-upscale) |
+
+## Official docs (link-only reference, written in our own words)
+
+| Docs | URL | Used for |
+|---|---|---|
+| Adobe for creativity | https://developer.adobe.com/adobe-for-creativity/ (getting-started, support) | Connector setup, guest vs signed-in tools, surfaces, size limits (retouch-resize-upscale) |
+| Adobe Firefly API | https://developer.adobe.com/firefly-services/docs/firefly-api/ | Enterprise access, IMS token, endpoints, upload, async polling, rate limits, seeds, style reference, Image5 note (retouch-resize-upscale) |
+| Canva MCP tools and rate limits | https://www.canva.dev/docs/apps/mcp/tools/ | Tool names, per-minute limits, plan tiers (retouch-resize-upscale) |
+| Photoroom API | https://docs.photoroom.com/ and https://www.photoroom.com/api/claude | MCP setup, sandbox keys, `/v2/edit` parameters, formats, limits, pricing (retouch-resize-upscale, editing-references-consistency) |
+| Topaz Labs API | https://developer.topazlabs.com/ | Endpoints, auth header, polling, model families and names, per-MP pricing, limits (retouch-resize-upscale, editing-references-consistency) |
+| Midjourney docs | https://docs.midjourney.com/ (Parameter List, Version, Seeds, Style Reference, Edit Model, Upscalers, Text Generation, Terms of Service) | No-API/automation rule, prompt syntax, parameters and ranges, sizes (hosted-models-flux-replicate-fal) |
+| rembg | https://github.com/danielgatis/rembg | CLI command, local model download, MIT licence (editing-references-consistency tool picker) |
+| Real-ESRGAN | https://github.com/xinntao/Real-ESRGAN | Portable local builds, 4x models, BSD-3 licence (editing-references-consistency tool picker) |
+| ImageMagick | https://imagemagick.org/command-line-processing/ and https://usage.imagemagick.org/resize/ | `^` fill-area resize with `-gravity center -extent` crop (marketing-brand-images tool picker) |
 
 ## Also see (not included)
 

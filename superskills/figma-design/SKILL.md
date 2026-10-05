@@ -1,6 +1,6 @@
 ---
 name: figma-design
-description: Work with Figma files and design systems through the Figma MCP server or other design bridges. Use for reading Figma frames without wasting calls; safe canvas writes with use_figma; design tokens and Figma variables (tiers, naming, modes, scopes, code syntax, DTCG, Style Dictionary, Tailwind v4); syncing tokens between Figma and code, drift and parity checks; component specs and docs (API, anatomy, structure, colour, uSpec); accessibility and screen-reader specs (VoiceOver, TalkBack, ARIA); hand-off specs; implementing Figma designs as code that reuses existing components and tokens; design-system audits and fixes; building variables, components and libraries in Figma; Penpot and OpenPencil (.fig). Says when to load Figma's own skills (figma-use, figma-design-to-code, figma-generate-library, figma-code-connect). Triggers: "implement this Figma frame", "export our Figma variables", "sync tokens", "spec this component", "screen reader spec", "audit our design system", "hand-off doc".
+description: Work with Figma, Sketch and Penpot files and design systems via MCP. Use for reading Figma frames without wasting calls; safe canvas writes with use_figma; design tokens and Figma variables (tiers, modes, scopes, DTCG, Style Dictionary, Tailwind v4 @theme); syncing tokens between Figma and code (scripts or Tokens Studio), drift and parity checks; component specs (API, anatomy, uSpec); accessibility checks (lint, Stark) and screen-reader specs (VoiceOver, TalkBack, ARIA); hand-off specs; implementing Figma or Figma Make designs as code that reuses existing components (Code Connect, Storybook MCP) and tokens; design-system audits; building variables and libraries in Figma; Penpot, Sketch, OpenPencil (.fig). Says when to load Figma's own skills (figma-use, figma-design-to-code, figma-generate-library, figma-code-connect). Triggers: "implement this Figma frame", "export our Figma variables", "sync tokens with Tokens Studio", "spec this component", "screen reader spec", "audit our design system", "hand-off doc".
 ---
 
 # Figma and design systems
@@ -45,15 +45,15 @@ Work out what the request needs before opening a guide; most real requests need 
 | Task | Read |
 |---|---|
 | Connect to Figma, choose a bridge, plan limits, read a file cheaply, `use_figma` rules, safe writes, when to load Figma's skills | [references/figma-mcp.md](references/figma-mcp.md) |
-| Token tiers, naming, Figma variables (collections, modes, scopes, code syntax), DTCG files, Style Dictionary, Tailwind v4 output | [references/design-tokens.md](references/design-tokens.md) |
-| Export Figma variables to code, import tokens into Figma, drift and parity checks, rename detection, CI | [references/token-sync-and-drift.md](references/token-sync-and-drift.md) + `scripts/figma-export-tokens/`, `scripts/figma-import-tokens/` |
+| Token tiers, naming, Figma variables (collections, modes, scopes, code syntax), DTCG files, Style Dictionary, Tailwind v4 `@theme` output; pick a token build tool | [references/design-tokens.md](references/design-tokens.md) |
+| Export Figma variables to code, import tokens into Figma, Tokens Studio sync and sd-transforms build (pick a sync tool), drift and parity checks, rename detection, CI | [references/token-sync-and-drift.md](references/token-sync-and-drift.md) + `scripts/figma-export-tokens/`, `scripts/figma-import-tokens/` |
 | Component spec or docs page: API, anatomy, structure, colour annotation, uSpec workflow | [references/component-specs.md](references/component-specs.md) |
-| Accessibility checks on a design; screen-reader spec for VoiceOver, TalkBack and ARIA | [references/accessibility-specs.md](references/accessibility-specs.md) + `scripts/figma-lint-design/lint-design.js` |
+| Accessibility checks on a design (pick a checker: lint script, Stark, Storybook test-run); screen-reader spec for VoiceOver, TalkBack and ARIA | [references/accessibility-specs.md](references/accessibility-specs.md) + `scripts/figma-lint-design/lint-design.js` |
 | Screen or feature hand-off spec: layout, states, content rules, responsive, motion | [references/handoff-specs.md](references/handoff-specs.md) |
-| Implement a Figma frame as code: reuse, token mapping, fidelity, assets, responsive, verify loop | [references/design-to-code.md](references/design-to-code.md) + `scripts/figma-check-design-parity/check-parity.js` |
+| Implement a Figma frame or Figma Make prototype as code: find components (pick a tool: Code Connect, Storybook MCP, repo search), reuse, token mapping, fidelity, assets, responsive, verify loop | [references/design-to-code.md](references/design-to-code.md) + `scripts/figma-check-design-parity/check-parity.js` |
 | Audit a library, product files or code against the system; fix findings; governance | [references/design-system-audits.md](references/design-system-audits.md) + `scripts/figma-lint-design/lint-design.js` |
 | Build variables, component sets and a library in Figma | [references/building-in-figma.md](references/building-in-figma.md) |
-| Penpot files or `.fig` files via OpenPencil; safety for local design servers | [references/other-design-tools.md](references/other-design-tools.md) |
+| Penpot or Sketch files, or `.fig` files via OpenPencil (pick a tool by where the file lives); safety for local design servers | [references/other-design-tools.md](references/other-design-tools.md) |
 
 To use one capability directly, name the task, or say "use figma-design: <capability>" (for example "use figma-design: screen reader spec for this toggle").
 

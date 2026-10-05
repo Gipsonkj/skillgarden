@@ -7,11 +7,13 @@ Use this to scan a repository the user owns or maintains, triage the results, an
 
 ## 1. Pick the tool
 
-| Situation | Tool |
-|---|---|
-| Quick scan, many languages, custom pattern rules | Semgrep |
-| Deep interprocedural data flow (taint from source to sink) | CodeQL |
-| Both are available and time allows | Semgrep first (minutes), CodeQL on the riskiest components |
+| Situation | Tool | Why |
+|---|---|---|
+| Already uses or pays for a SAST tool (GitHub code scanning, Snyk Code, SonarQube, a company scanner) | That one; triage its findings with section 4 | Findings and suppressions stay where the team looks; ask which one first |
+| Quick scan, many languages, custom pattern rules | Semgrep | Local, minutes, rules you can read |
+| Deep interprocedural data flow (taint from source to sink) | CodeQL | Builds a database of the code and follows data across functions |
+| Both are available and time allows | Semgrep first (minutes), CodeQL on the riskiest components | Breadth, then depth where it matters |
+| Team already on Snyk and wants SAST in the same account | `snyk code test` (supply-chain.md section 5) | Same login and dashboard; the code is analysed by Snyk's service, so confirm that is allowed |
 
 Check availability first: `semgrep --version`, `codeql version`. Do not install tools without asking.
 

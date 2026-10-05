@@ -29,6 +29,21 @@ This super skill is distilled from the open-source agent skills below. Reference
 | golang-testing | https://github.com/samber/cc-skills-golang/tree/main/skills/golang-testing | MIT | Go table tests, parallelism, goleak, synctest, fuzzing, build tags |
 | swift-testing-pro | https://github.com/twostraws/Swift-Testing-Agent-Skill/tree/main/swift-testing-pro | MIT | Swift Testing rules, XCTest migration, review format |
 
+## Official docs used (link-only reference, written in our own words)
+
+No text or code was copied from these; facts were checked against them in October 2026.
+
+| Tool | Docs | Used in |
+|---|---|---|
+| Postman (scripts, variables, CLI, API, MCP) | https://learning.postman.com/docs/tests-and-scripts/write-scripts/test-scripts/, https://learning.postman.com/docs/postman-cli/postman-cli-collections/, https://learning.postman.com/docs/postman-cli/postman-cli-github-actions, https://learning.postman.com/docs/developer/postman-api/postman-api-rate-limits/, https://learning.postman.com/docs/reference/postman-api/postman-mcp-server/postman-mcp-remote-server (and the pages beside them) | api-testing.md |
+| Newman | https://github.com/postmanlabs/newman | api-testing.md |
+| GitHub Actions secrets and hardening | https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions, https://docs.github.com/en/actions/security-for-github-actions/security-guides/security-hardening-for-github-actions | api-testing.md |
+| Selenium | https://www.selenium.dev/documentation/ (Selenium Manager, waits, Grid, Chrome options pages) | browser-automation.md |
+| BrowserStack (Automate, App Automate, Local, plan API, MCP server) | https://www.browserstack.com/docs/browserstack-mcp-server/overview, https://www.browserstack.com/docs/automate/selenium/getting-started/python, https://www.browserstack.com/docs/automate/api-reference/selenium/plan, https://www.browserstack.com/docs/app-automate/api-reference/appium/apps, https://github.com/browserstack/mcp-server, https://github.com/browserstack/python-selenium-browserstack | browser-automation.md, mobile-app-testing.md |
+| Appium, XCUITest driver, Appium Python client, Appium MCP | https://appium.io/docs/en/latest/, https://github.com/appium/appium-xcuitest-driver/tree/master/docs/getting-started, https://github.com/appium/python-client, https://github.com/appium/appium-mcp | mobile-app-testing.md |
+| Atlassian Rovo MCP server, Jira REST API v3 | https://support.atlassian.com/atlassian-rovo-mcp-server/docs/getting-started-with-the-atlassian-remote-mcp-server/, https://developer.atlassian.com/cloud/jira/platform/rest/v3/, https://developer.atlassian.com/cloud/jira/platform/basic-auth-for-rest-apis/, https://developer.atlassian.com/cloud/jira/platform/rate-limiting/ | exploratory-qa.md |
+| TestRail CLI and API bindings | https://github.com/gurock/trcli, https://github.com/gurock/testrail-api | exploratory-qa.md |
+
 ## Also see (not included)
 
 - momentic-spec (https://github.com/momentic-ai/skills/tree/main/skills/momentic-spec): no license file and needs a Momentic account; link only.

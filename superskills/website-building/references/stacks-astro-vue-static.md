@@ -8,6 +8,8 @@ Pick the lightest stack that does the job. Every framework you add is JavaScript
 
 | The site is… | Use | Why |
 |---|---|---|
+| Already built on a stack, builder or CMS the user pays for | **That one** | Match what they edit and maintain |
+| Edited by the owner in a dashboard (WordPress, Wix, Webflow, Squarespace, Framer) | The builder (`site-builders.md`) | They keep editing after launch |
 | One page, a demo, a prototype to share as a file | Single `index.html` (inline CSS/JS) or a bundled single-file React artifact | Zero build, opens anywhere |
 | Marketing site, docs, blog, portfolio (mostly content) | **Astro** | Ships zero JS by default; islands only where interactive |
 | App-like: auth, dashboards, lots of data, server mutations | **Next.js App Router** (`nextjs-react.md`) | Server components, streaming, server actions |
@@ -88,9 +90,62 @@ Decision order: if the page renders but looks flat, it's a taste problem (design
 
 Naming the effect is most of a motion brief. Vocabulary that maps to known builds: glass gallery cube, curve gallery, scattered grid text, liquid carousel, 3D globe carousel, 3D image-stack scroll; categories: scroll animations, mouse effects, page transitions, text animations, WebGL shaders, physics effects, SVG animations.
 
+## 7. Styling with Tailwind CSS v4
+
+**Pick a styling tool**
+
+| Situation | Use | Why |
+|---|---|---|
+| The project already has Tailwind, CSS Modules or plain CSS | **Keep it** | No styling migration as a side effect |
+| One-pager or content site with few components | Plain CSS custom properties from the commit sheet | Nothing to install |
+| React/Next.js or Vite site with many components, or shadcn/ui | **Tailwind CSS v4** (v4.3 current) | Tokens become utility classes |
+| Design comes from a Figma file | Read its variables first (`figma-design` → `references/design-to-code.md`, `references/design-tokens.md`), then map them into `@theme` | Real token names instead of eyeballed hex |
+
+**Install (v4 is CSS-first; no `tailwind.config.js` needed)**
+
+```bash
+# Vite (React, Vue, plain)
+npm install tailwindcss @tailwindcss/vite        # add tailwindcss() to plugins in vite.config
+# Next.js
+npm install tailwindcss @tailwindcss/postcss postcss
+```
+
+```js
+// postcss.config.mjs (Next.js)
+const config = { plugins: { "@tailwindcss/postcss": {} } };
+export default config;
+```
+
+Then one line at the top of the main stylesheet (Next.js: `app/globals.css`): `@import "tailwindcss";`. Astro 5.2+: `npx astro add tailwind` (installs the official Vite plugin).
+
+**Tokens go in `@theme`**, which creates utilities, not only variables:
+
+```css
+@import "tailwindcss";
+@theme {
+  --color-*: initial;                 /* drop the default palette: only committed colours exist */
+  --color-ink: oklch(0.22 0.02 250);
+  --color-paper: oklch(0.97 0.01 90);
+  --color-accent: oklch(0.68 0.17 45);
+  --font-display: "Fraunces", serif;  /* font-display */
+  --breakpoint-tab: 48rem;            /* tab:* variant */
+}
+@theme inline { --font-sans: var(--font-inter); }   /* when the value points at another variable (next/font) */
+```
+
+- Namespaces map to utilities: `--color-*` (bg/text/fill), `--font-*`, `--text-*` (sizes), `--font-weight-*`, `--tracking-*`, `--leading-*`, `--breakpoint-*` (responsive variants), `--spacing-*`, `--radius-*`, `--shadow-*`, `--animate-*`.
+- `@theme` must be top level, never inside a selector or media query. Variables that should not become utilities go in `:root`.
+- Clearing a namespace (`--color-*: initial`) is the cheapest anti-slop guard: `bg-purple-500` stops existing. `--*: initial` clears every default.
+- Avoid arbitrary values (`bg-[#7c3aed]`) for brand colours: add a token instead.
+
+**Upgrading a v3 project**: `npx @tailwindcss/upgrade` (Node 20+) on a branch, then review the diff. v4 targets Safari 16.4+, Chrome 111+, Firefox 128+; confirm the site's audience can drop older browsers first. Renames to check by eye: `shadow-sm` → `shadow-xs`, `rounded-sm` → `rounded-xs`, `outline-none` → `outline-hidden`, and bare `ring` is now 1px (use `ring-3` for the old 3px). A JS config is no longer picked up automatically; load it with `@config "../../tailwind.config.js";` until it is ported.
+
+Component recipes, shadcn/ui and state styling: `frontend-ui-design` → `references/react-shadcn-tailwind.md`.
+
 ## Pitfalls
 
 - Next.js for a five-page brochure site.
 - `client:load` on every Astro island (ships all the JS you chose Astro to avoid).
 - A Vue "mega component" holding the whole feature.
 - Writing Astro or Nuxt config from memory for a fast-moving API; check the docs version.
+- Writing a v3 `tailwind.config.js` for a v4 project, or hard-coding hex values in class names instead of `@theme` tokens.

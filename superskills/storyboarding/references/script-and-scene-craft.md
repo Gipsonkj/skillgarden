@@ -20,6 +20,41 @@ Rules for any format:
 - Give every scene a stable ID. Boards cite the ID in a Source column; renumbering breaks every reference.
 - Production tags in short-drama scripts carry only facts that downstream steps would otherwise lose (an object still in a hand, a wet coat). Do not use a tag to restate what the action line already shows.
 
+### Script files: Final Draft and Fountain
+
+**Pick a format**
+
+| Situation | Use | Why |
+|---|---|---|
+| The user already writes in a script app, or the production names a format | That app's file format | Their revisions keep flowing back; never convert for its own sake |
+| A script arrives as `.fdx` | Read it as XML (below) | Final Draft's own file; every paragraph carries its element type, so nothing is guessed |
+| You write a screenplay from scratch and no app is named (free, no account) | Fountain, plain text `.fountain` | Claude writes it directly; StudioBinder and Storyboarder read it |
+| The user works in Final Draft and needs your draft | Fountain text saved as `.txt`, which they import in Final Draft | Final Draft cannot open `.fountain` files but imports plain text |
+| The script goes straight into a board app | The format that app imports ([storyboard-projects.md](storyboard-projects.md) §5) | Boords imports PDF, TXT, MD, CSV or HTML; StudioBinder FDX, PDF, TXT or Fountain; Storyboard Pro TXT, RTF or FDX |
+| You can't tell which app they write in | Ask, in one question | A wrong format costs a manual re-import |
+
+**Final Draft (`.fdx`).** The native format since Final Draft 8, and it is XML. Parse it with an XML parser, never with regexes on the text. Look at what the file actually holds before mapping it:
+
+```python
+import xml.etree.ElementTree as ET, collections
+root = ET.parse("brand-film.fdx").getroot()
+print(collections.Counter((e.tag, e.get("Type")) for e in root.iter()).most_common(15))
+```
+
+Then walk the paragraphs in order and keep each one's element type with its text. Final Draft's standard elements are Scene Heading, Action, Character, Parenthetical, Dialogue and Transition: scene headings give scene IDs, Action gives the board's action lines, Character + Dialogue give the sound column.
+
+- Final Draft imports `.pdf` (versions 12 and 13 only), `.txt`, `.rtf` and `.fcf`. It exports `.fdx`, `.fdxt`, `.fcf`, `.html`, `.rtf`, `.txt`, Text with Layout, Scheduling Export (`.sex`), Avid Script-Based Editing and Tab-Delimited Dialogue.
+- An `.fdx` saved by another app is not genuine Final Draft XML and may not format or behave as expected in Final Draft. So do not hand-write FDX for a Final Draft user; give them Fountain as `.txt` to import.
+- If the user can only send a PDF or a `.txt` export, element types are gone: infer them from the layout and say so.
+
+**Fountain** (spec at fountain.io). The essentials:
+
+- Scene heading: a line starting `INT`, `EXT`, `EST`, `INT./EXT`, `INT/EXT` or `I/E`; force any other line with a leading `.`.
+- Character: an all-caps line with a blank line before and none after; force mixed case with `@`. Dialogue follows; `(parentheticals)` sit under the name or inside dialogue. `^` after the second name makes dual dialogue.
+- Transition: all caps ending in `TO:`, with blank lines around it; force with `>`. Centred text: `>THE END<`.
+- Invisible structure: `#` sections, `=` synopses, `[[notes]]`, `/* boneyard */`. Page break: a line of `===`. Title page: `Key: value` lines at the top.
+- Emphasis: `*italic*`, `**bold**`, `_underline_`. Lyrics: `~` at the start of each line.
+
 ## 2. Designing one scene (five steps)
 
 1. **Conflict.** Who drives the scene and what do they want right now (write it as "to ..."). What does the opposing force want? The two must collide head-on, not slide past each other.

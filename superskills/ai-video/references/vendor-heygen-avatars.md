@@ -1,12 +1,25 @@
-# Vendor: AI presenters and avatars (HeyGen and provider-neutral presenter video)
+# Vendor: AI presenters and avatars (HeyGen, Synthesia and provider-neutral presenter video)
 
-> Distilled from: heygen-video (heygen-com/skills, MIT); lanshu-create-ai-presenter-video (cclank/lanshu-create-ai-presenter-video, MIT); video (coreyhaines31/marketingskills, MIT); ltx2 (digitalsamba/claude-code-video-toolkit, MIT); hyperframes capability menu (heygen-com/hyperframes, Apache-2.0).
+> Distilled from: heygen-video (heygen-com/skills, MIT); lanshu-create-ai-presenter-video (cclank/lanshu-create-ai-presenter-video, MIT); video (coreyhaines31/marketingskills, MIT); ltx2 (digitalsamba/claude-code-video-toolkit, MIT); hyperframes capability menu (heygen-com/hyperframes, Apache-2.0). Synthesia section: Synthesia's API and MCP docs, in our own words.
 
 ## When an avatar is the right call
 
 | Use an avatar | Use something else |
 |---|---|
 | Recurring updates, multilingual versions, personalized outreach at scale, explainers without filming | Authentic founder content (film it), UI walkthroughs (screen recording), creative/artistic pieces (generative video) |
+
+## Pick a tool
+
+| The user's situation | Use | Why |
+|---|---|---|
+| Already has a HeyGen or Synthesia account, or a custom avatar in one | That provider | Their avatars, voices and plan are already there |
+| Has a custom avatar or cloned voice but you don't know where | Ask which account; don't guess | Its ID comes from that account (HeyGen's avatar list, Synthesia's Copy ID) |
+| The agent should direct the creative: scenes, b-roll, style | HeyGen Video Agent | Turns a prompt into a whole video (processing takes roughly 5 to 10 times the video's length) |
+| Scripted presenter at scale: training, onboarding, many languages, template-filled | Synthesia Video API or MCP | Templates, translation and dubbing calls; Video API needs Creator or above |
+| Wants to see a draft before paying (on a Synthesia plan) | Synthesia with `"test": true` | Free, watermarked, outside quota (30 a day) |
+| Dub or translate an existing video | Synthesia dubbing or translation; HeyGen translation/dubbing | Both offer it; pick the account the user has |
+| Own presenter image with another lip-sync or avatar model, or a provider that caps clip length | Provider-neutral pipeline below | Narration-locked state machine that works with any model |
+| Stylized character, mask or helmet; exact lip sync doesn't matter | Image-to-video (LTX, Gemini Omni), see Cheaper stand-ins | Often looks better; self-hosted LTX has no API fee (you pay the GPU) |
 
 ## Consent and rights (hard rules)
 
@@ -42,7 +55,7 @@
    - Landscape avatar into a portrait video: reframe to head and shoulders, extend vertically, no letterboxing.
    - Studio avatar with no background: place them in a clean environment that fits the tone.
    - Resolve the look ID fresh from the avatar group every time. Stored look IDs go stale.
-5. **Submit:** `heygen video-agent create --prompt ... --avatar-id ... --voice-id ... --orientation landscape|portrait --wait --timeout 45m`. Jobs take 20 to 45 min, and the default 20 min timeout cuts them off. Capture `session_id` right away.
+5. **Submit:** `heygen video-agent create --prompt ... --avatar-id ... --voice-id ... --orientation landscape|portrait --wait --timeout 45m`. Processing takes roughly 5 to 10 times the video's length, so a short default timeout can cut a job off. Capture `session_id` right away.
 6. **Poll silently:** first check at 5 min, then every 60 s. `thinking` for more than 15 min with no progress: tell the user once. Run at most 2 to 3 jobs in parallel.
 7. **Deliver:** download the MP4, report duration accuracy (actual vs target) and the editor link. If changes are needed, adjust the prompt; never resubmit an identical prompt.
 
@@ -55,6 +68,42 @@ UX: don't narrate pipeline internals or the transport (MCP vs CLI); poll in the 
 Other HeyGen capabilities that fit pipelines: photo-to-talking clip, video translation/dubbing, TTS. HyperFrames' media tooling can call these and adopt the MP4 into a project.
 
 Telemetry note: the upstream skill suggests a `heygen feedback` call and an update-check script that contacts GitHub. Don't run either unless the user asks.
+
+## Synthesia Video API (`SYNTHESIA_API_KEY`, or the Synthesia MCP)
+
+Pick Synthesia for scripted presenter videos at scale: training, onboarding, internal updates, the same video in many languages, or videos filled from a template. Pick HeyGen's Video Agent when the agent should direct the creative itself.
+
+- **Access:** REST at `https://api.synthesia.io`. The key goes in the `Authorization` header as is (no `Bearer`). Create it in Synthesia under Developers > API keys with the `Legacy (v2)` scope (an Interactive Avatars key won't work); it is shown once. The key belongs to the person, not the workspace, so webhooks made with it are tied to that person. The Video API needs a Creator plan or above.
+- **MCP:** `https://mcp.synthesia.io/mcp`, per-user OAuth (leave the client ID and secret empty). In Claude: Customize > Connectors > Add custom connector. Starter, Creator or Enterprise accounts; tools create drafts (about 30 to 90 s), generate videos, check status and list videos, with hourly per-user caps.
+- **Rate limits (Creator tier):** writes 60 a minute, 300 an hour, 1,000 a day; reads 60 a minute, 20,000 a day. Enterprise tiers are higher. A 429 carries `RateLimit-Limit` and `RateLimit-Reset` (seconds to wait).
+
+| Job | Call |
+|---|---|
+| Create a video | `POST /v2/videos`: `input` (one object per scene: `avatar`, `background` required; `scriptText`, or `scriptAudio` with `scriptLanguage`; `avatarSettings`, `backgroundSettings`), plus `test`, `title`, `description`, `visibility` (`private` default, or `public`), `aspectRatio` (`16:9` default, `9:16`, `1:1`, `4:5`, `5:4`), `callbackId`, `folderId` |
+| From a template | `POST /v2/videos/fromTemplate`: `templateId`, `templateData` (the template's variables), same `test`, `visibility`, `title`, `callbackId` |
+| Status and download | `GET /v2/videos/{video_id}`: `status` is `in_progress`, `complete`, `error`, `rejected`, `deleted` or `approved`; when complete, `download` is a time-limited MP4 link |
+| Notify instead of polling | `POST /v2/webhooks`: `url`, `events` (`video.completed`, `video.failed`); the response's `secret` (shown only then) verifies signed events |
+| Translate a Synthesia video | `PUT /v2/translations/{root_video_id}`: `targetLanguages` such as `["es", "fr"]`, optional `translateScriptOnly`, `autoGenerate` (`private` or `public` renders the translations) |
+| Dub an uploaded video | `POST /v2/dubbing`: `sourceAssetId` or `sourceVideoUrl`, `title` (max 256 chars), `targetLanguages`, `sourceLanguage` (required with `sourceAssetId`; optional with `sourceVideoUrl`, then detected automatically), optional `lipsyncEnabled`, `videoDuration` (`adaptive` or `original`), `visibility` |
+
+```bash
+# Draft: test videos are free, watermarked and don't count against quota (30 a day)
+curl -s -X POST https://api.synthesia.io/v2/videos \
+  -H "Authorization: $SYNTHESIA_API_KEY" -H "Content-Type: application/json" \
+  -d '{"test": true, "title": "Onboarding v1 draft", "aspectRatio": "16:9", "visibility": "private",
+       "input": [{"avatar": "AVATAR_ID", "background": "green_screen",
+                  "scriptText": "Welcome to the team. In two minutes you will know where everything lives."}]}'
+# Poll (rendering usually takes 3 to 5 minutes), then download the "download" link
+curl -s https://api.synthesia.io/v2/videos/$VIDEO_ID -H "Authorization: $SYNTHESIA_API_KEY"
+```
+
+Gotchas:
+- Always draft with `"test": true`. A final render (`test` false) counts against the plan's quota, and translations with `autoGenerate` and dubbing make new videos: show the script, avatar, languages and number of videos, check the credit balance (Billing API), and wait for a yes.
+- Avatar IDs are UUIDs or short names. For one the user owns, copy it from the avatar's three-dot menu (Copy ID) in Synthesia.
+- `sourceVideoUrl` for dubbing accepts S3 signed URLs only; other URLs fail with 501. Upload the file as an asset and use `sourceAssetId` instead.
+- `public` visibility puts the video on a share page anyone with the link can watch; keep `private` unless asked.
+- Webhook receivers must answer within 6 seconds; failed deliveries are retried twice over 10 minutes, so make the handler idempotent and still poll once if nothing arrives.
+- A custom avatar of a real person follows the consent rules above.
 
 ## Provider-neutral presenter pipeline (any lip-sync or avatar model)
 

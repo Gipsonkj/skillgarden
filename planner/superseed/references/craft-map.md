@@ -15,10 +15,11 @@ Brief to live URL: copy, a design that doesn't look AI-made, Next.js or Astro bu
 - Lint a codebase for AI-slop design tells → `scripts/auteur/slopscan.mjs`, `references/design-direction.md`
 - Page motion, scroll storytelling, scrub video, layered parallax hero; cinematic demo site (AI stills → image-to-video → JPG frame-sequence hero, still and Wan motion prompts) → `references/motion-and-scroll.md`
 - Screenshot a scroll journey at several widths and scroll stops → `scripts/auteur/shoot.mjs`, `references/motion-and-scroll.md`
-- Choosing a stack; Astro; Vue 3; single-file HTML deliverables; animation, shader and component library verdicts (Lenis, GSAP, React Bits, Aceternity) → `references/stacks-astro-vue-static.md`
+- Choosing a stack; Astro; Vue 3; single-file HTML deliverables; pick a styling tool, Tailwind CSS v4 setup, `@theme` tokens and v3 upgrade; animation, shader and component library verdicts (Lenis, GSAP, React Bits, Aceternity) → `references/stacks-astro-vue-static.md`
+- Build or edit a site on a builder or CMS: pick a builder (WordPress, Wix, Webflow, Squarespace, Framer), connect it (REST, WP-CLI, MCP), draft and publish safely → `references/site-builders.md`
 - Next.js App Router, React performance rules, Server Actions, caching, Cache Components, next dev verification → `references/nextjs-react.md`
 - Slow page, Core Web Vitals, Lighthouse performance, DevTools trace → `references/performance-cwv.md`
-- SEO setup or audit, robots, sitemap, canonicals, hreflang, structured data, AI crawlers → `references/seo.md`
+- SEO setup or audit, robots, sitemap, canonicals, hreflang, structured data, AI crawlers; add analytics, pick an analytics tool (GA4 tag, consent mode, key events, Analytics MCP) → `references/seo.md`
 - Quality/accessibility audit, Playwright tests, whole-site crawl and fix loop → `references/quality-audit-and-testing.md`
 - Static HTML smoke test → `scripts/web-quality-audit/analyze.sh`, `references/quality-audit-and-testing.md`
 - Start a dev server for a browser test → `scripts/webapp-testing/with_server.py`
@@ -37,9 +38,10 @@ Native-feeling mobile and desktop apps: Expo, SwiftUI, Compose, Flutter, Tauri, 
 - Swift 6 concurrency errors, actors, Sendable, migration, general modern Swift → `references/swift-concurrency.md`
 - Native Android: Compose, adaptive layouts for tablets and foldables, XML-to-Compose, `android` CLI → `references/android-compose.md`
 - Flutter architecture (MVVM + repositories) and responsive layouts → `references/flutter.md`
-- Tauri v2 desktop/mobile apps; SwiftPM Mac apps built, signed and notarized without Xcode → `references/desktop-tauri-macos.md`, `templates/macos-spm-app-packaging/`
+- Desktop apps, pick a tool (Electron, Tauri v2, SwiftPM): Electron Forge, IPC, signing, auto-update; Tauri v2 desktop/mobile apps; SwiftPM Mac apps built, signed and notarized without Xcode → `references/desktop-tauri-macos.md`, `templates/macos-spm-app-packaging/`
 - Run on simulators and emulators, screenshots, screen recordings, crash logs, E2E tests, failing builds → `references/testing-simulators.md`
 - EAS builds, TestFlight, App Store review, `asc` CLI, Google Play tracks, versioning → `references/release-app-stores.md`
+- Crash reporting and push notifications, pick a tool (Firebase Crashlytics, Sentry, FCM, Expo push): setup, readable stack traces, test crash, sending pushes → `references/crash-reporting-push.md`
 - A web app or PWA that must feel native on phones (sticky hover, 100vh, input zoom, safe areas) → `references/mobile-web-pwa.md`
 
 ## frontend-ui-design: Frontend UI design
@@ -50,9 +52,11 @@ Distinctive, accessible web UI: design direction, tokens, states, motion, WCAG 2
 - Check for or remove generic AI look; pre-ship gate and self-critique → `references/anti-slop.md`
 - Typography, colour roles, contrast, spacing, layout, depth, dark mode, token block → `references/visual-system.md`
 - Component states, forms, feedback, navigation, overlays, tables, charts, UX copy → `references/components-and-states.md`
-- shadcn/ui, Tailwind v4, React composition, library picks; Sonner toasts (setup, calls, styling, troubleshooting) → `references/react-shadcn-tailwind.md`
-- Animation, easing, durations, springs, gestures, reduced motion → `references/motion-and-microinteractions.md`
-- WCAG 2.2 AA, keyboard, ARIA, live regions, accessibility audit → `references/accessibility.md`
+- shadcn/ui, Tailwind v4, React composition, library picks and picking an icon set; Sonner toasts (setup, calls, styling, troubleshooting) → `references/react-shadcn-tailwind.md`
+- Animation, easing, durations, springs, gestures, reduced motion, picking a motion tool; Motion (`motion/react`) for exits, layout and springs → `references/motion-and-microinteractions.md`
+- Picking a component library or styling system (MUI, Ant Design, Bootstrap, Sass, shadcn/ui + Tailwind, Base UI, React Aria); restyling an app built on MUI (Material UI), Ant Design, Bootstrap or Sass/SCSS: theme layer, stock tells, dark mode without a flash, docs MCPs, version gotchas → `references/component-library-theming.md`
+- Component from a Figma frame (Figma MCP, Code Connect); Storybook stories, autodocs, a11y and interaction tests in CI, Storybook MCP → `references/component-workshop.md`
+- WCAG 2.2 AA, keyboard, ARIA, live regions, accessibility audit and picking an audit tool (Lighthouse, axe, Storybook a11y, DevTools MCP) → `references/accessibility.md`
 - Responsive layout, i18n/RTL, worst-case data and break testing → `references/responsive-and-hardening.md`, `templates/break-ui/CATALOG.md`
 - Scored UI audit, diff-scoped change review, polish pass → `references/review-and-audit.md`
 - Redesigning an existing site or app → `references/redesign.md`
@@ -63,15 +67,15 @@ Distinctive, accessible web UI: design direction, tokens, states, motion, WCAG 2
 Figma MCP, tokens and variables, code-Figma sync and drift, component and screen-reader specs, hand-off, design-to-code and audits.
 
 - Connect to Figma, choose a bridge, plan limits, read a file cheaply, `use_figma` rules, safe writes, when to load Figma's skills → `references/figma-mcp.md`
-- Token tiers, naming, Figma variables (collections, modes, scopes, code syntax), DTCG files, Style Dictionary, Tailwind v4 output → `references/design-tokens.md`
-- Export Figma variables to code, import tokens into Figma, drift and parity checks, rename detection, CI → `references/token-sync-and-drift.md`, `scripts/figma-export-tokens/`, `scripts/figma-import-tokens/`
+- Token tiers, naming, Figma variables (collections, modes, scopes, code syntax), DTCG files, Style Dictionary, Tailwind v4 `@theme` output; pick a token build tool → `references/design-tokens.md`
+- Export Figma variables to code, import tokens into Figma, Tokens Studio sync and sd-transforms build (pick a sync tool), drift and parity checks, rename detection, CI → `references/token-sync-and-drift.md`, `scripts/figma-export-tokens/`, `scripts/figma-import-tokens/`
 - Component spec or docs page: API, anatomy, structure, colour annotation, uSpec workflow → `references/component-specs.md`
-- Accessibility checks on a design; screen-reader spec for VoiceOver, TalkBack and ARIA → `references/accessibility-specs.md`, `scripts/figma-lint-design/lint-design.js`
+- Accessibility checks on a design (pick a checker: lint script, Stark, Storybook test-run); screen-reader spec for VoiceOver, TalkBack and ARIA → `references/accessibility-specs.md`, `scripts/figma-lint-design/lint-design.js`
 - Screen or feature hand-off spec: layout, states, content rules, responsive, motion → `references/handoff-specs.md`
-- Implement a Figma frame as code: reuse, token mapping, fidelity, assets, responsive, verify loop → `references/design-to-code.md`, `scripts/figma-check-design-parity/check-parity.js`
+- Implement a Figma frame or Figma Make prototype as code: find components (pick a tool: Code Connect, Storybook MCP, repo search), reuse, token mapping, fidelity, assets, responsive, verify loop → `references/design-to-code.md`, `scripts/figma-check-design-parity/check-parity.js`
 - Audit a library, product files or code against the system; fix findings; governance → `references/design-system-audits.md`, `scripts/figma-lint-design/lint-design.js`
 - Build variables, component sets and a library in Figma → `references/building-in-figma.md`
-- Penpot files or `.fig` files via OpenPencil; safety for local design servers → `references/other-design-tools.md`
+- Penpot or Sketch files, or `.fig` files via OpenPencil (pick a tool by where the file lives); safety for local design servers → `references/other-design-tools.md`
 
 ## backend-databases: Backend & Databases
 
@@ -80,14 +84,15 @@ Postgres schema and query tuning, API design, auth, and the Supabase, Neon, Pris
 - Tables, types, keys, constraints, multi-tenancy, time zones, migrations → `references/postgres-schema.md`
 - Slow query, index design, N+1, pagination, pooling, timeouts → `references/query-performance.md`
 - REST endpoints, status codes, errors, versioning, GraphQL/Apollo → `references/api-design.md`, `templates/api-design-principles/api-design-checklist.md`
-- Service layering, Fastify/Express/FastAPI/Go, caching, jobs, deploy, platform choice (incl. Convex) → `references/backend-architecture.md`
-- Login, sessions, JWT, OAuth, passwords, API keys, RBAC → `references/auth.md`
+- Service layering, Fastify/Express/FastAPI/Go, caching, jobs, deploy, pick a database or platform (incl. Convex) → `references/backend-architecture.md`
+- Login, sessions, JWT, OAuth, passwords, API keys, RBAC; pick an auth provider; Auth0 → `references/auth.md`
 - Supabase RLS, keys, views/functions, CLI, storage → `references/supabase.md`
 - Neon connection strings, serverless driver, branching → `references/neon.md`
-- Prisma setup, queries, raw SQL, transactions, Prisma Compute → `references/prisma.md`
+- Prisma or Drizzle setup, queries, raw SQL, transactions, migrations, Prisma Compute; pick an ORM → `references/prisma.md`
 - Stripe Checkout, webhooks, keys, API version upgrades → `references/stripe.md`
 - Firestore modeling, indexes, rules; Data Connect `@auth` → `references/firebase.md`
-- MongoDB schema, Redis data types, ClickHouse tables → `references/nosql-analytics.md`
+- MongoDB schema, Redis data types, ClickHouse tables; search with Elasticsearch or OpenSearch, pick a search tool → `references/nosql-analytics.md`
+- MySQL, SQL Server / Azure SQL, SQLite or Turso; pick a SQL database → `references/sql-engines.md`
 
 ## cloud-devops: Cloud & DevOps
 
@@ -95,23 +100,24 @@ Ship and run apps: hosting choice, Docker, Kubernetes, Terraform, CI/CD, Cloudfl
 
 - Choose where to host (static, SSR, API, container, function, k8s) and estimate cost → `references/platform-choice.md`
 - Write or review a Dockerfile, shrink or harden an image, compose.yaml for local dev → `references/docker.md`, `templates/docker-build-strategies/`, `scripts/docker-build-strategies/verify-build.sh`
-- Kubernetes manifests, RBAC, NetworkPolicy, Helm, debugging pods; GKE Autopilot / EKS notes → `references/kubernetes.md`, `templates/k8s-security-policies/network-policy-template.yaml`
+- Kubernetes manifests, RBAC, NetworkPolicy, Helm, debugging pods; GKE Autopilot / EKS notes; GitOps deploys with Argo CD (pick a deploy tool) → `references/kubernetes.md`, `templates/k8s-security-policies/network-policy-template.yaml`
 - Terraform/OpenTofu: style, modules, state, `moved`/`import`, tests, safe destroy → `references/terraform.md`
-- CI/CD: GitHub Actions workflows, quality gates, OIDC to clouds, previews, rollbacks, Dependabot → `references/ci-cd.md`
+- Configure servers and VMs (packages, files, services) with Ansible: inventory, playbooks, vault, safe runs (pick a config tool) → `references/server-config.md`
+- CI/CD: pick a CI tool; GitHub Actions, GitLab CI/CD or Jenkins pipelines, quality gates, OIDC to clouds, previews, rollbacks, Dependabot → `references/ci-cd.md`
 - Cloudflare: product choice, Workers, Wrangler, bindings, secrets, Durable Objects → `references/cloudflare.md`
 - Google Cloud: Cloud Run services/jobs/worker pools; Next.js on Cloud Run behind Firebase Hosting (custom domain, 60 s limit, keyless GitHub deploys, stale-bundle checks); Firebase App Hosting; GKE basics; gcloud "No module named grpc" → `references/gcp.md`
 - AWS: IAM policies and roles, Lambda/serverless, ECS/EKS/ECR, CDK → `references/aws.md`
 - Azure: azd deploy flow, Container Apps / App Service / Functions diagnostics, KQL → `references/azure.md`, `scripts/azure-diagnostics/`
-- Logs, metrics, traces, OpenTelemetry, Grafana dashboards, alerts, incident triage → `references/observability.md`
+- Logs, metrics, traces, pick an observability backend; OpenTelemetry, Grafana dashboards, Datadog agent, APM and monitors, alerts, incident triage → `references/observability.md`
 
 ## coding-practices: Coding practices
 
 Debug to root cause, test first, verify before done, review well, keep changes small, and use git as a safety net.
 
-- Bug, failing/flaky test, build break, perf regression, "it worked yesterday" → `references/debugging.md`
-- Feature or fix via TDD; writing, judging or fixing tests and mocks → `references/tdd-and-testing.md`
-- About to say done, commit, push or open a PR; defining acceptance checks → `references/verification.md`
-- Reviewing code, a diff, a PR or an agent's work; requesting a review → `references/code-review.md`
+- Bug, failing/flaky test, build break, perf regression, "it worked yesterday"; a Sentry issue or a browser bug (pick an evidence tool: Sentry, Chrome DevTools MCP) → `references/debugging.md`
+- Feature or fix via TDD; writing, judging or fixing tests and mocks; the pytest loop → `references/tdd-and-testing.md`
+- About to say done, commit, push or open a PR; defining acceptance checks; lint, format and typecheck gates (pick a linter: ESLint, Prettier, Biome, Ruff) → `references/verification.md`
+- Reviewing code, a diff, a PR or an agent's work; requesting a review; AI review (pick a tool: CodeRabbit, Copilot, a reviewer subagent) → `references/code-review.md`
 - Responding to review comments, bot suggestions or reviewer subagents → `references/review-feedback.md`
 - Keeping a change minimal, simplifying, refactoring, naming and code standards → `references/simplicity-and-refactoring.md`
 - Designing modules and interfaces, seams, glossary, ADRs, architecture hot spots → `references/design-and-architecture.md`
@@ -131,10 +137,11 @@ TDD, unit and E2E tests (Playwright, Cypress, pytest, Vitest, Go), browser QA, f
 - pytest, Vitest/Jest, Go, JUnit 5, Swift Testing commands and idioms → `references/unit-runners-by-language.md`
 - Playwright E2E suites: locators, assertions, auth, mocking, config, debugging, CI → `references/playwright-e2e.md`
 - Cypress E2E and component tests → `references/cypress.md`
-- Drive a browser to check or debug a running web app → `references/browser-automation.md`, `scripts/webapp-testing/with_server.py`, `scripts/webapp-testing/examples/`
-- Exploratory QA pass, health score, issue report, fix loop → `references/exploratory-qa.md`, `templates/qa/qa-report-template.md`
+- API tests in Postman collections, run by the Postman CLI or Newman in CI, Postman MCP (pick a runner) → `references/api-testing.md`
+- Drive a browser to check or debug a running web app; Selenium suites and Grid; BrowserStack cloud browsers (pick a tool) → `references/browser-automation.md`, `scripts/webapp-testing/with_server.py`, `scripts/webapp-testing/examples/`
+- Exploratory QA pass, health score, issue report, fix loop; file bugs in Jira or push results to TestRail (pick a tracker) → `references/exploratory-qa.md`, `templates/qa/qa-report-template.md`
 - Flaky or intermittently failing tests → `references/flaky-tests.md`
-- iOS/Android UI flows on a simulator, Flutter widget tests, native UI tests → `references/mobile-app-testing.md`
+- iOS/Android UI flows on a simulator, Appium suites, BrowserStack real devices, Flutter widget tests, native UI tests (pick a tool) → `references/mobile-app-testing.md`
 - Property-based tests, mutation testing campaigns → `references/property-and-mutation.md`
 
 ## security: Security
@@ -143,9 +150,10 @@ Defensive security for your own code: secure coding, threat models, Semgrep/Code
 
 - Write or harden a feature (input, auth, sessions, uploads, SSRF, crypto, privacy) → `references/secure-coding.md`
 - Threat model a design or launch; STRIDE, attack trees, mitigation mapping → `references/threat-modeling.md`
-- Run Semgrep or CodeQL on the repo, triage, produce SARIF → `references/static-analysis.md`, `scripts/semgrep/run-scans.sh`, `scripts/semgrep/merge_sarif.py`
-- Audit dependencies, vet a new package, lockfile hygiene → `references/supply-chain.md`, `scripts/supply-chain-risk-auditor/collect.py`, `scripts/supply-chain-risk-auditor/render.py`
-- Store secrets, set up secret scanning, respond to a leaked key → `references/secrets.md`
+- Run Semgrep or CodeQL on the repo, triage, produce SARIF; pick a SAST tool → `references/static-analysis.md`, `scripts/semgrep/run-scans.sh`, `scripts/semgrep/merge_sarif.py`
+- Audit dependencies or a container image, vet a new package, lockfile hygiene; pick a scanner (npm audit, Dependabot, Trivy, Snyk) → `references/supply-chain.md`, `scripts/supply-chain-risk-auditor/collect.py`, `scripts/supply-chain-risk-auditor/render.py`
+- Store secrets, set up secret scanning (pick a scanner: GitHub, Gitleaks, TruffleHog), respond to a leaked key → `references/secrets.md`
+- Scan your own running web app or API (DAST); pick a scanner (ZAP baseline, full or API scan) → `references/dynamic-testing.md`
 - Write or review GitHub Actions workflows, AI agents in CI → `references/github-actions.md`
 - Firestore / Storage rules, Data Connect `@auth` → `references/firebase-rules.md`
 
@@ -155,29 +163,30 @@ Defensive security for your own code: secure coding, threat models, Semgrep/Code
 
 Agents, tools and MCP servers that actually work: scoping, tool design, multi-agent, memory, evals, Claude and other stacks.
 
-- Decide agent vs workflow, scope a v0, choose a stack → `references/agent-or-workflow.md`
+- Decide agent vs workflow, scope a v0, choose a stack (pick a framework) → `references/agent-or-workflow.md`
 - Design or audit tools: names, descriptions, schemas, errors, pagination, tool count → `references/tool-design.md`
 - Build an MCP server: deployment model, transport, framework, auth/OAuth, elicitation, testing, Directory checklist → `references/mcp-servers.md`
 - Add interactive widgets (pickers, forms, charts) to an MCP server → `references/mcp-apps.md`
 - Multi-agent topologies, parallel sub-agent dispatch, task decomposition, briefs → `references/multi-agent.md`
 - Context window management, prompt caching, compaction, long-term memory → `references/context-and-memory.md`
 - Write or fix an agent's system prompt and guardrails → `references/agent-prompts.md`
-- Build eval sets, rubrics and judges; run the MCP 10-question eval → `references/evaluation.md`, `scripts/mcp-builder/evaluation.py`, `scripts/mcp-builder/example_evaluation.xml`
+- Build eval sets, rubrics and judges; run the MCP 10-question eval; trace runs and pick a tracing/eval tool (LangSmith, Langfuse) → `references/evaluation.md`, `scripts/mcp-builder/evaluation.py`, `scripts/mcp-builder/example_evaluation.xml`
 - Claude: manual tool loop, Tool Runner, Agent SDK, Managed Agents launch/schedule → `references/claude-platform.md`
-- Vercel AI SDK, Mastra, LangGraph, Deep Agents, Google ADK, Cloudflare Agents, Microsoft Foundry → `references/frameworks.md`
+- Pick a framework; Vercel AI SDK, Mastra, LangGraph, Deep Agents, Google ADK, Cloudflare Agents, Microsoft Foundry, OpenAI Agents SDK, CrewAI, Microsoft Agent Framework (AutoGen, Semantic Kernel), Copilot Studio → `references/frameworks.md`
 - Real-time voice agents (ElevenLabs; ADK Live alternatives) → `references/voice-agents-elevenlabs.md`
 
 ## automation: Automation
 
 Workflows and browsers that run themselves safely: n8n, Make, Zapier, Playwright, DevTools, app CLIs and web extraction.
 
-- Choose the vehicle, plan the flow, reliability, credentials, handoff → `references/automation-design.md`
-- Drive a browser: pick a driver, snapshot loop, sessions, logins, evidence → `references/browser-automation.md`
+- Choose the vehicle, pick a workflow platform, plan the flow, reliability, credentials, handoff → `references/automation-design.md`
+- Drive a browser: pick a driver, snapshot loop, sessions, logins, evidence; fix or pick a Selenium, Puppeteer or Playwright script → `references/browser-automation.md`
 - Test a local web app with Playwright; write, generate or fix tests → `references/playwright-testing.md`, `scripts/webapp-testing/with_server.py`, `templates/webapp-testing/`
 - Debug a page: console, network, CSS, performance, Chrome extensions → `references/devtools-debugging.md`
 - Build or fix an n8n workflow (MCP tools, expressions, Code nodes, loops, AI agent) → `references/n8n.md`
 - Build a Make scenario (modules, connections, blueprint, routing, errors) → `references/make.md`
 - Zapier SDK/CLI actions or a durable Zapier workflow → `references/zapier.md`
+- Power Automate flows, Google Apps Script triggers, scheduled GitHub Actions, UiPath jobs → `references/platform-workflows.md`
 - Act directly in apps: Composio, Gmail/Workspace via `gws`, GitHub via `gh-axi` → `references/app-integrations.md`
 - Extract structured data from websites; Firecrawl agent → `references/web-extraction.md`
 
@@ -187,12 +196,13 @@ Skills, CLAUDE.md, hooks, subagents, plans and context: set Claude up to do long
 
 - Write or edit a skill: anatomy, frontmatter, description, body, progressive disclosure, router skills → `references/skill-authoring.md`
 - Test a skill, run evals, pressure-test a discipline skill, optimise the description's triggering → `references/skill-testing-and-triggering.md`, `scripts/skill-creator/`
-- Write, audit or score CLAUDE.md / AGENTS.md / rules files → `references/claude-md-and-rules.md`
+- Write, audit or score CLAUDE.md / AGENTS.md / rules files; share instructions and skills with Copilot, Cursor, Codex, Gemini CLI or OpenCode (pick which files each agent reads) → `references/claude-md-and-rules.md`
 - Create hooks, block dangerous commands, auto-format, guard files, choose hook vs skill vs agent vs MCP → `references/hooks-and-guardrails.md`, `scripts/hook-development/`, `scripts/git-guardrails-claude-code/`
+- Package skills, agents, hooks and MCP servers as a plugin, run a (private) marketplace, enable it for a repo; connect MCP servers to Claude Code (pick a sharing route or connection type) → `references/packaging-and-connecting.md`
 - Define a subagent, write a dispatch prompt, run a plan with subagents, pick models → `references/subagents-and-delegation.md`, `templates/subagent-driven-development/implementer-prompt.md`, `scripts/agent-development/validate-agent.sh`
 - Brainstorm, grill a plan, write a spec or implementation plan, define acceptance gates, execute a plan → `references/planning-and-execution.md`
 - Long sessions: planning files, compaction, context budget, handoff, memory search, terse output → `references/context-and-memory.md`, `templates/planning-with-files/`
-- Save a lesson as a skill, automatic learning, find/vet/install skills, recommend automations for a repo → `references/learning-and-skill-discovery.md`, `templates/self-learning/SKILL.template.md`
+- Save a lesson as a skill, automatic learning, find/vet/install skills (pick an installer), recommend automations for a repo → `references/learning-and-skill-discovery.md`, `templates/self-learning/SKILL.template.md`
 - Turn saved reels, bookmarks and creator freebies into task skills plus one chain skill that runs them in order; merge duplicate tips and flag conflicts; weekly refresh → `references/skill-stack-from-saves.md`
 - Delegate implementation to Codex CLI or cross-review a plan Claude <-> Codex → `references/codex-cross-review.md`
 - Checking a skill's frontmatter before shipping (needs PyYAML) → `scripts/skill-creator/scripts/quick_validate.py`
@@ -216,10 +226,10 @@ Fewer tokens, same quality: session hygiene, lean context, caching that hits, mo
 - Which model and effort for which task; orchestrator plus cheap workers; cascades and routers; effort sweeps → `references/model-and-effort.md`
 - Context full before you start: MCP tool schemas, deferred tools, skill and agent descriptions, CLAUDE.md and memory size; compress a memory file safely → `references/fixed-overhead.md`, `scripts/caveman-compress/validate.py`
 - Terse or caveman mode: rules, when not to use it, subagent return formats, output length in API apps → `references/terse-output.md`
-- Prompt caching for any provider: is it worth it, prefix order, silent cache killers, verifying hits, write premium, CI guard → `references/prompt-caching.md`, `scripts/audit-prompt-caching/`
+- Prompt caching for any provider: is it worth it, prefix order, silent cache killers, verifying hits, write premium, CI guard; OpenAI `prompt_cache_key`, retention and breakpoints → `references/prompt-caching.md`, `scripts/audit-prompt-caching/`
 - Claude API specifics: `cache_control`, TTLs, keep-alive, cache breakers, `count_tokens`, tool search, compaction, Batches, effort → `references/claude-api-levers.md`
-- API app patterns: batch, routing code, budgets and degradation, narrow retries, exact and semantic response caching → `references/api-cost-patterns.md`
-- Measure usage and cost: Claude Code logs, where tokens went, API request logging, cost per completed task, bill regressions → `references/measuring-usage.md`, `scripts/tare/`
+- API app patterns: batch (pick a tool: Claude Batches, OpenAI Batch API or Flex), routing code, budgets and degradation, narrow retries, exact and semantic response caching; gateways for per-key spend and budgets (pick one: LiteLLM, OpenRouter) → `references/api-cost-patterns.md`
+- Measure usage and cost: Claude Code logs, where tokens went, API request logging, cost per completed task, bill regressions; pick a tracing tool (Langfuse, LangSmith) → `references/measuring-usage.md`, `scripts/tare/`
 - 5-hour and weekly plan limits: check before big runs, bounded waves, pause and resume, diagnose a hit limit → `references/usage-limits.md`
 - Retrieval vs long context (CAG vs RAG), narrow retrieval, window budgets, masking and compaction, prompt compression → `references/retrieval-and-compression.md`
 
@@ -230,12 +240,12 @@ Open-weight LLMs: model and licence choice, VRAM maths, Ollama and llama.cpp, vL
 - Open vs paid API, break-even, which model for a job, finding candidates, licence classes and commercial checklist → `references/choosing-models-and-licences.md`, `scripts/huggingface-llm-trainer/hf_benchmarks.py`
 - Will it fit: weights, KV cache, context, MoE, which GPU or Mac, partial offload, training memory → `references/vram-and-sizing.md`
 - GGUF quant levels, converting and quantizing with llama.cpp, imatrix, AWQ and GPTQ, quality checks → `references/quantization.md`
-- Run on a laptop or desktop: Ollama, llama.cpp, LM Studio, MLX, llama-cpp-python → `references/local-inference.md`
+- Run on a laptop or desktop: Ollama, llama.cpp, LM Studio, MLX, llama-cpp-python; a chat page for family or a team (Open WebUI), pick a chat UI → `references/local-inference.md`
 - Serve to many users: vLLM, SGLang, llama-server, HF Inference Endpoints, safe exposure → `references/serving-endpoints.md`, `scripts/vllm-deploy-simple/quickstart.sh`
 - Rent GPUs: RunPod pods and serverless, Modal, HF Jobs, cost maths, teardown; ComfyUI or diffusers server setup → `references/gpu-hosting-runpod-modal.md`
 - Hugging Face Hub: hf CLI, auth, download, cache, upload, datasets, transformers, Spaces → `references/hugging-face-hub.md`, `scripts/huggingface-llm-trainer/dataset_inspector.py`
 - Should we fine-tune, SFT vs DPO vs GRPO, data prep, LoRA and QLoRA settings, TRL code → `references/fine-tuning.md`, `scripts/huggingface-llm-trainer/dataset_inspector.py`
-- Where to train (Unsloth, Mac, LlamaFactory, HF Jobs, RunPod, Modal) and exporting adapters, merged weights or GGUF → `references/fine-tuning-runners.md`
+- Where to train, pick a runner (Unsloth, Google Colab, Mac, LlamaFactory, Axolotl, HF Jobs, RunPod, Modal); track runs (trackio, W&B); exporting adapters, merged weights or GGUF → `references/fine-tuning-runners.md`
 - Benchmarks, your own task eval, fair comparisons, quant and fine-tune checks, tokens per second → `references/evaluation.md`, `scripts/huggingface-community-evals/`
 - Point an agent, app or coding tool at a local model: base URL, tool calling, JSON output, embeddings, hybrid routing → `references/agents-and-tools.md`
 
@@ -247,7 +257,7 @@ Posters, covers, banners, thumbnails, logos, brand kits, infographics and print,
 
 - Layout, grid, hierarchy, type sizes, colour, contrast; "why does this look off" → `references/foundations.md`
 - Poster or art print rendered with code (no image model), typographic/Swiss/screen-print looks, editorial/magazine poster → `references/code-rendered-posters.md`, `templates/magazine-poster/example.html`
-- Poster, flyer, event graphic, movie/book/album or article cover with an image model; consistent series → `references/ai-image-posters.md`, `scripts/banner-creator/crop_banner.py`
+- Poster, flyer, event graphic, movie/book/album or article cover with an image model; consistent series; Gemini/Nano Banana and GPT Image size settings and print resolution → `references/ai-image-posters.md`, `scripts/banner-creator/crop_banner.py`
 - Social posts/stories, banners, headers, display ads, website heroes; resizing one design to many sizes → `references/banners-social.md`, `scripts/banner-creator/crop_banner.py`, `scripts/logo-design/scripts/render_png.py`
 - YouTube thumbnail, Shorts/Reels cover → `references/thumbnails.md`, `templates/higgsfield-youtube-thumbnail/text-overlay-bake.md`
 - Brand kit, brand guidelines, theme for slides/docs/pages, brand board, CIP mockups, applying a brand → `references/brand-kits.md`, `templates/theme-factory/themes/`, `templates/logo-design/brand-guidelines-template.md`
@@ -255,6 +265,7 @@ Posters, covers, banners, thumbnails, logos, brand kits, infographics and print,
 - Infographic, visual summary, data poster → `references/infographics.md`
 - Print files (bleed, CMYK, dpi), research/conference poster in LaTeX, PPTX or HTML → `references/print-and-academic-posters.md`, `templates/latex-posters/`, `scripts/latex-posters/review_poster.sh`
 - Canva: resize a design for social, bulk-create designs from CSV → `references/canva.md`
+- Poster in Photoshop, Illustrator, InDesign, Adobe Express (Adobe connector in Claude, or scripts), Affinity or Figma; PDF/X export from those apps → `references/app-built-posters.md`
 - Favicons, PWA/app icons, Open Graph / Twitter images, meta tags → `references/web-assets.md`, `scripts/web-asset-generator/`, `scripts/logo-design/scripts/export_variants.py`
 - Higgsfield CLI (paid) for thumbnails, brand mockups, logos → `references/higgsfield.md`
 
@@ -270,10 +281,11 @@ UI and web motion that feels right: easing, timing, GSAP, scroll, React, Reanima
 - Scroll: reveals, ScrollTrigger pin and scrub, horizontal scroll, Lenis, cinematic storytelling, frame-sequence product scroll, CSS scroll-driven → `references/scroll-animation.md`
 - React `<ViewTransition>` route and shared-element morphs; Motion (Framer Motion) presence, layout, variants, gestures → `references/react-transitions-and-motion.md`
 - React Native / Expo: Reanimated, gestures, haptics, screen transitions → `references/react-native-expo.md`
-- Lottie JSON authoring and playback, SVG logo animation, Slack GIFs and emoji → `references/lottie-svg-gif.md`
+- Short vector assets, pick a tool (hand-written Lottie, After Effects, Cavalry, Jitter, Rive, SVG, GIF) and a Lottie player; Lottie JSON authoring and playback; Lottie export from After Effects (Bodymovin, LottieFiles plugin), Cavalry or Jitter; Rive runtimes, data binding and the Rive editor MCP; SVG logo animation, Slack GIFs and emoji → `references/lottie-svg-gif.md`
 - Logo motion QA: frame capture, easing probe, path audit → `scripts/pixel2motion/`, `references/lottie-svg-gif.md`
 - Build a GIF in Python → `scripts/slack-gif-creator/`, `references/lottie-svg-gif.md`
-- Three.js: clock, clips, mixers, GLTF skeletal animation, morph targets, blending, deterministic 3D renders → `references/threejs-animation.md`
+- 3D motion, pick a tool (Three.js code, Cinema 4D, Blender); Three.js: clock, clips, mixers, GLTF skeletal animation, morph targets, blending, deterministic 3D renders; GLTF from Cinema 4D → `references/threejs-animation.md`
+- Pick a motion app (After Effects, Cinema 4D, Cavalry, Jitter, Figma Motion); After Effects scripts (ExtendScript) and `aerender`; Cinema 4D's MCP server, command-line renders and Cineware hand-off to After Effects; Figma Motion code → `references/motion-app-handoff.md`
 - Manim CE math, algorithm and data explainers → `references/manim.md`
 - HyperFrames: seek-safe contract, runtime adapters, motion rules, blueprints, scene transitions; keyframes for punch-ins, zooms, Ken Burns, camera moves, crop/mask reframes, match and whip hand-offs, `hyperframes keyframes` proof → `references/hyperframes-animation.md`
 
@@ -282,17 +294,17 @@ UI and web motion that feels right: easing, timing, GSAP, scroll, React, Reanima
 Make, generate, edit and deliver video: HyperFrames, video-model prompts, ffmpeg cuts, captions, beat cuts and QA.
 
 - Decide the route, the brief, length, structure and beat sheet → `references/plan-and-route.md`
-- Build or edit a HyperFrames composition; CLI loop (lint, check, snapshot, preview, render, batch); registry blocks; Studio timeline layout and safe zones; telemetry and upload defaults → `references/hyperframes-workflows.md`
+- Pick HyperFrames or Remotion; build or edit a HyperFrames composition; CLI loop (lint, check, snapshot, preview, render, batch); registry blocks; Studio timeline layout and safe zones; telemetry and upload defaults; Remotion projects (zod props, calculateMetadata, CLI and batch renders, Lambda limits and cost) → `references/hyperframes-workflows.md`
 - HyperFrames creative direction: design spec (`frame.md`), palettes and video type sizes, narration script, beat and rhythm plan, storyboard sheet, data scenes, audio-reactive visuals → `references/hyperframes-creative-direction.md`, `scripts/hyperframes-creative/extract-audio-data.py`
 - Write a text-to-video, image-to-video, extend or video-edit prompt (any model) → `references/generative-prompting.md`
 - Prompting Seedance (1.5 Pro, 2.0, 2.0 mini, 2.5): version choice, limits, t2v / i2v / multi-reference prompts, 2.5 per-second timelines, extension and edits, dialogue, failure fixes, picking the usable window → `references/seedance.md`
 - Prompt or run Wan (2.2 open weights self-hosted, 2.5 to 3.0 hosted): photoreal still to clip, warp-free motion, negative prompts, lip-sync → `references/wan.md`
 - Prompt Kling (2.6, 3.0, Omni, O1): long takes, camera moves, multi-shot, dialogue, start/end frames, Motion Control, video edits → `references/kling.md`
 - Gemini Omni Flash and Veo 3.1: generation, edits, extensions, loops, dialogue and lip-sync prompts → `references/vendor-gemini-omni.md`, `scripts/gemini-omni-flash-api/`
-- Runway, ByteDance ModelArk (Seedance i2v, multi-reference, person-replacement edits), fal genmedia, LTX-2, FLUX 3, MiniMax, Atlas Cloud: models, costs, calls → `references/vendor-apis.md`, `scripts/bytedance-modelark/ark.py`
-- AI presenter or avatar video (HeyGen Video Agent, photo-to-talking clip, lip sync) → `references/vendor-heygen-avatars.md`
-- Cut, trim, splice, de-um, reframe, grade or assemble real footage from a transcript → `references/footage-editing-ffmpeg.md`, `scripts/video-use/`
-- Captions, subtitles, karaoke words, talking-head recut with cards and lower-thirds → `references/captions-talking-head.md`
+- Pick a video model and where to run it (own key, self-hosted with no API fee, cheapest host); Runway, ByteDance ModelArk (Seedance i2v, multi-reference, person-replacement edits), Luma Ray 3.2, fal genmedia, LTX-2, FLUX 3, MiniMax, Atlas Cloud: models, costs, calls → `references/vendor-apis.md`, `scripts/bytedance-modelark/ark.py`
+- AI presenter or avatar video, pick a provider (HeyGen Video Agent, Synthesia Video API and MCP: templates, translation, dubbing; photo-to-talking clip, lip sync) → `references/vendor-heygen-avatars.md`
+- Cut, trim, splice, de-um, reframe, grade or assemble real footage from a transcript; hand off to an editor, pick an NLE: DaVinci Resolve (scripting API timeline, markers, render jobs), Premiere Pro (FCP 7 XML, AAF, UXP, Adobe for creativity connector, multicam, Auto Reframe, SRT captions), Final Cut Pro (FCPXML) or CapCut (SRT hand-off); edit in Descript (API, MCP, Underlord) → `references/footage-editing-ffmpeg.md`, `scripts/video-use/`
+- Captions, subtitles (pick a transcriber), karaoke words, talking-head recut with cards and lower-thirds → `references/captions-talking-head.md`
 - Beat-synced music video, montage cut to music, beat-cut film from AI stills (onset sync, style lock, type cards, render gate), SFX and the audio mix → `references/music-beat-cut.md`, `scripts/music-to-video/`
 - Faceless explainer; product launch, promo or site-tour video from a URL, script or brief; brag video; collage explainer; real screen recording of a (signed-in) web app on macOS for a tour, demo or ad → `references/explainers-and-promos.md`, `scripts/screen-record-web/scripts/record.mjs`
 - Export specs, loudness, safe zones, poster frame, final QA and hand-off → `references/delivery-qa.md`, `scripts/lanshu-create-ai-presenter-video/finalize_delivery.sh`
@@ -301,16 +313,17 @@ Make, generate, edit and deliver video: HyperFrames, video-model prompts, ffmpeg
 
 Voiceovers, music, sound effects, podcasts, dubbing and transcripts with AI, mixed to a real loudness target.
 
-- Voiceover, narration, TTS, IVR, accessibility read, audiobook; choosing a TTS engine → `references/voiceover-tts.md`
+- Voiceover, narration, TTS, IVR, accessibility read, audiobook; pick a TTS engine (incl. Gemini TTS) → `references/voiceover-tts.md`
 - Anything on ElevenLabs (TTS, Scribe STT, SFX, Music, Dubbing, Voice Changer, Isolator) → `references/elevenlabs.md`
 - OpenAI TTS or transcription via the bundled CLIs → `references/openai-audio.md`, `scripts/speech/text_to_speech.py`, `scripts/transcribe/transcribe_diarize.py`
 - Background music, jingles, songs, lyrics, music prompts, BPM/key choices → `references/music-generation.md`
-- MiniMax `mmx`, ACE-Step, Suno commands and knobs → `references/music-tools.md`
+- Pick a music tool; MiniMax `mmx`, ACE-Step, Suno, Lyria commands and knobs → `references/music-tools.md`
 - Sound effects, UI sounds, ambiences, risers, placement → `references/sound-effects.md`
 - Transcription, speaker labels, word timestamps, SRT/VTT subtitles → `references/transcription.md`, `scripts/asr-transcribe-to-text/prepare_asr_input.py`
 - Merge recorder segments, convert to 16 kHz mono, shrink uploads before ASR → `scripts/asr-transcribe-to-text/prepare_asr_input.py`, `references/transcription.md`
 - Mixing, ducking, voice cleanup EQ, loudness, ffmpeg recipes, export formats → `references/mixing-and-mastering.md`
-- Article-to-podcast, two-host dialogue, multi-voice scripts → `references/podcast-and-dialogue.md`
+- Edit a recorded podcast or interview: cut ums and pauses, clean voices, repair noise; pick an editor (Descript, Audacity, Audition, Enhance Speech, iZotope RX, GarageBand/Logic) → `references/editing-and-repair.md`
+- Article-to-podcast, two-host dialogue, multi-voice scripts; pick a voice tool → `references/podcast-and-dialogue.md`
 - Dubbing, voice conversion, anonymizing a speaker, noise/music removal → `references/dubbing-and-voice-conversion.md`
 - Offline or free: edge-tts, Kokoro, MusicGen/AudioGen, Whisper/whisper.cpp → `references/local-open-models.md`
 
@@ -319,15 +332,16 @@ Voiceovers, music, sound effects, podcasts, dubbing and transcripts with AI, mix
 Generate, edit and keep images consistent with GPT Image, Nano Banana, FLUX and local models, plus code-made art.
 
 - Write or improve any image prompt, choose words for light, lens and composition, check an output → `references/prompting-fundamentals.md`
-- Headlines, labels, posters, infographics, translating text in an image → `references/text-in-images.md`
-- Edit, inpaint or outpaint, swap a background, remove an object, try-on, style transfer, keep a character or product consistent, transparent PNGs, exact dimensions → `references/editing-references-consistency.md`
+- Headlines, labels, posters, infographics, translating text in an image; pick a text model or overlay tool → `references/text-in-images.md`
+- Edit, inpaint or outpaint, swap a background, remove an object, try-on, style transfer, keep a character or product consistent, transparent PNGs, exact dimensions; pick a cutout or upscale tool → `references/editing-references-consistency.md`
 - OpenAI GPT Image (models, sizes, transparency, edits, Codex `image_gen`) → `references/openai-gpt-image.md`, `scripts/imagegen/image_gen.py`
 - Gemini / Nano Banana (Pro, 2, Lite; 512-4K) → `references/gemini-nano-banana.md`, `scripts/nano-banana-pro/generate_image.py`
-- FLUX.2, Replicate, fal.ai, OpenRouter, Seedream (also direct on ByteDance ModelArk, phone-photo realism recipe), Recraft, Ideogram, Higgsfield; picking a model → `references/hosted-models-flux-replicate-fal.md`, `scripts/generate-image/generate_image.py`, `scripts/bytedance-modelark/ark.py`
+- FLUX.2, Replicate, fal.ai, OpenRouter, Seedream (also direct on ByteDance ModelArk, phone-photo realism recipe), Recraft, Ideogram, Higgsfield, Midjourney prompts; picking a model and where to run it → `references/hosted-models-flux-replicate-fal.md`, `scripts/generate-image/generate_image.py`, `scripts/bytedance-modelark/ark.py`
 - Local Stable Diffusion / SDXL / FLUX dev with diffusers, ControlNet, LoRA, ComfyUI workflow JSON → `references/local-open-models.md`
 - Generative or algorithmic art, flow fields, particles, seeded p5.js, SVG patterns → `references/algorithmic-art.md`, `templates/algorithmic-art/viewer.html`
 - Website heroes, section images, design comps for a landing page, game sprites, UI icons, textures, web optimisation, OG images → `references/web-frontend-assets.md`
-- Social posts, ads, product shots, posters, banners, logo concepts, brand boards, campaign series and their sizes → `references/marketing-brand-images.md`
+- Social posts, ads, product shots, posters, banners, logo concepts, brand boards, campaign series and their sizes; pick a resize tool → `references/marketing-brand-images.md`
+- Finish a real photo in pro tools (pick one): Adobe (Photoshop, Lightroom, Express, Firefly API), Canva, Photoroom cutouts and surfaces, resize to placements, Topaz upscaling → `references/retouch-resize-upscale.md`
 - OpenAI generate / edit / JSONL batch from any shell; transparent PNGs; `--dry-run` to preview the request → `scripts/imagegen/image_gen.py`
 - Quick Gemini (Nano Banana Pro) generate or single-image edit at 1K/2K/4K → `scripts/nano-banana-pro/generate_image.py`
 - Seedream 5.0 stills straight from ByteDance (`image out.jpg --size 2560x1920`, prompt on stdin); free `models` listing first → `scripts/bytedance-modelark/ark.py`
@@ -338,15 +352,15 @@ Generate, edit and keep images consistent with GPT Image, Nano Banana, FLUX and 
 From idea to shot list: beats, scripts, camera language, consistent characters and per-shot AI video prompts.
 
 - Story shape, beat sheet, act breaks, beats per duration, emotion curve, 9-moment key board → `references/story-structure.md`, `templates/cinematic-director/beat-sheet-template.md`
-- Write or fix a script or scene, screenplay/A-V/YouTube formats, dialogue, scene design → `references/script-and-scene-craft.md`
+- Write or fix a script or scene, screenplay/A-V/YouTube formats, dialogue, scene design; read Final Draft `.fdx` or write Fountain, pick a script format → `references/script-and-scene-craft.md`
 - Shot sizes, angles, lenses, camera moves, composition, blocking, 180°/30° rules, eyelines, coverage, vertical framing → `references/shot-language.md`
-- Shot list or storyboard table, shot cards, timing and shot counts, risk scoring, animatic panels, grid boards → `references/shot-lists-and-boards.md`, `templates/cinematic-director/shot-plan-template.md`
+- Shot list or storyboard table, shot cards, timing and shot counts, risk scoring, animatic panels, grid boards; drawing panels, pick a drawing tool (Photoshop, Storyboard Pro, AI keyframes) → `references/shot-lists-and-boards.md`, `templates/cinematic-director/shot-plan-template.md`
 - Character sheets, identity strings, style lock, location plates, keyframe prompts, first/last frames, continuity bible → `references/keyframes-and-consistency.md`
 - Board → AI video prompts per model (Seedance, Kling, Veo, MiniMax H3), segment seams, repair order → `references/ai-video-prompts.md`
 - Vertical short drama / micro-drama / AI comic drama episodes → `references/short-drama-vertical.md`
-- Comic pages, four-panel strips, webtoons, knowledge comics → `references/comics-and-panels.md`
+- Comic pages, four-panel strips, webtoons, knowledge comics; pick who draws (Clip Studio Paint or an image model) → `references/comics-and-panels.md`
 - Break down a reference video into a measured shot list (拉片) → `references/reference-video-breakdown.md`, `scripts/video-shots/video-shots.mjs`
-- Project folders, IDs, asset naming, revisions, storyboard-app (MCP) projects, handoff → `references/storyboard-projects.md`
+- Project folders, IDs, asset naming, revisions; boards in a storyboard app, pick a board app (Boords, StudioBinder, Storyboard Pro, Storyboarder); animatic export to an editor (EDL/AAF/XML), handoff → `references/storyboard-projects.md`
 
 ## content-creation: Content creation & copywriting
 
@@ -354,13 +368,14 @@ Copy that converts, articles and newsletters that get read, brand voice, repurpo
 
 - Remove AI patterns, humanize, de-slop, audit a draft for AI tells (any text) → `references/humanize-ai-writing.md`
 - Landing/home/pricing/feature page copy, headlines, CTAs, value props, product and meta descriptions, microcopy, subject lines → `references/conversion-copy.md`
-- Edit, proofread, tighten or review existing copy; expert-panel scoring; refresh outdated content → `references/copy-editing.md`
-- Content strategy, pillars, topic clusters, keyword-by-stage research, prioritizing ideas, calendars, content briefs → `references/content-strategy.md`, `templates/content-production/content-brief-template.md`
+- Edit, proofread, tighten or review existing copy; expert-panel scoring; refresh outdated content; pick a checker (Grammarly, bundled scripts) → `references/copy-editing.md`
+- Content strategy, pillars, topic clusters, keyword-by-stage research, prioritizing ideas, calendars (pick where it lives, e.g. Notion), content briefs → `references/content-strategy.md`, `templates/content-production/content-brief-template.md`
 - Blog posts, articles, guides, tutorials, case studies, press releases, release notes, SEO and AI-citation optimization → `references/long-form-articles.md`, `scripts/content-production/`
 - Interview the author for fragments, then shape notes/transcripts into an article block by block → `references/writing-from-raw-material.md`
 - Brand voice: voice profile from samples, tone-of-voice guide (TONE.md), ghostwriting voice guide, Writing DNA, enforcing voice on any piece → `references/brand-voice.md`, `templates/copywriting-tone-of-voice-creator/TONE-template.md`
 - Newsletter issues, Substack posts and Notes, subject lines, welcome sequences, newsletter growth and monetization → `references/newsletters.md`
 - Repurpose one piece into threads, LinkedIn posts, carousels, clips scripts, emails → `references/repurposing.md`
+- Hand off or publish the finished piece: Google Docs for review, Notion page, WordPress or HubSpot draft and schedule; pick a publishing tool → `references/publishing-tools.md`
 
 ## 3d-modeling: 3D modeling
 
@@ -373,10 +388,10 @@ Blender scripts, Three.js and R3F scenes, GLB optimisation, image-to-3D, CAD and
 - Export from Blender to GLB, inspect and optimise with glTF Transform, Draco vs Meshopt, KTX2 vs WebP, size targets, round-trip validation → `references/gltf-pipeline.md`, `scripts/blender-image-to-3d/roundtrip.py`
 - Image or text to 3D: choosing hosted, Blender or procedural route, spend rules, preparing inputs, checking and finishing a generated mesh, gated reference builds, image to Three.js code → `references/generative-3d.md`
 - Meshy CLI and Tripo API: login, estimates, routes, remesh, retexture, auto-rig and retarget rules, importing results → `references/meshy-tripo.md`
-- CAD part or assembly from a description, drawing or photo: build123d/cadgen, OpenSCAD with previews and Customizer parameters, STEP/STL/3MF/GLB export, measuring and repair → `references/cad-parametric.md`, `scripts/openscad/`, `templates/openscad/parametric_box.scad`
-- Printability (overhangs, walls, holes, clearances, orientation), file choice, slicing with the OrcaSlicer CLI, checking G-code, hand-off → `references/3d-printing.md`, `scripts/gcode/orca_presets.py`
+- CAD part or assembly from a description, drawing or photo: pick a CAD tool (the user's own app, Autodesk Fusion via its MCP server, SketchUp connector or Ruby, SOLIDWORKS macros, build123d/cadgen, OpenSCAD), API units, STEP/STL/3MF/GLB export, measuring and repair → `references/cad-parametric.md`, `scripts/openscad/`, `templates/openscad/parametric_box.scad`
+- Printability (overhangs, walls, holes, clearances, orientation), file choice, pick a slicer (OrcaSlicer CLI, UltiMaker Cura or CuraEngine), checking G-code, hand-off → `references/3d-printing.md`, `scripts/gcode/orca_presets.py`
 - OpenUSD layers, references, payloads, variants, USDZ for AR, slow USD scenes, Gaussian splats and splat-to-USD conversion → `references/openusd-and-splats.md`
-- Game-ready asset: brief, polycount and texture budgets, topology, UVs, LODs, bakes, naming, colliders, sockets, rigs and clip lists, validation, Unity/Unreal/Godot import → `references/game-assets.md`, `scripts/blender-image-to-3d/validate.py`
+- Game-ready asset: brief, polycount and texture budgets, topology, UVs, LODs, bakes, pick a texturing tool (Blender or Substance 3D Painter), naming, colliders, sockets, rigs and clip lists, validation, Unity (import settings, glTFast)/Unreal/Godot import → `references/game-assets.md`, `scripts/blender-image-to-3d/validate.py`
 
 # Grow
 
@@ -391,11 +406,11 @@ Plan, write and publish posts, threads, carousels and short video scripts across
 - Short-form video scripts and hooks (TikTok, Reels, Shorts), captions, audio → `references/short-form-video.md`
 - Carousels and LinkedIn document posts → `references/carousels.md`
 - Repurposing long content, crossposting one idea to many platforms → `references/repurposing-crossposting.md`
-- Social listening, comment triage, mentions, trend research (last 30 days), reverse-engineering a niche → `references/listening-research.md`
-- Metrics, weekly review, audits, community management, growth → `references/analytics-growth.md`
+- Social listening, comment triage, mentions, trend research (last 30 days), reverse-engineering a niche; pick a listening tool (Meltwater, Brandwatch, Hootsuite Lumen, Sprout or free searches) → `references/listening-research.md`
+- Metrics, weekly review, audits, community management, growth, link in bio (Linktree) → `references/analytics-growth.md`
 - Influencers, creators, UGC programs, ambassadors, FTC disclosure, rates → `references/influencer-marketing.md`
 - YouTube titles, descriptions, chapters, tags, thumbnails, Shorts, playlists → `references/youtube-seo-thumbnails.md`
-- Publishing and scheduling: xurl, X API, Composio TikTok/YouTube, SocialClaw, HubSpot, CSV → `references/publishing-apis.md`
+- Publishing and scheduling, pick a scheduler or API: Buffer, Hootsuite, Sprout Social, Later, Metricool, Postiz, Facebook Pages, Meta Business Suite, YouTube Data API, TikTok Content Posting API, xurl/X API, Composio, HubSpot, CSV → `references/publishing-apis.md`
 
 ## instagram-automation: Instagram automation
 
@@ -403,13 +418,13 @@ Reels scripts, carousels and captions that earn sends, published and measured on
 
 - Is this automation allowed? Bot/scraper/mass-DM requests, risk table → `references/tos-and-safe-automation.md`
 - Reel script, hooks, beat sheet, on-screen text, Trial Reels, audio → `references/reels-scripting.md`, `scripts/ig-reel/hookscore.py`, `scripts/ig-reel/beats.py`, `scripts/ig-reel/hooks.json`
-- Carousel copy (slide by slide) and visual design/export → `references/carousels.md`
+- Carousel copy (slide by slide) and visual design/export, pick an export route (Canva, Figma, Keynote or code) → `references/carousels.md`
 - Caption, CTA, hashtag set, alt text, AI-tell scrub → `references/captions-hashtags-ctas.md`
-- Weekly plan, content pillars, cadence, profile/bio audit, repurposing → `references/content-strategy.md`
-- Publish or schedule by API: Graph API, Composio, Publora, SocialClaw, limits, Trial Reels and paid-partnership fields → `references/graph-api-publishing.md`
-- Comment moderation, replies, comment-to-DM, DM inbox within policy → `references/dms-and-comments.md`
+- Weekly plan, content pillars, cadence, profile/bio audit, link in bio (pick a direct link or Linktree), repurposing → `references/content-strategy.md`
+- Publish or schedule, pick a scheduler: Graph API, Meta Business Suite, Buffer, Metricool, Hootsuite, Sprout Social, Later, Composio, Publora, SocialClaw, limits, Trial Reels and paid-partnership fields → `references/graph-api-publishing.md`
+- Comment moderation, replies, comment-to-DM (pick a tool: own webhook, ManyChat or Linktree auto-reply), DM inbox within policy (pick a tool: app, API, Hootsuite Nest, Sprout) → `references/dms-and-comments.md`
 - Influencer or brand-collab research, creator vetting → `references/influencer-research.md`
-- Insights, Reels metrics, why a post flopped, reporting → `references/analytics.md`
+- Insights, Reels metrics, why a post flopped, reporting; pick a numbers source (in-app, API, Metricool, Buffer, Hootsuite, Sprout Social, Linktree clicks) → `references/analytics.md`
 
 ## linkedin-automation: LinkedIn automation
 
@@ -418,14 +433,14 @@ LinkedIn posts, profiles, comments and outreach drafted for you, sent by hand or
 - "Can I automate X?", tool risk check, Dripify/Expandi/scraper requests, safe volume limits → `references/tos-and-safe-automation.md`, `scripts/linkedin-skills/linkedin_policy_gate.py`
 - Write or fix a post, hooks, formats, formulas, pre-publish lint → `references/post-writing.md`, `scripts/linkedin-content/post_linter.py`
 - Build a voice profile (about-me.md, voice.md, story bank) → `references/voice-building.md`
-- Carousel / PDF document post, slide briefs, image prompts → `references/carousels-documents.md`
+- Carousel / PDF document post, slide briefs, image prompts, pick a design tool (Canva) → `references/carousels-documents.md`
 - Profile audit, headline, About, Experience, Featured, banner → `references/profile-optimization.md`, `scripts/linkedin-profile/`, `templates/linkedin-profile/profile_worksheet.md`
 - Comments, replies to your own thread, commenting roster → `references/comments-engagement.md`
 - Connection notes, DMs, InMail, follow-ups, volume check → `references/outreach-messages.md`, `scripts/linkedin-engagement/`, `templates/linkedin-engagement/outreach_worksheet.md`
-- Finding and qualifying leads, warm paths, no scraping → `references/lead-research.md`
+- Finding and qualifying leads, warm paths, no scraping, pick a lead tool (Sales Navigator) → `references/lead-research.md`
 - Ghostwriting for a founder or exec, employee advocacy programme → `references/ghostwriting.md`
-- Publish or schedule via official API, Composio, API-partner schedulers → `references/publishing-official-api.md`
-- Post analytics, what's working, reach dropped, benchmarks → `references/analytics.md`
+- Publish or schedule a post, pick a scheduler (LinkedIn's own, Buffer, Hootsuite, Posts API, Composio, Publora) → `references/publishing-official-api.md`
+- Post analytics, export LinkedIn analytics, what's working, reach dropped, benchmarks → `references/analytics.md`
 
 ## ad-creation: Ad creation
 
@@ -436,11 +451,12 @@ Briefs, hooks, ad copy, statics, UGC and AI video ads for Meta, TikTok and Googl
 - Character limits, image sizes, safe zones, video specs per platform → `references/platform-specs.md`
 - Meta/Facebook/Instagram: format tiers, static templates, crop-safe, Advantage+, Special Ad Categories → `references/meta-ads-creative.md`
 - TikTok/Reels/Shorts video, hooks, UGC and creator formats, briefs, rights, founder and chat-reveal ads → `references/short-form-video-ugc.md`
-- AI product images and video ads, faceless motion ads, VO, assembly and QC (any provider) → `references/ai-ad-production.md`
+- AI product images and video ads, faceless motion ads, VO, assembly and QC (any provider); pick a generator → `references/ai-ad-production.md`
+- Make, resize, brand-check or cut ads in an app; pick a tool (Canva, Adobe, CapCut, TikTok Symphony) and get assets into TikTok Ads Manager (MCP) → `references/production-tools.md`
 - FLUX 3 (BFL API) product ads or Higgsfield product photoshoot CLI → `references/vendor-flux-higgsfield.md`
-- Competitor ads, ad library teardown, swipe file, gap analysis → `references/competitor-ad-research.md`
-- Bulk ad-library pulls with Apify Actors or ScrapeCreators API → `references/vendor-ad-library-apis.md`
-- Testing plan, iterating from data, creative audit, fatigue, monthly retro → `references/testing-iteration.md`
+- Competitor ads, ad library teardown, swipe file, gap analysis; pick a research tool → `references/competitor-ad-research.md`
+- Bulk ad-library pulls with the Meta Ad Library API, Apify Actors or ScrapeCreators API → `references/vendor-ad-library-apis.md`
+- Testing plan, iterating from data, creative audit, fatigue, monthly retro; pick an analytics tool (Motion) → `references/testing-iteration.md`
 
 ## google-ads: Google Ads
 
@@ -468,7 +484,7 @@ Get pages crawled, indexed and chosen — by Google, Bing and AI answer engines.
 - AI Overviews, ChatGPT, Perplexity, Copilot, AI crawlers, llms.txt, agent readiness, measuring AI citations → `references/ai-search.md`
 - Google Business Profile, reviews, NAP, citations, location pages, geo-grid tracking → `references/local.md`
 - Backlink review, link earning, disavow, directory submissions, Product Hunt, competitor and alternative pages → `references/offpage-competitors.md`
-- Specific tools: Search Console, PSI and CrUX APIs, Screaming Frog, squirrelscan, Firecrawl, DataForSEO, OpenSEO, claude-seo, the `seo` CLI, Apify → `references/tools-vendors.md`
+- Specific tools and picking one (crawler, keyword data, WordPress SEO plugin): Search Console, Google Analytics 4, PSI and CrUX APIs, Screaming Frog (headless CLI, MCP), Keyword Planner, Yoast SEO and Rank Math, squirrelscan, Firecrawl, DataForSEO, OpenSEO, claude-seo, the `seo` CLI, Apify → `references/tools-vendors.md`
 - Tracking a directory submission campaign → `templates/directory-submissions/submission-tracker-template.csv`
 
 ## email-marketing: Email marketing
@@ -479,26 +495,27 @@ Lists and consent, lifecycle flows, campaigns and A/B tests, deliverability, Rea
 - Welcome, onboarding, nurture, abandoned cart, browse, post-purchase, VIP, win-back, sunset, dunning, trial and launch flows; timing, exits, exclusions, flow diagrams → `references/sequences-and-lifecycle.md`
 - Broadcasts and newsletters as campaigns, campaign brief, subject lines, preview text, spam patterns, A/B tests and sample sizes, calendar, BFCM, the pre-send check → `references/campaigns-subject-lines-testing.md`
 - SPF, DKIM, DMARC, BIMI, Gmail and Yahoo bulk-sender rules, one-click unsubscribe headers, subdomains, warm-up, bounce and complaint thresholds, list hygiene, "going to spam" diagnosis → `references/deliverability.md`
-- Email templates in React Email or MJML, HTML email rules, Gmail clipping, images, accessibility, dark mode, merge tags, rendering tests → `references/templates-and-html.md`, `templates/email-html-mjml/`
+- Email templates in React Email or MJML, HTML email rules, Gmail clipping, images, accessibility, dark mode, merge tags, rendering tests and picking a testing tool (Litmus or real inboxes) → `references/templates-and-html.md`, `templates/email-html-mjml/`
 - Transactional vs marketing, which emails an app needs, content rules per email, idempotency, retries, queues, webhooks, suppression, safe testing → `references/transactional-email.md`
 - Resend, Postmark, Amazon SES, SendGrid or Cloudflare Email Service: setup, calls, limits, broadcasts, templates, webhooks, sandbox and production access → `references/sending-apis.md`
-- Choosing or migrating an ESP, working safely in Klaviyo, Loops and others, Klaviyo audits, metrics and benchmarks, attribution, holdouts, reporting → `references/esp-platforms-and-analytics.md`
+- Choosing or migrating an ESP, picking how to connect (connector, MCP or API), working safely in Klaviyo, MailerLite, Constant Contact, ActiveCampaign, HubSpot, Salesforce Marketing Cloud (AMPscript, SQL), Loops and others, Klaviyo audits, metrics and benchmarks, attribution, holdouts, reporting → `references/esp-platforms-and-analytics.md`
 - CAN-SPAM, GDPR, UK PECR, CASL and other laws, consent rules, required footer, transactional exemption, cold email writing, follow-ups and limits → `references/compliance-and-cold-email.md`
 
 ## ecommerce: E-commerce
 
 Shopify and WooCommerce builds, store checkout and tax, catalogs and feeds, pricing, inventory, sales analytics and agent checkout.
 
-- Which platform (Shopify, WooCommerce, BigCommerce, Medusa, Saleor, VTEX, headless), theme vs app vs headless, migrations → `references/platform-choice.md`
+- Which platform (Shopify, WooCommerce, BigCommerce, Wix, Medusa, Saleor, VTEX, headless), theme vs app vs headless, migrations; running a Wix store (pick Wix MCP, REST API or CSV) → `references/platform-choice.md`
 - Shopify theme work: sections, blocks, snippets, schema, LiquidDoc, translations, variant pickers, filters, theme performance, Shopify CLI, theme check → `references/shopify-themes.md`
 - Shopify Admin GraphQL (products, variants, inventory, metafields, bulk operations), query cost, webhooks, Storefront API carts, Hydrogen, Functions, checkout extensions, Shopify's AI Toolkit (and its telemetry opt-out) → `references/shopify-apps-and-apis.md`
 - WooCommerce Store API (cart, nonce, Cart-Token, variations), extending it, running Woo safely, headless BFF rules, Medusa and Saleor → `references/woocommerce-and-headless.md`
-- Store checkout: Stripe Checkout Sessions from a cart, shipping, promo codes, subscribe and save, Stripe Tax registrations, marketplaces with Connect, checkout UX, PCI → `references/checkout-and-payments.md`
+- Store checkout: pick a payment provider (Stripe, PayPal), Stripe Checkout Sessions from a cart, PayPal Orders API, shipping, promo codes, subscriptions (pick Stripe Billing or Recharge on Shopify), Stripe Tax registrations, marketplaces with Connect, checkout UX, PCI → `references/checkout-and-payments.md`
 - Product data model, CSV imports, bulk edits, catalog audits, Google Merchant Center feeds and disapprovals, Merchant API → `references/catalog-and-feeds.md`, `templates/shopify-products/product-csv-template.csv`, `scripts/mapi-developer-assistant/`
-- Product pages, collections, search, cart, free-shipping threshold, store funnel and CRO, trust and dark-pattern rules → `references/product-pages-and-cro.md`
+- Product pages, collections, search, cart, free-shipping threshold, store funnel and CRO, trust and dark-pattern rules, product reviews with Judge.me → `references/product-pages-and-cro.md`
 - Unit economics, price floors, discount health, promo calendar, stacking, dynamic repricing with guardrails → `references/pricing-and-promotions.md`
 - What to reorder and when, velocity, stockout dates, reorder sizing, slow movers, seasonality, POs, orders, fulfilment and returns → `references/inventory-and-fulfilment.md`
-- Why revenue dropped, AOV, repeat rate, LTV, cohorts, RFM, store health checks, business review write-ups → `references/store-analytics.md`
+- Why revenue dropped, AOV, repeat rate, LTV, cohorts, RFM, store health checks, business review write-ups; pick a data source (store export or GA4), GA4 Data API, store orders vs GA4 purchases → `references/store-analytics.md`
+- Selling on Amazon beside the store: pick a tool (seller reports, SP-API, SP-API dev MCP), orders, listings, FBA stock, reports → `references/marketplace-selling.md`
 - AI agents shopping (UCP CLI: search, cart, checkout, escalation), ACP merchant checkout endpoints, making a store agent-ready → `references/agentic-commerce.md`
 
 # Analyse & decide
@@ -513,20 +530,20 @@ Profile, query, test and chart data honestly: SQL, statistics, A/B tests, pandas
 - Descriptives, choosing a test, effect sizes, power, regression, time series → `references/statistics.md`
 - A/B test design and readout, difference-in-differences, observational causal questions → `references/experiments-causal.md`
 - Choose and style a chart, accessibility, matplotlib/seaborn/plotly → `references/visualization.md`
-- Define KPIs, design or build a dashboard (single-file HTML with Chart.js) → `references/dashboards-kpis.md`
-- pandas or Polars code, performance, merges, pandas→Polars → `references/dataframes.md`
+- Define KPIs, design or build a dashboard (single-file HTML with Chart.js), or query and build in Power BI, Tableau or Looker; pick a BI tool → `references/dashboards-kpis.md`
+- pandas, Polars or R tidyverse code, reading Excel inputs, performance, merges; pick a dataframe tool → `references/dataframes.md`
 - Predictive modelling with scikit-learn, leakage, metrics, imbalance → `references/machine-learning.md`
 - marimo or Jupyter notebooks → `references/notebooks.md`
-- BigQuery cost and `bq`, dbt models and tests, sandboxed DuckDB → `references/warehouses.md`
+- Warehouse work: BigQuery cost and `bq`, Snowflake, Databricks, dbt models and tests, sandboxed DuckDB; pick a warehouse tool → `references/warehouses.md`
 
 ## research-science: Research & Science
 
 Find papers, run literature reviews, verify citations, form hypotheses, write and review papers, plus Biopython and RDKit.
 
-- Frame a question, build search strings, choose databases, snowball, quick scan → `references/literature-search.md`
-- Use OpenAlex, PubMed, arXiv, Semantic Scholar, Crossref, bioRxiv APIs; rate limits; bundled search scripts → `references/database-apis.md`, `scripts/openalex/`, `scripts/pubmed/`, `scripts/arxiv-search/`
-- Literature / scoping / systematic review: screening, extraction, quality appraisal, synthesis, PRISMA → `references/literature-review.md`
-- Citations: DOI to BibTeX, metadata, cleaning and validating .bib files, verifying references, styles → `references/citations.md`, `scripts/citation-management/`
+- Frame a question, build search strings, choose databases and pick a search tool (Scopus, Web of Science, Embase, Google Scholar), snowball, quick scan → `references/literature-search.md`
+- Use OpenAlex, PubMed, arXiv, Semantic Scholar, Crossref, bioRxiv, Scopus and Web of Science APIs; rate limits; bundled search scripts → `references/database-apis.md`, `scripts/openalex/`, `scripts/pubmed/`, `scripts/arxiv-search/`
+- Literature / scoping / systematic review: pick a screening tool (Covidence), screening, extraction, quality appraisal, synthesis, PRISMA → `references/literature-review.md`
+- Citations: pick a reference manager (Zotero, EndNote, Mendeley), DOI to BibTeX, metadata, cleaning and validating .bib files, verifying references, styles → `references/citations.md`, `scripts/citation-management/`
 - Integrity rules, statistics in text, reporting guidelines, style, declarations → `references/scientific-writing.md`
 - Write a paper: title, abstract, introduction, related work, methods, results, discussion, self-review → `references/paper-sections.md`
 - Peer review a manuscript or critique a draft → `references/peer-review.md`, `templates/peer-review/`
@@ -539,12 +556,13 @@ Find papers, run literature reviews, verify citations, form hypotheses, write an
 Word, PDF and Excel: create, edit, fill, convert and check files, plus Google and Lark docs.
 
 - Word .docx: create from spec, fill a template, find/replace, tables, styles, TOC, page numbers, tracked changes, comments, OpenXML repair → `references/word-docx.md`, `scripts/hermes-docx/`
-- PDF: designed report/proposal/resume with cover, ReportLab, fill form fields, merge/split/rotate/encrypt, extract, visual check → `references/pdf.md`, `scripts/minimax-pdf/`
+- PDF: designed report/proposal/resume with cover, ReportLab, fill form fields, merge/split/rotate/encrypt, extract, OCR a scan (OCRmyPDF), visual check; pick local or hosted PDF tools (Adobe Acrobat connector, PDF Services API); send for signature, pick an e-signature tool (Docusign) → `references/pdf.md`, `scripts/minimax-pdf/`
 - Excel .xlsx/.csv: financial model, formulas, formatting, add rows/columns to an existing file, fix formula errors, analyse data → `references/excel-xlsx.md`, `scripts/minimax-xlsx/`, `templates/minimax-xlsx/minimal_xlsx/`
 - Writing and typesetting reports, one-pagers, proposals, letters, resumes; typography, colour, tables → `references/document-design.md`
 - Convert PDF/Office/HTML to Markdown, OCR scans, batch folders, RAG chunks; Markdown to docx/pptx/xlsx/pdf → `references/convert-extract.md`, `scripts/convert-pdf-to-md/`, `scripts/markitdown/`
 - Google Docs, Sheets, Slides, Drive (gws, gog, APIs) → `references/google-workspace.md`
 - Lark / Feishu Docx and Wiki (lark-cli) → `references/lark-feishu.md`
+- Files in Microsoft 365 (OneDrive, SharePoint, Excel workbooks in place) or WPS Office / WPS 365; pick a cloud suite tool (Microsoft 365 connector, Microsoft Graph, WPS 365 OpenAPI) → `references/cloud-office-files.md`
 
 ## product-management: Product & Project Management
 
@@ -572,11 +590,11 @@ DCF, comps, 3-statement and LBO models, equity research, backtests, risk and opt
 - Three-statement model, working capital, roll-forwards, integrity checks, credit metrics → `references/three-statement-model.md`
 - LBO (sources & uses, debt schedule, cash sweep, IRR/MOIC) or merger accretion/dilution → `references/lbo-merger-models.md`
 - Initiating coverage, earnings update (beat/miss), quick stock analysis, theme scans, forensic accounting checks → `references/equity-research.md`
-- Backtest a strategy; biases, slippage, walk-forward, vectorbt sweeps, Alpaca run folders, Vibe-Trading; score a backtest → `references/backtesting.md`, `scripts/backtest-expert/evaluate_backtest.py`, `scripts/vectorbt/parameter_sweep.py`
+- Backtest a strategy and pick a backtest tool (vectorbt, TradingView Pine Script, QuantConnect, Alpaca run folders, Vibe-Trading); biases, slippage, walk-forward; score a backtest → `references/backtesting.md`, `scripts/backtest-expert/evaluate_backtest.py`, `scripts/vectorbt/parameter_sweep.py`
 - Sharpe, Sortino, drawdown, Calmar, VaR/CVaR, beta, trade stats, position sizing, Kelly, stress tests → `references/risk-metrics.md`
 - Option pricing (Black-Scholes), Greeks, implied/historical vol, strategy payoffs and breakevens → `references/options.md`, `scripts/options-strategy-advisor/black_scholes.py`
-- Technical indicators, "what is the market pricing" questions, OKX market data, ccxt public data, GMGN token risk fields → `references/market-signals.md`
-- Place, test or cancel orders; check balances; ccxt, Binance CLI, OKX, Alpaca paper; order-safety protocol → `references/brokers-exchanges.md`
+- Technical indicators, "what is the market pricing" questions; pick a data source (yfinance, EDGAR, FRED, FactSet or S&P Capital IQ connectors, OKX, ccxt); GMGN token risk fields → `references/market-signals.md`
+- Place, test or cancel orders; check balances; pick a broker tool (Interactive Brokers connector or TWS API, ccxt, Binance CLI, OKX, Alpaca paper); order-safety protocol → `references/brokers-exchanges.md`
 - Startup model, SaaS/marketplace revenue builds, unit economics, burn and runway, dilution; monthly variance analysis → `references/startup-corporate-finance.md`
 
 # Work & learn
@@ -588,9 +606,10 @@ Deck story, slide design, PowerPoint, HTML, Slidev, Marp, Google Slides and Keyn
 - Intake, the one sentence, story spine, arcs, assertion titles, ghost-deck test, outline, slide content rules → `references/deck-story.md`
 - Skeleton for a pitch/investor, sales, board/update, decision deck, tech talk, lecture, research talk or defense; sent vs presented; slide counts and time budgets → `references/deck-types.md`
 - Slide design system: canvas, grid, type scale, colour systems, contrast, layouts, density modes, motion, avoiding the generated-deck look, style previews → `references/slide-design.md`
-- Charts, KPI tiles and tables on slides; simplifying paper figures; rounding and number consistency → `references/data-slides.md`
+- Charts, KPI tiles and tables on slides, pick a chart tool (native pptx charts, think-cell `.ppttc`); simplifying paper figures; rounding and number consistency → `references/data-slides.md`
 - PowerPoint .pptx: PptxGenJS, python-pptx, template decks (XML route), filling a template from data, pptx QA loop, officecli → `references/powerpoint-pptx.md`, `scripts/frontend-slides/extract-pptx.py`
 - HTML deck (single file, fixed stage), Slidev, Marp, reveal.js, Beamer, print-first PDF, web app deck, HyperFrames slideshow, pptx to HTML, export to PDF, sharing → `references/html-and-markdown-decks.md`, `templates/frontend-slides/`, `scripts/frontend-slides/`, `templates/scientific-slides/`
+- Build in a deck app (Canva, Gamma, Pitch, Beautiful.ai): pick a deck tool, connect, brand template, export PDF and PPTX, keep it unshared → `references/deck-apps.md`
 - Google Slides (API, template copy and replace, upload pptx, export, notes) and Keynote (open pptx, JXA, export, presenter notes) → `references/google-slides-keynote.md`
 - Slides rendered as AI images: modes, style lock, prompt files, fixing text, accessibility → `references/image-generated-slides.md`
 - Speaker notes: cue grain, verbatim set, timing marks, Q&A crib, narration scripts, where notes live per format → `references/speaker-notes.md`
@@ -618,12 +637,12 @@ Objectives, backward design, lesson plans, explanations, checks, quizzes, rubric
 Resumes tailored to a posting, ATS checks, cover letters, job search, interview prep, salary negotiation, promotions and hiring.
 
 - Write or review a resume or CV: truth rule, master resume, regional conventions (US, UK, AU/NZ, EU), section order, summary, bullets (XYZ, CAR), gaps, in-progress degrees → `references/resume-writing.md`
-- Tailor to a job description: decode the posting, map evidence, keyword match, ATS formatting, text-layer check, length, application form fields → `references/tailoring-and-ats.md`
+- Tailor to a job description: decode the posting, pull it from the employer's ATS (pick a feed: Greenhouse, Lever, Ashby), map evidence, keyword match, ATS formatting, text-layer check, length, application form fields → `references/tailoring-and-ats.md`
 - Cover letter, application email, note to a hiring manager, follow-up after applying → `references/cover-letters.md`
-- Search strategy and targeting, scoring a posting (eligibility, language, fit), scam and red flags, tracker, weekly funnel numbers, networking, referrals, informational interviews, recruiters, thank-you notes → `references/job-search-and-outreach.md`
+- Search strategy and targeting, finding postings (pick a job board or connector: Indeed, ZipRecruiter), scoring a posting (eligibility, language, fit), scam and red flags, tracker, weekly funnel numbers, networking, referrals, informational interviews, recruiters, thank-you notes; pick a tool for drafts, reminders and the tracker (Gmail, Google Calendar, Sheets, Docs) → `references/job-search-and-outreach.md`
 - Behavioural interviews: prep pack, story bank, STAR answers, scoring rubric, no-story answers, "tell me about yourself", concerns, questions to ask, mock and panel interviews, debrief → `references/interview-prep.md`
 - Coding rounds and LeetCode patterns, system design, case and product-sense rounds, take-home assignments, presentation rounds → `references/technical-interviews.md`
-- Salary research, recruiter scripts, reading and comparing offers, equity, negotiating, accepting or declining, offer-letter clause walk-through → `references/negotiation-and-offers.md`
+- Salary research and picking a pay source (Levels.fyi, Glassdoor, posted ranges), recruiter scripts, reading and comparing offers, equity, negotiating, accepting or declining, offer-letter clause walk-through → `references/negotiation-and-offers.md`
 - Brag document and backfill from git or PRs, self-review, promotion case and packet, writing reviews as a manager → `references/career-growth.md`
 - Career change: landing spot, transferable skills, translating experience, hybrid resume, positioning statement and pitch, "why the change" → `references/career-change.md`
 - Hiring: role intake, job post, competencies, interview guide, scorecards and rubric, bias and legal hygiene, debrief, offer-letter drafts → `references/hiring.md`, `scripts/interview-system-designer/interview_planner.py`

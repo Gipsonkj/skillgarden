@@ -17,6 +17,8 @@ Use this when the user needs an editable .pptx: they will edit it, it must use a
 | Markdown to a quick editable deck | `pandoc slides.md -o deck.pptx --reference-doc=brand.pptx` (one `##` per slide) |
 | `officecli` installed | `officecli add deck.pptx / --type slide ...` (section 8) |
 | Image-heavy designed deck from a full pipeline, brand/layout workspaces | ppt-master (install separately; large) |
+| Charts made with think-cell (waterfall, Mekko, Gantt) in the template | think-cell `.ppttc` JSON automation ([data-slides.md](data-slides.md) section 6) |
+| The deck lives in Canva, Gamma, Pitch or Beautiful.ai | That app's connector ([deck-apps.md](deck-apps.md)) |
 
 Marp `--pptx` and Slidev `--format pptx` put each slide in as a picture: text is not editable or searchable. Marp's `--pptx-editable` is experimental and loses styling; Slidev's `--format pptx-editable` rebuilds simple slides as shapes but keeps SVG, Mermaid, KaTeX, gradients and canvas as pictures and only names fonts. When editability is the deliverable, build the pptx natively.
 

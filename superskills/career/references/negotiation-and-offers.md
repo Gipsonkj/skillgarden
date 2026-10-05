@@ -1,12 +1,12 @@
 # Salary research, negotiation and offers
 
-> Distilled from: negotiating-compensation and its artifacts (RefoundAI/lenny-skills, MIT; paraphrased, no newsletter quotes or benchmark figures copied), salary and negotiate commands of interview-coach (noamseg/interview-coach-skill, MIT), salary-negotiation-skill and offer-compare-skill frameworks of offer-toolkit-skill (yanliudesign/offer-toolkit-skill, MIT), career-ops offer-prep mode as described in its router (career-ops-hq/career-ops, MIT).
+> Distilled from: negotiating-compensation and its artifacts (RefoundAI/lenny-skills, MIT; paraphrased, no newsletter quotes or benchmark figures copied), salary and negotiate commands of interview-coach (noamseg/interview-coach-skill, MIT), salary-negotiation-skill and offer-compare-skill frameworks of offer-toolkit-skill (yanliudesign/offer-toolkit-skill, MIT), career-ops offer-prep mode as described in its router (career-ops-hq/career-ops, MIT). Pay-source tools in section 1 from the Levels.fyi and Indeed docs (link-only, own words).
 
 This is coaching on strategy and wording. It is not legal, tax, immigration or financial advice: name the boundary when a question crosses it (section 9).
 
 ## 1. Never make up pay data
 
-You don't have live salary data. The candidate brings research; you help interpret it and build a range. Never state a market rate as fact.
+You don't have live salary data unless a source below is connected. The candidate brings research or a connected source supplies it; you help interpret it and build a range. Never state a market rate as fact.
 
 | Source type | Good for | Caution |
 |---|---|---|
@@ -19,6 +19,41 @@ You don't have live salary data. The candidate brings research; you help interpr
 Benchmark by **level and location, not years of experience**: the same years can map to very different levels at different companies.
 
 **Build three numbers:** floor (walk-away), target (fair market for the level and location), stretch (with strong positioning or a competing offer). State confidence and what data is missing.
+
+### Pick a pay source
+
+| The user's need or situation | Use | Why |
+|---|---|---|
+| Already has a source they trust or pay for (a recruiter's band, a paid survey, Levels.fyi access) | That source | Known quality, no new account |
+| The range for this exact role | The recruiter's band; the posted range from the posting, the employer's ATS feed ([tailoring-and-ats.md](tailoring-and-ats.md) section 8) or the Indeed or ZipRecruiter connector ([job-search-and-outreach.md](job-search-and-outreach.md) section 10) | The employer's own numbers |
+| Tech company and level, and they have Levels.fyi Enterprise access | Levels.fyi MCP server or REST API (below) | Percentiles by level, with sample sizes |
+| Tech company and level, no Levels.fyi access (most individuals) | The user looks up company, level and location on levels.fyi and pastes the figures with the date | Same data, read by the user |
+| Non-tech roles, company reviews, interview reports | Glassdoor, read and pasted by the user; or Indeed's company-data tool if the connector shows it | Broad coverage; direction, not a band |
+| Bonus payout history, refresh grants, how bands really work | Peers at the company or level | Context no database has |
+| None of these | Say no figure is available, ask the employer for the band, lower the confidence | Never fill the gap with a guess |
+
+If unsure what the user has access to, ask before connecting anything. Label every figure with its source, date, level, location and whether it is base or total pay.
+
+### Levels.fyi (tech total compensation)
+
+- **Access:** an MCP server at `https://mcp.levels.fyi/comp-benchmark` (sign in with a Levels.fyi account) and a REST API at `https://api.levels.fyi/v1/api`. Both are listed as "Included in Enterprise", a business plan reached through a demo or access form; REST API and CLI access are on request. Most job seekers won't have it, so ask, and fall back to the user's own lookup.
+- **MCP config** (clients that take `mcp.json`): `{"mcpServers": {"levels-fyi": {"type": "http", "url": "https://mcp.levels.fyi/comp-benchmark"}}}`.
+- **Auth for the API:** the key goes in the `x-api-key` header, read from the `LEVELS_API_KEY` environment variable. Never paste it into chat or a file in the repo.
+- **Endpoint:** `POST /benchmark/{jobFamilySlug}` (e.g. `software-engineer`) with a JSON body of `locationSlugs`, `salaryType` (e.g. `total_compensation`) and `timeRange` (e.g. `0-12` for the last 12 months). The answer gives, per `level`, a `sampleSize` and `p10`, `p25`, `p50`, `p75`, `p90`.
+
+```bash
+curl -s -X POST "https://api.levels.fyi/v1/api/benchmark/software-engineer" \
+  -H "x-api-key: $LEVELS_API_KEY" -H "Content-Type: application/json" \
+  -d '{"locationSlugs":["united-states"],"salaryType":"total_compensation","timeRange":"0-12"}'
+```
+
+- **Gotchas:** the access page shows only example slugs; take other job-family and location slugs from the reference that comes with access rather than guessing. Level labels are Levels.fyi's, so map the offer's level to one by asking the recruiter about scope, not by years. Report the sample size; a thin sample is low confidence. Rate limits aren't published.
+
+### Glassdoor (reviews, salaries, interview reports)
+
+- **Use:** the user reads it in their own browser and pastes what matters: the figure, whether it is base or total pay, the number of reports if shown, the location and the date. This craft has no API or connector for it.
+- **Where it helps:** pay direction for non-tech roles, company sentiment, and interview reports to feed the prep in [interview-prep.md](interview-prep.md).
+- **Don't:** drive Glassdoor from a browser agent, scrape it, or use tools that get past its bot checks. For an official route to company reviews and pay, use Indeed's company-data tool if the connector offers it.
 
 ## 2. The comp conversation timeline
 
@@ -74,7 +109,7 @@ Compare **4-year total compensation** as ranges, plus career factors: level and 
 
 1. **Know the ask:** target and walk-away for each component, and priorities (cash vs equity vs title vs start date vs remote).
 2. **Win support first:** for senior roles, ask for a follow-up with decision makers (skip-level, VP); bring questions about impact and ideas from the interviews.
-3. **Ask live, confirm in writing.** A call allows tone and joint problem-solving; send a short email afterwards recapping what was agreed. If the candidate is far more comfortable in writing, a well-structured email is better than a bad call.
+3. **Ask live, confirm in writing.** A call allows tone and joint problem-solving; send a short email afterwards recapping what was agreed. If the candidate is far more comfortable in writing, a well-structured email is better than a bad call. Write any email as a Gmail draft or a plain-text block ([job-search-and-outreach.md](job-search-and-outreach.md) section 11) and show it; the candidate sends it.
 4. **Sequence:** total compensation first ("I'd be ready to sign at around X total"), then component adjustments (more equity, higher base), signing bonus last to close a small remaining gap.
 5. **Anchor with reason:** after an offer, counter with a specific ask a little above target (about 5-10%, not 30%), tied to scope, market data for the level, or a competing offer. Before an offer, keep asking for their band instead (section 2).
 6. **Collaborative framing:** "Here's what would make this an easy yes" beats threats. Lead with what the company gets.
@@ -101,7 +136,7 @@ Walk the candidate through each clause in plain words, then list questions for a
 
 ## 10. Checklist
 
-- [ ] No pay figures invented; the candidate's sources named with confidence
+- [ ] No pay figures invented; every figure labelled with source, date, level, location and base or total
 - [ ] Floor, target and stretch set by level and location
 - [ ] Their band requested before any number was given
 - [ ] Offer compared on 4-year total comp plus career factors

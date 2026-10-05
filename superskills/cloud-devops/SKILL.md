@@ -1,6 +1,6 @@
 ---
 name: cloud-devops
-description: Deploy, run and operate apps in the cloud. Covers choosing a host, Dockerfiles and Compose, Kubernetes manifests and debugging (GKE/EKS), Terraform/OpenTofu (style, state, modules, tests, safe destroy), GitHub Actions CI/CD (quality gates, OIDC, previews, rollbacks), Cloudflare Workers/Wrangler/Durable Objects, Google Cloud Run (incl. Next.js behind Firebase Hosting) and Firebase App Hosting, AWS (IAM, Lambda, ECS/EKS/ECR, CDK), Azure (azd, Container Apps/App Service diagnostics, KQL), and observability (OpenTelemetry, Grafana, RED/USE, alerts). Use when asked to deploy or ship an app, "put this live", write a Dockerfile or compose.yaml, shrink or harden an image, write k8s YAML or debug CrashLoopBackOff/Pending pods, write or review Terraform, set up a GitHub Actions pipeline, configure wrangler.jsonc, deploy to Cloud Run, fix gcloud "No module named grpc", write an IAM policy, build a Lambda, run azd up, add OpenTelemetry, build a Grafana dashboard, or debug a production outage.
+description: Deploy, run and operate apps in the cloud. Covers choosing a host, Dockerfiles and Compose, Kubernetes and Argo CD (GKE/EKS), Terraform/OpenTofu (state, modules, tests, safe destroy), Ansible, CI/CD in GitHub Actions, GitLab CI or Jenkins (gates, OIDC, previews, rollbacks), Cloudflare Workers/Wrangler/Durable Objects, Google Cloud Run (incl. Next.js behind Firebase Hosting) and Firebase App Hosting, AWS (IAM, Lambda, ECS/EKS/ECR, CDK), Azure (azd, Container Apps/App Service diagnostics, KQL), and observability (OpenTelemetry, Grafana, Datadog, alerts). Use when asked to deploy or ship an app, "put this live", write a Dockerfile or compose.yaml, shrink or harden an image, write k8s YAML or debug CrashLoopBackOff/Pending pods, write or review Terraform, set up a GitHub Actions, GitLab or Jenkins pipeline, configure wrangler.jsonc, deploy to Cloud Run, fix gcloud "No module named grpc", write an IAM policy, build a Lambda, run azd up, add OpenTelemetry, build a Grafana dashboard, or debug a production outage.
 ---
 
 # Cloud and DevOps
@@ -44,14 +44,15 @@ Work out what the request needs before opening a guide; most real requests need 
 |---|---|
 | Choose where to host (static, SSR, API, container, function, k8s) and estimate cost | [references/platform-choice.md](references/platform-choice.md) |
 | Write or review a Dockerfile, shrink or harden an image, compose.yaml for local dev | [references/docker.md](references/docker.md); templates in `templates/docker-build-strategies/`; verify with `scripts/docker-build-strategies/verify-build.sh` |
-| Kubernetes manifests, RBAC, NetworkPolicy, Helm, debugging pods; GKE Autopilot / EKS notes | [references/kubernetes.md](references/kubernetes.md); `templates/k8s-security-policies/network-policy-template.yaml` |
+| Kubernetes manifests, RBAC, NetworkPolicy, Helm, debugging pods; GKE Autopilot / EKS notes; GitOps deploys with Argo CD (pick a deploy tool) | [references/kubernetes.md](references/kubernetes.md); `templates/k8s-security-policies/network-policy-template.yaml` |
 | Terraform/OpenTofu: style, modules, state, `moved`/`import`, tests, safe destroy | [references/terraform.md](references/terraform.md) |
-| CI/CD: GitHub Actions workflows, quality gates, OIDC to clouds, previews, rollbacks, Dependabot | [references/ci-cd.md](references/ci-cd.md) |
+| Configure servers and VMs (packages, files, services) with Ansible: inventory, playbooks, vault, safe runs (pick a config tool) | [references/server-config.md](references/server-config.md) |
+| CI/CD: pick a CI tool; GitHub Actions, GitLab CI/CD or Jenkins pipelines, quality gates, OIDC to clouds, previews, rollbacks, Dependabot | [references/ci-cd.md](references/ci-cd.md) |
 | Cloudflare: product choice, Workers, Wrangler, bindings, secrets, Durable Objects | [references/cloudflare.md](references/cloudflare.md) |
 | Google Cloud: Cloud Run services/jobs/worker pools; Next.js on Cloud Run behind Firebase Hosting (custom domain, 60 s limit, keyless GitHub deploys, stale-bundle checks); Firebase App Hosting; GKE basics; gcloud "No module named grpc" | [references/gcp.md](references/gcp.md) |
 | AWS: IAM policies and roles, Lambda/serverless, ECS/EKS/ECR, CDK | [references/aws.md](references/aws.md) |
 | Azure: azd deploy flow, Container Apps / App Service / Functions diagnostics, KQL | [references/azure.md](references/azure.md); collectors in `scripts/azure-diagnostics/` |
-| Logs, metrics, traces, OpenTelemetry, Grafana dashboards, alerts, incident triage | [references/observability.md](references/observability.md) |
+| Logs, metrics, traces, pick an observability backend; OpenTelemetry, Grafana dashboards, Datadog agent, APM and monitors, alerts, incident triage | [references/observability.md](references/observability.md) |
 
 Call a sub-capability by naming the task, or say "use cloud-devops: terraform", "use cloud-devops: kubernetes", etc.
 

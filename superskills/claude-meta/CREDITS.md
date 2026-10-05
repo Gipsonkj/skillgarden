@@ -32,6 +32,23 @@ All sources are MIT or Apache-2.0. Reference files are distilled in our own word
 | context-optimization | https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering | MIT | Masking/compaction/partitioning order and thresholds, cache-stable prefixes |
 | unlazy | https://github.com/Leonxlnx/unlazy | MIT | Acceptance gates before work, four-pass leaf work (ideas only, no scripts) |
 
+## Official docs (link-only reference)
+
+Docs, link-only reference, written in our own words. Nothing copied.
+
+| Docs | Link | Used in |
+|---|---|---|
+| Claude Code plugins (overview, create, components, marketplaces, hosting, loading, security) | https://code.claude.com/docs/en/plugins | `references/packaging-and-connecting.md` |
+| Claude Code MCP | https://code.claude.com/docs/en/mcp | `references/packaging-and-connecting.md` |
+| Claude Code settings reference (`extraKnownMarketplaces`, `enabledPlugins`) | https://code.claude.com/docs/en/settings-reference | `references/packaging-and-connecting.md` |
+| Claude Code memory (AGENTS.md support) and skills locations | https://code.claude.com/docs/en/memory, https://code.claude.com/docs/en/skills | `references/claude-md-and-rules.md` |
+| GitHub Copilot custom instructions and agent skills | https://docs.github.com/en/copilot/how-tos/configure-custom-instructions/add-repository-instructions, https://docs.github.com/en/copilot/concepts/agents/about-agent-skills | `references/claude-md-and-rules.md` |
+| Cursor rules and skills | https://cursor.com/docs/context/rules, https://cursor.com/docs/context/skills | `references/claude-md-and-rules.md` |
+| Codex AGENTS.md and skills | https://learn.chatgpt.com/docs/agent-configuration/agents-md, https://learn.chatgpt.com/docs/build-skills | `references/claude-md-and-rules.md` |
+| Gemini CLI GEMINI.md and skills | https://geminicli.com/docs/cli/gemini-md/, https://geminicli.com/docs/cli/skills/ | `references/claude-md-and-rules.md` |
+| OpenCode rules and skills | https://opencode.ai/docs/rules/, https://opencode.ai/docs/skills/ | `references/claude-md-and-rules.md` |
+| skills CLI README (`npx skills add` flags) | https://github.com/vercel-labs/skills | `references/learning-and-skill-discovery.md` |
+
 ## Also see (not included)
 
 - claude-mem plugin (full memory system): https://github.com/thedotmack/claude-mem

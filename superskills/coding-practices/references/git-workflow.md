@@ -37,6 +37,8 @@ Don't commit build output (`dist/`, `.next/`), `.env*`, or personal IDE config. 
 ### Automate it (JS/TS projects, when the user asks)
 Husky + lint-staged + Prettier: detect the package manager from the lockfile; install `husky lint-staged prettier` as devDependencies; `npx husky init`; `.husky/pre-commit` runs `npx lint-staged`, then the `typecheck` and `test` scripts (omit lines for scripts that don't exist and say so); `.lintstagedrc` = `{"*": "prettier --ignore-unknown --write"}`; create a Prettier config only if none exists. Verify with `npx lint-staged`, then commit; the commit itself smoke-tests the hook.
 
+Python projects: the pre-commit framework with repo `https://github.com/astral-sh/ruff-pre-commit` (pin `rev` to a release tag), hook `ruff-check` with `args: [ --fix ]` listed before hook `ruff-format`. Ruff's own commands and gates are in verification.md.
+
 ### Block destructive git commands for agents
 `scripts/git-guardrails-claude-code/block-dangerous-git.sh` is a Claude Code `PreToolUse` hook that blocks `git push` (all variants, including `--force`), `git reset --hard`, `git clean -f`/`-fd`, `git branch -D`, `git checkout .` and `git restore .`. Install only when the user asks; ask whether it goes in project (`.claude/settings.json`) or global (`~/.claude/settings.json`) settings:
 ```json

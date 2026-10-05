@@ -1,10 +1,23 @@
 # Analytics: insights, diagnosis and reporting
 
-> Distilled from: viral-instagram-reels (vyralcontent/content-skills, MIT; Insights metrics, diagnose-flop order, readout worksheet), instagram (sickn33/agentic-awesome-skills, MIT; insights endpoints, best-times analysis), instagram-automation (sickn33/agentic-awesome-skills, MIT; Composio insights tools), instagram-marketing (sergebulaev/instagram-skills, MIT; signal weights).
+> Distilled from: viral-instagram-reels (vyralcontent/content-skills, MIT; Insights metrics, diagnose-flop order, readout worksheet), instagram (sickn33/agentic-awesome-skills, MIT; insights endpoints, best-times analysis), instagram-automation (sickn33/agentic-awesome-skills, MIT; Composio insights tools), instagram-marketing (sergebulaev/instagram-skills, MIT; signal weights). Metricool, Buffer, Hootsuite, Sprout Social and Linktree: their official docs (link-only).
 
 Total views on their own don't mean much. Compare each post with **the account's own baseline** for the same format, read the metrics in a fixed order, and fix the earliest failure first.
 
 ## Where numbers come from
+
+**Pick a tool**
+
+| The user's situation | Use | Why |
+|---|---|---|
+| Already reports from Metricool, Buffer, Hootsuite or Sprout Social | That tool | Their baseline and past reports already live there; compare like with like |
+| Not sure which tool holds their numbers | **Ask** | Sources differ in lag and history, so don't mix them in one comparison |
+| No tools, or needs the skip rate or retention curve | In-app Insights (screenshot or export) | Free, the richest source, and some numbers aren't in any API |
+| Trial Reel readout at 24 h | In-app Insights | API data can lag up to 48 h, and Buffer refreshes once a day |
+| Developer pulling numbers by code | Graph API (or Composio's insights tools in an MCP client) | Every metric the API exposes; 30 days per account request |
+| Best times to post, or competitor posts | Metricool | `get_best_time_to_post` and `get_network_competitors_posts`; Free sees 30 days of history |
+| A year-long report | Sprout Social API | Up to 1 year per request |
+| Clicks on the bio link | Linktree Insights, beside `profile_links_taps` | Free shows 28 days, Starter 90, Pro 365, Premium the whole lifetime; Pro and Premium add sources |
 
 | Source | What it has | Notes |
 |---|---|---|
@@ -12,6 +25,11 @@ Total views on their own don't mean much. Compare each post with **the account's
 | Graph API media insights `GET /{media-id}/insights?metric=...` | reach, views, likes, comments, saved, shares, total_interactions, Reels average watch time and total view time, follows and profile visits (where supported) | Needs `*_manage_insights`. Data can lag up to 48 h. |
 | Graph API account insights `GET /{ig-user-id}/insights?metric=...&period=day&since&until` | reach, views, accounts_engaged, total_interactions, follower_count, follows_and_unfollows, profile_links_taps, online_followers, audience demographics | At most 30 days per request. Some metrics need 100+ followers. `period` must match the metric. |
 | Composio | `INSTAGRAM_GET_IG_MEDIA_INSIGHTS`, `INSTAGRAM_GET_USER_INSIGHTS` | The same rules apply |
+| Metricool connector | `get_instagram_posts`, `get_instagram_reels`, `get_instagram_stories` (each takes `init_date`, `end_date` and a `blog_id`), `get_metrics` then `get_analytics`, `get_best_time_to_post` (scores per day and hour; higher is better), `get_network_competitors_posts` | Free plan sees only 30 days of history. Setup in `graph-api-publishing.md`. |
+| Buffer | `get_aggregated_post_metrics` (MCP), or `metrics` on a sent post (API) | Buffer refreshes metrics once a day, so they can trail Instagram by about 24 h |
+| Hootsuite Perch connector | Performance metrics for the workspace's posts; best times to post | List the connector's tools first; setup in `graph-api-publishing.md` |
+| Sprout Social API | Posts: `POST /v1/{customer_id}/analytics/posts` with `filters` (`customer_profile_id.eq(...)`, `created_time.in(start..end)`), `metrics` (e.g. `lifetime.views` for Instagram), `fields` (`perma_link`, `text`, `created_time`), `timezone`, `page`. Profiles: `POST /v1/{customer_id}/analytics/profiles` with `reporting_period.in(...)` and `metrics` (e.g. `views`) | Up to 1 year per request, 50 posts per page. Several Instagram profile click metrics were deprecated in January 2025. |
+| Linktree Insights | Views, clicks and click rate for the bio link; Pro and Premium add most-clicked links, traffic sources and locations | Free shows the last 28 days, Starter 90, Pro 365, Premium the whole lifetime. CSV export (Premium): Insights → Linktree activity → date range → Download CSV, a ZIP with Activity, Cities, Countries, Devices and Referrers files. |
 
 Meta renamed metrics in 2025: `impressions`, `plays` and `video_views` were replaced by `views` on current API versions. If a request fails with error 100 ("invalid metric"), check the metric list for the API version you are calling instead of guessing. Not every in-app number (skip rate, for example) is exposed by the API. Ask for a screenshot when you need it.
 
@@ -84,7 +102,7 @@ Next:             [re-trial | recut | fresh post in same format]
 2. **Table:** one row per post with its format, pillar, hook formula, reach and the ratios above.
 3. **Top and bottom 3** by share rate and by follow rate, with what they have in common (format, hook type, length, topic).
 4. **Best times:** group posts by weekday and hour, and compare median reach and engagement. Use `online_followers` if it's available. Report a time only if it is backed by 3 or more posts.
-5. **Growth:** follower count change, follows minus unfollows, and profile link taps.
+5. **Growth:** follower count change, follows minus unfollows, and profile link taps. If the bio link is a Linktree, set its clicks for the same dates beside the taps to see where visitors drop off.
 6. **Actions:** 3 or fewer changes for next period, e.g. "more how-I Reels at 11:00 Tue/Thu, retire the listicle hook, add a send prompt to every carousel".
 
 Don't treat as verdicts:

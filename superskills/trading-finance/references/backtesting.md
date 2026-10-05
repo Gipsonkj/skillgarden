@@ -4,6 +4,20 @@
 
 A backtest is a hypothetical simulation. Its job is to try to break the idea, not to confirm it.
 
+## Pick a tool
+
+The rules in §1–§5 apply whichever engine runs the test.
+
+| The user's situation | Use | Why |
+|---|---|---|
+| Already builds strategies in one of these | That one | Their code, data and past runs are there; ask which platform they use if unclear |
+| Lives on TradingView charts, wants a quick visual test of an indicator idea | TradingView Pine Script (§11) | Strategy report on the chart; Claude writes the script, the user pastes it in |
+| Wants Claude to create, run and read backtests end to end on hosted data | QuantConnect MCP (§12) | Official MCP with project, backtest and optimisation tools; needs a paid plan |
+| Python, many parameter combinations, fast research | vectorbt (§7) | Vectorised sweeps; bundled example script |
+| US equities or crypto with a reproducible audit trail | Alpaca CLI run folders (§8) | Data via the CLI, one readable `run.py` per run |
+| Multi-market engines and factor libraries already set up | Vibe-Trading MCP (§10) | Broad toolkit; same validation rules |
+| No platform account | vectorbt or a plain pandas loop on free data (`market-signals.md` §6) | Runs locally, nothing to sign up for |
+
 ## 1. Formalise the strategy first
 
 Turn the idea into rules and show them to the user before writing code (unless the request was already exact):
@@ -103,6 +117,39 @@ When paper trading is involved, add that paper results are simulated and may dif
 
 If the user has `vibe-trading-mcp` configured (`pip install vibe-trading-ai`, user installs it), it offers multi-market backtest engines, factor/alpha libraries, options pricing and trade-journal analysis with free data sources for US/HK/crypto. Workflow: `list_skills()` → `load_skill("strategy-generate")` → write `config.json` and `code/signal_engine.py` → `backtest()`. Its `run_swarm` sends prompts to an external OpenAI-compatible LLM; only use with the user's agreement. Apply the same validation rules above to its output.
 
-## 11. Path from backtest to live
+## 11. TradingView (Pine Script v6)
+
+Claude writes the Pine code, the user pastes it into the **Pine Editor** (open it from the chart), clicks **Add to chart**, and reads the strategy report in the chart's bottom panel, then shares the numbers or the exported file.
+```pine
+//@version=6
+strategy("SMA cross test", overlay = true, commission_type = strategy.commission.percent, commission_value = 0.05, slippage = 2)
+int lenInput = input.int(20, "Fast length", minval = 2)
+float fastMA = ta.sma(close, lenInput)
+float slowMA = ta.sma(close, lenInput * 2)
+if ta.crossover(fastMA, slowMA)
+    strategy.entry("Long", direction = strategy.long)
+if ta.crossunder(fastMA, slowMA)
+    strategy.close("Long")
+```
+- `strategy()` declares a strategy; orders come from `strategy.entry`, `strategy.exit` (stops, targets, trailing), `strategy.order`, `strategy.close` / `strategy.close_all`, `strategy.cancel`.
+- Fill timing: by default an order made on a bar fills at the next bar's open (`process_orders_on_close = false`, `calc_on_every_tick = false`), which matches §1. Slippage defaults to 0 ticks: set `commission_value` and `slippage` yourself. `pyramiding` defaults to 1.
+- `use_bar_magnifier = true` uses intrabar data for more realistic fills where the user's plan allows it.
+- Report tabs: Metrics and Trades (plus Properties on published strategies). Data downloads as XLSX, and the Trades tab as CSV; ask for the CSV to recompute metrics with `risk-metrics.md`.
+- Over the default range only the latest 9,000 trades keep trade-level detail; Deep Backtesting with a custom date range keeps all of them.
+- Gotchas: the chart's symbol and timeframe are part of the test, so record them; the report has no out-of-sample split, so do §4 by hand (test a date range you did not tune on).
+- Alerts: `alert()` (frequency `alert.freq_once_per_bar`, `alert.freq_once_per_bar_close`, `alert.freq_all`) and the `alert_message` parameter on strategy orders create alert events; the user creates the running alert in the UI. A webhook alert sends an HTTP POST with the alert message (JSON gets `application/json`, else `text/plain`) to ports 80 or 443 only, needs 2-factor authentication on the account, and is cancelled if the server takes longer than 3 seconds. Anything that turns webhooks into orders falls under `brokers-exchanges.md` §1: paper first, per-order confirmation for live.
+
+## 12. QuantConnect (LEAN, MCP server)
+
+Hosted backtesting on QuantConnect's data with an official MCP server. A paid plan is required for the remote MCP.
+- **Connect (user does it):** add a custom connector with the URL `https://www.quantconnect.com/api/v2/mcp`, then sign in to QuantConnect in the browser and pick the organization to authorize. In Claude Code: `claude mcp add --transport http quantconnect https://www.quantconnect.com/api/v2/mcp`, then `/mcp` to log in. Test with "Read the open project" (`read_open_project`). The older Docker server (`quantconnect/mcp-server`) is deprecated by QuantConnect.
+- **Loop:** `create_project` (Python entry point `main.py`, C# `main.cs`) → `create_file` / `edit_file` (each compiles and returns errors) → `create_compile` → `create_backtest` → results arrive as a new message when the run ends; do not poll `read_backtest` for a run from this conversation → `read_backtest_orders`, `search_backtest_logs` to audit fills.
+- **Sweeps:** `create_optimization` runs many backtests over parameter combinations; count every combination as a trial (§2, §4) and keep an untouched out-of-sample period.
+- **Research:** `jupyter_*` tools edit and run cells in QuantConnect Research; `list_datasets` / `get_dataset_details` show available data.
+- **Live tools:** `create_live_algorithm` deploys to paper trading with the QuantConnect brokerage; `stop_live_algorithm` stops without closing positions, `liquidate_live_algorithm` closes positions at market. Treat every live tool as an order action: say the environment and wait for the user's yes before each call. Notification tools (`send_email_notification`, `send_sms_notification`, `send_telegram_notification`) send messages: show the exact text and wait for a yes.
+- `delete_backtest` and `delete_optimization` cannot be undone; never call them without the user asking.
+- Limits: QuantConnect sets no API quota; file and notebook size follow the organization's plan.
+
+## 13. Path from backtest to live
 
 Backtest → out-of-sample/walk-forward → paper trading for weeks with reconciliation of expected vs actual fills → small live size only on the user's explicit decision, using the broker rules in `brokers-exchanges.md`.

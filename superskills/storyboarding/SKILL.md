@@ -1,6 +1,6 @@
 ---
 name: storyboarding
-description: Pre-production for film, ads, social video, short dramas and comics - turn an idea, script or reference video into a shootable or generatable plan. Use for story structure and beat sheets (three-act, Save the Cat, hook/build/payoff), writing or fixing scripts and scenes, shot lists and storyboard tables, shot sizes, angles, lenses, camera moves, blocking, 180-degree rule and continuity, timing and shot counts, animatic panels, character sheets, identity strings and continuity bibles for AI generation, first/last frames, turning a board into per-shot AI video prompts (Seedance, Kling, Veo, MiniMax H3), vertical short-drama episodes, comic and webtoon layouts, breaking down a reference video into a shot list, and managing storyboard projects. Triggers: "storyboard this", "shot list", "break into shots/beats", "分镜", "拆镜头", "拉片", "beat sheet", "make this script shootable", "keep my character consistent", "Seedance prompts from my board", "plan a 30s reel/ad", "comic page layout".
+description: Pre-production for film, ads, social video, short dramas and comics - turn an idea, script or reference video into a shootable or generatable plan. Use for story structure, beat sheets (three-act, Save the Cat, hook/build/payoff), writing or fixing scripts (Final Draft .fdx, Fountain), shot lists and storyboard tables, shot sizes, angles, lenses, moves, blocking, 180-degree rule, timing and shot counts, animatic panels (Photoshop, Clip Studio Paint), character sheets, identity strings, continuity bibles, first/last frames, turning a board into per-shot AI video prompts (Seedance, Kling, Veo, MiniMax H3), vertical short-drama episodes, comic and webtoon layouts, reference-video breakdowns, and boards in Boords, StudioBinder or Toon Boom Storyboard Pro. Triggers: "storyboard this", "shot list", "break into shots/beats", "分镜", "拆镜头", "拉片", "beat sheet", "make this script shootable", "keep my character consistent", "Seedance prompts from my board", "plan a 30s reel/ad", "comic page layout", "put this in Boords".
 ---
 
 # Storyboarding
@@ -44,15 +44,15 @@ Call a capability by naming the task, or say "use storyboarding: <capability>".
 | Task | Read |
 |---|---|
 | Story shape, beat sheet, act breaks, beats per duration, emotion curve, 9-moment key board | [references/story-structure.md](references/story-structure.md), template [templates/cinematic-director/beat-sheet-template.md](templates/cinematic-director/beat-sheet-template.md) |
-| Write or fix a script or scene, screenplay/A-V/YouTube formats, dialogue, scene design | [references/script-and-scene-craft.md](references/script-and-scene-craft.md) |
+| Write or fix a script or scene, screenplay/A-V/YouTube formats, dialogue, scene design; read Final Draft `.fdx` or write Fountain, pick a script format | [references/script-and-scene-craft.md](references/script-and-scene-craft.md) |
 | Shot sizes, angles, lenses, camera moves, composition, blocking, 180°/30° rules, eyelines, coverage, vertical framing | [references/shot-language.md](references/shot-language.md) |
-| Shot list or storyboard table, shot cards, timing and shot counts, risk scoring, animatic panels, grid boards | [references/shot-lists-and-boards.md](references/shot-lists-and-boards.md), template [templates/cinematic-director/shot-plan-template.md](templates/cinematic-director/shot-plan-template.md) |
+| Shot list or storyboard table, shot cards, timing and shot counts, risk scoring, animatic panels, grid boards; drawing panels, pick a drawing tool (Photoshop, Storyboard Pro, AI keyframes) | [references/shot-lists-and-boards.md](references/shot-lists-and-boards.md), template [templates/cinematic-director/shot-plan-template.md](templates/cinematic-director/shot-plan-template.md) |
 | Character sheets, identity strings, style lock, location plates, keyframe prompts, first/last frames, continuity bible | [references/keyframes-and-consistency.md](references/keyframes-and-consistency.md) |
 | Board → AI video prompts per model (Seedance, Kling, Veo, MiniMax H3), segment seams, repair order | [references/ai-video-prompts.md](references/ai-video-prompts.md) |
 | Vertical short drama / micro-drama / AI comic drama episodes | [references/short-drama-vertical.md](references/short-drama-vertical.md) |
-| Comic pages, four-panel strips, webtoons, knowledge comics | [references/comics-and-panels.md](references/comics-and-panels.md) |
+| Comic pages, four-panel strips, webtoons, knowledge comics; pick who draws (Clip Studio Paint or an image model) | [references/comics-and-panels.md](references/comics-and-panels.md) |
 | Break down a reference video into a measured shot list (拉片) | [references/reference-video-breakdown.md](references/reference-video-breakdown.md), script [scripts/video-shots/video-shots.mjs](scripts/video-shots/video-shots.mjs) |
-| Project folders, IDs, asset naming, revisions, storyboard-app (MCP) projects, handoff | [references/storyboard-projects.md](references/storyboard-projects.md) |
+| Project folders, IDs, asset naming, revisions; boards in a storyboard app, pick a board app (Boords, StudioBinder, Storyboard Pro, Storyboarder); animatic export to an editor (EDL/AAF/XML), handoff | [references/storyboard-projects.md](references/storyboard-projects.md) |
 
 Load only the file(s) the task needs.
 

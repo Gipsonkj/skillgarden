@@ -1,8 +1,19 @@
-> Distilled from: threejs-animation (cloudai-x/threejs-skills, MIT stated in README), hyperframes-animation adapters/three (heygen-com/hyperframes, Apache-2.0)
+> Distilled from: threejs-animation (cloudai-x/threejs-skills, MIT stated in README), hyperframes-animation adapters/three (heygen-com/hyperframes, Apache-2.0); "From Cinema 4D" written in our own words from Maxon's glTF export help (link-only)
 
 # Three.js animation
 
 Covers motion in Three.js scenes: procedural motion, keyframe clips, GLTF skeletal animation, morph targets, blending, and making 3D deterministic for video renders. Scene setup, materials and lighting are out of scope; scroll-driven 3D camera paths pair this file with `scroll-animation.md`.
+
+## Pick a tool
+
+| Your situation | Use | Why |
+|---|---|---|
+| You already use or pay for a 3D app (Cinema 4D, Blender) | That one, exported as GLB | The animation stays editable where it was made; Three.js only plays it |
+| Unclear whether the 3D is for a live page, a rendered video or both | Ask before building | The live page needs a small GLB and a mixer; a video needs deterministic frames |
+| No app, no account; spins, floats, orbits, hover reactions | Three.js code alone (this guide) | Free and open source (MIT); procedural motion needs no exported file |
+| Keyframed, rigged or character motion for the web | Author in Cinema 4D ("From Cinema 4D" below) or Blender (**3d-modeling**), export GLB, play with `AnimationMixer` | glTF carries transform, morph and skin animation |
+| Motion graphics rendered as frames or video from Cinema 4D | Cinema 4D's Commandline renderer (`motion-app-handoff.md`) | Renders without the interface |
+| 3D inside a HyperFrames video | Three.js with the deterministic rules at the end of this guide | Seek-safe frames |
 
 ## The loop (and the clock pitfall)
 
@@ -74,6 +85,15 @@ actions.Idle?.play();
 - Bones: `skinnedMesh.skeleton.bones`, find by name; `new THREE.SkeletonHelper(root)` to debug. Attach props by `bone.add(object)` with a local offset.
 - Procedural bone tweaks (head look-at) go **after** `mixer.update()` each frame, or the mixer overwrites them.
 - `THREE.AnimationUtils.subclip(clip, "name", startFrame, endFrame, fps)` cuts one long take into actions; `clip.optimize()` drops redundant keys.
+
+### From Cinema 4D
+
+**File > Export > glTF** (defaults live in Preferences > Import/Export > glTF). Choose **GLB (Binary)**: smaller than `.gltf` and faster to load.
+
+- Animation options: **Transform** (position, scale and rotation tracks from the Timeline), **Morph** (Pose Morphs of type Points only, or PLA), **Skin** (joint animation; glTF keeps at most the 4 strongest joint weights per point), **Bake Animation** (motion with no tracks, such as dynamics or a Vibrate tag, becomes a key per frame).
+- The exported length follows the project's minimum and maximum time, so set those first. Step keys stay step only when X, Y and Z keys are all step.
+- Node materials don't export, and materials look different from Cinema 4D: expect to adjust them.
+- Open the GLB in a glTF viewer and check every clip before writing mixer code; then list `gltf.animations` names as above. Scripting, renders and the MCP server for Cinema 4D: `motion-app-handoff.md`.
 
 ## Morph targets
 

@@ -61,7 +61,10 @@ route/controller -> service (business rules) -> repository (data access) -> data
 
 | Need | Good fit |
 |---|---|
+| The team already runs or pays for a database that fits | Keep it; ask before adding another |
 | Relational data, SQL, mature tooling | Postgres (managed: Supabase, Neon, RDS, Cloud SQL) |
+| Existing MySQL or SQL Server estate, or a .NET/Azure shop | MySQL or SQL Server (see sql-engines.md) |
+| Single host, local tool, tests or prototype, no account | SQLite file; over the network from edge code: Turso (see sql-engines.md) |
 | Postgres + auth + storage + realtime in one | Supabase (see supabase.md) |
 | Serverless Postgres, branching per preview | Neon (see neon.md) |
 | Realtime reactive app state with TypeScript functions | Convex: queries/mutations are TypeScript functions with automatic reactivity; validate args with `v` validators and check auth inside every public function |
@@ -69,3 +72,4 @@ route/controller -> service (business rules) -> repository (data access) -> data
 | Flexible documents, varied shapes | MongoDB (see nosql-analytics.md) |
 | Cache, rate limits, queues, sessions | Redis (see nosql-analytics.md) |
 | Analytics over billions of rows | ClickHouse (see nosql-analytics.md) |
+| Full-text relevance search, facets | Elasticsearch or OpenSearch beside the main database (see nosql-analytics.md) |

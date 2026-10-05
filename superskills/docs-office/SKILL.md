@@ -1,6 +1,6 @@
 ---
 name: docs-office
-description: Create, read, edit, convert and check office documents. Use for Word/.docx (reports, letters, contracts, templates with {{placeholders}}, tracked changes, comments, TOC, page numbers); PDF (designed reports and proposals with covers, filling form fields, merge/split/rotate/encrypt, extracting text, tables and images, OCR of scanned PDFs); Excel/.xlsx/.csv (financial models, formulas, formatting, editing without breaking the file, fixing #REF!/#NAME? errors, analysis); document writing and typesetting (reports, one-pagers, white papers, proposals, memos, letters); converting files to Markdown (MarkItDown, Docling), including text out of .pptx, or Markdown to docx/xlsx/pdf (pandoc); Google Docs, Sheets and Drive via gws/gog or the APIs; Lark/Feishu docs via lark-cli. Slide decks and presentations in any format: presentations. What a resume says: career.
+description: Create, read, edit, convert and check office documents. Use for Word/.docx (reports, letters, contracts, templates with {{placeholders}}, tracked changes, comments, TOC, page numbers); PDF (designed reports and proposals with covers, filling form fields, merge/split/rotate/encrypt, extracting text, tables and images, OCR (OCRmyPDF), Adobe Acrobat connector or PDF Services API, Docusign signing); Excel/.xlsx/.csv (financial models, formulas, formatting, editing without breaking the file, fixing #REF!/#NAME? errors, analysis); document writing and typesetting (reports, one-pagers, white papers, proposals, memos, letters); converting files to Markdown (MarkItDown, Docling), including text out of .pptx, or Markdown to docx/xlsx/pdf (pandoc); Google Docs, Sheets and Drive via gws/gog or the APIs; OneDrive/SharePoint files via the Microsoft 365 connector or Graph; WPS Office and WPS 365; Lark/Feishu docs via lark-cli. Slide decks and presentations in any format: presentations. What a resume says: career.
 ---
 
 # Docs & Office files
@@ -39,12 +39,13 @@ Work out what the request needs before opening a guide; most real requests need 
 | Task | Read |
 |---|---|
 | Word .docx: create from spec, fill a template, find/replace, tables, styles, TOC, page numbers, tracked changes, comments, OpenXML repair | [references/word-docx.md](references/word-docx.md) + `scripts/hermes-docx/` |
-| PDF: designed report/proposal/resume with cover, ReportLab, fill form fields, merge/split/rotate/encrypt, extract, visual check | [references/pdf.md](references/pdf.md) + `scripts/minimax-pdf/` |
+| PDF: designed report/proposal/resume with cover, ReportLab, fill form fields, merge/split/rotate/encrypt, extract, OCR a scan (OCRmyPDF), visual check; pick local or hosted PDF tools (Adobe Acrobat connector, PDF Services API); send for signature, pick an e-signature tool (Docusign) | [references/pdf.md](references/pdf.md) + `scripts/minimax-pdf/` |
 | Excel .xlsx/.csv: financial model, formulas, formatting, add rows/columns to an existing file, fix formula errors, analyse data | [references/excel-xlsx.md](references/excel-xlsx.md) + `scripts/minimax-xlsx/`, `templates/minimax-xlsx/minimal_xlsx/` |
 | Writing and typesetting reports, one-pagers, proposals, letters, resumes; typography, colour, tables | [references/document-design.md](references/document-design.md) |
 | Convert PDF/Office/HTML to Markdown, OCR scans, batch folders, RAG chunks; Markdown to docx/pptx/xlsx/pdf | [references/convert-extract.md](references/convert-extract.md) + `scripts/convert-pdf-to-md/`, `scripts/markitdown/` |
 | Google Docs, Sheets, Slides, Drive (gws, gog, APIs) | [references/google-workspace.md](references/google-workspace.md) |
 | Lark / Feishu Docx and Wiki (lark-cli) | [references/lark-feishu.md](references/lark-feishu.md) |
+| Files in Microsoft 365 (OneDrive, SharePoint, Excel workbooks in place) or WPS Office / WPS 365; pick a cloud suite tool (Microsoft 365 connector, Microsoft Graph, WPS 365 OpenAPI) | [references/cloud-office-files.md](references/cloud-office-files.md) |
 
 Call a sub-capability by naming the task, or say "use docs-office: <capability>" (for example "use docs-office: fill pdf form").
 

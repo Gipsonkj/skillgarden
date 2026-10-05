@@ -1,6 +1,6 @@
-# Game-ready assets and engine import
+# Game-ready assets, texturing and engine import
 
-> Distilled from: blender-image-to-3d and its delivery-and-acceptance and rigging-animation references (majidmanzarpour/blender-game-skills, MIT); blender-director and its skill-routing reference (arjun988/blender-skills, MIT); web-3d-asset-pipeline (openai/plugins game-studio, MIT declared in plugin.json); scenario-blender-expert persona pipelines (scenario-labs/skills, MIT); threejs-aaa-graphics-builder technical-art (majidmanzarpour/threejs-game-skills, MIT).
+> Distilled from: blender-image-to-3d and its delivery-and-acceptance and rigging-animation references (majidmanzarpour/blender-game-skills, MIT); blender-director and its skill-routing reference (arjun988/blender-skills, MIT); web-3d-asset-pipeline (openai/plugins game-studio, MIT declared in plugin.json); scenario-blender-expert persona pipelines (scenario-labs/skills, MIT); threejs-aaa-graphics-builder technical-art (majidmanzarpour/threejs-game-skills, MIT). Unity, Substance 3D Painter and Designer facts from the official Unity and Adobe docs (link-only, in our own words).
 
 A game-ready asset hits a budget, has clean topology where it bends, baked PBR maps, named parts, colliders, sockets, a rig when it moves, and arrives in the engine at the right size and orientation. Modelling technique is in [blender.md](blender.md); export optimisation in [gltf-pipeline.md](gltf-pipeline.md). Runtime playback of clips in Three.js is the motion-animation craft's job.
 
@@ -49,6 +49,46 @@ Mobile and web sit at the low end or below. Engine vertex counts exceed Blender'
 - Channel packing (ORM, MRA) is engine-specific: define it per engine and keep unpacked masters. glTF packs occlusion, roughness, metallic as R, G, B.
 - Never bake directional lighting into base colour. Inspect normal bakes under a moving light.
 
+**Pick a texturing tool**
+
+| The user's need or situation | Tool | Why |
+|---|---|---|
+| Already textures in one (Substance 3D Painter, Blender) | That one | Their smart materials, presets and export templates are there |
+| Free, no subscription, or a fully scripted headless pipeline | Blender bakes ([blender.md](blender.md), `validate.py`) | Free, and runs headless from a script |
+| Layered hand-painted PBR, a studio hand-off, export straight to an engine's packing | Substance 3D Painter (below) | Bakes and paints in one app, with output templates per engine |
+| Tiling procedural materials shared as `.sbsar` | Substance 3D Designer | Graphs compile to `.sbsar`; the Automation Toolkit's `sbsrender` renders maps from them headless |
+| Not known whether the user has an Adobe Substance plan | Ask | Painter and Designer are paid; don't plan around them unasked |
+
+### Substance 3D Painter
+
+- **Access:** a paid Adobe subscription. The Substance 3D Collection (Painter, Designer, Sampler, Modeler, Stager) is US$59.99 a month after a 30-day free trial (adobe.com, October 2026). The Substance 3D Texturing plan covers Painter, Designer and Sampler. Drive it with its Python API, from a plugin or by remote scripting, or give the user exact manual steps.
+- **Python plugins:** these go in `~/Documents/Adobe/Adobe Substance 3D Painter/python/plugins/` (the folder named just `plugins` is for JavaScript). Each one defines `start_plugin()` and `close_plugin()` and is switched on from the Python menu.
+- **Remote scripting:** start Painter with `--enable-remote-scripting`. It then accepts base64-encoded Python or JavaScript posted to `localhost:60041/run.json`. That port runs any code it receives, so start Painter this way only for the session and say so.
+- **Project:** `substance_painter.project.create(mesh_file_path, settings=Settings(...))`. Set the normal map format when you create the project: `NormalMapFormat.OpenGL` (Y+) for Unity and `DirectX` (Y-) for Unreal, matching section 4. It can be changed later in Project configuration, but then the mesh maps must be re-baked. Also set `default_texture_resolution`. Painter works at up to 4K and exports at up to 8K.
+- **Meshes in:** FBX, OBJ, glTF, USD, ABC, DAE and PLY, among others.
+- **Bake:** load the high poly and bake Normal, World Space Normal, ID, Ambient Occlusion, Curvature, Position, Thickness, Height or Bent Normals onto the low poly. For overlapping parts, set Match from "Always" to "By Mesh Name" and name parts `_low` and `_high`; this is Painter's form of baking by named groups. From Python, call `substance_painter.baking.bake_async(texture_set)`.
+- **Export:** pick an output template: "PBR Metallic Roughness", "Unreal Engine (Packed)", "Unity Universal Render Pipeline (Metallic Standard)", "Unity HD Render Pipeline (Metallic Standard)", "glTF PBR Metal Roughness" or "USDz (Apple AR)". Predefined templates can't be edited; copy one to change its packing.
+
+```python
+import substance_painter.project as project, substance_painter.export as export, substance_painter.resource as res
+project.create(mesh_file_path="/abs/PR_Lamp/PR_Lamp_low.fbx",
+               settings=project.Settings(normal_map_format=project.NormalMapFormat.OpenGL,
+                                         default_texture_resolution=2048))
+# ... bake and paint, then:
+preset = res.ResourceID(context="starter_assets", name="PBR Metallic Roughness")  # confirm this ID in Painter first
+result = export.export_project_textures({
+    "exportPath": "/abs/PR_Lamp/textures",
+    "exportShaderParams": False,
+    "defaultExportPreset": preset.url(),
+    "exportList": [{"rootPath": "PR_Lamp"}],             # texture set name
+    "exportParameters": [{"parameters": {"fileFormat": "png", "bitDepth": "8", "sizeLog2": 11}}],
+})
+if result.status != export.ExportStatus.Success:
+    print(result.message)
+```
+
+`starter_assets` is the shelf content that ships with Painter. The docs show no ID for an output template, so check the template's ID in Painter before relying on it. `sizeLog2` 11 means 2048 px. Open the exported maps and check them on the model in the target engine before you call them done.
+
 ## 5. Naming, colliders, sockets
 
 - Prefixes: `CH_` character, `CR_` creature, `VH_` vehicle, `PR_` prop, `WP_` weapon, `AR_` architecture, `EN_` environment. Parts `CH_Knight_Body_LOD0`, bones `DEF-upper_arm.L`, sockets `SOCKET_hand.R`, colliders `COL_torso` (Unreal expects `UCX_` for convex collision), cutters `CUT_window`. No `.001` suffixes anywhere that ships.
@@ -86,13 +126,44 @@ Export an explicit selection (meshes, deform bones, sockets, colliders, intended
 | Godot | glTF/GLB preferred | Import settings per file; colliders via naming suffixes or import options |
 | Three.js / Babylon.js / PlayCanvas | GLB | Loader decoders for the compression used; see [threejs-scenes.md](threejs-scenes.md) |
 
+**Pick the engine route:** the user's engine decides; never switch it for them. If no engine is chosen yet: a browser game or viewer goes to Three.js ([threejs-scenes.md](threejs-scenes.md)), and a free, open-source desktop or mobile engine is Godot (MIT licence). Otherwise ask which engine and version they use, since the import settings differ.
+
+### Unity import
+
+- **Formats:** Unity imports `.fbx`, `.dae`, `.dxf` and `.obj` natively. `.blend`, `.ma`, `.mb`, `.max` and `.c4d` only import on a machine with that app installed, and Unity recommends FBX over proprietary formats in production. For GLB/glTF, add glTFast with Package Manager > + > Install package by name > `com.unity.cloud.gltfast`. Its decoders are separate packages: `com.unity.cloud.draco` (Draco), `com.unity.cloud.ktx` (KTX2/Basis) and `com.unity.meshopt.decompress` (Meshopt).
+- **Scale and axes:** Unity's physics and lighting expect 1 unit = 1 m, and Unity is left-handed, Y up, Z forward. On the Model tab, check Scale Factor and Convert Units, and use Bake Axis Conversion when the source uses a different axis system. Default file scales differ by format (0.01 for FBX, 1 for .blend and .dae in the docs), so measure a known-height object after import.
+- **Rig tab:** Animation Type None, Legacy, Generic, or Humanoid (two legs, two arms and a head).
+- **Materials tab:** embedded materials are the default. Extract Materials and Extract Textures make them editable assets. Unity reads normal maps as Y+ (OpenGL).
+- **Colliders:** Generate Colliders attaches mesh colliders to everything; prefer the simple `COL_` proxies from section 5.
+- **Import rules as code:** an `AssetPostprocessor` with `OnPreprocessModel` sets `ModelImporter` fields for every model under a folder. Useful fields: `globalScale`, `useFileUnits`, `bakeAxisConversion`, `importBlendShapes`, `meshCompression`, `isReadable`, `addCollider`, `animationType`, `materialImportMode`.
+
+```csharp
+// Assets/Editor/ArtImportRules.cs
+using UnityEditor;
+public class ArtImportRules : AssetPostprocessor {
+    static readonly uint k_Version = 1;                     // bump when the rules change
+    public override uint GetVersion() { return k_Version; }
+    void OnPreprocessModel() {
+        if (!assetPath.StartsWith("Assets/Art/")) return;
+        var m = assetImporter as ModelImporter;
+        m.useFileUnits = true;          // 1 file unit = 1 Unity unit
+        m.bakeAxisConversion = true;
+        m.isReadable = false;           // no CPU copy of the mesh at runtime
+        m.addCollider = false;          // use the COL_ proxies instead
+    }
+}
+```
+
+- **Headless check:** `<Unity editor binary> -batchmode -quit -projectPath /abs/Proj -executeMethod ImportCheck.Run -logFile /abs/out/unity.log` runs a static method of yours (for example one that logs each mesh's bounds and triangle count) and quits. Read the log afterwards.
+- **MCP:** Unity's own MCP server (Unity 6 or later with `com.unity.ai.assistant`) is now marked deprecated in favour of the Unity CLI, so don't build new workflows on it. The community MCP for Unity sends telemetry by default (see CREDITS.md).
+
 Then import into a clean project of the target engine, view at the game camera under the game's lighting, and play every clip with the real attachments. Record the engine's measured counts.
 
 ## Checklist
 
 - [ ] Production brief with role, target, budget, pivot, engine and camera shown before modelling
 - [ ] Topology loops where it deforms; triangulation locked before bake; LODs keep silhouettes
-- [ ] Baked maps with stated colour spaces, normal convention and packing
+- [ ] Baked maps with stated colour spaces, normal convention and packing (Painter: normal format set at project creation, engine output template)
 - [ ] Names, colliders, sockets and pivots per convention; no `.001`
 - [ ] Rig clean (deform bones only, weights normalised, 4 influences); clips named with events
 - [ ] `validate.py` exit 0, round trip matches, engine import checked at the game camera

@@ -1,6 +1,6 @@
 # Content strategy, calendar and profile
 
-> Distilled from: instagram-marketing / ig-content-planner, ig-profile-optimizer, ig-repurposer and algorithm-heuristics (sergebulaev/instagram-skills, MIT), viral-instagram-reels (vyralcontent/content-skills, MIT), instagram-post (publora/skills, MIT; timing defaults), instagram (sickn33/agentic-awesome-skills, MIT; best-times-from-own-data idea).
+> Distilled from: instagram-marketing / ig-content-planner, ig-profile-optimizer, ig-repurposer and algorithm-heuristics (sergebulaev/instagram-skills, MIT), viral-instagram-reels (vyralcontent/content-skills, MIT), instagram-post (publora/skills, MIT; timing defaults), instagram (sickn33/agentic-awesome-skills, MIT; best-times-from-own-data idea). Linktree: its own pages and help centre (link-only, restated in our words).
 
 Each format has a job. Reels reach new people, carousels earn saves, Stories build the relationship with existing followers, and the profile converts visitors into followers.
 
@@ -74,7 +74,7 @@ People decide whether to follow from the profile header plus the first rows of t
 | 2 | **NAME field** | Real name plus a searchable keyword, 30 characters or fewer (e.g. "Sam Rivera \| Instagram Growth"). This field is indexed by search; the @handle carries less weight. |
 | 3 | @handle | Short, matches the brand, avoids numbers and underscores |
 | 4 | Bio (150 characters) | Who you help + what you post + one proof or specific. Leads with the reader's benefit, not a job title. No emoji storm. |
-| 5 | Link | One link matched to the goal (offer, newsletter or booking), or a link hub if several are needed |
+| 5 | Link | One link matched to the goal (offer, newsletter or booking), or a link hub such as Linktree if several are needed (below) |
 | 6 | Category | One clear niche label (Business or Creator accounts) |
 | 7 | Highlights | 4-6, ordered by the visitor's next question (Start here, Proof, Offer, FAQ, About), with consistent covers and one-word names |
 | 8 | First 9 grid tiles | A consistent look, readable at a glance, showing range. Replace weak tiles at the top. |
@@ -86,6 +86,27 @@ Deliver:
 - priority fixes, with the NAME field, bio and pins first
 - before and after rewrites, within the 150 and 30 character limits
 - the **header test**: would a stranger follow from the photo, NAME, bio, link and first grid row alone?
+
+## Link in bio (Linktree)
+
+Captions can't carry clickable links, so every "link in bio" CTA lands on the profile link. With one goal, link straight to it. With several (shop, booking, newsletter), use a link hub; Linktree is the usual one, and its free plan has unlimited links. Claude has no route into Linktree here: it drafts the link list and the user edits it in the Linktree admin.
+
+**Pick a tool**
+
+| The user's situation | Use | Why |
+|---|---|---|
+| Already has a link hub in the bio | Keep it | Its links and click history stay |
+| One goal this month (one shop, one sign-up) | The goal's own URL, no hub | No account needed |
+| Several goals (shop, booking, newsletter) | Linktree | Free plan has unlimited links |
+| Wants comment-to-DM from the same tool | Linktree | Its Instagram auto-reply sends the link by DM (`dms-and-comments.md`) |
+| Needs click history beyond 28 days, or traffic sources | A paid Linktree plan | Free Insights stop at 28 days; Starter reaches back 90 days, and traffic sources need Pro or Premium |
+| Not sure what the bio link points to now | **Ask** for the current link | Don't replace a page the user relies on |
+
+- **Order by goal:** the top link is this week's CTA. When a post says "link in bio", check before it goes live that the top link matches it, and give the link the same words the caption uses.
+- **Add it to Instagram:** profile → Edit profile → Links → Add external link → paste the full URL, including `https://` → Done.
+- **Stories:** a link sticker can point to the Linktree; Linktree notes this works for every account, whatever the follower count.
+- **Measure:** read Linktree's views and clicks beside Instagram's profile link taps (`analytics.md`).
+- **Auto-reply:** Linktree can also DM a link to people who comment; rules and setup are in `dms-and-comments.md`.
 
 ## Account type
 

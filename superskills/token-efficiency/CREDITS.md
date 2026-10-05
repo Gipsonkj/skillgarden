@@ -25,6 +25,23 @@ The router and references are written in this skill's own words from the license
 | audit-prompt-caching | [sernote/audit-prompt-caching](https://github.com/sernote/audit-prompt-caching/tree/main/audit-prompt-caching) | MIT | `analyze_usage_logs.py`, `prefix_stability_check.py`, `estimate_cache_roi.py` copied to `scripts/audit-prompt-caching/`; applicability gate, cache killers, usage fields per provider, break-even formula, Anthropic snapshot (prompt-caching.md, claude-api-levers.md) |
 | claude-api | [anthropics/skills](https://github.com/anthropics/skills/tree/main/skills/claude-api) | Apache-2.0 | Lever order, caching API reference and TTL choice, cache breakers, batch, effort sweeps, tool search, compaction and context editing economics (claude-api-levers.md, model-and-effort.md) |
 
+## Official docs (tool sections, Oct 2026)
+
+Docs, link-only reference, written in our own words; only short phrases quoted. Figures are as of 5 Oct 2026.
+
+| Tool | Docs | Used in |
+|---|---|---|
+| OpenAI prompt caching | https://developers.openai.com/api/docs/guides/prompt-caching | prompt-caching.md (OpenAI settings) |
+| OpenAI Batch API | https://developers.openai.com/api/docs/guides/batch | api-cost-patterns.md section 2 |
+| OpenAI Flex processing | https://developers.openai.com/api/docs/guides/flex-processing | api-cost-patterns.md section 2 |
+| LiteLLM proxy | https://docs.litellm.ai/docs/proxy/quick_start, https://docs.litellm.ai/docs/proxy/docker_quick_start, https://docs.litellm.ai/docs/proxy/virtual_keys, https://docs.litellm.ai/docs/proxy/users, https://docs.litellm.ai/docs/proxy/cost_tracking, https://docs.litellm.ai/docs/completion/prompt_caching, https://docs.litellm.ai/docs/proxy/logging, https://docs.litellm.ai/docs/tutorials/claude_responses_api | api-cost-patterns.md section 7, prompt-caching.md section 4 |
+| Claude Code with a gateway | https://code.claude.com/docs/en/llm-gateway, https://code.claude.com/docs/en/llm-gateway-connect, https://code.claude.com/docs/en/costs | api-cost-patterns.md section 7 |
+| OpenRouter | https://openrouter.ai/docs/features/prompt-caching, https://openrouter.ai/docs/use-cases/usage-accounting, https://openrouter.ai/docs/features/provider-routing, https://openrouter.ai/docs/api-reference/limits, https://openrouter.ai/docs/features/provisioning-api-keys, https://openrouter.ai/docs/faq | api-cost-patterns.md section 7, prompt-caching.md section 4 |
+| Langfuse | https://langfuse.com/docs/observability/features/token-and-cost-tracking, https://langfuse.com/integrations/model-providers/openai-py, https://langfuse.com/docs/metrics/features/metrics-api, https://langfuse.com/self-hosting | measuring-usage.md section 8 |
+| LangSmith | https://docs.langchain.com/langsmith/cost-tracking, https://docs.langchain.com/langsmith/observability-quickstart, https://docs.langchain.com/langsmith/trace-openai | measuring-usage.md section 8 |
+
+Not used for these sections: the vendors' own skills. openai-docs (Apache-2.0), langfuse/skills, BerriAI/litellm-skills and langsmith-skills (MIT) were not needed, since the official docs covered the cost features.
+
 Licence texts: `scripts/tare/LICENSE` (MIT, Copyright (c) 2026 the ccaudit contributors), `scripts/audit-prompt-caching/LICENSE` (MIT, Copyright (c) 2026 sernote), `scripts/caveman-compress/LICENSE` (Apache-2.0). Scripts are unmodified. Apache-2.0 skill text was distilled, not copied; no NOTICE file was supplied with the source.
 
 Security review of scripts: every bundled script imports only the Python standard library and reads or writes local files the user names (tare reads `~/.claude/projects` read-only). None opens a network connection. Not bundled: caveman-compress's `compress.py`/`cli.py` (they call the Anthropic API or the `claude` CLI with a hard-coded default model; the guide has Claude compress the file in-session and run only the validator instead), claude-usage-analyst's script (runs `ccusage` from npm), audit-prompt-caching's linter, routing analyser and report renderer (useful but specialised; see Go deeper), context-optimization's `compaction.py` (example code).

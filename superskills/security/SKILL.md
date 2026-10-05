@@ -1,6 +1,6 @@
 ---
 name: security
-description: Defensive application security for code the user owns. Use when writing or hardening code that handles input, auth, sessions, uploads, SSRF-prone URL fetches or personal data; threat modeling a design (STRIDE, attack trees, mitigation mapping); running and triaging Semgrep or CodeQL scans and producing SARIF; auditing dependencies, lockfiles and package health; storing secrets, setting up secret scanning or responding to a leaked key; hardening GitHub Actions workflows (SHA pinning, permissions, pull_request_target, AI agents in CI); reviewing Firebase/Firestore/Storage rules or Data Connect @auth. Only for systems the user is authorised to test.
+description: Defensive application security for code the user owns. Use when writing or hardening code that handles input, auth, sessions, uploads, SSRF-prone URL fetches or personal data; threat modeling a design (STRIDE, attack trees, mitigation mapping); running and triaging Semgrep or CodeQL scans and producing SARIF; auditing dependencies, lockfiles, container images and package health (npm audit, Dependabot, Trivy, Snyk); storing secrets, setting up secret scanning (GitHub push protection, Gitleaks, TruffleHog) or responding to a leaked key; scanning your own running web app or API with OWASP ZAP (DAST); hardening GitHub Actions workflows (SHA pinning, permissions, pull_request_target, AI agents in CI); reviewing Firebase/Firestore/Storage rules or Data Connect @auth. Only for systems the user is authorised to test.
 ---
 
 # Security
@@ -43,9 +43,10 @@ Work out what the request needs before opening a guide; most real requests need 
 |---|---|
 | Write or harden a feature (input, auth, sessions, uploads, SSRF, crypto, privacy) | [references/secure-coding.md](references/secure-coding.md) |
 | Threat model a design or launch; STRIDE, attack trees, mitigation mapping | [references/threat-modeling.md](references/threat-modeling.md) |
-| Run Semgrep or CodeQL on the repo, triage, produce SARIF | [references/static-analysis.md](references/static-analysis.md) + `scripts/semgrep/run-scans.sh`, `scripts/semgrep/merge_sarif.py` |
-| Audit dependencies, vet a new package, lockfile hygiene | [references/supply-chain.md](references/supply-chain.md) + `scripts/supply-chain-risk-auditor/collect.py`, `scripts/supply-chain-risk-auditor/render.py` |
-| Store secrets, set up secret scanning, respond to a leaked key | [references/secrets.md](references/secrets.md) |
+| Run Semgrep or CodeQL on the repo, triage, produce SARIF; pick a SAST tool | [references/static-analysis.md](references/static-analysis.md) + `scripts/semgrep/run-scans.sh`, `scripts/semgrep/merge_sarif.py` |
+| Audit dependencies or a container image, vet a new package, lockfile hygiene; pick a scanner (npm audit, Dependabot, Trivy, Snyk) | [references/supply-chain.md](references/supply-chain.md) + `scripts/supply-chain-risk-auditor/collect.py`, `scripts/supply-chain-risk-auditor/render.py` |
+| Store secrets, set up secret scanning (pick a scanner: GitHub, Gitleaks, TruffleHog), respond to a leaked key | [references/secrets.md](references/secrets.md) |
+| Scan your own running web app or API (DAST); pick a scanner (ZAP baseline, full or API scan) | [references/dynamic-testing.md](references/dynamic-testing.md) |
 | Write or review GitHub Actions workflows, AI agents in CI | [references/github-actions.md](references/github-actions.md) |
 | Firestore / Storage rules, Data Connect `@auth` | [references/firebase-rules.md](references/firebase-rules.md) |
 

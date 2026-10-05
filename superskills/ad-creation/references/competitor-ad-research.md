@@ -4,6 +4,17 @@
 
 Public ad libraries show what rivals are running. Use them to find angles, offers and gaps; never to copy an ad. Paid scraping APIs are in [vendor-ad-library-apis.md](vendor-ad-library-apis.md); everything here works by hand for free.
 
+## Pick a tool
+
+| The user's need or situation | Use | Why |
+|---|---|---|
+| They already pay for an ad-research tool | That one | Their saved boards and tracked brands are there. Ask which they log into. |
+| A few competitors, one-off look | The free libraries below, by hand | Free, no account |
+| Meta ads as structured data, free, for EU/UK-delivered or political ads | Meta Ad Library API ([vendor-ad-library-apis.md](vendor-ad-library-apis.md)) | Official; US-only commercial ads aren't returned |
+| Hundreds of ads, any platform, CSV/JSON, landing pages | Apify or ScrapeCreators ([vendor-ad-library-apis.md](vendor-ad-library-apis.md)) | Paid per run, needs their key |
+| Competitors already tracked in Motion (Meta) | Motion MCP: `get_workspace_competitors`, `get_inspo_creatives` ([testing-iteration.md](testing-iteration.md)) | Already tagged by hook and format |
+| Top TikTok ads globally, with CTR ranges | TikTok Creative Center, by hand | The TikTok library is EU-only |
+
 ## Free public sources
 
 | Platform | Library | Notes |

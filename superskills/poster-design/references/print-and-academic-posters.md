@@ -73,7 +73,8 @@ Use LuaLaTeX/XeLaTeX for OpenType fonts via `fontspec`. Convert SVG figures to P
 ### Non-LaTeX routes
 - PowerPoint/Keynote: one slide at the exact poster size (e.g. 841×1189 mm), guides for columns and margins, export PDF with fonts embedded.
 - HTML/CSS: `@page { size: 841mm 1189mm; margin: 0 }`, print to PDF from Chrome, check fonts embedded with `pdffonts`.
-- Canva/Figma: start from the exact size, add 3 mm bleed, export "PDF Print" with crop marks if the printer wants them.
+- Canva: start from the exact size, turn on Show print bleed (Canva's default bleed is 0.125 in, 3.175 mm), download as "PDF Print" and tick "Crop marks and bleed" if the printer wants them.
+- InDesign, Illustrator, Photoshop, Affinity or Figma: scripts, PDF/X export and Figma's print limits (its export docs list no CMYK or bleed) are in `references/app-built-posters.md`.
 
 ### Accessibility
 Contrast ≥ 4.5:1; never colour alone (add shape or label); colour-blind-safe palettes (blue/orange rather than red/green); key content between ~1 and 1.5 m height when mounted; provide a digital text summary if accessibility is required (a caption is not PDF tagging).

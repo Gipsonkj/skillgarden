@@ -1,6 +1,6 @@
 ---
 name: website-building
-description: Plan, design, build, verify and ship websites that do not look AI-generated. Use for landing pages, marketing and product sites, portfolios, docs and blogs; writing page copy and CTAs or reviewing conversion (CRO); choosing a design direction, palette and type and avoiding generic "AI slop"; fixing pages that look boring or plain; picking Lenis, GSAP or component libraries; scroll storytelling, scroll-scrubbed video, parallax heroes and page motion; cinematic demo sites with an AI film hero (stills, image-to-video, frame sequence); Next.js App Router and React performance rules, Server Actions, Cache Components adoption and next dev runtime checks; Astro, Vue 3 and single-file HTML sites; Core Web Vitals (LCP, INP, CLS) audits and fixes; technical SEO, sitemaps, canonicals, hreflang, JSON-LD and AI crawler controls; Lighthouse, accessibility, Playwright browser tests and whole-site audits; deploying to Vercel, Netlify, Cloudflare Workers or Pages, env vars and failed builds.
+description: Plan, design, build, verify and ship websites that do not look AI-generated. Use for landing pages, marketing and product sites, portfolios, docs and blogs; page copy, CTAs and conversion (CRO) reviews; design direction, palette and type, avoiding "AI slop" and fixing boring, plain pages; picking Lenis, GSAP or component libraries; scroll storytelling, scroll-scrubbed video, parallax heroes and page motion; cinematic demo sites with an AI film hero (stills, image-to-video, frame sequence); Next.js App Router, React performance, Server Actions, Cache Components and next dev checks; Astro, Vue 3 and single-file HTML sites; Tailwind CSS v4; sites on WordPress, Wix, Webflow or Squarespace; Core Web Vitals (LCP, INP, CLS) audits and fixes; technical SEO, sitemaps, canonicals, hreflang, JSON-LD and AI crawler controls; Google Analytics (GA4) and consent mode; Lighthouse, accessibility, Playwright tests and site audits; deploying to Vercel, Netlify, Cloudflare Workers or Pages, env vars and failed builds.
 ---
 
 # Website building
@@ -44,10 +44,11 @@ Work out what the request needs before opening a guide; most real requests need 
 | Lint a codebase for AI-slop design tells | `node scripts/auteur/slopscan.mjs <src-dir>` (see `references/design-direction.md`) |
 | Page motion, scroll storytelling, scrub video, layered parallax hero; cinematic demo site (AI stills → image-to-video → JPG frame-sequence hero, still and Wan motion prompts) | `references/motion-and-scroll.md` |
 | Screenshot a scroll journey at several widths and scroll stops | `node scripts/auteur/shoot.mjs <url> --stops 7 --breakpoints 390,768,1440 --reduced-motion` (see `references/motion-and-scroll.md`) |
-| Choosing a stack; Astro; Vue 3; single-file HTML deliverables; animation, shader and component library verdicts (Lenis, GSAP, React Bits, Aceternity) | `references/stacks-astro-vue-static.md` |
+| Choosing a stack; Astro; Vue 3; single-file HTML deliverables; pick a styling tool, Tailwind CSS v4 setup, `@theme` tokens and v3 upgrade; animation, shader and component library verdicts (Lenis, GSAP, React Bits, Aceternity) | `references/stacks-astro-vue-static.md` |
+| Build or edit a site on a builder or CMS: pick a builder (WordPress, Wix, Webflow, Squarespace, Framer), connect it (REST, WP-CLI, MCP), draft and publish safely | `references/site-builders.md` |
 | Next.js App Router, React performance rules, Server Actions, caching, Cache Components, next dev verification | `references/nextjs-react.md` |
 | Slow page, Core Web Vitals, Lighthouse performance, DevTools trace | `references/performance-cwv.md` |
-| SEO setup or audit, robots, sitemap, canonicals, hreflang, structured data, AI crawlers | `references/seo.md` |
+| SEO setup or audit, robots, sitemap, canonicals, hreflang, structured data, AI crawlers; add analytics, pick an analytics tool (GA4 tag, consent mode, key events, Analytics MCP) | `references/seo.md` |
 | Quality/accessibility audit, Playwright tests, whole-site crawl and fix loop | `references/quality-audit-and-testing.md` |
 | Static HTML smoke test | `bash scripts/web-quality-audit/analyze.sh <file-or-dir>` (see `references/quality-audit-and-testing.md`) |
 | Start a dev server for a browser test | `python3 scripts/webapp-testing/with_server.py --server "npm run dev" --port 5173 -- python3 test.py` |
@@ -62,6 +63,7 @@ Work out what the request needs before opening a guide; most real requests need 
 | Copy in a set brand voice, blog posts or articles (beyond the page copy in `references/plan-and-copy.md`) | `content-creation` → `references/conversion-copy.md`, `references/brand-voice.md`, `references/long-form-articles.md` |
 | A token system, every component state or a full WCAG 2.2 AA audit (beyond `references/design-direction.md`) | `frontend-ui-design` → `references/visual-system.md`, `references/components-and-states.md`, `references/accessibility.md` |
 | GSAP timelines, pinned scroll scenes or CSS scroll-driven motion (beyond `references/motion-and-scroll.md`) | `motion-animation` → `references/gsap.md`, `references/scroll-animation.md` |
+| Building from a Figma file: reading frames and variables through the Figma MCP, design-to-code | `figma-design` → `references/figma-mcp.md`, `references/design-to-code.md` |
 | Hero images, section art or textures made with an image model | `image-creation` → `references/web-frontend-assets.md`, `references/prompting-fundamentals.md` |
 | A promo or site-tour video, or video-model prompts beyond the film hero in `references/motion-and-scroll.md` | `ai-video` → `references/explainers-and-promos.md`, `references/generative-prompting.md` |
 | A maintained Playwright suite or an exploratory QA report (beyond `references/quality-audit-and-testing.md`) | `testing-qa` → `references/playwright-e2e.md`, `references/exploratory-qa.md` |

@@ -39,6 +39,20 @@ This craft took over all slide work from `docs-office`. Its guides `deck-writing
 | slideshow | [heygen-com/hyperframes](https://github.com/heygen-com/hyperframes/tree/main/skills/slideshow) | Apache-2.0 | HyperFrames slideshow shape and when a deck should become a composition |
 | consulting-pptx-skill | [carnot-tech/consulting-pptx-skill](https://github.com/carnot-tech/consulting-pptx-skill) | MIT | Consulting slide rules (action titles, one message, so-what), mechanical checks, fresh-eyes review table |
 
+### Tool docs (deck-apps.md, data-slides.md think-cell section)
+
+| Source | Link | Licence | What was used |
+|---|---|---|---|
+| Canva MCP docs | https://www.canva.dev/docs/apps/mcp/ (tools, access, best practices, design-edit workflow) | docs, link-only reference, written in our own words | Canva connector tools, plan limits, rate limits, brand-template, edit-transaction and export flow |
+| Claude connector directory | https://claude.com/connectors/canva, https://claude.com/connectors/gamma, https://claude.com/connectors/pitch | docs, link-only reference, written in our own words | Connector server URLs and publishers |
+| Gamma developer docs | https://developers.gamma.app/ (create generation, from template, status, export, access and pricing, parameters, errors, MCP server) | docs, link-only reference, written in our own words | Gamma API fields, credits, polling, export, sharing options, MCP tools |
+| Pitch help centre | https://help.pitch.com/en/articles/15888133-connect-claude-with-pitch, https://help.pitch.com/en/articles/16220369-create-presentations-with-claude, https://help.pitch.com/en/articles/15926009-use-pitch-s-api | docs, link-only reference, written in our own words | Connecting Pitch to Claude, template variables, API key location |
+| Beautiful.ai Claude connector | https://www.beautiful.ai/integrations/claude, https://www.beautiful.ai/blog/beautiful-ai-claude-connector | docs, link-only reference, written in our own words | Connector capabilities, connect steps, exports |
+| think-cell manual | https://www.think-cell.com/en/resources/manual/jsondataautomation, https://www.think-cell.com/en/resources/manual/introductionautomation | docs, link-only reference, written in our own words | Naming elements, `.ppttc` structure, rendering routes |
+| Claude Code MCP docs | https://code.claude.com/docs/en/mcp | docs, link-only reference, written in our own words | Adding a remote HTTP MCP server and signing in with `/mcp` |
+
+No third-party skill was used for these sections (the Canva, Gamma and think-cell skills found in research were not opened or copied).
+
 Licence texts: `scripts/frontend-slides/LICENSE` and `templates/frontend-slides/LICENSE` (MIT, frontend-slides), `scripts/scientific-slides/LICENSE` and `templates/scientific-slides/LICENSE` (MIT, K-Dense). Apache-2.0 sources were distilled, not copied; no NOTICE file applies.
 
 ## Not copied, and why

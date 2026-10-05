@@ -104,6 +104,42 @@ Run in order. After each sweep, re-check the earlier ones so a later edit does n
 
 **Cadence:** pricing/product pages quarterly or on change; comparison pages every 3-6 months; high-traffic posts every 6 months; evergreen guides yearly; low-traffic pages only when data shows an opportunity.
 
+## Checker tools: Grammarly and the bundled scripts
+
+Checkers flag; the sweeps above decide. Never accept a tool's rewrite that changes a fact, the voice or the claim.
+
+**Pick a tool**
+
+| The user's need or situation | Use | Why |
+|---|---|---|
+| Their team already runs a checker (Grammarly, a house linter) | That one, and ask for its report | Their score is the one reviewers will judge by |
+| Free, no account, any draft | The quick pass and AI-tell check above, plus the bundled scripts in [long-form-articles.md](long-form-articles.md) (readability, gates, SEO) | Local, no network, nothing leaves the machine |
+| A Grammarly Writing Score for a batch of documents, and the org has Grammarly Enterprise or Education | Grammarly Writing Score API (below) | Returns an overall score plus clarity, correctness, engagement and delivery |
+| Client asks "does this read as AI?" | The humanize audit in [humanize-ai-writing.md](humanize-ai-writing.md) first; Grammarly's AI Detection API (beta) only if they already have access | Detector scores are probabilistic; fix the tells, don't chase a number |
+| Grammarly on a personal or Pro plan | The user pastes the draft into Grammarly themselves and sends back the flagged lines | API credentials are only for Enterprise and Education admins |
+
+**Grammarly APIs (Enterprise and Education only).** An admin creates OAuth 2.0 credentials in the Admin panel → Organization → Configurations → OAuth 2.0 credentials, ticking the API to allow. Keep the client ID and secret in `GRAMMARLY_CLIENT_ID` and `GRAMMARLY_CLIENT_SECRET`, never in chat. The documents go to Grammarly's servers, so confirm the user may share the draft before sending it.
+
+```bash
+TOKEN=$(curl -s -X POST https://auth.grammarly.com/v4/api/oauth2/token \
+  -d grant_type=client_credentials -d client_id="$GRAMMARLY_CLIENT_ID" \
+  -d client_secret="$GRAMMARLY_CLIENT_SECRET" -d scope="scores-api:read, scores-api:write" | jq -r .access_token)
+
+# 1. ask for an upload slot
+curl -s -X POST https://api.grammarly.com/ecosystem/api/v2/scores \
+  -H "Authorization: Bearer $TOKEN" -H 'Content-Type: application/json' -H 'Accept: application/json' \
+  -H 'user-agent: API client' -d '{"filename": "draft.docx"}'      # → score_request_id, file_upload_url
+# 2. upload within 120 seconds (no auth header; the URL is pre-signed)
+curl -T draft.docx "$FILE_UPLOAD_URL"
+# 3. poll until status is COMPLETED or FAILED
+curl -s https://api.grammarly.com/ecosystem/api/v2/scores/$SCORE_REQUEST_ID \
+  -H "Authorization: Bearer $TOKEN" -H 'Accept: application/json' -H 'user-agent: API client'
+```
+
+- Files: `.doc`, `.docx`, `.odt`, `.txt`, `.rtf`; up to 4 MB and 100,000 characters; at least 30 words, or the result is `COMPLETED` with a null score. Results are kept 30 days. Rate limits: 10 POSTs and 50 GETs a second.
+- `score` holds `general_score`, `engagement`, `correctness`, `delivery` and `clarity`, each from 0 to 1 (0.86, not 86). Report them with the sweep findings, not instead of them.
+- AI Detection (beta): same flow at `https://api.grammarly.com/ecosystem/api/v1/ai-detection` with the `ai-detection-api:read` and `ai-detection-api:write` scopes; returns `average_confidence` and `ai_generated_percentage` (0-1). Plagiarism Detection is also in beta.
+
 ## Edit report format
 
 ```
