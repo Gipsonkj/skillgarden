@@ -1,6 +1,6 @@
 ---
 name: open-models
-description: Run, serve, fine-tune and evaluate open-weight models (Llama, Qwen, Gemma, Mistral, DeepSeek, gpt-oss), instead of or beside paid APIs. Covers picking a model and checking its weight licence for commercial use; VRAM, context and cost maths; running locally with Ollama, llama.cpp, LM Studio, MLX or Open WebUI; serving with vLLM, SGLang and OpenAI-compatible endpoints; GPU hosting on RunPod, Modal and HF Jobs; GGUF, AWQ and GPTQ quantization; the Hugging Face Hub, hf CLI, transformers, datasets and Spaces; fine-tuning with LoRA/QLoRA, TRL, Unsloth or LlamaFactory, on Colab; benchmarking with lm-eval-harness or lighteval; pointing agents and tools at a local model. Triggers: "run a model locally", "which open model fits my GPU", "can I use Llama commercially", "serve Qwen with vLLM", "deploy a model on RunPod", "quantize to GGUF", "fine-tune with LoRA", "hf download", "evaluate my fine-tune", "use Ollama with my agent". Image, video or audio generation recipes: image-creation, ai-video, audio-generation.
+description: Run, serve, fine-tune and evaluate open-weight models (Llama, Qwen, Gemma, Mistral, DeepSeek, gpt-oss): picking a model and licence, VRAM and cost maths, running locally (Ollama, llama.cpp, LM Studio, MLX, Open WebUI), serving with vLLM or SGLang, GPU hosting (RunPod, Modal), quantization (GGUF, AWQ), the Hugging Face Hub, LoRA fine-tuning (Unsloth, TRL) and benchmarks. Use when asked to run a model locally, pick one for a GPU, or serve, quantize, fine-tune or evaluate one.
 ---
 
 # Open models

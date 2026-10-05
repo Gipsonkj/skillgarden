@@ -26,7 +26,7 @@ for d in sorted(p for p in SS.iterdir() if p.is_dir()):
         nm = re.search(r"^name:\s*(.+)$", m.group(1), re.M)
         if not nm or nm.group(1).strip().strip('"') != d.name: probs.append("name != folder")
         desc = m.group(1).split("description:", 1)[-1].strip()
-        if len(desc) > 1024: probs.append(f"description {len(desc)} chars")
+        if len(desc) > 500: probs.append(f"description {len(desc)} chars (max 500: the plugin lists every description on every turn)")
     lines = txt.count("\n")
     refs = sorted(str(p.relative_to(d)) for p in (d / "references").rglob("*.md")) if (d / "references").exists() else []
     for r in refs:

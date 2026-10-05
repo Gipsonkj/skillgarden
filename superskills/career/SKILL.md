@@ -1,6 +1,6 @@
 ---
 name: career
-description: Get a job and grow in one, with every claim kept true. Use for writing, reviewing or tailoring a resume or CV to a posting; ATS-safe formatting; cover letters and application answers; job search strategy, finding postings (Indeed, ZipRecruiter), scoring postings, tracking applications, referral and networking messages, thank-you notes, Gmail drafts; interview prep with a STAR story bank and mocks; coding interviews, system design, case rounds and take-homes; salary research (Levels.fyi, Glassdoor), negotiating and comparing offers; career change and positioning; brag documents, self-reviews and promotion cases; hiring: job posts, structured interviews, scorecards. Never invents experience, auto-applies or scrapes job boards. Triggers: "tailor my resume to this job", "review my CV", "write a cover letter", "mock interview me", "prep me for system design", "negotiate this offer", "help me get promoted", "write a job post". LinkedIn profile and posts: linkedin-automation. A designed PDF layout: docs-office.
+description: Get a job and grow in one, with every claim kept true: tailoring a resume or CV, ATS-safe formatting, cover letters, job search and application tracking, networking messages, interview prep with STAR stories, coding and system design interviews, salary research and offer negotiation, career change, self-reviews and promotion cases, and hiring (job posts, interviews, scorecards). Never invents experience. LinkedIn profile and posts: linkedin-automation.
 ---
 
 # Career and job search

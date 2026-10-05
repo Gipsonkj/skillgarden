@@ -1,6 +1,6 @@
 ---
 name: linkedin-automation
-description: LinkedIn growth done inside LinkedIn's rules - drafting posts, hooks, carousels, profiles, comments and outreach for the account holder to send by hand, plus publishing only through LinkedIn's official API or API-partner schedulers. Use when asked to write or fix a LinkedIn post or hook, pick a format, build a writing voice, make a carousel or PDF document post, rewrite a headline or About section, plan comments, write a connection note, DM or InMail, research leads without scraping or with Sales Navigator, ghostwrite for an executive or a team, schedule or publish via LinkedIn's own scheduler, the Posts API, Buffer, Hootsuite, Composio or another official-API tool, design a carousel in Canva, or read and export post analytics. Also use when someone asks for LinkedIn automation, bots, auto-connect or auto-message tools, scrapers, Dripify, Expandi, PhantomBuster, browser extensions or engagement pods: explain the ToS risk and give the compliant route.
+description: LinkedIn growth inside LinkedIn's rules: posts, hooks, carousels, headlines and About sections, comments, connection notes and DMs for the account holder to send, lead research without scraping (Sales Navigator), executive ghostwriting, publishing via LinkedIn's scheduler, the Posts API or partner tools (Buffer, Hootsuite), and post analytics. Also use when someone asks for LinkedIn bots, auto-connect tools, scrapers or engagement pods, to explain the risk and give the compliant route.
 ---
 
 # LinkedIn automation (the safe kind)

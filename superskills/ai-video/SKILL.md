@@ -1,6 +1,6 @@
 ---
 name: ai-video
-description: Make, edit, generate and deliver video. Covers picking the route (code, generative, footage, avatar); HyperFrames (composition, CLI, registry, Studio, design spec, narration, beats, audio-reactive); Remotion renders; video-model prompts and APIs (Seedance, Wan, Kling, Gemini Omni/Veo, Runway, Luma Ray, ModelArk, fal, LTX-2, FLUX 3); avatars (HeyGen, Synthesia); ffmpeg transcript cuts (fillers, 9:16 reframe, grade, EDL); editable hand-offs to DaVinci Resolve, Premiere Pro, Final Cut Pro (FCPXML) and CapCut; Descript edits; captions, talking-head recuts; beat-cut music videos; launch, promo and explainer videos; delivery (loudness, safe zones, QA). Use when asked to make a video, promo, explainer, reel/short, captioned clip, music video, AI b-roll, animate a photo, screen-record a web app, edit footage, add subtitles, write a video-model prompt, call a video API (Seedance, Runway, Veo, Luma, Synthesia), batch-render Remotion, cut for Resolve, Premiere, Final Cut or Descript, or export for TikTok/Reels/YouTube.
+description: Make, edit and deliver video: picking the route (code, AI generation, footage, avatar), HyperFrames and Remotion renders, prompts and APIs for Seedance, Kling, Wan, Veo, Runway and Luma, HeyGen avatars, ffmpeg cuts and 9:16 reframes, captions and subtitles, hand-offs to Premiere, Resolve, Final Cut and CapCut, launch and explainer videos, and export checks for TikTok, Reels and YouTube. Use when asked to make, edit, caption, fix or export a video, or to write a video-model prompt.
 ---
 
 # AI video

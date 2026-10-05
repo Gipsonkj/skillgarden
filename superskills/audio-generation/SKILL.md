@@ -1,6 +1,6 @@
 ---
 name: audio-generation
-description: Create, transcribe and finish audio with AI - voiceovers and text-to-speech, music and songs, sound effects, podcasts, dubbing, voice conversion, transcription and subtitles, and the final mix. Use when asked to make a voiceover, narration, TTS, IVR prompts or an audiobook; to generate background music, a jingle, a song, lyrics or a Suno/MiniMax/ACE-Step/Lyria/MusicGen prompt; to create sound effects, UI sounds or ambiences; to turn an article into a two-host podcast; to dub a video into another language, change or anonymize a voice, or remove background noise; to edit a recorded podcast (cut ums, clean voices) in Descript, Audacity, Audition, Enhance Speech, iZotope RX, GarageBand or Logic; to transcribe audio or video, label speakers, or make SRT/VTT captions; or to mix voice and music, duck a bed, normalize loudness (LUFS) or export for podcast, YouTube or telephony. Covers ElevenLabs, OpenAI, Gemini TTS, Lyria, edge-tts, Kokoro, MiniMax, ACE-Step, Suno, AudioCraft, Whisper and ffmpeg.
+description: Create, transcribe and finish audio with AI: voiceovers and text-to-speech (ElevenLabs, OpenAI, Gemini), music and songs (Suno, Lyria, MiniMax), sound effects, two-host podcasts, dubbing and voice changes, noise removal and podcast edits (Descript, Audacity, iZotope RX), transcripts and SRT captions (Whisper), and mixing voice with music to a loudness target. Use when asked to make, clean, transcribe or mix audio, a voiceover, a song or a podcast.
 ---
 
 # Audio generation

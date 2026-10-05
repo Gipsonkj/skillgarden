@@ -1,6 +1,6 @@
 ---
 name: automation
-description: Automate work across browsers, web apps and SaaS tools. Covers choosing API vs workflow vs browser vs agent and picking a platform; browser automation with playwright-cli, agent-browser, browser-use, Browserbase and Chrome DevTools MCP; Playwright testing of local web apps; Selenium and Puppeteer scripts; page debugging; n8n workflows; Make scenarios; Zapier SDK, CLI and durable workflows; Power Automate cloud flows; Google Apps Script and clasp; scheduled GitHub Actions; UiPath jobs (uip CLI); Composio, Google Workspace CLI (gws) and GitHub CLI actions; web data extraction and Firecrawl. Use when asked to automate a task or process, build an n8n workflow, Make scenario, Zap or Power Automate flow, write an Apps Script trigger, schedule a script with GitHub Actions, run a UiPath job, connect apps, click through or scrape a website, fill a form, test a web app in a browser, debug a page, triage email or act in Gmail, Slack, GitHub or other apps, or make an automation reliable.
+description: Automate work across browsers, web apps and SaaS tools: choosing API, workflow, browser or agent; n8n, Make, Zapier and Power Automate flows; Google Apps Script; scheduled GitHub Actions; UiPath; browser automation and scraping (Playwright, Puppeteer, Selenium, browser-use, Firecrawl); acting in Gmail, Slack and GitHub. Use when asked to automate a task, connect apps, build a workflow or Zap, schedule a script, fill forms or scrape a site, or make an automation reliable.
 ---
 
 # Automation

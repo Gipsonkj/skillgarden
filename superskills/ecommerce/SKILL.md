@@ -1,6 +1,6 @@
 ---
 name: ecommerce
-description: Build and run an online store: platform, storefront, payments, products, stock and sales. Covers picking Shopify, WooCommerce, Wix, Medusa, Saleor or headless; Shopify themes (Liquid, theme check), apps and APIs (Admin and Storefront GraphQL, bulk operations, Functions, checkout extensions, Hydrogen, AI Toolkit); WooCommerce Store API, Wix API and MCP; store checkout (Stripe Checkout, PayPal, Stripe Tax, marketplaces); subscriptions (Stripe Billing, Recharge); catalogs, CSV imports, Merchant Center feeds and API; product pages, CRO, Judge.me reviews; pricing, discounts; inventory, orders, fulfilment; Amazon SP-API; store analytics (revenue drops, AOV, LTV, cohorts, GA4 vs orders); agentic commerce (UCP, ACP). Triggers: "set up a Shopify store", "build a Liquid section", "bulk update prices", "why did sales drop", "GA4 doesn't match Shopify", "what should I reorder", "fix Merchant Center disapprovals", "let AI agents buy from our store". Shopping ads: google-ads. Stripe outside a store: backend-databases.
+description: Build and run an online store: picking Shopify, WooCommerce, Wix or headless; Shopify themes (Liquid), apps and APIs; checkout and payments (Stripe, PayPal) and subscriptions; catalogs, CSV imports and Merchant Center feeds; product pages and CRO; pricing, inventory, orders and fulfilment; Amazon SP-API; store analytics (sales drops, AOV, LTV, GA4 vs orders). Use when asked to set up, build, fix or grow a store. Shopping ads: google-ads. Stripe outside a store: backend-databases.
 ---
 
 # E-commerce

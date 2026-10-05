@@ -1,6 +1,6 @@
 ---
 name: seo
-description: Audit, fix and grow a site's organic search and AI search visibility. Use for SEO audits, traffic or ranking drops, pages not indexed, crawling, robots.txt, sitemaps, canonicals, redirects, site migrations, JavaScript rendering, Core Web Vitals (LCP, INP, CLS), hreflang and international SEO, keyword research, search intent, topic clusters, title tags and meta descriptions, writing or refreshing content to rank, E-E-A-T, schema markup and JSON-LD, rich results, site architecture, URL structure, internal linking, programmatic SEO and template pages at scale, AI search / GEO / AEO (AI Overviews, ChatGPT, Perplexity, Copilot citations, llms.txt, AI crawlers), local SEO and Google Business Profile, reviews, NAP citations, backlinks and link building, directory submissions and Product Hunt launches, competitor "alternative" and "vs" pages, and SEO tools such as Search Console, Google Analytics 4, PageSpeed, CrUX, Screaming Frog, Google Keyword Planner, Yoast SEO, Rank Math, Ahrefs, Semrush and DataForSEO.
+description: Audit, fix and grow organic search and AI search visibility: SEO audits, ranking and traffic drops, indexing, robots.txt, sitemaps, canonicals, redirects and migrations, Core Web Vitals, hreflang, keyword research and intent, titles and meta descriptions, content that ranks, schema and JSON-LD, internal linking, programmatic SEO, AI Overviews and ChatGPT citations (GEO), local SEO, backlinks, and Search Console, GA4, Screaming Frog, Ahrefs or Semrush. Use for any SEO question.
 ---
 
 # SEO

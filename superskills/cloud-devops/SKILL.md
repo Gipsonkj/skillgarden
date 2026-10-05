@@ -1,6 +1,6 @@
 ---
 name: cloud-devops
-description: Deploy, run and operate apps in the cloud. Covers choosing a host, Dockerfiles and Compose, Kubernetes and Argo CD (GKE/EKS), Terraform/OpenTofu (state, modules, tests, safe destroy), Ansible, CI/CD in GitHub Actions, GitLab CI or Jenkins (gates, OIDC, previews, rollbacks), Cloudflare Workers/Wrangler/Durable Objects, Google Cloud Run (incl. Next.js behind Firebase Hosting) and Firebase App Hosting, AWS (IAM, Lambda, ECS/EKS/ECR, CDK), Azure (azd, Container Apps/App Service diagnostics, KQL), and observability (OpenTelemetry, Grafana, Datadog, alerts). Use when asked to deploy or ship an app, "put this live", write a Dockerfile or compose.yaml, shrink or harden an image, write k8s YAML or debug CrashLoopBackOff/Pending pods, write or review Terraform, set up a GitHub Actions, GitLab or Jenkins pipeline, configure wrangler.jsonc, deploy to Cloud Run, fix gcloud "No module named grpc", write an IAM policy, build a Lambda, run azd up, add OpenTelemetry, build a Grafana dashboard, or debug a production outage.
+description: Deploy, run and operate apps in the cloud: choosing a host, Dockerfiles and Compose, Kubernetes, Terraform, CI/CD in GitHub Actions, GitLab or Jenkins, Cloudflare Workers, Google Cloud Run and Firebase, AWS (IAM, Lambda, ECS), Azure, and observability (OpenTelemetry, Grafana, Datadog). Use when asked to deploy or put an app live, write a Dockerfile, k8s YAML, Terraform or a pipeline, debug a failing deploy or pod, or investigate a production outage.
 ---
 
 # Cloud and DevOps

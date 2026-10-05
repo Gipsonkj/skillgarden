@@ -1,6 +1,6 @@
 ---
 name: research-science
-description: Academic and scientific research end to end. Use for finding papers (PubMed, OpenAlex, arXiv, Semantic Scholar, Crossref, bioRxiv), searching and exporting from Scopus, Web of Science, Embase or Google Scholar, building search strings, literature reviews (narrative, scoping, systematic, PRISMA), screening in Covidence and data extraction, synthesis of evidence, citations and BibTeX (DOI lookup, verifying references, fixing bibliographies, Zotero libraries), writing papers (abstract, introduction, methods, results, discussion, related work), reporting guidelines (CONSORT, STROBE, PRISMA), statistics in text, peer review of manuscripts and self-review before submission, generating testable hypotheses and choosing a study design, deep research reports with many cited sources, and practical Biopython/RDKit work (sequences, Entrez, structures, molecules, fingerprints, similarity search).
+description: Academic and scientific research: finding papers (PubMed, arXiv, Semantic Scholar, OpenAlex, Scopus, Web of Science, Google Scholar), search strings, literature and systematic reviews (PRISMA), screening and data extraction, citations and BibTeX (Zotero, DOI checks), writing and peer-reviewing papers, reporting guidelines (CONSORT, STROBE), hypotheses and study design, deep research reports with cited sources, and Biopython and RDKit work. Use when asked to find, review, cite or write research.
 ---
 
 # Research & Science

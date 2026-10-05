@@ -1,6 +1,6 @@
 ---
 name: 3d-modeling
-description: Make and ship 3D models and scenes. Covers Blender (bpy scripts, headless runs, Blender MCP, modelling, materials, lighting, Cycles/EEVEE renders, export); Three.js scenes (renderer, cameras, PBR, HDR lighting, GLTF loaders) and React Three Fiber with drei; slow web 3D (draw calls, instancing, LOD); GLB optimisation (glTF Transform, Draco, Meshopt, KTX2); generative 3D (text or image to 3D with Meshy or Tripo); CAD parts in build123d, OpenSCAD, Autodesk Fusion (Fusion MCP), SketchUp or SOLIDWORKS (STEP, STL, 3MF); 3D printing checks and slicing with OrcaSlicer or Cura; OpenUSD, USDZ and Gaussian splats; game-ready assets (budgets, LODs, bakes, Substance 3D Painter texturing, rigs) for Unity, Unreal and Godot. Triggers: "write a Blender script", "put a 3D model on my site", "optimize this GLB", "my three.js scene is slow", "turn this image into a 3D model", "design a printable bracket", "model this in Fusion", "slice this STL", "convert this splat to USD". Animating a scene, clip or camera: motion-animation.
+description: Make and ship 3D models and scenes: Blender scripts and renders, Three.js and React Three Fiber, GLB optimisation, image- or text-to-3D (Meshy, Tripo), CAD parts (build123d, OpenSCAD, Fusion, SketchUp, SOLIDWORKS), 3D printing and slicing (STL, Cura, OrcaSlicer), USD and Gaussian splats, game-ready assets for Unity, Unreal and Godot. Use when asked to model, render, optimise or print something in 3D, or put a 3D model on a site. Animating a scene: motion-animation.
 ---
 
 # 3D modeling

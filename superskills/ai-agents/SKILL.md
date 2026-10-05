@@ -1,6 +1,6 @@
 ---
 name: ai-agents
-description: Design, build, test and ship AI agents and their tools. Covers agent vs workflow and stack choice; tool design (names, schemas, errors, tool count); MCP servers (remote HTTP, stdio, MCPB, OAuth, elicitation, Inspector) and MCP apps with in-chat widgets; multi-agent orchestration and parallel sub-agents; context engineering, prompt caching, memory; agent system prompts; agent and MCP evals and tracing (rubrics, held-back sets, MCP eval harness, LangSmith, Langfuse); Claude API tool loops, Tool Runner, Agent SDK, Managed Agents; Vercel AI SDK, Mastra, LangGraph, Deep Agents, Google ADK, Cloudflare Agents, OpenAI Agents SDK, CrewAI, Microsoft Agent Framework, Foundry, Copilot Studio; ElevenLabs voice agents. Use when asked to build an agent or chatbot with tools, wrap an API for Claude, build an MCP server or connector, add MCP widgets, split work across sub-agents, add memory to an agent, write an agent system prompt, evaluate or debug an agent, launch a managed or scheduled agent, or build a voice agent.
+description: Design, build, test and ship AI agents and their tools: agent vs workflow, tool design, MCP servers and connectors, multi-agent and sub-agents, context and memory, agent system prompts, evals and tracing (LangSmith, Langfuse), the Claude API tool loop and Agent SDK, OpenAI Agents SDK, Vercel AI SDK, LangGraph, CrewAI, Mastra and voice agents. Use when asked to build an agent or chatbot with tools, build an MCP server, add memory, or evaluate or debug an agent.
 ---
 
 # AI agents

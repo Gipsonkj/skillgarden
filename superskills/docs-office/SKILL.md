@@ -1,6 +1,6 @@
 ---
 name: docs-office
-description: Create, read, edit, convert and check office documents. Use for Word/.docx (reports, letters, contracts, templates with {{placeholders}}, tracked changes, comments, TOC, page numbers); PDF (designed reports and proposals with covers, filling form fields, merge/split/rotate/encrypt, extracting text, tables and images, OCR (OCRmyPDF), Adobe Acrobat connector or PDF Services API, Docusign signing); Excel/.xlsx/.csv (financial models, formulas, formatting, editing without breaking the file, fixing #REF!/#NAME? errors, analysis); document writing and typesetting (reports, one-pagers, white papers, proposals, memos, letters); converting files to Markdown (MarkItDown, Docling), including text out of .pptx, or Markdown to docx/xlsx/pdf (pandoc); Google Docs, Sheets and Drive via gws/gog or the APIs; OneDrive/SharePoint files via the Microsoft 365 connector or Graph; WPS Office and WPS 365; Lark/Feishu docs via lark-cli. Slide decks and presentations in any format: presentations. What a resume says: career.
+description: Create, read, edit, convert and check office documents: Word .docx (reports, contracts, templates, tracked changes), PDF (designed reports, forms, merge and split, text and table extraction, OCR, signing), Excel .xlsx and CSV (models, formulas, fixing errors), Markdown conversion both ways, Google Docs, Sheets and Drive, OneDrive and SharePoint. Use when asked to make, fill, fix, convert or read a document, PDF or spreadsheet. Slide decks: presentations. Resume content: career.
 ---
 
 # Docs & Office files

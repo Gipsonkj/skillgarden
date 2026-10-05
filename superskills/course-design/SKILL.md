@@ -1,6 +1,6 @@
 ---
 name: course-design
-description: Design and teach courses, lessons and workshops for online, school (K-12, university) and corporate learning, and tutor one learner. Covers learning objectives and Bloom's taxonomy, backward design, course structure, syllabi and curriculum maps, lesson plans, explanations (worked examples, analogies, scaffolding, cognitive load), checks for understanding and exit tickets, quizzes, exams, distractors, rubrics and feedback, retrieval practice, spaced repetition and flashcards, differentiation and UDL, Socratic and diagnostic tutoring that doesn't hand over graded answers, turning notes, a book or a codebase into a course, and LMS export (Canvas, Moodle, Google Classroom, SCORM, Common Cartridge). Triggers: "write a lesson plan for", "design a course on", "learning objectives for", "make a quiz", "rubric for this assignment", "flashcards from my notes", "differentiate this lesson", "tutor me in calculus", "turn this codebase into a course". Producing the lesson video: ai-video.
+description: Design and teach courses, lessons and workshops (online, school, university, corporate) and tutor one learner: learning objectives, course structure and syllabi, lesson plans, explanations, quizzes, exams and rubrics, flashcards and spaced repetition, differentiation, Socratic tutoring that doesn't hand over graded answers, turning notes or a codebase into a course, and LMS export (Canvas, Moodle, Google Classroom, SCORM). Producing the lesson video: ai-video.
 ---
 
 # Teaching and course design

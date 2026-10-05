@@ -1,6 +1,6 @@
 ---
 name: data-analysis
-description: Answer questions with data and present the results honestly. Covers profiling a new dataset (grain, keys, nulls, placeholders), analytical SQL across Postgres/Snowflake/BigQuery/Redshift/Databricks/DuckDB (windows, cohorts, funnels, dedup), descriptive and inferential statistics (test choice, effect sizes, power, multiple comparisons, regression with statsmodels), A/B test design and readouts (SRM, MDE) and quasi-experiments (difference-in-differences), charts that don't mislead (chart choice, colourblind-safe palettes, matplotlib/seaborn/plotly), KPI design and single-file HTML dashboards, querying and building in Power BI (DAX, Fabric), Tableau and Looker, pandas, Polars and R (tidyverse, ggplot2), scikit-learn pipelines without leakage, marimo and Jupyter notebooks, and warehouse work in BigQuery, Snowflake, Databricks, dbt and DuckDB. Use when the user asks to explore, query, analyse, test, model, chart or report on data, build a dashboard or define metrics, or check whether a difference is real.
+description: Answer questions with data and present results honestly: profiling datasets, analytical SQL (Postgres, BigQuery, Snowflake, DuckDB, Databricks), statistics and A/B tests, charts that don't mislead, KPIs and dashboards, Power BI (DAX), Tableau and Looker, pandas, Polars and R, scikit-learn without leakage, notebooks and dbt. Use when asked to explore, query, analyse, chart, model or report on data, build a dashboard, define metrics or check whether a difference is real.
 ---
 
 # Data analysis

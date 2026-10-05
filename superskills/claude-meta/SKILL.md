@@ -1,6 +1,6 @@
 ---
 name: claude-meta
-description: Expert guide to working with and extending Claude Code and agents. Use when writing, editing, testing or packaging a skill (SKILL.md, description triggering, evals); writing or auditing CLAUDE.md, AGENTS.md or rules files, also for Copilot, Cursor, Gemini CLI or OpenCode; creating hooks or guardrails (PreToolUse, Stop, block git push, auto-format, "whenever X do Y"); defining subagents or delegating tasks to them; building a plugin or marketplace; adding MCP servers; brainstorming, grilling a plan, writing specs or implementation plans and executing them; managing context, compaction, long sessions, handoffs, memory and planning files; capturing lessons as skills, turning saved reels, bookmarks or creator freebies into a skill stack, finding or vetting skills to install, recommending Claude Code automations; or delegating to or cross-reviewing with the Codex CLI. Also use when the user says "use claude-meta", "make a skill", "grill me" or "handoff". Cutting tokens, cost or usage: token-efficiency.
+description: Working with and extending Claude Code and agents: writing, testing and packaging skills; CLAUDE.md, AGENTS.md and rules files (also Cursor, Copilot, Gemini CLI); hooks and guardrails; subagents; plugins and marketplaces; adding MCP servers; specs and implementation plans; context, compaction, handoffs and memory; finding and vetting skills to install; Codex cross-reviews. Use for "make a skill", "add a hook", "grill me" or "handoff". Cutting tokens or cost: token-efficiency.
 ---
 
 # Claude meta-skills

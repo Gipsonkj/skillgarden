@@ -1,6 +1,6 @@
 ---
 name: ad-creation
-description: Plan, write, produce and iterate paid ad creative for Google, Meta (Facebook/Instagram), TikTok, LinkedIn and X. Use for creative strategy, ad briefs, angles and concept matrices; ad copy, hooks, headlines, RSA headlines and descriptions, primary text, CTAs and character-limit checks; Meta static and video ad formats, crop-safe design and Special Ad Categories; TikTok/Reels/Shorts video ads, UGC and creator briefs, founder ads, chat-reveal ads; AI-generated product images and video ads (FLUX, Higgsfield, Nano Banana, Veo, faceless motion ads); Canva, Adobe or CapCut edits; competitor ad research and ad library teardowns (Meta Ad Library, Google Ads Transparency, TikTok Creative Center, Apify, ScrapeCreators); creative testing, iteration from performance data (Motion), creative audits and creative fatigue; client review pages. Triggers: "write me some ads", "ad copy", "ad creative", "ad variations", "hooks", "creative brief", "UGC ad", "product ad", "spy on competitor ads", "which ad won", "ads are fatiguing".
+description: Plan, write, produce and test paid ad creative for Google, Meta, TikTok, LinkedIn and X: briefs and angles, hooks, headlines and ad copy within character limits, static and video ads, UGC and creator briefs, AI product images and video ads, Canva or CapCut edits, competitor ad research (Meta Ad Library, TikTok Creative Center) and iterating on results. Use for "write me some ads", ad variations, which ad won, or ads that are fatiguing. Running a Google Ads account: google-ads.
 ---
 
 # Ad creation

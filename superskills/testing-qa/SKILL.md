@@ -1,6 +1,6 @@
 ---
 name: testing-qa
-description: Plan, write, run and fix automated tests, and QA running apps. Use for test strategy (unit vs integration vs API vs component vs E2E, what to mock, coverage); TDD and tests that catch real bugs; Playwright E2E (locators, web-first assertions, auth, network mocking, traces, CI sharding); Selenium WebDriver and BrowserStack cloud browsers; driving a browser to verify or debug a web app (Python Playwright, playwright-cli, Chrome DevTools); API tests in Postman collections run by the Postman CLI or Newman in CI; exploratory QA with health scores, issue reports and a fix loop, filing bugs in Jira and results in TestRail; flaky tests (classify, root cause, prove in CI); pytest, Vitest/Jest, Go, JUnit 5, Swift Testing; Cypress E2E and component tests; mobile UI flows on simulators, Appium, Flutter widget tests; property-based and mutation testing. Triggers: "write tests", "add a regression test", "TDD", "E2E test", "test this flow", "QA my app", "this test is flaky", "increase coverage", "why did CI fail".
+description: Plan, write, run and fix automated tests, and QA running apps: test strategy and what to mock, TDD, Playwright and Cypress E2E, Selenium and BrowserStack, API tests in Postman, exploratory QA with bug reports (Jira, TestRail), flaky tests, pytest, Vitest, Jest, JUnit and Swift Testing, mobile UI tests (Appium), property-based and mutation testing. Use for "write tests", "add a regression test", "E2E test", "QA my app", "this test is flaky" or "why did CI fail".
 ---
 
 # Testing and QA

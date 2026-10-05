@@ -1,6 +1,6 @@
 ---
 name: app-building
-description: Build, test and ship mobile and desktop apps that feel native. Use for choosing a stack (Expo/React Native, SwiftUI, Jetpack Compose, Flutter, Tauri, PWA); designing native-feeling screens, navigation (push vs modal vs sheet), motion, haptics and dark mode without AI-template looks; Expo Router, Expo Go vs dev builds, Expo SDK and React Native upgrades; React Native jank, slow startup, list and bundle performance; SwiftUI state, modern APIs, accessibility and Instruments traces; Swift 6 concurrency errors (Sendable, actors, MainActor); Android Compose adaptive layouts and XML-to-Compose migration; Flutter architecture and responsive layout; Electron (Forge, signing, auto-update) and Tauri v2 desktop apps; packaging, signing and notarizing Mac apps; crash reporting (Firebase Crashlytics, Sentry) and push notifications (FCM, Expo push); simulator and emulator testing, screen recordings, E2E tests; EAS builds, TestFlight, App Store review and Google Play tracks; making a web app or PWA feel native on phones.
+description: Build, test and ship mobile and desktop apps that feel native: picking a stack (Expo/React Native, SwiftUI, Jetpack Compose, Flutter, Tauri, Electron, PWA), native screens and navigation, jank and slow startup, Swift concurrency errors, crash reporting and push notifications, simulator and E2E tests, signing and notarizing, EAS builds, TestFlight, App Store and Google Play releases. Use when asked to build, fix, speed up or ship an iOS, Android, Mac or Windows app.
 ---
 
 # App building

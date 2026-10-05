@@ -1,6 +1,6 @@
 ---
 name: security
-description: Defensive application security for code the user owns. Use when writing or hardening code that handles input, auth, sessions, uploads, SSRF-prone URL fetches or personal data; threat modeling a design (STRIDE, attack trees, mitigation mapping); running and triaging Semgrep or CodeQL scans and producing SARIF; auditing dependencies, lockfiles, container images and package health (npm audit, Dependabot, Trivy, Snyk); storing secrets, setting up secret scanning (GitHub push protection, Gitleaks, TruffleHog) or responding to a leaked key; scanning your own running web app or API with OWASP ZAP (DAST); hardening GitHub Actions workflows (SHA pinning, permissions, pull_request_target, AI agents in CI); reviewing Firebase/Firestore/Storage rules or Data Connect @auth. Only for systems the user is authorised to test.
+description: Defensive application security for code the user owns: hardening input, auth, sessions, uploads and personal data; threat modeling (STRIDE); Semgrep and CodeQL scans; dependency and container audits (Dependabot, Trivy, Snyk); secrets and leaked keys (Gitleaks, push protection); scanning your own app with OWASP ZAP; hardening GitHub Actions; Firebase and Firestore rules. Use when asked to secure, audit or threat-model code or a deployment. Only for systems the user is authorised to test.
 ---
 
 # Security

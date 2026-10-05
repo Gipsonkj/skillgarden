@@ -1,6 +1,6 @@
 ---
 name: backend-databases
-description: Backend services and databases. Use when designing Postgres tables, keys, constraints or migrations; fixing slow queries, indexes, N+1, pagination, connection pooling or timeouts; designing REST or GraphQL (Apollo) APIs, error formats and versioning; structuring Node/Fastify/Express, FastAPI or Go services with caching and background jobs; implementing auth, sessions, JWT, OAuth, passwords and RBAC, and protecting APIs with Auth0; Supabase RLS, keys and CLI migrations; Neon pooled vs direct URLs and branching; Prisma schema, raw SQL and transactions; Drizzle ORM schema, relations and drizzle-kit migrations; Stripe Checkout, webhooks and API upgrades; Firestore modeling, rules and Data Connect @auth; MongoDB schema design, Redis data types, ClickHouse table design; Elasticsearch or OpenSearch mappings, bulk indexing and search queries; MySQL, SQL Server / Azure SQL, SQLite and Turso schemas, migrations and slow queries.
+description: Backend services and databases: Postgres schemas, migrations, indexes and slow queries; REST and GraphQL API design; Node, FastAPI and Go services with caching and background jobs; auth, sessions, JWT, OAuth and roles; Supabase, Neon, Prisma, Drizzle, Firestore, MongoDB, Redis, MySQL, SQLite and Elasticsearch; Stripe Checkout and webhooks. Use when asked to design a schema or API, fix a slow query, add auth or payments, or structure a backend service.
 ---
 
 # Backend and databases

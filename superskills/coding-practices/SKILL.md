@@ -1,6 +1,6 @@
 ---
 name: coding-practices
-description: Expert engineering-discipline guide for writing, fixing and shipping code. Use when debugging any bug, failing or flaky test, build break or regression, Sentry issues, browser bugs in Chrome DevTools; doing TDD (pytest), writing or judging tests and mocks; verifying work before saying done, committing or opening a PR, lint (ESLint, Biome, Ruff); reviewing code, a diff or a PR, or requesting a review, AI review (CodeRabbit, Copilot); acting on review feedback or bot comments; simplifying, refactoring or cleaning up code, or keeping a change minimal and surgical; designing modules, interfaces, seams, domain glossaries or ADRs, or finding architecture hot spots; git commits, branches, worktrees, pre-commit hooks, blocking dangerous git commands, or finishing a branch (merge, PR, keep); and React or Next.js performance (waterfalls, bundle size, re-renders). Also use when the user says "use coding-practices", "TDD this", "find the root cause", "review this", "is it done?", "keep it simple", or "make a worktree".
+description: Engineering discipline for writing, fixing and shipping code: root-cause debugging of bugs, Sentry issues, flaky tests and build breaks; TDD; verifying before saying done; code review and acting on review comments; refactoring and keeping changes minimal; module and interface design, ADRs; git commits, branches, worktrees and pre-commit hooks; React and Next.js performance. Use for "find the root cause", "review this", "is it done?" or "keep it simple".
 ---
 
 # Coding practices

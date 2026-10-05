@@ -1,6 +1,6 @@
 ---
 name: content-creation
-description: Write, edit and plan written content and marketing copy that sounds human and converts. Covers humanizing AI-sounding text (de-AI, "sounds like AI", slop, em dashes, AI tells), conversion copy (landing, homepage, pricing and product pages, headlines, taglines, value props, CTAs, microcopy, meta descriptions), copy editing (proofread, polish, tighten, content refresh), content strategy (pillars, topic clusters, keyword research, editorial calendar, content briefs), long-form articles and blog posts (guides, tutorials, case studies, press releases, release notes, SEO optimization), shaping notes or transcripts into an article, brand voice and tone-of-voice guides (write in our voice, TONE.md, write like this author, ghostwriting), newsletters and Substack issues (writing the issue and its subject line), and repurposing one piece into threads, posts, carousels and emails. Drafts to WordPress, HubSpot, Notion, Google Docs; Grammarly checks. Email sequences, deliverability and ESP setup: email-marketing.
+description: Write, edit and plan content and marketing copy that sounds human and converts: humanizing AI-sounding text, landing and product page copy, headlines and CTAs, proofreading and tightening, blog posts, articles and case studies, content strategy, brand voice guides, newsletters, repurposing one piece into posts and threads, and drafts to WordPress or HubSpot. Use when asked to write, rewrite, edit or plan copy or content. Email sequences: email-marketing. Ranking in search: seo.
 ---
 
 # Content creation

@@ -1,6 +1,6 @@
 ---
 name: instagram-automation
-description: Instagram content and safe automation. Drafts Reels scripts, carousels, captions and hashtag sets. Plans content calendars and fixes profiles. Publishes and reads insights only via Meta's official API or tools built on it (Business Suite, Buffer, Metricool, Hootsuite, Sprout Social, Later, Composio). Handles comments and DMs within Meta policy, researches influencers and collabs with risk flags, and diagnoses performance. Use when asked to write a Reel script or hook, plan or design an Instagram carousel, write an Instagram caption, CTA or hashtags, plan a week of posts, audit a bio or profile, publish or schedule to Instagram, Canva export, check publishing limits, pull Instagram insights or work out why a Reel flopped, set up comment replies or comment-to-DM (ManyChat, Linktree), or find creators and brand partnerships. Also use when someone asks for an Instagram bot, auto-follow, auto-like, mass DM or scraper, to offer the ToS-safe alternative. Default: draft, then post manually or via the official API.
+description: Instagram content and safe automation: Reels scripts and hooks, carousels, captions and hashtags, content calendars, profile audits, publishing and insights only through Meta's official API or tools built on it (Business Suite, Buffer, Later, Metricool), comment replies and comment-to-DM (ManyChat), creator partnerships, and why a Reel flopped. Also use when someone asks for an Instagram bot, auto-follow, mass DM or scraper, to offer the ToS-safe alternative.
 ---
 
 # Instagram automation

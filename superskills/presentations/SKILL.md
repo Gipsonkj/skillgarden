@@ -1,6 +1,6 @@
 ---
 name: presentations
-description: Make and give presentations in any format. Covers deck story and structure (pitch deck, investor and sales decks, board and status updates, decision decks, conference and tech talks, lectures, research talks, defenses), slide design and layout (grid, type, colour, density, one idea per slide), data slides, PowerPoint/.pptx with PptxGenJS or python-pptx, filling or editing a template deck, HTML and Markdown decks (single-file, Slidev, Marp, reveal.js, Beamer), Google Slides and Keynote, Canva, Gamma, Pitch or Beautiful.ai via connectors, think-cell charts, image-generated slides, PDF export, speaker notes, rehearsal, timing, delivery and Q&A, and render-and-look deck QA. Triggers: "make a deck on this", "pitch deck for our seed round", "turn this doc into slides", "fill our PowerPoint template", "build it in our Canva template", "build a Slidev talk", "write my speaker notes", "my talk runs over time", "help me rehearse my presentation", "export the slides to PDF". Word, PDF and Excel files: docs-office.
+description: Make and give presentations in any format: deck story and structure (pitch, investor, sales, board, conference talks, lectures), slide design, data slides, PowerPoint .pptx, filling a template deck, HTML and Markdown decks (Slidev, Marp, reveal.js), Google Slides, Keynote, Canva and Gamma, speaker notes, rehearsal and timing, and PDF export. Use for "make a deck", "pitch deck", "turn this doc into slides", "fill our template" or "help me rehearse". Word, PDF and Excel: docs-office.
 ---
 
 # Presentations

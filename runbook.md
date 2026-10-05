@@ -285,6 +285,11 @@ failure (`guide-wrong`, `guide-missing`, `wrong-guide`) is a strong lead, and
 several notes on the same point are stronger still; `worked-well` notes say
 what to keep. `wrong-craft` notes and a high `firedNoGuide` point at the
 router: its description, its "Pick the right guide" table or its hand-offs.
+A description stays under 500 characters (the plugin sends all 38 on every
+turn; the checker enforces it): name the jobs people ask for and the tools
+they name in requests (cutting Sentry, WordPress or Open WebUI stopped those
+tasks loading the skill), not every tool; the rest belong in the guide table.
+Add a word only by cutting one.
 A guide in `neverRead` that the topic's tasks need suggests a table row that
 doesn't name the job people bring. Check every note against the guides and
 sources before acting on it: a note says something went wrong, not what the

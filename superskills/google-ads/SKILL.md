@@ -1,6 +1,6 @@
 ---
 name: google-ads
-description: Plan, build, audit and optimise Google Ads accounts. Use for Google Ads, AdWords, PPC, SEM or paid search work, including account structure and building Search, Performance Max, Shopping/Merchant Center, Display, YouTube or Demand Gen campaigns; keyword research, match types, negative keywords, search terms reports and wasted spend; responsive search ads (RSA), headlines and descriptions, character limits, sitelinks, callouts and PMax asset groups; bidding strategy, target CPA/ROAS, budgets, impression share and Quality Score; conversion tracking, Google tag, GTM, GA4 key events, Enhanced Conversions, Consent Mode v2, offline/CRM conversion imports and the Data Manager API; account audits, performance drops, CPA spikes, low lead flow; weekly or client reports; and Google Ads API, GAQL queries, the official Google Ads MCP server, developer tokens and API errors like USER_PERMISSION_DENIED.
+description: Plan, build, audit and optimise Google Ads accounts: Search, Performance Max, Shopping, Display, YouTube and Demand Gen campaigns; keywords, match types and negatives; responsive search ads; bidding, budgets and Quality Score; conversion tracking (Google tag, GTM, GA4, Enhanced Conversions, Consent Mode); audits, CPA spikes and reports; the Google Ads API, GAQL and MCP server. Use for any Google Ads, AdWords, PPC or paid search work. Ad creative for other platforms: ad-creation.
 ---
 
 # Google Ads
