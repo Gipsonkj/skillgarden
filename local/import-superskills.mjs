@@ -46,6 +46,13 @@ function textFiles(root) {
   return out;
 }
 
+// Same files whatever their order: an approval adds new guides at the end of the app's list, while
+// the repo is read alphabetically. A removed file stays in the app as "" and is simply absent here.
+function sameFiles(a, b) {
+  const keys = new Set([...Object.keys(a), ...Object.keys(b)]);
+  return [...keys].every((k) => (a[k] || "") === (b[k] || ""));
+}
+
 try { await call("GET", "/now"); } catch { console.error("Skill Garden isn't running. Start it first (node server.mjs), then run this again."); process.exit(1); }
 const slugs = fs.readdirSync(DIR).filter((s) => fs.existsSync(path.join(DIR, s, "SKILL.md")) && (!only.length || only.includes(s)));
 const order0 = Math.max(0, ...(await call("GET", "/col/topics")).map((r) => Number(r.data.order) || 0));
@@ -61,7 +68,7 @@ for (const [i, slug] of slugs.entries()) {
   const tests = cur?.tests?.length ? [...cur.tests, ...(meta.tests || []).filter((x) => !cur.tests.some((c) => c.id === x.id))] : meta.tests || [];
   // The tool list lives in the repo (topic.json), so the repo's copy always wins.
   const tools = meta.tools || [];
-  if (cur && cur.content === content && JSON.stringify(cur.files || {}) === JSON.stringify(files)) {
+  if (cur && cur.content === content && sameFiles(cur.files || {}, files)) {
     if (JSON.stringify(cur.tools || []) !== JSON.stringify(tools) || tests.length !== (cur.tests || []).length) {
       await call("PATCH", `/doc/topics/${slug}`, { tools, tests });
       console.log(`tools  ${slug} (${tools.length} tools, ${tests.length} tests)`);
