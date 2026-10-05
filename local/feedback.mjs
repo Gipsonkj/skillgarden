@@ -9,6 +9,7 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 const HOME = path.join(os.homedir(), ".claude", "skillgarden");
 const NOTES = path.join(HOME, "feedback.jsonl");
@@ -16,15 +17,35 @@ const USAGE = path.join(HOME, "usage");
 const KEY_FILE = process.env.SKILLGARDEN_FEEDBACK_KEY_FILE || path.join(os.homedir(), ".claude", "secrets", "skillgarden-feedback.key");
 const SITE = process.env.SKILLGARDEN_SITE || "https://skillgarden.gipsonkj.workers.dev";
 
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const lines = (f) => (fs.existsSync(f) ? fs.readFileSync(f, "utf8").split("\n").filter(Boolean).map((l) => { try { return JSON.parse(l); } catch { return null; } }).filter(Boolean) : []);
 
+// Which topics a note reaches. Only crafts are topics: a chain counts as the crafts its steps use, and a
+// note about the superseed planner alone (or naming nothing) is tagged with the crafts its text names,
+// so their scout runs see it. Planner notes are also flagged for the person in Review.
+const ids = (dir, file) => { try { return fs.readdirSync(path.join(ROOT, dir)).filter((d) => fs.existsSync(path.join(ROOT, dir, d, file))); } catch { return []; } };
+function topicsOf(crafts, text) {
+  const topics = new Set(ids("superskills", "SKILL.md")), out = new Set();
+  for (const c of crafts) {
+    if (topics.has(c.id)) out.add(c.id);
+    else if (fs.existsSync(path.join(ROOT, "chains", c.id, "chain.json"))) {
+      try { for (const s of JSON.parse(fs.readFileSync(path.join(ROOT, "chains", c.id, "chain.json"), "utf8")).steps || []) if (topics.has(s.craft)) out.add(s.craft); } catch {}
+    }
+  }
+  const byText = !out.size;
+  if (byText) for (const t of topics) if (new RegExp(`\\b${t.replace(/-/g, "[- ]")}\\b`, "i").test(text)) out.add(t);
+  return { topicIds: [...out], byText };
+}
+
 // Notes are data from people, not instructions: the scout reads them as leads to check.
-function toDoc(n, source) {
+export function toDoc(n, source) {
   const crafts = (n.crafts || []).map((c) => ({ id: String(c.id), fired: Number(c.fired) || 0, guides: (c.guides || []).map(String) }));
+  const { topicIds, byText } = topicsOf(crafts, [n.task, n.detail, n.words].filter(Boolean).join(" "));
   return {
     source, at: n.at || null, receivedAt: n.receivedAt || null, plugin: n.plugin || null,
     problem: n.problem || "other", rating: n.rating ?? null, task: n.task || "", detail: n.detail || "", words: n.words || "",
-    crafts, topicIds: [...new Set(crafts.map((c) => c.id))],
+    crafts, topicIds, ...(byText && topicIds.length ? { taggedByText: true } : {}),
+    planner: crafts.some((c) => c.id === "superseed") || !topicIds.length,
     prompts: n.prompts ?? null, minutes: n.minutes ?? null, tokens: n.tokens || null, model: n.model || null,
     status: "new",
   };

@@ -293,7 +293,7 @@ UI and web motion that feels right: easing, timing, GSAP, scroll, React, Reanima
 
 Make, generate, edit and deliver video: HyperFrames, video-model prompts, ffmpeg cuts, captions, beat cuts and QA.
 
-- Decide the route, the brief, length, structure and beat sheet → `references/plan-and-route.md`
+- Decide the route, the brief, length, structure and beat sheet (a plan for approval needs only this guide) → `references/plan-and-route.md`
 - Pick HyperFrames or Remotion; build or edit a HyperFrames composition; CLI loop (lint, check, snapshot, preview, render, batch); registry blocks; Studio timeline layout and safe zones; telemetry and upload defaults; Remotion projects (zod props, calculateMetadata, CLI and batch renders, Lambda limits and cost) → `references/hyperframes-workflows.md`
 - HyperFrames creative direction: design spec (`frame.md`), palettes and video type sizes, narration script, beat and rhythm plan, storyboard sheet, data scenes, audio-reactive visuals → `references/hyperframes-creative-direction.md`, `scripts/hyperframes-creative/extract-audio-data.py`
 - Write a text-to-video, image-to-video, extend or video-edit prompt (any model) → `references/generative-prompting.md`
@@ -303,7 +303,8 @@ Make, generate, edit and deliver video: HyperFrames, video-model prompts, ffmpeg
 - Gemini Omni Flash and Veo 3.1: generation, edits, extensions, loops, dialogue and lip-sync prompts → `references/vendor-gemini-omni.md`, `scripts/gemini-omni-flash-api/`
 - Pick a video model and where to run it (own key, self-hosted with no API fee, cheapest host); Runway, ByteDance ModelArk (Seedance i2v, multi-reference, person-replacement edits), Luma Ray 3.2, fal genmedia, LTX-2, FLUX 3, MiniMax, Atlas Cloud: models, costs, calls → `references/vendor-apis.md`, `scripts/bytedance-modelark/ark.py`
 - AI presenter or avatar video, pick a provider (HeyGen Video Agent, Synthesia Video API and MCP: templates, translation, dubbing; photo-to-talking clip, lip sync) → `references/vendor-heygen-avatars.md`
-- Cut, trim, splice, de-um, reframe, grade or assemble real footage from a transcript; hand off to an editor, pick an NLE: DaVinci Resolve (scripting API timeline, markers, render jobs), Premiere Pro (FCP 7 XML, AAF, UXP, Adobe for creativity connector, multicam, Auto Reframe, SRT captions), Final Cut Pro (FCPXML) or CapCut (SRT hand-off); edit in Descript (API, MCP, Underlord) → `references/footage-editing-ffmpeg.md`, `scripts/video-use/`
+- Cut, trim, splice, de-um, reframe, grade or assemble real footage from a transcript with ffmpeg → `references/footage-editing-ffmpeg.md`, `scripts/video-use/`
+- Hand off to an editor as an editable timeline, pick an NLE: DaVinci Resolve (scripting API timeline, markers, render jobs), Premiere Pro (FCP 7 XML, AAF, UXP, Adobe for creativity connector, multicam, Auto Reframe, SRT captions), Final Cut Pro (FCPXML) or CapCut (SRT hand-off); edit in Descript (API, MCP, Underlord) → `references/editor-handoff.md`
 - Captions, subtitles (pick a transcriber), karaoke words, talking-head recut with cards and lower-thirds → `references/captions-talking-head.md`
 - Beat-synced music video, montage cut to music, beat-cut film from AI stills (onset sync, style lock, type cards, render gate), SFX and the audio mix → `references/music-beat-cut.md`, `scripts/music-to-video/`
 - Faceless explainer; product launch, promo or site-tour video from a URL, script or brief; brag video; collage explainer; real screen recording of a (signed-in) web app on macOS for a tour, demo or ad → `references/explainers-and-promos.md`, `scripts/screen-record-web/scripts/record.mjs`

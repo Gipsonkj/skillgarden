@@ -2,7 +2,7 @@
   "id": "launch-video",
   "name": "Launch video",
   "blurb": "Script, storyboard, produce and post a short launch video, from the first line to the caption.",
-  "description": "Make a short launch or promo video end to end from one request: script, shot list and storyboard, production plan and route (AI generation, editing or motion), captions and delivery checks, then the post and caption for social, using the Skill Garden storyboarding, ai-video and social-media super skills in order. Use when asked to make a launch video, promo, reel or short ad video for a product or feature.",
+  "description": "Make a short launch or promo video end to end from one request: script, shot list and storyboard, production plan and route (AI generation, editing or motion), captions and delivery checks, then the post and caption for social, using the Skill Garden storyboarding, ai-video and social-media super skills in order. Use when asked to make a launch video, promo, reel or short ad video for a product or feature, end to end. For one part only (a plan, prompts, captions, an edit), use ai-video.",
   "ask": "Make a launch video for <product or feature> for <platform>.",
   "inputs": ["What is launching and the one thing viewers should remember", "Platform, length and aspect ratio", "Assets you have: screen recordings, footage, logo, music", "Tools you can use for generation or editing", "Voice: narrated, captions only, or on-camera"],
   "steps": [

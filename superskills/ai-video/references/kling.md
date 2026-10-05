@@ -10,26 +10,26 @@ Kling (Kuaishou) is a hosted model family: strong human realism, real camera mov
 |---|---|---|
 | 2.1 / 2.1 Master | t2v, i2v | Legacy; gone from some hosts |
 | 2.5 Turbo | t2v, i2v | Fast drafts of a Kling look |
-| 2.6 | t2v, i2v with start and optional end frame, native audio | One person, subtle expressions, emotional close-ups, 5 or 10 s |
-| 3.0 (V3) | t2v, i2v, start+end frame, multi-shot (up to 6 cuts), element references, native audio; std / pro tiers, 4K on some hosts | Long cinematic takes up to 15 s, dialogue, a sequence in one call |
+| 2.6 | t2v, i2v with start and optional end frame, native audio (off by default: switch it on when the prompt has sound) | One person, subtle expressions, emotional close-ups, 5 or 10 s |
+| 3.0 (V3) | t2v, i2v, start+end frame, multi-shot (up to 6 cuts), element references, native audio (off by default); std / pro tiers, 4K on some hosts | Long cinematic takes up to 15 s, dialogue, a sequence in one call |
 | 3.0 Turbo | t2v, single start frame | Cheaper, faster 3.0 drafts |
-| 3.0 Omni (O3) | Reference-driven generation, per-shot storyboard, clone a character's look and voice from a 3 to 8 s video | When you have reference media to lock identity. Availability varies by host: verify |
-| O1 | Multi-reference generation (up to 7 refs), start/end frame, 5 to 10 s | Many characters, props and a location in one coherent shot |
+| 3.0 Omni (O3) | Reference-driven generation, per-shot storyboard, clone a character's look and voice from a 3 to 8 s video (1080p, mp4/mov, 16:9 or 9:16, under 200 MB, realistic people only) | When you have reference media to lock identity. Availability varies by host: verify |
+| O1 | Multi-reference generation (up to 7 refs), start/end frame, 3 to 10 s (5 or 10 s with a first frame alone) | Many characters, props and a location in one coherent shot |
 | O1 Edit / 3.0 Omni Edit | Video-to-video edits by instruction: relight, restyle, swap or add or remove objects, change the setting | Changing footage while keeping its motion and camera |
-| 3.0 Motion Control | A character image plus a 3 to 30 s motion video | Dance, sport, gestures: exact motion copied onto your character |
+| 3.0 Motion Control | A character image plus a motion video: 3 to 30 s when the orientation follows the video, at most 10 s when it follows the image | Dance, sport, gestures: exact motion copied onto your character |
 
 V3 or O3: use 3.0 when the prompt is the main driver (it plans the shots itself); use Omni when reference video or image plus audio must anchor identity, or you want to set every shot yourself.
 
 Kling generates real people and brands where some models block them (vendor-apis.md). Use that only for consented likenesses and brands you have rights to.
 
-## 2. Limits (checked Oct 2026, verify on the host)
+## 2. Limits (checked against Kling's API docs, 5 Oct 2026; other hosts may differ)
 
 | Model | Duration | Inputs | Audio |
 |---|---|---|---|
-| 2.6 | 5 or 10 s | Start image required for i2v, end image optional | On by default; speech in Chinese and English (other languages translated); up to 2 bound voices, cited as `<<<voice_1>>>` |
-| 3.0 | 3 to 15 s; each shot in a multi-shot prompt 1 to 15 s | One `prompt` or a `multi_prompt` list, not both; start/end image; elements cited as `@Element1` | On by default; Chinese and English on fal (wider language list claimed elsewhere) |
-| O1 Edit | Source 3 to 10 s | mp4/mov, 720 to 2,160 px, up to 200 MB, 24 to 60 fps; up to 4 refs in total (elements plus style images); an element is a frontal image plus 1 to 3 other angles, each at least 300 px, aspect 0.4 to 2.5 | `keep_audio` keeps the source track |
-| Motion Control | Follows the 3 to 30 s motion video | One character image plus one motion video; 720p or 1080p | Can pass the reference audio through |
+| 2.6 | 5 or 10 s | Start image required for i2v, end image optional | Off by default (`audio`); turning it on forces 1080p; speech in Chinese and English (other languages translated); up to 2 bound voices, cited as `<<<voice_1>>>` |
+| 3.0 | 3 to 15 s; multi-shot: up to 6 shots, each 1 s up to the total, adding up to the total | `multi_shot: true` uses the `multi_prompt` list and ignores `prompt`; start/end image; elements cited as `@Element1` | Off by default (`sound`); Chinese and English speech |
+| O1 Edit | Source 3 to 10 s | mp4/mov, 700 to 2,160 px, up to 200 MB, 24 to 60 fps; up to 4 refs in total (elements plus style images); an element is a frontal image plus 1 to 3 other angles, each at least 300 px, aspect 0.4 to 2.5 | `keep_audio` keeps the source track |
+| Motion Control | Follows the motion video: 3 to 30 s (orientation from the video), up to 10 s (orientation from the image) | One character image plus one motion video; 720p or 1080p | Can pass the reference audio through |
 
 Aspect for t2v: 16:9, 9:16, 1:1. Shared fields: `negative_prompt` (default "blur, distort, and low quality"; up to 2,500 chars on Kling's API per host docs), `cfg_scale` 0 to 1 (default 0.5 on 3.0; higher follows the prompt more literally). Older API models also took a motion brush: `static_mask` (areas that stay still) and `dynamic_masks` (areas plus a drawn path); each mask must match the input image's aspect ratio or the job fails.
 

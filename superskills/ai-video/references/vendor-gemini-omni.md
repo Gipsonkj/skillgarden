@@ -75,19 +75,19 @@ Multi-reference sequence example:
 [6-10s] Finally <IMAGE_REF_4> walking with <IMAGE_REF_5>
 ```
 
-## Veo 3.1 (checked Sep 2026)
+## Veo 3.1 (checked against Google's docs 5 Oct 2026)
 
-Google's other video line: 4 to 8 s clips with native audio, strongest on photoreal environments (water, fire, weather, animals). Called through the Gemini API with `client.models.generate_videos(...)`, which returns a long-running operation: poll `client.operations.get(op)` until `done`, then download. Ids in sources: `veo-3.1-generate-preview` and `veo-3.1-fast-generate-preview` (same features, cheaper, for drafts). Preview ids get renamed, so read Google's models page first. Veo 3 / 3 Fast are older, stable, and lack the 3.1 extras below; aggregators also list a cheaper Veo 3.1 Lite.
+Google's other video line: 4 to 8 s clips with native audio, strongest on photoreal environments (water, fire, weather, animals). Called through the Gemini API with `client.models.generate_videos(...)`, which returns a long-running operation: poll `client.operations.get(op)` until `done`, then download. Gemini API ids: `veo-3.1-generate-preview`, `veo-3.1-fast-generate-preview` (same features, cheaper, for drafts) and `veo-3.1-lite-generate-preview` (cheapest: up to 1080p, no 4K, no reference images). **Google shuts all three down on 22 Oct 2026 and names `gemini-omni-1.1-flash` (above) as the replacement**, so new Gemini API work should start on Omni. Stable ids exist only on Vertex AI (Gemini Enterprise Agent Platform): `veo-3.1-generate-001` and `veo-3.1-fast-generate-001`, retiring 17 Nov 2026 or later. Veo 3 / 3 Fast and Veo 2 were shut down on 30 Jun 2026. Check Google's deprecations page before hard-coding an id.
 
-| Setting | Values (per sources) |
+| Setting | Values (Google's Veo docs) |
 |---|---|
 | Duration | 4, 6 or 8 s |
 | Aspect | 16:9 (default), 9:16 |
 | Resolution | 720p (default, any duration); 1080p and 4K at 8 s only |
-| Reference images | up to 3 "asset" images (face, outfit, product), 3.1 only |
+| Reference images | up to 3 "asset" images (face, outfit, product), 3.1 and 3.1 Fast only |
 | First + last frame | 3.1 only; it fills the motion between |
-| Must be 8 s when | using reference images, first/last frame, 1080p or 4K |
-| Extension | +7 s per call, up to 20 calls (148 s total); input must be a Veo clip at 720p |
+| Must be 8 s when | using reference images, extension, 1080p or 4K |
+| Extension | +7 s per call, up to 20 calls (148 s total); input must be a Veo clip at 720p and under 141 s |
 | Storage | clips kept 2 days on Google's side; referencing one for extension resets the timer. Download at once |
 
 Prompting:
@@ -108,8 +108,8 @@ Lip-sync, the part that fails most:
 
 | Symptom | Fix |
 |---|---|
-| Request rejected with refs, frames, 1080p or 4K | Set duration to 8 s |
-| Extension rejected | Source is not 720p, is older than 2 days, or is not a Veo output |
+| Request rejected with refs, extension, 1080p or 4K | Set duration to 8 s |
+| Extension rejected | Source is not 720p, is 141 s or longer, is older than 2 days, or is not a Veo output |
 | Extension loses the voice | The source's last second is silent; voice only carries over if that second has audio |
 | Lip-sync drifts | Shorter clip, tighter framing, one face, locked camera, no music |
 | Stiff acting | Known weakness next to Kling; keep acting beats simple or route performance shots elsewhere |

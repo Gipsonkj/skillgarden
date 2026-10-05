@@ -12,7 +12,7 @@ Wrong words are the most common reason a generated graphic gets rejected. Decide
 | Short labels on a diagram (≤ 6 labels, ≤ 3 words each) | Render in a strong text model (GPT Image, Nano Banana Pro, FLUX.2 [flex], Ideogram, Recraft), then proof. |
 | Exact brand copy, prices, dates, legal lines, long copy, print | Generate **without text**, leaving clean space, then set type in HTML/SVG/Figma/Canva/a layout tool. |
 | Scientific figures, anything that reports results | Overlay real type; never trust generated labels. |
-| Translating text in an existing image | Edit route: "change 'X' to 'Y', keep font, size, colour, layout". |
+| Translating text in an existing image | Edit route: "change 'X' to 'Y', keep font, size, colour, layout". Translations usually run longer: say each line stays on one line inside its original box, never wrapping into other elements; shorten the wording, or let only the longest line shrink slightly. |
 
 Why overlay wins for exact copy: it is spell-checked, editable and identical at every size. One source (image-prompt) argues the opposite for stylised typographic posters, because overlaid type can look pasted-on; that is true when **the type itself is the artwork**. For those, render in-model and proof hard; for everything where the words carry information, overlay.
 

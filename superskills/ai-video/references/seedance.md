@@ -17,21 +17,21 @@ ByteDance Seedance prompted for text-to-video (t2v), image-to-video (i2v), multi
 
 Rule of thumb (ModelArk, Sep 2026): 1.5 Pro for volume; pay the ~9x for 2.5 only where a locked identity, a long take or per-second direction earns it.
 
-## Limits (checked Sep 2026; verify in the vendor's console)
+## Limits (checked against BytePlus ModelArk docs, 5 Oct 2026)
 
-Limits differ by host. These come from ModelArk tests and one reseller's catalog of 26 Sep 2026.
+Limits can differ on other hosts. Model id on ModelArk for 1.5 Pro: `seedance-1-5-pro-251215`.
 
 | | 1.5 Pro | 2.0 | 2.0 mini | 2.5 |
 |---|---|---|---|---|
-| Duration | 4 to 12 s (some hosts: 4/8/12 only) | 4 to 15 s | 4 to 15 s | 4 to 30 s |
-| Resolution | 480p, 720p, 1080p | 480p to 1080p, 4K on some hosts | 480p, 720p | 480p, 720p, 1080p |
-| Aspect | 16:9, 9:16, 4:3, 3:4, 1:1, 21:9 | same, plus auto | same | same, plus auto |
-| Inputs | Text, first frame | Up to 9 images, 3 videos, 3 audio (12 total) | As 2.0 | 30 images, 10 videos (30 s combined), 10 audio (30 s combined), 50 total |
+| Duration | 4 to 12 s, default 5, or -1 (model picks) | 4 to 15 s, default 5 | 4 to 15 s | 4 to 30 s, default -1 (model picks) |
+| Resolution | 480p, 720p (default), 1080p | 480p to 1080p, 4K on some hosts | 480p, 720p | 480p, 720p, 1080p |
+| Aspect | 16:9, 9:16, 4:3, 3:4, 1:1, 21:9, adaptive | same, plus auto | same | same, plus auto |
+| Inputs | Text, first frame, first + last frame | Up to 9 images, 3 videos, 3 audio (12 total) | As 2.0 | 30 images, 10 videos (30 s combined), 10 audio (30 s combined), 50 total |
 | Audio | Native, lip-sync | Native | Native | Native |
 | Seed | Check the host's schema | Not exposed | Check the host's schema | Not exposed on the hosts checked |
 
 - Stable ranges on 2.5 are smaller than the caps: 1 to 8 distinct subjects in images, 1 to 5 in videos (5 to 10 s each), an edit source of 20 s or less with 1 to 5 reference images. Above that it still runs, with more re-rolls.
-- Sizing goes in different places. On ModelArk 1.5 Pro it is flags appended to the prompt text (`--resolution 720p --duration 5 --ratio 9:16 --camerafixed true`). On 2.x it is request fields, and writing it into the prose does nothing.
+- Sizing goes in request fields: `resolution`, `ratio`, `duration` and, on 1.5 Pro, `camera_fixed`. On 1.5 Pro, flags appended to the prompt text still work but BytePlus calls them the legacy method (its example: `--rs 720p --rt 16:9 --dur 5 --cf false`; the long forms `ark.py` sends worked in a Sep 2026 test). On 2.x only the fields work; writing sizes into the prose does nothing.
 - Audio is on by default and doubles the price on ModelArk ($0.26 vs $0.13 per 5 s on 1.5 Pro). Send `generate_audio: false` unless sound was decided.
 - Auto-locked settings: an edit takes the source's ratio and length (±0.3 s); a first-frame job takes the first image's ratio; an extension takes the source's ratio (only its length is yours).
 - ModelArk first-frame stills made with Seedream need a canvas of at least 3,686,400 px (`2560x1920`, `2560x1440`, `1920x2560`); smaller sizes are rejected.
@@ -146,7 +146,7 @@ Vocabulary is in generative-prompting.md (section 3). Seedance specifics:
 
 - One dominant move per shot, plus at most a texture ("slow push-in, slightly handheld"). A compound move goes in sequence with times ("rises 0-3s, holds, pushes in 4-8s") or becomes two shots.
 - Name the endpoint: what the frame shows when the move ends. A move that runs out of instruction drifts or reverses.
-- On 1.5 Pro i2v, camera words were mostly ignored in a Sep 2026 batch. Use `--camerafixed true` for static, prompt one move alone and measure it, or push in later with ffmpeg.
+- On 1.5 Pro i2v, camera words were mostly ignored in a Sep 2026 batch. Use `camera_fixed: true` (legacy prompt flag `--cf true`) for static, prompt one move alone and measure it, or push in later with ffmpeg.
 - Write motion as a physical event in the scene ("the table is struck, dust jumps"). Violent verbs for action, never "slow" in a sports prompt. State what must survive ("stays still, unchanged in shape").
 - Fill the clip in one direction: chain 2 to 3 connected actions along the same vector. A there-and-back is two shots.
 - Detail follows shot size: micro-detail in close-ups, broad arcs in wides.

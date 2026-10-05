@@ -12,7 +12,7 @@ Wan is Alibaba's video family. 2.1 and 2.2 are open weights you can run yourself
 | 2.2 | Open, Apache-2.0: T2V-A14B, I2V-A14B (two 14B experts, 27B total, 14B active per step), TI2V-5B (T2V+I2V in one), S2V-14B (speech to video), Animate-14B (character animation and replacement from a driving video) | Better motion and detail than 2.1; the 5B runs on one 24 GB card |
 | 2.5 (preview) | Hosted | First Wan with audio: your track via `audio_url`, or auto background audio; 5 or 10 s |
 | 2.6 | Hosted | 2 to 15 s, multi-shot (`shot_type: multi` on Alibaba), custom audio; often picked for stylised, painterly work |
-| 2.7 | Hosted | T2V, I2V with first+last frame, continuation from a clip, up to 5 references, audio-driven lip-sync, 5,000-char prompts |
+| 2.7 | Hosted | T2V, I2V with first+last frame, continuation from a clip, reference-to-video (up to 5 references), video edit, audio-driven lip-sync, 5,000-char prompts |
 | 3.0 / 3.0 Prime | Hosted | 2 to 30 s or smart duration, native dialogue, music and SFX, image/video/audio references, prompt-driven edits and extensions. No source says how Prime differs: don't claim a gap |
 
 ## 2. Where to run it
@@ -36,14 +36,14 @@ A real-world data point: a reseller's Wan 2.6 at 1080p was rejected by a client 
 | 2.2 hosted (Alibaba plus/flash) | Fixed 5 s | 480p to 1080p | Silent | 800 / 500 chars |
 | 2.5 preview | 5 or 10 s | 480p, 720p, 1080p | `audio_url`, or auto background audio | 1,500 / 500 |
 | 2.6 | 2 to 15 s | 720p, 1080p | `audio_url` | 1,500 / 500 |
-| 2.7 | 2 to 15 s, default 5 | 720p or 1080p (default 1080p), 30 fps | Driving audio wav/mp3, 2 to 30 s (one host says 3), up to 15 MB, cut to clip length; omitted = auto audio | 5,000 / 500 |
+| 2.7 | 2 to 15 s, default 5 (reference-to-video and video edit: 2 to 10 s) | 720p or 1080p (default 1080p), 30 fps | Driving audio wav/mp3, 2 to 30 s (one host says 3), up to 15 MB, cut to clip length; omitted = auto audio | 5,000 / 500 |
 | 3.0 / Prime | 2 to 30 s, or -1 smart (one host bills -1 as 10 s) | 480p, 720p, 1080p, 30 fps | Native dialogue, music, SFX; `audio=false` to mute | Negative goes in the prompt as a list |
 
 More 2.7 and 3.0 detail:
 - **Aspect:** 16:9, 9:16, 1:1, 4:3, 3:4 (3.0 adds auto/adaptive).
-- **2.7 inputs:** first/last frame images 240 to 8,000 px a side, ratio 1:8 to 8:1, up to 20 MB. Continuation clip mp4/mov, 2 to 10 s, up to 100 MB. Seed 0 to 2,147,483,647.
+- **2.7 inputs:** first/last frame images 240 to 8,000 px a side, ratio 1:8 to 8:1, up to 20 MB. Continuation clip mp4/mov, 2 to 10 s, 240 to 4,096 px a side, up to 100 MB. Up to 5 references (images plus videos) is the reference-to-video model; in i2v each media type appears once. Seed 0 to 2,147,483,647.
 - **3.0 references:** up to 10 images, 5 videos (15 s total), 5 audio clips (15 s total), 20 items in all. A call uses either first/last frames or references, never both; a last frame needs a first frame.
-- One host lists 2.7 at 60 fps; Alibaba says 30 fps. Probe the file you get.
+- **Model ids on Alibaba Model Studio** (checked 5 Oct 2026): `wan2.7-t2v`, `wan2.7-i2v`, `wan2.7-r2v`, `wan2.7-videoedit` (dated versions such as `wan2.7-t2v-2026-06-12` also exist), `wan3.0-video`, `wan3.0-video-prime`. Both 2.7 and 3.0 output 30 fps MP4 per Alibaba's docs.
 
 ## 4. Prompt structure
 

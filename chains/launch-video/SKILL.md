@@ -1,6 +1,6 @@
 ---
 name: launch-video
-description: "Make a short launch or promo video end to end from one request: script, shot list and storyboard, production plan and route (AI generation, editing or motion), captions and delivery checks, then the post and caption for social, using the Skill Garden storyboarding, ai-video and social-media super skills in order. Use when asked to make a launch video, promo, reel or short ad video for a product or feature."
+description: "Make a short launch or promo video end to end from one request: script, shot list and storyboard, production plan and route (AI generation, editing or motion), captions and delivery checks, then the post and caption for social, using the Skill Garden storyboarding, ai-video and social-media super skills in order. Use when asked to make a launch video, promo, reel or short ad video for a product or feature, end to end. For one part only (a plan, prompts, captions, an edit), use ai-video."
 ---
 
 <!-- Generated from chain.json by local/chains.mjs. Edit chain.json, then run: node local/chains.mjs --write -->
@@ -27,7 +27,7 @@ If something stays unknown, pick a sensible default, say which, and go on.
 
 ## Run the steps in order
 
-For each step: load the named super skill, read the guides listed (and only those), do the step the way the guide says, and save the result as `launch-video/<n>-<step>.md` in the working folder (or as a section of one document where files aren't available). Each step builds on the files before it. Don't stop between steps to ask "continue?". Stop only for a decision the user has to make, and say what it is.
+For each step: load the named super skill, read the guides listed (and only those), do the step the way the guide says, and save the result as `launch-video/<n>-<step>.md` in the working folder (or as a section of one document where files aren't available). Each step builds on the files before it. If the user asked for only part of the chain (a plan, a script, captions), run only the steps that produce it and say which you skipped. Don't stop between steps to ask "continue?". Stop only for a decision the user has to make, and say what it is.
 
 ### 1. Write the script
 

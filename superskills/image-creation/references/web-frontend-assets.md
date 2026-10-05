@@ -76,7 +76,7 @@ Exact pixel sizes: generate at the closest ratio, then crop/resize in code (Imag
 - Formats: WebP default (quality 75-85 for photos), AVIF for max compression, PNG for transparency/screenshots, SVG for vectors, JPEG fallback.
 - Resize to display size x2; never ship a 4000 px image into an 800 px slot. Hero < 200-300 KB, content images < 150 KB.
 - `<img width height>` set (prevents layout shift), `loading="lazy"` below the fold, `fetchpriority="high"` on the LCP hero, `srcset`/`sizes` for responsive.
-- Descriptive alt text (what it shows and why it's there), not keyword stuffing.
+- Write the alt text yourself from what the image shows and why it's there (for a stand-in, describe the intended subject); never leave `alt="TODO"`. Not keyword stuffing.
 - Commands: `cwebp -q 80 in.png -o out.webp` · `magick in.png -resize 1600x -quality 82 out.webp` · `npx sharp-cli -i in.png -o out.avif`.
 - Save assets in the project (e.g. `public/images/hero-v2.webp`) with stable descriptive names; never leave a referenced asset only in a tool's temp folder; don't overwrite existing assets without asking.
 

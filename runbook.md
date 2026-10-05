@@ -95,11 +95,15 @@ Timestamps are ISO 8601 strings in UTC.
 - `candidates` / `<runId>-<topicId>-<n>` — see step 5.
 - `feedback` / `<id>` — `{ source: "you" | "user" | "connector", at, problem,
   rating, task, detail, words, crafts: [{ id, fired, guides }], topicIds,
-  prompts, minutes, tokens, status: "new" | "used" | "seen" }`. Notes on how a
-  super skill did in real use, from `/skillgarden:feedback` or the connector's
-  `send_feedback`. `you` is the person who runs this garden; `user` and
-  `connector` are anyone who chose to send one. Read them with the feedback
-  command (step 2).
+  taggedByText, planner, prompts, minutes, tokens, status: "new" | "used" |
+  "seen" }`. Notes on how a super skill did in real use, from
+  `/skillgarden:feedback` or the connector's `send_feedback`. `you` is the
+  person who runs this garden; `user` and `connector` are anyone who chose to
+  send one. Read them with the feedback command (step 2). `taggedByText: true`
+  means the note reached this topic only because its text names it (a note
+  about the superseed planner): check that it is really about this craft before
+  acting on it. `planner: true` notes are also shown to the person in Review;
+  never edit the planner because of one.
 - `runs` / `<runId>` — see steps 1 and 8.
 
 ## Steps

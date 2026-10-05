@@ -1049,7 +1049,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
     const skipped = newest(S.candidates.filter((c) => c.status === "skipped" || c.status === "revoked"));
     const lost = newest(S.candidates.filter((c) => c.status === "lost"));
     const lr = lastRun();
-    $("#rv-summary").innerHTML = publishBar() + (ready.length ? `<div class="summary-strip"><span class="big">${ready.length}</span><span>${ready.length === 1 ? "change is" : "changes are"} waiting for you${topicsWith.length ? ` across ${plural(topicsWith.length, "skill")}` : ""}.</span></div>` : "");
+    $("#rv-summary").innerHTML = publishBar() + plannerFeedback() + (ready.length ? `<div class="summary-strip"><span class="big">${ready.length}</span><span>${ready.length === 1 ? "change is" : "changes are"} waiting for you${topicsWith.length ? ` across ${plural(topicsWith.length, "skill")}` : ""}.</span></div>` : "");
     const tabs = [["waiting", "Waiting", ready.length + approved.length], ["added", "Added", added.length], ["skipped", "Skipped", skipped.length], ["lost", "Didn't win", lost.length]];
     $("#rv-tabs").innerHTML = tabs.map(([k, l, n]) => `<button class="subtab" role="tab" data-act="rv-tab" data-tab="${k}" aria-selected="${S.reviewTab === k}">${l} · ${n}</button>`).join("");
     $("#rv-filter").hidden = S.reviewTab !== "waiting";
@@ -1173,6 +1173,24 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
     ]);
     notes.sort((a, b) => String(b.at || "").localeCompare(String(a.at || "")));
     if (S.skillOpen === id) { S.fb = { for: id, notes, usage, fresh: notes.filter((n) => n.status === "new").length }; render(); }
+  }
+  // Feedback about the superseed planner, or naming no skill: no single skill owns it, so it waits in
+  // Review for the person (notes that name a skill also reach that skill's scout run).
+  async function loadPlannerFeedback() {
+    S.pfb = { loading: true };
+    const notes = await S.db.collection("feedback").where("planner", "==", true).get().then((q) => q.docs.map((d) => ({ id: d.id, ...d.data() }))).catch(() => []);
+    S.pfb = { notes: notes.filter((n) => n.status === "new").sort((a, b) => String(b.at || "").localeCompare(String(a.at || ""))) };
+    if (S.view === "review") render();
+  }
+  function plannerFeedback() {
+    if (!S.pfb) { loadPlannerFeedback(); return ""; }
+    const notes = S.pfb.notes || [];
+    if (!notes.length) return "";
+    const name = (id) => (S.topics.find((t) => t.id === id) || {}).name || id;
+    return `<div class="panel" style="margin-bottom:16px"><h3 style="margin:0 0 4px">Planner feedback · ${notes.length}</h3><p class="muted" style="margin:0 0 10px">Notes about superseed, the planner that picks the skills. No scout changes the planner, so these wait for you. A note that names a skill also reaches that skill's scout run.</p><div class="tests">${notes.map((n) => `<div class="test"><div class="row-actions" style="gap:8px;align-items:center"><span class="pill${n.problem === "worked-well" ? " good" : " bad"}">${esc(PROBLEM[n.problem] || n.problem)}</span>${n.rating ? `<span class="pill">${esc(n.rating)}/5</span>` : ""}<span class="muted">${esc(String(n.at || "").slice(0, 10))}</span>
+      <button class="btn ghost small" style="margin-left:auto" data-act="fb-status" data-id="${esc(n.id)}" data-to="seen"${S.canWrite ? "" : " disabled"}>Mark seen</button></div>
+      ${n.task ? `<span class="lbl">Task</span><p>${esc(n.task)}</p>` : ""}${n.detail ? `<span class="lbl">What happened</span><p>${esc(n.detail)}</p>` : ""}${n.words ? `<span class="lbl">In their words</span><p style="color:var(--ink-2)">“${esc(n.words)}”</p>` : ""}
+      ${(n.topicIds || []).length ? `<div class="taglist"><span class="muted">Also sent to:</span>${n.topicIds.map((id) => `<span class="tag">${esc(name(id))}</span>`).join("")}</div>` : ""}</div>`).join("")}</div></div>`;
   }
   function feedbackPane(t) {
     if (!S.fb || S.fb.for !== t.id) { loadFeedback(t.id); return `<p class="skeleton">Loading feedback…</p>`; }
@@ -1906,7 +1924,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
       case "open-skill": S.skillOpen = id; S.skillTab = "skill"; S.editing = null; S.histOpen.clear(); render(); window.scrollTo({ top: 0 }); break;
       case "back-skills": S.skillOpen = null; S.editing = null; if (unsubVersions) { unsubVersions(); unsubVersions = null; } render(); break;
       case "skill-tab": if (S.editing) S.editing = null; S.skillTab = el.dataset.tab; if (S.skillTab === "feedback") S.fb = null; render(); break;
-      case "fb-status": if (S.canWrite) { await S.db.doc("feedback/" + id).update({ status: el.dataset.to }); S.fb = null; render(); } break;
+      case "fb-status": if (S.canWrite) { await S.db.doc("feedback/" + id).update({ status: el.dataset.to }); S.fb = null; S.pfb = null; render(); } break;
       case "raw": S.skillRaw = el.dataset.raw === "1"; render(); break;
       case "download-skill": {
         const t = openT(); if (!t) break;

@@ -99,7 +99,7 @@ The script submits to `POST /contents/generations/tasks`, polls `GET .../tasks/<
 
 API facts:
 - `content` is an array: the text, then `image_url` parts with role `first_frame` or `reference_image`, and `video_url` with role `reference_video`. Prompt mentions `@Image1`, `@Video1` bind in array order.
-- 1.5-pro takes `--resolution 720p --duration 5 --ratio 9:16 --camerafixed true` appended to the prompt text; 2.x takes `resolution`, `duration`, `ratio` as top-level fields. With a `first_frame` on 2.5, leave `ratio` out (the output follows the image; otherwise `InvalidParameter.TaskTypeConstraint`).
+- BytePlus now documents `resolution`, `duration`, `ratio` (and `camera_fixed` on 1.5 Pro) as top-level fields for every model, and calls prompt flags on 1.5 Pro the legacy method. `ark.py` still appends `--resolution 720p --duration 5 --ratio 9:16 --camerafixed true` to the 1.5 Pro prompt, which worked in the Sep 2026 test; 2.x takes only the fields. With a `first_frame` on 2.5, leave `ratio` out (the output follows the image; otherwise `InvalidParameter.TaskTypeConstraint`).
 - Images may be base64 data URIs (output keeps the still's aspect). Reference **videos must be web URLs**: upload to your own bucket and sign it (e.g. a GCS v4 signed URL valid 3 h via `google.cloud.storage`; `gsutil signurl` needs pyopenssl).
 
 Prompting Seedance:

@@ -21,7 +21,7 @@ Word-level timestamps are required. **Pick a tool:**
 
 | The user's situation | Use | Why |
 |---|---|---|
-| Already captions in Descript, Resolve, Premiere or CapCut, and will style them there | That editor's captions (footage-editing-ffmpeg.md) | Hand over an `.srt`; don't also burn them in |
+| Already captions in Descript, Resolve, Premiere or CapCut, and will style them there | That editor's captions (editor-handoff.md) | Hand over an `.srt`; don't also burn them in |
 | Free, nothing leaves the machine | `npx hyperframes transcribe audio.mp3 --json --model small.en` | Local Whisper, word-level, no key |
 | Verbatim words with "um" and speaker labels | `scripts/video-use/transcribe.py` (ElevenLabs Scribe) | Needs `ELEVENLABS_API_KEY` and uploads the audio: ask first |
 
@@ -71,7 +71,7 @@ The scrim hugs the text box (a 30 to 40% rounded pill), never a full-width bar o
 
 ## 5. Burning captions in
 
-- ffmpeg with an SRT: `ffmpeg -i in.mp4 -vf "subtitles=master.srt:force_style='FontName=Helvetica,FontSize=18,Bold=1,PrimaryColour=&H00FFFFFF,OutlineColour=&H00000000,BorderStyle=1,Outline=2,Shadow=0,Alignment=2,MarginV=35'" -c:a copy out.mp4` (`FontSize` is in ASS script units, not pixels; check a frame).
+- ffmpeg with an SRT: `ffmpeg -i in.mp4 -vf "subtitles=master.srt:force_style='FontName=Helvetica,FontSize=18,Bold=1,PrimaryColour=&H00FFFFFF,OutlineColour=&H00000000,BorderStyle=1,Outline=2,Shadow=0,Alignment=2,MarginV=35'" -c:a copy out.mp4` (`FontSize` and `MarginV` are in units of a 288-high script, not pixels, so they scale with the frame height: `MarginV=35` lifts the text about 12% of the height off the bottom, fine for 16:9. On 1080x1920, clear the platform UI with about `MarginV=95` (about 630 px), or write an .ass file with `PlayResY: 1920` and set pixels directly; check a frame).
 - Toggleable instead of burned: `ffmpeg -i in.mp4 -i subs.srt -c copy -c:s mov_text out.mp4`.
 - Subtitles go **last**, after overlays and after any crop or resize. Captions burned before a reframe land off-frame; burned small and then upscaled they come out soft.
 - No libass? Render cues as PNGs and `overlay` them with `enable='between(t,in,out)'`.

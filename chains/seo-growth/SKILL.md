@@ -27,7 +27,7 @@ If something stays unknown, pick a sensible default, say which, and go on.
 
 ## Run the steps in order
 
-For each step: load the named super skill, read the guides listed (and only those), do the step the way the guide says, and save the result as `seo-growth/<n>-<step>.md` in the working folder (or as a section of one document where files aren't available). Each step builds on the files before it. Don't stop between steps to ask "continue?". Stop only for a decision the user has to make, and say what it is.
+For each step: load the named super skill, read the guides listed (and only those), do the step the way the guide says, and save the result as `seo-growth/<n>-<step>.md` in the working folder (or as a section of one document where files aren't available). Each step builds on the files before it. If the user asked for only part of the chain (a plan, a script, captions), run only the steps that produce it and say which you skipped. Don't stop between steps to ask "continue?". Stop only for a decision the user has to make, and say what it is.
 
 ### 1. Audit the site
 
