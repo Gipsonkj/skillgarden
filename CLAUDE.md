@@ -28,7 +28,7 @@ plus an MCP connector. Read `GUIDE.md` for the user-facing how-to.
   `runtime.js` (stands in for `window.claude`), `import-superskills.mjs` (loads
   `superskills/` into the app and folds old starter topics), `sg.mjs` (the scout's only
   data access), `scout-local.md`.
-- `runbook.md`: what the weekly scout does (Sunday 06:51 IST, one craft at a time, via the
+- `runbook.md`: what the weekly scout does (Saturday 22:00 Berlin time, one craft at a time, via the
   `claude` CLI). It only proposes; changes reach a super skill when approved in Review.
 - `connector/`: one Cloudflare Worker named `skillgarden`. `/` is the landing page
   (`connector/landing/index.html` with its hero film in `landing/film/` and stills in

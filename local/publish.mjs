@@ -10,7 +10,8 @@
 // The person starts it from the app (that click is their approval); nothing here runs on a schedule.
 //
 // Only SKILL.md, CREDITS.md and references/**.md are written: the same files the scout may change.
-// topic.json only gets Review's source changes (repos, searches, feeds), each replayed once.
+// topic.json only gets Review's source changes (repos, searches, feeds) and tool-list changes (tools),
+// each replayed once.
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
@@ -47,14 +48,16 @@ function baseOf(store, t) {
   return { content: vs[at].content || "", files: files || {} };
 }
 
-// Review's source changes not yet in topic.json (and revoked ones that were), applied to its repos/searches/feeds.
+// Review's source and tool-list changes not yet in topic.json (and revoked ones that were), applied to
+// its repos/searches/feeds and tools.
 function sourcesFor(store, t, meta) {
-  const cands = Object.entries(store.candidates).filter(([, c]) => c.topicId === t.id && c.kind === "sources" &&
+  const cands = Object.entries(store.candidates).filter(([, c]) => c.topicId === t.id && (c.kind === "sources" || c.kind === "toollist") &&
     (c.status === "merged" && !c.published || c.status === "revoked" && c.published && !c.revokePublished));
   if (!cands.length) return null;
-  const out = { repos: [...(meta.repos || [])], searches: [...(meta.searches || [])], feeds: [...(meta.feeds || [])] };
+  const out = { repos: [...(meta.repos || [])], searches: [...(meta.searches || [])], feeds: [...(meta.feeds || [])], tools: (meta.tools || []).map((x) => ({ ...x })) };
   const lower = (x) => String(x).toLowerCase();
   for (const [, c] of cands) {
+    if (c.kind === "toollist") { out.tools = toolsEdit(out.tools, c.toolsPatch || {}, c.status === "revoked"); continue; }
     const p = c.sourcesPatch || {}, undo = c.status === "revoked";
     const arr = (k) => (Array.isArray(p[k]) ? p[k] : []).map((x) => String(x).trim()).filter(Boolean);
     for (const [k, list] of [["Repos", "repos"], ["Searches", "searches"], ["Feeds", "feeds"]]) {
@@ -63,7 +66,25 @@ function sourcesFor(store, t, meta) {
       for (const x of add) if (!out[list].some((y) => lower(y) === lower(x))) out[list].push(x);
     }
   }
+  if (!meta.tools && !out.tools.length) delete out.tools;
   return { ids: cands.map(([id]) => id), text: JSON.stringify({ ...meta, ...out }, null, 2) + "\n" };
+}
+// Same rules as toolsEdit in skill-garden.html: add new tools (name, tier, https docs), change tiers;
+// undo takes the added tools out and puts each changed tier back to `from`.
+function toolsEdit(list, p, undo) {
+  const key = (x) => String(x || "").trim().toLowerCase(), https = (u) => /^https:\/\//.test(String(u || ""));
+  const add = (Array.isArray(p.add) ? p.add : []).filter((x) => x && x.name && ["major", "minor"].includes(x.tier) && https(x.docs));
+  const retier = (Array.isArray(p.retier) ? p.retier : []).filter((x) => x && x.name && ["major", "minor"].includes(x.tier));
+  let tools = list;
+  if (undo) {
+    const gone = new Set(add.map((x) => key(x.name)));
+    tools = tools.filter((x) => !gone.has(key(x.name)));
+    for (const r of retier) for (const x of tools) if (key(x.name) === key(r.name) && r.from) x.tier = r.from;
+  } else {
+    for (const a of add) if (!tools.some((x) => key(x.name) === key(a.name))) tools.push({ name: a.name, aliases: Array.isArray(a.aliases) ? a.aliases : [], tier: a.tier, kind: a.kind || null, docs: a.docs, why: a.why || "" });
+    for (const r of retier) for (const x of tools) if (key(x.name) === key(r.name)) x.tier = r.tier;
+  }
+  return tools;
 }
 
 // What publishing a topic would do. writes/removes come from the app; takeIn means the folder has edits the app lacks.

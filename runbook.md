@@ -56,6 +56,7 @@ trials.
   bundles up to **3** improvements.
 - At most **1** sources candidate per topic (step 4b), on top of the caps above.
 - At most **1** tools bundle per topic (step 5d), on top of the caps above.
+- At most **1** tool-list candidate per topic (step 4c), on top of the caps above.
 
 ## Data model (collections in the artifact database)
 
@@ -254,8 +255,8 @@ h. **Tools.** A `major` tool that `gaps` shows as `missing` or `mentioned` is a
    vendor MCP servers (Adobe, Canva, Figma, Google, Microsoft, Atlassian, Notion
    and others big in the craft), and AI tools many practitioners adopted lately.
    Rank by how many people use a tool, not by how many agent skills exist for it
-   (Premiere Pro and Buffer were missed that way). Put a missing one in the
-   run's `notes` with its evidence and official docs URL.
+   (Premiere Pro and Buffer were missed that way). Propose a missing one, or a
+   tier that is plainly wrong, as a tool-list candidate (step 4c).
 
 If a host refuses (in the cloud, Hacker News, Hugging Face, Reddit and
 Instagram usually do), note it in the run's `blocked` list and move on. Don't
@@ -334,6 +335,43 @@ At most 3 changes in total. Create `candidates/<runId>-<topicId>-src`:
 
 It changes where the scout looks, not the skill: no `proposed`, no trials,
 and it doesn't count toward the candidate caps.
+
+### 4c. Keep the tool list current
+
+A topic's `tools` say what the skill should teach; the gap check and the tools
+bundle (5d) work from it, so a tool missing from the list never gets taught.
+When step 3h found a tool that belongs on the list, or a tier that is plainly
+wrong, write one candidate with at most 3 changes, and only with evidence from
+this run (a usage survey, market-share data, the vendor's own numbers, an
+official Claude connector or vendor MCP server, many practitioners naming it):
+
+- **Add** a tool most practitioners of this craft use (`major`), or one a
+  sizeable group relies on for a job the list doesn't cover (`minor`). Open its
+  official docs once; the `docs` link must be https and on the vendor's site.
+  Never a tool that belongs to a neighbouring craft (the router's "Other
+  crafts" names them), and never one already on the list under another name.
+- **Re-tier** a listed tool when the evidence says it is now used by most
+  practitioners (`major`) or has faded (`minor`). Record the old tier in
+  `from`. Never re-tier the tool that test `t5` names.
+
+Create `candidates/<runId>-<topicId>-toollist`:
+
+```
+{
+  topicId, runId, createdAt, kind: "toollist",
+  title: "Plain sentence naming the tools (under 80 chars)",
+  summary: "One plain line per change: which tool, and what it is for.",
+  why: "One or two sentences: the evidence that people use it.",
+  sources: [{ label, url, kind: "web" }],
+  toolsPatch: { add: [{ name, aliases: ["distinctive alternative names"], tier, kind, docs, why }],
+                retier: [{ name, from, tier, why }] },
+  verdict: "better", advice: { level, reason }   (see 5c), status: "ready"
+}
+```
+
+Approving it only changes the list; nothing in the skill changes. The next run's
+gap check then shows the new tool as `missing`, and step 5d can teach it.
+Don't write a tools bundle for a tool in the same run you propose adding it.
 
 ### 5. Write each candidate
 

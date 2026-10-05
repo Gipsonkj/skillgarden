@@ -21,8 +21,8 @@ http://localhost:4747.
 
 Or in Terminal, from this folder: `node server.mjs`
 
-Keep the Terminal window open. The scout runs once a week, on Sunday at 06:51
-India time, while it's open, and works through the active topics one at a
+Keep the Terminal window open. The scout runs once a week, on Saturday at 22:00
+Berlin time (the app's settings `scoutDay`, `scoutTime`, `scoutTz`), while it's open, and works through the active topics one at a
 time. If the Mac was asleep or the app was closed then, it catches up the next
 time the app is running once a week has passed. Close the window to stop Skill
 Garden.

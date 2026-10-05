@@ -688,24 +688,27 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
   }
   const dis = (key) => (S.busy.has(key) || !S.canWrite ? " disabled" : "");
 
-  /* India-time schedule */
-  function istNow() {
-    const p = Object.fromEntries(new Intl.DateTimeFormat("en-GB", { timeZone: "Asia/Kolkata", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hourCycle: "h23" }).formatToParts(new Date()).map((x) => [x.type, x.value]));
+  /* Weekly schedule, on settings.scoutTz's clock (the Mac's local scheduler reads the same settings) */
+  function zoned(tz, at = new Date()) {
+    const p = Object.fromEntries(new Intl.DateTimeFormat("en-GB", { timeZone: tz, year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hourCycle: "h23" }).formatToParts(at).map((x) => [x.type, x.value]));
     return { y: +p.year, m: +p.month, d: +p.day, h: +p.hour, mi: +p.minute };
   }
   function nextScout() {
-    const t = (S.settings && S.settings.scoutTime) || "06:51";
+    const s = S.settings || {}, tz = s.scoutTz || "Europe/Berlin", t = s.scoutTime || "22:00";
     const [hh, mm] = t.split(":").map(Number);
-    const n = istNow();
+    const n = zoned(tz);
     const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-    const day = DAYS.indexOf((S.settings && S.settings.scoutDay) || "Sun");
+    const day = DAYS.indexOf(s.scoutDay || "Sat");
     const today = new Date(Date.UTC(n.y, n.m - 1, n.d)).getUTCDay();
     let ahead = (day - today + 7) % 7;
     if (ahead === 0 && n.h * 60 + n.mi >= hh * 60 + mm) ahead = 7;
-    const at = new Date(Date.UTC(n.y, n.m - 1, n.d + ahead, hh, mm) - 330 * 60000);
-    const local = new Date().getTimezoneOffset() !== -330 ? ` (${fmtTime(at)} your time)` : "";
+    // The run's wall-clock time in tz as a real instant: guess it as UTC, then correct by tz's offset then.
+    const guess = Date.UTC(n.y, n.m - 1, n.d + ahead, hh, mm), g = zoned(tz, new Date(guess));
+    const at = new Date(guess - (Date.UTC(g.y, g.m - 1, g.d, g.h, g.mi) - guess));
+    const city = tz.split("/").pop().replace(/_/g, " ");
+    const local = Intl.DateTimeFormat().resolvedOptions().timeZone !== tz ? ` (${fmtTime(at)} your time)` : "";
     const when = ahead === 0 ? "today" : ahead === 1 ? "tomorrow" : ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][day];
-    return `${when} ${t} India time${local}`;
+    return `${when} ${t} ${city} time${local}`;
   }
 
   /* ---------- markdown (small, safe) ---------- */
@@ -886,6 +889,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
   function trialLine(c) {
     const t = c.trials || {};
     if (c.kind === "sources") return `<div class="trial"><span class="pill accent">Sources</span><span class="trial-text">Changes where the scout looks for this topic, not the skill, so there was nothing to try in trials.</span></div>`;
+    if (c.kind === "toollist") return `<div class="trial"><span class="pill accent">Tool list</span><span class="trial-text">Changes which tools this skill should cover. Nothing in the skill changes yet: once a tool is on the list, the next scout run can propose a card that teaches it.</span></div>`;
     if (c.kind === "first-draft") return `<div class="trial"><span class="pill accent">First draft</span><span class="trial-text">This topic had no skill yet, so there was nothing to test against. Read it and add it to start the topic at v1.</span></div>`;
     if (c.kind === "tools") return checksLine(c);
     const count = N(t.count);
@@ -921,7 +925,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
     if (!names.length) return "";
     return `<div style="margin-top:12px"><p class="muted">Also changes ${names.length === 1 ? "1 file" : names.length + " files"} in the skill:</p>${names.map((n) => { const old = (t && t.files && t.files[n]) || ""; const nu = c.filesPatch[n]; return `<details><summary class="mono">${esc(n)} · ${nu == null ? "removed" : old ? "changed" : "new"}</summary>${nu == null ? "" : old ? diffHtml(old, nu) : `<pre style="white-space:pre-wrap;overflow-wrap:anywhere">${esc(nu)}</pre>`}</details>`; }).join("")}</div>`;
   }
-  const KIND = { tools: "Adds missing tools", generation: "New generation", add: "Adds to the skill", improve: "Improves the skill", remove: "Trims the skill", "first-draft": "New skill", sources: "Changes the sources" };
+  const KIND = { toollist: "Changes the tool list", tools: "Adds missing tools", generation: "New generation", add: "Adds to the skill", improve: "Improves the skill", remove: "Trims the skill", "first-draft": "New skill", sources: "Changes the sources" };
   const REPO_OK = /^[\w.-]+\/[\w.-]+$/;
   // Safety gate for scout proposals: a change that could leak keys, cookies or prompts, phone home,
   // run remote code, or bring back a skill removed for that reason is blocked from being added.
@@ -944,6 +948,9 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
     for (const r of [...(sp.addRepos || []), ...(sp.dropRepos || [])]) if (!REPO_OK.test(String(r))) out.add(`names a repo that isn't owner/repo (${r})`);
     for (const r of sp.addRepos || []) for (const b of BLOCKED_SKILLS) if (String(r).toLowerCase().includes(b)) out.add(`brings back ${b}, removed for leaking keys`);
     for (const u of sp.addFeeds || []) if (!isHttps(String(u))) out.add(`adds a feed that isn't an https link (${u})`);
+    const tp = c.kind === "toollist" && c.toolsPatch || {};
+    for (const x of Array.isArray(tp.add) ? tp.add : []) if (!x || !x.name || !["major", "minor"].includes(x.tier) || !isHttps(String(x.docs || ""))) out.add(`adds a tool without a name, a tier or an https docs link (${(x && x.name) || "?"})`);
+    for (const x of Array.isArray(tp.retier) ? tp.retier : []) if (!x || !x.name || !["major", "minor"].includes(x.tier)) out.add(`changes a tool's tier without a name or a valid tier (${(x && x.name) || "?"})`);
     for (const [old, x] of pairs) {
       for (const [re, why] of RISKS) { const had = new Set(old.match(re) || []); if ((x.match(re) || []).some((m) => !had.has(m))) out.add(why); }
       for (const b of BLOCKED_SKILLS) if (x.toLowerCase().includes(b) && !old.toLowerCase().includes(b)) out.add(`brings back ${b}, removed for leaking keys`);
@@ -961,7 +968,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
     }).join("");
     let actions = "";
     if (mode === "ready" && S.skipping === c.id) actions = `<label class="skip-why"><span>Why skip it? Optional; the scout reads this.</span><input class="input" id="skip-note" maxlength="300" placeholder="e.g. we already cover this, or the source isn't trustworthy"></label><button class="btn" data-act="skip-confirm" data-id="${esc(c.id)}"${dis("c:" + c.id)}>Skip it</button><button class="btn ghost" data-act="skip-cancel">Cancel</button>`;
-    else if (mode === "ready") actions = `<button class="btn primary" data-act="approve" data-id="${esc(c.id)}"${dis("c:" + c.id)}>${c.kind === "sources" ? "Update sources" : "Add to skill"}</button><button class="btn" data-act="skip" data-id="${esc(c.id)}"${dis("c:" + c.id)}>Skip</button>`;
+    else if (mode === "ready") actions = `<button class="btn primary" data-act="approve" data-id="${esc(c.id)}"${dis("c:" + c.id)}>${c.kind === "sources" ? "Update sources" : c.kind === "toollist" ? "Update tool list" : "Add to skill"}</button><button class="btn" data-act="skip" data-id="${esc(c.id)}"${dis("c:" + c.id)}>Skip</button>`;
     else if (mode === "lost") actions = `<button class="btn small" data-act="approve" data-id="${esc(c.id)}"${dis("c:" + c.id)}>Add anyway</button>`;
     else if (mode === "merged" && S.revoking === c.id) actions = `<label class="skip-why"><span>Why revoke it? Optional; the scout reads this.</span><input class="input" id="revoke-note" maxlength="300" placeholder="e.g. the skill started giving longer, vaguer answers"></label><button class="btn" data-act="revoke-confirm" data-id="${esc(c.id)}"${dis("c:" + c.id)}>Revoke it</button><button class="btn ghost" data-act="revoke-cancel">Cancel</button>`;
     else if (mode === "merged") actions = `<button class="btn small" data-act="revoke" data-id="${esc(c.id)}"${dis("c:" + c.id)}>Revoke</button>`;
@@ -982,9 +989,9 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
       ${conflictsHtml(c)}
       ${c.foldNote ? `<p class="why">${esc(c.foldNote)}</p>` : ""}
       ${c.revokeNote && (mode === "revoked" || mode === "revoking") ? `<p class="why"><strong>Why revoked:</strong> ${esc(c.revokeNote)}</p>` : ""}
-      ${c.kind === "sources" ? sourcesPatchHtml(c) : ""}
-      <div class="cand-actions">${actions}${c.kind === "sources" ? "" : `<button class="link" data-act="toggle-diff" data-id="${esc(c.id)}" aria-expanded="${open}">${open ? "Hide the change" : c.kind === "first-draft" ? "Read the draft" : "See the change"}</button>`}</div>
-      ${c.kind === "sources" ? "" : diffBody + (open ? filesDiff(t, c) : "")}
+      ${c.kind === "sources" ? sourcesPatchHtml(c) : c.kind === "toollist" ? toolsPatchHtml(c) : ""}
+      <div class="cand-actions">${actions}${c.kind === "sources" || c.kind === "toollist" ? "" : `<button class="link" data-act="toggle-diff" data-id="${esc(c.id)}" aria-expanded="${open}">${open ? "Hide the change" : c.kind === "first-draft" ? "Read the draft" : "See the change"}</button>`}</div>
+      ${c.kind === "sources" || c.kind === "toollist" ? "" : diffBody + (open ? filesDiff(t, c) : "")}
     </article>`;
   }
   // What's waiting to go to GitHub (the Mac works it out and keeps it in settings/main.publish).
@@ -1024,6 +1031,13 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
     return `<div class="advice"><div class="advice-head">Scout's take<span class="pill ${cls}">${label}</span></div>${a.reason ? `<p>${esc(a.reason)}</p>` : ""}</div>`;
   }
   const PATCH_ROWS = [["addRepos", "Watch"], ["dropRepos", "Stop watching"], ["addSearches", "Search for"], ["dropSearches", "Stop searching"], ["addFeeds", "Read feed"], ["dropFeeds", "Stop reading"]];
+  function toolsPatchHtml(c) {
+    const p = c.toolsPatch || {}, list = (k) => (Array.isArray(p[k]) ? p[k] : []).filter((x) => x && x.name).slice(0, 6);
+    const docs = (x) => isHttps(String(x.docs || "")) ? ` · <a href="${esc(x.docs)}" target="_blank" rel="noopener">docs</a>` : "";
+    const rows = [...list("add").map((x) => `<li><span class="k">Add${x.tier === "major" ? " (important)" : ""}</span>${esc(x.name)}${x.why ? `: ${esc(x.why)}` : ""}${docs(x)}</li>`),
+      ...list("retier").map((x) => `<li><span class="k">${x.tier === "major" ? "Mark important" : "Mark less important"}</span>${esc(x.name)}${x.why ? `: ${esc(x.why)}` : ""}</li>`)];
+    return rows.length ? `<ul class="sources">${rows.join("")}</ul>` : "";
+  }
   function sourcesPatchHtml(c) {
     const p = c.sourcesPatch || {};
     const rows = PATCH_ROWS.flatMap(([k, label]) => (Array.isArray(p[k]) ? p[k] : []).slice(0, 6).map((x) => `<li><span class="k">${label}</span>${k.endsWith("Repos") && REPO_OK.test(String(x)) ? `<a href="https://github.com/${esc(x)}" target="_blank" rel="noopener">${esc(x)}</a>` : esc(x)}</li>`));
@@ -1724,6 +1738,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
     const risks = risksOf(c);
     if (risks.length) { toast("Blocked for safety: " + risks.join("; ") + ".", "bad"); return; }
     if (c.kind === "sources") return applySources(c, t);
+    if (c.kind === "toollist") return applyToolList(c, t);
     await guarded("c:" + c.id, async () => {
       const now = iso();
       const cur = Number(t.version) || 0;
@@ -1762,6 +1777,30 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
       feeds: edit(t.feeds, arr(drop + "Feeds"), arr(add + "Feeds").filter(isHttps)),
     };
   }
+  // A tool-list change edits topic.tools: which tools the skill should teach (the gap check and the
+  // scout's tools bundle work from it). undo = true takes added tools out and puts tiers back.
+  function toolsEdit(c, t, undo) {
+    const p = c.toolsPatch || {}, key = (x) => String(x || "").trim().toLowerCase();
+    const add = (Array.isArray(p.add) ? p.add : []).filter((x) => x && x.name && ["major", "minor"].includes(x.tier) && isHttps(String(x.docs || "")));
+    const retier = (Array.isArray(p.retier) ? p.retier : []).filter((x) => x && x.name && ["major", "minor"].includes(x.tier));
+    let tools = (t.tools || []).map((x) => ({ ...x }));
+    if (undo) {
+      const gone = new Set(add.map((x) => key(x.name)));
+      tools = tools.filter((x) => !gone.has(key(x.name)));
+      for (const r of retier) for (const x of tools) if (key(x.name) === key(r.name) && r.from) x.tier = r.from;
+    } else {
+      for (const a of add) if (!tools.some((x) => key(x.name) === key(a.name))) tools.push({ name: a.name, aliases: Array.isArray(a.aliases) ? a.aliases : [], tier: a.tier, kind: a.kind || null, docs: a.docs, why: a.why || "" });
+      for (const r of retier) for (const x of tools) if (key(x.name) === key(r.name)) x.tier = r.tier;
+    }
+    return tools;
+  }
+  async function applyToolList(c, t) {
+    await guarded("c:" + c.id, async () => {
+      await S.db.doc("topics/" + t.id).update({ tools: toolsEdit(c, t, false) });
+      await S.db.doc("candidates/" + c.id).update({ status: "merged", mergedAt: iso() });
+      toast(`Tool list updated for ${t.name}. The next scout run can teach the new tools.`);
+    });
+  }
   async function applySources(c, t) {
     const { repos, searches, feeds } = sourcesEdit(c, t, false);
     await guarded("c:" + c.id, async () => {
@@ -1778,6 +1817,11 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
     const extra = note ? { revokeNote: note } : {};
     await guarded("c:" + c.id, async () => {
       const now = iso();
+      if (c.kind === "toollist") {
+        await S.db.doc("topics/" + t.id).update({ tools: toolsEdit(c, t, true) });
+        await S.db.doc("candidates/" + c.id).update({ status: "revoked", revokedAt: now, ...extra });
+        S.revoking = null; toast(`Revoked. ${t.name}'s tool list is back to how it was.`); return;
+      }
       if (c.kind === "sources") {
         await S.db.doc("topics/" + t.id).update(sourcesEdit(c, t, true));
         await S.db.doc("candidates/" + c.id).update({ status: "revoked", revokedAt: now, ...extra });

@@ -85,7 +85,7 @@ function save(c) {
   fs.renameSync(file + ".tmp", file);
 }
 // The imported settings name the cloud routine; locally the server is the scheduler.
-store.settings.main = { scoutTime: "06:51", scoutDay: "Sun", paused: false, scoutModel: "claude-sonnet-5-5", scoutEffort: "medium", libraries: [], lists: [], ...(store.settings.main || {}), triggerId: "local", host: "local" };
+store.settings.main = { scoutTime: "22:00", scoutDay: "Sat", scoutTz: "Europe/Berlin", paused: false, scoutModel: "claude-sonnet-5-5", scoutEffort: "medium", libraries: [], lists: [], ...(store.settings.main || {}), triggerId: "local", host: "local" };
 save("settings");
 
 const isObj = (v) => v && typeof v === "object" && !Array.isArray(v);
@@ -150,8 +150,10 @@ function broadcast(c) { for (const res of listeners) res.write(`data: ${JSON.str
 setInterval(() => { for (const res of listeners) res.write(": keep-alive\n\n"); }, 25000).unref();
 
 /* ---------- time ---------- */
-function indiaNow() {
-  const p = Object.fromEntries(new Intl.DateTimeFormat("en-GB", { timeZone: "Asia/Kolkata", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hourCycle: "h23" }).formatToParts(new Date()).map((x) => [x.type, x.value]));
+function indiaNow() { return zonedNow("Asia/Kolkata"); }
+// The clock in a time zone; the weekly scout runs on settings.scoutTz's clock (Europe/Berlin by default).
+function zonedNow(timeZone) {
+  const p = Object.fromEntries(new Intl.DateTimeFormat("en-GB", { timeZone, year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hourCycle: "h23" }).formatToParts(new Date()).map((x) => [x.type, x.value]));
   const weekday = new Date(Date.UTC(+p.year, +p.month - 1, +p.day)).getUTCDay();
   return { date: `${p.year}-${p.month}-${p.day}`, minutes: +p.hour * 60 + +p.minute, weekday };
 }
@@ -408,12 +410,12 @@ function readerThenScout() {
 if (SCHEDULE) {
   setInterval(() => {
     const s = store.settings.main || {};
-    const [hh, mm] = String(s.scoutTime || "06:51").split(":").map(Number);
-    const now = indiaNow();
+    const [hh, mm] = String(s.scoutTime || "22:00").split(":").map(Number);
+    const now = zonedNow(s.scoutTz || "Europe/Berlin");
     const due = hh * 60 + mm;
     // Run once a week on scoutDay. If the computer was asleep or the app closed at that time,
     // catch up any time later that week.
-    const day = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].indexOf(s.scoutDay || "Sun");
+    const day = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].indexOf(s.scoutDay || "Sat");
     if (s.paused || scout.running || reader.running || s.lastScheduledDate === now.date) return;
     const onTime = now.weekday === day && now.minutes >= due;
     const sinceLast = s.lastScheduledDate ? (Date.parse(now.date) - Date.parse(s.lastScheduledDate)) / 864e5 : null;
@@ -580,7 +582,7 @@ refreshPublish();
 server.listen(PORT, "127.0.0.1", () => {
   const s = store.settings.main;
   console.log(`\nSkill Garden is running at http://localhost:${PORT}`);
-  console.log(SCHEDULE ? `The weekly scout runs ${s.scoutDay || "Sun"} at ${s.scoutTime} India time while this window stays open.` : "The weekly scout is off (--no-schedule).");
+  console.log(SCHEDULE ? `The weekly scout runs ${s.scoutDay || "Sat"} at ${s.scoutTime} (${s.scoutTz || "Europe/Berlin"} time) while this window stays open.` : "The weekly scout is off (--no-schedule).");
   console.log("Close this window or press Ctrl+C to stop.\n");
 });
 server.on("error", (e) => {

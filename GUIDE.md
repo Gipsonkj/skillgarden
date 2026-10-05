@@ -130,7 +130,7 @@ includes the super skills it uses.
 - When sources disagree, the change in Review shows **Sources disagree** with
   each side and what the scout kept, so it's your call.
 
-- Every Sunday at 06:51 India time (03:21 your time) the scout first takes a
+- Every Saturday at 22:00 Berlin time the scout first takes a
   radar: star growth and new commits for every watched repo and every repo in
   a CREDITS.md, new skill repos and MCP servers, new posts in each craft's
   official feeds, trending Hugging Face models and papers, and the week's
