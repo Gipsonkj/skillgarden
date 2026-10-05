@@ -292,7 +292,7 @@ At most 3 changes in total. Create `candidates/<runId>-<topicId>-src`:
 {
   topicId, runId, createdAt, kind: "sources",
   title: "Plain sentence naming the change (under 80 chars)",
-  summary: "One line per change.",
+  summary: "One plain line per change: where the scout will now look, or stop looking.",
   why: "One or two sentences: the evidence (stars, activity, yield, what it led to).",
   sources: [{ label, url, kind: "github" | "web" }],
   sourcesPatch: { addRepos: ["owner/repo"], dropRepos: [], addSearches: ["phrase"], dropSearches: [],
@@ -305,6 +305,23 @@ It changes where the scout looks, not the skill: no `proposed`, no trials,
 and it doesn't count toward the candidate caps.
 
 ### 5. Write each candidate
+
+**Write the Review card for the person, not for an engineer.** They decide from
+`title`, `summary`, `why` and `advice` alone, so every candidate (all kinds)
+uses everyday words:
+
+- `title`: what the skill will help with that it didn't before ("Helps you
+  edit in DaVinci Resolve and hand captions to CapCut"), not file or API names.
+- `summary`: 2 to 4 short sentences: what is added or changed, said as what
+  someone using the skill can now do or get. No file names, field names,
+  flags, version numbers or code. Name a tool only by its common name.
+- `why`: one or two sentences on what the scout saw that made it worth doing
+  (for example "most video editors use Premiere, and the skill never
+  mentioned it"). No star counts, no internal terms (`t5`, `major`, `gap`,
+  `tools.json`).
+- `advice.reason`: see 5c.
+- Explain any unavoidable term in a few words. When in doubt, read it as
+  someone who has never seen the repo would.
 
 For each chosen idea, write `proposed` — the **whole** SKILL.md with the change
 applied. Keep the frontmatter. Change only what the idea needs, and keep the
@@ -347,8 +364,8 @@ that bundles this week's best 1–3 improvements:
   add or edit scripts or templates. Every reference must stay linked from the
   router, and new sources go into `CREDITS.md` with their license; skip any
   source whose license doesn't allow reuse or is non-commercial.
-- `title` names the generation's main change, `summary` lists each change in
-  one short line.
+- `title` names the generation's main change, `summary` says in plain words
+  what each change lets someone do (step 5).
 
 ### 5d. Tools bundle: fill the tool gaps
 
@@ -377,6 +394,8 @@ first:
   after, max}, licences: "ok" | "<problem>" }`. `status` is `ready` only when
   every remaining fact is verified, `after` is above `before` and licences are
   ok; otherwise `lost`. No `trials` field; `advice` as in 5c.
+- `title`, `summary` and `why` follow step 5: which tools the skill now helps
+  with and what that lets someone do, not which files or sections changed.
 
 ### 5c. Give your own recommendation
 
@@ -399,8 +418,10 @@ advice: {
 - `no` (not recommended): it duplicates what the skill already says, the source
   is weak, or the trial wins had nothing to do with the change.
 
-Say why in plain words: what it changes for someone using the skill, and what
+Say why in plain words: start with whether you'd add it, then what it changes
+for someone using the skill (one concrete example beats a list), and what
 makes you sure or unsure. Don't repeat the trial numbers; the page shows them.
+No file names, scores, test ids or jargon (see step 5).
 
 ### 6. Run blind trials (before writing the candidate)
 

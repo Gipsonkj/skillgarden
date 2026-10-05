@@ -901,10 +901,10 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
     const k = c.checks || {}, cl = k.claims || {}, ts = k.test || {};
     const pass = c.status !== "lost" && N(cl.total) > 0 && N(cl.verified) === N(cl.total) && N(ts.after) > N(ts.before) && k.licences === "ok" && !risksOf(c).length;
     const parts = [
-      `<strong>${N(cl.verified)}/${N(cl.total)}</strong> facts checked against official docs${N(cl.dropped) ? ` (${plural(N(cl.dropped), "unsupported fact")} taken out)` : ""}`,
-      `tool test <strong>${N(ts.before)}/${N(ts.max)} → ${N(ts.after)}/${N(ts.max)}</strong>`,
-      `licences ${k.licences === "ok" ? "OK" : esc(k.licences || "not checked")}`,
-      risksOf(c).length ? "safety: blocked" : "safety OK",
+      `<strong>${N(cl.verified)} of ${N(cl.total)}</strong> facts match the tools' own docs${N(cl.dropped) ? ` (${plural(N(cl.dropped), "fact")} that didn't were taken out)` : ""}`,
+      `a test request scored <strong>${N(ts.before)} of ${N(ts.max)}</strong> before, <strong>${N(ts.after)} of ${N(ts.max)}</strong> with this change`,
+      k.licences === "ok" ? "sources may be reused" : `licence problem: ${esc(k.licences || "not checked")}`,
+      risksOf(c).length ? "blocked for safety" : "nothing unsafe",
     ];
     return `<div class="trial"><span class="pill ${pass ? "good" : "bad"}">${pass ? "Passed every check" : "Didn't pass every check"}</span><span class="trial-text">${parts.join(" · ")}</span></div>`;
   }
@@ -929,7 +929,9 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
   const RISKS = [
     [/(curl|wget)[^\n|]*\|\s*(sudo\s+)?(ba|z)?sh\b|\b(iwr|irm)\b[^\n|]*\|\s*iex\b/gi, "pipes a download into a shell"],
     [/browser_cookie3|rookie-?cookies|cookies\.sqlite|\bli_at\b|AGENTCOOKIE/gi, "reads browser cookies"],
-    [/\b(posthog|mixpanel|amplitude\.com|segment\.io)\b/gi, "adds telemetry"],
+    // Tracking code only: a guide that teaches someone to read their own Amplitude or PostHog data
+    // names those tools and links their docs, which isn't telemetry.
+    [/\b(posthog|mixpanel|amplitude)\.(init|capture|track|identify|getInstance)\s*\(|\b(api2?\.amplitude\.com|api(-js)?\.mixpanel\.com|(us|eu)\.i\.posthog\.com|app\.posthog\.com\/(capture|batch|e)\b|cdn\.segment\.com|api\.segment\.io)/gi, "adds telemetry"],
     [/['"]?Origin['"]?\s*:\s*['"]https?:\/\/[^'"]+/g, "spoofs a request origin"],
   ];
   // Only what the change adds counts: a guide may already warn about an installer.
