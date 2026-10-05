@@ -1,0 +1,231 @@
+{
+ "_about": "Titles, H1s and meta descriptions from _research/seo/keyword-map.md (6 Oct 2026). {{N}} = ranked sub-skills, {{G}} = guides, filled at build time.",
+ "/crafts/3d-modeling/": {
+  "title": "Claude Blender & 3D Modeling Skills | Skill Garden",
+  "h1": "Claude skills for Blender and 3D modeling",
+  "description": "{{N}} ranked 3D skills for Claude in one super skill: Blender scripts, Three.js scenes, GLB optimisation, CAD and 3D printing. Free plugin, every source credited.",
+  "query": "claude blender skill"
+ },
+ "/crafts/ad-creation/": {
+  "title": "Claude Ads Skill: Ad Copy, Hooks & UGC Briefs | Skill Garden",
+  "h1": "Claude skills for ad creation",
+  "description": "{{N}} ranked ad skills for Claude, distilled into {{G}} guides: briefs, hooks, ad copy, statics and UGC video ads for Meta, TikTok and Google. Free, credited.",
+  "query": "claude ads skill"
+ },
+ "/crafts/ai-agents/": {
+  "title": "Claude Skills for Building AI Agents & MCP | Skill Garden",
+  "h1": "Claude skills for building AI agents and MCP servers",
+  "description": "{{N}} ranked agent-building skills for Claude in {{G}} guides: tool design, MCP servers, multi-agent setups, memory and evals. Free Claude Code plugin.",
+  "query": "claude skills for building ai agents"
+ },
+ "/crafts/ai-video/": {
+  "title": "Claude Skill for Video Editing & AI Video | Skill Garden",
+  "h1": "Claude skills for video editing and AI video",
+  "description": "{{N}} ranked video skills for Claude in {{G}} guides: ffmpeg cuts, captions, 9:16 reframes, HyperFrames renders and prompts for Veo, Kling and Wan. Free.",
+  "query": "claude skill for video editing"
+ },
+ "/crafts/app-building/": {
+  "title": "Claude Skill for App Development: iOS, Expo | Skill Garden",
+  "h1": "Claude skills for mobile and desktop app development",
+  "description": "{{N}} ranked app-building skills for Claude in {{G}} guides: Expo, SwiftUI, Compose, Flutter, Tauri, simulator checks and store releases. Free plugin.",
+  "query": "claude skill for app development"
+ },
+ "/crafts/audio-generation/": {
+  "title": "Claude Audio Skill: Voice, Music & Podcasts | Skill Garden",
+  "h1": "Claude skills for audio, voice and music",
+  "description": "{{N}} ranked audio skills for Claude in {{G}} guides: voiceovers, music, sound effects, podcasts, dubbing and transcripts, mixed to a loudness target.",
+  "query": "claude audio skill"
+ },
+ "/crafts/automation/": {
+  "title": "Claude n8n & Automation Skills, Ranked | Skill Garden",
+  "h1": "Claude skills for n8n, Playwright and automation",
+  "description": "{{N}} ranked automation skills for Claude in {{G}} guides: n8n, Make, Zapier, Playwright, DevTools and safe web extraction. Free Claude Code plugin.",
+  "query": "claude n8n skills"
+ },
+ "/crafts/backend-databases/": {
+  "title": "Claude Database Skill: Postgres & Supabase | Skill Garden",
+  "h1": "Claude skills for backends and databases",
+  "description": "{{N}} ranked backend skills for Claude in {{G}} guides: Postgres schemas and slow queries, API design, auth, Supabase, Prisma and Stripe webhooks. Free.",
+  "query": "claude database skill"
+ },
+ "/crafts/career/": {
+  "title": "Claude Skill for Resume Tailoring & Job Hunt | Skill Garden",
+  "h1": "Claude skills for resumes and job search",
+  "description": "{{N}} ranked career skills for Claude in {{G}} guides: resumes tailored to a posting, ATS checks, cover letters, interview prep and salary talks. Free.",
+  "query": "claude skill for resume tailoring"
+ },
+ "/crafts/claude-meta/": {
+  "title": "Claude Skill Creator & CLAUDE.md Guides | Skill Garden",
+  "h1": "Claude meta-skills: skills, CLAUDE.md, hooks and subagents",
+  "description": "{{N}} ranked meta-skills in {{G}} guides: write skills that trigger, CLAUDE.md, hooks, subagents, plans and context for long Claude Code tasks. Free.",
+  "query": "claude skill creator skill"
+ },
+ "/crafts/cloud-devops/": {
+  "title": "Claude DevOps Skills: Docker & Terraform | Skill Garden",
+  "h1": "Claude skills for cloud and DevOps",
+  "description": "{{N}} ranked DevOps skills for Claude in {{G}} guides: hosting choice, Docker, Kubernetes, Terraform, CI/CD, Cloudflare, AWS and observability. Free.",
+  "query": "claude devops skills"
+ },
+ "/crafts/coding-practices/": {
+  "title": "Claude Debugging & Code Review Skills, Ranked | Skill Garden",
+  "h1": "Claude skills for debugging, code review and safe changes",
+  "description": "{{N}} ranked coding-practice skills for Claude in {{G}} guides: debug to root cause, test first, verify before done, review well, use git safely.",
+  "query": "claude debugging skill"
+ },
+ "/crafts/content-creation/": {
+  "title": "Claude Copywriting Skill: Human-Sounding Copy | Skill Garden",
+  "h1": "Claude skills for copywriting and content",
+  "description": "{{N}} ranked writing skills for Claude in {{G}} guides: copy that converts, articles, newsletters, brand voice and edits that strip AI tells. Free.",
+  "query": "claude copywriting skill"
+ },
+ "/crafts/course-design/": {
+  "title": "Claude Teaching Skill: Lesson Plans & Courses | Skill Garden",
+  "h1": "Claude skills for teaching and course design",
+  "description": "{{N}} ranked teaching skills for Claude in {{G}} guides: objectives, backward design, lesson plans, quizzes, rubrics, retrieval practice and LMS export.",
+  "query": "claude teaching skill"
+ },
+ "/crafts/data-analysis/": {
+  "title": "Claude Data Analysis Skill: SQL & Statistics | Skill Garden",
+  "h1": "Claude skills for data analysis",
+  "description": "{{N}} ranked data skills for Claude in {{G}} guides: SQL, statistics, A/B tests, pandas and Polars, dashboards and honest charts. Free Claude Code plugin.",
+  "query": "claude data analysis skill"
+ },
+ "/crafts/docs-office/": {
+  "title": "Claude Excel, PDF & Word Skills, Ranked | Skill Garden",
+  "h1": "Claude skills for Excel, PDF and Word files",
+  "description": "{{N}} ranked document skills for Claude in {{G}} guides: create, edit, fill, convert and check Word, PDF and Excel files, plus Google Docs. Free plugin.",
+  "query": "claude excel skills"
+ },
+ "/crafts/ecommerce/": {
+  "title": "Claude Shopify Skill: Stores, Feeds, Checkout | Skill Garden",
+  "h1": "Claude skills for Shopify and e-commerce",
+  "description": "{{N}} ranked e-commerce skills for Claude in {{G}} guides: Shopify and WooCommerce builds, checkout and tax, catalogs, feeds, pricing and analytics.",
+  "query": "claude shopify skill"
+ },
+ "/crafts/email-marketing/": {
+  "title": "Claude Email Marketing Skill: Flows & Inbox | Skill Garden",
+  "h1": "Claude skills for email marketing",
+  "description": "{{N}} ranked email skills for Claude in {{G}} guides: lifecycle flows, campaigns, A/B tests, deliverability, React Email, MJML and email law. Free.",
+  "query": "claude email marketing skill"
+ },
+ "/crafts/figma-design/": {
+  "title": "Claude Figma Skill: Figma MCP & Design Tokens | Skill Garden",
+  "h1": "Claude skills for Figma and design systems",
+  "description": "{{N}} ranked Figma skills for Claude in {{G}} guides: Figma MCP, tokens and variables, code-to-Figma sync, component specs and design-to-code. Free.",
+  "query": "claude figma skill"
+ },
+ "/crafts/frontend-ui-design/": {
+  "title": "Claude Frontend Design Skills, Ranked | Skill Garden",
+  "h1": "Claude frontend design skills, ranked",
+  "description": "{{N}} ranked frontend design skills for Claude in {{G}} guides: design direction, tokens, states, motion, WCAG 2.2 audits and redesigns. Free plugin.",
+  "query": "claude frontend design skill"
+ },
+ "/crafts/google-ads/": {
+  "title": "Claude Google Ads Skill: Audits, RSAs & PMax | Skill Garden",
+  "h1": "Claude skills for Google Ads",
+  "description": "{{N}} ranked Google Ads skills for Claude in {{G}} guides: Search, PMax and Shopping builds, RSAs, negatives, bidding, tracking and account audits.",
+  "query": "claude google ads skill"
+ },
+ "/crafts/image-creation/": {
+  "title": "Claude Image Generation Skill: Nano Banana | Skill Garden",
+  "h1": "Claude skills for image generation and editing",
+  "description": "{{N}} ranked image skills for Claude in {{G}} guides: prompts for GPT Image, Nano Banana and FLUX, edits, consistent characters and code-made art. Free.",
+  "query": "claude image generation skill"
+ },
+ "/crafts/instagram-automation/": {
+  "title": "Claude Instagram Skill: Reels & Carousels | Skill Garden",
+  "h1": "Claude skills for Instagram",
+  "description": "{{N}} ranked Instagram skills for Claude in {{G}} guides: Reels scripts, carousels and captions, published only via Meta's official API. Free plugin.",
+  "query": "claude instagram skill"
+ },
+ "/crafts/linkedin-automation/": {
+  "title": "Claude Skill for LinkedIn Posts & Profiles | Skill Garden",
+  "h1": "Claude skills for LinkedIn",
+  "description": "{{N}} ranked LinkedIn skills for Claude in {{G}} guides: posts, profiles, comments and outreach drafted for you. No bots, no scraping. Free plugin.",
+  "query": "claude skill for linkedin posts"
+ },
+ "/crafts/motion-animation/": {
+  "title": "Claude Animation Skill: GSAP & Framer Motion | Skill Garden",
+  "h1": "Claude skills for motion and animation",
+  "description": "{{N}} ranked animation skills for Claude in {{G}} guides: easing and timing, GSAP and scroll, Framer Motion, Reanimated, Lottie, Three.js and Manim.",
+  "query": "claude animation skill"
+ },
+ "/crafts/open-models/": {
+  "title": "Claude Open Model Skills: Ollama, vLLM, LoRA | Skill Garden",
+  "h1": "Claude skills for open-weight models",
+  "description": "{{N}} ranked open-model skills for Claude in {{G}} guides: model and licence choice, VRAM maths, Ollama, llama.cpp, vLLM, GGUF and LoRA fine-tunes.",
+  "query": "claude code ollama skills"
+ },
+ "/crafts/poster-design/": {
+  "title": "Claude Skill for Poster & Logo Design, Ranked | Skill Garden",
+  "h1": "Claude skills for posters and graphic design",
+  "description": "{{N}} ranked graphic design skills for Claude in {{G}} guides: posters, covers, thumbnails, logos, brand kits and print, in code or with image models.",
+  "query": "claude skill for poster design"
+ },
+ "/crafts/presentations/": {
+  "title": "Claude PowerPoint & Presentation Skills | Skill Garden",
+  "h1": "Claude skills for PowerPoint and presentations",
+  "description": "{{N}} ranked presentation skills for Claude in {{G}} guides: deck story, slide design, PowerPoint, HTML, Slidev, Marp and Google Slides decks. Free.",
+  "query": "claude powerpoint skill"
+ },
+ "/crafts/product-management/": {
+  "title": "Claude Skills for Product Managers & PRDs | Skill Garden",
+  "h1": "Claude skills for product managers",
+  "description": "{{N}} ranked product skills for Claude in {{G}} guides: PRDs and specs, stories, prioritization, outcome roadmaps, sprints, Jira and Linear. Free.",
+  "query": "claude skills for product managers"
+ },
+ "/crafts/research-science/": {
+  "title": "Claude Skill for Research Paper Writing | Skill Garden",
+  "h1": "Claude skills for research and science",
+  "description": "{{N}} ranked research skills for Claude in {{G}} guides: find papers, literature reviews, citation checks, hypotheses, writing and peer review. Free.",
+  "query": "claude skill for research paper writing"
+ },
+ "/crafts/security/": {
+  "title": "Claude Security Skill: Secure Code Review | Skill Garden",
+  "h1": "Claude skills for secure code and security review",
+  "description": "{{N}} ranked security skills for Claude in {{G}} guides: secure coding, threat models, Semgrep and CodeQL triage, secrets and CI hardening. Free.",
+  "query": "claude security skill"
+ },
+ "/crafts/seo/": {
+  "title": "SEO Skill for Claude: Ranked Skills & Guides | Skill Garden",
+  "h1": "Claude SEO skills, ranked and distilled",
+  "description": "{{N}} ranked SEO skills for Claude in {{G}} guides: audits, indexing, schema, content that ranks, local SEO and AI search visibility. Free plugin.",
+  "query": "claude seo skill"
+ },
+ "/crafts/social-media/": {
+  "title": "Claude Social Media Skills: Posts & Reels | Skill Garden",
+  "h1": "Claude skills for social media",
+  "description": "{{N}} ranked social media skills for Claude in {{G}} guides: plan, write and publish posts, threads, carousels and short video scripts, then engage.",
+  "query": "claude social media skills"
+ },
+ "/crafts/storyboarding/": {
+  "title": "Claude Storyboarding Skill: Script to Shots | Skill Garden",
+  "h1": "Claude skills for storyboarding",
+  "description": "{{N}} ranked storyboarding skills for Claude in {{G}} guides: beats, scripts, camera language, consistent characters and per-shot AI video prompts.",
+  "query": "claude skill for storyboarding"
+ },
+ "/crafts/testing-qa/": {
+  "title": "Claude TDD & Test Automation Skills | Skill Garden",
+  "h1": "Claude skills for testing and QA",
+  "description": "{{N}} ranked testing skills for Claude in {{G}} guides: TDD, unit and E2E tests with Playwright, pytest and Vitest, browser QA and flaky-test fixes.",
+  "query": "claude tdd skill"
+ },
+ "/crafts/token-efficiency/": {
+  "title": "Claude Token Optimization Skill: Spend Less | Skill Garden",
+  "h1": "Claude skills for token efficiency",
+  "description": "{{N}} ranked token-saving skills for Claude in {{G}} guides: lean context, session hygiene, caching that hits, model and effort choice, plan limits.",
+  "query": "claude skill for token optimization"
+ },
+ "/crafts/trading-finance/": {
+  "title": "Claude Trading & Finance Skills, Ranked | Skill Garden",
+  "h1": "Claude skills for trading and finance",
+  "description": "{{N}} ranked finance skills for Claude in {{G}} guides: DCF, comps and LBO models, equity research, backtests, risk and options maths. Paper first.",
+  "query": "claude trading skills"
+ },
+ "/crafts/website-building/": {
+  "title": "Claude Skill for Website Design & Building | Skill Garden",
+  "h1": "Claude skills for website design and building",
+  "description": "{{N}} ranked web skills for Claude in {{G}} guides: copy, design that doesn't look AI-made, Next.js or Astro builds, Core Web Vitals and deploys. Free.",
+  "query": "claude skill for website design"
+ }
+}

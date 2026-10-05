@@ -9,6 +9,8 @@ command = "node build-site.mjs"
 [assets]
 directory = "./public"
 binding = "ASSETS"
+# Unknown paths get public/404.html with status 404 (written by pages.mjs).
+not_found_handling = "404-page"
 
 [vars]
 REPO = "Gipsonkj/skillgarden"

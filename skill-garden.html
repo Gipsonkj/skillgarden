@@ -381,7 +381,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
 .hero { display: grid; grid-template-columns: minmax(0, 1.02fr) minmax(0, 1fr); gap: 28px; align-items: stretch; margin: 8px 0 30px; }
 @media (max-width: 900px) { .hero { grid-template-columns: minmax(0, 1fr); } }
 .hero-copy { display: grid; align-content: center; gap: 18px; padding: 10px 0; }
-.hero h2 { font-size: clamp(34px, 5vw, 56px); line-height: 1.02; font-weight: 640; letter-spacing: -.025em; font-variation-settings: "opsz" 96; max-width: 15ch; }
+.hero h2, .hero h1 { font-size: clamp(34px, 5vw, 56px); line-height: 1.02; font-weight: 640; letter-spacing: -.025em; font-variation-settings: "opsz" 96; max-width: 15ch; }
 .hero .lede { font-size: 17px; color: var(--ink-2); max-width: 52ch; }
 .hero-ctas { display: flex; flex-wrap: wrap; gap: 10px; }
 .btn.lg { padding: 11px 18px; font-size: 15px; border-radius: 10px; }
@@ -447,9 +447,15 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
 .crumbs { display: flex; gap: 8px; align-items: center; font-size: 13.5px; color: var(--ink-3); margin-bottom: 14px; }
 .crumbs button { appearance: none; border: 0; background: none; padding: 0; color: var(--ink-2); cursor: pointer; font-weight: 560; }
 .crumbs button:hover { color: var(--accent); }
+/* On the website these are real links (crawlable, open in a new tab); they look like the buttons they replace. */
+a.tcard, a.chain-card, a.gitem, a.cap, a.link, .crumbs a { text-decoration: none; }
+a.gitem, a.cap { color: var(--ink); }
+.crumbs a { color: var(--ink-2); font-weight: 560; } .crumbs a:hover { color: var(--accent); }
+/* A pre-rendered page is taken over without replaying the entrance animations. */
+.pre .reveal { animation: none; }
 .t-hero { --h: 165; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 18px 30px; align-items: end; padding: 22px 0 22px; border-bottom: 1px solid var(--line); margin-bottom: 24px; }
 @media (max-width: 760px) { .t-hero { grid-template-columns: minmax(0, 1fr); } }
-.t-hero h2 { font-size: clamp(32px, 4.4vw, 46px); letter-spacing: -.02em; font-weight: 650; font-variation-settings: "opsz" 96; margin: 6px 0 8px; }
+.t-hero h2, .t-hero h1 { font-size: clamp(32px, 4.4vw, 46px); letter-spacing: -.02em; font-weight: 650; font-variation-settings: "opsz" 96; margin: 6px 0 8px; }
 .t-hero .lede { color: var(--ink-2); font-size: 16px; max-width: 60ch; }
 .t-stats { display: flex; gap: 22px; }
 .t-stats div { display: grid; }
@@ -529,7 +535,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
 .drawer { position: fixed; z-index: 31; top: 0; right: 0; bottom: 0; width: min(720px, 100vw); background: var(--ground); border-left: 1px solid var(--line); box-shadow: var(--shadow-lg); transform: translateX(104%); visibility: hidden; transition: transform .32s var(--ease), visibility 0s .32s; display: grid; grid-template-rows: auto minmax(0, 1fr); }
 .drawer.on { transform: none; visibility: visible; transition: transform .32s var(--ease); }
 .drawer-head { display: flex; gap: 12px; align-items: start; justify-content: space-between; padding: 18px 22px 14px; border-bottom: 1px solid var(--line); background: var(--raised); }
-.drawer-head h3 { font-size: 21px; overflow-wrap: anywhere; }
+.drawer-head h3, .drawer-head h1 { font-size: 21px; overflow-wrap: anywhere; }
 .drawer-body { overflow-y: auto; padding: 18px 22px 40px; display: grid; gap: 16px; align-content: start; }
 .drawer-body .reader { max-width: none; }
 .prov { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 7px 16px; margin: 0; font-size: 13.5px; padding: 14px 16px; border: 1px solid var(--line); border-radius: 12px; background: var(--raised); }
@@ -832,7 +838,10 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
     renderHeader();
     const v = S.view;
     if (mounted !== v) { mountView(v); mounted = v; }
-    if (v === "explore") updateExplore();
+    if (v === "explore") {
+      updateExplore();
+      if (EX.justHydrated) { EX.justHydrated = false; document.querySelectorAll("#view .reveal").forEach((e) => e.classList.remove("reveal")); document.documentElement.classList.remove("pre"); }
+    }
     else if (v === "review") updateReview();
     else if (v === "skills") updateSkills();
     else if (v === "inbox") updateInbox();
@@ -1967,6 +1976,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
   document.addEventListener("click", async (ev) => {
     const el = ev.target.closest("[data-act]");
     if (!el || el.tagName === "SELECT" || (el.tagName === "INPUT" && el.type === "checkbox")) return;
+    if (el.tagName === "A" && el.hasAttribute("href")) { if (ev.button || ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.altKey) return; ev.preventDefault(); }
     const act = el.dataset.act, id = el.dataset.id;
     const cand = () => S.candidates.find((c) => c.id === id);
     const openT = () => topicById(S.skillOpen);
@@ -2096,6 +2106,13 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
   const humanRef = (p) => p.replace(/^references\//, "").replace(/\.md$/, "").replace(/[-_]+/g, " ").replace(/^./, (c) => c.toUpperCase());
   const refTitle = (c, p) => { const m = String((c.live && c.live.files && c.live.files[p]) || "").split(/^```/m)[0].match(/^#\s+(.+)$/m); return m ? m[1].replace(/[*_`]/g, "").trim() : humanRef(p); };
   const setHTML = (el, html) => { if (el && el._h !== html) { el.innerHTML = html; el._h = html; } };
+  // The website gives every craft, chain and guide its own address, and its navigation is real links
+  // (<a href> with data-act, handled in the page) so search engines can follow them. The local app keeps
+  // its buttons and #/ addresses.
+  const craftUrl = (id) => `/crafts/${id}/`, chainUrl = (id) => `/chains/${id}/`;
+  const guideUrl = (craft, p) => /^references\/[\w.-]+\.md$/.test(p) ? `/guides/${craft}/${p.slice(11, -3)}/` : null;
+  const navTag = (href) => (window.SG_PUBLIC && href ? `a href="${esc(href)}"` : "button");
+  const navEnd = (href) => (window.SG_PUBLIC && href ? "a" : "button");
 
   async function loadCatalog() {
     if (EX.catalogTried) return; EX.catalogTried = true;
@@ -2119,12 +2136,16 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
   function updateExplore() {
     const el = $("#ex"); if (!el) return;
     if (!EX.catalogTried) loadCatalog();
+    if (EX.hydrating) { if (!(EX.catalogTried && S.loaded.topics && EX.chains)) return; EX.hydrating = false; EX.justHydrated = true; }
     const list = crafts();
     if (!list.length) { setHTML(el, (!EX.catalogTried || !S.loaded.topics) && !S.dbMissing ? `<p class="skeleton">Loading the catalog…</p>` : `<div class="empty"><h3>No crafts yet</h3><p>Run the local app from the SkillGarden folder so the catalog of crafts can load, or import super skills with <code>node local/import-superskills.mjs</code>.</p></div>`); return; }
     const ch = EX.chain && (EX.chains || []).find((x) => x.id === EX.chain);
-    if (ch) { if (el.dataset.mode !== "chain:" + ch.id) { el.dataset.mode = "chain:" + ch.id; el._h = null; window.scrollTo({ top: 0 }); } setHTML(el, chainPage(ch)); return; }
+    // On the website, the tab and bookmarks name the craft or chain being viewed.
+    // Each pre-rendered page has its own search title; after moving around in the page, the tab names the view.
+    if (window.SG_PUBLIC && EX.navigated) { const n = ch ? ch.name : EX.topic && craftById(EX.topic)?.name; document.title = n ? `${n} · Skill Garden` : "Skill Garden"; }
+    if (ch) { if (el.dataset.mode !== "chain:" + ch.id) { el.dataset.mode = "chain:" + ch.id; el._h = null; if (!EX.justHydrated) window.scrollTo({ top: 0 }); } setHTML(el, chainPage(ch)); return; }
     const c = EX.topic && craftById(EX.topic);
-    if (c) { if (el.dataset.mode !== "topic:" + c.id) { el.dataset.mode = "topic:" + c.id; el._h = null; window.scrollTo({ top: 0 }); } setHTML(el, topicPage(c)); return; }
+    if (c) { if (el.dataset.mode !== "topic:" + c.id) { el.dataset.mode = "topic:" + c.id; el._h = null; if (!EX.justHydrated) window.scrollTo({ top: 0 }); } setHTML(el, topicPage(c)); if (EX.guide && c.live && EX.guideShown !== EX.guide) { EX.guideShown = EX.guide; previewRef(c, EX.guide); } return; }
     if (el.dataset.mode !== "home") { el.dataset.mode = "home"; el._h = null; setHTML(el, homeShell(list)); startGarden(); }
     setHTML($("#exStats"), readout(list));
     setHTML($("#exCats"), [{ id: "all", name: "All crafts" }, ...CATS].map((k) => `<button class="fchip" data-act="ex-cat" data-id="${k.id}" aria-pressed="${EX.cat === k.id}">${esc(k.name)}</button>`).join(""));
@@ -2139,15 +2160,15 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
     const list = EX.chains || [];
     if (!list.length) return "";
     return `<section class="ex-sec"><header><h2>Chains</h2><p>One ask runs several crafts in order. "Run a campaign" does the research, angles, hooks, posts, ads and test plan, each step with the guide made for it.</p></header>
-      <div class="chain-grid">${list.map((x) => `<button class="chain-card" data-act="ex-chain" data-id="${esc(x.id)}"><span class="eyebrow">${plural(x.steps.length, "step")}</span><h3>${esc(x.name)}</h3><p>${esc(x.blurb || "")}</p>
-        <div class="chain-path">${[...new Set(x.steps.map((st) => st.craft))].map((id) => esc(craftName(id))).join(" <span aria-hidden=\"true\">→</span> ")}</div></button>`).join("")}</div></section>`;
+      <div class="chain-grid">${list.map((x) => `<${navTag(chainUrl(x.id))} class="chain-card" data-act="ex-chain" data-id="${esc(x.id)}"><span class="eyebrow">${plural(x.steps.length, "step")}</span><h3>${esc(x.name)}</h3><p>${esc(x.blurb || "")}</p>
+        <div class="chain-path">${[...new Set(x.steps.map((st) => st.craft))].map((id) => esc(craftName(id))).join(" <span aria-hidden=\"true\">→</span> ")}</div></${navEnd(chainUrl(x.id))}>`).join("")}</div></section>`;
   }
   function chainPage(x) {
     const crafts = [...new Set(x.steps.flatMap((st) => st.uses.map((u) => u.craft)))];
     const missing = crafts.filter((id) => { const c = craftById(id); return !c || !c.live; });
-    return `<nav class="crumbs" aria-label="Breadcrumb"><button data-act="ex-home">Explore</button><span aria-hidden="true">/</span><span>Chains</span><span aria-hidden="true">/</span><span>${esc(x.name)}</span></nav>
+    return `<nav class="crumbs" aria-label="Breadcrumb"><${navTag("/explore/")} data-act="ex-home">Explore</${navEnd("/explore/")}><span aria-hidden="true">/</span><span>Chains</span><span aria-hidden="true">/</span><span>${esc(x.name)}</span></nav>
     <header class="t-hero reveal" style="--h:150">
-      <div><span class="eyebrow">Chain</span><h2>${esc(x.name)}</h2><p class="lede">${esc(x.blurb || "")}</p></div>
+      <div><span class="eyebrow">Chain</span>${window.SG_PUBLIC ? `<h1>${esc(x.name)}</h1>` : `<h2>${esc(x.name)}</h2>`}<p class="lede">${esc(x.blurb || "")}</p></div>
       <div class="t-stats"><div><b>${x.steps.length}</b><span>Steps</span></div><div><b>${crafts.length}</b><span>Crafts</span></div></div>
     </header>
     <section class="super reveal">
@@ -2156,7 +2177,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
         <p class="desc">${esc(x.description || "")}</p>
         <div class="row-actions"><button class="btn primary" data-act="dl-chain" data-id="${esc(x.id)}"${missing.length ? " disabled" : ""}>Download chain + its ${crafts.length} super skills (.zip)</button></div>
         <ol class="chain-steps">${x.steps.map((st) => `<li><div><h4>${esc(st.title)}</h4><p>${esc(st.output || "")}</p>
-          <div class="caps">${st.uses.map((u) => `<button class="cap" data-act="pv-ref" data-id="${esc(u.craft)}" data-path="${esc(u.guide)}"><i></i><span>${esc(craftName(u.craft))}: ${esc(humanRef(u.guide))}</span></button>`).join("")}</div></div></li>`).join("")}</ol>
+          <div class="caps">${st.uses.map((u) => `<${navTag(guideUrl(u.craft, u.guide))} class="cap" data-act="pv-ref" data-id="${esc(u.craft)}" data-path="${esc(u.guide)}"><i></i><span>${esc(craftName(u.craft))}: ${esc(humanRef(u.guide))}</span></${navEnd(guideUrl(u.craft, u.guide))}>`).join("")}</div></div></li>`).join("")}</ol>
       </div>
       <aside class="install">
         <h4>Use it</h4>
@@ -2182,7 +2203,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
     const feed = ((EX.credits && EX.credits.feed) || []).filter((f) => craftById(f.topicId));
     if (!feed.length) return "";
     return `<section class="ex-sec"><header><h2>Learned from the community</h2><p>The latest changes the weekly scout found and that made it in after winning blind trials, with the creators and pages they came from.</p></header>
-      <ul class="feed">${feed.map((f) => `<li><div class="r-line"><button class="link" data-act="ex-topic" data-id="${esc(f.topicId)}">${esc(craftName(f.topicId))}</button><span class="mono muted">v${N(f.version)} · ${esc(ago(f.date) || "")}</span></div><b>${esc(f.title)}</b>${f.credits.length ? creditLinks(f.credits) : ""}</li>`).join("")}</ul></section>`;
+      <ul class="feed">${feed.map((f) => `<li><div class="r-line"><${navTag(craftUrl(f.topicId))} class="link" data-act="ex-topic" data-id="${esc(f.topicId)}">${esc(craftName(f.topicId))}</${navEnd(craftUrl(f.topicId))}><span class="mono muted">v${N(f.version)} · ${esc(ago(f.date) || "")}</span></div><b>${esc(f.title)}</b>${f.credits.length ? creditLinks(f.credits) : ""}</li>`).join("")}</ul></section>`;
   }
   function creditsSection(c) {
     const list = (EX.credits && EX.credits.topics && EX.credits.topics[c.id]) || [];
@@ -2201,7 +2222,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
   function homeShell(list) {
     return `<section class="hero reveal">
       <div class="hero-copy">
-        <h2>One super skill for every craft Claude works in.</h2>
+        ${window.SG_PUBLIC ? "<h1>" : "<h2>"}One super skill for every craft Claude works in.${window.SG_PUBLIC ? "</h1>" : "</h2>"}
         <p class="lede">Each craft bundles the best public skills into one router. Install it once, ask in plain words, and Claude opens the right technique for the job. Every sub-skill is here too, ranked and credited to its author, and the list is re-scouted every week.</p>
         <div class="hero-ctas"><button class="btn primary lg" data-act="ex-scroll">Browse the crafts</button><button class="btn lg" data-act="dl-all-super">Download all super skills</button></div>
         <p class="hero-stats" id="exStats"></p>
@@ -2218,12 +2239,12 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
   }
   function cardHtml(c, showCat) {
     const refs = refsOf(c).length, tr = c.skills.filter((s) => s.trending).length;
-    return `<button class="tcard" data-act="ex-topic" data-id="${esc(c.id)}" style="--h:${N(c.hue)}">
+    return `<${navTag(craftUrl(c.id))} class="tcard" data-act="ex-topic" data-id="${esc(c.id)}" style="--h:${N(c.hue)}">
         ${showCat ? `<div class="tc-head"><i aria-hidden="true"></i>${esc(catOf(c.id).name)}</div>` : ""}
         <h3>${esc(c.name)}</h3><p>${esc(c.blurb || "")}</p>
         ${c.skills.length ? `<ol class="tc-top" aria-label="Top skills">${c.skills.slice(0, 3).map((s, i) => `<li><span>${i + 1}</span><b>${esc(s.name)}</b></li>`).join("")}</ol>` : ""}
         <div class="tc-foot"><span>${plural(refs, "guide")}, ${plural(c.skills.length, "skill")}</span>${tr ? `<span class="pill bloom">${tr} trending</span>` : ""}</div>
-      </button>`;
+      </${navEnd(craftUrl(c.id))}>`;
   }
   function gridHtml(list) {
     const q = EX.q.trim().toLowerCase();
@@ -2257,9 +2278,9 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
       : inst === "web"
       ? `<ol><li>Download the super skill (.zip).</li><li>In claude.ai open <b>Settings → Capabilities → Skills</b> and upload the zip.</li><li>Turn it on, then ask in any chat.</li></ol>`
       : `<div class="code">Use the ${esc(c.id)} skill: &lt;your task&gt;<button class="cp" data-act="copy-text" data-text="Use the ${esc(c.id)} skill: ">Copy</button></div><ol><li>Claude also picks it up without the name when the task matches its description.</li><li>To steer it, name a guide: “use ${esc(c.id)}, ${esc(refs[0] ? humanRef(refs[0]).toLowerCase() : "the main guide")}”.</li></ol>`;
-    return `<nav class="crumbs" aria-label="Breadcrumb"><button data-act="ex-home">Explore</button><span aria-hidden="true">/</span><button data-act="ex-cat-home" data-id="${cat.id}">${esc(cat.name)}</button><span aria-hidden="true">/</span><span>${esc(c.name)}</span></nav>
+    return `<nav class="crumbs" aria-label="Breadcrumb"><${navTag("/explore/")} data-act="ex-home">Explore</${navEnd("/explore/")}><span aria-hidden="true">/</span><${navTag("/explore/#crafts")} data-act="ex-cat-home" data-id="${cat.id}">${esc(cat.name)}</${navEnd("/explore/#crafts")}><span aria-hidden="true">/</span><span>${esc(c.name)}</span></nav>
     <header class="t-hero reveal" style="--h:${N(c.hue)}">
-      <div><h2>${esc(c.name)}</h2><p class="lede">${esc(c.blurb || "")}</p></div>
+      <div>${window.SG_PUBLIC && !EX.guide ? `<h1>${esc(c.name)}</h1>` : `<h2>${esc(c.name)}</h2>`}<p class="lede">${esc(c.blurb || "")}</p></div>
       <div class="t-stats"><div><b>${refs.length}</b><span>Guides</span></div><div><b>${c.skills.length}</b><span>Sub-skills</span></div>${tr ? `<div><b>${tr}</b><span>Trending</span></div>` : ""}</div>
     </header>
     ${t || c.superskill ? `<section class="super reveal">
@@ -2271,7 +2292,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
           <button class="btn${inBundle("super", c.id) ? " added" : ""}" data-act="bundle-toggle" data-kind="super" data-topic="${esc(c.id)}"${t ? "" : " disabled"}>${inBundle("super", c.id) ? "In your bundle" : "Add to bundle"}</button>
           <button class="btn ghost" data-act="pv-router" data-id="${esc(c.id)}"${t ? "" : " disabled"}>Read the router</button>
         </div>
-        ${refs.length ? `<div class="guides"><h4>Guides inside <span class="count">${refs.length}</span></h4><ul class="glist">${refs.map((r) => `<li><button class="gitem" data-act="pv-ref" data-id="${esc(c.id)}" data-path="${esc(r)}"><span>${esc(refTitle(c, r))}</span><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button></li>`).join("")}</ul></div>` : ""}
+        ${refs.length ? `<div class="guides"><h4>Guides inside <span class="count">${refs.length}</span></h4><ul class="glist">${refs.map((r) => `<li><${navTag(guideUrl(c.id, r))} class="gitem" data-act="pv-ref" data-id="${esc(c.id)}" data-path="${esc(r)}"><span>${esc(refTitle(c, r))}</span><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></${navEnd(guideUrl(c.id, r))}></li>`).join("")}</ul></div>` : ""}
         ${desc ? `<details class="when"><summary>When Claude loads it</summary><p>${esc(desc)}</p></details>` : ""}
         ${t ? "" : `<p class="muted">Import the super skills into this app to download them: <code class="mono">node local/import-superskills.mjs</code></p>`}
       </div>
@@ -2308,7 +2329,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
   /* drawer */
   function openDrawer(html) { const d = $("#drawer"); d.innerHTML = html; d.classList.add("on"); d.setAttribute("aria-hidden", "false"); $("#scrim").classList.add("on"); const b = d.querySelector("[data-act=close-overlays]"); if (b) b.focus(); }
   function drawerShell(eyebrow, title, body, side) {
-    return `<div class="drawer-head"><div><p class="eyebrow">${eyebrow}</p><h3 id="drawerTitle">${title}</h3></div><div class="row-actions">${side || ""}<button class="icon-btn" data-act="close-overlays" aria-label="Close">✕</button></div></div><div class="drawer-body">${body}</div>`;
+    return `<div class="drawer-head"><div><p class="eyebrow">${eyebrow}</p>${window.SG_PUBLIC && EX.guide ? `<h1 id="drawerTitle">${title}</h1>` : `<h3 id="drawerTitle">${title}</h3>`}</div><div class="row-actions">${side || ""}<button class="icon-btn" data-act="close-overlays" aria-label="Close">✕</button></div></div><div class="drawer-body">${body}</div>`;
   }
   function previewRef(c, p) {
     const txt = c.live && c.live.files && c.live.files[p];
@@ -2332,9 +2353,10 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
       sk.outerHTML = `${files.length ? `<div><p class="eyebrow" style="margin-bottom:6px">${plural(files.length, "file")} in this skill</p><div class="files-mini">${files.slice(0, 16).map((f) => `<span>${esc(f.path)}</span>`).join("")}${files.length > 16 ? `<span>+${files.length - 16} more</span>` : ""}</div></div>` : ""}<article class="reader">${meta.description ? `<p class="lead">${esc(meta.description)}</p>` : ""}${md(body)}</article>`;
     } catch { const sk = $("#drawer .skeleton"); if (sk) sk.textContent = "Couldn't load this skill from the library. Is the SkillGarden folder next to the app?"; }
   }
-  function closeOverlays() {
+  function closeOverlays(keepUrl) {
     for (const id of ["drawer", "sheet", "palette"]) { const e = $("#" + id); e.classList.remove("on"); e.setAttribute("aria-hidden", "true"); }
     $("#scrim").classList.remove("on");
+    if (window.SG_PUBLIC && EX.guide && keepUrl !== true) { EX.guide = null; EX.guideShown = null; EX.navigated = true; history.replaceState(null, "", craftUrl(EX.topic)); render(); }
   }
 
   /* downloads */
@@ -2419,8 +2441,29 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
 
   /* navigation: #/ is the catalog, #/c/<id> a craft page, so back and forward work */
   function goView(v) { if (window.SG_PUBLIC) v = "explore"; S.editing = null; S.noteEditing = null; S.view = v; if (v !== "explore" && location.hash.startsWith("#/")) history.replaceState(null, "", location.pathname + location.search); render(); window.scrollTo({ top: 0 }); }
-  function openCraft(id) { if (location.hash !== "#/c/" + id) location.hash = "#/c/" + id; else onHash(); }
+  function openCraft(id) { if (window.SG_PUBLIC) return go(craftUrl(id)); if (location.hash !== "#/c/" + id) location.hash = "#/c/" + id; else onHash(); }
+  // Website addresses: /explore/, /crafts/<id>/, /chains/<id>/, /guides/<craft>/<guide>/ (the craft with that guide open).
+  function pathRoute(p = location.pathname) {
+    let m;
+    EX.topic = null; EX.chain = null; EX.guide = null; EX.guideShown = null; EX.subFilter = "all"; S.view = "explore";
+    if ((m = p.match(/^\/crafts\/([\w-]+)\/?$/))) EX.topic = m[1];
+    else if ((m = p.match(/^\/chains\/([\w-]+)\/?$/))) EX.chain = m[1];
+    else if ((m = p.match(/^\/guides\/([\w-]+)\/([\w.-]+)\/?$/))) { EX.topic = m[1]; EX.guide = `references/${m[2]}.md`; }
+  }
+  function go(path) {
+    EX.navigated = true;
+    if (location.pathname !== path || location.hash) history.pushState(null, "", path);
+    pathRoute(); closeOverlays(true); render(); window.scrollTo({ top: 0 });
+  }
+  // Old #/ links on the website become real addresses.
+  function hashToPath() {
+    const m = location.hash.match(/^#\/c\/([\w-]+)/), k = location.hash.match(/^#\/chain\/([\w-]+)/);
+    EX.navigated = true;
+    history.replaceState(null, "", m ? craftUrl(m[1]) : k ? chainUrl(k[1]) : "/explore/");
+  }
+  if (window.SG_PUBLIC) window.addEventListener("popstate", () => { EX.navigated = true; pathRoute(); closeOverlays(true); render(); });
   function onHash() {
+    if (window.SG_PUBLIC) { if (location.hash.startsWith("#/")) { hashToPath(); pathRoute(); closeOverlays(true); render(); } return; }
     const m = location.hash.match(/^#\/c\/([\w-]+)/);
     const k = location.hash.match(/^#\/chain\/([\w-]+)/);
     if (location.hash.startsWith("#/")) { S.view = "explore"; EX.topic = m ? m[1] : null; EX.chain = k ? k[1] : null; EX.subFilter = "all"; closeOverlays(); render(); if (!m && !k) window.scrollTo({ top: 0 }); }
@@ -2496,12 +2539,12 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
   async function exploreAct(act, el) {
     const id = el.dataset.id;
     switch (act) {
-      case "ex-home": if (window.SG_PUBLIC && el.classList.contains("brand")) { location.href = "/"; return true; } if (location.hash !== "#/") location.hash = "#/"; else onHash(); return true;
+      case "ex-home": if (window.SG_PUBLIC && el.classList.contains("brand")) { location.href = "/"; return true; } if (window.SG_PUBLIC) { go("/explore/"); return true; } if (location.hash !== "#/") location.hash = "#/"; else onHash(); return true;
       case "ex-topic": openCraft(id); return true;
-      case "ex-chain": location.hash = "#/chain/" + id; return true;
+      case "ex-chain": if (window.SG_PUBLIC) go(chainUrl(id)); else location.hash = "#/chain/" + id; return true;
       case "dl-chain": { const x = (EX.chains || []).find((c) => c.id === id); if (x) await downloadChain(x); return true; }
       case "ex-cat": EX.cat = id; render(); return true;
-      case "ex-cat-home": EX.cat = id; location.hash = "#/"; setTimeout(() => { const c = $("#crafts"); if (c) c.scrollIntoView({ behavior: "smooth" }); }, 80); return true;
+      case "ex-cat-home": EX.cat = id; if (window.SG_PUBLIC) go("/explore/"); else location.hash = "#/"; setTimeout(() => { const c = $("#crafts"); if (c) c.scrollIntoView({ behavior: "smooth" }); }, 80); return true;
       case "ex-scroll": { const c = $("#crafts"); if (c) c.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" }); return true; }
       case "ex-sub": EX.subFilter = id; render(); return true;
       case "ex-sort": EX.sort = EX.sort === "stars" ? "rank" : "stars"; render(); return true;
@@ -2539,10 +2582,25 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
     }
   });
   renderBundle();
-  if (location.hash.startsWith("#/")) onHash();
+  if (!window.SG_PUBLIC && location.hash.startsWith("#/")) onHash();
 
   /* ---------- boot ---------- */
-  if (window.SG_PUBLIC) { document.documentElement.classList.add("sg-public"); S.view = "explore"; }
+  if (window.SG_PUBLIC) {
+    document.documentElement.classList.add("sg-public");
+    if (location.hash.startsWith("#/")) hashToPath();
+    pathRoute();
+    // A page the build pre-rendered (connector/prerender.mjs) keeps its HTML until the data is in, then the app takes it over.
+    if ($("#view").hasAttribute("data-pre")) { mounted = "explore"; EX.hydrating = true; document.documentElement.classList.add("pre"); }
+    // The build's pre-render step drives the page through this (only with ?prerender in the address).
+    if (/[?&]prerender\b/.test(location.search)) window.__sg = {
+      ready: () => !!(EX.catalogTried && S.loaded.topics && EX.chains),
+      route(path) {
+        // The path goes straight to the router: Chrome ignores history changes past ~200 in a few seconds.
+        pathRoute(path); closeOverlays(true); render();
+        return { view: $("#view").innerHTML, drawer: $("#drawer").classList.contains("on") ? $("#drawer").innerHTML : "" };
+      },
+    };
+  }
   render();
   (async () => {
     const c = window.claude;

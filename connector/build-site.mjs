@@ -22,6 +22,8 @@ import { stale as staleCraftMap } from "../local/craft-map.mjs";
 import { buildCredits } from "../local/credits.mjs";
 import { readCollections } from "../local/cloud.mjs";
 import { BUILT, SOURCE, buildLibrary, readLibrary } from "./library.mjs";
+import { SITE, landingLd, seoRoutes, writeSiteFiles } from "./pages.mjs";
+import { prerender } from "./prerender.mjs";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const APP = path.resolve(HERE, "..");
@@ -127,15 +129,21 @@ const unplaced = catalog.topics.filter((t) => !CATS.some((c) => c.ids.includes(t
 if (unplaced.length) throw new Error(`Crafts missing from CATS in skill-garden.html: ${unplaced.join(", ")}`);
 const craftsHtml = CATS.map((c) => `        <div class="bed"><h3>${esc(c.name)}</h3><ul>${c.ids.filter((id) => byId[id]).map((id) => {
   const t = byId[id], n = (t.skills || []).length;
-  return `<li><a href="/explore/#/c/${esc(id)}" style="--h:${Number(t.hue) || 165}"><i></i>${esc(t.name)}<small>${n} skills</small></a></li>`;
+  return `<li><a href="/crafts/${esc(id)}/" style="--h:${Number(t.hue) || 165}"><i></i>${esc(t.name)}<small>${n} skills</small></a></li>`;
 }).join("")}</ul></div>`).join("\n");
 const chainsHtml = chains.map((x) => {
   const path = [...new Set((x.steps || []).map((s) => byId[s.craft]?.name || s.craft))];
-  return `        <li><a href="/explore/#/chain/${esc(x.id)}"><div><h3>${esc(x.name)}</h3><div class="path">${path.map((p, i) => `<span style="--i:${i}">${esc(p)}</span>`).join(" → ")}</div></div><p>${esc(x.blurb)}</p></a></li>`;
+  return `        <li><a href="/chains/${esc(x.id)}/"><div><h3>${esc(x.name)}</h3><div class="path">${path.map((p, i) => `<span style="--i:${i}">${esc(p)}</span>`).join(" → ")}</div></div><p>${esc(x.blurb)}</p></a></li>`;
 }).join("\n");
 const counts = { CRAFTS: Object.keys(topics).length, SKILLS: catalog.topics.reduce((n, t) => n + (t.skills || []).length, 0), SHARED: shared, CHAINS: chains.length };
 const landing = fs.readFileSync(path.join(HERE, "landing", "index.html"), "utf8")
   .replace("<!--CRAFTS-->", craftsHtml).replace("<!--CHAINS-->", chainsHtml)
-  .replace(/\{\{(CRAFTS|SKILLS|SHARED|CHAINS)\}\}/g, (_, k) => String(counts[k]));
+  .replace(/\{\{(CRAFTS|SKILLS|SHARED|CHAINS)\}\}/g, (_, k) => String(counts[k]))
+  .replace(/\{\{SKILLS_FMT\}\}/g, counts.SKILLS.toLocaleString("en")).replace(/\{\{SITE\}\}/g, SITE).replace("<!--LD-->", `<script type="application/ld+json">${landingLd({ crafts: counts.CRAFTS, skills: counts.SKILLS })}</script>`);
 fs.writeFileSync(path.join(OUT, "index.html"), landing);
-console.log(`Built ${path.relative(process.cwd(), OUT) || "public"}: ${Object.keys(topics).length} super skills, ${chains.length} chains, ${credits.feed.length} credited changes, ${shared} downloadable sub-skills${tooBig ? `, ${tooBig} too large (link only)` : ""}${missing ? `, ${missing} missing from the library` : ""}.`);
+// Every craft, chain and guide gets its own address with the app's own view of it pre-rendered, for
+// search engines and AI crawlers (pages.mjs: heads and site files; prerender.mjs: the pages).
+const routes = seoRoutes({ topics, catalog, chains, counts });
+const indexed = writeSiteFiles({ out: OUT, routes, topics, catalog, chains, CATS });
+const rendered = await prerender({ out: OUT, routes, required: CI });
+console.log(`Built ${path.relative(process.cwd(), OUT) || "public"}: ${Object.keys(topics).length} super skills, ${chains.length} chains, ${rendered} pages pre-rendered (${indexed} in the sitemap), ${credits.feed.length} credited changes, ${shared} downloadable sub-skills${tooBig ? `, ${tooBig} too large (link only)` : ""}${missing ? `, ${missing} missing from the library` : ""}.`);
