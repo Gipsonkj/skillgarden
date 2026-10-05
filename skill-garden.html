@@ -1114,13 +1114,14 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
       ${t.blurb ? `<p style="color:var(--ink-2);max-width:66ch">${esc(t.blurb)}</p>` : ""}
       <div class="detail-actions">${t.content ? `<button class="btn primary small" data-act="download-skill">${fileCount(t) ? "Download skill (.zip)" : "Download SKILL.md"}</button><button class="btn small" data-act="copy-skill">Copy</button>` : ""}${waiting ? `<button class="btn small" data-act="tab" data-view="review">${plural(waiting, "change")} waiting</button>` : ""}
       <label class="switch" style="margin-left:auto"><input type="checkbox" id="activeToggle" data-act="toggle-active"${t.active === false ? "" : " checked"}${S.canWrite ? "" : " disabled"}> Scout this topic</label></div>`;
-    const tabs = [["skill", "Skill"], ["history", `History`], ["tests", `Tests · ${(t.tests || []).length}`], ["sources", "Sources"]];
+    const tabs = [["skill", "Skill"], ["history", `History`], ["tests", `Tests · ${(t.tests || []).length}`], ["sources", "Sources"], ["feedback", S.fb && S.fb.for === t.id && S.fb.fresh ? `Feedback · ${S.fb.fresh}` : "Feedback"]];
     $("#d-tabs").innerHTML = tabs.map(([k, l]) => `<button class="subtab" role="tab" data-act="skill-tab" data-tab="${k}" aria-selected="${S.skillTab === k}">${esc(l)}</button>`).join("");
     if (S.editing && S.editing.topicId === t.id) return; // don't clobber an open editor
     const body = $("#d-body");
     if (S.skillTab === "skill") body.innerHTML = skillPane(t);
     else if (S.skillTab === "history") body.innerHTML = historyPane(t);
     else if (S.skillTab === "tests") body.innerHTML = testsPane(t);
+    else if (S.skillTab === "feedback") body.innerHTML = feedbackPane(t);
     else body.innerHTML = sourcesPane(t);
   }
   function newTopicForm() {
@@ -1160,6 +1161,38 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
     const tests = t.tests || [];
     return `<div class="section-head" style="margin-bottom:12px"><div><p>Every proposed change is tried on these tasks against the current skill. A judge sees both answers without knowing which is which.</p></div><button class="btn small" data-act="edit-tests"${S.canWrite ? "" : " disabled"}>Edit tests</button></div>
       ${tests.length ? `<div class="tests">${tests.map((x, k) => `<div class="test"><span class="lbl">Task ${k + 1}</span><p>${esc(x.prompt)}</p>${x.good ? `<span class="lbl" style="margin-top:6px">What good looks like</span><p style="color:var(--ink-2)">${esc(x.good)}</p>` : ""}</div>`).join("")}</div>` : `<div class="empty"><h3>No tests yet</h3><p>Without tests the scout can't compare versions. Add two or three real tasks you'd ask for in this topic, or let the scout suggest them with the first draft.</p></div>`}`;
+  }
+  // Feedback notes from /skillgarden:feedback and the connector's send_feedback, and what this Mac's
+  // opt-in usage log says (the server sums it up; on the admin page it isn't there).
+  const PROBLEM = { "worked-well": "Worked well", "wrong-craft": "Wrong skill used", "wrong-guide": "Wrong guide", "guide-missing": "Guide was missing something", "guide-wrong": "Guide was wrong", "too-slow": "Too slow or costly", other: "Other" };
+  async function loadFeedback(id) {
+    S.fb = { for: id, loading: true };
+    const [notes, usage] = await Promise.all([
+      S.db.collection("feedback").where("topicIds", "array-contains", id).get().then((q) => q.docs.map((d) => ({ id: d.id, ...d.data() }))).catch(() => []),
+      fetch(`/api/usage/${encodeURIComponent(id)}`).then((r) => (r.ok ? r.json() : null)).catch(() => null),
+    ]);
+    notes.sort((a, b) => String(b.at || "").localeCompare(String(a.at || "")));
+    if (S.skillOpen === id) { S.fb = { for: id, notes, usage, fresh: notes.filter((n) => n.status === "new").length }; render(); }
+  }
+  function feedbackPane(t) {
+    if (!S.fb || S.fb.for !== t.id) { loadFeedback(t.id); return `<p class="skeleton">Loading feedback…</p>`; }
+    if (S.fb.loading) return `<p class="skeleton">Loading feedback…</p>`;
+    const u = S.fb.usage, notes = S.fb.notes;
+    const WHO = { you: "You", user: "A plugin user", connector: "A claude.ai user" };
+    const usage = !u ? `<p class="muted">The usage log lives on the Mac that runs Skill Garden; open the app there to see it.</p>`
+      : !u.loggedSessions ? `<p class="muted">${u.logOn ? "The usage log is on but hasn't recorded a session that used Skill Garden yet." : "The usage log is off. In Claude Code, <span class=\"mono\">/skillgarden:feedback usage on</span> starts it: a private record, on this Mac only, of which skills and guides each session used."}</p>`
+      : `<p>Last ${u.days} days: loaded in <b>${u.fired}</b> of ${u.loggedSessions} logged sessions${u.fired ? `, <b>${u.firedNoGuide}</b> of them without reading any guide` : ""}${u.medianNewTokens ? `; typical session ${u.medianNewTokens >= 1e6 ? (u.medianNewTokens / 1e6).toFixed(1) + "M" : Math.round(u.medianNewTokens / 1000) + "k"} new tokens` : ""}.</p>
+        <div class="kv"><span class="lbl" style="font-weight:600">Guides read</span>${Object.keys(u.guidesRead).length ? `<div class="taglist">${Object.entries(u.guidesRead).sort((a, b) => b[1] - a[1]).map(([g, n]) => `<span class="tag">${esc(g)} · ${n}</span>`).join("")}</div>` : `<p class="muted">None yet.</p>`}</div>
+        <div class="kv"><span class="lbl" style="font-weight:600">Never read</span>${u.neverRead.length ? `<div class="taglist">${u.neverRead.map((g) => `<span class="tag">${esc(g)}</span>`).join("")}</div>` : `<p class="muted">Every guide was read at least once.</p>`}</div>`;
+    const list = notes.length ? `<div class="tests">${notes.map((n) => {
+      const c = (n.crafts || []).find((x) => x.id === t.id) || {};
+      return `<div class="test"><div class="row-actions" style="gap:8px;align-items:center"><span class="pill${n.problem === "worked-well" ? " good" : " bad"}">${esc(PROBLEM[n.problem] || n.problem)}</span>${n.rating ? `<span class="pill">${esc(n.rating)}/5</span>` : ""}<span class="muted">${esc(WHO[n.source] || "Someone")} · ${esc(ago(n.at || n.receivedAt))}</span>${n.status !== "new" ? `<span class="pill">${n.status === "used" ? "Used by the scout" : "Seen"}</span>` : ""}
+        <button class="btn ghost small" style="margin-left:auto" data-act="fb-status" data-id="${esc(n.id)}" data-to="${n.status === "new" ? "seen" : "new"}"${S.canWrite ? "" : " disabled"}>${n.status === "new" ? "Mark seen" : "Back to new"}</button></div>
+        ${n.task ? `<span class="lbl">Task</span><p>${esc(n.task)}</p>` : ""}${n.detail ? `<span class="lbl">What happened</span><p>${esc(n.detail)}</p>` : ""}${n.words ? `<span class="lbl">In their words</span><p style="color:var(--ink-2)">“${esc(n.words)}”</p>` : ""}${n.seenWhy ? `<span class="lbl">Scout</span><p class="muted">${esc(n.seenWhy)}</p>` : ""}
+        ${c.guides && c.guides.length ? `<div class="taglist">${c.guides.map((g) => `<span class="tag">${esc(g)}</span>`).join("")}</div>` : ""}</div>`;
+    }).join("")}</div>` : `<div class="empty"><h3>No feedback yet</h3><p>Notes left with <span class="mono">/skillgarden:feedback</span> in Claude Code, or sent from claude.ai, land here. The scout reads the new ones each week.</p></div>`;
+    return `<div class="section-head" style="margin-bottom:12px"><div><p>How this skill did in real use. The scout reads new notes before it proposes changes, and checks them like any other lead.</p></div></div>
+      <div class="fields" style="margin-bottom:18px">${usage}</div>${list}`;
   }
   function sourcesPane(t) {
     const libs = (S.settings && S.settings.libraries) || [], lists = (S.settings && S.settings.lists) || [], shared = (S.settings && S.settings.feeds) || [];
@@ -1872,7 +1905,8 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
       case "unskip": await guarded("c:" + id, async () => { await S.db.doc("candidates/" + id).update({ status: "ready" }); toast("Moved back to review."); }); break;
       case "open-skill": S.skillOpen = id; S.skillTab = "skill"; S.editing = null; S.histOpen.clear(); render(); window.scrollTo({ top: 0 }); break;
       case "back-skills": S.skillOpen = null; S.editing = null; if (unsubVersions) { unsubVersions(); unsubVersions = null; } render(); break;
-      case "skill-tab": if (S.editing) S.editing = null; S.skillTab = el.dataset.tab; render(); break;
+      case "skill-tab": if (S.editing) S.editing = null; S.skillTab = el.dataset.tab; if (S.skillTab === "feedback") S.fb = null; render(); break;
+      case "fb-status": if (S.canWrite) { await S.db.doc("feedback/" + id).update({ status: el.dataset.to }); S.fb = null; render(); } break;
       case "raw": S.skillRaw = el.dataset.raw === "1"; render(); break;
       case "download-skill": {
         const t = openT(); if (!t) break;

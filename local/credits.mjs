@@ -39,6 +39,7 @@ function creditsFor(cand, inbox, gated) {
   for (const s of cand.sources || []) {
     // A freebie is gated by its creator (comment a keyword to get it): credit it, never link it.
     if (s.kind === "freebie") { push({ kind: "creator", label: short(s.label, 60) || "Creator freebie" }); continue; }
+    if (s.kind === "feedback") continue; // people's feedback notes stay private
     const kind = ["github", "web", "library", "reel"].includes(s.kind) ? s.kind : "web";
     const url = cleanUrl(s.url);
     if (kind === "reel") { if (url && IG_POST.test(url)) push({ kind, label: short(s.label, 40) || "Instagram reel", url }); continue; }

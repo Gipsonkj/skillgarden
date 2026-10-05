@@ -51,6 +51,15 @@ the same artifact URL (the runbook is published as the artifact's
   in the connector with the creators, repos and pages behind it
   (`local/credits.mjs`). Only handles, public reel links and source pages are
   published; notes, captions, transcripts and freebie text stay on your Mac.
+- **Feedback** (`tools/feedback/`, `hooks/`): `/skillgarden:feedback` in Claude Code
+  writes a short note on how a skill did (crafts, guides read, what went wrong, the
+  user's words, a 1-5 rating), shows it and saves it in `~/.claude/skillgarden/`.
+  It is sent to Skill Garden only if the user says yes after seeing it, and then
+  carries no prompts, files or session id. `/skillgarden:feedback usage on` starts
+  an opt-in log, on that computer only, of which skills and guides each session
+  used; it is off by default and never sent. On claude.ai the connector's
+  `send_feedback` tool does the same, after the user agrees. The scout reads the
+  notes as leads (runbook step 2) and they show on each skill's Feedback tab.
 
 ## Running it on your own computer
 

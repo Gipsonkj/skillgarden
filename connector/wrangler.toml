@@ -16,3 +16,9 @@ REF = "main"
 
 # Secrets (not in this file): npx wrangler secret put ACCESS_KEYS
 # Optional:                   npx wrangler secret put GITHUB_TOKEN
+
+# Feedback notes from /skillgarden:feedback and send_feedback, kept 90 days until the owner's Mac
+# collects them. The Mac reads them with the FEEDBACK_KEY secret: npx wrangler secret put FEEDBACK_KEY
+[[kv_namespaces]]
+binding = "FEEDBACK"
+id = "8a70bb6d493a40e394aabef9c0fd6a96"

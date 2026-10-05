@@ -7,6 +7,7 @@
 //   node sg.mjs list <collection> [field=value ...]
 //   node sg.mjs get <collection> <id>
 //   node sg.mjs radar <topicId>        this run's radar, cut down to one topic
+//   node sg.mjs feedback <topicId>     new feedback notes on this topic, and what the usage log shows
 //   node sg.mjs gaps <topicId>         which of the topic's tools its guides cover, mention or miss
 //   node sg.mjs set|update <collection> <id> '<json>'
 //   node sg.mjs set|update <collection> <id> --file outbox/<name>.json
@@ -52,12 +53,17 @@ try {
     out = await call("GET", `/col/${enc(col)}${qs}`);
   } else if (cmd === "get") out = await call("GET", `/doc/${enc(args[0])}/${enc(args[1])}`);
   else if (cmd === "radar") out = await call("GET", `/radar/${enc(args[0])}`);
+  else if (cmd === "feedback") {
+    await call("POST", "/feedback/collect", {});
+    const notes = (await call("GET", "/col/feedback?status=new")).filter((r) => (r.data.topicIds || []).includes(args[0]));
+    out = { notes, usage: await call("GET", `/usage/${enc(args[0])}`) };
+  }
   else if (cmd === "gaps") out = await call("GET", `/gaps/${enc(args[0])}`);
   else if (cmd === "set") out = await call("PUT", `/doc/${enc(args[0])}/${enc(args[1])}`, await jsonArg(args[2], args[3]));
   else if (cmd === "update") out = await call("PATCH", `/doc/${enc(args[0])}/${enc(args[1])}`, await jsonArg(args[2], args[3]));
   else if (cmd === "delete") out = await call("DELETE", `/doc/${enc(args[0])}/${enc(args[1])}`);
   else if (cmd === "batch") { const w = await jsonArg(args[0], args[1]); out = await call("POST", "/batch", { writes: Array.isArray(w) ? w : w.writes }); }
-  else throw new Error("Commands: now, list, get, radar, gaps, set, update, delete, batch.");
+  else throw new Error("Commands: now, list, get, radar, feedback, gaps, set, update, delete, batch.");
   console.log(JSON.stringify(out, null, 1));
 } catch (e) {
   console.error(`sg: ${e.cause?.code === "ECONNREFUSED" ? "Skill Garden's server isn't running." : e.message}`);

@@ -9,7 +9,8 @@
       "description": "All 38 Skill Garden super skills, superseed (one entry point that picks and combines crafts for any request), and chains that run several of them in order (campaign, landing-page, mvp, seo-growth, store-launch, course-launch, ai-agent, job-search, sales-outreach, launch-video).",
       "source": "./",
       "strict": false,
-      "skills": ["./superskills/", "./chains/", "./planner/"],
+      "skills": ["./superskills/", "./chains/", "./planner/", "./tools/"],
+      "hooks": "./hooks/hooks.json",
       "author": { "name": "Gipsonkj" },
       "homepage": "https://github.com/Gipsonkj/skillgarden",
       "keywords": ["skills", "super-skills", "skill-garden"]

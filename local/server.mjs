@@ -18,6 +18,7 @@ import { loadChains } from "./chains.mjs";
 import { takeRadar, radarFor, RADAR_KEEP } from "./radar.mjs";
 import * as cloud from "./cloud.mjs";
 import * as publisher from "./publish.mjs";
+import * as feedback from "./feedback.mjs";
 import { toolGaps } from "./tool-gaps.mjs";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
@@ -26,7 +27,7 @@ const PORT = Number(process.env.PORT || 4747);
 const DATA = path.join(HERE, "data");
 const LOGS = path.join(HERE, "logs");
 const MEDIA = path.join(HERE, "media");
-const COLLECTIONS = ["settings", "topics", "versions", "inbox", "candidates", "runs", "radar"];
+const COLLECTIONS = ["settings", "topics", "versions", "inbox", "candidates", "runs", "radar", "feedback"];
 const ID_RE = /^(?!\.\.?$)[A-Za-z0-9_\-.~:@+]{1,200}$/;
 const SCHEDULE = !process.argv.includes("--no-schedule");
 // The SkillGarden library (skills/ and zips/ folders made by _tools/build.py). Sub-skills are
@@ -225,6 +226,7 @@ async function startScout(kind) {
   if (!topics.length) { failRun("No topic has \"Scout this topic\" switched on."); return false; }
   scout.running = true; scout.queue = topics.slice(1);
   scout.kind = kind;
+  await collectFeedback();
   scout.radarId = await radarStep();
   const ok = await startSession(kind, topics[0]);
   if (!ok) { scout.running = false; scout.queue = []; }
@@ -245,6 +247,16 @@ async function radarStep() {
     return store.radar[id] ? id : null;
   }
 }
+// Feedback notes (local/feedback.mjs): this Mac's own, and the ones people sent to the live site.
+async function collectFeedback() {
+  try {
+    const r = await feedback.collect(store, write);
+    if (r.local || r.site || r.siteError) console.log(`[feedback] ${r.local} from this Mac, ${r.site} from the site${r.siteError ? `; site: ${r.siteError}` : ""}`);
+    return r;
+  } catch (e) { console.error(`[feedback] ${e.message}`); return { error: e.message }; }
+}
+setInterval(collectFeedback, 15 * 60_000).unref();
+setTimeout(collectFeedback, 5000).unref();
 function nextSession() {
   const id = scout.queue && scout.queue.shift();
   if (!id || store.settings.main?.paused && scout.kind === "schedule") { scout.running = false; scout.topic = null; console.log("[scout] all topics done"); return; }
@@ -253,7 +265,7 @@ function nextSession() {
 function startSession(kind, topicId) {
   const preamble = fs.readFileSync(path.join(HERE, "scout-local.md"), "utf8");
   const runbook = fs.readFileSync(path.join(ROOT, "runbook.md"), "utf8");
-  const scope = `**Scope of this session:** work only on the topic \`${topicId}\`, even if other topics are active. Use runId \`<India date>-${topicId}\` (add -2, -3 if taken). Skip step 7 for other topics.${scout.radarId ? ` Radar command: \`node sg.mjs radar ${topicId}\`.` : ""}`;
+  const scope = `**Scope of this session:** work only on the topic \`${topicId}\`, even if other topics are active. Use runId \`<India date>-${topicId}\` (add -2, -3 if taken). Skip step 7 for other topics.${scout.radarId ? ` Radar command: \`node sg.mjs radar ${topicId}\`.` : ""} Feedback command: \`node sg.mjs feedback ${topicId}\`.`;
   const prompt = `${preamble}\n\n${scope}\n\n---\n\n${runbook}\n\n---\n\nStart now. This run was started ${kind === "manual" ? "by hand" : "by the weekly schedule"}. ${scope}`;
   scout.topic = topicId;
   const env = { ...process.env, SKILL_GARDEN_PORT: String(PORT) };
@@ -495,6 +507,12 @@ const server = http.createServer(async (req, res) => {
       }
       if (c === "add") return send(res, 200, { results: readerAdd((await readBody(req)).items) });
       throw httpErr(404, "Not found.");
+    }
+    if (kind === "feedback" && c === "collect" && req.method === "POST") return send(res, 200, await collectFeedback());
+    if (kind === "usage" && req.method === "GET") {
+      if (!store.topics[c]) throw httpErr(404, `No topic "${c}".`);
+      const refs = path.join(ROOT, "superskills", c, "references");
+      return send(res, 200, feedback.usage(c, fs.existsSync(refs) ? fs.readdirSync(refs).filter((f) => f.endsWith(".md")) : []));
     }
     if (kind === "gaps" && req.method === "GET") {
       const t = store.topics[c];

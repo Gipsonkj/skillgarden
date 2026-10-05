@@ -41,6 +41,12 @@ Workers & Pages → Account details → Subdomain, then deploy again.
   (the plugin is the better route in Claude Code).
 
 Add or revoke keys by running `npx wrangler secret put ACCESS_KEYS` again with the new list.
+
+**Feedback.** `POST /feedback` takes notes people choose to send from `/skillgarden:feedback`
+(the connector's `send_feedback` tool does the same) and keeps them 90 days in the `FEEDBACK`
+KV store (its id is in `wrangler.toml`). The Mac collects them with its own key:
+`npx wrangler secret put FEEDBACK_KEY` and paste the contents of
+`~/.claude/secrets/skillgarden-feedback.key`.
 The repo is public, so keys gate the connector, not the skill text.
 
 ## Try it on this computer

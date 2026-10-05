@@ -1,0 +1,29 @@
+{
+  "description": "Skill Garden usage log: off unless switched on with /skillgarden:feedback usage on. Writes only to ~/.claude/skillgarden/usage/ on this computer.",
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ -f \"$HOME/.claude/skillgarden/usage-on\" ] && node \"${CLAUDE_PLUGIN_ROOT}/tools/feedback/scripts/feedback.mjs\" hook; exit 0",
+            "timeout": 30,
+            "async": true
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ -f \"$HOME/.claude/skillgarden/usage-on\" ] && node \"${CLAUDE_PLUGIN_ROOT}/tools/feedback/scripts/feedback.mjs\" hook; exit 0",
+            "timeout": 20,
+            "async": true
+          }
+        ]
+      }
+    ]
+  }
+}
