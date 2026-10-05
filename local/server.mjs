@@ -114,7 +114,12 @@ function write(op, c, id, data) {
   broadcast(c);
   cloud.changed(c, id);
   if (c === "topics" || c === "candidates") refreshPublish();
+  else if (c === "settings" && id === "main") {
+    const off = JSON.stringify((store.settings.main || {}).pluginOff || []); // the plugin's skill switches
+    if (off !== lastPluginOff) { lastPluginOff = off; refreshPublish(); }
+  }
 }
+let lastPluginOff = null;
 
 /* ---------- publishing approved changes to GitHub (local/publish.mjs) ---------- */
 // settings/main.publish tells the app (here and on the admin page) what's waiting to go to GitHub.
@@ -124,7 +129,7 @@ function refreshPublish(last) {
   publishTimer = setTimeout(() => {
     try {
       const prev = (store.settings.main || {}).publish || {};
-      const next = { ...publisher.summary(publisher.plan(store)), running: publishing, last: last || prev.last || null };
+      const next = { ...publisher.summary(publisher.plan(store), store), running: publishing, last: last || prev.last || null };
       if (JSON.stringify(next) !== JSON.stringify(prev)) write("update", "settings", "main", { publish: next });
     } catch (e) { console.error(`[publish] couldn't check: ${e.message}`); }
   }, last ? 0 : 2000);
@@ -523,7 +528,7 @@ const server = http.createServer(async (req, res) => {
     }
     if (kind === "publish") {
       if (req.method === "POST") { const r = startPublish(); return send(res, r.ok ? 200 : 409, r.ok ? r : { error: r.error, ...r }); }
-      return send(res, 200, publisher.summary(publisher.plan(store)));
+      return send(res, 200, publisher.summary(publisher.plan(store), store));
     }
     if (kind === "scout") {
       if (req.method === "POST") {

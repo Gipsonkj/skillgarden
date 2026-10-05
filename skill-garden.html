@@ -335,6 +335,9 @@ main { padding-top: 24px; }
 .ss-topics { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 6px 14px; }
 .ss-topics label { display: flex; align-items: center; gap: 8px; font-size: 14px; cursor: pointer; min-width: 0; }
 .ss-topics label span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.plugin-list { margin: 0 0 18px; }
+.plugin-list summary { cursor: pointer; }
+.plugin-list h4 { margin: 14px 0 6px; font-size: 13px; color: var(--ink-3); font-weight: 600; }
 .ss-topics input { accent-color: var(--accent); width: 16px; height: 16px; flex: none; margin: 0; }
 .howto { max-width: 860px; margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--line-2); color: var(--ink-2); font-size: 14px; display: grid; gap: 8px; }
 .howto h3 { font-size: 17px; color: var(--ink); }
@@ -994,16 +997,34 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
       ${c.kind === "sources" || c.kind === "toollist" ? "" : diffBody + (open ? filesDiff(t, c) : "")}
     </article>`;
   }
+  // Which skills the Claude Code plugin lists. The Mac keeps the full list in settings/main.publish.plugin;
+  // the switches write settings/main.pluginOff, and Publish carries the change to the plugin on GitHub.
+  const PLUGIN_GROUPS = [["superskills", "Super skills"], ["chains", "Chains"], ["planner", "Planner"], ["tools", "Tools"]];
+  function pluginPanel() {
+    const pl = S.settings && S.settings.publish && S.settings.publish.plugin;
+    if (!pl || !(pl.entries || []).length) return "";
+    const off = new Set(S.settings.pluginOff || []), ro = S.canWrite ? "" : " disabled";
+    const on = pl.entries.filter((e) => !off.has(e.id)).length;
+    const groups = PLUGIN_GROUPS.map(([g, label]) => {
+      const es = pl.entries.filter((e) => e.group === g);
+      return es.length ? `<h4>${label}</h4><div class="ss-topics">${es.map((e) => `<label><input type="checkbox" data-act="plugin-skill" data-id="${esc(e.id)}"${off.has(e.id) ? "" : " checked"}${ro}><span>${esc(e.id)}</span></label>`).join("")}</div>` : "";
+    }).join("");
+    return `<details class="panel plugin-list"${S.pluginOpen ? " open" : ""}><summary><strong>Skills in the Claude Code plugin · ${on} of ${pl.entries.length}</strong></summary>
+      <p class="muted" style="font-size:13.5px;margin:10px 0 0">Claude Code sends every listed skill's name and description to the model in every session, about 190 tokens each. Switch off the ones you don't use. A switched-off skill stays on the website and the connector, and superseed and the chains can still read it. It leaves the list once you publish and each person updates the plugin.</p>${groups}</details>`;
+  }
   // What's waiting to go to GitHub (the Mac works it out and keeps it in settings/main.publish).
   function publishBar() {
     const p = S.settings && S.settings.publish;
     if (!p) return "";
     const skills = p.skills || [], conflicts = p.conflicts || [], last = p.last;
+    const plug = p.plugin && p.plugin.changed ? p.plugin : null;
+    const plugText = plug ? (plug.off.length ? `${plural(plug.off.length, "skill")} switched off in the plugin` : "every skill switched back on in the plugin") : "";
     const busy = p.running || S.busy.has("publish");
     const btn = (label) => `<button class="btn primary small" data-act="publish"${busy || !S.canWrite ? " disabled" : ""}>${busy ? "Publishing…" : label}</button>`;
     let head;
     if (skills.length) head = `<div class="pub-row"><p><strong>${plural(skills.length, "skill")} ${skills.length === 1 ? "has" : "have"} changes that aren't on GitHub yet.</strong> The plugin and the claude.ai connector read GitHub, so they get these once you publish. Edits made in the repo's folders are kept.</p>${btn("Publish to GitHub")}</div>
-      <details><summary class="muted" style="font-size:13px;cursor:pointer">What goes out</summary><ul class="notes" style="margin-top:6px">${skills.map((x) => `<li><b>${esc(x.name)} v${esc(x.version)}</b>: ${esc((x.files || []).join(", "))}</li>`).join("")}</ul></details>`;
+      <details><summary class="muted" style="font-size:13px;cursor:pointer">What goes out</summary><ul class="notes" style="margin-top:6px">${skills.map((x) => `<li><b>${esc(x.name)} v${esc(x.version)}</b>: ${esc((x.files || []).join(", "))}</li>`).join("")}${plug ? `<li><b>Plugin skill list</b>: ${esc(plugText)}</li>` : ""}</ul></details>`;
+    else if (plug) head = `<div class="pub-row"><p><strong>The plugin's skill list changed: ${esc(plugText)}.</strong> Publish to put it on GitHub; Claude Code shows the new list after each person updates the plugin.</p>${btn("Publish to GitHub")}</div>`;
     else if (p.unpushed) head = `<div class="pub-row"><p><strong>${plural(p.unpushed, "commit")} on this Mac ${p.unpushed === 1 ? "isn't" : "aren't"} on GitHub yet.</strong></p>${btn("Push to GitHub")}</div>`;
     else if (!conflicts.length && !(last && !last.ok)) return last && last.commit ? `<p class="muted" style="font-size:13px;margin:0 0 14px">Everything you added is on GitHub (last published ${esc(ago(last.at))}, ${esc(last.commit)}).</p>` : "";
     else head = "";
@@ -1114,7 +1135,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
       sk.dataset.mode = "grid";
       const cards = S.topics.map(topicCard).join("");
       sk.innerHTML = `<div class="section-head"><div><h2>Your super skills</h2><p>The same crafts as Explore, seen from the workshop side: edit each super skill, set its tests and sources, and see every version. Explore is where you browse and download them.</p></div><div class="row-actions">${S.topics.length ? `<button class="btn" data-act="download-all">Download all</button>` : ""}</div></div>
-        ${publishBar()}${loadingOr("topics", `<div class="grid-topics">${cards}${S.newTopicOpen ? newTopicForm() : `<button class="topic-card add-card" data-act="new-topic"${S.canWrite ? "" : " disabled"}><strong>Add a topic</strong><span>Name it, link your Instagram collection, and the scout drafts v1 tomorrow.</span></button>`}</div>`)}`;
+        ${publishBar()}${pluginPanel()}${loadingOr("topics", `<div class="grid-topics">${cards}${S.newTopicOpen ? newTopicForm() : `<button class="topic-card add-card" data-act="new-topic"${S.canWrite ? "" : " disabled"}><strong>Add a topic</strong><span>Name it, link your Instagram collection, and the scout drafts v1 tomorrow.</span></button>`}</div>`)}`;
       return;
     }
     const mode = "detail:" + t.id;
@@ -2018,6 +2039,7 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
       case "cancel-import": S.importState = null; renderImport(); break;
     }
   });
+  document.addEventListener("toggle", (ev) => { if (ev.target.classList && ev.target.classList.contains("plugin-list")) S.pluginOpen = ev.target.open; }, true);
   document.addEventListener("change", async (ev) => {
     const el = ev.target;
     if (el.id === "importFile" && el.files && el.files[0]) { const f = el.files[0]; el.value = ""; await readImportFile(f); return; }
@@ -2033,6 +2055,11 @@ kbd { font: 500 11px/1 var(--mono); padding: 3px 5px; border-radius: 5px; border
       const k = el.dataset.k, v = el.type === "checkbox" ? el.checked : el.value.trim().replace(/^@/, "");
       if (k === "account" && v && !/^[A-Za-z0-9_.]{1,30}$/.test(v)) { toast("That isn't an Instagram handle.", "bad"); return; }
       await guarded("ig", async () => { await S.db.doc("settings/main").update({ igReader: { ...(S.settings && S.settings.igReader || {}), [k]: v } }); if (k === "enabled") toast(v ? "Instagram reader is on. It runs before each weekly scout." : "Instagram reader is off."); });
+    }
+    else if (act === "plugin-skill") {
+      const off = new Set(S.settings.pluginOff || []);
+      if (el.checked) off.delete(el.dataset.id); else off.add(el.dataset.id);
+      await guarded("plugin", async () => { await S.db.doc("settings/main").update({ pluginOff: [...off].sort() }); });
     }
     else if (act === "scout-topic") { const t = topicById(el.dataset.id); if (t) await guarded("active:" + t.id, async () => { await S.db.doc("topics/" + t.id).update({ active: el.checked }); }); }
     else if (act === "scout-model" || act === "scout-effort") { const k = act === "scout-model" ? "scoutModel" : "scoutEffort"; await guarded("scoutcfg", async () => { await S.db.doc("settings/main").update({ [k]: el.value }); toast(`The scout will use ${el.options[el.selectedIndex].text}${k === "scoutEffort" ? " effort" : ""} from the next topic it starts.`); }); }

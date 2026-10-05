@@ -9,7 +9,7 @@ description: "Plan and write a sales outreach sequence from one request: find an
 
 From a target list to sent-by-hand messages and follow-ups, using the LinkedIn guides' research, message and safety rules.
 
-This is a **chain**: one request runs several Skill Garden super skills in order, each step using the guide written for it. It needs these super skills installed: `linkedin-automation`, `content-creation`. With the Skill Garden plugin they are `skillgarden:<name>`; on the Skill Garden connector, read each guide with `get_guide`.
+This is a **chain**: one request runs several Skill Garden super skills in order, each step using the guide written for it. It needs these super skills installed: `linkedin-automation`, `content-creation`. With the Skill Garden plugin they are `skillgarden:<name>` (one that isn't in your skill list was switched off in the plugin: read its `superskills/<name>/SKILL.md`, two folders up from this skill's base directory); on the Skill Garden connector, read each guide with `get_guide`.
 
 Ask like this: "Run outreach for <offer> to <type of buyer>."
 

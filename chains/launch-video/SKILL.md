@@ -9,7 +9,7 @@ description: "Make a short launch or promo video end to end from one request: sc
 
 Script, storyboard, produce and post a short launch video, from the first line to the caption.
 
-This is a **chain**: one request runs several Skill Garden super skills in order, each step using the guide written for it. It needs these super skills installed: `storyboarding`, `ai-video`, `social-media`. With the Skill Garden plugin they are `skillgarden:<name>`; on the Skill Garden connector, read each guide with `get_guide`.
+This is a **chain**: one request runs several Skill Garden super skills in order, each step using the guide written for it. It needs these super skills installed: `storyboarding`, `ai-video`, `social-media`. With the Skill Garden plugin they are `skillgarden:<name>` (one that isn't in your skill list was switched off in the plugin: read its `superskills/<name>/SKILL.md`, two folders up from this skill's base directory); on the Skill Garden connector, read each guide with `get_guide`.
 
 Ask like this: "Make a launch video for <product or feature> for <platform>."
 

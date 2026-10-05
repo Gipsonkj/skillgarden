@@ -9,7 +9,7 @@ description: "Design, build, test and ship an AI agent for a real task from one 
 
 Decide agent or workflow, design the tools and prompt, prove it with evals, lock down security and deploy.
 
-This is a **chain**: one request runs several Skill Garden super skills in order, each step using the guide written for it. It needs these super skills installed: `ai-agents`, `security`, `cloud-devops`. With the Skill Garden plugin they are `skillgarden:<name>`; on the Skill Garden connector, read each guide with `get_guide`.
+This is a **chain**: one request runs several Skill Garden super skills in order, each step using the guide written for it. It needs these super skills installed: `ai-agents`, `security`, `cloud-devops`. With the Skill Garden plugin they are `skillgarden:<name>` (one that isn't in your skill list was switched off in the plugin: read its `superskills/<name>/SKILL.md`, two folders up from this skill's base directory); on the Skill Garden connector, read each guide with `get_guide`.
 
 Ask like this: "Build an AI agent that <does the task> for <users>, using <systems>."
 

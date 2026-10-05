@@ -9,7 +9,7 @@ description: "Grow organic and AI search traffic from one request: a technical a
 
 Audit the site, fix what blocks ranking, then plan and write the content that Google and AI answers cite.
 
-This is a **chain**: one request runs several Skill Garden super skills in order, each step using the guide written for it. It needs these super skills installed: `seo`, `content-creation`. With the Skill Garden plugin they are `skillgarden:<name>`; on the Skill Garden connector, read each guide with `get_guide`.
+This is a **chain**: one request runs several Skill Garden super skills in order, each step using the guide written for it. It needs these super skills installed: `seo`, `content-creation`. With the Skill Garden plugin they are `skillgarden:<name>` (one that isn't in your skill list was switched off in the plugin: read its `superskills/<name>/SKILL.md`, two folders up from this skill's base directory); on the Skill Garden connector, read each guide with `get_guide`.
 
 Ask like this: "Grow search traffic for <site> on <topic or product>."
 

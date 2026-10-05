@@ -9,7 +9,7 @@ description: "Plan, write, design, build and ship a landing page that converts f
 
 From offer to a live page: copy, design direction, the build, search basics, speed checks and deploy.
 
-This is a **chain**: one request runs several Skill Garden super skills in order, each step using the guide written for it. It needs these super skills installed: `website-building`, `content-creation`, `frontend-ui-design`, `seo`. With the Skill Garden plugin they are `skillgarden:<name>`; on the Skill Garden connector, read each guide with `get_guide`.
+This is a **chain**: one request runs several Skill Garden super skills in order, each step using the guide written for it. It needs these super skills installed: `website-building`, `content-creation`, `frontend-ui-design`, `seo`. With the Skill Garden plugin they are `skillgarden:<name>` (one that isn't in your skill list was switched off in the plugin: read its `superskills/<name>/SKILL.md`, two folders up from this skill's base directory); on the Skill Garden connector, read each guide with `get_guide`.
 
 Ask like this: "Build a landing page for <product or offer>, aimed at <audience>, that gets them to <action>."
 

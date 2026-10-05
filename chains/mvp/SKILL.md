@@ -9,7 +9,7 @@ description: "Take a product idea to a deployed first version from one request: 
 
 From idea to a live first version: spec, data model, sign-in and payments, screens, tests, security and deploy.
 
-This is a **chain**: one request runs several Skill Garden super skills in order, each step using the guide written for it. It needs these super skills installed: `product-management`, `backend-databases`, `frontend-ui-design`, `testing-qa`, `security`, `cloud-devops`. With the Skill Garden plugin they are `skillgarden:<name>`; on the Skill Garden connector, read each guide with `get_guide`.
+This is a **chain**: one request runs several Skill Garden super skills in order, each step using the guide written for it. It needs these super skills installed: `product-management`, `backend-databases`, `frontend-ui-design`, `testing-qa`, `security`, `cloud-devops`. With the Skill Garden plugin they are `skillgarden:<name>` (one that isn't in your skill list was switched off in the plugin: read its `superskills/<name>/SKILL.md`, two folders up from this skill's base directory); on the Skill Garden connector, read each guide with `get_guide`.
 
 Ask like this: "Build an MVP of <product> for <users>, so they can <main job>."
 

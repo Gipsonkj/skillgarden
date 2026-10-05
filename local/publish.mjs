@@ -8,6 +8,8 @@
 // planner's craft map, runs the repo checks, commits only superskills/ and planner/ and pushes main,
 // and finally takes the merged folder back into the app so both sides match.
 // The person starts it from the app (that click is their approval); nothing here runs on a schedule.
+// The same click carries the plugin's skill list: the skills switched off in the app (settings/main.pluginOff)
+// leave the "skills" list in .claude-plugin/marketplace.json, which is all Claude Code lists to the model.
 //
 // Only SKILL.md, CREDITS.md and references/**.md are written: the same files the scout may change.
 // topic.json only gets Review's source changes (repos, searches, feeds) and tool-list changes (tools),
@@ -23,6 +25,8 @@ const DIR = path.join(ROOT, "superskills");
 const PATHS = ["superskills", "planner"];
 const WRITABLE = (p) => (p === "SKILL.md" || p === "CREDITS.md" || /^references\/[\w./-]+\.md$/.test(p)) && !p.split("/").includes("..");
 const REPO_OK = /^[\w.-]+\/[\w.-]+$/;
+const MARKET = path.join(ROOT, ".claude-plugin", "marketplace.json");
+const SKILL_ROOTS = ["superskills", "chains", "planner", "tools"];
 
 const read = (f) => (fs.existsSync(f) ? fs.readFileSync(f, "utf8") : null);
 const git = (...a) => execFileSync("git", a, { cwd: ROOT, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] }).trim();
@@ -113,17 +117,37 @@ function planTopic(store, t) {
   return { id: t.id, name: t.name || t.id, version: t.version, writes, removes, conflicts, takeIn, sourceIds: src ? src.ids : [] };
 }
 
+// Every skill the plugin can list, and the "skills" list it should have: whole folders while every skill is on
+// (as before), each switched-on skill's own folder once any is off. Switched-off folders still ship with the
+// plugin, so superseed and the chains can read them; Claude Code just doesn't list them.
+export function pluginEntries() {
+  return SKILL_ROOTS.flatMap((g) => {
+    const d = path.join(ROOT, g);
+    return fs.existsSync(d) ? fs.readdirSync(d).filter((id) => fs.existsSync(path.join(d, id, "SKILL.md"))).sort().map((id) => ({ id, group: g })) : [];
+  });
+}
+export function pluginPlan(store) {
+  const off = new Set(((store.settings || {}).main || {}).pluginOff || []);
+  const entries = pluginEntries();
+  const want = entries.some((e) => off.has(e.id)) ? entries.filter((e) => !off.has(e.id)).map((e) => `./${e.group}/${e.id}/`) : SKILL_ROOTS.map((g) => `./${g}/`);
+  const now = read(MARKET) || "";
+  const text = now.replace(/"skills": \[[^\]]*\]/, `"skills": [${want.map((s) => JSON.stringify(s)).join(", ")}]`);
+  return { entries, off: entries.filter((e) => off.has(e.id)).map((e) => e.id), changed: text !== now, text };
+}
+
 export function plan(store) {
   return Object.entries(store.topics).filter(([id]) => /^[a-z0-9-]+$/.test(id)).map(([id, t]) => planTopic(store, { ...t, id })).filter(Boolean);
 }
 // The short form the app shows (saved in settings/main.publish so the online admin page sees it too).
-export function summary(list) {
+export function summary(list, store) {
+  const pl = store ? pluginPlan(store) : null;
   const files = (c) => [...c.writes.map(([p]) => p), ...c.removes.map((p) => p + " (removed)")];
   return {
     skills: list.filter((c) => !c.conflicts.length && (c.writes.length || c.removes.length)).map((c) => ({ id: c.id, name: c.name, version: c.version, files: files(c) })),
     conflicts: list.filter((c) => c.conflicts.length).map((c) => ({ id: c.id, name: c.name, files: c.conflicts })),
     takeIn: list.filter((c) => !c.conflicts.length && c.takeIn).map((c) => c.id),
     unpushed: unpushed(),
+    plugin: pl && { entries: pl.entries, off: pl.off, changed: pl.changed },
   };
 }
 function unpushed() {
@@ -155,17 +179,18 @@ export function publish(store, write) {
   const branch = git("rev-parse", "--abbrev-ref", "HEAD");
   if (branch !== "main") return { ok: false, error: `The repo is on "${branch}", not main. Switch to main first.` };
   // chains/ feeds the planner's craft map, so unfinished chains would leak into planner/ on commit.
-  const dirty = git("status", "--porcelain", "--", ...PATHS, "chains");
-  if (dirty) return { ok: false, error: `superskills/, planner/ or chains/ has edits that aren't committed yet:\n${dirty.split("\n").slice(0, 6).join("\n")}\nCommit or discard them first, so publishing only carries the app's changes.` };
+  const dirty = git("status", "--porcelain", "--", ...PATHS, "chains", ".claude-plugin");
+  if (dirty) return { ok: false, error: `superskills/, planner/, chains/ or .claude-plugin/ has edits that aren't committed yet:\n${dirty.split("\n").slice(0, 6).join("\n")}\nCommit or discard them first, so publishing only carries the app's changes.` };
   const all = plan(store), ready = all.filter((c) => !c.conflicts.length);
   const list = ready.filter((c) => c.writes.length || c.removes.length);
+  const plug = pluginPlan(store), paths = [...PATHS, ".claude-plugin"];
   const now = new Date().toISOString();
   const conflicts = all.filter((c) => c.conflicts.length).map((c) => `${c.name}: ${c.conflicts.join(", ")}`);
   const finish = (res) => {
     for (const c of ready) takeIntoApp(store, write, c, now);
     return { ...res, conflicts };
   };
-  if (!list.length) {
+  if (!list.length && !plug.changed) {
     if (!unpushed()) return finish({ ok: true, nothing: true });
     try { git("push", "-q", "origin", "main"); return finish({ ok: true, commit: git("rev-parse", "--short", "HEAD"), skills: [] }); }
     catch (e) { return { ok: false, error: `The push to GitHub failed:\n${errText(e)}` }; }
@@ -176,21 +201,25 @@ export function publish(store, write) {
     for (const [p, txt] of c.writes) { fs.mkdirSync(path.dirname(path.join(dir, p)), { recursive: true }); fs.writeFileSync(path.join(dir, p), txt); }
     for (const p of c.removes) fs.rmSync(path.join(dir, p), { force: true });
   }
-  const undo = () => { try { git("checkout", "--", ...PATHS); git("clean", "-fdq", "--", ...PATHS); } catch {} };
+  if (plug.changed) fs.writeFileSync(MARKET, plug.text);
+  const undo = () => { try { git("checkout", "--", ...paths); git("clean", "-fdq", "--", ...PATHS); } catch {} };
   try {
     run("node", ["local/craft-map.mjs", "--write"]);
     run("python3", ["_tools/check_superskills.py"]);
+    JSON.parse(read(MARKET));
   } catch (e) {
     undo();
     return { ok: false, error: `The skill checks failed, so nothing was published:\n${errText(e)}`, conflicts };
   }
   const names = list.map((c) => `${c.name} v${c.version}`);
-  const msg = `Publish approved skill changes: ${names.length > 4 ? `${names.slice(0, 4).join(", ")} and ${names.length - 4} more` : names.join(", ")}\n\n` +
-    list.map((c) => `- ${c.name} v${c.version}: ${[...c.writes.map(([p]) => p), ...c.removes.map((p) => p + " (removed)")].join(", ")}`).join("\n") +
-    "\n\nWritten from the Skill Garden app after the changes were approved in Review.\n";
+  const plugLine = plug.changed ? (plug.off.length ? `Plugin skill list: ${plug.off.length} switched off (${plug.off.join(", ")})` : "Plugin skill list: every skill switched back on") : "";
+  const title = names.length ? `Publish approved skill changes: ${names.length > 4 ? `${names.slice(0, 4).join(", ")} and ${names.length - 4} more` : names.join(", ")}` : plugLine;
+  const msg = `${title}\n\n` +
+    [...list.map((c) => `- ${c.name} v${c.version}: ${[...c.writes.map(([p]) => p), ...c.removes.map((p) => p + " (removed)")].join(", ")}`), ...(names.length && plugLine ? [`- ${plugLine}`] : [])].join("\n") +
+    `${list.length ? "\n\n" : ""}Written from the Skill Garden app${list.length ? " after the changes were approved in Review" : ", where the skills were switched on and off"}.\n`;
   try {
-    git("add", "-A", "--", ...PATHS);
-    git("commit", "-q", "-m", msg, "--", ...PATHS);
+    git("add", "-A", "--", ...paths);
+    git("commit", "-q", "-m", msg, "--", ...paths);
   } catch (e) {
     undo();
     return { ok: false, error: `Couldn't commit:\n${errText(e)}`, conflicts };
@@ -200,7 +229,7 @@ export function publish(store, write) {
   catch (e) {
     return finish({ ok: false, commit, error: `Committed as ${commit} on this Mac, but the push to GitHub failed:\n${errText(e)}\nPull, then press Publish again to push it.` });
   }
-  return finish({ ok: true, commit, skills: names });
+  return finish({ ok: true, commit, skills: plug.changed ? [...names, "plugin skill list"] : names });
 }
 
 // node publish.mjs   lists what publishing would do, without writing anything.

@@ -9,7 +9,7 @@ description: "Build and launch an online course from one request: learning outco
 
 Turn what you know into a course: outcomes, structure, lessons, slides or video, the platform, a sales page and launch emails.
 
-This is a **chain**: one request runs several Skill Garden super skills in order, each step using the guide written for it. It needs these super skills installed: `course-design`, `presentations`, `ai-video`, `content-creation`, `email-marketing`. With the Skill Garden plugin they are `skillgarden:<name>`; on the Skill Garden connector, read each guide with `get_guide`.
+This is a **chain**: one request runs several Skill Garden super skills in order, each step using the guide written for it. It needs these super skills installed: `course-design`, `presentations`, `ai-video`, `content-creation`, `email-marketing`. With the Skill Garden plugin they are `skillgarden:<name>` (one that isn't in your skill list was switched off in the plugin: read its `superskills/<name>/SKILL.md`, two folders up from this skill's base directory); on the Skill Garden connector, read each guide with `get_guide`.
 
 Ask like this: "Create a course on <topic> for <learners>, and plan its launch."
 
