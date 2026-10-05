@@ -30,6 +30,22 @@ This super skill is distilled from the open-source skills below. Text was rewrit
 
 Notes on sources: the atlassian-mcp setup reference names an npm package for an "official" Atlassian server that could not be verified, so no install commands were taken from it; the router points to Atlassian's own docs instead. No source contained instructions to exfiltrate data or disable safeguards.
 
+## Official tool docs
+
+Used for the tool sections in `references/product-analytics.md`, `stakeholder-comms.md` §6, `prd-specs.md` §7, `stories-and-tickets.md` §5, `sprint-planning.md` §6 and `roadmaps.md` §8. Docs, link-only reference, written in our own words; no text copied.
+
+| Tool | Docs |
+|---|---|
+| Amplitude MCP | https://amplitude.com/docs/amplitude-ai/amplitude-mcp, https://amplitude.com/docs/amplitude-ai/amplitude-mcp/claude-code, https://amplitude.com/docs/amplitude-ai/amplitude-mcp/claude |
+| Amplitude funnels | https://amplitude.com/docs/analytics/charts/funnel-analysis/funnel-analysis-build, https://amplitude.com/docs/analytics/charts/funnel-analysis/funnel-analysis-interpret |
+| Slack MCP server | https://docs.slack.dev/ai/slack-mcp-server/, https://docs.slack.dev/ai/slack-mcp-server/connect-to-claude/ |
+| Microsoft Teams (Claude's Microsoft 365 connector) | https://support.claude.com/en/articles/12542951-set-up-the-microsoft-365-connector |
+| Notion MCP | https://developers.notion.com/guides/mcp/overview, https://developers.notion.com/guides/mcp/get-started-with-mcp, https://developers.notion.com/guides/mcp/mcp-supported-tools |
+| Azure DevOps MCP Server | https://learn.microsoft.com/en-us/azure/devops/mcp-server/mcp-server-overview?view=azure-devops, https://github.com/microsoft/azure-devops-mcp (README, docs/GETTINGSTARTED.md, docs/TOOLSET.md) |
+| Azure Boards WIQL and processes | https://learn.microsoft.com/en-us/azure/devops/boards/queries/wiql-syntax?view=azure-devops, https://learn.microsoft.com/en-us/azure/devops/boards/work-items/guidance/choose-process?view=azure-devops |
+| Productboard MCP | https://developer.productboard.com/reference/mcp-server, https://developer.productboard.com/reference/mcp-install, https://www.productboard.com/integrations/mcp-server/ |
+| Productboard REST API v2 | https://developer.productboard.com/reference/authentication, https://developer.productboard.com/reference/api-token, https://developer.productboard.com/reference/rate-limits, https://developer.productboard.com/reference/listnotes, https://developer.productboard.com/reference/createnote, https://developer.productboard.com/reference/listentities |
+
 ## Also see (not included)
 
 | Skill | URL | Why not included |

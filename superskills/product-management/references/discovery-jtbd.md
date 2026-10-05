@@ -64,6 +64,8 @@ List every alternative, including spreadsheets, email, a person, doing it later,
 5. Prioritize opportunities by frequency × severity, or survey Importance and Satisfaction for an Opportunity Score (see `references/prioritization.md`).
 6. Validate qualitative findings with behaviour data (funnels, usage) before building.
 
+Feedback already collected in Productboard: pull the notes for the period first (`references/roadmaps.md` §8). Funnel and usage numbers: `references/product-analytics.md`.
+
 ## 7. Testing solutions
 
 Hypothesis format: "We believe [change] for [segment] will [result]. We'll know when [metric] moves from [x] to [y] within [time]." Test with the cheapest artifact that answers the question (fake door, concierge, clickable prototype, landing page). Measure what people do, not what they say.

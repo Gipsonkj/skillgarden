@@ -75,4 +75,5 @@ Start, mid-sprint check, demo, retro
 
 - Jira: sprint content `sprint in openSprints() AND project = KEY`, spillover and velocity queries in `references/jira-confluence.md`. Sprint creation is a UI/REST action, not usually available through the Atlassian MCP.
 - Linear: cycles are sprints; list cycles and assign issues (see `references/linear.md`).
+- Azure DevOps Boards: iterations are sprints. With the official MCP (setup in `references/stories-and-tickets.md` §5), `work` → `list_team_iterations` finds the sprint, `get_team_capacity` reads the team's capacity for it, and `wit_work_item` → `list_for_iteration` lists what is in it. WIQL can filter with `@CurrentIteration` for a given team.
 - Reads first, then writes; show the plan before creating or moving issues.

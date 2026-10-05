@@ -568,14 +568,15 @@ Word, PDF and Excel: create, edit, fill, convert and check files, plus Google an
 
 PRDs and specs, stories and tickets, prioritization, outcome roadmaps, sprints, stakeholder updates, Jira and Linear.
 
-- Write, synthesize or review a PRD, spec, one-pager; requirement quality; PRD review rubric → `references/prd-specs.md`, `templates/bmad-prd/prd-template.md`
-- User stories, acceptance criteria, INVEST, story splitting, plan → tracer-bullet tickets with blocking edges → `references/stories-and-tickets.md`
+- Write, synthesize or review a PRD, spec, one-pager; requirement quality; PRD review rubric; save it to Notion or another doc home (pick a tool) → `references/prd-specs.md`, `templates/bmad-prd/prd-template.md`
+- User stories, acceptance criteria, INVEST, story splitting, plan → tracer-bullet tickets with blocking edges; publish them, pick a tracker (Azure DevOps Boards how-to here) → `references/stories-and-tickets.md`
 - Prioritize a backlog or set of problems; RICE, ICE, MoSCoW, Kano, Opportunity Score, weighted matrix → `references/prioritization.md`, `scripts/product-manager-toolkit/rice_prioritizer.py`
-- Create or update a roadmap; outcome rewrite; dependencies; capacity allocation; communicating changes → `references/roadmaps.md`
+- Create or update a roadmap; outcome rewrite; dependencies; capacity allocation; communicating changes; pick a roadmap tool, Productboard feedback and features → `references/roadmaps.md`
+- Metrics review: pull funnel, retention or adoption numbers (Amplitude), pick an analytics tool, write the review → `references/product-analytics.md`
 - Customer discovery, interview scripts, JTBD, forces of progress, churn/switch analysis, opportunity solution tree → `references/discovery-jtbd.md`, `scripts/product-manager-toolkit/customer_interview_analyzer.py`
 - Pre-mortem or red-team a PRD, launch plan, roadmap or strategy → `references/risk-reviews.md`
 - Plan a sprint; capacity with PTO; sprint goal; stand-up, retro, demo facilitation → `references/sprint-planning.md`
-- Stakeholder, exec, board, engineering or customer updates; status colours; ROAM risks; decision records (ADRs) → `references/stakeholder-comms.md`
+- Stakeholder, exec, board, engineering or customer updates; status colours; ROAM risks; decision records (ADRs); post to Slack or Teams, pick a channel → `references/stakeholder-comms.md`
 - Meeting prep, agendas, pre-reads, decision meetings, meeting minutes with owners and due dates → `references/meetings.md`
 - Jira: JQL, creating/linking issues, workflows, dashboards, automation, Atlassian MCP; Confluence CQL → `references/jira-confluence.md`, `scripts/jira-expert/`
 - Linear: MCP or `linear` CLI, issues, cycles, triage, release projects → `references/linear.md`

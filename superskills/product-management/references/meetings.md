@@ -5,7 +5,7 @@
 ## 1. Prep (before the meeting)
 
 1. Confirm: objective, decisions needed, attendees and roles, date/time, duration, prior materials.
-2. Gather context from connected tools (docs, wiki, tracker, prior notes): previous decisions, open action items, specs, OKRs. Link sources; never paste whole documents.
+2. Gather context from connected tools (docs, wiki, tracker, prior notes): previous decisions, open action items, specs, OKRs. Link sources; never paste whole documents. Notion meeting notes (`references/prd-specs.md` §7) and Teams chats or meeting transcripts (`references/stakeholder-comms.md` §6) are sources when connected.
 3. Pick the format:
 
 | Meeting | Agenda shape |

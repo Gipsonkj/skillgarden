@@ -1,6 +1,6 @@
 ---
 name: product-management
-description: Product and project management end to end. Use for writing or reviewing a PRD, product spec, feature spec, one-pager or requirements doc; turning a conversation or plan into user stories, acceptance criteria, epics or tracer-bullet tickets with blocking dependencies; prioritizing a backlog with RICE, ICE, MoSCoW, Kano, Opportunity Score or value vs effort; building or updating a roadmap (Now/Next/Later, outcome-based, OKR-aligned) and capacity planning; customer discovery, user interviews, Jobs to Be Done, churn and switching analysis; pre-mortems, red-teaming a strategy or launch plan; sprint planning, stand-ups, retros and demos; stakeholder and exec status updates, Green/Yellow/Red status, risk escalation, decision records (ADRs); meeting agendas, pre-reads and meeting minutes with action items; and working in Jira (JQL, workflows, dashboards, Atlassian MCP, Confluence CQL) or Linear (MCP, linear CLI, cycles, issues).
+description: Product and project management end to end. Use for writing or reviewing a PRD, product spec, feature spec, one-pager or requirements doc; turning a conversation or plan into user stories, acceptance criteria, epics or tracer-bullet tickets with blocking dependencies; prioritizing a backlog with RICE, ICE, MoSCoW, Kano, Opportunity Score or value vs effort; building or updating a roadmap (Now/Next/Later, outcome-based, OKR-aligned) and capacity planning; customer discovery, user interviews, Jobs to Be Done, churn and switching analysis; pre-mortems, red-teaming a strategy or launch plan; sprint planning, stand-ups, retros and demos; stakeholder and exec status updates, Green/Yellow/Red status, risk escalation, decision records (ADRs); meeting agendas, pre-reads and meeting minutes with action items; and working in Jira (JQL, workflows, dashboards, Atlassian MCP, Confluence CQL) or Linear (MCP, linear CLI, cycles, issues); Azure DevOps Boards, Productboard, Notion, Amplitude metrics; updates to Slack or Teams.
 ---
 
 # Product management
@@ -40,14 +40,15 @@ Work out what the request needs before opening a guide; most real requests need 
 
 | Task | Read |
 |---|---|
-| Write, synthesize or review a PRD, spec, one-pager; requirement quality; PRD review rubric | [references/prd-specs.md](references/prd-specs.md) + `templates/bmad-prd/prd-template.md` for full PRDs |
-| User stories, acceptance criteria, INVEST, story splitting, plan → tracer-bullet tickets with blocking edges | [references/stories-and-tickets.md](references/stories-and-tickets.md) |
+| Write, synthesize or review a PRD, spec, one-pager; requirement quality; PRD review rubric; save it to Notion or another doc home (pick a tool) | [references/prd-specs.md](references/prd-specs.md) + `templates/bmad-prd/prd-template.md` for full PRDs |
+| User stories, acceptance criteria, INVEST, story splitting, plan → tracer-bullet tickets with blocking edges; publish them, pick a tracker (Azure DevOps Boards how-to here) | [references/stories-and-tickets.md](references/stories-and-tickets.md) |
 | Prioritize a backlog or set of problems; RICE, ICE, MoSCoW, Kano, Opportunity Score, weighted matrix | [references/prioritization.md](references/prioritization.md) + `scripts/product-manager-toolkit/rice_prioritizer.py` |
-| Create or update a roadmap; outcome rewrite; dependencies; capacity allocation; communicating changes | [references/roadmaps.md](references/roadmaps.md) |
+| Create or update a roadmap; outcome rewrite; dependencies; capacity allocation; communicating changes; pick a roadmap tool, Productboard feedback and features | [references/roadmaps.md](references/roadmaps.md) |
+| Metrics review: pull funnel, retention or adoption numbers (Amplitude), pick an analytics tool, write the review | [references/product-analytics.md](references/product-analytics.md) |
 | Customer discovery, interview scripts, JTBD, forces of progress, churn/switch analysis, opportunity solution tree | [references/discovery-jtbd.md](references/discovery-jtbd.md) + `scripts/product-manager-toolkit/customer_interview_analyzer.py` |
 | Pre-mortem or red-team a PRD, launch plan, roadmap or strategy | [references/risk-reviews.md](references/risk-reviews.md) |
 | Plan a sprint; capacity with PTO; sprint goal; stand-up, retro, demo facilitation | [references/sprint-planning.md](references/sprint-planning.md) |
-| Stakeholder, exec, board, engineering or customer updates; status colours; ROAM risks; decision records (ADRs) | [references/stakeholder-comms.md](references/stakeholder-comms.md) |
+| Stakeholder, exec, board, engineering or customer updates; status colours; ROAM risks; decision records (ADRs); post to Slack or Teams, pick a channel | [references/stakeholder-comms.md](references/stakeholder-comms.md) |
 | Meeting prep, agendas, pre-reads, decision meetings, meeting minutes with owners and due dates | [references/meetings.md](references/meetings.md) |
 | Jira: JQL, creating/linking issues, workflows, dashboards, automation, Atlassian MCP; Confluence CQL | [references/jira-confluence.md](references/jira-confluence.md) + `scripts/jira-expert/` |
 | Linear: MCP or `linear` CLI, issues, cycles, triage, release projects | [references/linear.md](references/linear.md) |
