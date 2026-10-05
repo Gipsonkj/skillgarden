@@ -88,7 +88,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/01_AI_Agents/28_claude-api"
     },
     {
      "name": "openai-docs",
@@ -105,7 +105,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/01_AI_Agents/29_openai-docs"
     },
     {
      "name": "langchain-skills (langgraph-*, langchain-*, deep-agents-*)",
@@ -139,7 +139,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/01_AI_Agents/31_ai-sdk"
     },
     {
      "name": "crewai",
@@ -156,7 +156,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/01_AI_Agents/32_crewai"
     },
     {
      "name": "agent-framework-azure-ai-py",
@@ -173,7 +173,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/01_AI_Agents/33_agent-framework-azure-ai-py"
     },
     {
      "name": "langsmith-trace / dataset / evaluator",
@@ -207,7 +207,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/01_AI_Agents/35_langfuse"
     },
     {
      "name": "skills-for-copilot-studio",
@@ -625,7 +625,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/01_AI_Agents/36_building-pydantic-ai-agents"
     },
     {
      "name": "vibe-llama",
@@ -659,7 +659,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/01_AI_Agents/38_agents-build"
     },
     {
      "name": "strands-context-manager",
@@ -676,7 +676,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/01_AI_Agents/39_strands-context-manager"
     },
     {
      "name": "google-agents-cli-* (adk-code, eval, deploy, scaffold)",
@@ -710,7 +710,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/01_AI_Agents/41_mastra"
     },
     {
      "name": "promptfoo-evals / provider-setup / redteam-setup",
@@ -744,7 +744,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/01_AI_Agents/44_agent-auto-improvement"
     },
     {
      "name": "arize-skills",
@@ -778,7 +778,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/01_AI_Agents/46_agents"
     },
     {
      "name": "building-livekit-agents",
@@ -795,7 +795,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/01_AI_Agents/47_building-livekit-agents"
     },
     {
      "name": "skills",
@@ -812,7 +812,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/01_AI_Agents/48_skills"
     },
     {
      "name": "agents-sdk",
@@ -829,7 +829,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/01_AI_Agents/49_agents-sdk"
     }
    ]
   },
@@ -938,7 +938,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/02_Website_Building/28_vercel-cli"
     },
     {
      "name": "tailwind-4-docs",
@@ -955,7 +955,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/02_Website_Building/29_tailwind-4-docs"
     },
     {
      "name": "safe-publish",
@@ -972,7 +972,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/02_Website_Building/30_safe-publish"
     },
     {
      "name": "wrangler",
@@ -989,7 +989,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/02_Website_Building/31_wrangler"
     },
     {
      "name": "web-quality-skills",
@@ -1023,7 +1023,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/02_Website_Building/38_wix-manage"
     },
     {
      "name": "next-dev-loop",
@@ -1392,7 +1392,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/02_Website_Building/27_react-best-practices"
     },
     {
      "name": "playwright-cli",
@@ -1409,7 +1409,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/02_Website_Building/33_playwright-cli"
     },
     {
      "name": "astro-best-practices",
@@ -1426,7 +1426,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/02_Website_Building/34_astro-best-practices"
     },
     {
      "name": "shadcn",
@@ -1443,7 +1443,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/02_Website_Building/35_shadcn"
     },
     {
      "name": "netlify-deploy",
@@ -1460,7 +1460,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/02_Website_Building/36_netlify-deploy"
     },
     {
      "name": "agent-toolkit",
@@ -1588,7 +1588,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/03_Poster_Graphic_Design/26_Flue_photoshop_illustrator_indesign_bridges"
     },
     {
      "name": "playwright (OpenAI curated)",
@@ -1605,7 +1605,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/03_Poster_Graphic_Design/28_playwright_OpenAI_curated"
     },
     {
      "name": "gemini-api-dev",
@@ -1622,7 +1622,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/03_Poster_Graphic_Design/31_gemini-api-dev"
     },
     {
      "name": "imagegen",
@@ -1639,7 +1639,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/03_Poster_Graphic_Design/29_imagegen"
     },
     {
      "name": "pptx-posters",
@@ -1656,7 +1656,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/03_Poster_Graphic_Design/37_pptx-posters"
     },
     {
      "name": "banner-design",
@@ -2011,7 +2011,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/03_Poster_Graphic_Design/27_playwright-cli"
     },
     {
      "name": "nano-banana (CLI, Gemini 3.1 Flash default, Pro optional)",
@@ -2028,7 +2028,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/03_Poster_Graphic_Design/30_nano-banana_CLI_Gemini_3.1_Flash_default_Pro_optional"
     },
     {
      "name": "ideogram-pack (hello-world, core-workflow-a/b, common-errors ...)",
@@ -2062,7 +2062,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/03_Poster_Graphic_Design/33_logo-creator"
     },
     {
      "name": "og-image",
@@ -2079,7 +2079,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/03_Poster_Graphic_Design/34_og-image"
     },
     {
      "name": "cli-anything-inkscape",
@@ -2096,7 +2096,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/03_Poster_Graphic_Design/35_cli-anything-inkscape"
     },
     {
      "name": "affinity-design (with affinity-mcp-server, AppleScript-driven)",
@@ -2113,7 +2113,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/03_Poster_Graphic_Design/36_affinity-design_with_affinity-mcp-server_AppleScript-driven"
     }
    ]
   },
@@ -2224,7 +2224,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/04_Motion_Animation/30_motion_Motion_AI_Kit"
     },
     {
      "name": "dotlottie-web",
@@ -2709,7 +2709,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/04_Motion_Animation/33_react-native-best-practices_animations"
     },
     {
      "name": "threejs-skills (threejs-animation and nine more)",
@@ -2760,7 +2760,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/04_Motion_Animation/38_animejs-animation"
     },
     {
      "name": "antigravity-spline-skills",
@@ -2777,7 +2777,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/04_Motion_Animation/39_antigravity-spline-skills"
     }
    ]
   },
@@ -2887,7 +2887,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/05_Trading_Finance/26_ib-portfolio_ib-account_ib-option-chain_trading_skills"
     },
     {
      "name": "pine-script (strategy export to TradingView and other platforms)",
@@ -2904,7 +2904,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/05_Trading_Finance/28_pine-script_strategy_export_to_TradingView_and_other_platfor"
     },
     {
      "name": "edgartools (core, financials, holdings, ownership, xbrl)",
@@ -2921,7 +2921,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/05_Trading_Finance/29_edgartools_core_financials_holdings_ownership_xbrl"
     },
     {
      "name": "yfinance-data",
@@ -2938,7 +2938,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/05_Trading_Finance/31_yfinance-data"
     },
     {
      "name": "mql5-development / metatrader-platform / metatrader-research (metatrader-skills marketplace)",
@@ -3308,7 +3308,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/05_Trading_Finance/27_ibkr-cli"
     },
     {
      "name": "sec-data",
@@ -3325,7 +3325,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/05_Trading_Finance/30_sec-data"
     },
     {
      "name": "alpaca-trading-paper-trading",
@@ -3342,7 +3342,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/05_Trading_Finance/32_alpaca-trading-paper-trading"
     },
     {
      "name": "use_openbb_cli / configure_mcp_server / work_with_server",
@@ -3359,7 +3359,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/05_Trading_Finance/33_use_openbb_cli_configure_mcp_server_work_with_server"
     },
     {
      "name": "ta-lib",
@@ -3376,7 +3376,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/05_Trading_Finance/34_ta-lib"
     },
     {
      "name": "binance (Binance Skills Hub)",
@@ -3483,7 +3483,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/06_Coding_Practices/30_git-commit"
     },
     {
      "name": "gh-fix-ci",
@@ -3500,7 +3500,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/06_Coding_Practices/32_gh-fix-ci"
     },
     {
      "name": "code-review",
@@ -3517,7 +3517,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/06_Coding_Practices/33_code-review"
     },
     {
      "name": "eslint",
@@ -3534,7 +3534,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/06_Coding_Practices/34_eslint"
     },
     {
      "name": "ruff",
@@ -3551,7 +3551,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/06_Coding_Practices/35_ruff"
     },
     {
      "name": "sentry-debug-issue",
@@ -3568,7 +3568,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/06_Coding_Practices/36_sentry-debug-issue"
     },
     {
      "name": "chrome-devtools",
@@ -3585,7 +3585,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/06_Coding_Practices/37_chrome-devtools"
     },
     {
      "name": "glab",
@@ -4035,7 +4035,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/06_Coding_Practices/31_worktrees"
     },
     {
      "name": "python-debugpy",
@@ -4052,7 +4052,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/06_Coding_Practices/38_python-debugpy"
     },
     {
      "name": "biomejs-skill",
@@ -4182,7 +4182,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/07_AI_Video_Creation/34_claude-remotion-skill"
     },
     {
      "name": "visual-skills / video",
@@ -4199,7 +4199,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/07_AI_Video_Creation/35_visual-skills_video"
     },
     {
      "name": "kling-skill",
@@ -4250,7 +4250,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/07_AI_Video_Creation/39_heygen-video"
     },
     {
      "name": "resolve-claude-mcp",
@@ -4284,7 +4284,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/07_AI_Video_Creation/41_claude-capcut-skill"
     },
     {
      "name": "fcp-mcp-server (FCPXML MCP)",
@@ -4782,7 +4782,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/07_AI_Video_Creation/38_seedance-skill_whitebox"
     }
    ]
   },
@@ -4909,7 +4909,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/08_Audio_Generation/23_suno-engineer_and_the_album_workflow_skills"
     },
     {
      "name": "media-whisper",
@@ -4926,7 +4926,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/08_Audio_Generation/24_media-whisper"
     },
     {
      "name": "ffmpeg-audio-normalization-pipeline",
@@ -4943,7 +4943,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/08_Audio_Generation/25_ffmpeg-audio-normalization-pipeline"
     },
     {
      "name": "descript-mcp skills (create-video, edit-project, export-transcript, export-timeline, publish-project)",
@@ -4994,7 +4994,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/08_Audio_Generation/29_audition-clean-voice"
     },
     {
      "name": "sound-effects",
@@ -5283,7 +5283,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/08_Audio_Generation/28_audition_Flue_ExtendScript_bridge"
     },
     {
      "name": "cartesia-api",
@@ -5300,7 +5300,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/08_Audio_Generation/30_cartesia-api"
     },
     {
      "name": "deepgram-python-speech-to-text (plus text-to-speech, audio-intelligence, voice-agent)",
@@ -5317,7 +5317,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/08_Audio_Generation/31_deepgram-python-speech-to-text_plus_text-to-speech_audio-int"
     },
     {
      "name": "assemblyai-hello-world and related",
@@ -5334,7 +5334,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/08_Audio_Generation/32_assemblyai-hello-world_and_related"
     },
     {
      "name": "notebooklm-skill",
@@ -5460,7 +5460,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/09_Image_Creation/24_midjourney-prompting"
     },
     {
      "name": "adobe-for-creativity (adobe, adobe-create-social-variations, adobe-retouch-portraits, adobe-batch-edit-photos, adobe-resize-photos-and-videos, adobe-design-from-template)",
@@ -5511,7 +5511,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/09_Image_Creation/27_flux-image-best-practices"
     },
     {
      "name": "comfy-skills (comfy-cloud plugin)",
@@ -5973,7 +5973,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/10_Storyboard_Preparation/23_sw-format-adaptation"
     },
     {
      "name": "adobe-edit-quick-cut (Adobe plugin)",
@@ -5990,7 +5990,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/10_Storyboard_Preparation/24_adobe-edit-quick-cut_Adobe_plugin"
     },
     {
      "name": "nano-banana-2-skill",
@@ -6007,7 +6007,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/10_Storyboard_Preparation/26_nano-banana-2-skill"
     },
     {
      "name": "midjourney-prompter",
@@ -6024,7 +6024,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/10_Storyboard_Preparation/27_midjourney-prompter"
     },
     {
      "name": "sw-story-structure",
@@ -6346,7 +6346,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/10_Storyboard_Preparation/25_premiere-pro-mcp"
     },
     {
      "name": "resolve-mcp",
@@ -6363,7 +6363,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/10_Storyboard_Preparation/28_resolve-mcp"
     },
     {
      "name": "fountain-syntax",
@@ -6380,7 +6380,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/10_Storyboard_Preparation/29_fountain-syntax"
     },
     {
      "name": "figma-use-figjam",
@@ -6431,7 +6431,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/10_Storyboard_Preparation/32_seedance-2-5-video-director"
     },
     {
      "name": "kling-ai",
@@ -6448,7 +6448,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/10_Storyboard_Preparation/33_kling-ai"
     },
     {
      "name": "veo-use",
@@ -6465,7 +6465,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/10_Storyboard_Preparation/34_veo-use"
     },
     {
      "name": "veo-3.2-prompter",
@@ -6482,7 +6482,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/10_Storyboard_Preparation/35_veo-3.2-prompter"
     }
    ]
   },
@@ -6575,7 +6575,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/11_Social_Media_Management/23_buffer-api"
     },
     {
      "name": "hootsuite-install-auth (REST API series)",
@@ -6592,7 +6592,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/11_Social_Media_Management/24_hootsuite-install-auth_REST_API_series"
     },
     {
      "name": "resize-for-social-media",
@@ -6609,7 +6609,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/11_Social_Media_Management/25_resize-for-social-media"
     },
     {
      "name": "xurl",
@@ -6626,7 +6626,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/11_Social_Media_Management/26_xurl"
     },
     {
      "name": "capcut-edit",
@@ -6643,7 +6643,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/11_Social_Media_Management/27_capcut-edit"
     },
     {
      "name": "youtube (yutu)",
@@ -6660,7 +6660,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/11_Social_Media_Management/28_youtube_yutu"
     },
     {
      "name": "crosspost",
@@ -6998,7 +6998,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/11_Social_Media_Management/30_bluesky"
     }
    ]
   },
@@ -7089,7 +7089,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/12_Content_Creation_Copywriting/25_wordpress_REST_API_publishing"
     },
     {
      "name": "gws-docs-write / persona-content-creator",
@@ -7106,7 +7106,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/12_Content_Creation_Copywriting/26_gws-docs-write_persona-content-creator"
     },
     {
      "name": "grammarly-document-evaluator",
@@ -7123,7 +7123,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/12_Content_Creation_Copywriting/27_grammarly-document-evaluator"
     },
     {
      "name": "notion-cli (ntn)",
@@ -7140,7 +7140,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/12_Content_Creation_Copywriting/28_notion-cli_ntn"
     },
     {
      "name": "hubspot-skills (HubL, CMS local dev, CLI)",
@@ -7174,7 +7174,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/12_Content_Creation_Copywriting/30_seo-ahrefs_extension"
     },
     {
      "name": "substack-skills (writer, publisher, notes, repurposer)",
@@ -7544,7 +7544,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/12_Content_Creation_Copywriting/32_ghost-admin-api_ghost-content-api"
     },
     {
      "name": "webflow-skills (safe-publish, bulk-cms-update, cms-best-practices)",
@@ -7612,7 +7612,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/12_Content_Creation_Copywriting/36_contentful_skills"
     },
     {
      "name": "wix-manage (blog: how-to-create-blog-posts)",
@@ -7629,7 +7629,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/12_Content_Creation_Copywriting/37_wix-manage_blog_how-to-create-blog-posts"
     },
     {
      "name": "hemingway",
@@ -7646,7 +7646,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/12_Content_Creation_Copywriting/38_hemingway"
     }
    ]
   },
@@ -7739,7 +7739,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/13_App_Building/27_ios-debugger-agent"
     },
     {
      "name": "expo skills (expo-native-ui, expo-router, eas-app-stores, eas-workflows, eas-update, eas-observe)",
@@ -7790,7 +7790,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/13_App_Building/31_swiftui-pro"
     },
     {
      "name": "asc-testflight-orchestration",
@@ -7807,7 +7807,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/13_App_Building/32_asc-testflight-orchestration"
     },
     {
      "name": "firebase-crashlytics",
@@ -7824,7 +7824,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/13_App_Building/33_firebase-crashlytics"
     },
     {
      "name": "migrate-xml-views-to-jetpack-compose",
@@ -7841,7 +7841,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/13_App_Building/28_migrate-xml-views-to-jetpack-compose"
     },
     {
      "name": "electron-skills",
@@ -8243,7 +8243,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/13_App_Building/34_maestro-mobile"
     },
     {
      "name": "fastlane-skill",
@@ -8294,7 +8294,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/13_App_Building/37_sentry-react-native-sdk"
     },
     {
      "name": "kotlin-tooling-cocoapods-spm-migration",
@@ -8311,7 +8311,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/13_App_Building/39_kotlin-tooling-cocoapods-spm-migration"
     },
     {
      "name": "xcode-cloud-skills",
@@ -8437,7 +8437,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/14_Cloud_DevOps/29_k8s-manifest-generator"
     },
     {
      "name": "argocd-addon",
@@ -8454,7 +8454,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/14_Cloud_DevOps/31_argocd-addon"
     },
     {
      "name": "terraform-skill",
@@ -8471,7 +8471,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/14_Cloud_DevOps/32_terraform-skill"
     },
     {
      "name": "gha-security-review",
@@ -8488,7 +8488,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/14_Cloud_DevOps/33_gha-security-review"
     },
     {
      "name": "gitlab",
@@ -8505,7 +8505,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/14_Cloud_DevOps/34_gitlab"
     },
     {
      "name": "aws-core (iam, containers, cdk, cloudformation, deployment, observability)",
@@ -8624,7 +8624,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/14_Cloud_DevOps/42_datadog_agent-skills_dd-apm_dd-docs_dd-aws-integration"
     },
     {
      "name": "jenkins",
@@ -8641,7 +8641,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/14_Cloud_DevOps/44_jenkins"
     },
     {
      "name": "ansible-playbook / ansible-debug / ansible-convert",
@@ -9059,7 +9059,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/14_Cloud_DevOps/30_gke-workload-troubleshooting"
     },
     {
      "name": "aws-serverless (lambda, api-gateway, step-functions, deployment)",
@@ -9093,7 +9093,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/14_Cloud_DevOps/43_jenkins-cli"
     },
     {
      "name": "pagerduty",
@@ -9110,7 +9110,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/14_Cloud_DevOps/46_pagerduty"
     },
     {
      "name": "digitalocean-skills (provisioning-droplets, configuring-firewalls, managing-dns ...)",
@@ -9220,7 +9220,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/15_Backend_Databases/29_postgres_pg-aiguide"
     },
     {
      "name": "mysql",
@@ -9237,7 +9237,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/15_Backend_Databases/31_mysql"
     },
     {
      "name": "prisma-cli",
@@ -9254,7 +9254,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/15_Backend_Databases/32_prisma-cli"
     },
     {
      "name": "drizzle-orm",
@@ -9271,7 +9271,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/15_Backend_Databases/33_drizzle-orm"
     },
     {
      "name": "stripe-best-practices",
@@ -9288,7 +9288,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/15_Backend_Databases/34_stripe-best-practices"
     },
     {
      "name": "firestore-rules-creation",
@@ -9305,7 +9305,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/15_Backend_Databases/35_firestore-rules-creation"
     },
     {
      "name": "mongodb-query-optimizer",
@@ -9322,7 +9322,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/15_Backend_Databases/36_mongodb-query-optimizer"
     },
     {
      "name": "redis-connections",
@@ -9339,7 +9339,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/15_Backend_Databases/37_redis-connections"
     },
     {
      "name": "turso-db",
@@ -9356,7 +9356,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/15_Backend_Databases/40_turso-db"
     },
     {
      "name": "optimizing-ef-core-queries",
@@ -9373,7 +9373,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/15_Backend_Databases/43_optimizing-ef-core-queries"
     },
     {
      "name": "elasticsearch-index-design",
@@ -9390,7 +9390,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/15_Backend_Databases/44_elasticsearch-index-design"
     },
     {
      "name": "auth0",
@@ -9407,7 +9407,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/15_Backend_Databases/45_auth0"
     },
     {
      "name": "node",
@@ -9424,7 +9424,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/15_Backend_Databases/46_node"
     },
     {
      "name": "flyway-migrations",
@@ -9441,7 +9441,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/15_Backend_Databases/48_flyway-migrations"
     },
     {
      "name": "django-skills",
@@ -9458,7 +9458,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/15_Backend_Databases/49_django-skills"
     },
     {
      "name": "prisma-client-api",
@@ -9592,7 +9592,7 @@
      "name": "clerk-setup",
      "purpose": "Official Clerk skill for adding Clerk authentication to any project via the Clerk CLI and framework quickstarts, including migrating from another auth system.",
      "how_to_use": "Use when adding/initialising Clerk auth; needs a Clerk account and keys.",
-     "url": "https://github.com/clerk/skills/tree/main/skills/core/clerk-setup",
+     "url": "https://github.com/clerk/skills/tree/main/skills/clerk-setup",
      "repo": "clerk/skills",
      "stars": 83,
      "license": "MIT (declared in SKILL.md)",
@@ -9875,7 +9875,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/15_Backend_Databases/30_postgres"
     },
     {
      "name": "neon-postgres-branches",
@@ -9892,7 +9892,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/15_Backend_Databases/38_neon-postgres-branches"
     },
     {
      "name": "planetscale-postgres-safety-review",
@@ -9909,24 +9909,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
-    },
-    {
-     "name": "clerk-setup",
-     "purpose": "Official setup via the Clerk CLI and framework quickstarts; MIT declared in SKILL.md, no LICENSE file in repo.",
-     "how_to_use": "",
-     "url": "https://github.com/clerk/skills/tree/main/skills/clerk-setup",
-     "repo": "clerk/skills",
-     "stars": 86,
-     "license": "MIT",
-     "evidence": "Found by tool name (Clerk) in the tool-coverage pass",
-     "notes": "Official setup via the Clerk CLI and framework quickstarts; MIT declared in SKILL.md, no LICENSE file in repo. The same collection (clerk/skills) also has: clerk-nextjs-patterns (Clerk), clerk-webhooks (Clerk).",
-     "tool": "Clerk",
-     "rank": 47,
-     "trending": false,
-     "nonCommercial": false,
-     "redistributable": true,
-     "local": null
+     "local": "skills/15_Backend_Databases/39_planetscale-postgres-safety-review"
     },
     {
      "name": "clickhouse-best-practices",
@@ -9939,11 +9922,11 @@
      "evidence": "Found by tool name (ClickHouse) in the tool-coverage pass",
      "notes": "Official 31 rules for ordering keys, partitioning, types and inserts. The same collection (ClickHouse/agent-skills) also has: clickhouse-architecture-advisor (ClickHouse), infra-clickhouse (ClickHouse).",
      "tool": "ClickHouse",
-     "rank": 48,
+     "rank": 47,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/15_Backend_Databases/41_clickhouse-best-practices"
     },
     {
      "name": "dsql",
@@ -9956,11 +9939,11 @@
      "evidence": "Found by tool name (AWS databases (DynamoDB, Aurora, RDS)) in the tool-coverage pass",
      "notes": "Official Aurora DSQL schema, migrations, query plans and performance; ships a safe_query.py helper (no external hosts found).",
      "tool": "AWS databases (DynamoDB, Aurora, RDS)",
-     "rank": 49,
+     "rank": 48,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/15_Backend_Databases/42_dsql"
     },
     {
      "name": "spring-boot",
@@ -9973,11 +9956,11 @@
      "evidence": "Found by tool name (Spring Boot) in the tool-coverage pass",
      "notes": "Spring Boot service structure, Spring Data JPA, REST API and MockMvcTester testing; markdown references only.",
      "tool": "Spring Boot",
-     "rank": 50,
+     "rank": 49,
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/15_Backend_Databases/47_spring-boot"
     }
    ]
   },
@@ -10102,7 +10085,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/16_Automation/29_playwright-skill_TestDino"
     },
     {
      "name": "uipath-troubleshoot",
@@ -10119,7 +10102,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/16_Automation/30_uipath-troubleshoot"
     },
     {
      "name": "github-actions-templates",
@@ -10136,7 +10119,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/16_Automation/32_github-actions-templates"
     },
     {
      "name": "gws-script / gws-script-push",
@@ -10153,7 +10136,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/16_Automation/33_gws-script_gws-script-push"
     },
     {
      "name": "chrome-devtools",
@@ -10538,7 +10521,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/16_Automation/31_github-actions-hardening"
     },
     {
      "name": "apify-actor-development",
@@ -10555,7 +10538,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/16_Automation/34_apify-actor-development"
     },
     {
      "name": "firecrawl-scrape / crawl / map / search",
@@ -10589,7 +10572,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/16_Automation/36_ui-test"
     },
     {
      "name": "pipedream",
@@ -10606,7 +10589,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/16_Automation/37_pipedream"
     }
    ]
   },
@@ -10715,7 +10698,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/17_Ad_Creation/23_adobe-create-social-variations"
     },
     {
      "name": "ads-google",
@@ -11022,7 +11005,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/17_Ad_Creation/21_google-ads"
     },
     {
      "name": "google-ads-skills",
@@ -11056,7 +11039,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/17_Ad_Creation/26_heygen-video"
     },
     {
      "name": "gemini-omni-flash-api",
@@ -11073,7 +11056,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/17_Ad_Creation/27_gemini-omni-flash-api"
     },
     {
      "name": "gemini-api-dev",
@@ -11090,7 +11073,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/17_Ad_Creation/28_gemini-api-dev"
     }
    ]
   },
@@ -11179,7 +11162,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/18_Google_Ads/23_rsa-bulk-edit"
     },
     {
      "name": "google-tagmanager",
@@ -11196,7 +11179,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/18_Google_Ads/25_google-tagmanager"
     },
     {
      "name": "product-feed-optimizer",
@@ -11213,7 +11196,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/18_Google_Ads/26_product-feed-optimizer"
     },
     {
      "name": "looker-studio",
@@ -11230,7 +11213,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/18_Google_Ads/27_looker-studio"
     },
     {
      "name": "ads-google",
@@ -11568,7 +11551,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/18_Google_Ads/28_data-manager-api-audience-ingestion"
     },
     {
      "name": "google-ads-audit",
@@ -11585,7 +11568,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/18_Google_Ads/29_google-ads-audit"
     },
     {
      "name": "google-ads-ppc-waste-finder",
@@ -11619,7 +11602,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/18_Google_Ads/31_ads-microsoft"
     }
    ]
   },
@@ -11711,7 +11694,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/19_LinkedIn_Automation/23_linkedin-post-writer_content_suite_drafting_manual_or_API_pu"
     },
     {
      "name": "taplio-linkedin-claude-skills (17 skills)",
@@ -12083,7 +12066,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/19_LinkedIn_Automation/27_linkedin-post_and_linkedin-analytics"
     },
     {
      "name": "typefully",
@@ -12100,7 +12083,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/19_LinkedIn_Automation/28_typefully"
     },
     {
      "name": "metricool-setup",
@@ -12117,7 +12100,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/19_LinkedIn_Automation/29_metricool-setup"
     }
    ]
   },
@@ -12207,7 +12190,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/20_Instagram_Automation/17_buffer-api"
     },
     {
      "name": "canva-resize-for-social-media",
@@ -12224,7 +12207,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/20_Instagram_Automation/18_canva-resize-for-social-media"
     },
     {
      "name": "instagram-marketing",
@@ -12450,7 +12433,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/20_Instagram_Automation/19_influencer-outreach-modash-aspire-grin"
     }
    ]
   },
@@ -12544,7 +12527,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/21_Frontend_UI_UX_Design/30_tailwindcss"
     },
     {
      "name": "migrate-radix-to-base",
@@ -12561,7 +12544,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/21_Frontend_UI_UX_Design/31_migrate-radix-to-base"
     },
     {
      "name": "sb-figma",
@@ -12578,7 +12561,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/21_Frontend_UI_UX_Design/35_sb-figma"
     },
     {
      "name": "storybook",
@@ -12595,7 +12578,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/21_Frontend_UI_UX_Design/36_storybook"
     },
     {
      "name": "motion",
@@ -12612,7 +12595,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/21_Frontend_UI_UX_Design/37_motion"
     },
     {
      "name": "axe-a11y-browser-auditor",
@@ -12629,7 +12612,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/21_Frontend_UI_UX_Design/38_axe-a11y-browser-auditor"
     },
     {
      "name": "ui-ux-pro-max",
@@ -13062,7 +13045,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/21_Frontend_UI_UX_Design/32_shadcn-ui"
     },
     {
      "name": "figma-design-to-code",
@@ -13113,7 +13096,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/21_Frontend_UI_UX_Design/39_a11y-debugging"
     },
     {
      "name": "lighthouse-skill",
@@ -13147,7 +13130,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/21_Frontend_UI_UX_Design/41_shadcn-ui"
     }
    ]
   },
@@ -13239,7 +13222,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/22_Testing_QA/28_playwright-cli"
     },
     {
      "name": "selenium-to-playwright-migration",
@@ -13256,7 +13239,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/22_Testing_QA/31_selenium-to-playwright-migration"
     },
     {
      "name": "cypress-author",
@@ -13273,7 +13256,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/22_Testing_QA/32_cypress-author"
     },
     {
      "name": "jest-skill",
@@ -13290,7 +13273,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/22_Testing_QA/33_jest-skill"
     },
     {
      "name": "vitest",
@@ -13307,7 +13290,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/22_Testing_QA/34_vitest"
     },
     {
      "name": "api-testing (Postman plugin)",
@@ -13324,7 +13307,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/22_Testing_QA/35_api-testing_Postman_plugin"
     },
     {
      "name": "quality-engineering-appium-mcp",
@@ -13341,7 +13324,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/22_Testing_QA/36_quality-engineering-appium-mcp"
     },
     {
      "name": "testrail",
@@ -13358,7 +13341,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/22_Testing_QA/38_testrail"
     },
     {
      "name": "e2e-testing",
@@ -13759,7 +13742,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/22_Testing_QA/29_playwright-best-practices"
     },
     {
      "name": "selenium",
@@ -13776,7 +13759,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/22_Testing_QA/30_selenium"
     },
     {
      "name": "chrome-devtools",
@@ -13793,7 +13776,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/22_Testing_QA/37_chrome-devtools"
     }
    ]
   },
@@ -13882,7 +13865,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/23_Security/28_semgrep_scrutineer"
     },
     {
      "name": "codeql",
@@ -13899,7 +13882,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/23_Security/29_codeql"
     },
     {
      "name": "snyk",
@@ -13916,7 +13899,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/23_Security/31_snyk"
     },
     {
      "name": "security-gitleaks",
@@ -13933,7 +13916,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/23_Security/32_security-gitleaks"
     },
     {
      "name": "trufflehog",
@@ -13950,7 +13933,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/23_Security/33_trufflehog"
     },
     {
      "name": "OWASP ZAP Security Scanner",
@@ -13967,7 +13950,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/23_Security/34_OWASP_ZAP_Security_Scanner"
     },
     {
      "name": "burp-suite-skill",
@@ -14419,7 +14402,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/23_Security/36_npm-security"
     },
     {
      "name": "supply-chain-security",
@@ -14436,7 +14419,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/23_Security/37_supply-chain-security"
     },
     {
      "name": "ci-security-scanning-with-strix",
@@ -14453,7 +14436,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/23_Security/38_ci-security-scanning-with-strix"
     }
    ]
   },
@@ -14562,7 +14545,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/24_Data_Analysis_Data_Science/24_powerbi-authoring_semantic-model-authoring"
     },
     {
      "name": "Tableau Calc Engine",
@@ -14613,7 +14596,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/24_Data_Analysis_Data_Science/29_bigquery-data-analytics"
     },
     {
      "name": "ggsql / quarto-authoring / shiny-bslib",
@@ -14630,7 +14613,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/24_Data_Analysis_Data_Science/31_ggsql_quarto-authoring_shiny-bslib"
     },
     {
      "name": "jupyter-to-marimo",
@@ -14647,7 +14630,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/24_Data_Analysis_Data_Science/33_jupyter-to-marimo"
     },
     {
      "name": "kpi-dashboard-design",
@@ -14985,7 +14968,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/24_Data_Analysis_Data_Science/27_tableau-migration"
     },
     {
      "name": "bigquery-expert",
@@ -15002,7 +14985,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/24_Data_Analysis_Data_Science/30_bigquery-expert"
     },
     {
      "name": "awesome-rstats-skills",
@@ -15036,7 +15019,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/24_Data_Analysis_Data_Science/34_looker-skills_lookml-_creating-looker-dashboard"
     },
     {
      "name": "gws-sheets (read, append, recipes)",
@@ -15053,7 +15036,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/24_Data_Analysis_Data_Science/35_gws-sheets_read_append_recipes"
     },
     {
      "name": "qlik-claude-framework",
@@ -15087,7 +15070,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/24_Data_Analysis_Data_Science/37_amplitude_analyze-chart_analyze-experiment_create-dashboard"
     }
    ]
   },
@@ -15178,7 +15161,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/25_SEO/26_gsc"
     },
     {
      "name": "ai-referral-analysis",
@@ -15195,7 +15178,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/25_SEO/27_ai-referral-analysis"
     },
     {
      "name": "keyword-research",
@@ -15212,7 +15195,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/25_SEO/28_keyword-research"
     },
     {
      "name": "screaming-frog-mcp",
@@ -15246,7 +15229,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/25_SEO/31_core-web-vitals"
     },
     {
      "name": "google-business-profile-skill",
@@ -15632,7 +15615,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/25_SEO/30_pagespeed-audit"
     },
     {
      "name": "surfer-seo-serp-analyzer",
@@ -15649,7 +15632,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/25_SEO/32_surfer-seo-serp-analyzer"
     },
     {
      "name": "dataforseo-skill-claude",
@@ -15666,7 +15649,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/25_SEO/33_dataforseo-skill-claude"
     },
     {
      "name": "botify-mcp",
@@ -15683,7 +15666,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/25_SEO/35_botify-mcp"
     }
    ]
   },
@@ -15772,7 +15755,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/26_Docs_Office_Files/34_doc"
     },
     {
      "name": "ms-365-mcp-server (community MCP, not a skill)",
@@ -15806,7 +15789,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/26_Docs_Office_Files/36_adobe-anypdf"
     },
     {
      "name": "cli-pandoc",
@@ -15823,7 +15806,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/26_Docs_Office_Files/37_cli-pandoc"
     },
     {
      "name": "xlsx",
@@ -16320,7 +16303,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/26_Docs_Office_Files/38_OCRmyPDF_Searchable_PDF_OCR_Pipeline"
     }
    ]
   },
@@ -16411,7 +16394,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/27_Research_Science/26_pyzotero"
     },
     {
      "name": "pubmed_database",
@@ -16428,7 +16411,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/27_Research_Science/27_pubmed_database"
     },
     {
      "name": "awesome-latex-skills",
@@ -16462,7 +16445,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/27_Research_Science/30_slr-automation-guide"
     },
     {
      "name": "endnote-cli",
@@ -16479,7 +16462,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/27_Research_Science/31_endnote-cli"
     },
     {
      "name": "systematic-literature-review",
@@ -16848,7 +16831,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/27_Research_Science/28_work-with-overleaf"
     },
     {
      "name": "endnote-to-zotero",
@@ -16865,7 +16848,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/27_Research_Science/32_endnote-to-zotero"
     },
     {
      "name": "openalex",
@@ -16882,7 +16865,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/27_Research_Science/33_openalex"
     },
     {
      "name": "semantic-scholar-skills",
@@ -16916,7 +16899,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/27_Research_Science/35_elicit_claude-code_skill"
     },
     {
      "name": "scite-database",
@@ -16933,7 +16916,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/27_Research_Science/36_scite-database"
     }
    ]
   },
@@ -16944,7 +16927,7 @@
    "blurb": "PRDs and specs, stories and tickets, prioritization, outcome roadmaps, sprints, stakeholder updates, Jira and Linear.",
    "hue": 32,
    "superskill": {
-    "description": "Product and project management end to end. Use for writing or reviewing a PRD, product spec, feature spec, one-pager or requirements doc; turning a conversation or plan into user stories, acceptance criteria, epics or tracer-bullet tickets with blocking dependencies; prioritizing a backlog with RICE, ICE, MoSCoW, Kano, Opportunity Score or value vs effort; building or updating a roadmap (Now/Next/Later, outcome-based, OKR-aligned) and capacity planning; customer discovery, user interviews, Jobs to Be Done, churn and switching analysis; pre-mortems, red-teaming a strategy or launch plan; sprint planning, stand-ups, retros and demos; stakeholder and exec status updates, Green/Yellow/Red status, risk escalation, decision records (ADRs); meeting agendas, pre-reads and meeting minutes with action items; and working in Jira (JQL, workflows, dashboards, Atlassian MCP, Confluence CQL) or Linear (MCP, linear CLI, cycles, issues).",
+    "description": "Product and project management end to end. Use for writing or reviewing a PRD, product spec, feature spec, one-pager or requirements doc; turning a conversation or plan into user stories, acceptance criteria, epics or tracer-bullet tickets with blocking dependencies; prioritizing a backlog with RICE, ICE, MoSCoW, Kano, Opportunity Score or value vs effort; building or updating a roadmap (Now/Next/Later, outcome-based, OKR-aligned) and capacity planning; customer discovery, user interviews, Jobs to Be Done, churn and switching analysis; pre-mortems, red-teaming a strategy or launch plan; sprint planning, stand-ups, retros and demos; stakeholder and exec status updates, Green/Yellow/Red status, risk escalation, decision records (ADRs); meeting agendas, pre-reads and meeting minutes with action items; and working in Jira (JQL, workflows, dashboards, Atlassian MCP, Confluence CQL) or Linear (MCP, linear CLI, cycles, issues); Azure DevOps Boards, Productboard, Notion, Amplitude metrics; updates to Slack or Teams.",
     "references": [
      "references/discovery-jtbd.md",
      "references/jira-confluence.md",
@@ -16952,6 +16935,7 @@
      "references/meetings.md",
      "references/prd-specs.md",
      "references/prioritization.md",
+     "references/product-analytics.md",
      "references/risk-reviews.md",
      "references/roadmaps.md",
      "references/sprint-planning.md",
@@ -17025,7 +17009,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/28_Product_Project_Management/25_jira"
     },
     {
      "name": "linear",
@@ -17042,7 +17026,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/28_Product_Project_Management/26_linear"
     },
     {
      "name": "slack skills (slack-messaging, slack-search, slack-docs)",
@@ -17572,7 +17556,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/29_Claude_Expert_Meta-skills/28_skill-creator_Codex_system_skill"
     },
     {
      "name": "create-agentsmd",
@@ -17589,7 +17573,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/29_Claude_Expert_Meta-skills/29_create-agentsmd"
     },
     {
      "name": "mcp-builder",
@@ -17606,7 +17590,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/29_Claude_Expert_Meta-skills/31_mcp-builder"
     },
     {
      "name": "plugin-dev (plugin-structure, skill-development, hook-development, agent-development, command-development, mcp-integration, plugin-settings)",
@@ -17640,7 +17624,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/29_Claude_Expert_Meta-skills/35_codex-delegate"
     },
     {
      "name": "writing-plans",
@@ -18058,7 +18042,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/29_Claude_Expert_Meta-skills/32_claude-api"
     },
     {
      "name": "mcp-server-dev (build-mcp-server, build-mcp-app, build-mcpb)",
@@ -18109,7 +18093,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/29_Claude_Expert_Meta-skills/37_skill-porter"
     },
     {
      "name": "opencode-skill-creator",
@@ -18126,7 +18110,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/29_Claude_Expert_Meta-skills/38_opencode-skill-creator"
     }
    ]
   },
@@ -18251,7 +18235,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/30_Figma_Design_Systems/40_style-dictionary"
     },
     {
      "name": "dtcg-tokens",
@@ -18268,7 +18252,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/30_Figma_Design_Systems/41_dtcg-tokens"
     },
     {
      "name": "sketch-design-to-code and sketch-design-from-reference",
@@ -18955,7 +18939,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/31_Token_Efficiency/21_claude-api"
     },
     {
      "name": "litellm-skills (proxy admin: keys, teams, budgets, models)",
@@ -19006,7 +18990,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/31_Token_Efficiency/24_langfuse"
     },
     {
      "name": "context-budget",
@@ -19295,7 +19279,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/31_Token_Efficiency/25_helicone"
     },
     {
      "name": "portkey-typescript-sdk",
@@ -19312,7 +19296,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/31_Token_Efficiency/26_portkey-typescript-sdk"
     },
     {
      "name": "cloudflare (ai-gateway references)",
@@ -19329,7 +19313,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/31_Token_Efficiency/27_cloudflare_ai-gateway_references"
     },
     {
      "name": "ai-gateway",
@@ -19346,7 +19330,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/31_Token_Efficiency/28_ai-gateway"
     },
     {
      "name": "gemini-api-dev",
@@ -19363,7 +19347,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/31_Token_Efficiency/29_gemini-api-dev"
     }
    ]
   },
@@ -19456,7 +19440,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/32_Presentations/21_slides_PptxGenJS_deck_builder_with_render_and_overflow_check"
     },
     {
      "name": "google-slides-skill (brand redesign)",
@@ -19990,7 +19974,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/33_Open_Models/21_ollama"
     },
     {
      "name": "llama-cpp",
@@ -20007,7 +19991,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/33_Open_Models/22_llama-cpp"
     },
     {
      "name": "minicpm5-deploy-lmstudio",
@@ -20024,7 +20008,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/33_Open_Models/23_minicpm5-deploy-lmstudio"
     },
     {
      "name": "vllm",
@@ -20041,7 +20025,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/33_Open_Models/25_vllm"
     },
     {
      "name": "hf-mcp",
@@ -20058,7 +20042,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/33_Open_Models/26_hf-mcp"
     },
     {
      "name": "llamafactory-v1-docs",
@@ -20075,7 +20059,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/33_Open_Models/28_llamafactory-v1-docs"
     },
     {
      "name": "trl-training",
@@ -20381,7 +20365,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/33_Open_Models/27_sglang"
     },
     {
      "name": "together-fine-tuning",
@@ -20398,7 +20382,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/33_Open_Models/29_together-fine-tuning"
     },
     {
      "name": "wandb-primary",
@@ -20415,7 +20399,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/33_Open_Models/30_wandb-primary"
     }
    ]
   },
@@ -20507,7 +20491,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/34_Teaching_Course_Design/21_canvas-course-builder"
     },
     {
      "name": "claude-moodle-dev (moodle-web-services)",
@@ -20524,7 +20508,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/34_Teaching_Course_Design/22_claude-moodle-dev_moodle-web-services"
     },
     {
      "name": "gog-classroom",
@@ -20541,7 +20525,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/34_Teaching_Course_Design/23_gog-classroom"
     },
     {
      "name": "anki",
@@ -20558,7 +20542,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/34_Teaching_Course_Design/24_anki"
     },
     {
      "name": "gws-forms",
@@ -20575,7 +20559,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/34_Teaching_Course_Design/28_gws-forms"
     },
     {
      "name": "k12-lesson-differentiation",
@@ -20864,7 +20848,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/34_Teaching_Course_Design/25_h5p-player-setup"
     },
     {
      "name": "kahoot-quiz-creator",
@@ -20881,7 +20865,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/34_Teaching_Course_Design/26_kahoot-quiz-creator"
     },
     {
      "name": "notebooklm-skill",
@@ -20988,7 +20972,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/35_Email_Marketing/21_klaviyo-analyst"
     },
     {
      "name": "mailchimp-integration",
@@ -21005,7 +20989,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/35_Email_Marketing/23_mailchimp-integration"
     },
     {
      "name": "agent-cli-skills (audience-targeting, bulk-operations)",
@@ -21022,7 +21006,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/35_Email_Marketing/24_agent-cli-skills_audience-targeting_bulk-operations"
     },
     {
      "name": "amazon-ses",
@@ -21039,7 +21023,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/35_Email_Marketing/25_amazon-ses"
     },
     {
      "name": "twilio-sendgrid-email-send",
@@ -21056,7 +21040,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/35_Email_Marketing/26_twilio-sendgrid-email-send"
     },
     {
      "name": "resend",
@@ -21073,7 +21057,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/35_Email_Marketing/27_resend"
     },
     {
      "name": "email-deliverability",
@@ -21090,7 +21074,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/35_Email_Marketing/28_email-deliverability"
     },
     {
      "name": "react-email",
@@ -21379,7 +21363,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/35_Email_Marketing/22_klaviyo-webhooks"
     },
     {
      "name": "postmark-skills",
@@ -21396,7 +21380,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/35_Email_Marketing/29_postmark-skills"
     },
     {
      "name": "customerio-journeys",
@@ -21413,7 +21397,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/35_Email_Marketing/30_customerio-journeys"
     },
     {
      "name": "beehiiv-newsletter-advisor",
@@ -21447,7 +21431,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/35_Email_Marketing/32_react-email"
     },
     {
      "name": "email-html-mjml",
@@ -21464,7 +21448,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/35_Email_Marketing/33_email-html-mjml"
     }
    ]
   },
@@ -21557,7 +21541,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/36_Ecommerce/21_shopify_marketing_analytics"
     },
     {
      "name": "Woocommerce-skill",
@@ -21591,7 +21575,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/36_Ecommerce/23_upgrade-stripe"
     },
     {
      "name": "google-shopping-optimization",
@@ -21608,7 +21592,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/36_Ecommerce/25_google-shopping-optimization"
     },
     {
      "name": "google-analytics-data-api-basics",
@@ -21625,7 +21609,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/36_Ecommerce/26_google-analytics-data-api-basics"
     },
     {
      "name": "agent-toolkit",
@@ -21659,7 +21643,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/36_Ecommerce/28_wix-manage"
     },
     {
      "name": "amazon-sp-api",
@@ -21676,7 +21660,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/36_Ecommerce/29_amazon-sp-api"
     },
     {
      "name": "inventory-planner",
@@ -21965,7 +21949,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/36_Ecommerce/24_stripe-webhooks"
     },
     {
      "name": "selling-partner-seller-analytics",
@@ -21982,7 +21966,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/36_Ecommerce/30_selling-partner-seller-analytics"
     },
     {
      "name": "bigcommerce",
@@ -21999,7 +21983,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/36_Ecommerce/31_bigcommerce"
     },
     {
      "name": "shopify-matrixify",
@@ -22016,7 +22000,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/36_Ecommerce/32_shopify-matrixify"
     },
     {
      "name": "b2c-mcp-scapi",
@@ -22033,7 +22017,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/36_Ecommerce/33_b2c-mcp-scapi"
     }
    ]
   },
@@ -22125,7 +22109,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/37_Career_Job_Search/22_technical-job-search"
     },
     {
      "name": "build-tailored-resume",
@@ -22448,7 +22432,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/37_Career_Job_Search/21_salary-negotiation-prep"
     },
     {
      "name": "job-application-tracker",
@@ -22482,7 +22466,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/37_Career_Job_Search/26_notion-cli"
     }
    ]
   },
@@ -22574,7 +22558,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/38_3D_Modeling/21_scenario-blender-expert"
     },
     {
      "name": "autodesk-fusion-script-generator",
@@ -22591,7 +22575,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/38_3D_Modeling/23_autodesk-fusion-script-generator"
     },
     {
      "name": "sketchup extension skills",
@@ -22625,7 +22609,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/38_3D_Modeling/26_solidworks-automation"
     },
     {
      "name": "dcc-mcp-maya-setup",
@@ -22642,7 +22626,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/38_3D_Modeling/27_dcc-mcp-maya-setup"
     },
     {
      "name": "substance-3d-texturing",
@@ -22659,7 +22643,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/38_3D_Modeling/29_substance-3d-texturing"
     },
     {
      "name": "unreal-engine",
@@ -22676,7 +22660,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/38_3D_Modeling/30_unreal-engine"
     },
     {
      "name": "Unity-Skills",
@@ -22710,7 +22694,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/38_3D_Modeling/32_three-best-practices"
     },
     {
      "name": "gcode",
@@ -22727,7 +22711,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/38_3D_Modeling/35_gcode"
     },
     {
      "name": "threejs-loaders",
@@ -23016,7 +23000,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/38_3D_Modeling/22_blender-director_94-skill_set"
     },
     {
      "name": "sketchup-usage",
@@ -23033,7 +23017,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/38_3D_Modeling/24_sketchup-usage"
     },
     {
      "name": "3dsmax-mcp",
@@ -23050,7 +23034,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/38_3D_Modeling/28_3dsmax-mcp"
     },
     {
      "name": "gltf-transform",
@@ -23067,7 +23051,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/38_3D_Modeling/33_gltf-transform"
     },
     {
      "name": "meshy-3d-generation",
@@ -23084,7 +23068,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/38_3D_Modeling/34_meshy-3d-generation"
     },
     {
      "name": "cli-anything-freecad",
@@ -23101,7 +23085,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/38_3D_Modeling/36_cli-anything-freecad"
     },
     {
      "name": "godot",
@@ -23118,7 +23102,7 @@
      "trending": false,
      "nonCommercial": false,
      "redistributable": true,
-     "local": null
+     "local": "skills/38_3D_Modeling/37_godot"
     }
    ]
   }

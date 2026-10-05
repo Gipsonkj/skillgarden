@@ -183,8 +183,8 @@
       "how_to_use": "Use when adding/initialising Clerk auth; needs a Clerk account and keys.",
       "repo": "clerk/skills",
       "branch": "main",
-      "skill_path": "skills/core/clerk-setup",
-      "url": "https://github.com/clerk/skills/tree/main/skills/core/clerk-setup",
+      "skill_path": "skills/clerk-setup",
+      "url": "https://github.com/clerk/skills/tree/main/skills/clerk-setup",
       "stars": 83,
       "license": "MIT (declared in SKILL.md)",
       "license_ok": true,
@@ -715,35 +715,6 @@
     },
     {
       "rank": 41,
-      "name": "clerk-setup",
-      "purpose": "Official setup via the Clerk CLI and framework quickstarts; MIT declared in SKILL.md, no LICENSE file in repo.",
-      "how_to_use": "",
-      "repo": "clerk/skills",
-      "branch": "main",
-      "skill_path": "skills/clerk-setup",
-      "url": "https://github.com/clerk/skills/tree/main/skills/clerk-setup",
-      "stars": 86,
-      "license": "MIT",
-      "license_ok": true,
-      "evidence": "Found by tool name (Clerk) in the tool-coverage pass",
-      "notes": "Official setup via the Clerk CLI and framework quickstarts; MIT declared in SKILL.md, no LICENSE file in repo. The same collection (clerk/skills) also has: clerk-nextjs-patterns (Clerk), clerk-webhooks (Clerk).",
-      "tool": "Clerk",
-      "tool_tier": "minor",
-      "also": [
-        {
-          "name": "clerk-nextjs-patterns",
-          "tool": "Clerk",
-          "url": "https://github.com/clerk/skills/tree/main/skills/clerk-nextjs-patterns"
-        },
-        {
-          "name": "clerk-webhooks",
-          "tool": "Clerk",
-          "url": "https://github.com/clerk/skills/tree/main/skills/clerk-webhooks"
-        }
-      ]
-    },
-    {
-      "rank": 42,
       "name": "clickhouse-best-practices",
       "purpose": "Official 31 rules for ordering keys, partitioning, types and inserts.",
       "how_to_use": "",
@@ -772,7 +743,7 @@
       ]
     },
     {
-      "rank": 43,
+      "rank": 42,
       "name": "dsql",
       "purpose": "Official Aurora DSQL schema, migrations, query plans and performance; ships a safe_query.py helper (no external hosts found).",
       "how_to_use": "",
@@ -789,7 +760,7 @@
       "tool_tier": "minor"
     },
     {
-      "rank": 44,
+      "rank": 43,
       "name": "optimizing-ef-core-queries",
       "purpose": "Official .NET team skill for EF Core query performance, the usual data layer on SQL Server; no scripts.",
       "how_to_use": "",
@@ -818,7 +789,7 @@
       ]
     },
     {
-      "rank": 45,
+      "rank": 44,
       "name": "elasticsearch-index-design",
       "purpose": "Official Elastic skill: field types, multi-fields and avoiding mapping explosion; markdown only.",
       "how_to_use": "",
@@ -842,7 +813,7 @@
       ]
     },
     {
-      "rank": 46,
+      "rank": 45,
       "name": "auth0",
       "purpose": "Official router skill: login, sessions, API protection, MFA, passkeys, Organizations, RBAC and tenant audits for every SDK; scripts are a local PDF render and a skill validator, no network calls; needs the auth0 CLI.",
       "how_to_use": "",
@@ -859,7 +830,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 47,
+      "rank": 46,
       "name": "node",
       "purpose": "Node.js core maintainer's skill for Node services, streams, errors and performance; applies to Express apps.",
       "how_to_use": "",
@@ -876,7 +847,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 48,
+      "rank": 47,
       "name": "spring-boot",
       "purpose": "Spring Boot service structure, Spring Data JPA, REST API and MockMvcTester testing; markdown references only.",
       "how_to_use": "",
@@ -893,7 +864,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 49,
+      "rank": 48,
       "name": "flyway-migrations",
       "purpose": "Flyway migration rules for Spring Boot 3 with good and bad SQL examples; templates only, no scripts.",
       "how_to_use": "",
@@ -910,7 +881,7 @@
       "tool_tier": "major"
     },
     {
-      "rank": 50,
+      "rank": 49,
       "name": "django-skills",
       "purpose": "Django docs-based skill on ORM, views, async, admin, testing and deployment; its one script checks links in the repo's own markdown.",
       "how_to_use": "",

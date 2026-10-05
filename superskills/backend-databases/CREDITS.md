@@ -43,4 +43,4 @@ Reference files are distilled in our own words from the skills below. The templa
 ## Also see (not included)
 
 - better-auth-best-practices (better-auth/skills, no license file): https://github.com/better-auth/skills/tree/main/better-auth/best-practices
-- clerk-setup (clerk/skills, license declared only inside SKILL.md, no LICENSE file): https://github.com/clerk/skills/tree/main/skills/core/clerk-setup
+- clerk-setup (clerk/skills, license declared only inside SKILL.md, no LICENSE file): https://github.com/clerk/skills/tree/main/skills/clerk-setup
