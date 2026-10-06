@@ -84,6 +84,8 @@ for (const id of fs.readdirSync(SUPER).sort()) {
     version: Number(localTopics[id]?.version) || 1, updatedAt: localTopics[id]?.updatedAt || null,
     // Example requests for the craft page's "Try asking" (the prompts only, not the grading notes).
     tests: (meta.tests || []).slice(0, 2).map(({ id, prompt }) => ({ id, prompt })),
+    // "Tools it covers" on the craft page: name, kind and docs link only (the scout's notes stay in Review).
+    tools: (meta.tools || []).map(({ name, kind, tier, docs }) => ({ name, kind, tier, docs })),
     content: fs.readFileSync(path.join(dir, "SKILL.md"), "utf8"), files: textFiles(dir) };
 }
 fs.writeFileSync(path.join(OUT, "data", "topics.json"), JSON.stringify(topics));

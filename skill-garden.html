@@ -469,6 +469,11 @@ a.gitem, a.cap { color: var(--ink); }
 .badge { display: inline-flex; align-items: center; gap: 6px; font: 620 12.5px/1 var(--body); padding: 5px 9px; border-radius: 6px; background: var(--accent); color: var(--accent-ink); }
 .super-lead { font-size: 15.5px; line-height: 1.5; color: var(--ink); max-width: 58ch; text-wrap: pretty; }
 .guides h4 { display: flex; align-items: center; gap: 8px; font: 620 15px var(--display); margin-bottom: 8px; }
+.kit-tabs { display: flex; gap: 22px; border-bottom: 1px solid var(--line); margin-bottom: 12px; }
+.kit-tabs [role="tab"] { appearance: none; border: 0; background: none; padding: 6px 0 10px; margin-bottom: -1px; border-bottom: 2px solid transparent; display: flex; align-items: center; gap: 8px; font: 620 15px var(--display); color: var(--ink-3); cursor: pointer; min-height: 44px; transition: color .15s var(--ease), border-color .15s var(--ease); }
+.kit-tabs [role="tab"]:hover { color: var(--ink-2); }
+.kit-tabs [role="tab"][aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); }
+.gitem .tkind { margin-left: auto; font: 500 11.5px/1 var(--mono); color: var(--ink-3); }
 .glist { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 6px; }
 .gitem { appearance: none; width: 100%; height: 100%; min-height: 44px; text-align: left; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 9px 10px 9px 12px; border-radius: 8px; border: 1px solid var(--line-2); background: var(--surface); color: var(--ink); font-size: 13.5px; font-weight: 540; line-height: 1.35; cursor: pointer; transition: border-color .15s var(--ease), background .15s var(--ease); }
 .gitem svg { flex: none; color: var(--ink-3); transition: transform .15s var(--ease), color .15s var(--ease); }
@@ -2078,6 +2083,10 @@ a.gitem, a.cap { color: var(--ink); }
   document.addEventListener("submit", (ev) => { if (ev.target.id === "addForm") addReels(ev); });
   document.addEventListener("keydown", (ev) => {
     if (ev.target.id === "dropZone" && (ev.key === "Enter" || ev.key === " ")) { ev.preventDefault(); $("#importFile").click(); }
+    if (ev.target.getAttribute && ev.target.getAttribute("role") === "tab" && (ev.key === "ArrowRight" || ev.key === "ArrowLeft")) {
+      const tabs = [...ev.target.parentElement.querySelectorAll('[role="tab"]')], i = tabs.indexOf(ev.target);
+      const next = tabs[(i + (ev.key === "ArrowRight" ? 1 : tabs.length - 1)) % tabs.length]; if (next && next !== ev.target) { ev.preventDefault(); next.click(); }
+    }
     if (ev.target.id === "noteInput" && ev.key === "Enter") { ev.preventDefault(); const b = document.querySelector('[data-act="save-note"]'); if (b) b.click(); }
   });
   ["dragenter", "dragover"].forEach((t) => document.addEventListener(t, (ev) => { const z = ev.target.closest && ev.target.closest("#dropZone"); if (z) { ev.preventDefault(); z.classList.add("over"); } }));
@@ -2262,6 +2271,20 @@ a.gitem, a.cap { color: var(--ink); }
   function lockReason(s) { return s.nonCommercial ? "Non-commercial license: open it at the source." : !s.redistributable ? "No license that allows sharing: open it at the source." : "Not in this library copy."; }
   const inBundle = (kind, topic, name) => EX.bundle.some((b) => b.kind === kind && b.topic === topic && (kind === "super" || b.name === name));
 
+  // Tools it covers / Guides inside: two tabs on the super skill card. Tools open first; a guide's own
+  // address opens on Guides. Both panels stay in the page (the inactive one hidden) so links remain crawlable.
+  const KINDS = { app: "App", library: "Library", service: "Service" };
+  const toolsOf = (c) => ((c.live && c.live.tools) || []).filter((x) => x && x.name).sort((a, b) => (a.tier === "minor") - (b.tier === "minor"));
+  const kitTab = (c, refs) => { const want = EX.kit || (EX.guide ? "guides" : "tools"); return want === "tools" && toolsOf(c).length ? "tools" : refs.length ? "guides" : "tools"; };
+  function kitTabs(c, refs) {
+    const tools = toolsOf(c), on = kitTab(c, refs);
+    const tab = (id, label, n) => `<button role="tab" id="kt-${id}" aria-controls="kit-${id}" aria-selected="${on === id}" tabindex="${on === id ? 0 : -1}" data-act="ex-kit" data-id="${id}">${label} <span class="count">${n}</span></button>`;
+    if (!tools.length) return `<div class="kit-tabs" role="tablist" aria-label="What's inside">${tab("guides", "Guides inside", refs.length)}</div>`;
+    return `<div class="kit-tabs" role="tablist" aria-label="What's inside">${tab("tools", "Tools it covers", tools.length)}${refs.length ? tab("guides", "Guides inside", refs.length) : ""}</div>
+      <div role="tabpanel" id="kit-tools" aria-labelledby="kt-tools"${on === "tools" ? "" : " hidden"}><ul class="glist">${tools.map((x) => { const u = safeUrl(x.docs);
+        const inner = `<span>${esc(x.name)}</span>${KINDS[x.kind] ? `<small class="tkind">${KINDS[x.kind]}</small>` : ""}`;
+        return `<li>${u ? `<a class="gitem" href="${esc(u)}" target="_blank" rel="noopener noreferrer" aria-label="${esc(x.name)} documentation (opens in a new tab)">${inner}<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M5.5 10.5l5-5M6.5 5.5h4v4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>` : `<div class="gitem">${inner}</div>`}</li>`; }).join("")}</ul></div>`;
+  }
   function topicPage(c) {
     const t = c.live, refs = refsOf(c), cat = catOf(c.id);
     const desc = (t && splitFront(t.content || "").meta.description) || (c.superskill && c.superskill.description) || "";
@@ -2292,7 +2315,7 @@ a.gitem, a.cap { color: var(--ink); }
           <button class="btn${inBundle("super", c.id) ? " added" : ""}" data-act="bundle-toggle" data-kind="super" data-topic="${esc(c.id)}"${t ? "" : " disabled"}>${inBundle("super", c.id) ? "In your bundle" : "Add to bundle"}</button>
           <button class="btn ghost" data-act="pv-router" data-id="${esc(c.id)}"${t ? "" : " disabled"}>Read the router</button>
         </div>
-        ${refs.length ? `<div class="guides"><h4>Guides inside <span class="count">${refs.length}</span></h4><ul class="glist">${refs.map((r) => `<li><${navTag(guideUrl(c.id, r))} class="gitem" data-act="pv-ref" data-id="${esc(c.id)}" data-path="${esc(r)}"><span>${esc(refTitle(c, r))}</span><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></${navEnd(guideUrl(c.id, r))}></li>`).join("")}</ul></div>` : ""}
+        ${refs.length ? `${kitTabs(c, refs)}<div class="guides" role="tabpanel" id="kit-guides" aria-labelledby="kt-guides"${kitTab(c, refs) === "guides" ? "" : " hidden"}><ul class="glist">${refs.map((r) => `<li><${navTag(guideUrl(c.id, r))} class="gitem" data-act="pv-ref" data-id="${esc(c.id)}" data-path="${esc(r)}"><span>${esc(refTitle(c, r))}</span><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></${navEnd(guideUrl(c.id, r))}></li>`).join("")}</ul></div>` : ""}
         ${desc ? `<details class="when"><summary>When Claude loads it</summary><p>${esc(desc)}</p></details>` : ""}
         ${t ? "" : `<p class="muted">Import the super skills into this app to download them: <code class="mono">node local/import-superskills.mjs</code></p>`}
       </div>
@@ -2445,7 +2468,7 @@ a.gitem, a.cap { color: var(--ink); }
   // Website addresses: /explore/, /crafts/<id>/, /chains/<id>/, /guides/<craft>/<guide>/ (the craft with that guide open).
   function pathRoute(p = location.pathname) {
     let m;
-    EX.topic = null; EX.chain = null; EX.guide = null; EX.guideShown = null; EX.subFilter = "all"; S.view = "explore";
+    EX.topic = null; EX.chain = null; EX.guide = null; EX.guideShown = null; EX.subFilter = "all"; EX.kit = null; S.view = "explore";
     if ((m = p.match(/^\/crafts\/([\w-]+)\/?$/))) EX.topic = m[1];
     else if ((m = p.match(/^\/chains\/([\w-]+)\/?$/))) EX.chain = m[1];
     else if ((m = p.match(/^\/guides\/([\w-]+)\/([\w.-]+)\/?$/))) { EX.topic = m[1]; EX.guide = `references/${m[2]}.md`; }
@@ -2466,7 +2489,7 @@ a.gitem, a.cap { color: var(--ink); }
     if (window.SG_PUBLIC) { if (location.hash.startsWith("#/")) { hashToPath(); pathRoute(); closeOverlays(true); render(); } return; }
     const m = location.hash.match(/^#\/c\/([\w-]+)/);
     const k = location.hash.match(/^#\/chain\/([\w-]+)/);
-    if (location.hash.startsWith("#/")) { S.view = "explore"; EX.topic = m ? m[1] : null; EX.chain = k ? k[1] : null; EX.subFilter = "all"; closeOverlays(); render(); if (!m && !k) window.scrollTo({ top: 0 }); }
+    if (location.hash.startsWith("#/")) { S.view = "explore"; EX.topic = m ? m[1] : null; EX.chain = k ? k[1] : null; EX.subFilter = "all"; EX.kit = null; closeOverlays(); render(); if (!m && !k) window.scrollTo({ top: 0 }); }
   }
   window.addEventListener("hashchange", onHash);
 
@@ -2549,6 +2572,8 @@ a.gitem, a.cap { color: var(--ink); }
       case "ex-sub": EX.subFilter = id; render(); return true;
       case "ex-sort": EX.sort = EX.sort === "stars" ? "rank" : "stars"; render(); return true;
       case "ex-install": EX.install = id; render(); return true;
+      // Switched in place: a re-render would replay the card's entrance animation.
+      case "ex-kit": EX.kit = id; el.parentElement.querySelectorAll('[role="tab"]').forEach((t) => { const on = t === el; t.setAttribute("aria-selected", String(on)); t.tabIndex = on ? 0 : -1; const p = $("#" + t.getAttribute("aria-controls")); if (p) p.hidden = !on; }); el.focus(); return true;
       case "copy-text": try { await navigator.clipboard.writeText(el.dataset.text); toast("Copied."); } catch { toast("Copying isn't allowed here. Select the text instead.", "bad"); } return true;
       case "pv-ref": { const c = craftById(id); if (c) previewRef(c, el.dataset.path); return true; }
       case "pv-router": { const c = craftById(id); if (c) previewRouter(c); return true; }
