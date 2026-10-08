@@ -10,7 +10,6 @@
       "source": "./",
       "strict": false,
       "skills": ["./superskills/", "./chains/", "./planner/", "./tools/"],
-      "hooks": "./hooks/hooks.json",
       "author": { "name": "Gipsonkj" },
       "homepage": "https://github.com/Gipsonkj/skillgarden",
       "keywords": ["skills", "super-skills", "skill-garden"]
